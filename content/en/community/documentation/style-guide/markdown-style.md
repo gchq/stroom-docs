@@ -239,7 +239,7 @@ This heading level is effectively level 5 on the page but not shown on the right
 Markdown supports an alternate style for headings, as shown below.
 **Don't** use this style as it is not clear from the symbols what the heading level is.
 
-```markddown
+```markdown
 
 Heading level 1
 ===============
@@ -431,7 +431,7 @@ Color
 
 ## Tables
 
-Tables should ideally have its columns aligned in the markdown for clarity in the raw markdown.
+Tables should ideally have their columns aligned in the markdown for clarity in the raw markdown.
 
 ```markdown
 ## Ideally do this

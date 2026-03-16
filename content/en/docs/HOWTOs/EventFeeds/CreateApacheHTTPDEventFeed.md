@@ -67,7 +67,7 @@ In the New Folder window enter Apache HTTPD into the **Name:** text entry box.
 
 {{< screenshot "HOWTOs/v6/UI-ApacheHttpEventFeed-01.png" >}}Create System Group{{< /screenshot >}}
 
-The click on {{< stroom-btn "Ok" >}} at which point you will be presented with the Apache HTTPD system group configuration tab.
+Then click on {{< stroom-btn "Ok" >}} at which point you will be presented with the Apache HTTPD system group configuration tab.
 Also note, the _WebServer_ system group within the Explorer pane has automatically expanded to display the `Apache HTTPD` system group.
 
 Close the Apache HTTPD system group configuration tab by clicking on the close item icon on the right-hand side of the tab {{< stroom-tab "Folder.svg" "Apache HTTPD" "active" >}}.
@@ -218,7 +218,7 @@ In this instance, as our input data is text, we select (left click) the {{< stro
 {{< screenshot "HOWTOs/v6/UI-ApacheHttpEventFeed-19.png" >}}New Pipeline inherited selection{{< /screenshot >}}
 
 then press {{< stroom-btn "Ok" >}}.
-At this we see the inherited pipeline structure of
+At this point, we see the inherited pipeline structure of
 
 {{< screenshot "HOWTOs/v6/UI-ApacheHttpEventFeed-20.png" >}}New Pipeline inherited structure{{< /screenshot >}}
 
@@ -233,7 +233,7 @@ To associate the Text Converter, select the Text Converter icon, to display.
 
 {{< screenshot "HOWTOs/v6/UI-ApacheHttpEventFeed-21.png" >}}New Pipeline associate textconverter{{< /screenshot >}}
 
-Now identify to the **Property** pane (the middle pane of the pipeline configuration tab), then and double click on the _textConverter_ Property Name to display the **Edit
+Now navigate to the **Property** pane (the middle pane of the pipeline configuration tab), then double click on the _textConverter_ Property Name to display the **Edit
 Property** selection window that allows you to edit the given property
 
 {{< screenshot "HOWTOs/v6/UI-ApacheHttpEventFeed-22.png" >}}New Pipeline textconverter association{{< /screenshot >}}
@@ -246,7 +246,7 @@ Navigate to the `Apache HTTPD` system group then select the Apache-SSLBlackBox-V
 {{< screenshot "HOWTOs/v6/UI-ApacheHttpEventFeed-23.png" >}}New Pipeline textconverter association{{< /screenshot >}}
 
 then press {{< stroom-btn "Ok" >}}.
-At this we will see the Property _Value_ set
+At this point, we will see the Property _Value_ set
 
 {{< screenshot "HOWTOs/v6/UI-ApacheHttpEventFeed-24.png" >}}New Pipeline textconverter association{{< /screenshot >}}
 
@@ -385,7 +385,7 @@ To do this, set the check-box on the _Specific Stream_ pane and we note that the
 We now want to step our data through the first element of the pipeline, the Text Converter.
 We enter Stepping Mode by pressing the stepping button {{< stroom-icon "stepping.svg">}} found at the bottom right corner of the _Data/Meta-data_ pane.
 
-We will then be requested to choose a pipeline to step with, at which, you should navigate to the `Apache-SSLBlackBox-V2.0-EVENTS` pipeline as per
+We will then be requested to choose a pipeline to step with, at which point you should navigate to the `Apache-SSLBlackBox-V2.0-EVENTS` pipeline as per
 
 {{< screenshot "HOWTOs/v6/UI-ApacheHttpEventFeed-44.png" >}}Select pipeline to Step{{< /screenshot >}}
 
@@ -481,11 +481,11 @@ we click on the Step Last {{< stroom-icon name="fast-forward.svg" title="Step la
 
 {{< screenshot "HOWTOs/v6/UI-ApacheHttpEventFeed-52.png" >}}pipeline Stepping tab - Text Converter Complete last event{{< /screenshot >}}
 
-You should take note of the stepping key that has been displayed in each stepping window. The stepping key are the numbers enclosed in square brackets e.g. [7556:1:16] found in the top right-hand side of the stepping window next to the stepping icons
+You should take note of the stepping location that has been displayed in each stepping window. The stepping location is the numbers enclosed in square brackets e.g. [7556:1:16] found in the top right-hand side of the stepping window next to the stepping icons
 
-{{< screenshot "HOWTOs/v6/UI-ApacheHttpEventFeed-53.png" >}}pipeline Stepping tab - Stepping Key{{< /screenshot >}}
+{{< screenshot "HOWTOs/v6/UI-ApacheHttpEventFeed-53.png" >}}pipeline Stepping tab - Stepping Location{{< /screenshot >}}
 
-The form of these keys is [ streamId ':' subStreamId ':' recordNo]
+The form of these stepping locations is [ streamId ':' subStreamId ':' recordNo]
 
 where
 

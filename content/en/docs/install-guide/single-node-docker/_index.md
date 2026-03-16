@@ -114,19 +114,19 @@ The Stroom stack comes in a number of different variants:
 
 Using `stroom_core_test-v7.10.11.tar.gz` as an example:
 
-{{< command-line "stroomuser" "localhost" >}}
+```bash
 # Define the version to download
 VERSION="v7.10.11"; STACK="stroom_core_test"
-(out)
+
 # Download and extract the Stroom stack
 curl -sL "https://github.com/gchq/stroom-resources/releases/download/stroom-stacks-${VERSION}/${STACK}-${VERSION}.tar.gz" | tar xz
-(out)
+
 # Navigate into the new stack directory, where xxxx is the directory that has just been created
 cd "${STACK}-${VERSION}"
-(out)
+
 # Start the stack
 ./start.sh
-{{</ command-line >}}
+```
 
 Alternatively if you understand the risks of redirecting web sourced content direct to bash, you can get the latest `stroom_core_test` release using:
 

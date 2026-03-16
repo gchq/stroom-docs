@@ -125,13 +125,13 @@ See [`migrage` command]({{< relref "/docs/user-guide/tools/command-line#migrate"
 If you are upgrading a v7.5 Stroom instance that has a version less than or equal to **v7.5-beta.9** to a version higher than **v7.5-beta.9** then you must run the following SQL on the database to correct the renaming of a migration script.
 If you don't, Stroom will not boot as it will detect a mismatch in the DB migration scripts.
 
-```sql
+{{< sql-shell >}}
 update cross_module_schema_history
 set version = '07.05.00.005',
 script = 'stroom.app.db.migration.V07_05_00_005__Orphaned_Doc_Perms'
 where version = '07.04.00.005'
 and script = 'stroom.app.db.migration.V07_04_00_005__Orphaned_Doc_Perms';
-```
+{{< /sql-shell >}}
 {{% /warning %}}
 
 

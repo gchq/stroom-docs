@@ -249,7 +249,7 @@ Although the build is run on the `master` branch it will use the `HEAD` commit o
 The build and release can be forced by adding the text `[publish]` to the commit message on `master`.
 This is useful in testing, or if updated documentation is needed for any reason.
 
-For example you can run this on the `master` branch to for:
+For example you can run this on the `master` branch to force:
 
 {{< command-line >}}
 git commit --allow-empty -m "Empty commit to force [publish]" && git push
@@ -333,16 +333,16 @@ It does the following:
 
 To run this script do:
 
-```bash
+{{< command-line >}}
 create_mock_combined_site.sh
-```
+{{< /command-line >}}
 
 The combined site can be served using something like the Python simple HTTP server, e.g. 
 
-```bash
+{{< command-line >}}
 cd /tmp/stroom-docs_mock_combined_site
 python -m SimpleHTTPServer 8888
-```
+{{< /command-line >}}
 
 Then open a browser at [localhost:8888](localhost:8888).
 
