@@ -131,8 +131,21 @@ In the example screenshot [above]({{< relref "#user-interface" >}}), the file `i
 Note that your browser will cache the assets. 
 This is a good thing as it will greatly speed up Stroom by reducing bandwidth requirements and server load.
 
-However, this means you may not see changes to assets. 
-You may need to perform a hard refresh by pressing {{< key-bind "ctrl,shift,r" >}} within your browser to see changes.
+Files will only be loaded when the {{< stroom-tab "Dashboard.svg" "Dashboard" >}} tab is opened. 
+Changing file contents will only take effect if you close and reopen the tab.
+There is no need to refresh the browser or log out of Stroom.
+
+The file `/index.html` will always be reloaded every time the tab is opened.
+
+Other files will be reloaded if they have changed.
+
+Thus the development procedure will look like this:
+
+1. Make a change and {{< stroom-icon "save.svg" >}} save the Visualisation.
+1. Open the Dashboard and click the {{< stroom-icon "play.svg" >}} Play button.
+   You will see the result of your change.
+1. Close the Dashboard
+1. Go back to step 1
 
 
 ### Links between assets
