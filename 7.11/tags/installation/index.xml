@@ -58,9 +58,24 @@
 &lt;li&gt;Apache&amp;rsquo;s &lt;code&gt;mod_jk&lt;/code&gt; Tomcat connector plugin&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;Most of the required software are packages available via standard repositories and hence we can simply execute&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;sudo yum -y install apr apr-util apr-devel gcc httpd httpd-devel mod_ssl epel-release
-sudo yum -y install tomcat-native
-&lt;/code&gt;&lt;/pre&gt;
+
+  
+
+
+
+
+
+
+&lt;div class=&#34;code-toolbar&#34;&gt;
+  &lt;pre 
+    class=&#34;command-line language-bash&#34; 
+    data-user=&#34;user&#34; 
+    data-host=&#34;localhost&#34; 
+    data-continuation-str=&#34;\&#34;
+    data-filter-output=&#34;(out)&#34;&gt;&lt;code class=&#34;language-bash&#34;&gt;sudo yum -y install apr apr-util apr-devel gcc httpd httpd-devel mod_ssl epel-release
+sudo yum -y install tomcat-native&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
 &lt;p&gt;The reason for the distinct &lt;code&gt;tomcat-native&lt;/code&gt; installation is that this package is from the 
 
 
@@ -98,7 +113,21 @@ sudo yum -y install tomcat-native
 &lt;/span&gt;
  and install it.
 The following commands achieve this for the 1.2.42 release.&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;sudo bash
+
+  
+
+
+
+
+
+
+&lt;div class=&#34;code-toolbar&#34;&gt;
+  &lt;pre 
+    class=&#34;command-line language-bash&#34; 
+    data-user=&#34;user&#34; 
+    data-host=&#34;localhost&#34; 
+    data-continuation-str=&#34;\&#34;
+    data-filter-output=&#34;(out)&#34;&gt;&lt;code class=&#34;language-bash&#34;&gt;sudo bash
 cd /tmp
 V=1.2.42
 wget https://www.apache.org/dist/tomcat/tomcat-connectors/jk/tomcat-connectors-${V}-src.tar.gz
@@ -107,31 +136,61 @@ cd tomcat-connectors-*-src/native
 ./configure --with-apxs=/bin/apxs
 make &amp;amp;&amp;amp; make install
 cd /tmp
-rm -rf tomcat-connectors-*-src
-&lt;/code&gt;&lt;/pre&gt;
+rm -rf tomcat-connectors-*-src&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
 &lt;p&gt;Although you could remove the gcc compiler at this point, we leave it installed as one &lt;em&gt;should&lt;/em&gt; continue to upgrade the Tomcat Connectors to later releases.&lt;/p&gt;
 &lt;h2 id=&#34;configure-apache-httpd&#34;&gt;Configure Apache httpd&lt;/h2&gt;
 &lt;p&gt;We need to configure Apache as the &lt;code&gt;root&lt;/code&gt; user.&lt;/p&gt;
 &lt;p&gt;If the Apache httpd service is &amp;lsquo;fronting&amp;rsquo; a Stroom user interface, we should create an index file (/var/www/html/index.html) on all nodes so browsing to
 the root of the node will present the Stroom UI. This is not needed if you are deploying a Forwarding or Standalone Stroom proxy.&lt;/p&gt;
 &lt;h3 id=&#34;forwarding-file-for-stroom-user-interface-deployments&#34;&gt;Forwarding file for Stroom User Interface deployments&lt;/h3&gt;
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;F=/var/www/html/index.html
-printf &#39;&amp;lt;html&amp;gt;\n&#39; &amp;gt; ${F}
-printf &#39;&amp;lt;head&amp;gt;\n&#39; &amp;gt;&amp;gt; ${F}
-printf &#39;  &amp;lt;meta http-equiv=&amp;quot;Refresh&amp;quot; content=&amp;quot;0; URL=stroom&amp;quot;/&amp;gt;\n&#39; &amp;gt;&amp;gt; ${F}
-printf &#39;&amp;lt;/head&amp;gt;\n&#39; &amp;gt;&amp;gt; ${F}
-printf &#39;&amp;lt;/html&amp;gt;\n&#39; &amp;gt;&amp;gt; ${F}
-chmod 644 ${F}
-&lt;/code&gt;&lt;/pre&gt;
+
+  
+
+
+
+
+
+
+&lt;div class=&#34;code-toolbar&#34;&gt;
+  &lt;pre 
+    class=&#34;command-line language-bash&#34; 
+    data-user=&#34;user&#34; 
+    data-host=&#34;localhost&#34; 
+    data-continuation-str=&#34;\&#34;
+    data-filter-output=&#34;(out)&#34;&gt;&lt;code class=&#34;language-bash&#34;&gt;F=/var/www/html/index.html
+printf &amp;#39;&amp;lt;html&amp;gt;\n&amp;#39; &amp;gt; ${F}
+printf &amp;#39;&amp;lt;head&amp;gt;\n&amp;#39; &amp;gt;&amp;gt; ${F}
+printf &amp;#39;  &amp;lt;meta http-equiv=&amp;#34;Refresh&amp;#34; content=&amp;#34;0; URL=stroom&amp;#34;/&amp;gt;\n&amp;#39; &amp;gt;&amp;gt; ${F}
+printf &amp;#39;&amp;lt;/head&amp;gt;\n&amp;#39; &amp;gt;&amp;gt; ${F}
+printf &amp;#39;&amp;lt;/html&amp;gt;\n&amp;#39; &amp;gt;&amp;gt; ${F}
+chmod 644 ${F}&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
 &lt;p&gt;Remember, deploy this file on all nodes running the Stroom Application.&lt;/p&gt;
 &lt;h3 id=&#34;httpdconf-configuration&#34;&gt;Httpd.conf Configuration&lt;/h3&gt;
-&lt;p&gt;We modify &lt;code&gt;/etc/httpd/conf/httpd.conf&lt;/code&gt; on all nodes, but backup the file first with&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;cp /etc/httpd/conf/httpd.conf /etc/httpd/conf/httpd.conf.ORIG
-&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;We modify &lt;code&gt;/etc/httpd/conf/httpd.conf&lt;/code&gt; on all nodes, but backup the file first with
+
+  
+
+
+
+
+
+
+&lt;div class=&#34;code-toolbar&#34;&gt;
+  &lt;pre 
+    class=&#34;command-line language-bash&#34; 
+    data-user=&#34;user&#34; 
+    data-host=&#34;localhost&#34; 
+    data-continuation-str=&#34;\&#34;
+    data-filter-output=&#34;(out)&#34;&gt;&lt;code class=&#34;language-bash&#34;&gt;cp /etc/httpd/conf/httpd.conf /etc/httpd/conf/httpd.conf.ORIG&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/p&gt;
 &lt;p&gt;Irrespective of the Stroom scenario being deployed - Multi Node Stroom (Application and Proxy), single Standalone Stroom Proxy or single Forwarding
 Stroom Proxy, the configuration of the &lt;code&gt;/etc/httpd/conf/httpd.conf&lt;/code&gt; file is the same.&lt;/p&gt;
-&lt;p&gt;We start by modifying the configuration file by,
-add just before the ServerRoot directive the following directives which are designed to make the httpd service more secure.&lt;/p&gt;
+&lt;p&gt;We start by modifying the configuration file by adding just before the ServerRoot directive the following directives which are designed to make the httpd service more secure.&lt;/p&gt;
 &lt;pre&gt;&lt;code class=&#34;language-text&#34;&gt;# Stroom Change: Start - Apply generic security directives
 ServerTokens Prod
 ServerSignature Off
@@ -755,8 +814,23 @@ done
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;Now depending in the node you are on, copy the relevant &lt;code&gt;workers.properties.nodename&lt;/code&gt; file to &lt;code&gt;/etc/httpd/conf/workers&lt;/code&gt;.properties.
 The following command makes this simple.&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;cp workers.properties.`hostname -s` /etc/httpd/conf/workers.properties
-&lt;/code&gt;&lt;/pre&gt;
+
+  
+
+
+
+
+
+
+&lt;div class=&#34;code-toolbar&#34;&gt;
+  &lt;pre 
+    class=&#34;command-line language-bash&#34; 
+    data-user=&#34;user&#34; 
+    data-host=&#34;localhost&#34; 
+    data-continuation-str=&#34;\&#34;
+    data-filter-output=&#34;(out)&#34;&gt;&lt;code class=&#34;language-bash&#34;&gt;cp workers.properties.`hostname -s` /etc/httpd/conf/workers.properties&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
 &lt;p&gt;If you were to add an additional node to a multi node cluster, say the node &lt;code&gt;stroomp02.strmdev00.org&lt;/code&gt;, then you would re-run the above script with&lt;/p&gt;
 &lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;Nodes=&amp;quot;stroomp00.strmdev00.org stroomp01.strmdev00.org stroomp02.strmdev00.org&amp;quot;
 &lt;/code&gt;&lt;/pre&gt;
@@ -866,23 +940,68 @@ chmod 640 ${F}
 &lt;/code&gt;&lt;/pre&gt;
 &lt;h2 id=&#34;final-host-configuration-and-web-service-enablement&#34;&gt;Final host configuration and web service enablement&lt;/h2&gt;
 &lt;p&gt;Now tidy up the SELinux context for access on all nodes and files via the commands&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;setsebool -P httpd_enable_homedirs on
+
+  
+
+
+
+
+
+
+&lt;div class=&#34;code-toolbar&#34;&gt;
+  &lt;pre 
+    class=&#34;command-line language-bash&#34; 
+    data-user=&#34;user&#34; 
+    data-host=&#34;localhost&#34; 
+    data-continuation-str=&#34;\&#34;
+    data-filter-output=&#34;(out)&#34;&gt;&lt;code class=&#34;language-bash&#34;&gt;setsebool -P httpd_enable_homedirs on
 setsebool -P httpd_can_network_connect on
 chcon --reference /etc/httpd/conf.d/README /etc/httpd/conf.d/mod_jk.conf
-chcon --reference /etc/httpd/conf/magic /etc/httpd/conf/workers.properties
-&lt;/code&gt;&lt;/pre&gt;
+chcon --reference /etc/httpd/conf/magic /etc/httpd/conf/workers.properties&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
 &lt;p&gt;We also enable both http and https services via the firewall on all nodes. If you don&amp;rsquo;t want to present a http access point,
 then don&amp;rsquo;t enable it in the firewall setting. This is done with&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;firewall-cmd --zone=public --add-service=http --permanent
+
+  
+
+
+
+
+
+
+&lt;div class=&#34;code-toolbar&#34;&gt;
+  &lt;pre 
+    class=&#34;command-line language-bash&#34; 
+    data-user=&#34;user&#34; 
+    data-host=&#34;localhost&#34; 
+    data-continuation-str=&#34;\&#34;
+    data-filter-output=&#34;(out)&#34;&gt;&lt;code class=&#34;language-bash&#34;&gt;firewall-cmd --zone=public --add-service=http --permanent
 firewall-cmd --zone=public --add-service=https --permanent
 firewall-cmd --reload
-firewall-cmd --zone=public --list-all
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;Finally enable then start the httpd service, correcting any errors.
-It should be noted that on any errors, the suggestion of a &lt;code&gt;systemctl&lt;/code&gt; status or viewing the journal are good, but also review information in the httpd error logs found in &lt;code&gt;/var/log/httpd/&lt;/code&gt;.&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;systemctl enable httpd.service
-systemctl start httpd.service
-&lt;/code&gt;&lt;/pre&gt;
+firewall-cmd --zone=public --list-all&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;Finally enable then start the httpd service, correcting any errors. It should be noted that on any errors,
+the suggestion of a systemctl status or viewing the journal are good, but also review information in the httpd error logs found in &lt;code&gt;/var/log/httpd/&lt;/code&gt;.&lt;/p&gt;
+
+  
+
+
+
+
+
+
+&lt;div class=&#34;code-toolbar&#34;&gt;
+  &lt;pre 
+    class=&#34;command-line language-bash&#34; 
+    data-user=&#34;user&#34; 
+    data-host=&#34;localhost&#34; 
+    data-continuation-str=&#34;\&#34;
+    data-filter-output=&#34;(out)&#34;&gt;&lt;code class=&#34;language-bash&#34;&gt;systemctl enable httpd.service
+systemctl start httpd.service&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
 
       </description>
     </item>
@@ -952,8 +1071,23 @@ systemctl start httpd.service
 &lt;h2 id=&#34;installation-of-software&#34;&gt;Installation of Software&lt;/h2&gt;
 &lt;h3 id=&#34;mariadb-server-installation&#34;&gt;MariaDB Server Installation&lt;/h3&gt;
 &lt;p&gt;As MariaDB is directly supported by Centos 7, we simply install the database server software and SELinux policy files, as per&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;sudo yum -y install policycoreutils-python mariadb-server
-&lt;/code&gt;&lt;/pre&gt;
+
+  
+
+
+
+
+
+
+&lt;div class=&#34;code-toolbar&#34;&gt;
+  &lt;pre 
+    class=&#34;command-line language-bash&#34; 
+    data-user=&#34;user&#34; 
+    data-host=&#34;localhost&#34; 
+    data-continuation-str=&#34;\&#34;
+    data-filter-output=&#34;(out)&#34;&gt;&lt;code class=&#34;language-bash&#34;&gt;sudo yum -y install policycoreutils-python mariadb-server&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
 &lt;h3 id=&#34;mysql-community-server-installation&#34;&gt;MySQL Community Server Installation&lt;/h3&gt;
 &lt;p&gt;As MySQL is not directly supported by Centos 7, we need to install its repository files prior to installation.
 We get the current MySQL Community release repository rpm and validate its MD5 checksum against the published value found on the 
@@ -974,17 +1108,62 @@ We get the current MySQL Community release repository rpm and validate its MD5 c
   &lt;/a&gt;
 &lt;/span&gt;
  site.&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;wget https://repo.mysql.com/mysql57-community-release-el7.rpm
-md5sum mysql57-community-release-el7.rpm
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;On correct validation of the MD5 checksum, we install the repository files via&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;sudo yum -y localinstall mysql57-community-release-el7.rpm
-&lt;/code&gt;&lt;/pre&gt;
+
+  
+
+
+
+
+
+
+&lt;div class=&#34;code-toolbar&#34;&gt;
+  &lt;pre 
+    class=&#34;command-line language-bash&#34; 
+    data-user=&#34;user&#34; 
+    data-host=&#34;localhost&#34; 
+    data-continuation-str=&#34;\&#34;
+    data-filter-output=&#34;(out)&#34;&gt;&lt;code class=&#34;language-bash&#34;&gt;wget https://repo.mysql.com/mysql57-community-release-el7.rpm
+md5sum mysql57-community-release-el7.rpm&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;On correct validation of the MD5 checksum, we install the repository files via
+
+  
+
+
+
+
+
+
+&lt;div class=&#34;code-toolbar&#34;&gt;
+  &lt;pre 
+    class=&#34;command-line language-bash&#34; 
+    data-user=&#34;user&#34; 
+    data-host=&#34;localhost&#34; 
+    data-continuation-str=&#34;\&#34;
+    data-filter-output=&#34;(out)&#34;&gt;&lt;code class=&#34;language-bash&#34;&gt;sudo yum -y localinstall mysql57-community-release-el7.rpm&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;NOTE:&lt;/strong&gt; Stroom currently does not support the latest production MySQL version - 5.7. You will need to install MySQL Version 5.6.&lt;/p&gt;
 &lt;p&gt;Now since we must use MySQL Version 5.6 you will need to edit the MySQL repo file &lt;code&gt;/etc/yum.repos.d/mysql-community.repo&lt;/code&gt; to
-disable the &lt;code&gt;mysql57-community&lt;/code&gt; channel and enable the &lt;code&gt;mysql56-community&lt;/code&gt; channel. We start by, backing up the repo file with&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;sudo cp /etc/yum.repos.d/mysql-community.repo /etc/yum.repos.d/mysql-community.repo.ORIG
-&lt;/code&gt;&lt;/pre&gt;
+disable the &lt;code&gt;mysql57-community&lt;/code&gt; channel and enable the &lt;code&gt;mysql56-community&lt;/code&gt; channel. We start by, backing up the repo file with
+
+  
+
+
+
+
+
+
+&lt;div class=&#34;code-toolbar&#34;&gt;
+  &lt;pre 
+    class=&#34;command-line language-bash&#34; 
+    data-user=&#34;user&#34; 
+    data-host=&#34;localhost&#34; 
+    data-continuation-str=&#34;\&#34;
+    data-filter-output=&#34;(out)&#34;&gt;&lt;code class=&#34;language-bash&#34;&gt;sudo cp /etc/yum.repos.d/mysql-community.repo /etc/yum.repos.d/mysql-community.repo.ORIG&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/p&gt;
 &lt;p&gt;Then edit the file to change&lt;/p&gt;
 &lt;pre&gt;&lt;code class=&#34;language-toml&#34;&gt;...
 # Enable to use MySQL 5.6
@@ -1021,9 +1200,24 @@ gpgcheck=1
 gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-mysql
 ...
 &lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;Next we install server software and SELinux policy files, as per&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;sudo yum -y install policycoreutils-python mysql-community-server
-&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Next we install server software and SELinux policy files, as per
+
+  
+
+
+
+
+
+
+&lt;div class=&#34;code-toolbar&#34;&gt;
+  &lt;pre 
+    class=&#34;command-line language-bash&#34; 
+    data-user=&#34;user&#34; 
+    data-host=&#34;localhost&#34; 
+    data-continuation-str=&#34;\&#34;
+    data-filter-output=&#34;(out)&#34;&gt;&lt;code class=&#34;language-bash&#34;&gt;sudo yum -y install policycoreutils-python mysql-community-server&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/p&gt;
 &lt;h2 id=&#34;preparing-the-database-deployment&#34;&gt;Preparing the Database Deployment&lt;/h2&gt;
 &lt;h3 id=&#34;mariadb-variant&#34;&gt;MariaDB Variant&lt;/h3&gt;
 &lt;h4 id=&#34;create-and-instantiate-both-database-instances&#34;&gt;Create and instantiate both database instances&lt;/h4&gt;
@@ -1031,9 +1225,23 @@ gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-mysql
 &lt;p&gt;To use this multiple-instance capability, we need to create two data directories for each database instance and also replace the main MariaDB configuration file, &lt;code&gt;/etc/my.cnf&lt;/code&gt;, with one that includes configuration of key options for each instance. We will name our instances, &lt;code&gt;mysqld0&lt;/code&gt; and &lt;code&gt;mysqld1&lt;/code&gt;. We will also create specific log files for each instance.&lt;/p&gt;
 &lt;p&gt;We will use the directories, &lt;code&gt;/var/lib/mysql-mysqld0&lt;/code&gt; and &lt;code&gt;/var/lib/mysql-mysqld1&lt;/code&gt; for the data directories and &lt;code&gt;/var/log/mariadb/mysql-mysqld0.log&lt;/code&gt; and &lt;code&gt;/var/log/mariadb/mysql-mysqld1.log&lt;/code&gt; for the log files. Note you should modify /etc/logrotate.d/mariadb to manage these log files. Note also, we need to set the appropriate SELinux file contexts on the created directories and any files.&lt;/p&gt;
 &lt;p&gt;We create the data directories and log files and set their respective SELinux contexts via&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;sudo mkdir /var/lib/mysql-mysqld0
+
+  
+
+
+
+
+
+
+&lt;div class=&#34;code-toolbar&#34;&gt;
+  &lt;pre 
+    class=&#34;command-line language-bash&#34; 
+    data-user=&#34;user&#34; 
+    data-host=&#34;localhost&#34; 
+    data-continuation-str=&#34;\&#34;
+    data-filter-output=&#34;(out)&#34;&gt;&lt;code class=&#34;language-bash&#34;&gt;sudo mkdir /var/lib/mysql-mysqld0
 sudo chown mysql:mysql /var/lib/mysql-mysqld0
-sudo semanage fcontext -a -t mysqld_db_t &amp;quot;/var/lib/mysql-mysqld0(/.*)?&amp;quot;
+sudo semanage fcontext -a -t mysqld_db_t &amp;#34;/var/lib/mysql-mysqld0(/.*)?&amp;#34;
 sudo restorecon -Rv /var/lib/mysql-mysqld0
 
 sudo touch /var/log/mariadb/mysql-mysqld0.log
@@ -1042,21 +1250,52 @@ sudo chcon --reference=/var/log/mariadb/mariadb.log /var/log/mariadb/mysql-mysql
 
 sudo mkdir /var/lib/mysql-mysqld1
 sudo chown mysql:mysql /var/lib/mysql-mysqld1
-sudo semanage fcontext -a -t mysqld_db_t &amp;quot;/var/lib/mysql-mysqld1(/.*)?&amp;quot;
+sudo semanage fcontext -a -t mysqld_db_t &amp;#34;/var/lib/mysql-mysqld1(/.*)?&amp;#34;
 sudo restorecon -Rv /var/lib/mysql-mysqld1
 
 sudo touch /var/log/mariadb/mysql-mysqld1.log
 sudo chown mysql:mysql /var/log/mariadb/mysql-mysqld1.log
-sudo chcon --reference=/var/log/mariadb/mariadb.log /var/log/mariadb/mysql-mysqld1.log
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;We now initialise the our two database data directories via&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;sudo mysql_install_db --user=mysql --datadir=/var/lib/mysql-mysqld0
-sudo mysql_install_db --user=mysql --datadir=/var/lib/mysql-mysqld1
-&lt;/code&gt;&lt;/pre&gt;
+sudo chcon --reference=/var/log/mariadb/mariadb.log /var/log/mariadb/mysql-mysqld1.log&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;We now initialise our two database data directories via&lt;/p&gt;
+
+  
+
+
+
+
+
+
+&lt;div class=&#34;code-toolbar&#34;&gt;
+  &lt;pre 
+    class=&#34;command-line language-bash&#34; 
+    data-user=&#34;user&#34; 
+    data-host=&#34;localhost&#34; 
+    data-continuation-str=&#34;\&#34;
+    data-filter-output=&#34;(out)&#34;&gt;&lt;code class=&#34;language-bash&#34;&gt;sudo mysql_install_db --user=mysql --datadir=/var/lib/mysql-mysqld0
+sudo mysql_install_db --user=mysql --datadir=/var/lib/mysql-mysqld1&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
 &lt;p&gt;We now replace the MySQL configuration file to set the options for each instance. Note that we will serve &lt;code&gt;mysqld0&lt;/code&gt; and &lt;code&gt;mysqld1&lt;/code&gt; via TCP ports &lt;code&gt;3307&lt;/code&gt; and &lt;code&gt;3308&lt;/code&gt; respectively. First backup the existing configuration file with&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;sudo cp /etc/my.cnf /etc/my.cnf.ORIG
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;then setup &lt;code&gt;/etc/my.cnf&lt;/code&gt; as per&lt;/p&gt;
+&lt;p&gt;
+  
+
+
+
+
+
+
+&lt;div class=&#34;code-toolbar&#34;&gt;
+  &lt;pre 
+    class=&#34;command-line language-bash&#34; 
+    data-user=&#34;user&#34; 
+    data-host=&#34;localhost&#34; 
+    data-continuation-str=&#34;\&#34;
+    data-filter-output=&#34;(out)&#34;&gt;&lt;code class=&#34;language-bash&#34;&gt;sudo cp /etc/my.cnf /etc/my.cnf.ORIG&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+then setup &lt;code&gt;/etc/my.cnf&lt;/code&gt; as per&lt;/p&gt;
 &lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;sudo bash
 F=/etc/my.cnf
 printf &#39;[mysqld_multi]\n&#39; &amp;gt; ${F}
@@ -1088,11 +1327,26 @@ printf &#39;# Disabling symbolic-links is recommended to prevent assorted securi
 printf &#39;symbolic-links=0\n&#39; &amp;gt;&amp;gt; ${F}
 exit # To exit the root shell
 &lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;We also need to associate the ports with the &lt;code&gt;mysqld_port_t&lt;/code&gt; SELinux context as per&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;sudo semanage port -a -t mysqld_port_t -p tcp 3307
-sudo semanage port -a -t mysqld_port_t -p tcp 3308
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;We next create the systemd service template as per&lt;/p&gt;
+&lt;p&gt;We also need to associate the ports with the &lt;code&gt;mysqld_port_t&lt;/code&gt; SELinux context as per
+
+  
+
+
+
+
+
+
+&lt;div class=&#34;code-toolbar&#34;&gt;
+  &lt;pre 
+    class=&#34;command-line language-bash&#34; 
+    data-user=&#34;user&#34; 
+    data-host=&#34;localhost&#34; 
+    data-continuation-str=&#34;\&#34;
+    data-filter-output=&#34;(out)&#34;&gt;&lt;code class=&#34;language-bash&#34;&gt;sudo semanage port -a -t mysqld_port_t -p tcp 3307
+sudo semanage port -a -t mysqld_port_t -p tcp 3308&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+We next create the systemd service template as per&lt;/p&gt;
 &lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;sudo bash
 F=/etc/systemd/system/mysqld@.service
 
@@ -1117,13 +1371,28 @@ printf &#39;WantedBy=multi-user.target\n&#39; &amp;gt;&amp;gt; ${F}
 chmod 644 ${F}
 exit; # to exit the root shell
 &lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;We next enable and start both instances via&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;sudo systemctl enable mysqld@0
+&lt;p&gt;We next enable and start both instances via
+
+  
+
+
+
+
+
+
+&lt;div class=&#34;code-toolbar&#34;&gt;
+  &lt;pre 
+    class=&#34;command-line language-bash&#34; 
+    data-user=&#34;user&#34; 
+    data-host=&#34;localhost&#34; 
+    data-continuation-str=&#34;\&#34;
+    data-filter-output=&#34;(out)&#34;&gt;&lt;code class=&#34;language-bash&#34;&gt;sudo systemctl enable mysqld@0
 sudo systemctl enable mysqld@1
 sudo systemctl start mysqld@0
-sudo systemctl start mysqld@1
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;At this we should have both instances running. One should check each instance&amp;rsquo;s log file for any errors.&lt;/p&gt;
+sudo systemctl start mysqld@1&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+At this point, we should have both instances running. One should check each instance&amp;rsquo;s log file for any errors.&lt;/p&gt;
 &lt;h4 id=&#34;secure-each-database-instance&#34;&gt;Secure each database instance&lt;/h4&gt;
 &lt;p&gt;We secure each database engine by running the &lt;code&gt;mysql_secure_installation&lt;/code&gt; script. One should accept all defaults, which means the
 only entry (aside from pressing returns) is the administrator (root) database password. Make a note of the password you use. In this case
@@ -1131,10 +1400,25 @@ we will use &lt;code&gt;Stroom5User@&lt;/code&gt;.
 The utility &lt;code&gt;mysql_secure_installation&lt;/code&gt; expects to find the Linux socket file to access the database it&amp;rsquo;s securing at &lt;code&gt;/var/lib/mysql/mysql.sock&lt;/code&gt;.
 Since we have used other locations, we temporarily link the real socket file to &lt;code&gt;/var/lib/mysql/mysql.sock&lt;/code&gt; for each invocation of the
 utility. Thus we execute&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;sudo ln /var/lib/mysql-mysqld0/mysql.sock /var/lib/mysql/mysql.sock
-sudo mysql_secure_installation
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;to see&lt;/p&gt;
+&lt;p&gt;
+  
+
+
+
+
+
+
+&lt;div class=&#34;code-toolbar&#34;&gt;
+  &lt;pre 
+    class=&#34;command-line language-bash&#34; 
+    data-user=&#34;user&#34; 
+    data-host=&#34;localhost&#34; 
+    data-continuation-str=&#34;\&#34;
+    data-filter-output=&#34;(out)&#34;&gt;&lt;code class=&#34;language-bash&#34;&gt;sudo ln /var/lib/mysql-mysqld0/mysql.sock /var/lib/mysql/mysql.sock
+sudo mysql_secure_installation&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+to see&lt;/p&gt;
 &lt;pre&gt;&lt;code class=&#34;language-text&#34;&gt;NOTE: RUNNING ALL PARTS OF THIS SCRIPT IS RECOMMENDED FOR ALL MariaDB
       SERVERS IN PRODUCTION USE!  PLEASE READ EACH STEP CAREFULLY!
 
@@ -1196,20 +1480,49 @@ installation should now be secure.
 Thanks for using MariaDB!
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;then we execute&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;sudo rm /var/lib/mysql/mysql.sock
+&lt;p&gt;
+  
+
+
+
+
+
+
+&lt;div class=&#34;code-toolbar&#34;&gt;
+  &lt;pre 
+    class=&#34;command-line language-bash&#34; 
+    data-user=&#34;user&#34; 
+    data-host=&#34;localhost&#34; 
+    data-continuation-str=&#34;\&#34;
+    data-filter-output=&#34;(out)&#34;&gt;&lt;code class=&#34;language-bash&#34;&gt;sudo rm /var/lib/mysql/mysql.sock
 sudo ln /var/lib/mysql-mysqld1/mysql.sock /var/lib/mysql/mysql.sock
 sudo mysql_secure_installation
-sudo rm /var/lib/mysql/mysql.sock
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;and process as before (for when running mysql_secure_installation). At this both database instances should be secure.&lt;/p&gt;
+sudo rm /var/lib/mysql/mysql.sock&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+and process as before (for when running mysql_secure_installation). At this both database instances should be secure.&lt;/p&gt;
 &lt;h3 id=&#34;mysql-community-variant&#34;&gt;MySQL Community Variant&lt;/h3&gt;
 &lt;h4 id=&#34;create-and-instantiate-both-database-instances-1&#34;&gt;Create and instantiate both database instances&lt;/h4&gt;
 &lt;p&gt;To set up two MySQL database instances on the one node, we will use &lt;code&gt;mysql_multi&lt;/code&gt; and systemd service templates. The &lt;code&gt;mysql_multi&lt;/code&gt; utility is a capability that manages multiple MySQL databases on the same node and systemd service templates manage multiple services from one configuration file. A systemd service template is unique in that it has an &lt;code&gt;@&lt;/code&gt; character before the &lt;code&gt;.service&lt;/code&gt; suffix.&lt;/p&gt;
 &lt;p&gt;To use this multiple-instance capability, we need to create two data directories for each database instance and also replace the main MySQL configuration file, &lt;code&gt;/etc/my.cnf&lt;/code&gt;, with one that includes configuration of key options for each instance. We will name our instances, &lt;code&gt;mysqld0&lt;/code&gt; and &lt;code&gt;mysqld1&lt;/code&gt;. We will also create specific log files for each instance.&lt;/p&gt;
 &lt;p&gt;We will use the directories, &lt;code&gt;/var/lib/mysql-mysqld0&lt;/code&gt; and &lt;code&gt;/var/lib/mysql-mysqld1&lt;/code&gt; for the data directories and &lt;code&gt;/var/log/mysql-mysqld0.log&lt;/code&gt; and &lt;code&gt;/var/log/mysql-mysqld1.log&lt;/code&gt; for the log directories. Note you should modify /etc/logrotate.d/mysql to manage these log files. Note also, we need to set the appropriate SELinux file context on the created directories and files.&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;sudo mkdir /var/lib/mysql-mysqld0
+
+  
+
+
+
+
+
+
+&lt;div class=&#34;code-toolbar&#34;&gt;
+  &lt;pre 
+    class=&#34;command-line language-bash&#34; 
+    data-user=&#34;user&#34; 
+    data-host=&#34;localhost&#34; 
+    data-continuation-str=&#34;\&#34;
+    data-filter-output=&#34;(out)&#34;&gt;&lt;code class=&#34;language-bash&#34;&gt;sudo mkdir /var/lib/mysql-mysqld0
 sudo chown mysql:mysql /var/lib/mysql-mysqld0
-sudo semanage fcontext -a -t mysqld_db_t &amp;quot;/var/lib/mysql-mysqld0(/.*)?&amp;quot;
+sudo semanage fcontext -a -t mysqld_db_t &amp;#34;/var/lib/mysql-mysqld0(/.*)?&amp;#34;
 sudo restorecon -Rv /var/lib/mysql-mysqld0
 
 sudo touch /var/log/mysql-mysqld0.log
@@ -1218,24 +1531,70 @@ sudo chcon --reference=/var/log/mysqld.log /var/log/mysql-mysqld0.log
 
 sudo mkdir /var/lib/mysql-mysqld1
 sudo chown mysql:mysql /var/lib/mysql-mysqld1 
-sudo semanage fcontext -a -t mysqld_db_t &amp;quot;/var/lib/mysql-mysqld1(/.*)?&amp;quot;
+sudo semanage fcontext -a -t mysqld_db_t &amp;#34;/var/lib/mysql-mysqld1(/.*)?&amp;#34;
 sudo restorecon -Rv /var/lib/mysql-mysqld1
 
 sudo touch /var/log/mysql-mysqld1.log
 sudo chown mysql:mysql /var/log/mysql-mysqld1.log
-sudo chcon --reference=/var/log/mysqld.log /var/log/mysql-mysqld1.log
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;We now initialise the our two database data directories via&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;sudo mysql_install_db --user=mysql --datadir=/var/lib/mysql-mysqld0
-sudo mysql_install_db --user=mysql --datadir=/var/lib/mysql-mysqld1
-&lt;/code&gt;&lt;/pre&gt;
+sudo chcon --reference=/var/log/mysqld.log /var/log/mysql-mysqld1.log&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;We now initialise our two database data directories via&lt;/p&gt;
+
+  
+
+
+
+
+
+
+&lt;div class=&#34;code-toolbar&#34;&gt;
+  &lt;pre 
+    class=&#34;command-line language-bash&#34; 
+    data-user=&#34;user&#34; 
+    data-host=&#34;localhost&#34; 
+    data-continuation-str=&#34;\&#34;
+    data-filter-output=&#34;(out)&#34;&gt;&lt;code class=&#34;language-bash&#34;&gt;sudo mysql_install_db --user=mysql --datadir=/var/lib/mysql-mysqld0
+sudo mysql_install_db --user=mysql --datadir=/var/lib/mysql-mysqld1&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
 &lt;p&gt;Disable the default database via&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;sudo systemctl disable mysqld
-&lt;/code&gt;&lt;/pre&gt;
+
+  
+
+
+
+
+
+
+&lt;div class=&#34;code-toolbar&#34;&gt;
+  &lt;pre 
+    class=&#34;command-line language-bash&#34; 
+    data-user=&#34;user&#34; 
+    data-host=&#34;localhost&#34; 
+    data-continuation-str=&#34;\&#34;
+    data-filter-output=&#34;(out)&#34;&gt;&lt;code class=&#34;language-bash&#34;&gt;sudo systemctl disable mysqld&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
 &lt;p&gt;We now modify the MySQL configuration file to set the options for each instance. Note that we will serve &lt;code&gt;mysqld0&lt;/code&gt; and &lt;code&gt;mysqld1&lt;/code&gt; via TCP ports &lt;code&gt;3307&lt;/code&gt; and &lt;code&gt;3308&lt;/code&gt; respectively. First backup the existing configuration file with&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;sudo cp /etc/my.cnf /etc/my.cnf.ORIG
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;then setup &lt;code&gt;/etc/my.cnf&lt;/code&gt; as per&lt;/p&gt;
+&lt;p&gt;
+  
+
+
+
+
+
+
+&lt;div class=&#34;code-toolbar&#34;&gt;
+  &lt;pre 
+    class=&#34;command-line language-bash&#34; 
+    data-user=&#34;user&#34; 
+    data-host=&#34;localhost&#34; 
+    data-continuation-str=&#34;\&#34;
+    data-filter-output=&#34;(out)&#34;&gt;&lt;code class=&#34;language-bash&#34;&gt;sudo cp /etc/my.cnf /etc/my.cnf.ORIG&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+then setup &lt;code&gt;/etc/my.cnf&lt;/code&gt; as per&lt;/p&gt;
 &lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;sudo bash
 F=/etc/my.cnf
 printf &#39;[mysqld_multi]\n&#39; &amp;gt; ${F}
@@ -1268,9 +1627,24 @@ printf &#39;symbolic-links=0\n&#39; &amp;gt;&amp;gt; ${F}
 exit # To exit the root shell
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;We also need to associate the ports with the &lt;code&gt;mysqld_port_t&lt;/code&gt; SELinux context as per&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;sudo semanage port -a -t mysqld_port_t -p tcp 3307
-sudo semanage port -a -t mysqld_port_t -p tcp 3308
-&lt;/code&gt;&lt;/pre&gt;
+
+  
+
+
+
+
+
+
+&lt;div class=&#34;code-toolbar&#34;&gt;
+  &lt;pre 
+    class=&#34;command-line language-bash&#34; 
+    data-user=&#34;user&#34; 
+    data-host=&#34;localhost&#34; 
+    data-continuation-str=&#34;\&#34;
+    data-filter-output=&#34;(out)&#34;&gt;&lt;code class=&#34;language-bash&#34;&gt;sudo semanage port -a -t mysqld_port_t -p tcp 3307
+sudo semanage port -a -t mysqld_port_t -p tcp 3308&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
 &lt;p&gt;We next create the systemd service template as per&lt;/p&gt;
 &lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;sudo bash
 F=/etc/systemd/system/mysqld@.service
@@ -1297,12 +1671,27 @@ chmod 644 ${F}
 exit; # to exit the root shell
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;We next enable and start both instances via&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;sudo systemctl enable mysqld@0
+
+  
+
+
+
+
+
+
+&lt;div class=&#34;code-toolbar&#34;&gt;
+  &lt;pre 
+    class=&#34;command-line language-bash&#34; 
+    data-user=&#34;user&#34; 
+    data-host=&#34;localhost&#34; 
+    data-continuation-str=&#34;\&#34;
+    data-filter-output=&#34;(out)&#34;&gt;&lt;code class=&#34;language-bash&#34;&gt;sudo systemctl enable mysqld@0
 sudo systemctl enable mysqld@1
 sudo systemctl start mysqld@0
-sudo systemctl start mysqld@1
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;At this we should have both instances running. One should check each instance&amp;rsquo;s log file for any errors.&lt;/p&gt;
+sudo systemctl start mysqld@1&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;At this point, we should have both instances running. One should check each instance&amp;rsquo;s log file for any errors.&lt;/p&gt;
 &lt;h4 id=&#34;secure-each-database-instance-1&#34;&gt;Secure each database instance&lt;/h4&gt;
 &lt;p&gt;We secure each database engine by running the &lt;code&gt;mysql_secure_installation&lt;/code&gt; script. One should accept all defaults, which means the
 only entry (aside from pressing returns) is the administrator (root) database password. Make a note of the password you use. In this case
@@ -1310,9 +1699,24 @@ we will use &lt;code&gt;Stroom5User@&lt;/code&gt;.
 The utility &lt;code&gt;mysql_secure_installation&lt;/code&gt; expects to find the Linux socket file to access the database it&amp;rsquo;s securing at &lt;code&gt;/var/lib/mysql/mysql.sock&lt;/code&gt;.
 Since we have used other locations, we temporarily link the real socket file to &lt;code&gt;/var/lib/mysql/mysql.sock&lt;/code&gt; for each invocation of the
 utility. Thus we execute&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;sudo ln /var/lib/mysql-mysqld0/mysql.sock /var/lib/mysql/mysql.sock
-sudo mysql_secure_installation
-&lt;/code&gt;&lt;/pre&gt;
+
+  
+
+
+
+
+
+
+&lt;div class=&#34;code-toolbar&#34;&gt;
+  &lt;pre 
+    class=&#34;command-line language-bash&#34; 
+    data-user=&#34;user&#34; 
+    data-host=&#34;localhost&#34; 
+    data-continuation-str=&#34;\&#34;
+    data-filter-output=&#34;(out)&#34;&gt;&lt;code class=&#34;language-bash&#34;&gt;sudo ln /var/lib/mysql-mysqld0/mysql.sock /var/lib/mysql/mysql.sock
+sudo mysql_secure_installation&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
 &lt;p&gt;to see&lt;/p&gt;
 &lt;pre&gt;&lt;code class=&#34;language-text&#34;&gt;NOTE: RUNNING ALL PARTS OF THIS SCRIPT IS RECOMMENDED FOR ALL MySQL
       SERVERS IN PRODUCTION USE!  PLEASE READ EACH STEP CAREFULLY!
@@ -1380,12 +1784,27 @@ Thanks for using MySQL!
 Cleaning up...
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;then we execute&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;sudo rm /var/lib/mysql/mysql.sock
+&lt;p&gt;
+  
+
+
+
+
+
+
+&lt;div class=&#34;code-toolbar&#34;&gt;
+  &lt;pre 
+    class=&#34;command-line language-bash&#34; 
+    data-user=&#34;user&#34; 
+    data-host=&#34;localhost&#34; 
+    data-continuation-str=&#34;\&#34;
+    data-filter-output=&#34;(out)&#34;&gt;&lt;code class=&#34;language-bash&#34;&gt;sudo rm /var/lib/mysql/mysql.sock
 sudo ln /var/lib/mysql-mysqld1/mysql.sock /var/lib/mysql/mysql.sock
 sudo mysql_secure_installation
-sudo rm /var/lib/mysql/mysql.sock
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;and process as before (for when running mysql_secure_installation). At this both database instances should be secure.&lt;/p&gt;
+sudo rm /var/lib/mysql/mysql.sock&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+and process as before (for when running mysql_secure_installation). At this point, both database instances should be secure.&lt;/p&gt;
 &lt;h2 id=&#34;create-the-databases-and-enable-access-by-the-stroom-processing-users&#34;&gt;Create the Databases and Enable access by the Stroom processing users&lt;/h2&gt;
 &lt;p&gt;We now create the &lt;code&gt;stroom&lt;/code&gt; database within the first instance, &lt;code&gt;mysqld0&lt;/code&gt; and the &lt;code&gt;statistics&lt;/code&gt; database within the second
 instance &lt;code&gt;mysqld1&lt;/code&gt;. It does not matter which database variant used as all commands are the same for both.&lt;/p&gt;
@@ -1405,44 +1824,143 @@ For the &lt;code&gt;stroom&lt;/code&gt; database, we will use the database user 
 &lt;li&gt;&lt;code&gt;stroomstats@stroomp01.strmdev00.org&lt;/code&gt; for access by processing node &lt;code&gt;stroomp01.strmdev00.org&lt;/code&gt;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;Thus for the &lt;code&gt;stroom&lt;/code&gt; database we execute&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;mysql --user=root --port=3307 --socket=/var/lib/mysql-mysqld0/mysql.sock --password
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;and on entering the administrator&amp;rsquo;s password, we arrive at the &lt;code&gt;MariaDB [(none)]&amp;gt;&lt;/code&gt; or &lt;code&gt;mysql&amp;gt;&lt;/code&gt; prompt. At this we create the database with&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-sql&#34;&gt;create database stroom;
-&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;
+  
+
+
+
+
+
+
+&lt;div class=&#34;code-toolbar&#34;&gt;
+  &lt;pre 
+    class=&#34;command-line language-bash&#34; 
+    data-user=&#34;user&#34; 
+    data-host=&#34;localhost&#34; 
+    data-continuation-str=&#34;\&#34;
+    data-filter-output=&#34;(out)&#34;&gt;&lt;code class=&#34;language-bash&#34;&gt;mysql --user=root --port=3307 --socket=/var/lib/mysql-mysqld0/mysql.sock --password&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+and on entering the administrator&amp;rsquo;s password, we arrive at the &lt;code&gt;MariaDB [(none)]&amp;gt;&lt;/code&gt; or &lt;code&gt;mysql&amp;gt;&lt;/code&gt; prompt. At this point we create the database with&lt;/p&gt;
+
+
+&lt;div class=&#34;code-toolbar&#34;&gt;
+  &lt;pre 
+    class=&#34;command-line language-sql&#34; 
+    data-prompt=&#34;mysql&gt;&#34; 
+    data-filter-output=&#34;(out)&#34;
+    data-continuation-prompt=&#34;-&gt;&#34;
+    data-filter-continuation=&#34;(con)&#34;&gt;&lt;code class=&#34;language-sql&#34;&gt;create database stroom;&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
 &lt;p&gt;and then to establish the users, we execute&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-sql&#34;&gt;grant all privileges on stroom.* to stroomuser@localhost identified by &#39;Stroompassword1@&#39;;
-grant all privileges on stroom.* to stroomuser@stroomp00.strmdev00.org identified by &#39;Stroompassword1@&#39;;
-grant all privileges on stroom.* to stroomuser@stroomp01.strmdev00.org identified by &#39;Stroompassword1@&#39;;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;then&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-sql&#34;&gt;quit;
-&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;
+
+&lt;div class=&#34;code-toolbar&#34;&gt;
+  &lt;pre 
+    class=&#34;command-line language-sql&#34; 
+    data-prompt=&#34;mysql&gt;&#34; 
+    data-filter-output=&#34;(out)&#34;
+    data-continuation-prompt=&#34;-&gt;&#34;
+    data-filter-continuation=&#34;(con)&#34;&gt;&lt;code class=&#34;language-sql&#34;&gt;grant all privileges on stroom.* to stroomuser@localhost identified by &amp;#39;Stroompassword1@&amp;#39;;
+grant all privileges on stroom.* to stroomuser@stroomp00.strmdev00.org identified by &amp;#39;Stroompassword1@&amp;#39;;
+grant all privileges on stroom.* to stroomuser@stroomp01.strmdev00.org identified by &amp;#39;Stroompassword1@&amp;#39;;&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+then&lt;/p&gt;
+
+
+&lt;div class=&#34;code-toolbar&#34;&gt;
+  &lt;pre 
+    class=&#34;command-line language-sql&#34; 
+    data-prompt=&#34;mysql&gt;&#34; 
+    data-filter-output=&#34;(out)&#34;
+    data-continuation-prompt=&#34;-&gt;&#34;
+    data-filter-continuation=&#34;(con)&#34;&gt;&lt;code class=&#34;language-sql&#34;&gt;quit;&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
 &lt;p&gt;to exit.&lt;/p&gt;
 &lt;p&gt;And for the &lt;code&gt;statistics&lt;/code&gt; database&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;mysql --user=root --port=3308 --socket=/var/lib/mysql-mysqld1/mysql.sock --password
-&lt;/code&gt;&lt;/pre&gt;
+
+  
+
+
+
+
+
+
+&lt;div class=&#34;code-toolbar&#34;&gt;
+  &lt;pre 
+    class=&#34;command-line language-bash&#34; 
+    data-user=&#34;user&#34; 
+    data-host=&#34;localhost&#34; 
+    data-continuation-str=&#34;\&#34;
+    data-filter-output=&#34;(out)&#34;&gt;&lt;code class=&#34;language-bash&#34;&gt;mysql --user=root --port=3308 --socket=/var/lib/mysql-mysqld1/mysql.sock --password&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
 &lt;p&gt;with&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-sql&#34;&gt;create database statistics;
-&lt;/code&gt;&lt;/pre&gt;
+
+
+&lt;div class=&#34;code-toolbar&#34;&gt;
+  &lt;pre 
+    class=&#34;command-line language-sql&#34; 
+    data-prompt=&#34;mysql&gt;&#34; 
+    data-filter-output=&#34;(out)&#34;
+    data-continuation-prompt=&#34;-&gt;&#34;
+    data-filter-continuation=&#34;(con)&#34;&gt;&lt;code class=&#34;language-sql&#34;&gt;create database statistics;&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
 &lt;p&gt;and then to establish the users, we execute&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-sql&#34;&gt;grant all privileges on statistics.* to stroomstats@localhost identified by &#39;Stroompassword2@&#39;;
-grant all privileges on statistics.* to stroomstats@stroomp00.strmdev00.org identified by &#39;Stroompassword2@&#39;;
-grant all privileges on statistics.* to stroomstats@stroomp01.strmdev00.org identified by &#39;Stroompassword2@&#39;;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;then&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-sql&#34;&gt;quit;
-&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;
+
+&lt;div class=&#34;code-toolbar&#34;&gt;
+  &lt;pre 
+    class=&#34;command-line language-sql&#34; 
+    data-prompt=&#34;mysql&gt;&#34; 
+    data-filter-output=&#34;(out)&#34;
+    data-continuation-prompt=&#34;-&gt;&#34;
+    data-filter-continuation=&#34;(con)&#34;&gt;&lt;code class=&#34;language-sql&#34;&gt;grant all privileges on statistics.* to stroomstats@localhost identified by &amp;#39;Stroompassword2@&amp;#39;;
+grant all privileges on statistics.* to stroomstats@stroomp00.strmdev00.org identified by &amp;#39;Stroompassword2@&amp;#39;;
+grant all privileges on statistics.* to stroomstats@stroomp01.strmdev00.org identified by &amp;#39;Stroompassword2@&amp;#39;;&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+then&lt;/p&gt;
+
+
+&lt;div class=&#34;code-toolbar&#34;&gt;
+  &lt;pre 
+    class=&#34;command-line language-sql&#34; 
+    data-prompt=&#34;mysql&gt;&#34; 
+    data-filter-output=&#34;(out)&#34;
+    data-continuation-prompt=&#34;-&gt;&#34;
+    data-filter-continuation=&#34;(con)&#34;&gt;&lt;code class=&#34;language-sql&#34;&gt;quit;&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
 &lt;p&gt;to exit.&lt;/p&gt;
 &lt;p&gt;Clearly if we need to add more processing nodes, additional &lt;code&gt;grant&lt;/code&gt; commands would be used. Further, if we were installing the databases in a single node Stroom environment, we would just have the first two pairs of &lt;code&gt;grants&lt;/code&gt;.&lt;/p&gt;
 &lt;h2 id=&#34;configure-firewall&#34;&gt;Configure Firewall&lt;/h2&gt;
 &lt;p&gt;Next we need to modify our firewall to allow remote access to our databases which listens on ports 3307 and 3308.
 The simplest way to achieve this is with the commands&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;sudo firewall-cmd --zone=public --add-port=3307/tcp --permanent
+
+  
+
+
+
+
+
+
+&lt;div class=&#34;code-toolbar&#34;&gt;
+  &lt;pre 
+    class=&#34;command-line language-bash&#34; 
+    data-user=&#34;user&#34; 
+    data-host=&#34;localhost&#34; 
+    data-continuation-str=&#34;\&#34;
+    data-filter-output=&#34;(out)&#34;&gt;&lt;code class=&#34;language-bash&#34;&gt;sudo firewall-cmd --zone=public --add-port=3307/tcp --permanent
 sudo firewall-cmd --zone=public --add-port=3308/tcp --permanent
 sudo firewall-cmd --reload
-sudo firewall-cmd --zone=public --list-all
-&lt;/code&gt;&lt;/pre&gt;
+sudo firewall-cmd --zone=public --list-all&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
 
 &lt;div class=&#34;alert alert-primary&#34; role=&#34;alert&#34;&gt;
 &lt;h4 class=&#34;alert-heading&#34;&gt;Note&lt;/h4&gt;
@@ -1456,20 +1974,71 @@ sudo firewall-cmd --zone=public --list-all
 &lt;h3 id=&#34;debugging-of-mariadb-for-stroom&#34;&gt;Debugging of Mariadb for Stroom&lt;/h3&gt;
 &lt;p&gt;If there is a need to debug the Mariadb database and Stroom interaction, one can turn on auditing for the Mariadb service.
 To do so, log onto the relevant database as the administrative user as per&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;mysql --user=root --port=3307 --socket=/var/lib/mysql-mysqld0/mysql.sock --password
-or
-mysql --user=root --port=3308 --socket=/var/lib/mysql-mysqld1/mysql.sock --password
-&lt;/code&gt;&lt;/pre&gt;
+
+  
+
+
+
+
+
+
+&lt;div class=&#34;code-toolbar&#34;&gt;
+  &lt;pre 
+    class=&#34;command-line language-bash&#34; 
+    data-user=&#34;user&#34; 
+    data-host=&#34;localhost&#34; 
+    data-continuation-str=&#34;\&#34;
+    data-filter-output=&#34;(out)&#34;&gt;&lt;code class=&#34;language-bash&#34;&gt;mysql --user=root --port=3307 --socket=/var/lib/mysql-mysqld0/mysql.sock --password&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;or&lt;/p&gt;
+
+  
+
+
+
+
+
+
+&lt;div class=&#34;code-toolbar&#34;&gt;
+  &lt;pre 
+    class=&#34;command-line language-bash&#34; 
+    data-user=&#34;user&#34; 
+    data-host=&#34;localhost&#34; 
+    data-continuation-str=&#34;\&#34;
+    data-filter-output=&#34;(out)&#34;&gt;&lt;code class=&#34;language-bash&#34;&gt;mysql --user=root --port=3308 --socket=/var/lib/mysql-mysqld1/mysql.sock --password&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
 &lt;p&gt;And at the &lt;code&gt;MariaDB [(none)]&amp;gt; &lt;/code&gt; prompt enter&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;install plugin server_audit SONAME &#39;server_audit&#39;;
-set global server_audit_file_path=&#39;/var/log/mariadb/mysqld-mysqld0_server_audit.log&#39;;
-or
-set global server_audit_file_path=&#39;/var/log/mariadb/mysqld-mysqld1_server_audit.log&#39;;
+
+
+&lt;div class=&#34;code-toolbar&#34;&gt;
+  &lt;pre 
+    class=&#34;command-line language-sql&#34; 
+    data-prompt=&#34;mysql&gt;&#34; 
+    data-filter-output=&#34;(out)&#34;
+    data-continuation-prompt=&#34;-&gt;&#34;
+    data-filter-continuation=&#34;(con)&#34;&gt;&lt;code class=&#34;language-sql&#34;&gt;install plugin server_audit SONAME &amp;#39;server_audit&amp;#39;;
+set global server_audit_file_path=&amp;#39;/var/log/mariadb/mysqld-mysqld0_server_audit.log&amp;#39;;
+quit;&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;or&lt;/p&gt;
+
+
+&lt;div class=&#34;code-toolbar&#34;&gt;
+  &lt;pre 
+    class=&#34;command-line language-sql&#34; 
+    data-prompt=&#34;mysql&gt;&#34; 
+    data-filter-output=&#34;(out)&#34;
+    data-continuation-prompt=&#34;-&gt;&#34;
+    data-filter-continuation=&#34;(con)&#34;&gt;&lt;code class=&#34;language-sql&#34;&gt;set global server_audit_file_path=&amp;#39;/var/log/mariadb/mysqld-mysqld1_server_audit.log&amp;#39;;
 set global server_audit_logging=ON;
 set global server_audit_file_rotate_size=10485760;
-install plugin SQL_ERROR_LOG soname &#39;sql_errlog&#39;;
-quit;
-&lt;/code&gt;&lt;/pre&gt;
+install plugin SQL_ERROR_LOG soname &amp;#39;sql_errlog&amp;#39;;
+quit;&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
 &lt;p&gt;The above will generate two log files,&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;code&gt;/var/log/mariadb/mysqld-mysqld0_server_audit.log&lt;/code&gt; or &lt;code&gt;/var/log/mariadb/mysqld-mysqld1_server_audit.log&lt;/code&gt; which records all commands the respective databases run. We have configured the log file will rotate at 10MB in size.&lt;/li&gt;
@@ -1482,16 +2051,34 @@ quit;
 &lt;li&gt;&lt;code&gt;set global sql_error_log_rotate=1;&lt;/code&gt; to rotate the &lt;code&gt;sql_errlog&lt;/code&gt; log file&lt;/li&gt;
 &lt;/ul&gt;
 &lt;h3 id=&#34;initial-database-access&#34;&gt;Initial Database Access&lt;/h3&gt;
-&lt;p&gt;It should be noted that if you monitor the &lt;code&gt;sql_errors.log&lt;/code&gt; log file on a new Stroom deployment, when the Stroom Application first starts, its initial access to the &lt;code&gt;stroom&lt;/code&gt; database will result in the following attempted SQL statements.&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-sql&#34;&gt;2017-04-16 16:24:50 stroomuser[stroomuser] @ stroomp00.strmdev00.org [192.168.2.126] ERROR 1146: Table &#39;stroom.schema_version&#39; doesn&#39;t exist : SELECT version FROM schema_version ORDER BY installed_rank DESC
-2017-04-16 16:24:50 stroomuser[stroomuser] @ stroomp00.strmdev00.org [192.168.2.126] ERROR 1146: Table &#39;stroom.STROOM_VER&#39; doesn&#39;t exist : SELECT VER_MAJ, VER_MIN, VER_PAT FROM STROOM_VER ORDER BY VER_MAJ DESC, VER_MIN DESC, VER_PAT DESC LIMIT 1
-2017-04-16 16:24:50 stroomuser[stroomuser] @ stroomp00.strmdev00.org [192.168.2.126] ERROR 1146: Table &#39;stroom.FD&#39; doesn&#39;t exist : SELECT ID FROM FD LIMIT 1
-2017-04-16 16:24:50 stroomuser[stroomuser] @ stroomp00.strmdev00.org [192.168.2.126] ERROR 1146: Table &#39;stroom.FEED&#39; doesn&#39;t exist : SELECT ID FROM FEED LIMIT 1
-&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;It should be noted that if you monitor the sql_errors.log log file on a new Stroom deployment, when the Stroom Application first starts, its initial access to the &lt;code&gt;stroom&lt;/code&gt; database will result in the following attempted SQL statements.&lt;/p&gt;
+
+
+&lt;div class=&#34;code-toolbar&#34;&gt;
+  &lt;pre 
+    class=&#34;command-line language-sql&#34; 
+    data-prompt=&#34;mysql&gt;&#34; 
+    data-filter-output=&#34;(out)&#34;
+    data-continuation-prompt=&#34;-&gt;&#34;
+    data-filter-continuation=&#34;(con)&#34;&gt;&lt;code class=&#34;language-sql&#34;&gt;(out)2017-04-16 16:24:50 stroomuser[stroomuser] @ stroomp00.strmdev00.org [192.168.2.126] ERROR 1146: Table &amp;#39;stroom.schema_version&amp;#39; doesn&amp;#39;t exist : SELECT version FROM schema_version ORDER BY installed_rank DESC
+(out)2017-04-16 16:24:50 stroomuser[stroomuser] @ stroomp00.strmdev00.org [192.168.2.126] ERROR 1146: Table &amp;#39;stroom.STROOM_VER&amp;#39; doesn&amp;#39;t exist : SELECT VER_MAJ, VER_MIN, VER_PAT FROM STROOM_VER ORDER BY VER_MAJ DESC, VER_MIN DESC, VER_PAT DESC LIMIT 1
+(out)2017-04-16 16:24:50 stroomuser[stroomuser] @ stroomp00.strmdev00.org [192.168.2.126] ERROR 1146: Table &amp;#39;stroom.FD&amp;#39; doesn&amp;#39;t exist : SELECT ID FROM FD LIMIT 1
+(out)2017-04-16 16:24:50 stroomuser[stroomuser] @ stroomp00.strmdev00.org [192.168.2.126] ERROR 1146: Table &amp;#39;stroom.FEED&amp;#39; doesn&amp;#39;t exist : SELECT ID FROM FEED LIMIT 1&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
 &lt;p&gt;After this access the application will realise the database does not exist and it will initialise the database.&lt;/p&gt;
 &lt;p&gt;In the case of the &lt;code&gt;statistics&lt;/code&gt; database you may note the following attempted access&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-sql&#34;&gt;2017-04-16 16:25:09 stroomstats[stroomstats] @ stroomp00.strmdev00.org [192.168.2.126] ERROR 1146: Table &#39;statistics.schema_version&#39; doesn&#39;t exist : SELECT version FROM schema_version ORDER BY installed_rank DESC 
-&lt;/code&gt;&lt;/pre&gt;
+
+
+&lt;div class=&#34;code-toolbar&#34;&gt;
+  &lt;pre 
+    class=&#34;command-line language-sql&#34; 
+    data-prompt=&#34;mysql&gt;&#34; 
+    data-filter-output=&#34;(out)&#34;
+    data-continuation-prompt=&#34;-&gt;&#34;
+    data-filter-continuation=&#34;(con)&#34;&gt;&lt;code class=&#34;language-sql&#34;&gt;(out)2017-04-16 16:25:09 stroomstats[stroomstats] @ stroomp00.strmdev00.org [192.168.2.126] ERROR 1146: Table &amp;#39;statistics.schema_version&amp;#39; doesn&amp;#39;t exist : SELECT version FROM schema_version ORDER BY installed_rank DESC&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
 &lt;p&gt;Again, at this point the application will initialise this database.&lt;/p&gt;
 
       </description>
@@ -1624,11 +2211,41 @@ just install them both on the first (or only) Stroom node.&lt;/p&gt;
 &lt;li&gt;MariaDB or MySQL client&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;Most of the required software are packages available via standard repositories and hence we can simply execute&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;sudo yum -y install java-1.8.0-openjdk java-1.8.0-openjdk-devel policycoreutils-python unzip zip
-&lt;/code&gt;&lt;/pre&gt;
+
+  
+
+
+
+
+
+
+&lt;div class=&#34;code-toolbar&#34;&gt;
+  &lt;pre 
+    class=&#34;command-line language-bash&#34; 
+    data-user=&#34;user&#34; 
+    data-host=&#34;localhost&#34; 
+    data-continuation-str=&#34;\&#34;
+    data-filter-output=&#34;(out)&#34;&gt;&lt;code class=&#34;language-bash&#34;&gt;sudo yum -y install java-1.8.0-openjdk java-1.8.0-openjdk-devel policycoreutils-python unzip zip&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
 &lt;p&gt;One has a choice of database clients. MariaDB is directly supported by Centos 7 and is simplest to install. This is done via&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;sudo yum -y install mariadb
-&lt;/code&gt;&lt;/pre&gt;
+
+  
+
+
+
+
+
+
+&lt;div class=&#34;code-toolbar&#34;&gt;
+  &lt;pre 
+    class=&#34;command-line language-bash&#34; 
+    data-user=&#34;user&#34; 
+    data-host=&#34;localhost&#34; 
+    data-continuation-str=&#34;\&#34;
+    data-filter-output=&#34;(out)&#34;&gt;&lt;code class=&#34;language-bash&#34;&gt;sudo yum -y install mariadb&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
 &lt;p&gt;One could deploy the MySQL database software as the alternative.&lt;/p&gt;
 &lt;p&gt;&lt;a name=&#34;mysqlclientinstall&#34;&gt;&lt;/a&gt;To do this you need to install the MySQL Community repository files then install the client.
 Instructions for installation of the MySQL Community repository files can be found &lt;a href=&#34;../../docs/howtos/install/installdatabasehowto/#mysql-community-server-installation&#34;&gt;here&lt;/a&gt; or on the 
@@ -1650,8 +2267,23 @@ Instructions for installation of the MySQL Community repository files can be fou
 &lt;/span&gt;
 .
 Once you have installed the MySQL repository files, install the client via&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;sudo yum -y install mysql-community-client
-&lt;/code&gt;&lt;/pre&gt;
+
+  
+
+
+
+
+
+
+&lt;div class=&#34;code-toolbar&#34;&gt;
+  &lt;pre 
+    class=&#34;command-line language-bash&#34; 
+    data-user=&#34;user&#34; 
+    data-host=&#34;localhost&#34; 
+    data-continuation-str=&#34;\&#34;
+    data-filter-output=&#34;(out)&#34;&gt;&lt;code class=&#34;language-bash&#34;&gt;sudo yum -y install mysql-community-client&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
 &lt;p&gt;Note that additional software will be required for other integration components (e.g. Apache httpd/mod_jk).
 This is described in the &lt;a href=&#34;#web-service-integration&#34; title=&#34;Web Service Integration&#34;&gt;Web Service Integration&lt;/a&gt; section of this document.&lt;/p&gt;
 &lt;p&gt;Note also, that Standalone or Forwarding Stroom Proxy deployments do &lt;strong&gt;NOT&lt;/strong&gt; need a database client deployed.&lt;/p&gt;
@@ -1661,10 +2293,25 @@ random values for any generated session identifiers as well as other components.
 used to initialise &lt;em&gt;SecureRandom&lt;/em&gt; is short of entropy. The delay is caused by the Java runtime waiting on the blocking entropy source
 /dev/random to have sufficient entropy. This quite often occurs in virtual environments were there are few sources that can contribute to
 a system&amp;rsquo;s entropy.&lt;/p&gt;
-&lt;p&gt;To view the current available entropy on a Linux system, run the command&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;cat /proc/sys/kernel/random/entropy_avail
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;A reasonable value would be over 2000 and a poor value would be below a few hundred.&lt;/p&gt;
+&lt;p&gt;To view the current available entropy on a Linux system, run the command
+
+  
+
+
+
+
+
+
+&lt;div class=&#34;code-toolbar&#34;&gt;
+  &lt;pre 
+    class=&#34;command-line language-bash&#34; 
+    data-user=&#34;user&#34; 
+    data-host=&#34;localhost&#34; 
+    data-continuation-str=&#34;\&#34;
+    data-filter-output=&#34;(out)&#34;&gt;&lt;code class=&#34;language-bash&#34;&gt;cat /proc/sys/kernel/random/entropy_avail&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+A reasonable value would be over 2000 and a poor value would be below a few hundred.&lt;/p&gt;
 &lt;p&gt;If you are deploying Stroom onto systems with low available entropy, the start time for the Stroom Proxy can be as high as 5 minutes and for
 the Application as high as 15 minutes.&lt;/p&gt;
 &lt;p&gt;One software based solution would be to install the 
@@ -1685,11 +2332,26 @@ the Application as high as 15 minutes.&lt;/p&gt;
   &lt;/a&gt;
 &lt;/span&gt;
  service that attempts to provide an easy-to-use, unpredictable random number generator based upon an adaptation of the &amp;lsquo;HAVEGE&amp;rsquo; algorithm.
-To install execute&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;yum -y install haveged
+To install execute
+
+  
+
+
+
+
+
+
+&lt;div class=&#34;code-toolbar&#34;&gt;
+  &lt;pre 
+    class=&#34;command-line language-bash&#34; 
+    data-user=&#34;user&#34; 
+    data-host=&#34;localhost&#34; 
+    data-continuation-str=&#34;\&#34;
+    data-filter-output=&#34;(out)&#34;&gt;&lt;code class=&#34;language-bash&#34;&gt;yum -y install haveged
 systemctl enable haveged
-systemctl start haveged
-&lt;/code&gt;&lt;/pre&gt;
+systemctl start haveged&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/p&gt;
 &lt;p&gt;For background reading in this matter, see 
 
 
@@ -1743,26 +2405,71 @@ in a production deployment, a &lt;em&gt;lot&lt;/em&gt; more security controls sh
 &lt;li&gt;&lt;code&gt;/stroomdata/stroom-working-p01/proxy&lt;/code&gt;	- location for Stroom proxy to store inbound data files&lt;/li&gt;
 &lt;/ul&gt;
 &lt;h4 id=&#34;creation-of-storage-hierarchy&#34;&gt;Creation of Storage Hierarchy&lt;/h4&gt;
-&lt;p&gt;So, we first create processing user on all nodes as per&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;sudo useradd --system stroomuser
-&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;So, we first create processing user on all nodes as per
+
+  
+
+
+
+
+
+
+&lt;div class=&#34;code-toolbar&#34;&gt;
+  &lt;pre 
+    class=&#34;command-line language-bash&#34; 
+    data-user=&#34;user&#34; 
+    data-host=&#34;localhost&#34; 
+    data-continuation-str=&#34;\&#34;
+    data-filter-output=&#34;(out)&#34;&gt;&lt;code class=&#34;language-bash&#34;&gt;sudo useradd --system stroomuser&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/p&gt;
 &lt;p&gt;And the relevant commands to create the above hierarchy would be&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;Node: &lt;code&gt;stroomp00.strmdev00.org&lt;/code&gt;&lt;/li&gt;
 &lt;/ul&gt;
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;sudo mkdir -p /stroomdata/stroom-data-p00 /stroomdata/stroom-index-p00 /stroomdata/stroom-working-p00 /stroomdata/stroom-working-p00/proxy
-sudo mkdir -p /stroomdata/stroom-data-p01  # So that this node can mount stroomp01&#39;s data directory
+
+  
+
+
+
+
+
+
+&lt;div class=&#34;code-toolbar&#34;&gt;
+  &lt;pre 
+    class=&#34;command-line language-bash&#34; 
+    data-user=&#34;user&#34; 
+    data-host=&#34;localhost&#34; 
+    data-continuation-str=&#34;\&#34;
+    data-filter-output=&#34;(out)&#34;&gt;&lt;code class=&#34;language-bash&#34;&gt;sudo mkdir -p /stroomdata/stroom-data-p00 /stroomdata/stroom-index-p00 /stroomdata/stroom-working-p00 /stroomdata/stroom-working-p00/proxy
+sudo mkdir -p /stroomdata/stroom-data-p01  # So that this node can mount stroomp01&amp;#39;s data directory
 sudo chown -R stroomuser:stroomuser /stroomdata
-sudo chmod -R 750 /stroomdata
-&lt;/code&gt;&lt;/pre&gt;
+sudo chmod -R 750 /stroomdata&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
 &lt;ul&gt;
 &lt;li&gt;Node: &lt;code&gt;stroomp01.strmdev00.org&lt;/code&gt;&lt;/li&gt;
 &lt;/ul&gt;
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;sudo mkdir -p /stroomdata/stroom-data-p01 /stroomdata/stroom-index-p01 /stroomdata/stroom-working-p01 /stroomdata/stroom-working-p01/proxy
-sudo mkdir -p /stroomdata/stroom-data-p00  # So that this node can mount stroomp00&#39;s data directory
+
+  
+
+
+
+
+
+
+&lt;div class=&#34;code-toolbar&#34;&gt;
+  &lt;pre 
+    class=&#34;command-line language-bash&#34; 
+    data-user=&#34;user&#34; 
+    data-host=&#34;localhost&#34; 
+    data-continuation-str=&#34;\&#34;
+    data-filter-output=&#34;(out)&#34;&gt;&lt;code class=&#34;language-bash&#34;&gt;sudo mkdir -p /stroomdata/stroom-data-p01 /stroomdata/stroom-index-p01 /stroomdata/stroom-working-p01 /stroomdata/stroom-working-p01/proxy
+sudo mkdir -p /stroomdata/stroom-data-p00  # So that this node can mount stroomp00&amp;#39;s data directory
 sudo chown -R stroomuser:stroomuser /stroomdata
-sudo chmod -R 750 /stroomdata
-&lt;/code&gt;&lt;/pre&gt;
+sudo chmod -R 750 /stroomdata&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
 &lt;h4 id=&#34;deployment-of-nfs-to-share-stroom-storage&#34;&gt;Deployment of NFS to share Stroom Storage&lt;/h4&gt;
 &lt;p&gt;We will use NFS to cross mount the &lt;em&gt;permanent data&lt;/em&gt; directories. That is&lt;/p&gt;
 &lt;ul&gt;
@@ -1809,9 +2516,24 @@ to configure this can be found &lt;a href=&#34;../../docs/howtos/install/install
 &lt;p&gt;We will now check that the installation and web services integration has worked.&lt;/p&gt;
 &lt;h3 id=&#34;sanity-firewall-check&#34;&gt;Sanity firewall check&lt;/h3&gt;
 &lt;p&gt;To ensure you have the firewall correctly set up, the following command&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;sudo firewall-cmd --reload
-sudo firewall-cmd --zone=public --list-all
-&lt;/code&gt;&lt;/pre&gt;
+
+  
+
+
+
+
+
+
+&lt;div class=&#34;code-toolbar&#34;&gt;
+  &lt;pre 
+    class=&#34;command-line language-bash&#34; 
+    data-user=&#34;user&#34; 
+    data-host=&#34;localhost&#34; 
+    data-continuation-str=&#34;\&#34;
+    data-filter-output=&#34;(out)&#34;&gt;&lt;code class=&#34;language-bash&#34;&gt;sudo firewall-cmd --reload
+sudo firewall-cmd --zone=public --list-all&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
 &lt;p&gt;should result in&lt;/p&gt;
 &lt;pre&gt;&lt;code class=&#34;language-text&#34;&gt;public (active)
   target: default
@@ -1829,8 +2551,23 @@ sudo firewall-cmd --zone=public --list-all
 &lt;/code&gt;&lt;/pre&gt;
 &lt;h3 id=&#34;test-posting-of-data-to-the-stroom-service&#34;&gt;Test Posting of data to the Stroom service&lt;/h3&gt;
 &lt;p&gt;You can test the data posting service with the command&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;curl -k --data-binary @/etc/group &amp;quot;https://stroomp.strmdev00.org/stroom/datafeed&amp;quot; -H &amp;quot;Feed:TEST-FEED-V1_0&amp;quot; -H &amp;quot;System:EXAMPLE_SYSTEM&amp;quot; -H &amp;quot;Environment:EXAMPLE_ENVIRONMENT&amp;quot;
-&lt;/code&gt;&lt;/pre&gt;
+
+  
+
+
+
+
+
+
+&lt;div class=&#34;code-toolbar&#34;&gt;
+  &lt;pre 
+    class=&#34;command-line language-bash&#34; 
+    data-user=&#34;user&#34; 
+    data-host=&#34;localhost&#34; 
+    data-continuation-str=&#34;\&#34;
+    data-filter-output=&#34;(out)&#34;&gt;&lt;code class=&#34;language-bash&#34;&gt;curl -k --data-binary @/etc/group &amp;#34;https://stroomp.strmdev00.org/stroom/datafeed&amp;#34; -H &amp;#34;Feed:TEST-FEED-V1_0&amp;#34; -H &amp;#34;System:EXAMPLE_SYSTEM&amp;#34; -H &amp;#34;Environment:EXAMPLE_ENVIRONMENT&amp;#34;&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
 &lt;p&gt;which &lt;strong&gt;WILL&lt;/strong&gt; result in an error as we have not configured the Stroom Application as yet. The error should look like&lt;/p&gt;
 &lt;pre&gt;&lt;code class=&#34;language-html&#34;&gt;&amp;lt;html&amp;gt;&amp;lt;head&amp;gt;&amp;lt;title&amp;gt;Apache Tomcat/7.0.53 - Error report&amp;lt;/title&amp;gt;&amp;lt;style&amp;gt;&amp;lt;!--H1 {font-family:Tahoma,Arial,sans-serif;color:white;background-color:#525D76;font-size:22px;} H2 {font-family:Tahoma,Arial,sans-serif;color:white;background-color:#525D76;font-size:16px;} H3 {font-family:Tahoma,Arial,sans-serif;color:white;background-color:#525D76;font-size:14px;} BODY {font-family:Tahoma,Arial,sans-serif;color:black;background-color:white;} B {font-family:Tahoma,Arial,sans-serif;color:white;background-color:#525D76;} P {font-family:Tahoma,Arial,sans-serif;background:white;color:black;font-size:12px;}A {color : black;}A.name {color : black;}HR {color : #525D76;}--&amp;gt;&amp;lt;/style&amp;gt; &amp;lt;/head&amp;gt;&amp;lt;body&amp;gt;&amp;lt;h1&amp;gt;HTTP Status 406 - Stroom Status 110 - Feed is not set to receive data - &amp;lt;/h1&amp;gt;&amp;lt;HR size=&amp;quot;1&amp;quot; noshade=&amp;quot;noshade&amp;quot;&amp;gt;&amp;lt;p&amp;gt;&amp;lt;b&amp;gt;type&amp;lt;/b&amp;gt; Status report&amp;lt;/p&amp;gt;&amp;lt;p&amp;gt;&amp;lt;b&amp;gt;message&amp;lt;/b&amp;gt; &amp;lt;u&amp;gt;Stroom Status 110 - Feed is not set to receive data - &amp;lt;/u&amp;gt;&amp;lt;/p&amp;gt;&amp;lt;p&amp;gt;&amp;lt;b&amp;gt;description&amp;lt;/b&amp;gt; &amp;lt;u&amp;gt;The resource identified by this request is only capable of generating responses with characteristics not acceptable according to the request &amp;quot;accept&amp;quot; headers.&amp;lt;/u&amp;gt;&amp;lt;/p&amp;gt;&amp;lt;HR size=&amp;quot;1&amp;quot; noshade=&amp;quot;noshade&amp;quot;&amp;gt;&amp;lt;h3&amp;gt;Apache Tomcat/7.0.53&amp;lt;/h3&amp;gt;&amp;lt;/body&amp;gt;&amp;lt;/html&amp;gt;
 &lt;/code&gt;&lt;/pre&gt;
@@ -2040,16 +2777,46 @@ For our testing purposes &lt;code&gt;TEST-FEED-V1_0&lt;/code&gt; is sufficient.&
 &lt;h3 id=&#34;sending-test-data&#34;&gt;Sending Test Data&lt;/h3&gt;
 &lt;p&gt;Before testing our new feed, we should restart both our Stroom application services so that any volume changes are propagated.
 This can be achieved by simply running the following on both nodes.&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;sudo -i -u stroomuser
+
+  
+
+
+
+
+
+
+&lt;div class=&#34;code-toolbar&#34;&gt;
+  &lt;pre 
+    class=&#34;command-line language-bash&#34; 
+    data-user=&#34;user&#34; 
+    data-host=&#34;localhost&#34; 
+    data-continuation-str=&#34;\&#34;
+    data-filter-output=&#34;(out)&#34;&gt;&lt;code class=&#34;language-bash&#34;&gt;sudo -i -u stroomuser
 bin/StopServices.sh
-bin/StartServices.sh
-&lt;/code&gt;&lt;/pre&gt;
+bin/StartServices.sh&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
 &lt;p&gt;It is suggested you first log out of Stroom, if you are currently logged in and you should monitor the Stroom
 application logs to ensure it has successfully restarted. Remember to use the &lt;code&gt;T&lt;/code&gt; and &lt;code&gt;Tp&lt;/code&gt; bash aliases we set up.&lt;/p&gt;
 &lt;p&gt;For this test, we will send the contents of /etc/group to our test feed. We will also send the file from the cluster&amp;rsquo;s database
 machine. The command to send this file is&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;curl -k --data-binary @/etc/group &amp;quot;https://stroomp.strmdev00.org/stroom/datafeed&amp;quot; -H &amp;quot;Feed:TEST-FEED-V1_0&amp;quot; -H &amp;quot;System:EXAMPLE_SYSTEM&amp;quot; -H &amp;quot;Environment:EXAMPLE_ENVIRONMENT&amp;quot;
-&lt;/code&gt;&lt;/pre&gt;
+
+  
+
+
+
+
+
+
+&lt;div class=&#34;code-toolbar&#34;&gt;
+  &lt;pre 
+    class=&#34;command-line language-bash&#34; 
+    data-user=&#34;user&#34; 
+    data-host=&#34;localhost&#34; 
+    data-continuation-str=&#34;\&#34;
+    data-filter-output=&#34;(out)&#34;&gt;&lt;code class=&#34;language-bash&#34;&gt;curl -k --data-binary @/etc/group &amp;#34;https://stroomp.strmdev00.org/stroom/datafeed&amp;#34; -H &amp;#34;Feed:TEST-FEED-V1_0&amp;#34; -H &amp;#34;System:EXAMPLE_SYSTEM&amp;#34; -H &amp;#34;Environment:EXAMPLE_ENVIRONMENT&amp;#34;&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
 &lt;p&gt;We will test a number of features as part of our installation test. These are&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;simple post of data&lt;/li&gt;
@@ -2084,8 +2851,23 @@ Proxy.&lt;/p&gt;
 &lt;li&gt;&lt;code&gt;zip&lt;/code&gt;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;Most of the required software are packages available via standard repositories and hence we can simply execute&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;sudo yum -y install java-1.8.0-openjdk java-1.8.0-openjdk-devel policycoreutils-python unzip zip
-&lt;/code&gt;&lt;/pre&gt;
+
+  
+
+
+
+
+
+
+&lt;div class=&#34;code-toolbar&#34;&gt;
+  &lt;pre 
+    class=&#34;command-line language-bash&#34; 
+    data-user=&#34;user&#34; 
+    data-host=&#34;localhost&#34; 
+    data-continuation-str=&#34;\&#34;
+    data-filter-output=&#34;(out)&#34;&gt;&lt;code class=&#34;language-bash&#34;&gt;sudo yum -y install java-1.8.0-openjdk java-1.8.0-openjdk-devel policycoreutils-python unzip zip&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
 &lt;p&gt;Note that additional software will be required for other integration components (e.g. Apache httpd/mod_jk). This is
 described in the
 &lt;a href=&#34;#web-service-integration-for-forwarding-proxy&#34; title=&#34;Web Service Integration - Forwarding proxy&#34;&gt;Web Service Integration for Forwarding Proxy&lt;/a&gt;
@@ -2098,13 +2880,43 @@ section of this document.&lt;/p&gt;
 &lt;p&gt;You will note that these HOWTOs use a consistent storage nomenclature for simplicity of documentations.&lt;/p&gt;
 &lt;h3 id=&#34;creation-of-storage-for-forwarding-proxy&#34;&gt;Creation of Storage for Forwarding Proxy&lt;/h3&gt;
 &lt;p&gt;We create the processing user, as per&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;sudo useradd --system stroomuser
-&lt;/code&gt;&lt;/pre&gt;
+
+  
+
+
+
+
+
+
+&lt;div class=&#34;code-toolbar&#34;&gt;
+  &lt;pre 
+    class=&#34;command-line language-bash&#34; 
+    data-user=&#34;user&#34; 
+    data-host=&#34;localhost&#34; 
+    data-continuation-str=&#34;\&#34;
+    data-filter-output=&#34;(out)&#34;&gt;&lt;code class=&#34;language-bash&#34;&gt;sudo useradd --system stroomuser&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
 &lt;p&gt;Then create the storage hierarchy with the commands&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;sudo mkdir -p /stroomdata/stroom-working-fp0/proxy
+
+  
+
+
+
+
+
+
+&lt;div class=&#34;code-toolbar&#34;&gt;
+  &lt;pre 
+    class=&#34;command-line language-bash&#34; 
+    data-user=&#34;user&#34; 
+    data-host=&#34;localhost&#34; 
+    data-continuation-str=&#34;\&#34;
+    data-filter-output=&#34;(out)&#34;&gt;&lt;code class=&#34;language-bash&#34;&gt;sudo mkdir -p /stroomdata/stroom-working-fp0/proxy
 sudo chown -R stroomuser:stroomuser /stroomdata
-sudo chmod -R 750 /stroomdata
-&lt;/code&gt;&lt;/pre&gt;
+sudo chmod -R 750 /stroomdata&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
 &lt;h2 id=&#34;stroom-forwarding-proxy-installation&#34;&gt;Stroom Forwarding Proxy Installation&lt;/h2&gt;
 &lt;h3 id=&#34;pre-installation-setup-1&#34;&gt;Pre-installation setup&lt;/h3&gt;
 &lt;p&gt;Before installing the Stroom Forwarding Proxy, we need establish various files and scripts within
@@ -2152,9 +2964,24 @@ As stated earlier, it is assumed we have installed, configured and tested the de
 &lt;p&gt;For this test, we will send the contents of /etc/group to our test feed - &lt;code&gt;TEST-FEED-V1_0&lt;/code&gt;.
 It doesn&amp;rsquo;t matter from which host we send the file from.
 The command to send file is&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;curl -k --data-binary @/etc/group &amp;quot;https://stroomfp0.strmdev00.org/stroom/datafeed&amp;quot; -H &amp;quot;Feed:TEST-FEED-V1_0&amp;quot; -H &amp;quot;System:EXAMPLE_SYSTEM&amp;quot; -H &amp;quot;Environment:EXAMPLE_ENVIRONMENT&amp;quot;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;Before testing, it is recommended you set up to monitor the Stroom proxy logs on the central server as well as on the Forwarding Proxy server.&lt;/p&gt;
+&lt;p&gt;
+  
+
+
+
+
+
+
+&lt;div class=&#34;code-toolbar&#34;&gt;
+  &lt;pre 
+    class=&#34;command-line language-bash&#34; 
+    data-user=&#34;user&#34; 
+    data-host=&#34;localhost&#34; 
+    data-continuation-str=&#34;\&#34;
+    data-filter-output=&#34;(out)&#34;&gt;&lt;code class=&#34;language-bash&#34;&gt;curl -k --data-binary @/etc/group &amp;#34;https://stroomfp0.strmdev00.org/stroom/datafeed&amp;#34; -H &amp;#34;Feed:TEST-FEED-V1_0&amp;#34; -H &amp;#34;System:EXAMPLE_SYSTEM&amp;#34; -H &amp;#34;Environment:EXAMPLE_ENVIRONMENT&amp;#34;&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+Before testing, it is recommended you set up to monitor the Stroom proxy logs on the central server as well as on the Forwarding Proxy server.&lt;/p&gt;
 &lt;p&gt;Follow the steps in the &lt;a href=&#34;../../docs/howtos/install/installtestinghowto/#stroom-forwarding-proxy-testing&#34;&gt;Forwarding Proxy Data Posting Tests&lt;/a&gt; section
 of the &lt;a href=&#34;../../docs/howtos/install/installtestinghowto/&#34;&gt;Testing Stroom Installation HOWTO&lt;/a&gt;&lt;/p&gt;
 &lt;h2 id=&#34;standalone-stroom-proxy-deployment&#34;&gt;Standalone Stroom Proxy Deployment&lt;/h2&gt;
@@ -2173,8 +3000,23 @@ Proxy.&lt;/p&gt;
 &lt;li&gt;&lt;code&gt;zip&lt;/code&gt;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;Most of the required software are packages available via standard repositories and hence we can simply execute&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;sudo yum -y install java-1.8.0-openjdk java-1.8.0-openjdk-devel policycoreutils-python unzip zip
-&lt;/code&gt;&lt;/pre&gt;
+
+  
+
+
+
+
+
+
+&lt;div class=&#34;code-toolbar&#34;&gt;
+  &lt;pre 
+    class=&#34;command-line language-bash&#34; 
+    data-user=&#34;user&#34; 
+    data-host=&#34;localhost&#34; 
+    data-continuation-str=&#34;\&#34;
+    data-filter-output=&#34;(out)&#34;&gt;&lt;code class=&#34;language-bash&#34;&gt;sudo yum -y install java-1.8.0-openjdk java-1.8.0-openjdk-devel policycoreutils-python unzip zip&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
 &lt;p&gt;Note that additional software will be required for other integration components (e.g. Apache httpd/mod_jk). This is
 described in the
 &lt;a href=&#34;#web-service-integration-for-standalone-proxy&#34; title=&#34;Web Service Integration - Standalone proxy&#34;&gt;Web Service Integration for Standalone Proxy&lt;/a&gt;
@@ -2187,13 +3029,43 @@ section of this document.&lt;/p&gt;
 &lt;p&gt;You will note that these HOWTOs use a consistent storage nomenclature for simplicity of documentations.&lt;/p&gt;
 &lt;h3 id=&#34;creation-of-storage-for-standalone-proxy&#34;&gt;Creation of Storage for Standalone Proxy&lt;/h3&gt;
 &lt;p&gt;We create the processing user, as per&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;sudo useradd --system stroomuser
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;Then create the storage hierarchy with the commands&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;sudo mkdir -p /stroomdata/stroom-working-sap0/proxy
+
+  
+
+
+
+
+
+
+&lt;div class=&#34;code-toolbar&#34;&gt;
+  &lt;pre 
+    class=&#34;command-line language-bash&#34; 
+    data-user=&#34;user&#34; 
+    data-host=&#34;localhost&#34; 
+    data-continuation-str=&#34;\&#34;
+    data-filter-output=&#34;(out)&#34;&gt;&lt;code class=&#34;language-bash&#34;&gt;sudo useradd --system stroomuser&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;then create the storage hierarchy with the commands&lt;/p&gt;
+
+  
+
+
+
+
+
+
+&lt;div class=&#34;code-toolbar&#34;&gt;
+  &lt;pre 
+    class=&#34;command-line language-bash&#34; 
+    data-user=&#34;user&#34; 
+    data-host=&#34;localhost&#34; 
+    data-continuation-str=&#34;\&#34;
+    data-filter-output=&#34;(out)&#34;&gt;&lt;code class=&#34;language-bash&#34;&gt;sudo mkdir -p /stroomdata/stroom-working-sap0/proxy
 sudo chown -R stroomuser:stroomuser /stroomdata
-sudo chmod -R 750 /stroomdata
-&lt;/code&gt;&lt;/pre&gt;
+sudo chmod -R 750 /stroomdata&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
 &lt;h2 id=&#34;stroom-standalone-proxy-installation&#34;&gt;Stroom Standalone Proxy Installation&lt;/h2&gt;
 &lt;h3 id=&#34;pre-installation-setup-2&#34;&gt;Pre-installation setup&lt;/h3&gt;
 &lt;p&gt;Before installing the Stroom Standalone Proxy, we need establish various files and scripts within
@@ -2236,8 +3108,23 @@ configuration item is different to that of a Stroom Application processing node.
 &lt;h3 id=&#34;sending-test-data-2&#34;&gt;Sending Test Data&lt;/h3&gt;
 &lt;p&gt;For this test, we will send the contents of /etc/group to our test feed - &lt;code&gt;TEST-FEED-V1_0&lt;/code&gt;. It doesn&amp;rsquo;t matter from which host we send the file from.
 The command to send file is&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;curl -k --data-binary @/etc/group &amp;quot;https://stroomsap0.strmdev00.org/stroom/datafeed&amp;quot; -H &amp;quot;Feed:TEST-FEED-V1_0&amp;quot; -H &amp;quot;System:EXAMPLE_SYSTEM&amp;quot; -H &amp;quot;Environment:EXAMPLE_ENVIRONMENT&amp;quot;
-&lt;/code&gt;&lt;/pre&gt;
+
+  
+
+
+
+
+
+
+&lt;div class=&#34;code-toolbar&#34;&gt;
+  &lt;pre 
+    class=&#34;command-line language-bash&#34; 
+    data-user=&#34;user&#34; 
+    data-host=&#34;localhost&#34; 
+    data-continuation-str=&#34;\&#34;
+    data-filter-output=&#34;(out)&#34;&gt;&lt;code class=&#34;language-bash&#34;&gt;curl -k --data-binary @/etc/group &amp;#34;https://stroomsap0.strmdev00.org/stroom/datafeed&amp;#34; -H &amp;#34;Feed:TEST-FEED-V1_0&amp;#34; -H &amp;#34;System:EXAMPLE_SYSTEM&amp;#34; -H &amp;#34;Environment:EXAMPLE_ENVIRONMENT&amp;#34;&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
 &lt;p&gt;Before testing, it is recommended you set up to monitor the Standalone Proxy logs.&lt;/p&gt;
 &lt;p&gt;Follow the steps in the &lt;a href=&#34;../../docs/howtos/install/installtestinghowto/#stroom-standalone-proxy-testing&#34;&gt;Standalone Proxy Data Posting Tests&lt;/a&gt;
 section of the &lt;a href=&#34;../../docs/howtos/install/installtestinghowto/&#34;&gt;Testing Stroom Installation HOWTO&lt;/a&gt;&lt;/p&gt;
@@ -2248,12 +3135,42 @@ service to run &amp;lsquo;in-front&amp;rsquo; of our Stroom software, and then p
 node we will add is &lt;code&gt;stroomp02.strmdev00.org&lt;/code&gt;.&lt;/p&gt;
 &lt;h2 id=&#34;grant-access-to-the-database-for-this-node&#34;&gt;Grant access to the database for this node&lt;/h2&gt;
 &lt;p&gt;Connect to the Stroom database as the administrative (root) user, via the command&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;sudo mysql --user=root -p
-&lt;/code&gt;&lt;/pre&gt;
+
+  
+
+
+
+
+
+
+&lt;div class=&#34;code-toolbar&#34;&gt;
+  &lt;pre 
+    class=&#34;command-line language-bash&#34; 
+    data-user=&#34;user&#34; 
+    data-host=&#34;localhost&#34; 
+    data-continuation-str=&#34;\&#34;
+    data-filter-output=&#34;(out)&#34;&gt;&lt;code class=&#34;language-bash&#34;&gt;sudo mysql --user=root -p&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
 &lt;p&gt;and at the &lt;code&gt;MariaDB [(none)]&amp;gt;&lt;/code&gt; or &lt;code&gt;mysql&amp;gt; &lt;/code&gt; prompt enter&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;grant all privileges on stroom.* to stroomuser@stroomp02.strmdev00.org identified by &#39;Stroompassword1@&#39;;
-quit;
-&lt;/code&gt;&lt;/pre&gt;
+
+  
+
+
+
+
+
+
+&lt;div class=&#34;code-toolbar&#34;&gt;
+  &lt;pre 
+    class=&#34;command-line language-bash&#34; 
+    data-user=&#34;user&#34; 
+    data-host=&#34;localhost&#34; 
+    data-continuation-str=&#34;\&#34;
+    data-filter-output=&#34;(out)&#34;&gt;&lt;code class=&#34;language-bash&#34;&gt;grant all privileges on stroom.* to stroomuser@stroomp02.strmdev00.org identified by &amp;#39;Stroompassword1@&amp;#39;;
+quit;&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
 &lt;h2 id=&#34;prerequisite-software-installation-1&#34;&gt;Prerequisite Software Installation&lt;/h2&gt;
 &lt;p&gt;Certain software packages are required for either the Stroom Proxy or Stroom Application to run.&lt;/p&gt;
 &lt;p&gt;The core software list is&lt;/p&gt;
@@ -2266,9 +3183,24 @@ quit;
 &lt;li&gt;MariaDB or MySQL client&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;Most of the required software are packages available via standard repositories and hence we can simply execute&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;sudo yum -y install java-1.8.0-openjdk java-1.8.0-openjdk-devel policycoreutils-python unzip zip
-sudo yum -y install mariadb
-&lt;/code&gt;&lt;/pre&gt;
+
+  
+
+
+
+
+
+
+&lt;div class=&#34;code-toolbar&#34;&gt;
+  &lt;pre 
+    class=&#34;command-line language-bash&#34; 
+    data-user=&#34;user&#34; 
+    data-host=&#34;localhost&#34; 
+    data-continuation-str=&#34;\&#34;
+    data-filter-output=&#34;(out)&#34;&gt;&lt;code class=&#34;language-bash&#34;&gt;sudo yum -y install java-1.8.0-openjdk java-1.8.0-openjdk-devel policycoreutils-python unzip zip
+sudo yum -y install mariadb&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
 &lt;p&gt;In the above instance, the database client choice is MariaDB as it is directly supported by Centos 7. One could deploy the MySQL
 database software as the alternative. If you have chosen a different database for the already deployed Stroom Cluster then you
 should use that one. See &lt;a href=&#34;#mysqlclientinstall&#34;&gt;earlier&lt;/a&gt; in this document on how to install the MySQL Community client.&lt;/p&gt;
@@ -2287,34 +3219,76 @@ described in the &lt;a href=&#34;#web-service-integration&#34; title=&#34;Web Se
 &lt;/li&gt;
 &lt;/ul&gt;
 &lt;h4 id=&#34;creation-of-storage-hierarchy-1&#34;&gt;Creation of Storage Hierarchy&lt;/h4&gt;
-&lt;p&gt;So, we first create processing user on our new node as per&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;sudo useradd --system stroomuser
-&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;So, we first create processing user on our new node as per
+
+  
+
+
+
+
+
+
+&lt;div class=&#34;code-toolbar&#34;&gt;
+  &lt;pre 
+    class=&#34;command-line language-bash&#34; 
+    data-user=&#34;user&#34; 
+    data-host=&#34;localhost&#34; 
+    data-continuation-str=&#34;\&#34;
+    data-filter-output=&#34;(out)&#34;&gt;&lt;code class=&#34;language-bash&#34;&gt;sudo useradd --system stroomuser&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/p&gt;
 &lt;p&gt;Then create the storage via&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;sudo mkdir -p /stroomdata/stroom-data-p02 /stroomdata/stroom-index-p02 /stroomdata/stroom-working-p02 /stroomdata/stroom-working-p02/proxy
-sudo mkdir -p /stroomdata/stroom-data-p00  # So that this node can mount stroomp00&#39;s data directory
-sudo mkdir -p /stroomdata/stroom-data-p01  # So that this node can mount stroomp01&#39;s data directory
+
+  
+
+
+
+
+
+
+&lt;div class=&#34;code-toolbar&#34;&gt;
+  &lt;pre 
+    class=&#34;command-line language-bash&#34; 
+    data-user=&#34;user&#34; 
+    data-host=&#34;localhost&#34; 
+    data-continuation-str=&#34;\&#34;
+    data-filter-output=&#34;(out)&#34;&gt;&lt;code class=&#34;language-bash&#34;&gt;sudo mkdir -p /stroomdata/stroom-data-p02 /stroomdata/stroom-index-p02 /stroomdata/stroom-working-p02 /stroomdata/stroom-working-p02/proxy
+sudo mkdir -p /stroomdata/stroom-data-p00  # So that this node can mount stroomp00&amp;#39;s data directory
+sudo mkdir -p /stroomdata/stroom-data-p01  # So that this node can mount stroomp01&amp;#39;s data directory
 sudo chown -R stroomuser:stroomuser /stroomdata
-sudo chmod -R 750 /stroomdata
-&lt;/code&gt;&lt;/pre&gt;
+sudo chmod -R 750 /stroomdata&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
 &lt;p&gt;As we need to share this new nodes &lt;strong&gt;permanent data&lt;/strong&gt; directories to the existing nodes in the Cluster, we need to
 create mount point directories on our existing nodes in addition to deploying NFS.&lt;/p&gt;
 &lt;p&gt;So we execute on&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;Node: &lt;code&gt;stroomp00.strmdev00.org&lt;/code&gt;&lt;/li&gt;
 &lt;/ul&gt;
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;sudo mkdir -p /stroomdata/stroom-data-p02
+
+  
+
+
+
+
+
+
+&lt;div class=&#34;code-toolbar&#34;&gt;
+  &lt;pre 
+    class=&#34;command-line language-bash&#34; 
+    data-user=&#34;user&#34; 
+    data-host=&#34;localhost&#34; 
+    data-continuation-str=&#34;\&#34;
+    data-filter-output=&#34;(out)&#34;&gt;&lt;code class=&#34;language-bash&#34;&gt;sudo mkdir -p /stroomdata/stroom-data-p02
 sudo chmod 750 /stroomdata/stroom-data-p02
-sudo chown stroomuser:stroomuser /stroomdata/stroom-data-p02
-&lt;/code&gt;&lt;/pre&gt;
+sudo chown stroomuser:stroomuser /stroomdata/stroom-data-p02&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
 &lt;p&gt;And on&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;Node: &lt;code&gt;stroomp01.strmdev00.org&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;/li&gt;
 &lt;/ul&gt;
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;sudo mkdir -p /stroomdata/stroom-data-p02
-sudo chmod 750 /stroomdata/stroom-data-p02
-sudo chown stroomuser:stroomuser /stroomdata/stroom-data-p02
-&lt;/code&gt;&lt;/pre&gt;
 &lt;h4 id=&#34;deployment-of-nfs-to-share-stroom-storage-1&#34;&gt;Deployment of NFS to share Stroom Storage&lt;/h4&gt;
 &lt;p&gt;We will use NFS to cross mount the &lt;em&gt;permanent data&lt;/em&gt; directories. That is&lt;/p&gt;
 &lt;ul&gt;
@@ -2359,21 +3333,66 @@ In our scenario, we will use SSL to secure the web service and further, we will 
 &lt;p&gt;So, on &lt;code&gt;stroomp00.strmdev00.org&lt;/code&gt;, we replicate the directory &lt;code&gt;~/stroomuser/stroom-jks&lt;/code&gt; to our new node.
 That is, tar it up, copy the tar file to &lt;code&gt;stroomp02&lt;/code&gt; and &lt;code&gt;untar&lt;/code&gt; it.
 We can make use of the other node&amp;rsquo;s mounted file system.&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;sudo -i -u stroomuser
+
+  
+
+
+
+
+
+
+&lt;div class=&#34;code-toolbar&#34;&gt;
+  &lt;pre 
+    class=&#34;command-line language-bash&#34; 
+    data-user=&#34;user&#34; 
+    data-host=&#34;localhost&#34; 
+    data-continuation-str=&#34;\&#34;
+    data-filter-output=&#34;(out)&#34;&gt;&lt;code class=&#34;language-bash&#34;&gt;sudo -i -u stroomuser
 cd ~stroomuser
 tar cf stroom-jks.tar stroom-jks
-mv stroom-jks.tar /stroomdata/stroom-data-p02
-&lt;/code&gt;&lt;/pre&gt;
+mv stroom-jks.tar /stroomdata/stroom-data-p02&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
 &lt;p&gt;Then on our new node (&lt;code&gt;stroomp02.strmdev00.org&lt;/code&gt;) we extract the data.&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;sudo -i -u stroomuser
+
+  
+
+
+
+
+
+
+&lt;div class=&#34;code-toolbar&#34;&gt;
+  &lt;pre 
+    class=&#34;command-line language-bash&#34; 
+    data-user=&#34;user&#34; 
+    data-host=&#34;localhost&#34; 
+    data-continuation-str=&#34;\&#34;
+    data-filter-output=&#34;(out)&#34;&gt;&lt;code class=&#34;language-bash&#34;&gt;sudo -i -u stroomuser
 cd ~stroomuser
-tar xf /stroomdata/stroom-data-p02/stroom-jks.tar &amp;amp;&amp;amp; rm -f /stroomdata/stroom-data-p02/stroom-jks.tar
-&lt;/code&gt;&lt;/pre&gt;
+tar xf /stroomdata/stroom-data-p02/stroom-jks.tar &amp;amp;&amp;amp; rm -f /stroomdata/stroom-data-p02/stroom-jks.tar&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
 &lt;p&gt;Now ensure protection, ownership and SELinux context for these files by running&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;chmod 700 ~stroomuser/stroom-jks/private ~stroomuser/stroom-jks
+
+  
+
+
+
+
+
+
+&lt;div class=&#34;code-toolbar&#34;&gt;
+  &lt;pre 
+    class=&#34;command-line language-bash&#34; 
+    data-user=&#34;user&#34; 
+    data-host=&#34;localhost&#34; 
+    data-continuation-str=&#34;\&#34;
+    data-filter-output=&#34;(out)&#34;&gt;&lt;code class=&#34;language-bash&#34;&gt;chmod 700 ~stroomuser/stroom-jks/private ~stroomuser/stroom-jks
 chown -R stroomuser:stroomuser ~stroomuser/stroom-jks
-chcon -R --reference /etc/pki ~stroomuser/stroom-jks
-&lt;/code&gt;&lt;/pre&gt;
+chcon -R --reference /etc/pki ~stroomuser/stroom-jks&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
 &lt;p&gt;This HOWTO is designed to deploy Apache&amp;rsquo;s httpd web service as a front end (https) (to the user) and
 Apache&amp;rsquo;s mod_jk as the interface between Apache and the Stroom tomcat applications. The instructions
 to configure this can be found &lt;a href=&#34;../../docs/howtos/install/installhttpdhowto/&#34;&gt;here&lt;/a&gt;.
@@ -2405,9 +3424,24 @@ two nodes so that the new Mod_JK configuration has taken place.&lt;/p&gt;
 and &lt;a href=&#34;#testing-our-new-node-installation&#34; title=&#34;Integration Tests&#34;&gt;later&lt;/a&gt; perform complete integration tests.&lt;/p&gt;
 &lt;h3 id=&#34;sanity-firewall-check-1&#34;&gt;Sanity firewall check&lt;/h3&gt;
 &lt;p&gt;To ensure you have the firewall correctly set up, the following command&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;sudo firewall-cmd --reload
-sudo firewall-cmd --zone=public --list-all
-&lt;/code&gt;&lt;/pre&gt;
+
+  
+
+
+
+
+
+
+&lt;div class=&#34;code-toolbar&#34;&gt;
+  &lt;pre 
+    class=&#34;command-line language-bash&#34; 
+    data-user=&#34;user&#34; 
+    data-host=&#34;localhost&#34; 
+    data-continuation-str=&#34;\&#34;
+    data-filter-output=&#34;(out)&#34;&gt;&lt;code class=&#34;language-bash&#34;&gt;sudo firewall-cmd --reload
+sudo firewall-cmd --zone=public --list-all&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
 &lt;p&gt;Should result in&lt;/p&gt;
 &lt;pre&gt;&lt;code class=&#34;language-text&#34;&gt;public (active)
   target: default
@@ -2444,7 +3478,7 @@ set the Cluster URL.&lt;/p&gt;
 &lt;h3 id=&#34;data-stream-processing-1&#34;&gt;Data Stream Processing&lt;/h3&gt;
 &lt;p&gt;To enable Stroom to process data, it&amp;rsquo;s
 &lt;a href=&#34;../../docs/reference-section/jobs/#data-processor&#34;&gt;Data Processors&lt;/a&gt;
-need to be enabled. There are NOT enabled by default on installation. The following
+need to be enabled. They are NOT enabled by default on installation. The following
 &lt;a href=&#34;../../docs/howtos/general/taskshowto/#enable-stream-processors-on-new-node&#34;&gt;section&lt;/a&gt;
 in our &lt;a href=&#34;../../docs/howtos/general/taskshowto/&#34;&gt;Stroom Tasks HowTo&lt;/a&gt; shows how to do this.&lt;/p&gt;
 &lt;h2 id=&#34;testing-our-new-node-installation&#34;&gt;Testing our New Node Installation&lt;/h2&gt;
@@ -2492,104 +3526,261 @@ load balancing for the &lt;code&gt;stroomp.strmdev00.org&lt;/code&gt; cluster.&l
 &lt;/ul&gt;
 &lt;h2 id=&#34;confirm-prerequisite-software-installation&#34;&gt;Confirm Prerequisite Software Installation&lt;/h2&gt;
 &lt;p&gt;The following command will ensure the prerequisite software has been deployed&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;sudo yum -y install java-1.8.0-openjdk java-1.8.0-openjdk-devel policycoreutils-python unzip zip
-sudo yum -y install mariadb
-or
-sudo yum -y install mysql-community-client
-&lt;/code&gt;&lt;/pre&gt;
+
+  
+
+
+
+
+
+
+&lt;div class=&#34;code-toolbar&#34;&gt;
+  &lt;pre 
+    class=&#34;command-line language-bash&#34; 
+    data-user=&#34;user&#34; 
+    data-host=&#34;localhost&#34; 
+    data-continuation-str=&#34;\&#34;
+    data-filter-output=&#34;(out)&#34;&gt;&lt;code class=&#34;language-bash&#34;&gt;sudo yum -y install java-1.8.0-openjdk java-1.8.0-openjdk-devel policycoreutils-python unzip zip
+sudo yum -y install mariadb&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;or&lt;/p&gt;
+
+  
+
+
+
+
+
+
+&lt;div class=&#34;code-toolbar&#34;&gt;
+  &lt;pre 
+    class=&#34;command-line language-bash&#34; 
+    data-user=&#34;user&#34; 
+    data-host=&#34;localhost&#34; 
+    data-continuation-str=&#34;\&#34;
+    data-filter-output=&#34;(out)&#34;&gt;&lt;code class=&#34;language-bash&#34;&gt;sudo yum -y install mysql-community-client&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
 &lt;h2 id=&#34;test-database-connectivity&#34;&gt;Test Database connectivity&lt;/h2&gt;
 &lt;p&gt;We need to test access to the Stroom databases on &lt;code&gt;stroomdb0.strmdev00.org&lt;/code&gt;. We do this using the client &lt;code&gt;mysql&lt;/code&gt; utility. We note that we
 must enter the &lt;code&gt;stroomuser&lt;/code&gt; user&amp;rsquo;s password set up in the creation of the database earlier (&lt;code&gt;Stroompassword1@&lt;/code&gt;) when connecting to
 the &lt;code&gt;stroom&lt;/code&gt; database and we must enter the &lt;code&gt;stroomstats&lt;/code&gt; user&amp;rsquo;s password (&lt;code&gt;Stroompassword2@&lt;/code&gt;) when connecting to the &lt;code&gt;statistics&lt;/code&gt; database.&lt;/p&gt;
 &lt;p&gt;We first test we can connect to the &lt;code&gt;stroom&lt;/code&gt; database and then set the default database to be &lt;code&gt;stroom&lt;/code&gt;.&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;[burn@stroomp00 ~]$ mysql --user=stroomuser --host=stroomdb0.strmdev00.org --port=3307 --password
-Enter password: &amp;lt;__ Stroompassword1@ __&amp;gt;
-Welcome to the MariaDB monitor.  Commands end with ; or \g.
-Your MariaDB connection id is 2
-Server version: 5.5.52-MariaDB MariaDB Server
 
-Copyright (c) 2000, 2016, Oracle, MariaDB Corporation Ab and others.
+  
 
-Type &#39;help;&#39; or &#39;\h&#39; for help. Type &#39;\c&#39; to clear the current input statement.
 
-MariaDB [(none)]&amp;gt; use stroom;
-Database changed
-MariaDB [stroom]&amp;gt; exit
-Bye
-[burn@stroomp00 ~]$
-&lt;/code&gt;&lt;/pre&gt;
+
+
+
+
+&lt;div class=&#34;code-toolbar&#34;&gt;
+  &lt;pre 
+    class=&#34;command-line language-bash&#34; 
+    data-user=&#34;user&#34; 
+    data-host=&#34;localhost&#34; 
+    data-continuation-str=&#34;\&#34;
+    data-filter-output=&#34;(out)&#34;&gt;&lt;code class=&#34;language-bash&#34;&gt;mysql --user=stroomuser --host=stroomdb0.strmdev00.org --port=3307 --password&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;Enter password: &amp;lt;__ Stroompassword1@ __&amp;gt;&lt;/p&gt;
+
+
+&lt;div class=&#34;code-toolbar&#34;&gt;
+  &lt;pre 
+    class=&#34;command-line language-sql&#34; 
+    data-prompt=&#34;mysql&gt;&#34; 
+    data-filter-output=&#34;(out)&#34;
+    data-continuation-prompt=&#34;-&gt;&#34;
+    data-filter-continuation=&#34;(con)&#34;&gt;&lt;code class=&#34;language-sql&#34;&gt;(out) Welcome to the MariaDB monitor.  Commands end with ; or \g.
+(out) Your MariaDB connection id is 2
+(out) Server version: 5.5.52-MariaDB MariaDB Server
+
+(out) Copyright (c) 2000, 2016, Oracle, MariaDB Corporation Ab and others.
+
+(out) Type &amp;#39;help;&amp;#39; or &amp;#39;\h&amp;#39; for help. Type &amp;#39;\c&amp;#39; to clear the current input statement.
+
+use stroom;
+(out) Database changed
+exit
+(out) Bye&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
 &lt;p&gt;In the case of a MySQL Community deployment you will see&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;[burn@stroomp00 ~]$ mysql --user=stroomuser --host=stroomdb0.strmdev00.org --port=3307 --password
-Enter password: &amp;lt;__ Stroompassword1@ __&amp;gt;
-Welcome to the MySQL monitor.  Commands end with ; or \g.
-Your MySQL connection id is 9
-Server version: 5.7.18 MySQL Community Server (GPL)
 
-Copyright (c) 2000, 2017, Oracle and/or its affiliates. All rights reserved.
+  
 
-Oracle is a registered trademark of Oracle Corporation and/or its
-affiliates. Other names may be trademarks of their respective
-owners.
 
-Type &#39;help;&#39; or &#39;\h&#39; for help. Type &#39;\c&#39; to clear the current input statement.
 
-mysql&amp;gt; use stroom;
-Database changed
-mysql&amp;gt; quit
-Bye
-[burn@stroomp00 ~]$ 
-&lt;/code&gt;&lt;/pre&gt;
+
+
+
+&lt;div class=&#34;code-toolbar&#34;&gt;
+  &lt;pre 
+    class=&#34;command-line language-bash&#34; 
+    data-user=&#34;user&#34; 
+    data-host=&#34;localhost&#34; 
+    data-continuation-str=&#34;\&#34;
+    data-filter-output=&#34;(out)&#34;&gt;&lt;code class=&#34;language-bash&#34;&gt;mysql --user=stroomuser --host=stroomdb0.strmdev00.org --port=3307 --password&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;Enter password: &amp;lt;__ Stroompassword1@ __&amp;gt;&lt;/p&gt;
+
+
+&lt;div class=&#34;code-toolbar&#34;&gt;
+  &lt;pre 
+    class=&#34;command-line language-sql&#34; 
+    data-prompt=&#34;mysql&gt;&#34; 
+    data-filter-output=&#34;(out)&#34;
+    data-continuation-prompt=&#34;-&gt;&#34;
+    data-filter-continuation=&#34;(con)&#34;&gt;&lt;code class=&#34;language-sql&#34;&gt;(out) Welcome to the MySQL monitor.  Commands end with ; or \g.
+(out) Your MySQL connection id is 9
+(out) Server version: 5.7.18 MySQL Community Server (GPL)
+
+(out) Copyright (c) 2000, 2017, Oracle and/or its affiliates. All rights reserved.
+
+(out) Oracle is a registered trademark of Oracle Corporation and/or its
+(out) affiliates. Other names may be trademarks of their respective
+(out) owners.
+
+(out) Type &amp;#39;help;&amp;#39; or &amp;#39;\h&amp;#39; for help. Type &amp;#39;\c&amp;#39; to clear the current input statement.
+
+use stroom;
+(out) Database changed
+quit
+(out) Bye&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
 &lt;p&gt;We next test connecting to the &lt;code&gt;statistics&lt;/code&gt; database and verify we can set the default database to be &lt;code&gt;statistics&lt;/code&gt;.&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;[burn@stroomp00 ~]$ mysql --user=stroomstats --host=stroomdb0.strmdev00.org --port=3308 --password
-Enter password: &amp;lt;__ Stroompassword2@ __&amp;gt;
-Welcome to the MariaDB monitor.  Commands end with ; or \g.
-Your MariaDB connection id is 2
-Server version: 5.5.52-MariaDB MariaDB Server
 
-Copyright (c) 2000, 2016, Oracle, MariaDB Corporation Ab and others.
+  
 
-Type &#39;help;&#39; or &#39;\h&#39; for help. Type &#39;\c&#39; to clear the current input statement.
 
-MariaDB [(none)]&amp;gt; use statistics;
-Database changed
-MariaDB [stroom]&amp;gt; exit
-Bye
-[burn@stroomp00 ~]$
-&lt;/code&gt;&lt;/pre&gt;
+
+
+
+
+&lt;div class=&#34;code-toolbar&#34;&gt;
+  &lt;pre 
+    class=&#34;command-line language-bash&#34; 
+    data-user=&#34;user&#34; 
+    data-host=&#34;localhost&#34; 
+    data-continuation-str=&#34;\&#34;
+    data-filter-output=&#34;(out)&#34;&gt;&lt;code class=&#34;language-bash&#34;&gt;mysql --user=stroomstats --host=stroomdb0.strmdev00.org --port=3308 --password&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;Enter password: &amp;lt;__ Stroompassword2@ __&amp;gt;&lt;/p&gt;
+
+
+&lt;div class=&#34;code-toolbar&#34;&gt;
+  &lt;pre 
+    class=&#34;command-line language-sql&#34; 
+    data-prompt=&#34;mysql&gt;&#34; 
+    data-filter-output=&#34;(out)&#34;
+    data-continuation-prompt=&#34;-&gt;&#34;
+    data-filter-continuation=&#34;(con)&#34;&gt;&lt;code class=&#34;language-sql&#34;&gt;(out) Welcome to the MariaDB monitor.  Commands end with ; or \g.
+(out) Your MariaDB connection id is 2
+(out) Server version: 5.5.52-MariaDB MariaDB Server
+
+(out) Copyright (c) 2000, 2016, Oracle, MariaDB Corporation Ab and others.
+
+(out) Type &amp;#39;help;&amp;#39; or &amp;#39;\h&amp;#39; for help. Type &amp;#39;\c&amp;#39; to clear the current input statement.
+
+use statistics;
+(out) Database changed
+exit
+(out) Bye&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
 &lt;p&gt;In the case of a MySQL Community deployment you will see&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;[burn@stroomp00 ~]$ mysql --user=stroomstats --host=stroomdb0.strmdev00.org --port=3308 --password
-Enter password:  &amp;lt;__ Stroompassword2@ __&amp;gt;
-Welcome to the MySQL monitor.  Commands end with ; or \g.
-Your MySQL connection id is 9
-Server version: 5.7.18 MySQL Community Server (GPL)
 
-Copyright (c) 2000, 2017, Oracle and/or its affiliates. All rights reserved.
+  
 
-Oracle is a registered trademark of Oracle Corporation and/or its
-affiliates. Other names may be trademarks of their respective
-owners.
 
-Type &#39;help;&#39; or &#39;\h&#39; for help. Type &#39;\c&#39; to clear the current input statement.
 
-mysql&amp;gt; use statistics;
-Database changed
-mysql&amp;gt; quit
-Bye
-[burn@stroomp00 ~]$ 
-&lt;/code&gt;&lt;/pre&gt;
+
+
+
+&lt;div class=&#34;code-toolbar&#34;&gt;
+  &lt;pre 
+    class=&#34;command-line language-bash&#34; 
+    data-user=&#34;user&#34; 
+    data-host=&#34;localhost&#34; 
+    data-continuation-str=&#34;\&#34;
+    data-filter-output=&#34;(out)&#34;&gt;&lt;code class=&#34;language-bash&#34;&gt;mysql --user=stroomstats --host=stroomdb0.strmdev00.org --port=3308 --password&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;Enter password:  &amp;lt;__ Stroompassword2@ __&amp;gt;&lt;/p&gt;
+
+
+&lt;div class=&#34;code-toolbar&#34;&gt;
+  &lt;pre 
+    class=&#34;command-line language-sql&#34; 
+    data-prompt=&#34;mysql&gt;&#34; 
+    data-filter-output=&#34;(out)&#34;
+    data-continuation-prompt=&#34;-&gt;&#34;
+    data-filter-continuation=&#34;(con)&#34;&gt;&lt;code class=&#34;language-sql&#34;&gt;(out) Welcome to the MySQL monitor.  Commands end with ; or \g.
+(out) Your MySQL connection id is 9
+(out) Server version: 5.7.18 MySQL Community Server (GPL)
+
+(out) Copyright (c) 2000, 2017, Oracle and/or its affiliates. All rights reserved.
+
+(out) Oracle is a registered trademark of Oracle Corporation and/or its
+(out) affiliates. Other names may be trademarks of their respective
+(out) owners.
+
+(out) Type &amp;#39;help;&amp;#39; or &amp;#39;\h&amp;#39; for help. Type &amp;#39;\c&amp;#39; to clear the current input statement.
+
+use statistics;
+(out) Database changed
+quit
+(out) Bye&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
 &lt;p&gt;If there are any errors, correct them.&lt;/p&gt;
 &lt;h2 id=&#34;get-the-software&#34;&gt;Get the Software&lt;/h2&gt;
 &lt;p&gt;The following will gain the identified, in this case release &lt;code&gt;5.0-beta.18&lt;/code&gt;, Stroom Application software release from github, then deploy it. You should regularly monitor the site for newer releases.&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;sudo -i -u stroomuser
+
+  
+
+
+
+
+
+
+&lt;div class=&#34;code-toolbar&#34;&gt;
+  &lt;pre 
+    class=&#34;command-line language-bash&#34; 
+    data-user=&#34;user&#34; 
+    data-host=&#34;localhost&#34; 
+    data-continuation-str=&#34;\&#34;
+    data-filter-output=&#34;(out)&#34;&gt;&lt;code class=&#34;language-bash&#34;&gt;sudo -i -u stroomuser
 App=5.0-beta.18
 wget https://github.com/gchq/stroom/releases/download/v${App}/stroom-app-distribution-${App}-bin.zip
 unzip stroom-app-distribution-${App}-bin.zip
-chmod 750 stroom-app
-&lt;/code&gt;&lt;/pre&gt;
+chmod 750 stroom-app&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
 &lt;h2 id=&#34;configure-the-software&#34;&gt;Configure the Software&lt;/h2&gt;
 &lt;p&gt;We install the application via&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;stroom-app/bin/setup.sh
-&lt;/code&gt;&lt;/pre&gt;
+
+  
+
+
+
+
+
+
+&lt;div class=&#34;code-toolbar&#34;&gt;
+  &lt;pre 
+    class=&#34;command-line language-bash&#34; 
+    data-user=&#34;user&#34; 
+    data-host=&#34;localhost&#34; 
+    data-continuation-str=&#34;\&#34;
+    data-filter-output=&#34;(out)&#34;&gt;&lt;code class=&#34;language-bash&#34;&gt;stroom-app/bin/setup.sh&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
 &lt;p&gt;During which one is prompted for a number of configuration settings. Use the following&lt;/p&gt;
 &lt;pre&gt;&lt;code&gt;TEMP_DIR should be set to &#39;/stroomdata/stroom-working-p00&#39; or &#39;/stroomdata/stroom-working-p01&#39; etc depending on the node we are installing on
 NODE to be the hostname (not FQDN) of your host (i.e. &#39;stroomp00&#39; or &#39;stroomp01&#39; in our multi node scenario)
@@ -2617,10 +3808,25 @@ Note that if you are deploying a single node environment, where the database is 
 &lt;p&gt;Now we start the application. In the case of multi node Stroom deployment, we start the Stroom application on the first node in the cluster,
 then &lt;strong&gt;wait&lt;/strong&gt; until it has initialised the database commenced its Lifecycle task. You will need to monitor the log file to see its
 completed initialisation.&lt;/p&gt;
-&lt;p&gt;So as the &lt;code&gt;stroomuser&lt;/code&gt; start the application with the command&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;stroom-app/bin/start.sh
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;Now monitor &lt;code&gt;stroom-app/instance/logs&lt;/code&gt; for any errors. Initially you will see the log files &lt;code&gt;localhost_access_log.YYYY-MM-DD.txt&lt;/code&gt;
+&lt;p&gt;So as the &lt;code&gt;stroomuser&lt;/code&gt; start the application with the command
+
+  
+
+
+
+
+
+
+&lt;div class=&#34;code-toolbar&#34;&gt;
+  &lt;pre 
+    class=&#34;command-line language-bash&#34; 
+    data-user=&#34;user&#34; 
+    data-host=&#34;localhost&#34; 
+    data-continuation-str=&#34;\&#34;
+    data-filter-output=&#34;(out)&#34;&gt;&lt;code class=&#34;language-bash&#34;&gt;stroom-app/bin/start.sh&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+Now monitor &lt;code&gt;stroom-app/instance/logs&lt;/code&gt; for any errors. Initially you will see the log files &lt;code&gt;localhost_access_log.YYYY-MM-DD.txt&lt;/code&gt;
 and &lt;code&gt;catalina.out&lt;/code&gt;. Check them for errors and correct (or post a question). The log4j warnings in &lt;code&gt;catalina.out&lt;/code&gt; can be ignored.
 Eventually the log file &lt;code&gt;stroom-app/instance/logs/stroom.log&lt;/code&gt; will appear. Again check it for errors and then wait for the application to
 be initialised. That is, wait for the Lifecycle service thread to start. This is indicated by the message&lt;/p&gt;
@@ -2629,26 +3835,56 @@ be initialised. That is, wait for the Lifecycle service thread to start. This is
 &lt;p&gt;The directory &lt;code&gt;stroom-app/instance/logs/events&lt;/code&gt; will also appear with an empty file with
 the nomenclature &lt;code&gt;events_YYYY-MM-DDThh:mm:ss.msecZ&lt;/code&gt;. This is the directory for storing Stroom&amp;rsquo;s application event logs. We will return to this
 directory and its content in a later HOWTO.&lt;/p&gt;
-&lt;p&gt;If you have a multi node configuration, then once the database has initialised, start the application service on all other nodes. Again with&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;stroom-app/bin/start.sh
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;and then monitor the files in its &lt;code&gt;stroom-app/instance/logs&lt;/code&gt; for any errors. Note that in multi node configurations,
+&lt;p&gt;If you have a multi node configuration, then once the database has initialised, start the application service on all other nodes. Again with
+
+  
+
+
+
+
+
+
+&lt;div class=&#34;code-toolbar&#34;&gt;
+  &lt;pre 
+    class=&#34;command-line language-bash&#34; 
+    data-user=&#34;user&#34; 
+    data-host=&#34;localhost&#34; 
+    data-continuation-str=&#34;\&#34;
+    data-filter-output=&#34;(out)&#34;&gt;&lt;code class=&#34;language-bash&#34;&gt;stroom-app/bin/start.sh&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+and then monitor the files in its &lt;code&gt;stroom-app/instance/logs&lt;/code&gt; for any errors. Note that in multi node configurations,
 you will see server.UpdateClusterStateTaskHandler messages in the log file of the form&lt;/p&gt;
 &lt;pre&gt;&lt;code&gt;WARN  [Stroom P2 #9 - GenericServerTask] server.UpdateClusterStateTaskHandler (UpdateClusterStateTaskHandler.java:150) - discover() - unable to contact stroomp00 - No cluster call URL has been set for node: stroomp00
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;This is ok as we will establish the cluster URL&amp;rsquo;s later.&lt;/p&gt;
 &lt;h3 id=&#34;multi-node-firewall-provision&#34;&gt;Multi Node Firewall Provision&lt;/h3&gt;
 &lt;p&gt;In the case of a multi node Stroom deployment, you will need to open certain ports to allow Tomcat to communicate to all nodes participating
-in the cluster. Execute the following on all nodes. Note you will need to drop out of the &lt;code&gt;stroomuser&lt;/code&gt; shell prior to execution.&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;exit; # To drop out of the stroomuser shell
+in the cluster. Execute the following on all nodes. Note you will need to drop out of the &lt;code&gt;stroomuser&lt;/code&gt; shell prior to execution.
+
+  
+
+
+
+
+
+
+&lt;div class=&#34;code-toolbar&#34;&gt;
+  &lt;pre 
+    class=&#34;command-line language-bash&#34; 
+    data-user=&#34;user&#34; 
+    data-host=&#34;localhost&#34; 
+    data-continuation-str=&#34;\&#34;
+    data-filter-output=&#34;(out)&#34;&gt;&lt;code class=&#34;language-bash&#34;&gt;exit; # To drop out of the stroomuser shell
 
 sudo firewall-cmd --zone=public --add-port=8080/tcp --permanent
 sudo firewall-cmd --zone=public --add-port=9080/tcp --permanent
 sudo firewall-cmd --zone=public --add-port=8009/tcp --permanent
 sudo firewall-cmd --zone=public --add-port=9009/tcp --permanent
 sudo firewall-cmd --reload
-sudo firewall-cmd --zone=public --list-all
-&lt;/code&gt;&lt;/pre&gt;
+sudo firewall-cmd --zone=public --list-all&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/p&gt;
 &lt;p&gt;In a production environment you would improve the above firewall settings - to perhaps limit the communication to just the Stroom processing nodes.&lt;/p&gt;
 
       </description>
@@ -2667,7 +3903,7 @@ sudo firewall-cmd --zone=public --list-all
 &lt;div class=&#34;alert alert-warning&#34; role=&#34;alert&#34;&gt;
 &lt;h4 class=&#34;alert-heading&#34;&gt;TODO&lt;/h4&gt;
 
-    This section was written for Stroom-Proxy v5, so is is out of date.
+    This section was written for Stroom-Proxy v5, so is out of date.
 
 &lt;/div&gt;
 
@@ -2686,19 +3922,65 @@ sudo firewall-cmd --zone=public --list-all
 &lt;/ul&gt;
 &lt;h2 id=&#34;confirm-prerequisite-software-installation&#34;&gt;Confirm Prerequisite Software Installation&lt;/h2&gt;
 &lt;p&gt;The following command will ensure the prerequisite software has been deployed&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;sudo yum -y install java-1.8.0-openjdk java-1.8.0-openjdk-devel policycoreutils-python unzip zip
-sudo yum -y install mariadb
-or
-sudo yum -y install mysql-community-client
-&lt;/code&gt;&lt;/pre&gt;
+
+  
+
+
+
+
+
+
+&lt;div class=&#34;code-toolbar&#34;&gt;
+  &lt;pre 
+    class=&#34;command-line language-bash&#34; 
+    data-user=&#34;user&#34; 
+    data-host=&#34;localhost&#34; 
+    data-continuation-str=&#34;\&#34;
+    data-filter-output=&#34;(out)&#34;&gt;&lt;code class=&#34;language-bash&#34;&gt;sudo yum -y install java-1.8.0-openjdk java-1.8.0-openjdk-devel policycoreutils-python unzip zip
+sudo yum -y install mariadb&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;or&lt;/p&gt;
+
+  
+
+
+
+
+
+
+&lt;div class=&#34;code-toolbar&#34;&gt;
+  &lt;pre 
+    class=&#34;command-line language-bash&#34; 
+    data-user=&#34;user&#34; 
+    data-host=&#34;localhost&#34; 
+    data-continuation-str=&#34;\&#34;
+    data-filter-output=&#34;(out)&#34;&gt;&lt;code class=&#34;language-bash&#34;&gt;sudo yum -y install mysql-community-client&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
 &lt;p&gt;Note that we do &lt;strong&gt;NOT&lt;/strong&gt; need the database client software for a Forwarding or Standalone proxy.&lt;/p&gt;
 &lt;h2 id=&#34;get-the-software&#34;&gt;Get the Software&lt;/h2&gt;
 &lt;p&gt;The following will gain the identified, in this case release &lt;code&gt;5.1-beta.10&lt;/code&gt;, Stroom Application software release from github, then deploy it. You should regularly monitor the site for newer releases.&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;sudo -i -u stroomuser
+
+  
+
+
+
+
+
+
+&lt;div class=&#34;code-toolbar&#34;&gt;
+  &lt;pre 
+    class=&#34;command-line language-bash&#34; 
+    data-user=&#34;user&#34; 
+    data-host=&#34;localhost&#34; 
+    data-continuation-str=&#34;\&#34;
+    data-filter-output=&#34;(out)&#34;&gt;&lt;code class=&#34;language-bash&#34;&gt;sudo -i -u stroomuser
 Prx=v5.1-beta.10
 wget https://github.com/gchq/stroom-proxy/releases/download/${Prx}/stroom-proxy-distribution-${Prx}.zip
-unzip stroom-proxy-distribution-${Prx}.zip
-&lt;/code&gt;&lt;/pre&gt;
+unzip stroom-proxy-distribution-${Prx}.zip&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
 &lt;h2 id=&#34;configure-the-software&#34;&gt;Configure the Software&lt;/h2&gt;
 &lt;p&gt;There are three different types of Stroom Proxy&lt;/p&gt;
 &lt;ul&gt;
@@ -2716,9 +3998,24 @@ unzip stroom-proxy-distribution-${Prx}.zip
 &lt;h3 id=&#34;store-proxy-configuration&#34;&gt;Store Proxy Configuration&lt;/h3&gt;
 &lt;p&gt;In our &lt;em&gt;Store&lt;/em&gt; Proxy description below, we will use the multi node deployment scenario. That is we are deploying the &lt;em&gt;Store&lt;/em&gt; proxy on multiple Stroom nodes (&lt;code&gt;stroomp00&lt;/code&gt;, &lt;code&gt;stroomp01&lt;/code&gt;) and we have configured our storage as per the &lt;a href=&#34;../../docs/howtos/install/installhowto/#storage-scenario&#34;&gt;Storage Scenario&lt;/a&gt; which means the directories to install the inbound batches of data are &lt;code&gt;/stroomdata/stroom-working-p00/proxy&lt;/code&gt; and &lt;code&gt;/stroomdata/stroom-working-p01/proxy&lt;/code&gt; depending on the node.&lt;/p&gt;
 &lt;p&gt;To install a &lt;em&gt;Store&lt;/em&gt; proxy, we run&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;stroom-proxy/bin/setup.sh store
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;during which one is prompted for a number of configuration settings. Use the following&lt;/p&gt;
+&lt;p&gt;
+  
+
+
+
+
+
+
+&lt;div class=&#34;code-toolbar&#34;&gt;
+  &lt;pre 
+    class=&#34;command-line language-bash&#34; 
+    data-user=&#34;user&#34; 
+    data-host=&#34;localhost&#34; 
+    data-continuation-str=&#34;\&#34;
+    data-filter-output=&#34;(out)&#34;&gt;&lt;code class=&#34;language-bash&#34;&gt;stroom-proxy/bin/setup.sh store&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+during which one is prompted for a number of configuration settings. Use the following&lt;/p&gt;
 &lt;pre&gt;&lt;code&gt;NODE to be the hostname (not FQDN) of your host (i.e. &#39;stroomp00&#39; or &#39;stroomp01&#39; depending on the node we are installing on)
 PORT_PREFIX should use the default, just press return
 REPO_DIR should be set to &#39;/stroomdata/stroom-working-p00/proxy&#39; or &#39;/stroomdata/stroom-working-p01/proxy&#39; depending on the node we are installing on
@@ -2735,9 +4032,24 @@ If you make a mistake in the above, just re-run the script.&lt;/p&gt;
 &lt;h3 id=&#34;forwarding-proxy-configuration&#34;&gt;Forwarding Proxy Configuration&lt;/h3&gt;
 &lt;p&gt;In our &lt;em&gt;Forwarding&lt;/em&gt; Proxy description below, we will deploy on a host named &lt;code&gt;stroomfp0&lt;/code&gt; and it will store the files in &lt;code&gt;/stroomdata/stroom-working-fp0/proxy&lt;/code&gt;. Remember, we are being consistent with our Storage hierarchy to make documentation and scripting simpler. Our destination host to periodically forward the files to will be &lt;code&gt;stroomp.strmdev00.org&lt;/code&gt; (the CNAME for &lt;code&gt;stroomp00.strmdev00.org&lt;/code&gt;).&lt;/p&gt;
 &lt;p&gt;To install a &lt;em&gt;Forwarding&lt;/em&gt; proxy, we run&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;stroom-proxy/bin/setup.sh forward
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;during which one is prompted for a number of configuration settings. Use the following&lt;/p&gt;
+&lt;p&gt;
+  
+
+
+
+
+
+
+&lt;div class=&#34;code-toolbar&#34;&gt;
+  &lt;pre 
+    class=&#34;command-line language-bash&#34; 
+    data-user=&#34;user&#34; 
+    data-host=&#34;localhost&#34; 
+    data-continuation-str=&#34;\&#34;
+    data-filter-output=&#34;(out)&#34;&gt;&lt;code class=&#34;language-bash&#34;&gt;stroom-proxy/bin/setup.sh forward&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+during which one is prompted for a number of configuration settings. Use the following&lt;/p&gt;
 &lt;pre&gt;&lt;code&gt;NODE to be the hostname (not FQDN) of your host (i.e. &#39;stroomfp0&#39; in our example)
 PORT_PREFIX should use the default, just press return
 REPO_DIR should be set to &#39;/stroomdata/stroom-working-fp0/proxy&#39; which we created earlier.
@@ -2749,8 +4061,23 @@ JAVA_OPTS can use the defaults, but ensure you have sufficient memory, either ch
 &lt;h3 id=&#34;store-no-database-proxy-configuration&#34;&gt;Store No Database Proxy Configuration&lt;/h3&gt;
 &lt;p&gt;In our &lt;em&gt;Store_No_DB&lt;/em&gt; Proxy description below, we will deploy on a host named &lt;code&gt;stroomsap0&lt;/code&gt; and it will store the files in &lt;code&gt;/stroomdata/stroom-working-sap0/proxy&lt;/code&gt;. Remember, we are being consistent with our Storage hierarchy to make documentation and scripting simpler.&lt;/p&gt;
 &lt;p&gt;To install a &lt;em&gt;Store_No_DB&lt;/em&gt; proxy, we run&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;stroom-proxy/bin/setup.sh store_nodb
-&lt;/code&gt;&lt;/pre&gt;
+
+  
+
+
+
+
+
+
+&lt;div class=&#34;code-toolbar&#34;&gt;
+  &lt;pre 
+    class=&#34;command-line language-bash&#34; 
+    data-user=&#34;user&#34; 
+    data-host=&#34;localhost&#34; 
+    data-continuation-str=&#34;\&#34;
+    data-filter-output=&#34;(out)&#34;&gt;&lt;code class=&#34;language-bash&#34;&gt;stroom-proxy/bin/setup.sh store_nodb&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
 &lt;p&gt;During which one is prompted for a number of configuration settings. Use the following&lt;/p&gt;
 &lt;pre&gt;&lt;code&gt;NODE to be the hostname (not FQDN) of your host (i.e. &#39;stroomsap0&#39; in our example)
 PORT_PREFIX should use the default, just press return
@@ -2760,18 +4087,48 @@ JAVA_OPTS can use the defaults, but ensure you have sufficient memory, either ch
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;At this point, the script will configure the proxy. There should be no errors, but review the output.&lt;/p&gt;
 &lt;h2 id=&#34;apachemod_jk-change&#34;&gt;Apache/Mod_JK change&lt;/h2&gt;
-&lt;p&gt;For all proxy deployments, if we are using Apache&amp;rsquo;s mod_jk then we need to ensure the proxy&amp;rsquo;s AJP connector specifies a 64K &lt;code&gt;packetSize&lt;/code&gt;. View the file &lt;code&gt;stroom-proxy/instance/conf/server.xml&lt;/code&gt; to ensure the Connector element for the AJP protocol has a &lt;code&gt;packetSize&lt;/code&gt; attribute of &lt;code&gt;65536&lt;/code&gt;. For example,&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;grep AJP stroom-proxy/instance/conf/server.xml
-&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;For all proxy deployments, if we are using Apache&amp;rsquo;s mod_jk then we need to ensure the proxy&amp;rsquo;s AJP connector specifies a 64K packetSize. View the file &lt;code&gt;stroom-proxy/instance/conf/server.xml&lt;/code&gt; to ensure the Connector element for the AJP protocol has a packetSize attribute of &lt;code&gt;65536&lt;/code&gt;. For example,&lt;/p&gt;
+
+  
+
+
+
+
+
+
+&lt;div class=&#34;code-toolbar&#34;&gt;
+  &lt;pre 
+    class=&#34;command-line language-bash&#34; 
+    data-user=&#34;user&#34; 
+    data-host=&#34;localhost&#34; 
+    data-continuation-str=&#34;\&#34;
+    data-filter-output=&#34;(out)&#34;&gt;&lt;code class=&#34;language-bash&#34;&gt;grep AJP stroom-proxy/instance/conf/server.xml&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
 &lt;p&gt;shows&lt;/p&gt;
 &lt;pre&gt;&lt;code&gt;&amp;lt;Connector port=&amp;quot;9009&amp;quot; protocol=&amp;quot;AJP/1.3&amp;quot; connectionTimeout=&amp;quot;20000&amp;quot; redirectPort=&amp;quot;8443&amp;quot; maxThreads=&amp;quot;200&amp;quot; packetSize=&amp;quot;65536&amp;quot; /&amp;gt;
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;This check is required for earlier releases of the Stroom Proxy. Releases since &lt;code&gt;v5.1-beta.4&lt;/code&gt; have set the AJP &lt;code&gt;packetSize&lt;/code&gt;.&lt;/p&gt;
 &lt;h2 id=&#34;start-the-proxy-service&#34;&gt;Start the Proxy Service&lt;/h2&gt;
-&lt;p&gt;We can now manually start our proxy service. Do so as the &lt;code&gt;stroomuser&lt;/code&gt; with the command&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;stroom-proxy/bin/start.sh
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;Now monitor the directory &lt;code&gt;stroom-proxy/instance/logs&lt;/code&gt; for any errors. Initially you will see the log files &lt;code&gt;localhost_access_log.YYYY-MM-DD.txt&lt;/code&gt; and &lt;code&gt;catalina.out&lt;/code&gt;. Check them for errors and correct (or pose a question to this arena).
+&lt;p&gt;We can now manually start our proxy service. Do so as the &lt;code&gt;stroomuser&lt;/code&gt; with the command
+
+  
+
+
+
+
+
+
+&lt;div class=&#34;code-toolbar&#34;&gt;
+  &lt;pre 
+    class=&#34;command-line language-bash&#34; 
+    data-user=&#34;user&#34; 
+    data-host=&#34;localhost&#34; 
+    data-continuation-str=&#34;\&#34;
+    data-filter-output=&#34;(out)&#34;&gt;&lt;code class=&#34;language-bash&#34;&gt;stroom-proxy/bin/start.sh&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+Now monitor the directory &lt;code&gt;stroom-proxy/instance/logs&lt;/code&gt; for any errors. Initially you will see the log files &lt;code&gt;localhost_access_log.YYYY-MM-DD.txt&lt;/code&gt; and &lt;code&gt;catalina.out&lt;/code&gt;. Check them for errors and correct (or pose a question to this arena).
 The context path and unknown version warnings in &lt;code&gt;catalina.out&lt;/code&gt; can be ignored.&lt;/p&gt;
 &lt;p&gt;Eventually (about 60 seconds) the log file &lt;code&gt;stroom-proxy/instance/logs/stroom.log&lt;/code&gt; will appear. Again check it for errors.
 The proxy will have completely started when you see the messages&lt;/p&gt;
@@ -2870,63 +4227,119 @@ The default template is &lt;code&gt;${pathId}/${id}&lt;/code&gt; and this patter
 &lt;h3 id=&#34;proxy-repository-template-examples&#34;&gt;Proxy Repository Template Examples&lt;/h3&gt;
 &lt;p&gt;For each of the following templates applied to a Store NoDB Proxy, the resultant proxy directory tree is shown after three posts were sent to the test feed &lt;code&gt;TEST-FEED-V1_0&lt;/code&gt; and two posts to the test feed &lt;code&gt;FEED-NOVALUE-V9_0&lt;/code&gt;&lt;/p&gt;
 &lt;h4 id=&#34;example-a---the-default---pathidid&#34;&gt;Example A - The default - &lt;code&gt;${pathId}/${id}&lt;/code&gt;&lt;/h4&gt;
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;[stroomuser@stroomsap0 ~]$ find /stroomdata/stroom-working-sap0/proxy/
-/stroomdata/stroom-working-sap0/proxy/
-/stroomdata/stroom-working-sap0/proxy/001.zip
-/stroomdata/stroom-working-sap0/proxy/002.zip
-/stroomdata/stroom-working-sap0/proxy/003.zip
-/stroomdata/stroom-working-sap0/proxy/004.zip
-/stroomdata/stroom-working-sap0/proxy/005.zip
-[stroomuser@stroomsap0 ~]$ 
-&lt;/code&gt;&lt;/pre&gt;
+
+  
+
+
+
+
+
+
+&lt;div class=&#34;code-toolbar&#34;&gt;
+  &lt;pre 
+    class=&#34;command-line language-bash&#34; 
+    data-user=&#34;stroomuser&#34; 
+    data-host=&#34;stroomsap0&#34; 
+    data-continuation-str=&#34;\&#34;
+    data-filter-output=&#34;(out)&#34;&gt;&lt;code class=&#34;language-bash&#34;&gt;find /stroomdata/stroom-working-sap0/proxy/
+(out)/stroomdata/stroom-working-sap0/proxy/
+(out)/stroomdata/stroom-working-sap0/proxy/001.zip
+(out)/stroomdata/stroom-working-sap0/proxy/002.zip
+(out)/stroomdata/stroom-working-sap0/proxy/003.zip
+(out)/stroomdata/stroom-working-sap0/proxy/004.zip
+(out)/stroomdata/stroom-working-sap0/proxy/005.zip&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
 &lt;h4 id=&#34;example-b---a-feed-orientated-structure---feedyearmonthdaypathidid&#34;&gt;Example B - A feed orientated structure - &lt;code&gt;${feed}/${year}/${month}/${day}/${pathId}/${id}&lt;/code&gt;&lt;/h4&gt;
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;[stroomuser@stroomsap0 ~]$ find /stroomdata/stroom-working-sap0/proxy/
-/stroomdata/stroom-working-sap0/proxy/
-/stroomdata/stroom-working-sap0/proxy/TEST-FEED-V1_0
-/stroomdata/stroom-working-sap0/proxy/TEST-FEED-V1_0/2017
-/stroomdata/stroom-working-sap0/proxy/TEST-FEED-V1_0/2017/07
-/stroomdata/stroom-working-sap0/proxy/TEST-FEED-V1_0/2017/07/23
-/stroomdata/stroom-working-sap0/proxy/TEST-FEED-V1_0/2017/07/23/001.zip
-/stroomdata/stroom-working-sap0/proxy/TEST-FEED-V1_0/2017/07/23/002.zip
-/stroomdata/stroom-working-sap0/proxy/TEST-FEED-V1_0/2017/07/23/003.zip
-/stroomdata/stroom-working-sap0/proxy/FEED-NOVALUE-V9_0
-/stroomdata/stroom-working-sap0/proxy/FEED-NOVALUE-V9_0/2017
-/stroomdata/stroom-working-sap0/proxy/FEED-NOVALUE-V9_0/2017/07
-/stroomdata/stroom-working-sap0/proxy/FEED-NOVALUE-V9_0/2017/07/23
-/stroomdata/stroom-working-sap0/proxy/FEED-NOVALUE-V9_0/2017/07/23/004.zip
-/stroomdata/stroom-working-sap0/proxy/FEED-NOVALUE-V9_0/2017/07/23/005.zip
-[stroomuser@stroomsap0 ~]$ 
-&lt;/code&gt;&lt;/pre&gt;
+
+  
+
+
+
+
+
+
+&lt;div class=&#34;code-toolbar&#34;&gt;
+  &lt;pre 
+    class=&#34;command-line language-bash&#34; 
+    data-user=&#34;stroomuser&#34; 
+    data-host=&#34;stroomsap0&#34; 
+    data-continuation-str=&#34;\&#34;
+    data-filter-output=&#34;(out)&#34;&gt;&lt;code class=&#34;language-bash&#34;&gt;find /stroomdata/stroom-working-sap0/proxy/
+(out)/stroomdata/stroom-working-sap0/proxy/
+(out)/stroomdata/stroom-working-sap0/proxy/TEST-FEED-V1_0
+(out)/stroomdata/stroom-working-sap0/proxy/TEST-FEED-V1_0/2017
+(out)/stroomdata/stroom-working-sap0/proxy/TEST-FEED-V1_0/2017/07
+(out)/stroomdata/stroom-working-sap0/proxy/TEST-FEED-V1_0/2017/07/23
+(out)/stroomdata/stroom-working-sap0/proxy/TEST-FEED-V1_0/2017/07/23/001.zip
+(out)/stroomdata/stroom-working-sap0/proxy/TEST-FEED-V1_0/2017/07/23/002.zip
+(out)/stroomdata/stroom-working-sap0/proxy/TEST-FEED-V1_0/2017/07/23/003.zip
+(out)/stroomdata/stroom-working-sap0/proxy/FEED-NOVALUE-V9_0
+(out)/stroomdata/stroom-working-sap0/proxy/FEED-NOVALUE-V9_0/2017
+(out)/stroomdata/stroom-working-sap0/proxy/FEED-NOVALUE-V9_0/2017/07
+(out)/stroomdata/stroom-working-sap0/proxy/FEED-NOVALUE-V9_0/2017/07/23
+(out)/stroomdata/stroom-working-sap0/proxy/FEED-NOVALUE-V9_0/2017/07/23/004.zip
+(out)/stroomdata/stroom-working-sap0/proxy/FEED-NOVALUE-V9_0/2017/07/23/005.zip&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
 &lt;h4 id=&#34;example-c---a-date-orientated-structure---yearmonthdaypathidid&#34;&gt;Example C - A date orientated structure - &lt;code&gt;${year}/${month}/${day}/${pathId}/${id}&lt;/code&gt;&lt;/h4&gt;
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;[stroomuser@stroomsap0 ~]$ find /stroomdata/stroom-working-sap0/proxy/
-/stroomdata/stroom-working-sap0/proxy/
-/stroomdata/stroom-working-sap0/proxy/2017
-/stroomdata/stroom-working-sap0/proxy/2017/07
-/stroomdata/stroom-working-sap0/proxy/2017/07/23
-/stroomdata/stroom-working-sap0/proxy/2017/07/23/001.zip
-/stroomdata/stroom-working-sap0/proxy/2017/07/23/002.zip
-/stroomdata/stroom-working-sap0/proxy/2017/07/23/003.zip
-/stroomdata/stroom-working-sap0/proxy/2017/07/23/004.zip
-/stroomdata/stroom-working-sap0/proxy/2017/07/23/005.zip
-[stroomuser@stroomsap0 ~]$ 
-&lt;/code&gt;&lt;/pre&gt;
+
+  
+
+
+
+
+
+
+&lt;div class=&#34;code-toolbar&#34;&gt;
+  &lt;pre 
+    class=&#34;command-line language-bash&#34; 
+    data-user=&#34;stroomuser&#34; 
+    data-host=&#34;stroomsap0&#34; 
+    data-continuation-str=&#34;\&#34;
+    data-filter-output=&#34;(out)&#34;&gt;&lt;code class=&#34;language-bash&#34;&gt;find /stroomdata/stroom-working-sap0/proxy/
+(out)/stroomdata/stroom-working-sap0/proxy/
+(out)/stroomdata/stroom-working-sap0/proxy/2017
+(out)/stroomdata/stroom-working-sap0/proxy/2017/07
+(out)/stroomdata/stroom-working-sap0/proxy/2017/07/23
+(out)/stroomdata/stroom-working-sap0/proxy/2017/07/23/001.zip
+(out)/stroomdata/stroom-working-sap0/proxy/2017/07/23/002.zip
+(out)/stroomdata/stroom-working-sap0/proxy/2017/07/23/003.zip
+(out)/stroomdata/stroom-working-sap0/proxy/2017/07/23/004.zip
+(out)/stroomdata/stroom-working-sap0/proxy/2017/07/23/005.zip&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
 &lt;h4 id=&#34;example-d---a-feed-orientated-structure-but-with-a-bad-parameter---feedbadparamdaypathidid&#34;&gt;Example D - A feed orientated structure, but with a bad parameter - &lt;code&gt;${feed}/${badparam}/${day}/${pathId}/${id}&lt;/code&gt;&lt;/h4&gt;
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;[stroomuser@stroomsap0 ~]$ find /stroomdata/stroom-working-sap0/proxy/
-/stroomdata/stroom-working-sap0/proxy/
-/stroomdata/stroom-working-sap0/proxy/TEST-FEED-V1_0
-/stroomdata/stroom-working-sap0/proxy/TEST-FEED-V1_0/_
-/stroomdata/stroom-working-sap0/proxy/TEST-FEED-V1_0/_/23
-/stroomdata/stroom-working-sap0/proxy/TEST-FEED-V1_0/_/23/001.zip
-/stroomdata/stroom-working-sap0/proxy/TEST-FEED-V1_0/_/23/002.zip
-/stroomdata/stroom-working-sap0/proxy/TEST-FEED-V1_0/_/23/003.zip
-/stroomdata/stroom-working-sap0/proxy/FEED-NOVALUE-V9_0
-/stroomdata/stroom-working-sap0/proxy/FEED-NOVALUE-V9_0/_
-/stroomdata/stroom-working-sap0/proxy/FEED-NOVALUE-V9_0/_/23
-/stroomdata/stroom-working-sap0/proxy/FEED-NOVALUE-V9_0/_/23/004.zip
-/stroomdata/stroom-working-sap0/proxy/FEED-NOVALUE-V9_0/_/23/005.zip
-[stroomuser@stroomsap0 ~]$ 
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;And one would also see a warning for each post in the proxy&amp;rsquo;s log file of the form&lt;/p&gt;
+&lt;p&gt;
+  
+
+
+
+
+
+
+&lt;div class=&#34;code-toolbar&#34;&gt;
+  &lt;pre 
+    class=&#34;command-line language-bash&#34; 
+    data-user=&#34;stroomuser&#34; 
+    data-host=&#34;stroomsap0&#34; 
+    data-continuation-str=&#34;\&#34;
+    data-filter-output=&#34;(out)&#34;&gt;&lt;code class=&#34;language-bash&#34;&gt;find /stroomdata/stroom-working-sap0/proxy/
+(out)/stroomdata/stroom-working-sap0/proxy/
+(out)/stroomdata/stroom-working-sap0/proxy/TEST-FEED-V1_0
+(out)/stroomdata/stroom-working-sap0/proxy/TEST-FEED-V1_0/_
+(out)/stroomdata/stroom-working-sap0/proxy/TEST-FEED-V1_0/_/23
+(out)/stroomdata/stroom-working-sap0/proxy/TEST-FEED-V1_0/_/23/001.zip
+(out)/stroomdata/stroom-working-sap0/proxy/TEST-FEED-V1_0/_/23/002.zip
+(out)/stroomdata/stroom-working-sap0/proxy/TEST-FEED-V1_0/_/23/003.zip
+(out)/stroomdata/stroom-working-sap0/proxy/FEED-NOVALUE-V9_0
+(out)/stroomdata/stroom-working-sap0/proxy/FEED-NOVALUE-V9_0/_
+(out)/stroomdata/stroom-working-sap0/proxy/FEED-NOVALUE-V9_0/_/23
+(out)/stroomdata/stroom-working-sap0/proxy/FEED-NOVALUE-V9_0/_/23/004.zip
+(out)/stroomdata/stroom-working-sap0/proxy/FEED-NOVALUE-V9_0/_/23/005.zip&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+and one would also see a warning for each post in the proxy&amp;rsquo;s log file of the form&lt;/p&gt;
 &lt;pre&gt;&lt;code&gt;WARN  [ajp-apr-9009-exec-4] repo.StroomFileNameUtil (StroomFileNameUtil.java:133) - Unused variables found: [badparam]
 &lt;/code&gt;&lt;/pre&gt;
 
@@ -2951,10 +4364,25 @@ The default template is &lt;code&gt;${pathId}/${id}&lt;/code&gt; and this patter
 &lt;li&gt;the configuration of this NFS is NOT secure. It is highly recommended to improve its security in a production environment. This could include improved firewall configuration to limit NFS access, NFS4 with Kerberos etc.&lt;/li&gt;
 &lt;/ul&gt;
 &lt;h2 id=&#34;installation-of-nfs-software&#34;&gt;Installation of NFS software&lt;/h2&gt;
-&lt;p&gt;We install NFS on each node, via&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;sudo yum -y install nfs-utils
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;and enable the relevant services, via&lt;/p&gt;
+&lt;p&gt;We install NFS on each node, via
+
+  
+
+
+
+
+
+
+&lt;div class=&#34;code-toolbar&#34;&gt;
+  &lt;pre 
+    class=&#34;command-line language-bash&#34; 
+    data-user=&#34;user&#34; 
+    data-host=&#34;localhost&#34; 
+    data-continuation-str=&#34;\&#34;
+    data-filter-output=&#34;(out)&#34;&gt;&lt;code class=&#34;language-bash&#34;&gt;sudo yum -y install nfs-utils&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+and enable the relevant services, via&lt;/p&gt;
 &lt;pre&gt;&lt;code class=&#34;language-base&#34;&gt;sudo systemctl enable rpcbind
 sudo systemctl enable nfs-server
 sudo systemctl enable nfs-lock
@@ -2971,30 +4399,105 @@ This means the same configuration applies to all nodes.&lt;/p&gt;
 /stroomdata	stroomp*.strmdev00.org(rw,sync,no_root_squash)
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;This can be achieved with the following on both nodes&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;sudo su -c &amp;quot;printf &#39;# Share Stroom data directory\n&#39; &amp;gt;&amp;gt; /etc/exports&amp;quot;
-sudo su -c &amp;quot;printf &#39;/stroomdata\tstroomp*.strmdev00.org(rw,sync,no_root_squash)\n&#39; &amp;gt;&amp;gt; /etc/exports&amp;quot;
-&lt;/code&gt;&lt;/pre&gt;
+
+  
+
+
+
+
+
+
+&lt;div class=&#34;code-toolbar&#34;&gt;
+  &lt;pre 
+    class=&#34;command-line language-bash&#34; 
+    data-user=&#34;user&#34; 
+    data-host=&#34;localhost&#34; 
+    data-continuation-str=&#34;\&#34;
+    data-filter-output=&#34;(out)&#34;&gt;&lt;code class=&#34;language-bash&#34;&gt;sudo su -c &amp;#34;printf &amp;#39;# Share Stroom data directory\n&amp;#39; &amp;gt;&amp;gt; /etc/exports&amp;#34;
+sudo su -c &amp;#34;printf &amp;#39;/stroomdata\tstroomp*.strmdev00.org(rw,sync,no_root_squash)\n&amp;#39; &amp;gt;&amp;gt; /etc/exports&amp;#34;&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
 &lt;p&gt;On both nodes restart the NFS service to ensure the above export takes effect via&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;sudo systemctl restart nfs-server
-&lt;/code&gt;&lt;/pre&gt;
+
+  
+
+
+
+
+
+
+&lt;div class=&#34;code-toolbar&#34;&gt;
+  &lt;pre 
+    class=&#34;command-line language-bash&#34; 
+    data-user=&#34;user&#34; 
+    data-host=&#34;localhost&#34; 
+    data-continuation-str=&#34;\&#34;
+    data-filter-output=&#34;(out)&#34;&gt;&lt;code class=&#34;language-bash&#34;&gt;sudo systemctl restart nfs-server&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
 &lt;p&gt;So that our nodes can offer their filesystems, we need to enable NFS access on the firewall.
 This is done via&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;sudo firewall-cmd --zone=public --add-service=nfs --permanent
+
+  
+
+
+
+
+
+
+&lt;div class=&#34;code-toolbar&#34;&gt;
+  &lt;pre 
+    class=&#34;command-line language-bash&#34; 
+    data-user=&#34;user&#34; 
+    data-host=&#34;localhost&#34; 
+    data-continuation-str=&#34;\&#34;
+    data-filter-output=&#34;(out)&#34;&gt;&lt;code class=&#34;language-bash&#34;&gt;sudo firewall-cmd --zone=public --add-service=nfs --permanent
 sudo firewall-cmd --reload
-sudo firewall-cmd --zone=public --list-all
-&lt;/code&gt;&lt;/pre&gt;
+sudo firewall-cmd --zone=public --list-all&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
 &lt;h2 id=&#34;test-mounting&#34;&gt;Test Mounting&lt;/h2&gt;
 &lt;p&gt;You should do test mounts on each node.&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;Node: &lt;code&gt;stroomp00.strmdev00.org&lt;/code&gt;&lt;/li&gt;
 &lt;/ul&gt;
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;sudo mount -t nfs4 stroomp01.strmdev00.org:/stroomdata/stroom-data-p01 /stroomdata/stroom-data-p01
-&lt;/code&gt;&lt;/pre&gt;
+
+  
+
+
+
+
+
+
+&lt;div class=&#34;code-toolbar&#34;&gt;
+  &lt;pre 
+    class=&#34;command-line language-bash&#34; 
+    data-user=&#34;user&#34; 
+    data-host=&#34;localhost&#34; 
+    data-continuation-str=&#34;\&#34;
+    data-filter-output=&#34;(out)&#34;&gt;&lt;code class=&#34;language-bash&#34;&gt;sudo mount -t nfs4 stroomp01.strmdev00.org:/stroomdata/stroom-data-p01 /stroomdata/stroom-data-p01&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
 &lt;ul&gt;
 &lt;li&gt;Node: &lt;code&gt;stroomp01.strmdev00.org&lt;/code&gt;&lt;/li&gt;
 &lt;/ul&gt;
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;sudo mount -t nfs4 stroomp00.strmdev00.org:/stroomdata/stroom-data-p00 /stroomdata/stroom-data-p00
-&lt;/code&gt;&lt;/pre&gt;
+
+  
+
+
+
+
+
+
+&lt;div class=&#34;code-toolbar&#34;&gt;
+  &lt;pre 
+    class=&#34;command-line language-bash&#34; 
+    data-user=&#34;user&#34; 
+    data-host=&#34;localhost&#34; 
+    data-continuation-str=&#34;\&#34;
+    data-filter-output=&#34;(out)&#34;&gt;&lt;code class=&#34;language-bash&#34;&gt;sudo mount -t nfs4 stroomp00.strmdev00.org:/stroomdata/stroom-data-p00 /stroomdata/stroom-data-p00&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
 &lt;p&gt;If you are concerned you can&amp;rsquo;t see the mount with a &lt;code&gt;df&lt;/code&gt; try a &lt;code&gt;df --type=nfs4 -a&lt;/code&gt; or a &lt;code&gt;sudo df&lt;/code&gt;. Irrespective, once the mounting works, make the mounts permanent by adding the following to each node&amp;rsquo;s /etc/fstab file.&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;Node: &lt;code&gt;stroomp00.strmdev00.org&lt;/code&gt;&lt;/li&gt;
@@ -3002,17 +4505,47 @@ sudo firewall-cmd --zone=public --list-all
 &lt;pre&gt;&lt;code class=&#34;language-text&#34;&gt;stroomp01.strmdev00.org:/stroomdata/stroom-data-p01 /stroomdata/stroom-data-p01 nfs4 soft,bg
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;achieved with&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;sudo su -c &amp;quot;printf &#39;stroomp01.strmdev00.org:/stroomdata/stroom-data-p01 /stroomdata/stroom-data-p01 nfs4 soft,bg\n&#39; &amp;gt;&amp;gt; /etc/fstab&amp;quot;
-&lt;/code&gt;&lt;/pre&gt;
+
+  
+
+
+
+
+
+
+&lt;div class=&#34;code-toolbar&#34;&gt;
+  &lt;pre 
+    class=&#34;command-line language-bash&#34; 
+    data-user=&#34;user&#34; 
+    data-host=&#34;localhost&#34; 
+    data-continuation-str=&#34;\&#34;
+    data-filter-output=&#34;(out)&#34;&gt;&lt;code class=&#34;language-bash&#34;&gt;sudo su -c &amp;#34;printf &amp;#39;stroomp01.strmdev00.org:/stroomdata/stroom-data-p01 /stroomdata/stroom-data-p01 nfs4 soft,bg\n&amp;#39; &amp;gt;&amp;gt; /etc/fstab&amp;#34;&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
 &lt;ul&gt;
 &lt;li&gt;Node: &lt;code&gt;stroomp01.strmdev00.org&lt;/code&gt;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;pre&gt;&lt;code class=&#34;language-text&#34;&gt;stroomp00.strmdev00.org:/stroomdata/stroom-data-p00 /stroomdata/stroom-data-p00 nfs4 soft,bg
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;achieved with&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;sudo su -c &amp;quot;printf &#39;stroomp00.strmdev00.org:/stroomdata/stroom-data-p00 /stroomdata/stroom-data-p00 nfs4 soft,bg\n&#39; &amp;gt;&amp;gt; /etc/fstab&amp;quot;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;At this point reboot all processing nodes to ensure the directories mount automatically. You may need to give the nodes a minute to do this.&lt;/p&gt;
+&lt;p&gt;
+  
+
+
+
+
+
+
+&lt;div class=&#34;code-toolbar&#34;&gt;
+  &lt;pre 
+    class=&#34;command-line language-bash&#34; 
+    data-user=&#34;user&#34; 
+    data-host=&#34;localhost&#34; 
+    data-continuation-str=&#34;\&#34;
+    data-filter-output=&#34;(out)&#34;&gt;&lt;code class=&#34;language-bash&#34;&gt;sudo su -c &amp;#34;printf &amp;#39;stroomp00.strmdev00.org:/stroomdata/stroom-data-p00 /stroomdata/stroom-data-p00 nfs4 soft,bg\n&amp;#39; &amp;gt;&amp;gt; /etc/fstab&amp;#34;&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+At this point reboot all processing nodes to ensure the directories mount automatically. You may need to give the nodes a minute to do this.&lt;/p&gt;
 &lt;h2 id=&#34;addition-of-another-node&#34;&gt;Addition of another Node&lt;/h2&gt;
 &lt;p&gt;If one needs to add another node to the cluster, lets say, &lt;code&gt;stroomp02.strmdev00.org&lt;/code&gt;, on which &lt;code&gt;/stroomdata&lt;/code&gt; follows the same storage hierarchy
 as the existing nodes and all nodes have added mount points (directories) for this new node, you would take the following steps &lt;em&gt;in order&lt;/em&gt;.&lt;/p&gt;
@@ -3025,23 +4558,68 @@ as the existing nodes and all nodes have added mount points (directories) for th
 &lt;/ul&gt;
 &lt;/li&gt;
 &lt;/ul&gt;
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;sudo su -c &amp;quot;printf &#39;# Share Stroom data directory\n&#39; &amp;gt;&amp;gt; /etc/exports&amp;quot;
-sudo su -c &amp;quot;printf &#39;/stroomdata\tstroomp*.strmdev00.org(rw,sync,no_root_squash)\n&#39; &amp;gt;&amp;gt; /etc/exports&amp;quot;
-&lt;/code&gt;&lt;/pre&gt;
+
+  
+
+
+
+
+
+
+&lt;div class=&#34;code-toolbar&#34;&gt;
+  &lt;pre 
+    class=&#34;command-line language-bash&#34; 
+    data-user=&#34;user&#34; 
+    data-host=&#34;localhost&#34; 
+    data-continuation-str=&#34;\&#34;
+    data-filter-output=&#34;(out)&#34;&gt;&lt;code class=&#34;language-bash&#34;&gt;sudo su -c &amp;#34;printf &amp;#39;# Share Stroom data directory\n&amp;#39; &amp;gt;&amp;gt; /etc/exports&amp;#34;
+sudo su -c &amp;#34;printf &amp;#39;/stroomdata\tstroomp*.strmdev00.org(rw,sync,no_root_squash)\n&amp;#39; &amp;gt;&amp;gt; /etc/exports&amp;#34;&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
 &lt;ul&gt;
 &lt;li&gt;Restart the NFS service and make the firewall enable NFS access as per&lt;/li&gt;
 &lt;/ul&gt;
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;sudo systemctl restart nfs-server
+
+  
+
+
+
+
+
+
+&lt;div class=&#34;code-toolbar&#34;&gt;
+  &lt;pre 
+    class=&#34;command-line language-bash&#34; 
+    data-user=&#34;user&#34; 
+    data-host=&#34;localhost&#34; 
+    data-continuation-str=&#34;\&#34;
+    data-filter-output=&#34;(out)&#34;&gt;&lt;code class=&#34;language-bash&#34;&gt;sudo systemctl restart nfs-server
 sudo firewall-cmd --zone=public --add-service=nfs --permanent
 sudo firewall-cmd --reload
-sudo firewall-cmd --zone=public --list-all
-&lt;/code&gt;&lt;/pre&gt;
+sudo firewall-cmd --zone=public --list-all&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
 &lt;ul&gt;
 &lt;li&gt;Test mount the existing node file systems&lt;/li&gt;
 &lt;/ul&gt;
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;sudo mount -t nfs4 stroomp00.strmdev00.org:/stroomdata/stroom-data-p00 /stroomdata/stroom-data-p00
-sudo mount -t nfs4 stroomp01.strmdev00.org:/stroomdata/stroom-data-p01 /stroomdata/stroom-data-p01
-&lt;/code&gt;&lt;/pre&gt;
+
+  
+
+
+
+
+
+
+&lt;div class=&#34;code-toolbar&#34;&gt;
+  &lt;pre 
+    class=&#34;command-line language-bash&#34; 
+    data-user=&#34;user&#34; 
+    data-host=&#34;localhost&#34; 
+    data-continuation-str=&#34;\&#34;
+    data-filter-output=&#34;(out)&#34;&gt;&lt;code class=&#34;language-bash&#34;&gt;sudo mount -t nfs4 stroomp00.strmdev00.org:/stroomdata/stroom-data-p00 /stroomdata/stroom-data-p00
+sudo mount -t nfs4 stroomp01.strmdev00.org:/stroomdata/stroom-data-p01 /stroomdata/stroom-data-p01&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
 &lt;ul&gt;
 &lt;li&gt;Once the test mounts work, we make them permanent by adding the following to the /etc/fstab file.&lt;/li&gt;
 &lt;/ul&gt;
@@ -3049,9 +4627,24 @@ sudo mount -t nfs4 stroomp01.strmdev00.org:/stroomdata/stroom-data-p01 /stroomda
 stroomp01.strmdev00.org:/home/stroomdata/stroom-data-p01 /home/stroomdata/stroom-data-p01 nfs4 soft,bg
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;achieved with&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;sudo su -c &amp;quot;printf &#39;stroomp00.strmdev00.org:/stroomdata/stroom-data-p00 /stroomdata/stroom-data-p00 nfs4 soft,bg\n&#39; &amp;gt;&amp;gt; /etc/fstab&amp;quot;
-sudo su -c &amp;quot;printf &#39;stroomp01.strmdev00.org:/stroomdata/stroom-data-p01 /stroomdata/stroom-data-p01 nfs4 soft,bg\n&#39; &amp;gt;&amp;gt; /etc/fstab&amp;quot;
-&lt;/code&gt;&lt;/pre&gt;
+
+  
+
+
+
+
+
+
+&lt;div class=&#34;code-toolbar&#34;&gt;
+  &lt;pre 
+    class=&#34;command-line language-bash&#34; 
+    data-user=&#34;user&#34; 
+    data-host=&#34;localhost&#34; 
+    data-continuation-str=&#34;\&#34;
+    data-filter-output=&#34;(out)&#34;&gt;&lt;code class=&#34;language-bash&#34;&gt;sudo su -c &amp;#34;printf &amp;#39;stroomp00.strmdev00.org:/stroomdata/stroom-data-p00 /stroomdata/stroom-data-p00 nfs4 soft,bg\n&amp;#39; &amp;gt;&amp;gt; /etc/fstab&amp;#34;
+sudo su -c &amp;#34;printf &amp;#39;stroomp01.strmdev00.org:/stroomdata/stroom-data-p01 /stroomdata/stroom-data-p01 nfs4 soft,bg\n&amp;#39; &amp;gt;&amp;gt; /etc/fstab&amp;#34;&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
 &lt;ul&gt;
 &lt;li&gt;
 &lt;p&gt;Node: &lt;code&gt;stroomp00.strmdev00.org&lt;/code&gt; &lt;strong&gt;and&lt;/strong&gt; &lt;code&gt;stroomp01.strmdev00.org&lt;/code&gt;&lt;/p&gt;
@@ -3060,16 +4653,46 @@ sudo su -c &amp;quot;printf &#39;stroomp01.strmdev00.org:/stroomdata/stroom-data
 &lt;/ul&gt;
 &lt;/li&gt;
 &lt;/ul&gt;
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;sudo mount -t nfs4 stroomp02.strmdev00.org:/stroomdata/stroom-data-p02 /stroomdata/stroom-data-p02
-&lt;/code&gt;&lt;/pre&gt;
+
+  
+
+
+
+
+
+
+&lt;div class=&#34;code-toolbar&#34;&gt;
+  &lt;pre 
+    class=&#34;command-line language-bash&#34; 
+    data-user=&#34;user&#34; 
+    data-host=&#34;localhost&#34; 
+    data-continuation-str=&#34;\&#34;
+    data-filter-output=&#34;(out)&#34;&gt;&lt;code class=&#34;language-bash&#34;&gt;sudo mount -t nfs4 stroomp02.strmdev00.org:/stroomdata/stroom-data-p02 /stroomdata/stroom-data-p02&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
 &lt;ul&gt;
 &lt;li&gt;Once the test mount works, make the mount permanent by adding the following to the /etc/fstab file&lt;/li&gt;
 &lt;/ul&gt;
 &lt;pre&gt;&lt;code class=&#34;language-text&#34;&gt;stroomp02.strmdev00.org:/stroomdata/stroom-data-p02 /stroomdata/stroom-data-p02 nfs4 soft,bg
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;achieved with&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;sudo su -c &amp;quot;printf &#39;stroomp02.strmdev00.org:/stroomdata/stroom-data-p02 /stroomdata/stroom-data-p02 nfs4 soft,bg\n&#39; &amp;gt;&amp;gt; /etc/fstab&amp;quot;
-&lt;/code&gt;&lt;/pre&gt;
+
+  
+
+
+
+
+
+
+&lt;div class=&#34;code-toolbar&#34;&gt;
+  &lt;pre 
+    class=&#34;command-line language-bash&#34; 
+    data-user=&#34;user&#34; 
+    data-host=&#34;localhost&#34; 
+    data-continuation-str=&#34;\&#34;
+    data-filter-output=&#34;(out)&#34;&gt;&lt;code class=&#34;language-bash&#34;&gt;sudo su -c &amp;#34;printf &amp;#39;stroomp02.strmdev00.org:/stroomdata/stroom-data-p02 /stroomdata/stroom-data-p02 nfs4 soft,bg\n&amp;#39; &amp;gt;&amp;gt; /etc/fstab&amp;#34;&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
 
       </description>
     </item>
@@ -3916,8 +5539,23 @@ with the highest priority maintains the &lt;code&gt;Master&lt;/code&gt; node sta
 &lt;h2 id=&#34;set-up-the-stroom-processing-users-environment&#34;&gt;Set up the Stroom processing user&amp;rsquo;s environment&lt;/h2&gt;
 &lt;p&gt;To automate the running of a Stroom Proxy or Application service under our Stroom processing user, &lt;code&gt;stroomuser&lt;/code&gt;, there are a number of configuration files and scripts we need to deploy.&lt;/p&gt;
 &lt;p&gt;We first become the stroomuser&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;sudo -i -u stroomuser
-&lt;/code&gt;&lt;/pre&gt;
+
+  
+
+
+
+
+
+
+&lt;div class=&#34;code-toolbar&#34;&gt;
+  &lt;pre 
+    class=&#34;command-line language-bash&#34; 
+    data-user=&#34;user&#34; 
+    data-host=&#34;localhost&#34; 
+    data-continuation-str=&#34;\&#34;
+    data-filter-output=&#34;(out)&#34;&gt;&lt;code class=&#34;language-bash&#34;&gt;sudo -i -u stroomuser&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
 &lt;h3 id=&#34;environment-variable-files&#34;&gt;Environment Variable files&lt;/h3&gt;
 &lt;p&gt;When either a Stroom Proxy or Application starts, it needs predefined environment variables. We set these up in the &lt;code&gt;stroomuser&lt;/code&gt; home directory.
 We need two files for this. The first is for the Stroom processes themselves and the second is for the Stroom systemd service we deploy. The
@@ -3969,10 +5607,25 @@ printf &#39;function T {\n  tail --follow=name ~/stroom-app/instance/logs/stroom
 printf &#39;function Tp {\n  tail --follow=name ~/stroom-proxy/instance/logs/stroom.log\n}\n&#39; &amp;gt;&amp;gt; ${F}
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;And test it has set up correctly&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;. ./.bashrc
-which java
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;which should return &lt;code&gt;/usr/lib/jvm/java-1.8.0/bin/java&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;
+  
+
+
+
+
+
+
+&lt;div class=&#34;code-toolbar&#34;&gt;
+  &lt;pre 
+    class=&#34;command-line language-bash&#34; 
+    data-user=&#34;user&#34; 
+    data-host=&#34;localhost&#34; 
+    data-continuation-str=&#34;\&#34;
+    data-filter-output=&#34;(out)&#34;&gt;&lt;code class=&#34;language-bash&#34;&gt;. ./.bashrc
+which java&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+which should return &lt;code&gt;/usr/lib/jvm/java-1.8.0/bin/java&lt;/code&gt;&lt;/p&gt;
 &lt;h3 id=&#34;establish-simple-startstop-scripts&#34;&gt;Establish Simple Start/Stop Scripts&lt;/h3&gt;
 &lt;p&gt;We create some simple start/stop scripts that start, or stop, all the available Stroom services.
 At this point, it&amp;rsquo;s just the Stroom application and proxy.&lt;/p&gt;
@@ -4056,8 +5709,23 @@ chmod 640 ${F}
 &lt;h3 id=&#34;enable-the-service&#34;&gt;Enable the service&lt;/h3&gt;
 &lt;p&gt;Now we enable the Stroom service, but we &lt;strong&gt;DO NOT&lt;/strong&gt; start it as we will manually start the Stroom services as part of
 the installation process.&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;systemctl enable stroom-services.service
-&lt;/code&gt;&lt;/pre&gt;
+
+  
+
+
+
+
+
+
+&lt;div class=&#34;code-toolbar&#34;&gt;
+  &lt;pre 
+    class=&#34;command-line language-bash&#34; 
+    data-user=&#34;user&#34; 
+    data-host=&#34;localhost&#34; 
+    data-continuation-str=&#34;\&#34;
+    data-filter-output=&#34;(out)&#34;&gt;&lt;code class=&#34;language-bash&#34;&gt;systemctl enable stroom-services.service&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
 
       </description>
     </item>
@@ -4092,26 +5760,86 @@ involved. If you are deploying a cluster, then you will only have one certificat
 alias for the first node in the cluster and then use that alias for addressing the cluster. That is, we have set up a
 CNAME, &lt;code&gt;stroomp.strmdev00.org&lt;/code&gt; for &lt;code&gt;stroomp00.strmdev00.org&lt;/code&gt;. This means within the web service we deploy, the ServerName will be &lt;code&gt;stroomp.strmdev00.org&lt;/code&gt;
 on each node. Since it&amp;rsquo;s one certificate we only need to set it up on one node then deploy the certificate key files to other nodes.&lt;/p&gt;
-&lt;p&gt;As the certificates will be stored in the &lt;code&gt;stroomuser&#39;s&lt;/code&gt; home directory, we become the stroom user&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;sudo -i -u stroomuser
-&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;As the certificates will be stored in the &lt;code&gt;stroomuser&#39;s&lt;/code&gt; home directory, we become the stroom user
+
+  
+
+
+
+
+
+
+&lt;div class=&#34;code-toolbar&#34;&gt;
+  &lt;pre 
+    class=&#34;command-line language-bash&#34; 
+    data-user=&#34;user&#34; 
+    data-host=&#34;localhost&#34; 
+    data-continuation-str=&#34;\&#34;
+    data-filter-output=&#34;(out)&#34;&gt;&lt;code class=&#34;language-bash&#34;&gt;sudo -i -u stroomuser&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/p&gt;
 &lt;h3 id=&#34;use-host-variable&#34;&gt;Use host variable&lt;/h3&gt;
 &lt;p&gt;To make things simpler in the following bash extracts, we establish the bash variable &lt;code&gt;H&lt;/code&gt; to be used in filename generation. The variable name
 is set to the name of the host (or cluster alias) your are deploying the certificates on. In our multi node HOWTO example we are using, we
 would use the host CNAME &lt;code&gt;stroomp&lt;/code&gt;. Thus we execute&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;export H=stroomp
-&lt;/code&gt;&lt;/pre&gt;
+
+  
+
+
+
+
+
+
+&lt;div class=&#34;code-toolbar&#34;&gt;
+  &lt;pre 
+    class=&#34;command-line language-bash&#34; 
+    data-user=&#34;user&#34; 
+    data-host=&#34;localhost&#34; 
+    data-continuation-str=&#34;\&#34;
+    data-filter-output=&#34;(out)&#34;&gt;&lt;code class=&#34;language-bash&#34;&gt;export H=stroomp&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
 &lt;p&gt;Note in our the Stroom Forwarding Proxy HOWTO we would use the name &lt;code&gt;stroomfp0&lt;/code&gt;. In the case of our Standalone Proxy we would use &lt;code&gt;stroomsap0&lt;/code&gt;.&lt;/p&gt;
-&lt;p&gt;We set up a directory to house our certificates via&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;cd ~stroomuser
+&lt;p&gt;We set up a directory to house our certificates via
+
+  
+
+
+
+
+
+
+&lt;div class=&#34;code-toolbar&#34;&gt;
+  &lt;pre 
+    class=&#34;command-line language-bash&#34; 
+    data-user=&#34;user&#34; 
+    data-host=&#34;localhost&#34; 
+    data-continuation-str=&#34;\&#34;
+    data-filter-output=&#34;(out)&#34;&gt;&lt;code class=&#34;language-bash&#34;&gt;cd ~stroomuser
 rm -rf stroom-jks
 mkdir -p stroom-jks stroom-jks/public stroom-jks/private
-cd stroom-jks
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;Create a server key for Stroom service (enter a password when prompted for both initial and verification prompts)&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;openssl genrsa -des3 -out private/$H.key 2048
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;as per&lt;/p&gt;
+cd stroom-jks&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/p&gt;
+&lt;p&gt;Create a server key for Stroom service (enter a password when prompted for both initial and verification prompts)
+
+  
+
+
+
+
+
+
+&lt;div class=&#34;code-toolbar&#34;&gt;
+  &lt;pre 
+    class=&#34;command-line language-bash&#34; 
+    data-user=&#34;user&#34; 
+    data-host=&#34;localhost&#34; 
+    data-continuation-str=&#34;\&#34;
+    data-filter-output=&#34;(out)&#34;&gt;&lt;code class=&#34;language-bash&#34;&gt;openssl genrsa -des3 -out private/$H.key 2048&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+as per&lt;/p&gt;
 &lt;pre&gt;&lt;code&gt;Generating RSA private key, 2048 bit long modulus
 .................................................................+++
 ...............................................+++
@@ -4122,9 +5850,24 @@ Verifying - Enter pass phrase for private/stroomp.key: &amp;lt;__ENTER_SERVER_KE
 &lt;p&gt;Create a signing request. The two important prompts are the password and Common Name. All the rest can use the defaults offered.
 The requested password is for the server key and you should use the host (or cluster alias) your are deploying the certificates on for
 the Common Name. In the output below we will assume a multi node cluster certificate is being generated, so will use &lt;code&gt;stroomp.strmdev00.org&lt;/code&gt;.&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;openssl req -sha256 -new -key private/$H.key -out $H.csr
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;as per&lt;/p&gt;
+&lt;p&gt;
+  
+
+
+
+
+
+
+&lt;div class=&#34;code-toolbar&#34;&gt;
+  &lt;pre 
+    class=&#34;command-line language-bash&#34; 
+    data-user=&#34;user&#34; 
+    data-host=&#34;localhost&#34; 
+    data-continuation-str=&#34;\&#34;
+    data-filter-output=&#34;(out)&#34;&gt;&lt;code class=&#34;language-bash&#34;&gt;openssl req -sha256 -new -key private/$H.key -out $H.csr&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+as per&lt;/p&gt;
 &lt;pre&gt;&lt;code&gt;Enter pass phrase for private/stroomp.key: &amp;lt;__ENTER_SERVER_KEY_PASSWORD__&amp;gt;
 You are about to be asked to enter information that will be incorporated
 into your certificate request.
@@ -4146,108 +5889,333 @@ to be sent with your certificate request
 A challenge password []:
 An optional company name []:
 &lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;We now self sign the certificate (again enter the server key password)&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;openssl x509 -req -sha256 -days 720 -in $H.csr -signkey private/$H.key -out public/$H.crt
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;as per&lt;/p&gt;
+&lt;p&gt;We now self sign the certificate (again enter the server key password)
+
+  
+
+
+
+
+
+
+&lt;div class=&#34;code-toolbar&#34;&gt;
+  &lt;pre 
+    class=&#34;command-line language-bash&#34; 
+    data-user=&#34;user&#34; 
+    data-host=&#34;localhost&#34; 
+    data-continuation-str=&#34;\&#34;
+    data-filter-output=&#34;(out)&#34;&gt;&lt;code class=&#34;language-bash&#34;&gt;openssl x509 -req -sha256 -days 720 -in $H.csr -signkey private/$H.key -out public/$H.crt&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+as per&lt;/p&gt;
 &lt;pre&gt;&lt;code&gt;Signature ok
 subject=/C=XX/L=Default City/O=Default Company Ltd/CN=stroomp.strmdev00.org
 Getting Private key
 Enter pass phrase for private/stroomp.key: &amp;lt;__ENTER_SERVER_KEY_PASSWORD__&amp;gt;
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;and noting the &lt;code&gt;subject&lt;/code&gt; will change depending on the host name used when generating the signing request.&lt;/p&gt;
-&lt;p&gt;Create insecure version of private key for Apache auto-boot (you will again need to enter the server key password)&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;openssl rsa -in private/$H.key -out private/$H.key.insecure
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;as per&lt;/p&gt;
+&lt;p&gt;Create insecure version of private key for Apache auto-boot (you will again need to enter the server key password)
+
+  
+
+
+
+
+
+
+&lt;div class=&#34;code-toolbar&#34;&gt;
+  &lt;pre 
+    class=&#34;command-line language-bash&#34; 
+    data-user=&#34;user&#34; 
+    data-host=&#34;localhost&#34; 
+    data-continuation-str=&#34;\&#34;
+    data-filter-output=&#34;(out)&#34;&gt;&lt;code class=&#34;language-bash&#34;&gt;openssl rsa -in private/$H.key -out private/$H.key.insecure&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+as per&lt;/p&gt;
 &lt;pre&gt;&lt;code&gt;Enter pass phrase for private/stroomp.key: &amp;lt;__ENTER_SERVER_KEY_PASSWORD__&amp;gt;
 writing RSA key
 &lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;and then move the insecure keys as appropriate&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;mv private/$H.key private/$H.key.secure
+&lt;p&gt;and then move the insecure keys as appropriate
+
+  
+
+
+
+
+
+
+&lt;div class=&#34;code-toolbar&#34;&gt;
+  &lt;pre 
+    class=&#34;command-line language-bash&#34; 
+    data-user=&#34;user&#34; 
+    data-host=&#34;localhost&#34; 
+    data-continuation-str=&#34;\&#34;
+    data-filter-output=&#34;(out)&#34;&gt;&lt;code class=&#34;language-bash&#34;&gt;mv private/$H.key private/$H.key.secure
 chmod 600 private/$H.key.secure
-mv private/$H.key.insecure private/$H.key
-&lt;/code&gt;&lt;/pre&gt;
+mv private/$H.key.insecure private/$H.key&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/p&gt;
 &lt;p&gt;We have now completed the creation of our certificates and keys.&lt;/p&gt;
 &lt;h3 id=&#34;replication-of-keys-directory-to-other-nodes&#34;&gt;Replication of Keys Directory to other nodes&lt;/h3&gt;
 &lt;p&gt;If you are deploying a multi node Stroom cluster, then you would replicate the directory &lt;code&gt;~/stroomuser/stroom-jks&lt;/code&gt; to each node in the cluster. That is,
 tar it up, copy the tar file to the other node(s) then &lt;code&gt;untar&lt;/code&gt; it. We can make use of the other node&amp;rsquo;s mounted file system for this process.
-That is one could execute the commands on the first node, where we created the certificates&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;cd ~stroomuser
+That is one could execute the commands on the first node, where we created the certificates
+
+  
+
+
+
+
+
+
+&lt;div class=&#34;code-toolbar&#34;&gt;
+  &lt;pre 
+    class=&#34;command-line language-bash&#34; 
+    data-user=&#34;user&#34; 
+    data-host=&#34;localhost&#34; 
+    data-continuation-str=&#34;\&#34;
+    data-filter-output=&#34;(out)&#34;&gt;&lt;code class=&#34;language-bash&#34;&gt;cd ~stroomuser
 tar cf stroom-jks.tar stroom-jks
-mv stroom-jks.tar /stroomdata/stroom-data-p01
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;Then on the another node, say &lt;code&gt;stroomp01.strmdev00.org&lt;/code&gt;, as the stroomuser we extract the data.&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;sudo -i -u stroomuser
+mv stroom-jks.tar /stroomdata/stroom-data-p01&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+then on the another node, say &lt;code&gt;stroomp01.strmdev00.org&lt;/code&gt;, as the stroomuser we extract the data.
+
+  
+
+
+
+
+
+
+&lt;div class=&#34;code-toolbar&#34;&gt;
+  &lt;pre 
+    class=&#34;command-line language-bash&#34; 
+    data-user=&#34;user&#34; 
+    data-host=&#34;localhost&#34; 
+    data-continuation-str=&#34;\&#34;
+    data-filter-output=&#34;(out)&#34;&gt;&lt;code class=&#34;language-bash&#34;&gt;sudo -i -u stroomuser
 cd ~stroomuser
-tar xf /stroomdata/stroom-data-p01/stroom-jks.tar &amp;amp;&amp;amp; rm -f /stroomdata/stroom-data-p01/stroom-jks.tar
-&lt;/code&gt;&lt;/pre&gt;
+tar xf /stroomdata/stroom-data-p01/stroom-jks.tar &amp;amp;&amp;amp; rm -f /stroomdata/stroom-data-p01/stroom-jks.tar&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/p&gt;
 &lt;h3 id=&#34;protection-ownership-and-selinux-context&#34;&gt;Protection, Ownership and SELinux Context&lt;/h3&gt;
-&lt;p&gt;Now ensure protection, ownership and SELinux context for these key files on &lt;strong&gt;ALL&lt;/strong&gt; nodes via&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;chmod 700 ~stroomuser/stroom-jks/private ~stroomuser/stroom-jks
+&lt;p&gt;Now ensure protection, ownership and SELinux context for these key files on &lt;strong&gt;ALL&lt;/strong&gt; nodes via
+
+  
+
+
+
+
+
+
+&lt;div class=&#34;code-toolbar&#34;&gt;
+  &lt;pre 
+    class=&#34;command-line language-bash&#34; 
+    data-user=&#34;user&#34; 
+    data-host=&#34;localhost&#34; 
+    data-continuation-str=&#34;\&#34;
+    data-filter-output=&#34;(out)&#34;&gt;&lt;code class=&#34;language-bash&#34;&gt;chmod 700 ~stroomuser/stroom-jks/private ~stroomuser/stroom-jks
 chown -R stroomuser:stroomuser ~stroomuser/stroom-jks
-chcon -R --reference /etc/pki ~stroomuser/stroom-jks
-&lt;/code&gt;&lt;/pre&gt;
+chcon -R --reference /etc/pki ~stroomuser/stroom-jks&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/p&gt;
 &lt;h2 id=&#34;stroom-proxy-to-proxy-key-and-trust-stores&#34;&gt;Stroom Proxy to Proxy Key and Trust Stores&lt;/h2&gt;
 &lt;p&gt;In order for a Stroom Forwarding Proxy to communicate to a central Stroom proxy over https, the JVM running the forwarding proxy needs
 relevant keystores set up.&lt;/p&gt;
 &lt;p&gt;One would set up a Stroom&amp;rsquo;s forwarding proxy SSL certificate as per &lt;a href=&#34;#create-certificates&#34;&gt;above&lt;/a&gt;, with the change that the
 hostname would be different. That is, in the initial setup, we would set the hostname variable &lt;code&gt;H&lt;/code&gt; to be the hostname of the forwarding
 proxy. Lets say it is &lt;code&gt;stroomfp0&lt;/code&gt; thus we would set&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;export H=stroomfp0
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;and then proceed as &lt;a href=&#34;#use-host-variable&#34;&gt;above&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;
+  
+
+
+
+
+
+
+&lt;div class=&#34;code-toolbar&#34;&gt;
+  &lt;pre 
+    class=&#34;command-line language-bash&#34; 
+    data-user=&#34;user&#34; 
+    data-host=&#34;localhost&#34; 
+    data-continuation-str=&#34;\&#34;
+    data-filter-output=&#34;(out)&#34;&gt;&lt;code class=&#34;language-bash&#34;&gt;export H=stroomfp0&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+and then proceed as &lt;a href=&#34;#use-host-variable&#34;&gt;above&lt;/a&gt;.&lt;/p&gt;
 &lt;p&gt;Note that you also need the public key of the central Stroom server you will be connecting to. For the following, we will assume
 the central Stroom proxy is the &lt;code&gt;stroomp.strmdev00.org&lt;/code&gt; server and its public key is stored in the file &lt;code&gt;stroomp.crt&lt;/code&gt;. We will store
 this file on the forwarding proxy in &lt;code&gt;~stroomuser/stroom-jks/public/stroomp.crt&lt;/code&gt;.&lt;/p&gt;
 &lt;p&gt;So once you have created the forwarding proxy server&amp;rsquo;s SSL keys and have deployed the central proxy&amp;rsquo;s public key, we next
-need to convert the proxy server&amp;rsquo;s SSL keys into DER format. This is done by executing the following.&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;cd ~stroomuser/stroom-jks
+need to convert the proxy server&amp;rsquo;s SSL keys into DER format. This is done by executing the following.
+
+  
+
+
+
+
+
+
+&lt;div class=&#34;code-toolbar&#34;&gt;
+  &lt;pre 
+    class=&#34;command-line language-bash&#34; 
+    data-user=&#34;user&#34; 
+    data-host=&#34;localhost&#34; 
+    data-continuation-str=&#34;\&#34;
+    data-filter-output=&#34;(out)&#34;&gt;&lt;code class=&#34;language-bash&#34;&gt;cd ~stroomuser/stroom-jks
 export H=stroomfp0
 export S=stroomp
 rm -f ${H}_k.jks ${S}_t.jks
 H_k=${H}
 S_k=${S}
 # Convert public key
-openssl x509 -in public/$H.crt -inform PERM -out public/$H.crt.der -outform DER
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;When you convert the local server&amp;rsquo;s private key, you will be prompted for the server key password.&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;# Convert the local server&#39;s Private key
-openssl pkcs8 -topk8 -nocrypt -in private/$H.key.secure -inform PEM -out private/$H.key.der -outform DER
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;As per&lt;/p&gt;
+openssl x509 -in public/$H.crt -inform PERM -out public/$H.crt.der -outform DER&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/p&gt;
+&lt;p&gt;When you convert the local server&amp;rsquo;s private key, you will be prompted for the server key password.
+
+  
+
+
+
+
+
+
+&lt;div class=&#34;code-toolbar&#34;&gt;
+  &lt;pre 
+    class=&#34;command-line language-bash&#34; 
+    data-user=&#34;user&#34; 
+    data-host=&#34;localhost&#34; 
+    data-continuation-str=&#34;\&#34;
+    data-filter-output=&#34;(out)&#34;&gt;&lt;code class=&#34;language-bash&#34;&gt;# Convert the local server&amp;#39;s Private key
+openssl pkcs8 -topk8 -nocrypt -in private/$H.key.secure -inform PEM -out private/$H.key.der -outform DER&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/p&gt;
+&lt;p&gt;as per&lt;/p&gt;
 &lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;Enter pass phrase for private/stroomfp0.key.secure: &amp;lt;__ENTER_SERVER_KEY_PASSWORD__&amp;gt;
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;We now import these keys into our Key Store. As part of the Stroom Proxy release, an Import Keystore application has been provisioned. We identify where it&amp;rsquo;s found with the command&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;find ~stroomuser/*proxy -name &#39;stroom*util*.jar&#39; -print | head -1
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;Which should return &lt;em&gt;/home/stroomuser/stroom-proxy/lib/stroom-proxy-util-v5.1-beta.10.jar&lt;/em&gt; or similar depending on the release version.
+
+  
+
+
+
+
+
+
+&lt;div class=&#34;code-toolbar&#34;&gt;
+  &lt;pre 
+    class=&#34;command-line language-bash&#34; 
+    data-user=&#34;user&#34; 
+    data-host=&#34;localhost&#34; 
+    data-continuation-str=&#34;\&#34;
+    data-filter-output=&#34;(out)&#34;&gt;&lt;code class=&#34;language-bash&#34;&gt;find ~stroomuser/*proxy -name &amp;#39;stroom*util*.jar&amp;#39; -print | head -1&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;which should return &lt;em&gt;/home/stroomuser/stroom-proxy/lib/stroom-proxy-util-v5.1-beta.10.jar&lt;/em&gt; or similar depending on the release version.
 To make execution simpler, we set this as a shell variable as per&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;Stroom_UTIL_JAR=`find ~/*proxy -name &#39;stroom*util*.jar&#39; -print | head -1`
-&lt;/code&gt;&lt;/pre&gt;
+
+  
+
+
+
+
+
+
+&lt;div class=&#34;code-toolbar&#34;&gt;
+  &lt;pre 
+    class=&#34;command-line language-bash&#34; 
+    data-user=&#34;user&#34; 
+    data-host=&#34;localhost&#34; 
+    data-continuation-str=&#34;\&#34;
+    data-filter-output=&#34;(out)&#34;&gt;&lt;code class=&#34;language-bash&#34;&gt;Stroom_UTIL_JAR=`find ~/*proxy -name &amp;#39;stroom*util*.jar&amp;#39; -print | head -1`&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
 &lt;p&gt;We now create the keystore and import the proxy&amp;rsquo;s server key&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;java -cp ${Stroom_UTIL_JAR} stroom.util.cert.ImportKey keystore=${H}_k.jks keypass=$H alias=$H keyfile=private/$H.key.der certfile=public/$H.crt.der
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;As per&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-text&#34;&gt;One certificate, no chain
+
+  
+
+
+
+
+
+
+&lt;div class=&#34;code-toolbar&#34;&gt;
+  &lt;pre 
+    class=&#34;command-line language-bash&#34; 
+    data-user=&#34;user&#34; 
+    data-host=&#34;localhost&#34; 
+    data-continuation-str=&#34;\&#34;
+    data-filter-output=&#34;(out)&#34;&gt;&lt;code class=&#34;language-bash&#34;&gt;java -cp ${Stroom_UTIL_JAR} stroom.util.cert.ImportKey keystore=${H}_k.jks keypass=$H alias=$H keyfile=private/$H.key.der certfile=public/$H.crt.der&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;as per&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;One certificate, no chain
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;We now import the destination server&amp;rsquo;s public key&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;keytool -import -noprompt -alias ${S} -file public/${S}.crt -keystore ${S}_k.jks -storepass ${S}
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;As per&lt;/p&gt;
+
+  
+
+
+
+
+
+
+&lt;div class=&#34;code-toolbar&#34;&gt;
+  &lt;pre 
+    class=&#34;command-line language-bash&#34; 
+    data-user=&#34;user&#34; 
+    data-host=&#34;localhost&#34; 
+    data-continuation-str=&#34;\&#34;
+    data-filter-output=&#34;(out)&#34;&gt;&lt;code class=&#34;language-bash&#34;&gt;keytool -import -noprompt -alias ${S} -file public/${S}.crt -keystore ${S}_k.jks -storepass ${S}&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;as per&lt;/p&gt;
 &lt;pre&gt;&lt;code class=&#34;language-text&#34;&gt;Certificate was added to keystore
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;We now add the key and trust store location and password arguments to our Stroom proxy environment files.&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;PWD=`pwd`
-echo &amp;quot;export JAVA_OPTS=\&amp;quot;-Djavax.net.ssl.trustStore=${PWD}/${S}_k.jks -Djavax.net.ssl.trustStorePassword=${S} -Djavax.net.ssl.keyStore=${PWD}/${H}_k.jks -Djavax.net.ssl.keyStorePassword=${H}\&amp;quot;&amp;quot; &amp;gt;&amp;gt; ~/env.sh
-echo &amp;quot;JAVA_OPTS=\&amp;quot;-Djavax.net.ssl.trustStore=${PWD}/${S}_k.jks -Djavax.net.ssl.trustStorePassword=${S} -Djavax.net.ssl.keyStore=${PWD}/${H}_k.jks -Djavax.net.ssl.keyStorePassword=${H}\&amp;quot;&amp;quot; &amp;gt;&amp;gt; ~/env_service.sh
-&lt;/code&gt;&lt;/pre&gt;
+
+  
+
+
+
+
+
+
+&lt;div class=&#34;code-toolbar&#34;&gt;
+  &lt;pre 
+    class=&#34;command-line language-bash&#34; 
+    data-user=&#34;user&#34; 
+    data-host=&#34;localhost&#34; 
+    data-continuation-str=&#34;\&#34;
+    data-filter-output=&#34;(out)&#34;&gt;&lt;code class=&#34;language-bash&#34;&gt;PWD=`pwd`
+echo &amp;#34;export JAVA_OPTS=\&amp;#34;-Djavax.net.ssl.trustStore=${PWD}/${S}_k.jks -Djavax.net.ssl.trustStorePassword=${S} -Djavax.net.ssl.keyStore=${PWD}/${H}_k.jks -Djavax.net.ssl.keyStorePassword=${H}\&amp;#34;&amp;#34; &amp;gt;&amp;gt; ~/env.sh
+echo &amp;#34;JAVA_OPTS=\&amp;#34;-Djavax.net.ssl.trustStore=${PWD}/${S}_k.jks -Djavax.net.ssl.trustStorePassword=${S} -Djavax.net.ssl.keyStore=${PWD}/${H}_k.jks -Djavax.net.ssl.keyStorePassword=${H}\&amp;#34;&amp;#34; &amp;gt;&amp;gt; ~/env_service.sh&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
 &lt;p&gt;At this point you should restart the proxy service. Using the commands&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;cd ~stroomuser
+
+  
+
+
+
+
+
+
+&lt;div class=&#34;code-toolbar&#34;&gt;
+  &lt;pre 
+    class=&#34;command-line language-bash&#34; 
+    data-user=&#34;user&#34; 
+    data-host=&#34;localhost&#34; 
+    data-continuation-str=&#34;\&#34;
+    data-filter-output=&#34;(out)&#34;&gt;&lt;code class=&#34;language-bash&#34;&gt;cd ~stroomuser
 source ./env.sh
 stroom-proxy/bin/stop.sh
-stroom-proxy/bin/start.sh
-&lt;/code&gt;&lt;/pre&gt;
+stroom-proxy/bin/start.sh&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
 &lt;p&gt;then check the logs to ensure it started correctly.&lt;/p&gt;
 
       </description>
@@ -4290,9 +6258,24 @@ to alternate every time but for the most part it will.&lt;/p&gt;
 &lt;li&gt;Log onto the Stroom database node (stroomdb0.strmdev00.org) as any user.&lt;/li&gt;
 &lt;li&gt;Log onto both Stroom nodes and become the &lt;code&gt;stroomuser&lt;/code&gt; and monitor each node&amp;rsquo;s Stroom proxy service using the &lt;code&gt;Tp&lt;/code&gt; bash macro. That is, on each node, run&lt;/li&gt;
 &lt;/ul&gt;
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;sudo -i -u stroomuser
-Tp
-&lt;/code&gt;&lt;/pre&gt;
+
+  
+
+
+
+
+
+
+&lt;div class=&#34;code-toolbar&#34;&gt;
+  &lt;pre 
+    class=&#34;command-line language-bash&#34; 
+    data-user=&#34;user&#34; 
+    data-host=&#34;localhost&#34; 
+    data-continuation-str=&#34;\&#34;
+    data-filter-output=&#34;(out)&#34;&gt;&lt;code class=&#34;language-bash&#34;&gt;sudo -i -u stroomuser
+Tp&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
 &lt;p&gt;You will note events of the form from
 &lt;code&gt;stroomp00.strmdev00.org&lt;/code&gt;:&lt;/p&gt;
 &lt;pre&gt;&lt;code class=&#34;language-text&#34;&gt;...
@@ -4309,8 +6292,23 @@ Tp
 &lt;ul&gt;
 &lt;li&gt;On the Stroom database node, execute the command&lt;/li&gt;
 &lt;/ul&gt;
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;curl -k --data-binary @/etc/group &amp;quot;https://stroomp.strmdev00.org/stroom/datafeed&amp;quot; -H &amp;quot;Feed:TEST-FEED-V1_0&amp;quot; -H &amp;quot;System:EXAMPLE_SYSTEM&amp;quot; -H &amp;quot;Environment:EXAMPLE_ENVIRONMENT&amp;quot;
-&lt;/code&gt;&lt;/pre&gt;
+
+  
+
+
+
+
+
+
+&lt;div class=&#34;code-toolbar&#34;&gt;
+  &lt;pre 
+    class=&#34;command-line language-bash&#34; 
+    data-user=&#34;user&#34; 
+    data-host=&#34;localhost&#34; 
+    data-continuation-str=&#34;\&#34;
+    data-filter-output=&#34;(out)&#34;&gt;&lt;code class=&#34;language-bash&#34;&gt;curl -k --data-binary @/etc/group &amp;#34;https://stroomp.strmdev00.org/stroom/datafeed&amp;#34; -H &amp;#34;Feed:TEST-FEED-V1_0&amp;#34; -H &amp;#34;System:EXAMPLE_SYSTEM&amp;#34; -H &amp;#34;Environment:EXAMPLE_ENVIRONMENT&amp;#34;&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
 &lt;p&gt;If you are monitoring the proxy log of &lt;code&gt;stroomp00.strmdev00.org&lt;/code&gt; you would see two new logs indicating the successful arrival of the file&lt;/p&gt;
 &lt;pre&gt;&lt;code class=&#34;language-text&#34;&gt;2017-01-14T06:46:06.411Z INFO  [ajp-apr-9009-exec-1] handler.LogRequestHandler (LogRequestHandler.java:37) - log() - guid=54dc0da2-f35c-4dc2-8a98-448415ffc76b,feed=TEST-FEED-V1_0,system=EXAMPLE_SYSTEM,environment=EXAMPLE_ENVIRONMENT,remotehost=192.168.2.144,remoteaddress=192.168.2.144
 2017-01-14T06:46:06.449Z INFO  [ajp-apr-9009-exec-1] datafeed.DataFeedRequestHandler$1 (DataFeedRequestHandler.java:104) - &amp;quot;doPost() - Took 571 ms to process (concurrentRequestCount=1) 200&amp;quot;,&amp;quot;Environment=EXAMPLE_ENVIRONMENT&amp;quot;,&amp;quot;Feed=TEST-FEED-V1_0&amp;quot;,&amp;quot;GUID=54dc0da2-f35c-4dc2-8a98-448415ffc76b&amp;quot;,&amp;quot;ReceivedTime=2017-01-14T06:46:05.883Z&amp;quot;,&amp;quot;RemoteAddress=192.168.2.144&amp;quot;,&amp;quot;RemoteHost=192.168.2.144&amp;quot;,&amp;quot;System=EXAMPLE_SYSTEM&amp;quot;,&amp;quot;accept=*/*&amp;quot;,&amp;quot;content-length=527&amp;quot;,&amp;quot;content-type=application/x-www-form-urlencoded&amp;quot;,&amp;quot;host=stroomp.strmdev00.org&amp;quot;,&amp;quot;user-agent=curl/7.29.0&amp;quot;
@@ -4318,8 +6316,23 @@ Tp
 &lt;ul&gt;
 &lt;li&gt;On the Stroom database node, again execute the command&lt;/li&gt;
 &lt;/ul&gt;
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;curl -k --data-binary @/etc/group &amp;quot;https://stroomp.strmdev00.org/stroom/datafeed&amp;quot; -H &amp;quot;Feed:TEST-FEED-V1_0&amp;quot; -H &amp;quot;System:EXAMPLE_SYSTEM&amp;quot; -H &amp;quot;Environment:EXAMPLE_ENVIRONMENT&amp;quot;
-&lt;/code&gt;&lt;/pre&gt;
+
+  
+
+
+
+
+
+
+&lt;div class=&#34;code-toolbar&#34;&gt;
+  &lt;pre 
+    class=&#34;command-line language-bash&#34; 
+    data-user=&#34;user&#34; 
+    data-host=&#34;localhost&#34; 
+    data-continuation-str=&#34;\&#34;
+    data-filter-output=&#34;(out)&#34;&gt;&lt;code class=&#34;language-bash&#34;&gt;curl -k --data-binary @/etc/group &amp;#34;https://stroomp.strmdev00.org/stroom/datafeed&amp;#34; -H &amp;#34;Feed:TEST-FEED-V1_0&amp;#34; -H &amp;#34;System:EXAMPLE_SYSTEM&amp;#34; -H &amp;#34;Environment:EXAMPLE_ENVIRONMENT&amp;#34;&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
 &lt;p&gt;If you are monitoring the proxy log of &lt;code&gt;stroomp01.strmdev00.org&lt;/code&gt; you should see a new log. As foreshadowed, we didn&amp;rsquo;t as the time delay resulted
 in the first node getting the file. That is &lt;code&gt;stroomp00.strmdev00.org&lt;/code&gt; log file gained the two entries&lt;/p&gt;
 &lt;pre&gt;&lt;code class=&#34;language-text&#34;&gt;2017-01-14T06:47:26.642Z INFO  [ajp-apr-9009-exec-2] handler.LogRequestHandler (LogRequestHandler.java:37) - log() - guid=941d2904-734f-4764-9ccf-4124b94a56f6,feed=TEST-FEED-V1_0,system=EXAMPLE_SYSTEM,environment=EXAMPLE_ENVIRONMENT,remotehost=192.168.2.144,remoteaddress=192.168.2.144
@@ -4354,9 +6367,24 @@ in the first node getting the file. That is &lt;code&gt;stroomp00.strmdev00.org&
 &lt;ul&gt;
 &lt;li&gt;On each node run the command&lt;/li&gt;
 &lt;/ul&gt;
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;ls -l /stroomdata/stroom-working*/proxy
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;On &lt;code&gt;stroomp00&lt;/code&gt; we see&lt;/p&gt;
+&lt;p&gt;
+  
+
+
+
+
+
+
+&lt;div class=&#34;code-toolbar&#34;&gt;
+  &lt;pre 
+    class=&#34;command-line language-bash&#34; 
+    data-user=&#34;user&#34; 
+    data-host=&#34;localhost&#34; 
+    data-continuation-str=&#34;\&#34;
+    data-filter-output=&#34;(out)&#34;&gt;&lt;code class=&#34;language-bash&#34;&gt;ls -l /stroomdata/stroom-working*/proxy&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+On &lt;code&gt;stroomp00&lt;/code&gt; we see&lt;/p&gt;
 &lt;pre&gt;&lt;code class=&#34;language-text&#34;&gt;[stroomuser@stroomp00 ~]$ ls -l /stroomdata/stroom-working*/proxy
 total 16
 -rw-rw-r--. 1 stroomuser stroomuser 785 Jan 14 17:46 001.zip
@@ -4374,8 +6402,23 @@ total 12
 [stroomuser@stroomp01 ~]$
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;which corresponds to the seven posts of data and the associated events in the proxy logs. To see the contents of one of these files we execute on either node, the command&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;unzip -c /stroomdata/stroom-working*/proxy/001.zip
-&lt;/code&gt;&lt;/pre&gt;
+
+  
+
+
+
+
+
+
+&lt;div class=&#34;code-toolbar&#34;&gt;
+  &lt;pre 
+    class=&#34;command-line language-bash&#34; 
+    data-user=&#34;user&#34; 
+    data-host=&#34;localhost&#34; 
+    data-continuation-str=&#34;\&#34;
+    data-filter-output=&#34;(out)&#34;&gt;&lt;code class=&#34;language-bash&#34;&gt;unzip -c /stroomdata/stroom-working*/proxy/001.zip&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
 &lt;p&gt;to see&lt;/p&gt;
 &lt;pre&gt;&lt;code class=&#34;language-text&#34;&gt;Archive:  /stroomdata/stroom-working-p00/proxy/001.zip
   inflating: 001.dat
@@ -4457,14 +6500,44 @@ total 24
 &lt;h4 id=&#34;simple-direct-post-tests&#34;&gt;Simple Direct Post tests&lt;/h4&gt;
 &lt;p&gt;In this test we will use the direct feed interface of the Stroom application, rather than sending data via the proxy.
 One would normally use this interface for time sensitive data which shouldn&amp;rsquo;t aggregate in a proxy waiting for
-the Stroom application to collect it. In this situation we use the command&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;curl -k --data-binary @/etc/group &amp;quot;https://stroomp.strmdev00.org/stroom/datafeeddirect&amp;quot; -H &amp;quot;Feed:TEST-FEED-V1_0&amp;quot; -H &amp;quot;System:EXAMPLE_SYSTEM&amp;quot; -H &amp;quot;Environment:EXAMPLE_ENVIRONMENT&amp;quot;
-&lt;/code&gt;&lt;/pre&gt;
+the Stroom application to collect it. In this situation we use the command
+
+  
+
+
+
+
+
+
+&lt;div class=&#34;code-toolbar&#34;&gt;
+  &lt;pre 
+    class=&#34;command-line language-bash&#34; 
+    data-user=&#34;user&#34; 
+    data-host=&#34;localhost&#34; 
+    data-continuation-str=&#34;\&#34;
+    data-filter-output=&#34;(out)&#34;&gt;&lt;code class=&#34;language-bash&#34;&gt;curl -k --data-binary @/etc/group &amp;#34;https://stroomp.strmdev00.org/stroom/datafeeddirect&amp;#34; -H &amp;#34;Feed:TEST-FEED-V1_0&amp;#34; -H &amp;#34;System:EXAMPLE_SYSTEM&amp;#34; -H &amp;#34;Environment:EXAMPLE_ENVIRONMENT&amp;#34;&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/p&gt;
 &lt;p&gt;To prepare for this test, we monitor the Stroom application log using the &lt;code&gt;T&lt;/code&gt; bash alias on each node. So on each node run the command&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;sudo -i -u stroomuser
-T
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;On each node you should see &lt;em&gt;LifecyleTask&lt;/em&gt; events, for example,&lt;/p&gt;
+
+  
+
+
+
+
+
+
+&lt;div class=&#34;code-toolbar&#34;&gt;
+  &lt;pre 
+    class=&#34;command-line language-bash&#34; 
+    data-user=&#34;user&#34; 
+    data-host=&#34;localhost&#34; 
+    data-continuation-str=&#34;\&#34;
+    data-filter-output=&#34;(out)&#34;&gt;&lt;code class=&#34;language-bash&#34;&gt;sudo -i -u stroomuser
+T&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;On each node you should see &lt;em&gt;LifecycleTask&lt;/em&gt; events, for example,&lt;/p&gt;
 &lt;pre&gt;&lt;code class=&#34;language-text&#34;&gt;2017-01-14T07:42:08.281Z INFO  [Stroom P2 #7 - LifecycleTask] spring.StroomBeanMethodExecutable (StroomBeanMethodExecutable.java:47) - Executing nodeStatusExecutor.exec
 2017-01-14T07:42:18.284Z INFO  [Stroom P2 #2 - LifecycleTask] spring.StroomBeanMethodExecutable (StroomBeanMethodExecutable.java:47) - Executing SQLStatisticEventStore.evict
 2017-01-14T07:42:18.284Z INFO  [Stroom P2 #10 - LifecycleTask] spring.StroomBeanMethodExecutable (StroomBeanMethodExecutable.java:47) - Executing activeQueriesManager.evictExpiredElements
@@ -4684,14 +6757,44 @@ probably load balancing and hence the forwarded file may turn up on any of the d
 &lt;li&gt;Log onto the Forwarding Proxy node and become the &lt;code&gt;stroomuser&lt;/code&gt; and monitor the Stroom proxy service using the &lt;code&gt;Tp&lt;/code&gt; bash macro.&lt;/li&gt;
 &lt;li&gt;Log onto the destination Stroom nodes and become the &lt;code&gt;stroomuser&lt;/code&gt; and monitor each node&amp;rsquo;s Stroom proxy service using the &lt;code&gt;Tp&lt;/code&gt; bash macro. That is, on each node, run&lt;/li&gt;
 &lt;/ul&gt;
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;sudo -i -u stroomuser
-Tp
-&lt;/code&gt;&lt;/pre&gt;
+
+  
+
+
+
+
+
+
+&lt;div class=&#34;code-toolbar&#34;&gt;
+  &lt;pre 
+    class=&#34;command-line language-bash&#34; 
+    data-user=&#34;user&#34; 
+    data-host=&#34;localhost&#34; 
+    data-continuation-str=&#34;\&#34;
+    data-filter-output=&#34;(out)&#34;&gt;&lt;code class=&#34;language-bash&#34;&gt;sudo -i -u stroomuser
+Tp&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
 &lt;ul&gt;
 &lt;li&gt;On the &amp;lsquo;posting&amp;rsquo; node, run the command&lt;/li&gt;
 &lt;/ul&gt;
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;curl -k --data-binary @/etc/group &amp;quot;https://stroomfp0.strmdev00.org/stroom/datafeed&amp;quot; -H &amp;quot;Feed:TEST-FEED-V1_0&amp;quot; -H &amp;quot;System:EXAMPLE_SYSTEM&amp;quot; -H &amp;quot;Environment:EXAMPLE_ENVIRONMENT&amp;quot;
-&lt;/code&gt;&lt;/pre&gt;
+
+  
+
+
+
+
+
+
+&lt;div class=&#34;code-toolbar&#34;&gt;
+  &lt;pre 
+    class=&#34;command-line language-bash&#34; 
+    data-user=&#34;user&#34; 
+    data-host=&#34;localhost&#34; 
+    data-continuation-str=&#34;\&#34;
+    data-filter-output=&#34;(out)&#34;&gt;&lt;code class=&#34;language-bash&#34;&gt;curl -k --data-binary @/etc/group &amp;#34;https://stroomfp0.strmdev00.org/stroom/datafeed&amp;#34; -H &amp;#34;Feed:TEST-FEED-V1_0&amp;#34; -H &amp;#34;System:EXAMPLE_SYSTEM&amp;#34; -H &amp;#34;Environment:EXAMPLE_ENVIRONMENT&amp;#34;&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
 &lt;p&gt;In the Stroom Forwarding proxy log, &lt;code&gt;~/stroom-proxy/instance/logs/stroom.log&lt;/code&gt;, you will see the arrival of the
 file as per the &lt;em&gt;datafeed.DataFeedRequestHandler$1&lt;/em&gt; event running under, in this case, the &lt;em&gt;ajp-apr-9009-exec-1&lt;/em&gt; thread.&lt;/p&gt;
 &lt;pre&gt;&lt;code class=&#34;language-text&#34;&gt;...
@@ -4729,14 +6832,44 @@ received files are meant to be stored in.&lt;/p&gt;
 &lt;li&gt;Log onto any host where you will perform the &lt;code&gt;curl&lt;/code&gt; post&lt;/li&gt;
 &lt;li&gt;Log onto the Standalone Proxy node and become the &lt;code&gt;stroomuser&lt;/code&gt; and monitor the Stroom proxy service using the &lt;code&gt;Tp&lt;/code&gt; bash macro. That is run&lt;/li&gt;
 &lt;/ul&gt;
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;sudo -i -u stroomuser
-Tp
-&lt;/code&gt;&lt;/pre&gt;
+
+  
+
+
+
+
+
+
+&lt;div class=&#34;code-toolbar&#34;&gt;
+  &lt;pre 
+    class=&#34;command-line language-bash&#34; 
+    data-user=&#34;user&#34; 
+    data-host=&#34;localhost&#34; 
+    data-continuation-str=&#34;\&#34;
+    data-filter-output=&#34;(out)&#34;&gt;&lt;code class=&#34;language-bash&#34;&gt;sudo -i -u stroomuser
+Tp&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
 &lt;ul&gt;
 &lt;li&gt;On the &amp;lsquo;posting&amp;rsquo; node, run the command&lt;/li&gt;
 &lt;/ul&gt;
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;curl -k --data-binary @/etc/group &amp;quot;https://stroomsap0.strmdev00.org/stroom/datafeed&amp;quot; -H &amp;quot;Feed:TEST-FEED-V1_0&amp;quot; -H &amp;quot;System:EXAMPLE_SYSTEM&amp;quot; -H &amp;quot;Environment:EXAMPLE_ENVIRONMENT&amp;quot;
-&lt;/code&gt;&lt;/pre&gt;
+
+  
+
+
+
+
+
+
+&lt;div class=&#34;code-toolbar&#34;&gt;
+  &lt;pre 
+    class=&#34;command-line language-bash&#34; 
+    data-user=&#34;user&#34; 
+    data-host=&#34;localhost&#34; 
+    data-continuation-str=&#34;\&#34;
+    data-filter-output=&#34;(out)&#34;&gt;&lt;code class=&#34;language-bash&#34;&gt;curl -k --data-binary @/etc/group &amp;#34;https://stroomsap0.strmdev00.org/stroom/datafeed&amp;#34; -H &amp;#34;Feed:TEST-FEED-V1_0&amp;#34; -H &amp;#34;System:EXAMPLE_SYSTEM&amp;#34; -H &amp;#34;Environment:EXAMPLE_ENVIRONMENT&amp;#34;&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
 &lt;p&gt;In the stroom proxy log, &lt;code&gt;~/stroom-proxy/instance/logs/stroom.log&lt;/code&gt;, you will see the arrival of the file via both the &lt;em&gt;handler.LogRequestHandler&lt;/em&gt; and &lt;em&gt;datafeed.DataFeedRequestHandler$1&lt;/em&gt; events running under, in this case, the &lt;em&gt;ajp-apr-9009-exec-1&lt;/em&gt; thread.&lt;/p&gt;
 &lt;pre&gt;&lt;code class=&#34;language-text&#34;&gt;...
 2017-01-02T02:10:00.325Z INFO  [Repository Reader Thread 1] handler.ProxyRepositoryReader (ProxyRepositoryReader.java:143) - run() - Cron Match at 2017-01-02T02:10:00.325Z
@@ -4744,10 +6877,25 @@ Tp
 2017-01-02T02:11:34.528Z INFO  [ajp-apr-9009-exec-1] datafeed.DataFeedRequestHandler$1 (DataFeedRequestHandler.java:104) - &amp;quot;doPost() - Took 33 ms to process (concurrentRequestCount=1) 200&amp;quot;,&amp;quot;Environment=EXAMPLE_ENVIRONMENT&amp;quot;,&amp;quot;Expect=100-continue&amp;quot;,&amp;quot;Feed=TEST-FEED-V1_0&amp;quot;,&amp;quot;GUID=ebd11215-7d4c-4be6-a524-358015e2ac38&amp;quot;,&amp;quot;ReceivedTime=2017-01-02T02:11:34.501Z&amp;quot;,&amp;quot;RemoteAddress=192.168.2.220&amp;quot;,&amp;quot;RemoteHost=192.168.2.220&amp;quot;,&amp;quot;System=EXAMPLE_SYSTEM&amp;quot;,&amp;quot;accept=*/*&amp;quot;,&amp;quot;content-length=1051&amp;quot;,&amp;quot;content-type=application/x-www-form-urlencoded&amp;quot;,&amp;quot;host=stroomsap0.strmdev00.org&amp;quot;,&amp;quot;user-agent=curl/7.19.7 (x86_64-redhat-linux-gnu) libcurl/7.19.7 NSS/3.21 Basic ECC zlib/1.2.3 libidn/1.18 libssh2/1.4.2&amp;quot;
 ...
 &lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;Further, if you check the proxy&amp;rsquo;s storage directory, you will see the file &lt;code&gt;001.zip&lt;/code&gt;. The file names number upwards from 001.&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;ls -l /stroomdata/stroom-working-sap0/proxy
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;shows&lt;/p&gt;
+&lt;p&gt;Further, if you check the proxy&amp;rsquo;s storage directory, you will see the file &lt;code&gt;001.zip&lt;/code&gt;. The file names number upwards from 001.
+
+  
+
+
+
+
+
+
+&lt;div class=&#34;code-toolbar&#34;&gt;
+  &lt;pre 
+    class=&#34;command-line language-bash&#34; 
+    data-user=&#34;user&#34; 
+    data-host=&#34;localhost&#34; 
+    data-continuation-str=&#34;\&#34;
+    data-filter-output=&#34;(out)&#34;&gt;&lt;code class=&#34;language-bash&#34;&gt;ls -l /stroomdata/stroom-working-sap0/proxy&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+shows&lt;/p&gt;
 &lt;pre&gt;&lt;code class=&#34;language-text&#34;&gt;[stroomuser@stroomsap0 ~]$ ls -l /stroomdata/stroom-working-sap0/proxy
 total 4
 -rw-rw-r--. 1 stroomuser stroomuser 1107 Jan  2 13:11 001.zip
@@ -5459,7 +7607,7 @@ We want to delete them.&lt;/p&gt;
   &lt;/a&gt;
 &lt;/div&gt;
 
-&lt;p&gt;At this one can close the &lt;code&gt;Volumes&lt;/code&gt; configuration window by pressing the 
+&lt;p&gt;At this point, one can close the &lt;code&gt;Volumes&lt;/code&gt; configuration window by pressing the 
 
 
 
@@ -5765,7 +7913,7 @@ This will bring up the &lt;code&gt;Add Volume&lt;/code&gt; configuration window 
   &lt;/a&gt;
 &lt;/div&gt;
 
-&lt;p&gt;At this one can close the &lt;code&gt;Volumes&lt;/code&gt; configuration window by pressing the 
+&lt;p&gt;At this point, one can close the &lt;code&gt;Volumes&lt;/code&gt; configuration window by pressing the 
 
 
 

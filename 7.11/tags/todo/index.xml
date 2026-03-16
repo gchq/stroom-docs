@@ -276,33 +276,18 @@ The Stroom stack comes in a number of different variants:&lt;/p&gt;
 &lt;li&gt;&lt;strong&gt;stroom_core&lt;/strong&gt; - If it is for an actual deployment of Stroom then download &lt;code&gt;stroom_core*.tar.gz&lt;/code&gt;, which has no content and requires some configuration.&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;Using &lt;code&gt;stroom_core_test-v7.10.11.tar.gz&lt;/code&gt; as an example:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;# Define the version to download
+VERSION=&amp;quot;v7.10.11&amp;quot;; STACK=&amp;quot;stroom_core_test&amp;quot;
 
-  
-
-
-
-
-
-
-&lt;div class=&#34;code-toolbar&#34;&gt;
-  &lt;pre 
-    class=&#34;command-line language-bash&#34; 
-    data-user=&#34;stroomuser&#34; 
-    data-host=&#34;localhost&#34; 
-    data-continuation-str=&#34;\&#34;
-    data-filter-output=&#34;(out)&#34;&gt;&lt;code class=&#34;language-bash&#34;&gt;# Define the version to download
-VERSION=&amp;#34;v7.10.11&amp;#34;; STACK=&amp;#34;stroom_core_test&amp;#34;
-(out)
 # Download and extract the Stroom stack
-curl -sL &amp;#34;https://github.com/gchq/stroom-resources/releases/download/stroom-stacks-${VERSION}/${STACK}-${VERSION}.tar.gz&amp;#34; | tar xz
-(out)
-# Navigate into the new stack directory, where xxxx is the directory that has just been created
-cd &amp;#34;${STACK}-${VERSION}&amp;#34;
-(out)
-# Start the stack
-./start.sh&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
+curl -sL &amp;quot;https://github.com/gchq/stroom-resources/releases/download/stroom-stacks-${VERSION}/${STACK}-${VERSION}.tar.gz&amp;quot; | tar xz
 
+# Navigate into the new stack directory, where xxxx is the directory that has just been created
+cd &amp;quot;${STACK}-${VERSION}&amp;quot;
+
+# Start the stack
+./start.sh
+&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;Alternatively if you understand the risks of redirecting web sourced content direct to bash, you can get the latest &lt;code&gt;stroom_core_test&lt;/code&gt; release using:&lt;/p&gt;
 
   
@@ -417,14 +402,39 @@ You will need to manually create an administrator account.
 &lt;p&gt;A single MySQL database is required for each Stroom instance.
 You do not need to setup a MySQL instance per node in your cluster.&lt;/p&gt;
 &lt;h2 id=&#34;check-database-installed-and-running&#34;&gt;Check Database installed and running&lt;/h2&gt;
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;[root@stroomdb ~]# /sbin/chkconfig --list mysqld
-mysqld          0:off   1:off   2:on    3:on    4:on    5:on    6:off
-[root@stroomdb ~]# mysql --user=root -p
-Enter password:
-Welcome to the MySQL monitor.  Commands end with ; or \g.
-...
-mysql&amp;gt; quit      
-&lt;/code&gt;&lt;/pre&gt;
+
+  
+
+
+
+
+
+
+&lt;div class=&#34;code-toolbar&#34;&gt;
+  &lt;pre 
+    class=&#34;command-line language-bash&#34; 
+    data-user=&#34;root&#34; 
+    data-host=&#34;stroomdb&#34; 
+    data-continuation-str=&#34;\&#34;
+    data-filter-output=&#34;(out)&#34;&gt;&lt;code class=&#34;language-bash&#34;&gt;/sbin/chkconfig --list mysqld
+(out)mysqld          0:off   1:off   2:on    3:on    4:on    5:on    6:off
+mysql --user=root -p&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+
+
+&lt;div class=&#34;code-toolbar&#34;&gt;
+  &lt;pre 
+    class=&#34;command-line language-sql&#34; 
+    data-prompt=&#34;mysql&gt;&#34; 
+    data-filter-output=&#34;(out)&#34;
+    data-continuation-prompt=&#34;-&gt;&#34;
+    data-filter-continuation=&#34;(con)&#34;&gt;&lt;code class=&#34;language-sql&#34;&gt;(out)Enter password:
+(out)Welcome to the MySQL monitor.  Commands end with ; or \g.
+(out)...
+quit&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
 &lt;p&gt;The following commands can be used to auto start mysql if required:&lt;/p&gt;
 
   
@@ -456,37 +466,76 @@ mysql&amp;gt; quit
 &lt;li&gt;Performance Monitoring&lt;/li&gt;
 &lt;/ul&gt;
 &lt;h2 id=&#34;simple-install&#34;&gt;Simple Install&lt;/h2&gt;
-&lt;p&gt;Ensure the database is running, create the database and access to it&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;[stroomuser@host stroom-setup]$ mysql --user=root
-Welcome to the MySQL monitor.  Commands end with ; or \g.
-...
+&lt;p&gt;Ensure the database is running, then create the database and grant access to it:&lt;/p&gt;
 
-mysql&amp;gt; create database stroom;
-Query OK, 1 row affected (0.02 sec)
+  
 
-mysql&amp;gt; grant all privileges on stroom.* to &#39;stroomuser&#39;@&#39;host&#39; identified by &#39;password&#39;;
-Query OK, 0 rows affected (0.00 sec)
 
-mysql&amp;gt; create database stroom_stats;
-Query OK, 1 row affected (0.02 sec)
 
-mysql&amp;gt; grant all privileges on stroom_stats.* to &#39;stroomuser&#39;@&#39;host&#39; identified by &#39;password&#39;;
-Query OK, 0 rows affected (0.00 sec)
 
-mysql&amp;gt; flush privileges;
-Query OK, 0 rows affected (0.00 sec)
-&lt;/code&gt;&lt;/pre&gt;
+
+
+&lt;div class=&#34;code-toolbar&#34;&gt;
+  &lt;pre 
+    class=&#34;command-line language-bash&#34; 
+    data-user=&#34;stroomuser&#34; 
+    data-host=&#34;host&#34; 
+    data-continuation-str=&#34;\&#34;
+    data-filter-output=&#34;(out)&#34;&gt;&lt;code class=&#34;language-bash&#34;&gt;mysql --user=root&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+
+
+&lt;div class=&#34;code-toolbar&#34;&gt;
+  &lt;pre 
+    class=&#34;command-line language-sql&#34; 
+    data-prompt=&#34;mysql&gt;&#34; 
+    data-filter-output=&#34;(out)&#34;
+    data-continuation-prompt=&#34;-&gt;&#34;
+    data-filter-continuation=&#34;(con)&#34;&gt;&lt;code class=&#34;language-sql&#34;&gt;(out)Welcome to the MySQL monitor.  Commands end with ; or \g.
+(out)...
+create database stroom;
+(out)Query OK, 1 row affected (0.02 sec)
+
+grant all privileges on stroom.* to &amp;#39;stroomuser&amp;#39;@&amp;#39;host&amp;#39; identified by &amp;#39;password&amp;#39;;
+(out)Query OK, 0 rows affected (0.00 sec)
+
+create database stroom_stats;
+(out)Query OK, 1 row affected (0.02 sec)
+
+grant all privileges on stroom_stats.* to &amp;#39;stroomuser&amp;#39;@&amp;#39;host&amp;#39; identified by &amp;#39;password&amp;#39;;
+(out)Query OK, 0 rows affected (0.00 sec)
+
+flush privileges;
+(out)Query OK, 0 rows affected (0.00 sec)&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
 &lt;h2 id=&#34;advanced-security&#34;&gt;Advanced Security&lt;/h2&gt;
 &lt;p&gt;It is recommended to run /usr/bin/mysql_secure_installation to remove test database and accounts.&lt;/p&gt;
 &lt;p&gt;./stroom-setup/mysql_grant.sh is a utility script that creates accounts for you to use within a
 cluster (or single node setup). Run to see the options:&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;[stroomuser@host stroom-setup]$ ./mysql_grant.sh
-usage : --name=&amp;lt;instance name (defaults to my for /etc/my.cnf)&amp;gt;
-        --user=&amp;lt;the stroom user for the db&amp;gt;
-        --password=&amp;lt;the stroom password for the db&amp;gt;
-        --cluster=&amp;lt;the file with a line per node in the cluster&amp;gt;
---user=&amp;lt;db user&amp;gt; Must be set
-&lt;/code&gt;&lt;/pre&gt;
+
+  
+
+
+
+
+
+
+&lt;div class=&#34;code-toolbar&#34;&gt;
+  &lt;pre 
+    class=&#34;command-line language-bash&#34; 
+    data-user=&#34;stroomuser&#34; 
+    data-host=&#34;host&#34; 
+    data-continuation-str=&#34;\&#34;
+    data-filter-output=&#34;(out)&#34;&gt;&lt;code class=&#34;language-bash&#34;&gt;./mysql_grant.sh
+(out)usage : --name=&amp;lt;instance name (defaults to my for /etc/my.cnf)&amp;gt;
+(out)        --user=&amp;lt;the stroom user for the db&amp;gt;
+(out)        --password=&amp;lt;the stroom password for the db&amp;gt;
+(out)        --cluster=&amp;lt;the file with a line per node in the cluster&amp;gt;
+(out)--user=&amp;lt;db user&amp;gt; Must be set&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
 &lt;p&gt;N.B. name is used when multiple mysql instances are setup (see below).&lt;/p&gt;
 &lt;p&gt;You need to create a file cluster.txt with a line for each member of your cluster
 (or single line in the case of a one node Stroom install).
@@ -530,130 +579,377 @@ Then run the utility script to lock down the server access.&lt;/p&gt;
 &lt;li&gt;server2 - stroom (replica), stroom_stats&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;As root on server1:&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;yum install &amp;quot;mysql56-mysql-server&amp;quot;
-&lt;/code&gt;&lt;/pre&gt;
+
+  
+
+
+
+
+
+
+&lt;div class=&#34;code-toolbar&#34;&gt;
+  &lt;pre 
+    class=&#34;command-line language-bash&#34; 
+    data-user=&#34;user&#34; 
+    data-host=&#34;localhost&#34; 
+    data-continuation-str=&#34;\&#34;
+    data-filter-output=&#34;(out)&#34;&gt;&lt;code class=&#34;language-bash&#34;&gt;yum install &amp;#34;mysql56-mysql-server&amp;#34;&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
 &lt;p&gt;Create the master database:&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;[root@node1 stroomuser]# ./stroom-setup/mysqld_instance.sh --name=mysqld56_stroom --port=3106 --server=mysqld56 --os=rhel6
 
---master not set ... assuming master database
-Wrote base files in tmp (You need to move them as root).  cp /tmp/mysqld56_stroom /etc/init.d/mysqld56_stroom; cp /tmp/mysqld56_stroom.cnf /etc/mysqld56_stroom.cnf
-Run mysql client with mysql --defaults-file=/etc/mysqld56_stroom.cnf
+  
 
-[root@node1 stroomuser]# cp /tmp/mysqld56_stroom /etc/init.d/mysqld56_stroom; cp /tmp/mysqld56_stroom.cnf /etc/mysqld56_stroom.cnf
-[root@node1 stroomuser]# /etc/init.d/mysqld56_stroom start
 
-Initializing MySQL database:  Installing MySQL system tables...
-OK
-Filling help tables...
-...
-...
-Starting mysql56-mysqld:                                   [  OK  ]
-&lt;/code&gt;&lt;/pre&gt;
+
+
+
+
+&lt;div class=&#34;code-toolbar&#34;&gt;
+  &lt;pre 
+    class=&#34;command-line language-bash&#34; 
+    data-user=&#34;root&#34; 
+    data-host=&#34;node1&#34; 
+    data-continuation-str=&#34;\&#34;
+    data-filter-output=&#34;(out)&#34;&gt;&lt;code class=&#34;language-bash&#34;&gt;./stroom-setup/mysqld_instance.sh --name=mysqld56_stroom --port=3106 --server=mysqld56 --os=rhel6
+
+(out)--master not set ... assuming master database
+(out)Wrote base files in tmp (You need to move them as root).  cp /tmp/mysqld56_stroom /etc/init.d/mysqld56_stroom; cp /tmp/mysqld56_stroom.cnf /etc/mysqld56_stroom.cnf
+(out)Run mysql client with mysql --defaults-file=/etc/mysqld56_stroom.cnf
+
+cp /tmp/mysqld56_stroom /etc/init.d/mysqld56_stroom; cp /tmp/mysqld56_stroom.cnf /etc/mysqld56_stroom.cnf
+/etc/init.d/mysqld56_stroom start
+
+(out)Initializing MySQL database:  Installing MySQL system tables...
+(out)OK
+(out)Filling help tables...
+(out)...
+(out)...
+(out)Starting mysql56-mysqld:                                   [  OK  ]&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
 &lt;p&gt;Check Start up Settings Correct&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;[root@node2 stroomuser]# chkconfig mysqld off
-[root@node2 stroomuser]# chkconfig mysql56-mysqld off
-[root@node1 stroomuser]# chkconfig --add mysqld56_stroom
-[root@node1 stroomuser]# chkconfig mysqld56_stroom on
 
-[root@node2 stroomuser]# chkconfig --list | grep mysql
-mysql56-mysqld  0:off   1:off   2:off   3:off   4:off   5:off   6:off
-mysqld          0:off   1:off   2:off   3:off   4:off   5:off   6:off
-mysqld56_stroom    0:off   1:off   2:on    3:on    4:on    5:on    6:off
-mysqld56_stats  0:off   1:off   2:on    3:on    4:on    5:on    6:off
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;Create a text file will all members of the cluster:&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;[root@node1 stroomuser]# vi cluster.txt
+  
 
-node1.my.org
-node2.my.org
-node3.my.org
-node4.my.org 
-&lt;/code&gt;&lt;/pre&gt;
+
+
+
+
+
+&lt;div class=&#34;code-toolbar&#34;&gt;
+  &lt;pre 
+    class=&#34;command-line language-bash&#34; 
+    data-user=&#34;root&#34; 
+    data-host=&#34;node2&#34; 
+    data-continuation-str=&#34;\&#34;
+    data-filter-output=&#34;(out)&#34;&gt;&lt;code class=&#34;language-bash&#34;&gt;chkconfig mysqld off
+chkconfig mysql56-mysqld off
+chkconfig --add mysqld56_stroom
+chkconfig mysqld56_stroom on
+
+chkconfig --list | grep mysql
+(out)mysql56-mysqld  0:off   1:off   2:off   3:off   4:off   5:off   6:off
+(out)mysqld          0:off   1:off   2:off   3:off   4:off   5:off   6:off
+(out)mysqld56_stroom    0:off   1:off   2:on    3:on    4:on    5:on    6:off
+(out)mysqld56_stats  0:off   1:off   2:on    3:on    4:on    5:on    6:off&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;Create a text file with all members of the cluster:&lt;/p&gt;
+
+  
+
+
+
+
+
+
+&lt;div class=&#34;code-toolbar&#34;&gt;
+  &lt;pre 
+    class=&#34;command-line language-bash&#34; 
+    data-user=&#34;root&#34; 
+    data-host=&#34;node1&#34; 
+    data-continuation-str=&#34;\&#34;
+    data-filter-output=&#34;(out)&#34;&gt;&lt;code class=&#34;language-bash&#34;&gt;vi cluster.txt
+
+(out)node1.my.org
+(out)node2.my.org
+(out)node3.my.org
+(out)node4.my.org&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
 &lt;p&gt;Create the grants:&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;[root@node1 stroomuser]# ./stroom-setup/mysql_grant.sh --name=mysqld56_stroom --user=stroomuser --password=password --cluster=cluster.txt
-&lt;/code&gt;&lt;/pre&gt;
+
+  
+
+
+
+
+
+
+&lt;div class=&#34;code-toolbar&#34;&gt;
+  &lt;pre 
+    class=&#34;command-line language-bash&#34; 
+    data-user=&#34;root&#34; 
+    data-host=&#34;node1&#34; 
+    data-continuation-str=&#34;\&#34;
+    data-filter-output=&#34;(out)&#34;&gt;&lt;code class=&#34;language-bash&#34;&gt;./stroom-setup/mysql_grant.sh --name=mysqld56_stroom --user=stroomuser --password=password --cluster=cluster.txt&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
 &lt;p&gt;As root on server2:&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;[root@node2 stroomuser]# yum install &amp;quot;mysql56-mysql-server&amp;quot;
+
+  
 
 
-[root@node2 stroomuser]# ./stroom-setup/mysqld_instance.sh --name=mysqld56_stroom --port=3106 --server=mysqld56 --os=rhel6 --master=node1.my.org --user=stroomuser --password=password
 
---master set ... assuming slave database
-Wrote base files in tmp (You need to move them as root).  cp /tmp/mysqld56_stroom /etc/init.d/mysqld56_stroom; cp /tmp/mysqld56_stroom.cnf /etc/mysqld56_stroom.cnf
-Run mysql client with mysql --defaults-file=/etc/mysqld56_stroom.cnf
 
-[root@node2 stroomuser]# cp /tmp/mysqld56_stroom /etc/init.d/mysqld56_stroom; cp /tmp/mysqld56_stroom.cnf /etc/mysqld56_stroom.cnf
-[root@node1 stroomuser]# /etc/init.d/mysqld56_stroom start
 
-Initializing MySQL database:  Installing MySQL system tables...
-OK
-Filling help tables...
-...
-...
-Starting mysql56-mysqld:                                   [  OK  ]
-&lt;/code&gt;&lt;/pre&gt;
+
+&lt;div class=&#34;code-toolbar&#34;&gt;
+  &lt;pre 
+    class=&#34;command-line language-bash&#34; 
+    data-user=&#34;root&#34; 
+    data-host=&#34;node2&#34; 
+    data-continuation-str=&#34;\&#34;
+    data-filter-output=&#34;(out)&#34;&gt;&lt;code class=&#34;language-bash&#34;&gt;yum install &amp;#34;mysql56-mysql-server&amp;#34;
+
+
+./stroom-setup/mysqld_instance.sh --name=mysqld56_stroom --port=3106 --server=mysqld56 --os=rhel6 --master=node1.my.org --user=stroomuser --password=password
+
+(out)--master set ... assuming slave database
+(out)Wrote base files in tmp (You need to move them as root).  cp /tmp/mysqld56_stroom /etc/init.d/mysqld56_stroom; cp /tmp/mysqld56_stroom.cnf /etc/mysqld56_stroom.cnf
+(out)Run mysql client with mysql --defaults-file=/etc/mysqld56_stroom.cnf
+
+cp /tmp/mysqld56_stroom /etc/init.d/mysqld56_stroom; cp /tmp/mysqld56_stroom.cnf /etc/mysqld56_stroom.cnf
+/etc/init.d/mysqld56_stroom start
+
+(out)Initializing MySQL database:  Installing MySQL system tables...
+(out)OK
+(out)Filling help tables...
+(out)...
+(out)...
+(out)Starting mysql56-mysqld:                                   [  OK  ]&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
 &lt;p&gt;Check Start up Settings Correct&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;[root@node2 stroomuser]# chkconfig mysqld off
-[root@node2 stroomuser]# chkconfig mysql56-mysqld off
-[root@node1 stroomuser]# chkconfig --add mysqld56_stroom
-[root@node1 stroomuser]# chkconfig mysqld56_stroom on
 
-[root@node2 stroomuser]# chkconfig --list | grep mysql
-mysql56-mysqld  0:off   1:off   2:off   3:off   4:off   5:off   6:off
-mysqld          0:off   1:off   2:off   3:off   4:off   5:off   6:off
-mysqld56_stroom    0:off   1:off   2:on    3:on    4:on    5:on    6:off
-&lt;/code&gt;&lt;/pre&gt;
+  
+
+
+
+
+
+
+&lt;div class=&#34;code-toolbar&#34;&gt;
+  &lt;pre 
+    class=&#34;command-line language-bash&#34; 
+    data-user=&#34;root&#34; 
+    data-host=&#34;node2&#34; 
+    data-continuation-str=&#34;\&#34;
+    data-filter-output=&#34;(out)&#34;&gt;&lt;code class=&#34;language-bash&#34;&gt;chkconfig mysqld off
+chkconfig mysql56-mysqld off
+chkconfig --add mysqld56_stroom
+chkconfig mysqld56_stroom on
+
+chkconfig --list | grep mysql
+(out)mysql56-mysqld  0:off   1:off   2:off   3:off   4:off   5:off   6:off
+(out)mysqld          0:off   1:off   2:off   3:off   4:off   5:off   6:off
+(out)mysqld56_stroom    0:off   1:off   2:on    3:on    4:on    5:on    6:off&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
 &lt;p&gt;Create the grants:&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;[root@node1 stroomuser]# ./stroom-setup/mysql_grant.sh --name=mysqld56_stroom --user=stroomuser --password=password --cluster=cluster.txt
-&lt;/code&gt;&lt;/pre&gt;
+
+  
+
+
+
+
+
+
+&lt;div class=&#34;code-toolbar&#34;&gt;
+  &lt;pre 
+    class=&#34;command-line language-bash&#34; 
+    data-user=&#34;root&#34; 
+    data-host=&#34;node1&#34; 
+    data-continuation-str=&#34;\&#34;
+    data-filter-output=&#34;(out)&#34;&gt;&lt;code class=&#34;language-bash&#34;&gt;./stroom-setup/mysql_grant.sh --name=mysqld56_stroom --user=stroomuser --password=password --cluster=cluster.txt&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
 &lt;p&gt;Make the slave database start to follow:&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;[root@node2 stroomuser]# cat /etc/mysqld56_stroom.cnf | grep &amp;quot;change master&amp;quot;
-# change master to MASTER_HOST=&#39;node1.my.org&#39;, MASTER_PORT=3106, MASTER_USER=&#39;stroomuser&#39;, MASTER_PASSWORD=&#39;password&#39;;
 
-[root@node2 stroomuser]# mysql --defaults-file=/etc/mysqld56_stroom.cnf
+  
 
-mysql&amp;gt; change master to MASTER_HOST=&#39;node1.my.org&#39;, MASTER_PORT=3106, MASTER_USER=&#39;stroomuser&#39;, MASTER_PASSWORD=&#39;password&#39;;
-mysql&amp;gt; start slave; 
-&lt;/code&gt;&lt;/pre&gt;
+
+
+
+
+
+&lt;div class=&#34;code-toolbar&#34;&gt;
+  &lt;pre 
+    class=&#34;command-line language-bash&#34; 
+    data-user=&#34;root&#34; 
+    data-host=&#34;node2&#34; 
+    data-continuation-str=&#34;\&#34;
+    data-filter-output=&#34;(out)&#34;&gt;&lt;code class=&#34;language-bash&#34;&gt;cat /etc/mysqld56_stroom.cnf | grep &amp;#34;change master&amp;#34;
+(out)# change master to MASTER_HOST=&amp;#39;node1.my.org&amp;#39;, MASTER_PORT=3106, MASTER_USER=&amp;#39;stroomuser&amp;#39;, MASTER_PASSWORD=&amp;#39;password&amp;#39;;
+
+mysql --defaults-file=/etc/mysqld56_stroom.cnf&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+
+
+&lt;div class=&#34;code-toolbar&#34;&gt;
+  &lt;pre 
+    class=&#34;command-line language-sql&#34; 
+    data-prompt=&#34;mysql&gt;&#34; 
+    data-filter-output=&#34;(out)&#34;
+    data-continuation-prompt=&#34;-&gt;&#34;
+    data-filter-continuation=&#34;(con)&#34;&gt;&lt;code class=&#34;language-sql&#34;&gt;change master to MASTER_HOST=&amp;#39;node1.my.org&amp;#39;, MASTER_PORT=3106, MASTER_USER=&amp;#39;stroomuser&amp;#39;, MASTER_PASSWORD=&amp;#39;password&amp;#39;;
+start slave;&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
 &lt;p&gt;As processing user on server1:&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;[stroomuser@node1 ~]$ mysql --defaults-file=/etc/mysqld56_stroom.cnf --user=stroomuser --password=password
 
-mysql&amp;gt; create database stroom;
-Query OK, 1 row affected (0.00 sec)
+  
 
-mysql&amp;gt; use stroom;
-Database changed
 
-mysql&amp;gt; create table test (a int);
-Query OK, 0 rows affected (0.05 sec)
-&lt;/code&gt;&lt;/pre&gt;
+
+
+
+
+&lt;div class=&#34;code-toolbar&#34;&gt;
+  &lt;pre 
+    class=&#34;command-line language-bash&#34; 
+    data-user=&#34;stroomuser&#34; 
+    data-host=&#34;node1&#34; 
+    data-continuation-str=&#34;\&#34;
+    data-filter-output=&#34;(out)&#34;&gt;&lt;code class=&#34;language-bash&#34;&gt;mysql --defaults-file=/etc/mysqld56_stroom.cnf --user=stroomuser --password=password&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+
+
+&lt;div class=&#34;code-toolbar&#34;&gt;
+  &lt;pre 
+    class=&#34;command-line language-sql&#34; 
+    data-prompt=&#34;mysql&gt;&#34; 
+    data-filter-output=&#34;(out)&#34;
+    data-continuation-prompt=&#34;-&gt;&#34;
+    data-filter-continuation=&#34;(con)&#34;&gt;&lt;code class=&#34;language-sql&#34;&gt;create database stroom;
+(out)Query OK, 1 row affected (0.00 sec)
+
+use stroom;
+(out)Database changed
+
+create table test (a int);
+(out)Query OK, 0 rows affected (0.05 sec)&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
 &lt;p&gt;As processing user on server2 check server replicating OK:&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;[stroomuser@node2 ~]$ mysql --defaults-file=/etc/mysqld56_stroom.cnf --user=stroomuser --password=password
 
-mysql&amp;gt; show create table test;
-+-------+----------------------------------------------------------------------------------------+
-| Table | Create Table                                                                           |
-+-------+----------------------------------------------------------------------------------------+
-| test  | CREATE TABLE `test` (`a` int(11) DEFAULT NULL  ) ENGINE=InnoDB DEFAULT CHARSET=latin1  |
-+-------+----------------------------------------------------------------------------------------+
-1 row in set (0.00 sec)
-&lt;/code&gt;&lt;/pre&gt;
+  
+
+
+
+
+
+
+&lt;div class=&#34;code-toolbar&#34;&gt;
+  &lt;pre 
+    class=&#34;command-line language-bash&#34; 
+    data-user=&#34;stroomuser&#34; 
+    data-host=&#34;node2&#34; 
+    data-continuation-str=&#34;\&#34;
+    data-filter-output=&#34;(out)&#34;&gt;&lt;code class=&#34;language-bash&#34;&gt;mysql --defaults-file=/etc/mysqld56_stroom.cnf --user=stroomuser --password=password&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+
+
+&lt;div class=&#34;code-toolbar&#34;&gt;
+  &lt;pre 
+    class=&#34;command-line language-sql&#34; 
+    data-prompt=&#34;mysql&gt;&#34; 
+    data-filter-output=&#34;(out)&#34;
+    data-continuation-prompt=&#34;-&gt;&#34;
+    data-filter-continuation=&#34;(con)&#34;&gt;&lt;code class=&#34;language-sql&#34;&gt;show create table test;
+(out)&amp;#43;-------&amp;#43;----------------------------------------------------------------------------------------&amp;#43;
+(out)| Table | Create Table                                                                           |
+(out)&amp;#43;-------&amp;#43;----------------------------------------------------------------------------------------&amp;#43;
+(out)| test  | CREATE TABLE `test` (`a` int(11) DEFAULT NULL  ) ENGINE=InnoDB DEFAULT CHARSET=latin1  |
+(out)&amp;#43;-------&amp;#43;----------------------------------------------------------------------------------------&amp;#43;
+(out)1 row in set (0.00 sec)&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
 &lt;p&gt;As root on server2:&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;[root@node2 stroomuser]# /home/stroomuser/stroom-setup/mysqld_instance.sh --name=mysqld56_stats --port=3206 --server=mysqld56 --os=rhel6 --user=statsuser --password=password
-[root@node2 stroomuser]# cp /tmp/mysqld56_stats /etc/init.d/mysqld56_stats; cp /tmp/mysqld56_stats.cnf /etc/mysqld56_stats.cnf
-[root@node2 stroomuser]# /etc/init.d/mysqld56_stats start
-[root@node2 stroomuser]# chkconfig mysqld56_stats on
-&lt;/code&gt;&lt;/pre&gt;
+
+  
+
+
+
+
+
+
+&lt;div class=&#34;code-toolbar&#34;&gt;
+  &lt;pre 
+    class=&#34;command-line language-bash&#34; 
+    data-user=&#34;root&#34; 
+    data-host=&#34;node2&#34; 
+    data-continuation-str=&#34;\&#34;
+    data-filter-output=&#34;(out)&#34;&gt;&lt;code class=&#34;language-bash&#34;&gt;/home/stroomuser/stroom-setup/mysqld_instance.sh --name=mysqld56_stats --port=3206 --server=mysqld56 --os=rhel6 --user=statsuser --password=password
+cp /tmp/mysqld56_stats /etc/init.d/mysqld56_stats; cp /tmp/mysqld56_stats.cnf /etc/mysqld56_stats.cnf
+/etc/init.d/mysqld56_stats start
+chkconfig mysqld56_stats on&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
 &lt;p&gt;Create the grants:&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;[root@node2 stroomuser]# ./stroom-setup/mysql_grant.sh --name=mysqld56_stats --database=stats  --user=stroomstats --password=password --cluster=cluster.txt
-&lt;/code&gt;&lt;/pre&gt;
+
+  
+
+
+
+
+
+
+&lt;div class=&#34;code-toolbar&#34;&gt;
+  &lt;pre 
+    class=&#34;command-line language-bash&#34; 
+    data-user=&#34;root&#34; 
+    data-host=&#34;node2&#34; 
+    data-continuation-str=&#34;\&#34;
+    data-filter-output=&#34;(out)&#34;&gt;&lt;code class=&#34;language-bash&#34;&gt;./stroom-setup/mysql_grant.sh --name=mysqld56_stats --database=stats  --user=stroomstats --password=password --cluster=cluster.txt&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
 &lt;p&gt;As processing user create the database:&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;[stroomuser@node2 ~]$ mysql --defaults-file=/etc/mysqld56_stats.cnf --user=stroomstats --password=password
-Welcome to the MySQL monitor.  Commands end with ; or \g.
-....
-mysql&amp;gt; create database stats;
-Query OK, 1 row affected (0.00 sec)
-&lt;/code&gt;&lt;/pre&gt;
+
+  
+
+
+
+
+
+
+&lt;div class=&#34;code-toolbar&#34;&gt;
+  &lt;pre 
+    class=&#34;command-line language-bash&#34; 
+    data-user=&#34;stroomuser&#34; 
+    data-host=&#34;node2&#34; 
+    data-continuation-str=&#34;\&#34;
+    data-filter-output=&#34;(out)&#34;&gt;&lt;code class=&#34;language-bash&#34;&gt;mysql --defaults-file=/etc/mysqld56_stats.cnf --user=stroomstats --password=password&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+
+
+&lt;div class=&#34;code-toolbar&#34;&gt;
+  &lt;pre 
+    class=&#34;command-line language-sql&#34; 
+    data-prompt=&#34;mysql&gt;&#34; 
+    data-filter-output=&#34;(out)&#34;
+    data-continuation-prompt=&#34;-&gt;&#34;
+    data-filter-continuation=&#34;(con)&#34;&gt;&lt;code class=&#34;language-sql&#34;&gt;(out)Welcome to the MySQL monitor.  Commands end with ; or \g.
+(out)....
+create database stats;
+(out)Query OK, 1 row affected (0.00 sec)&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
 
       </description>
     </item>
@@ -881,24 +1177,9 @@ STROOM_PROXY_REMOTE_FORWARD_URL
 &lt;p&gt;The &amp;lsquo;API key&amp;rsquo; is generated on the stroom server and is related to a specific user e.g. proxyServiceUser.
 The 2 URL values also refer to the stroom server and can be a fully qualified domain name (fqdn) or the IP Address.&lt;/p&gt;
 &lt;p&gt;e.g. if the stroom server was - stroom-serve.somewhere.co.uk - the URL lines would be:&lt;/p&gt;
-
-  
-
-
-
-
-
-
-&lt;div class=&#34;code-toolbar&#34;&gt;
-  &lt;pre 
-    class=&#34;command-line language-bash&#34; 
-    data-user=&#34;stroomuser&#34; 
-    data-host=&#34;localhost&#34; 
-    data-continuation-str=&#34;\&#34;
-    data-filter-output=&#34;(out)&#34;&gt;&lt;code class=&#34;language-bash&#34;&gt;export STROOM_PROXY_REMOTE_FEED_STATUS_URL=&amp;#34;http://stroom-serve.somewhere.co.uk:8080/api/feedStatus/v1&amp;#34;
-export STROOM_PROXY_REMOTE_FORWARD_URL=&amp;#34;http://stroom-serve.somewhere.co.uk:8080/stroom/datafeed&amp;#34;&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;export STROOM_PROXY_REMOTE_FEED_STATUS_URL=&amp;quot;http://stroom-serve.somewhere.co.uk:8080/api/feedStatus/v1&amp;quot;
+export STROOM_PROXY_REMOTE_FORWARD_URL=&amp;quot;http://stroom-serve.somewhere.co.uk:8080/stroom/datafeed&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
 &lt;h3 id=&#34;to-start-stroom-proxy&#34;&gt;To Start Stroom Proxy&lt;/h3&gt;
 &lt;p&gt;As the stroom user, run the &amp;lsquo;start.sh&amp;rsquo; script found in the stroom install:&lt;/p&gt;
 
@@ -1051,14 +1332,32 @@ See &lt;a href=&#34;../../docs/install-guide/configuration/stroom-and-proxy/conf
 
 &lt;/div&gt;
 
-&lt;p&gt;It is recommended that you run mysql_secure_installation to set a root password and remove test database:&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;mysql_secure_installation (provide a root password)
-- Set root password? [Y/n] Y
-- Remove anonymous users? [Y/n] Y 
-- Disallow root login remotely? [Y/n] Y
-- Remove test database and access to it? [Y/n] Y
-- Reload privilege tables now? [Y/n] Y
-&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;It is recommended that you run &lt;code&gt;mysql_secure_installation&lt;/code&gt; to set a root password and remove the test database:&lt;/p&gt;
+
+  
+
+
+
+
+
+
+&lt;div class=&#34;code-toolbar&#34;&gt;
+  &lt;pre 
+    class=&#34;command-line language-bash&#34; 
+    data-user=&#34;user&#34; 
+    data-host=&#34;localhost&#34; 
+    data-continuation-str=&#34;\&#34;
+    data-filter-output=&#34;(out)&#34;&gt;&lt;code class=&#34;language-bash&#34;&gt;mysql_secure_installation&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;When prompted, answer as follows (providing a root password when asked):&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Set root password? → &lt;strong&gt;Y&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;Remove anonymous users? → &lt;strong&gt;Y&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;Disallow root login remotely? → &lt;strong&gt;Y&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;Remove test database and access to it? → &lt;strong&gt;Y&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;Reload privilege tables now? → &lt;strong&gt;Y&lt;/strong&gt;&lt;/li&gt;
+&lt;/ul&gt;
 
       </description>
     </item>
@@ -1147,28 +1446,73 @@ These are not hard rules and you do not have to follow them, however it may help
 &lt;ul&gt;
 &lt;li&gt;First turn your keys into der format:&lt;/li&gt;
 &lt;/ul&gt;
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;cd ~/stroom-jks
+
+  
+
+
+
+
+
+
+&lt;div class=&#34;code-toolbar&#34;&gt;
+  &lt;pre 
+    class=&#34;command-line language-bash&#34; 
+    data-user=&#34;user&#34; 
+    data-host=&#34;localhost&#34; 
+    data-continuation-str=&#34;\&#34;
+    data-filter-output=&#34;(out)&#34;&gt;&lt;code class=&#34;language-bash&#34;&gt;cd ~/stroom-jks
 
 SERVER=&amp;lt;SERVER crt/key PREFIX&amp;gt;
 AUTHORITY=CA
 
 openssl x509 -in ${SERVER}.crt -inform PEM -out ${SERVER}.crt.der -outform DER
-openssl pkcs8 -topk8 -nocrypt -in ${SERVER}.key -inform PEM -out ${SERVER}.key.der -outform DER
-&lt;/code&gt;&lt;/pre&gt;
+openssl pkcs8 -topk8 -nocrypt -in ${SERVER}.key -inform PEM -out ${SERVER}.key.der -outform DER&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
 &lt;ul&gt;
 &lt;li&gt;Import Keys into the Key Stores:&lt;/li&gt;
 &lt;/ul&gt;
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;Stroom_UTIL_JAR=`find ~/*app -name &#39;stroom-util*.jar&#39; -print | head -1`
+
+  
+
+
+
+
+
+
+&lt;div class=&#34;code-toolbar&#34;&gt;
+  &lt;pre 
+    class=&#34;command-line language-bash&#34; 
+    data-user=&#34;user&#34; 
+    data-host=&#34;localhost&#34; 
+    data-continuation-str=&#34;\&#34;
+    data-filter-output=&#34;(out)&#34;&gt;&lt;code class=&#34;language-bash&#34;&gt;Stroom_UTIL_JAR=`find ~/*app -name &amp;#39;stroom-util*.jar&amp;#39; -print | head -1`
 
 java -cp ${Stroom_UTIL_JAR} stroom.util.cert.ImportKey keystore=${SERVER}.jks keypass=${SERVER} alias=${SERVER} keyfile=${SERVER}.key.der certfile=${SERVER}.crt.der
-keytool -import -noprompt -alias ${AUTHORITY} -file ${AUTHORITY}.crt -keystore ${AUTHORITY}.jks -storepass ${AUTHORITY}
-&lt;/code&gt;&lt;/pre&gt;
+keytool -import -noprompt -alias ${AUTHORITY} -file ${AUTHORITY}.crt -keystore ${AUTHORITY}.jks -storepass ${AUTHORITY}&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
 &lt;ul&gt;
 &lt;li&gt;Update Processing User Global Java Settings:&lt;/li&gt;
 &lt;/ul&gt;
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;PWD=`pwd`
-echo &amp;quot;export JAVA_OPTS=\&amp;quot;-Djavax.net.ssl.trustStore=${PWD}/${AUTHORITY}.jks -Djavax.net.ssl.trustStorePassword=${AUTHORITY} -Djavax.net.ssl.keyStore=${PWD}/${SERVER}.jks -Djavax.net.ssl.keyStorePassword=${SERVER}\&amp;quot;&amp;quot; &amp;gt;&amp;gt; ~/env.sh  
-&lt;/code&gt;&lt;/pre&gt;
+
+  
+
+
+
+
+
+
+&lt;div class=&#34;code-toolbar&#34;&gt;
+  &lt;pre 
+    class=&#34;command-line language-bash&#34; 
+    data-user=&#34;user&#34; 
+    data-host=&#34;localhost&#34; 
+    data-continuation-str=&#34;\&#34;
+    data-filter-output=&#34;(out)&#34;&gt;&lt;code class=&#34;language-bash&#34;&gt;PWD=`pwd`
+echo &amp;#34;export JAVA_OPTS=\&amp;#34;-Djavax.net.ssl.trustStore=${PWD}/${AUTHORITY}.jks -Djavax.net.ssl.trustStorePassword=${AUTHORITY} -Djavax.net.ssl.keyStore=${PWD}/${SERVER}.jks -Djavax.net.ssl.keyStorePassword=${SERVER}\&amp;#34;&amp;#34; &amp;gt;&amp;gt; ~/env.sh&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
 &lt;p&gt;Any Stroom or Stroom Proxy instance will now additionally pickup the above JAVA_OPTS settings.&lt;/p&gt;
 
       </description>

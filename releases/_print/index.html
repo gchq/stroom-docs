@@ -149,7 +149,7 @@
     aria-label="Search this site…"
     autocomplete="off"
     
-    data-offline-search-index-json-src="../../offline-search-index.0a005bba63f0fad58d724ce154f84187.json"
+    data-offline-search-index-json-src="../../offline-search-index.5bbd05061c9b5c5b6db96e6f659545dc.json"
     data-offline-search-base-href="../../"
     data-offline-search-max-results="50"
   >
@@ -13856,12 +13856,18 @@ See <a href="../../docs/user-guide/tools/command-line/#migrate"><code>migrage</c
 
     <p>If you are upgrading a v7.5 Stroom instance that has a version less than or equal to <strong>v7.5-beta.9</strong> to a version higher than <strong>v7.5-beta.9</strong> then you must run the following SQL on the database to correct the renaming of a migration script.
 If you don&rsquo;t, Stroom will not boot as it will detect a mismatch in the DB migration scripts.</p>
-<pre><code class="language-sql">update cross_module_schema_history
-set version = '07.05.00.005',
-script = 'stroom.app.db.migration.V07_05_00_005__Orphaned_Doc_Perms'
-where version = '07.04.00.005'
-and script = 'stroom.app.db.migration.V07_04_00_005__Orphaned_Doc_Perms';
-</code></pre>
+<div class="code-toolbar">
+  <pre 
+    class="command-line language-sql" 
+    data-prompt="mysql>" 
+    data-filter-output="(out)"
+    data-continuation-prompt="->"
+    data-filter-continuation="(con)"><code class="language-sql">update cross_module_schema_history
+set version = &#39;07.05.00.005&#39;,
+script = &#39;stroom.app.db.migration.V07_05_00_005__Orphaned_Doc_Perms&#39;
+where version = &#39;07.04.00.005&#39;
+and script = &#39;stroom.app.db.migration.V07_04_00_005__Orphaned_Doc_Perms&#39;;</code></pre>
+</div>
 
 
 </div>
@@ -21447,13 +21453,22 @@ It is a functional but evolving feature that is likely to be enhanced further in
 <p>This is an example of a StroomQL query.
 It replaces the old dashboard expression &rsquo;tree&rsquo; and table column expressions.
 StroomQL has the advantage of being quicker to construct and is easier to copy from one query to another (whole or in part) as it is just plain text.</p>
-<pre><code class="language-sql">FROM &quot;Example View&quot;                           // Define the View to use as the data source
-WHERE Action IN(&quot;Search&quot;, &quot;View&quot;)             // Equivalent to the Dashboard expression tree
+
+
+<div class="code-toolbar">
+  <pre 
+    class="command-line language-sql" 
+    data-prompt="mysql>" 
+    data-filter-output="(out)"
+    data-continuation-prompt="->"
+    data-filter-continuation="(con)"><code class="language-sql">FROM &#34;Example View&#34;                           // Define the View to use as the data source
+WHERE Action IN(&#34;Search&#34;, &#34;View&#34;)             // Equivalent to the Dashboard expression tree
 EVAL hour = floorHour(EventTime)              // Define named fields based on function expressions
 EVAL event_count = count()
 GROUP BY Feed, Action                         // Equivalent to Dashboard table column grouping
-SELECT Feed, Action, event_count AS &quot;Count&quot;   // Equivalent to adding columns to a Dashboard table
-</code></pre>
+SELECT Feed, Action, event_count AS &#34;Count&#34;   // Equivalent to adding columns to a Dashboard table</code></pre>
+</div>
+
 <p>Editing StroomQL queries in the editor is also made easier by the code completion (using <code>ctrl+space</code>) to suggest data sources, fields, functions and StroomQL language terms.
 StroomQl queries can be executed easily with <code>ctrl+enter</code> or <code>shift+enter</code>.</p>
 <h3 id="_analytic-rule_"><em>Analytic Rule</em></h3>

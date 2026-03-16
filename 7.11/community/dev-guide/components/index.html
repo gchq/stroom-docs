@@ -45,12 +45,12 @@
 <meta property="og:type" content="article" />
 <meta property="og:url" content="/community/dev-guide/components/" /><meta property="article:section" content="community" />
 <meta property="article:published_time" content="2021-08-20T00:00:00+00:00" />
-<meta property="article:modified_time" content="2026-03-09T08:39:40+00:00" /><meta property="og:site_name" content="Stroom" />
+<meta property="article:modified_time" content="2026-03-16T10:25:28+00:00" /><meta property="og:site_name" content="Stroom" />
 
 <meta itemprop="name" content="Components">
 <meta itemprop="description" content="Stroom is broken down into separate components. Each component encapsulates a specific area of Stroom functionality and aids development by providing a single area of focus for new features and ensures separate components remain as loosely coupled as possible. Components can be tested in isolation and their interaction with other components easily understood by only allowing dependencies via minimal APIs.
 "><meta itemprop="datePublished" content="2021-08-20T00:00:00+00:00" />
-<meta itemprop="dateModified" content="2026-03-09T08:39:40+00:00" />
+<meta itemprop="dateModified" content="2026-03-16T10:25:28+00:00" />
 <meta itemprop="wordCount" content="698">
 <meta itemprop="keywords" content="" /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Components"/>
@@ -153,7 +153,7 @@
     aria-label="Search this site…"
     autocomplete="off"
     
-    data-offline-search-index-json-src="../../../offline-search-index.0a005bba63f0fad58d724ce154f84187.json"
+    data-offline-search-index-json-src="../../../offline-search-index.5bbd05061c9b5c5b6db96e6f659545dc.json"
     data-offline-search-base-href="../../../"
     data-offline-search-max-results="50"
   >
@@ -178,7 +178,7 @@
     aria-label="Search this site…"
     autocomplete="off"
     
-    data-offline-search-index-json-src="../../../offline-search-index.0a005bba63f0fad58d724ce154f84187.json"
+    data-offline-search-index-json-src="../../../offline-search-index.5bbd05061c9b5c5b6db96e6f659545dc.json"
     data-offline-search-base-href="../../../"
     data-offline-search-max-results="50"
   >
@@ -267,7 +267,7 @@
             <div class="td-toc">
         <nav id="TableOfContents">
   <ul>
-    <li><a href="#dependencies-between-a-modules-components">Dependencies between a modules components</a></li>
+    <li><a href="#dependencies-between-a-modules-components">Dependencies between a module&rsquo;s components</a></li>
     <li><a href="#dependencies-between-components">Dependencies between components</a></li>
     <li><a href="#component-api-eg-modules-ending-in--api">Component API, e.g. modules ending in <code>-api</code></a>
       <ul>
@@ -499,9 +499,9 @@
 
 		
 	</header>    
-	<p>Some examples of components in Stroom include</p>
+	<p>Some examples of components in Stroom include:</p>
 <ul>
-<li>stroom-activity - Component for recording a users actions against a current activity</li>
+<li>stroom-activity - Component for recording a user&rsquo;s actions against a current activity</li>
 <li>stroom-dictionary - Component for storing lists of words.</li>
 <li>stroom-statistics - Component for recording statistical data, e.g. amount of data received in X minutes.</li>
 </ul>
@@ -522,10 +522,10 @@ Components have further subdirectories (modules) that make up the various parts 
 </ul>
 </li>
 </ul>
-<h2 id="dependencies-between-a-modules-components">Dependencies between a modules components</h2>
+<h2 id="dependencies-between-a-modules-components">Dependencies between a module&rsquo;s components</h2>
 <p>The diagram below shows the dependencies between the different modules that make up a component as well as the internal dependencies within the <code>impl</code> module.
 The actual implementations used at runtime are determined by Guice bindings in whichever Guice modules are loaded by the application.
-Tests can bind mock implementations of a components API just by using the Guice module within the mock module.</p>
+Tests can bind mock implementations of a component&rsquo;s API just by using the Guice module within the mock module.</p>
 
 
 
@@ -619,7 +619,7 @@ For component testing purposes mock implementations of these APIs can be used to
 <h2 id="component-api-and-service-implementation-eg-modules-ending-in--impl">Component API and service implementation, e.g. modules ending in <code>-impl</code></h2>
 <h3 id="client-interaction---rest-services-and-gwt-action-handlers">Client interaction - REST services and GWT Action Handlers</h3>
 <p>The uppermost layer of the server side code services requests from the client.
-The client may make restful calls as is the case for the new UI or will use Actions that are handles with ActionHandlers as is the case for the legacy GWT UI.</p>
+The client may make restful calls as is the case for the new UI or will use Actions that are handled with ActionHandlers as is the case for the legacy GWT UI.</p>
 <p>Since this layer deals with all client interaction it should be responsible for creating audit logs for all user activity, e.g. accessing documents, searching etc.
 No audit logging should need to be performed at a lower level within the application as deeper levels have less knowledge of user intent since they may just be playing a part in the wider request.</p>
 <p>The client interaction layer adds no logic and asks the underlying service layer to service the encapsulated request away from the REST endpoint wrapping code or GWT action handler code.
@@ -640,7 +640,7 @@ If serialisation/de-serialisation is required in order to persist the object the
 	
 	
 	<div class="text-muted mt-5 pt-3 border-top">
-  Last modified March 9, 2026: <a href="https://github.com/gchq/stroom-docs/commit/14b415aff83f127ae78a1d2c9aac5de1fe611ddf">Change build to only check spelling if script is present (14b415a)</a>
+  Last modified March 16, 2026: <a href="https://github.com/gchq/stroom-docs/commit/0cdb5fb0963ff027665549bb124daebff70a9e93">Fix spelling (0cdb5fb)</a>
 </div>
 
 </div>

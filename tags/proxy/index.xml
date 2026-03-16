@@ -237,24 +237,9 @@ STROOM_PROXY_REMOTE_FORWARD_URL
 &lt;p&gt;The &amp;lsquo;API key&amp;rsquo; is generated on the stroom server and is related to a specific user e.g. proxyServiceUser.
 The 2 URL values also refer to the stroom server and can be a fully qualified domain name (fqdn) or the IP Address.&lt;/p&gt;
 &lt;p&gt;e.g. if the stroom server was - stroom-serve.somewhere.co.uk - the URL lines would be:&lt;/p&gt;
-
-  
-
-
-
-
-
-
-&lt;div class=&#34;code-toolbar&#34;&gt;
-  &lt;pre 
-    class=&#34;command-line language-bash&#34; 
-    data-user=&#34;stroomuser&#34; 
-    data-host=&#34;localhost&#34; 
-    data-continuation-str=&#34;\&#34;
-    data-filter-output=&#34;(out)&#34;&gt;&lt;code class=&#34;language-bash&#34;&gt;export STROOM_PROXY_REMOTE_FEED_STATUS_URL=&amp;#34;http://stroom-serve.somewhere.co.uk:8080/api/feedStatus/v1&amp;#34;
-export STROOM_PROXY_REMOTE_FORWARD_URL=&amp;#34;http://stroom-serve.somewhere.co.uk:8080/stroom/datafeed&amp;#34;&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;export STROOM_PROXY_REMOTE_FEED_STATUS_URL=&amp;quot;http://stroom-serve.somewhere.co.uk:8080/api/feedStatus/v1&amp;quot;
+export STROOM_PROXY_REMOTE_FORWARD_URL=&amp;quot;http://stroom-serve.somewhere.co.uk:8080/stroom/datafeed&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
 &lt;h3 id=&#34;to-start-stroom-proxy&#34;&gt;To Start Stroom Proxy&lt;/h3&gt;
 &lt;p&gt;As the stroom user, run the &amp;lsquo;start.sh&amp;rsquo; script found in the stroom install:&lt;/p&gt;
 
@@ -782,7 +767,7 @@ This is to support applications that want to log events directly to Stroom-Proxy
 &lt;div class=&#34;alert alert-warning&#34; role=&#34;alert&#34;&gt;
 &lt;h4 class=&#34;alert-heading&#34;&gt;TODO&lt;/h4&gt;
 
-    This section was written for Stroom-Proxy v5, so is is out of date.
+    This section was written for Stroom-Proxy v5, so is out of date.
 
 &lt;/div&gt;
 
@@ -801,19 +786,65 @@ This is to support applications that want to log events directly to Stroom-Proxy
 &lt;/ul&gt;
 &lt;h2 id=&#34;confirm-prerequisite-software-installation&#34;&gt;Confirm Prerequisite Software Installation&lt;/h2&gt;
 &lt;p&gt;The following command will ensure the prerequisite software has been deployed&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;sudo yum -y install java-1.8.0-openjdk java-1.8.0-openjdk-devel policycoreutils-python unzip zip
-sudo yum -y install mariadb
-or
-sudo yum -y install mysql-community-client
-&lt;/code&gt;&lt;/pre&gt;
+
+  
+
+
+
+
+
+
+&lt;div class=&#34;code-toolbar&#34;&gt;
+  &lt;pre 
+    class=&#34;command-line language-bash&#34; 
+    data-user=&#34;user&#34; 
+    data-host=&#34;localhost&#34; 
+    data-continuation-str=&#34;\&#34;
+    data-filter-output=&#34;(out)&#34;&gt;&lt;code class=&#34;language-bash&#34;&gt;sudo yum -y install java-1.8.0-openjdk java-1.8.0-openjdk-devel policycoreutils-python unzip zip
+sudo yum -y install mariadb&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;or&lt;/p&gt;
+
+  
+
+
+
+
+
+
+&lt;div class=&#34;code-toolbar&#34;&gt;
+  &lt;pre 
+    class=&#34;command-line language-bash&#34; 
+    data-user=&#34;user&#34; 
+    data-host=&#34;localhost&#34; 
+    data-continuation-str=&#34;\&#34;
+    data-filter-output=&#34;(out)&#34;&gt;&lt;code class=&#34;language-bash&#34;&gt;sudo yum -y install mysql-community-client&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
 &lt;p&gt;Note that we do &lt;strong&gt;NOT&lt;/strong&gt; need the database client software for a Forwarding or Standalone proxy.&lt;/p&gt;
 &lt;h2 id=&#34;get-the-software&#34;&gt;Get the Software&lt;/h2&gt;
 &lt;p&gt;The following will gain the identified, in this case release &lt;code&gt;5.1-beta.10&lt;/code&gt;, Stroom Application software release from github, then deploy it. You should regularly monitor the site for newer releases.&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;sudo -i -u stroomuser
+
+  
+
+
+
+
+
+
+&lt;div class=&#34;code-toolbar&#34;&gt;
+  &lt;pre 
+    class=&#34;command-line language-bash&#34; 
+    data-user=&#34;user&#34; 
+    data-host=&#34;localhost&#34; 
+    data-continuation-str=&#34;\&#34;
+    data-filter-output=&#34;(out)&#34;&gt;&lt;code class=&#34;language-bash&#34;&gt;sudo -i -u stroomuser
 Prx=v5.1-beta.10
 wget https://github.com/gchq/stroom-proxy/releases/download/${Prx}/stroom-proxy-distribution-${Prx}.zip
-unzip stroom-proxy-distribution-${Prx}.zip
-&lt;/code&gt;&lt;/pre&gt;
+unzip stroom-proxy-distribution-${Prx}.zip&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
 &lt;h2 id=&#34;configure-the-software&#34;&gt;Configure the Software&lt;/h2&gt;
 &lt;p&gt;There are three different types of Stroom Proxy&lt;/p&gt;
 &lt;ul&gt;
@@ -831,9 +862,24 @@ unzip stroom-proxy-distribution-${Prx}.zip
 &lt;h3 id=&#34;store-proxy-configuration&#34;&gt;Store Proxy Configuration&lt;/h3&gt;
 &lt;p&gt;In our &lt;em&gt;Store&lt;/em&gt; Proxy description below, we will use the multi node deployment scenario. That is we are deploying the &lt;em&gt;Store&lt;/em&gt; proxy on multiple Stroom nodes (&lt;code&gt;stroomp00&lt;/code&gt;, &lt;code&gt;stroomp01&lt;/code&gt;) and we have configured our storage as per the &lt;a href=&#34;../../docs/howtos/install/installhowto/#storage-scenario&#34;&gt;Storage Scenario&lt;/a&gt; which means the directories to install the inbound batches of data are &lt;code&gt;/stroomdata/stroom-working-p00/proxy&lt;/code&gt; and &lt;code&gt;/stroomdata/stroom-working-p01/proxy&lt;/code&gt; depending on the node.&lt;/p&gt;
 &lt;p&gt;To install a &lt;em&gt;Store&lt;/em&gt; proxy, we run&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;stroom-proxy/bin/setup.sh store
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;during which one is prompted for a number of configuration settings. Use the following&lt;/p&gt;
+&lt;p&gt;
+  
+
+
+
+
+
+
+&lt;div class=&#34;code-toolbar&#34;&gt;
+  &lt;pre 
+    class=&#34;command-line language-bash&#34; 
+    data-user=&#34;user&#34; 
+    data-host=&#34;localhost&#34; 
+    data-continuation-str=&#34;\&#34;
+    data-filter-output=&#34;(out)&#34;&gt;&lt;code class=&#34;language-bash&#34;&gt;stroom-proxy/bin/setup.sh store&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+during which one is prompted for a number of configuration settings. Use the following&lt;/p&gt;
 &lt;pre&gt;&lt;code&gt;NODE to be the hostname (not FQDN) of your host (i.e. &#39;stroomp00&#39; or &#39;stroomp01&#39; depending on the node we are installing on)
 PORT_PREFIX should use the default, just press return
 REPO_DIR should be set to &#39;/stroomdata/stroom-working-p00/proxy&#39; or &#39;/stroomdata/stroom-working-p01/proxy&#39; depending on the node we are installing on
@@ -850,9 +896,24 @@ If you make a mistake in the above, just re-run the script.&lt;/p&gt;
 &lt;h3 id=&#34;forwarding-proxy-configuration&#34;&gt;Forwarding Proxy Configuration&lt;/h3&gt;
 &lt;p&gt;In our &lt;em&gt;Forwarding&lt;/em&gt; Proxy description below, we will deploy on a host named &lt;code&gt;stroomfp0&lt;/code&gt; and it will store the files in &lt;code&gt;/stroomdata/stroom-working-fp0/proxy&lt;/code&gt;. Remember, we are being consistent with our Storage hierarchy to make documentation and scripting simpler. Our destination host to periodically forward the files to will be &lt;code&gt;stroomp.strmdev00.org&lt;/code&gt; (the CNAME for &lt;code&gt;stroomp00.strmdev00.org&lt;/code&gt;).&lt;/p&gt;
 &lt;p&gt;To install a &lt;em&gt;Forwarding&lt;/em&gt; proxy, we run&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;stroom-proxy/bin/setup.sh forward
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;during which one is prompted for a number of configuration settings. Use the following&lt;/p&gt;
+&lt;p&gt;
+  
+
+
+
+
+
+
+&lt;div class=&#34;code-toolbar&#34;&gt;
+  &lt;pre 
+    class=&#34;command-line language-bash&#34; 
+    data-user=&#34;user&#34; 
+    data-host=&#34;localhost&#34; 
+    data-continuation-str=&#34;\&#34;
+    data-filter-output=&#34;(out)&#34;&gt;&lt;code class=&#34;language-bash&#34;&gt;stroom-proxy/bin/setup.sh forward&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+during which one is prompted for a number of configuration settings. Use the following&lt;/p&gt;
 &lt;pre&gt;&lt;code&gt;NODE to be the hostname (not FQDN) of your host (i.e. &#39;stroomfp0&#39; in our example)
 PORT_PREFIX should use the default, just press return
 REPO_DIR should be set to &#39;/stroomdata/stroom-working-fp0/proxy&#39; which we created earlier.
@@ -864,8 +925,23 @@ JAVA_OPTS can use the defaults, but ensure you have sufficient memory, either ch
 &lt;h3 id=&#34;store-no-database-proxy-configuration&#34;&gt;Store No Database Proxy Configuration&lt;/h3&gt;
 &lt;p&gt;In our &lt;em&gt;Store_No_DB&lt;/em&gt; Proxy description below, we will deploy on a host named &lt;code&gt;stroomsap0&lt;/code&gt; and it will store the files in &lt;code&gt;/stroomdata/stroom-working-sap0/proxy&lt;/code&gt;. Remember, we are being consistent with our Storage hierarchy to make documentation and scripting simpler.&lt;/p&gt;
 &lt;p&gt;To install a &lt;em&gt;Store_No_DB&lt;/em&gt; proxy, we run&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;stroom-proxy/bin/setup.sh store_nodb
-&lt;/code&gt;&lt;/pre&gt;
+
+  
+
+
+
+
+
+
+&lt;div class=&#34;code-toolbar&#34;&gt;
+  &lt;pre 
+    class=&#34;command-line language-bash&#34; 
+    data-user=&#34;user&#34; 
+    data-host=&#34;localhost&#34; 
+    data-continuation-str=&#34;\&#34;
+    data-filter-output=&#34;(out)&#34;&gt;&lt;code class=&#34;language-bash&#34;&gt;stroom-proxy/bin/setup.sh store_nodb&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
 &lt;p&gt;During which one is prompted for a number of configuration settings. Use the following&lt;/p&gt;
 &lt;pre&gt;&lt;code&gt;NODE to be the hostname (not FQDN) of your host (i.e. &#39;stroomsap0&#39; in our example)
 PORT_PREFIX should use the default, just press return
@@ -875,18 +951,48 @@ JAVA_OPTS can use the defaults, but ensure you have sufficient memory, either ch
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;At this point, the script will configure the proxy. There should be no errors, but review the output.&lt;/p&gt;
 &lt;h2 id=&#34;apachemod_jk-change&#34;&gt;Apache/Mod_JK change&lt;/h2&gt;
-&lt;p&gt;For all proxy deployments, if we are using Apache&amp;rsquo;s mod_jk then we need to ensure the proxy&amp;rsquo;s AJP connector specifies a 64K &lt;code&gt;packetSize&lt;/code&gt;. View the file &lt;code&gt;stroom-proxy/instance/conf/server.xml&lt;/code&gt; to ensure the Connector element for the AJP protocol has a &lt;code&gt;packetSize&lt;/code&gt; attribute of &lt;code&gt;65536&lt;/code&gt;. For example,&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;grep AJP stroom-proxy/instance/conf/server.xml
-&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;For all proxy deployments, if we are using Apache&amp;rsquo;s mod_jk then we need to ensure the proxy&amp;rsquo;s AJP connector specifies a 64K packetSize. View the file &lt;code&gt;stroom-proxy/instance/conf/server.xml&lt;/code&gt; to ensure the Connector element for the AJP protocol has a packetSize attribute of &lt;code&gt;65536&lt;/code&gt;. For example,&lt;/p&gt;
+
+  
+
+
+
+
+
+
+&lt;div class=&#34;code-toolbar&#34;&gt;
+  &lt;pre 
+    class=&#34;command-line language-bash&#34; 
+    data-user=&#34;user&#34; 
+    data-host=&#34;localhost&#34; 
+    data-continuation-str=&#34;\&#34;
+    data-filter-output=&#34;(out)&#34;&gt;&lt;code class=&#34;language-bash&#34;&gt;grep AJP stroom-proxy/instance/conf/server.xml&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
 &lt;p&gt;shows&lt;/p&gt;
 &lt;pre&gt;&lt;code&gt;&amp;lt;Connector port=&amp;quot;9009&amp;quot; protocol=&amp;quot;AJP/1.3&amp;quot; connectionTimeout=&amp;quot;20000&amp;quot; redirectPort=&amp;quot;8443&amp;quot; maxThreads=&amp;quot;200&amp;quot; packetSize=&amp;quot;65536&amp;quot; /&amp;gt;
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;This check is required for earlier releases of the Stroom Proxy. Releases since &lt;code&gt;v5.1-beta.4&lt;/code&gt; have set the AJP &lt;code&gt;packetSize&lt;/code&gt;.&lt;/p&gt;
 &lt;h2 id=&#34;start-the-proxy-service&#34;&gt;Start the Proxy Service&lt;/h2&gt;
-&lt;p&gt;We can now manually start our proxy service. Do so as the &lt;code&gt;stroomuser&lt;/code&gt; with the command&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;stroom-proxy/bin/start.sh
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;Now monitor the directory &lt;code&gt;stroom-proxy/instance/logs&lt;/code&gt; for any errors. Initially you will see the log files &lt;code&gt;localhost_access_log.YYYY-MM-DD.txt&lt;/code&gt; and &lt;code&gt;catalina.out&lt;/code&gt;. Check them for errors and correct (or pose a question to this arena).
+&lt;p&gt;We can now manually start our proxy service. Do so as the &lt;code&gt;stroomuser&lt;/code&gt; with the command
+
+  
+
+
+
+
+
+
+&lt;div class=&#34;code-toolbar&#34;&gt;
+  &lt;pre 
+    class=&#34;command-line language-bash&#34; 
+    data-user=&#34;user&#34; 
+    data-host=&#34;localhost&#34; 
+    data-continuation-str=&#34;\&#34;
+    data-filter-output=&#34;(out)&#34;&gt;&lt;code class=&#34;language-bash&#34;&gt;stroom-proxy/bin/start.sh&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+Now monitor the directory &lt;code&gt;stroom-proxy/instance/logs&lt;/code&gt; for any errors. Initially you will see the log files &lt;code&gt;localhost_access_log.YYYY-MM-DD.txt&lt;/code&gt; and &lt;code&gt;catalina.out&lt;/code&gt;. Check them for errors and correct (or pose a question to this arena).
 The context path and unknown version warnings in &lt;code&gt;catalina.out&lt;/code&gt; can be ignored.&lt;/p&gt;
 &lt;p&gt;Eventually (about 60 seconds) the log file &lt;code&gt;stroom-proxy/instance/logs/stroom.log&lt;/code&gt; will appear. Again check it for errors.
 The proxy will have completely started when you see the messages&lt;/p&gt;
@@ -985,63 +1091,119 @@ The default template is &lt;code&gt;${pathId}/${id}&lt;/code&gt; and this patter
 &lt;h3 id=&#34;proxy-repository-template-examples&#34;&gt;Proxy Repository Template Examples&lt;/h3&gt;
 &lt;p&gt;For each of the following templates applied to a Store NoDB Proxy, the resultant proxy directory tree is shown after three posts were sent to the test feed &lt;code&gt;TEST-FEED-V1_0&lt;/code&gt; and two posts to the test feed &lt;code&gt;FEED-NOVALUE-V9_0&lt;/code&gt;&lt;/p&gt;
 &lt;h4 id=&#34;example-a---the-default---pathidid&#34;&gt;Example A - The default - &lt;code&gt;${pathId}/${id}&lt;/code&gt;&lt;/h4&gt;
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;[stroomuser@stroomsap0 ~]$ find /stroomdata/stroom-working-sap0/proxy/
-/stroomdata/stroom-working-sap0/proxy/
-/stroomdata/stroom-working-sap0/proxy/001.zip
-/stroomdata/stroom-working-sap0/proxy/002.zip
-/stroomdata/stroom-working-sap0/proxy/003.zip
-/stroomdata/stroom-working-sap0/proxy/004.zip
-/stroomdata/stroom-working-sap0/proxy/005.zip
-[stroomuser@stroomsap0 ~]$ 
-&lt;/code&gt;&lt;/pre&gt;
+
+  
+
+
+
+
+
+
+&lt;div class=&#34;code-toolbar&#34;&gt;
+  &lt;pre 
+    class=&#34;command-line language-bash&#34; 
+    data-user=&#34;stroomuser&#34; 
+    data-host=&#34;stroomsap0&#34; 
+    data-continuation-str=&#34;\&#34;
+    data-filter-output=&#34;(out)&#34;&gt;&lt;code class=&#34;language-bash&#34;&gt;find /stroomdata/stroom-working-sap0/proxy/
+(out)/stroomdata/stroom-working-sap0/proxy/
+(out)/stroomdata/stroom-working-sap0/proxy/001.zip
+(out)/stroomdata/stroom-working-sap0/proxy/002.zip
+(out)/stroomdata/stroom-working-sap0/proxy/003.zip
+(out)/stroomdata/stroom-working-sap0/proxy/004.zip
+(out)/stroomdata/stroom-working-sap0/proxy/005.zip&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
 &lt;h4 id=&#34;example-b---a-feed-orientated-structure---feedyearmonthdaypathidid&#34;&gt;Example B - A feed orientated structure - &lt;code&gt;${feed}/${year}/${month}/${day}/${pathId}/${id}&lt;/code&gt;&lt;/h4&gt;
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;[stroomuser@stroomsap0 ~]$ find /stroomdata/stroom-working-sap0/proxy/
-/stroomdata/stroom-working-sap0/proxy/
-/stroomdata/stroom-working-sap0/proxy/TEST-FEED-V1_0
-/stroomdata/stroom-working-sap0/proxy/TEST-FEED-V1_0/2017
-/stroomdata/stroom-working-sap0/proxy/TEST-FEED-V1_0/2017/07
-/stroomdata/stroom-working-sap0/proxy/TEST-FEED-V1_0/2017/07/23
-/stroomdata/stroom-working-sap0/proxy/TEST-FEED-V1_0/2017/07/23/001.zip
-/stroomdata/stroom-working-sap0/proxy/TEST-FEED-V1_0/2017/07/23/002.zip
-/stroomdata/stroom-working-sap0/proxy/TEST-FEED-V1_0/2017/07/23/003.zip
-/stroomdata/stroom-working-sap0/proxy/FEED-NOVALUE-V9_0
-/stroomdata/stroom-working-sap0/proxy/FEED-NOVALUE-V9_0/2017
-/stroomdata/stroom-working-sap0/proxy/FEED-NOVALUE-V9_0/2017/07
-/stroomdata/stroom-working-sap0/proxy/FEED-NOVALUE-V9_0/2017/07/23
-/stroomdata/stroom-working-sap0/proxy/FEED-NOVALUE-V9_0/2017/07/23/004.zip
-/stroomdata/stroom-working-sap0/proxy/FEED-NOVALUE-V9_0/2017/07/23/005.zip
-[stroomuser@stroomsap0 ~]$ 
-&lt;/code&gt;&lt;/pre&gt;
+
+  
+
+
+
+
+
+
+&lt;div class=&#34;code-toolbar&#34;&gt;
+  &lt;pre 
+    class=&#34;command-line language-bash&#34; 
+    data-user=&#34;stroomuser&#34; 
+    data-host=&#34;stroomsap0&#34; 
+    data-continuation-str=&#34;\&#34;
+    data-filter-output=&#34;(out)&#34;&gt;&lt;code class=&#34;language-bash&#34;&gt;find /stroomdata/stroom-working-sap0/proxy/
+(out)/stroomdata/stroom-working-sap0/proxy/
+(out)/stroomdata/stroom-working-sap0/proxy/TEST-FEED-V1_0
+(out)/stroomdata/stroom-working-sap0/proxy/TEST-FEED-V1_0/2017
+(out)/stroomdata/stroom-working-sap0/proxy/TEST-FEED-V1_0/2017/07
+(out)/stroomdata/stroom-working-sap0/proxy/TEST-FEED-V1_0/2017/07/23
+(out)/stroomdata/stroom-working-sap0/proxy/TEST-FEED-V1_0/2017/07/23/001.zip
+(out)/stroomdata/stroom-working-sap0/proxy/TEST-FEED-V1_0/2017/07/23/002.zip
+(out)/stroomdata/stroom-working-sap0/proxy/TEST-FEED-V1_0/2017/07/23/003.zip
+(out)/stroomdata/stroom-working-sap0/proxy/FEED-NOVALUE-V9_0
+(out)/stroomdata/stroom-working-sap0/proxy/FEED-NOVALUE-V9_0/2017
+(out)/stroomdata/stroom-working-sap0/proxy/FEED-NOVALUE-V9_0/2017/07
+(out)/stroomdata/stroom-working-sap0/proxy/FEED-NOVALUE-V9_0/2017/07/23
+(out)/stroomdata/stroom-working-sap0/proxy/FEED-NOVALUE-V9_0/2017/07/23/004.zip
+(out)/stroomdata/stroom-working-sap0/proxy/FEED-NOVALUE-V9_0/2017/07/23/005.zip&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
 &lt;h4 id=&#34;example-c---a-date-orientated-structure---yearmonthdaypathidid&#34;&gt;Example C - A date orientated structure - &lt;code&gt;${year}/${month}/${day}/${pathId}/${id}&lt;/code&gt;&lt;/h4&gt;
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;[stroomuser@stroomsap0 ~]$ find /stroomdata/stroom-working-sap0/proxy/
-/stroomdata/stroom-working-sap0/proxy/
-/stroomdata/stroom-working-sap0/proxy/2017
-/stroomdata/stroom-working-sap0/proxy/2017/07
-/stroomdata/stroom-working-sap0/proxy/2017/07/23
-/stroomdata/stroom-working-sap0/proxy/2017/07/23/001.zip
-/stroomdata/stroom-working-sap0/proxy/2017/07/23/002.zip
-/stroomdata/stroom-working-sap0/proxy/2017/07/23/003.zip
-/stroomdata/stroom-working-sap0/proxy/2017/07/23/004.zip
-/stroomdata/stroom-working-sap0/proxy/2017/07/23/005.zip
-[stroomuser@stroomsap0 ~]$ 
-&lt;/code&gt;&lt;/pre&gt;
+
+  
+
+
+
+
+
+
+&lt;div class=&#34;code-toolbar&#34;&gt;
+  &lt;pre 
+    class=&#34;command-line language-bash&#34; 
+    data-user=&#34;stroomuser&#34; 
+    data-host=&#34;stroomsap0&#34; 
+    data-continuation-str=&#34;\&#34;
+    data-filter-output=&#34;(out)&#34;&gt;&lt;code class=&#34;language-bash&#34;&gt;find /stroomdata/stroom-working-sap0/proxy/
+(out)/stroomdata/stroom-working-sap0/proxy/
+(out)/stroomdata/stroom-working-sap0/proxy/2017
+(out)/stroomdata/stroom-working-sap0/proxy/2017/07
+(out)/stroomdata/stroom-working-sap0/proxy/2017/07/23
+(out)/stroomdata/stroom-working-sap0/proxy/2017/07/23/001.zip
+(out)/stroomdata/stroom-working-sap0/proxy/2017/07/23/002.zip
+(out)/stroomdata/stroom-working-sap0/proxy/2017/07/23/003.zip
+(out)/stroomdata/stroom-working-sap0/proxy/2017/07/23/004.zip
+(out)/stroomdata/stroom-working-sap0/proxy/2017/07/23/005.zip&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
 &lt;h4 id=&#34;example-d---a-feed-orientated-structure-but-with-a-bad-parameter---feedbadparamdaypathidid&#34;&gt;Example D - A feed orientated structure, but with a bad parameter - &lt;code&gt;${feed}/${badparam}/${day}/${pathId}/${id}&lt;/code&gt;&lt;/h4&gt;
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;[stroomuser@stroomsap0 ~]$ find /stroomdata/stroom-working-sap0/proxy/
-/stroomdata/stroom-working-sap0/proxy/
-/stroomdata/stroom-working-sap0/proxy/TEST-FEED-V1_0
-/stroomdata/stroom-working-sap0/proxy/TEST-FEED-V1_0/_
-/stroomdata/stroom-working-sap0/proxy/TEST-FEED-V1_0/_/23
-/stroomdata/stroom-working-sap0/proxy/TEST-FEED-V1_0/_/23/001.zip
-/stroomdata/stroom-working-sap0/proxy/TEST-FEED-V1_0/_/23/002.zip
-/stroomdata/stroom-working-sap0/proxy/TEST-FEED-V1_0/_/23/003.zip
-/stroomdata/stroom-working-sap0/proxy/FEED-NOVALUE-V9_0
-/stroomdata/stroom-working-sap0/proxy/FEED-NOVALUE-V9_0/_
-/stroomdata/stroom-working-sap0/proxy/FEED-NOVALUE-V9_0/_/23
-/stroomdata/stroom-working-sap0/proxy/FEED-NOVALUE-V9_0/_/23/004.zip
-/stroomdata/stroom-working-sap0/proxy/FEED-NOVALUE-V9_0/_/23/005.zip
-[stroomuser@stroomsap0 ~]$ 
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;And one would also see a warning for each post in the proxy&amp;rsquo;s log file of the form&lt;/p&gt;
+&lt;p&gt;
+  
+
+
+
+
+
+
+&lt;div class=&#34;code-toolbar&#34;&gt;
+  &lt;pre 
+    class=&#34;command-line language-bash&#34; 
+    data-user=&#34;stroomuser&#34; 
+    data-host=&#34;stroomsap0&#34; 
+    data-continuation-str=&#34;\&#34;
+    data-filter-output=&#34;(out)&#34;&gt;&lt;code class=&#34;language-bash&#34;&gt;find /stroomdata/stroom-working-sap0/proxy/
+(out)/stroomdata/stroom-working-sap0/proxy/
+(out)/stroomdata/stroom-working-sap0/proxy/TEST-FEED-V1_0
+(out)/stroomdata/stroom-working-sap0/proxy/TEST-FEED-V1_0/_
+(out)/stroomdata/stroom-working-sap0/proxy/TEST-FEED-V1_0/_/23
+(out)/stroomdata/stroom-working-sap0/proxy/TEST-FEED-V1_0/_/23/001.zip
+(out)/stroomdata/stroom-working-sap0/proxy/TEST-FEED-V1_0/_/23/002.zip
+(out)/stroomdata/stroom-working-sap0/proxy/TEST-FEED-V1_0/_/23/003.zip
+(out)/stroomdata/stroom-working-sap0/proxy/FEED-NOVALUE-V9_0
+(out)/stroomdata/stroom-working-sap0/proxy/FEED-NOVALUE-V9_0/_
+(out)/stroomdata/stroom-working-sap0/proxy/FEED-NOVALUE-V9_0/_/23
+(out)/stroomdata/stroom-working-sap0/proxy/FEED-NOVALUE-V9_0/_/23/004.zip
+(out)/stroomdata/stroom-working-sap0/proxy/FEED-NOVALUE-V9_0/_/23/005.zip&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+and one would also see a warning for each post in the proxy&amp;rsquo;s log file of the form&lt;/p&gt;
 &lt;pre&gt;&lt;code&gt;WARN  [ajp-apr-9009-exec-4] repo.StroomFileNameUtil (StroomFileNameUtil.java:133) - Unused variables found: [badparam]
 &lt;/code&gt;&lt;/pre&gt;
 

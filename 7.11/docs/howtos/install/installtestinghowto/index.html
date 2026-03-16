@@ -45,12 +45,12 @@
 <meta property="og:type" content="article" />
 <meta property="og:url" content="/docs/howtos/install/installtestinghowto/" /><meta property="article:section" content="docs" />
 <meta property="article:published_time" content="2021-07-12T00:00:00+00:00" />
-<meta property="article:modified_time" content="2026-03-09T08:39:40+00:00" /><meta property="og:site_name" content="Stroom" />
+<meta property="article:modified_time" content="2026-03-16T10:25:28+00:00" /><meta property="og:site_name" content="Stroom" />
 
 <meta itemprop="name" content="Testing Stroom Installation">
 <meta itemprop="description" content="This HOWTO will demonstrate various ways to test that your Stroom installation has been successful.
 "><meta itemprop="datePublished" content="2021-07-12T00:00:00+00:00" />
-<meta itemprop="dateModified" content="2026-03-09T08:39:40+00:00" />
+<meta itemprop="dateModified" content="2026-03-16T10:25:28+00:00" />
 <meta itemprop="wordCount" content="2500">
 <meta itemprop="keywords" content="testing,installation," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Testing Stroom Installation"/>
@@ -153,7 +153,7 @@
     aria-label="Search this site…"
     autocomplete="off"
     
-    data-offline-search-index-json-src="../../../../offline-search-index.0a005bba63f0fad58d724ce154f84187.json"
+    data-offline-search-index-json-src="../../../../offline-search-index.5bbd05061c9b5c5b6db96e6f659545dc.json"
     data-offline-search-base-href="../../../../"
     data-offline-search-max-results="50"
   >
@@ -178,7 +178,7 @@
     aria-label="Search this site…"
     autocomplete="off"
     
-    data-offline-search-index-json-src="../../../../offline-search-index.0a005bba63f0fad58d724ce154f84187.json"
+    data-offline-search-index-json-src="../../../../offline-search-index.5bbd05061c9b5c5b6db96e6f659545dc.json"
     data-offline-search-base-href="../../../../"
     data-offline-search-max-results="50"
   >
@@ -1081,9 +1081,24 @@ to alternate every time but for the most part it will.</p>
 <li>Log onto the Stroom database node (stroomdb0.strmdev00.org) as any user.</li>
 <li>Log onto both Stroom nodes and become the <code>stroomuser</code> and monitor each node&rsquo;s Stroom proxy service using the <code>Tp</code> bash macro. That is, on each node, run</li>
 </ul>
-<pre><code class="language-bash">sudo -i -u stroomuser
-Tp
-</code></pre>
+
+  
+
+
+
+
+
+
+<div class="code-toolbar">
+  <pre 
+    class="command-line language-bash" 
+    data-user="user" 
+    data-host="localhost" 
+    data-continuation-str="\"
+    data-filter-output="(out)"><code class="language-bash">sudo -i -u stroomuser
+Tp</code></pre>
+</div>
+
 <p>You will note events of the form from
 <code>stroomp00.strmdev00.org</code>:</p>
 <pre><code class="language-text">...
@@ -1100,8 +1115,23 @@ Tp
 <ul>
 <li>On the Stroom database node, execute the command</li>
 </ul>
-<pre><code class="language-bash">curl -k --data-binary @/etc/group &quot;https://stroomp.strmdev00.org/stroom/datafeed&quot; -H &quot;Feed:TEST-FEED-V1_0&quot; -H &quot;System:EXAMPLE_SYSTEM&quot; -H &quot;Environment:EXAMPLE_ENVIRONMENT&quot;
-</code></pre>
+
+  
+
+
+
+
+
+
+<div class="code-toolbar">
+  <pre 
+    class="command-line language-bash" 
+    data-user="user" 
+    data-host="localhost" 
+    data-continuation-str="\"
+    data-filter-output="(out)"><code class="language-bash">curl -k --data-binary @/etc/group &#34;https://stroomp.strmdev00.org/stroom/datafeed&#34; -H &#34;Feed:TEST-FEED-V1_0&#34; -H &#34;System:EXAMPLE_SYSTEM&#34; -H &#34;Environment:EXAMPLE_ENVIRONMENT&#34;</code></pre>
+</div>
+
 <p>If you are monitoring the proxy log of <code>stroomp00.strmdev00.org</code> you would see two new logs indicating the successful arrival of the file</p>
 <pre><code class="language-text">2017-01-14T06:46:06.411Z INFO  [ajp-apr-9009-exec-1] handler.LogRequestHandler (LogRequestHandler.java:37) - log() - guid=54dc0da2-f35c-4dc2-8a98-448415ffc76b,feed=TEST-FEED-V1_0,system=EXAMPLE_SYSTEM,environment=EXAMPLE_ENVIRONMENT,remotehost=192.168.2.144,remoteaddress=192.168.2.144
 2017-01-14T06:46:06.449Z INFO  [ajp-apr-9009-exec-1] datafeed.DataFeedRequestHandler$1 (DataFeedRequestHandler.java:104) - &quot;doPost() - Took 571 ms to process (concurrentRequestCount=1) 200&quot;,&quot;Environment=EXAMPLE_ENVIRONMENT&quot;,&quot;Feed=TEST-FEED-V1_0&quot;,&quot;GUID=54dc0da2-f35c-4dc2-8a98-448415ffc76b&quot;,&quot;ReceivedTime=2017-01-14T06:46:05.883Z&quot;,&quot;RemoteAddress=192.168.2.144&quot;,&quot;RemoteHost=192.168.2.144&quot;,&quot;System=EXAMPLE_SYSTEM&quot;,&quot;accept=*/*&quot;,&quot;content-length=527&quot;,&quot;content-type=application/x-www-form-urlencoded&quot;,&quot;host=stroomp.strmdev00.org&quot;,&quot;user-agent=curl/7.29.0&quot;
@@ -1109,8 +1139,23 @@ Tp
 <ul>
 <li>On the Stroom database node, again execute the command</li>
 </ul>
-<pre><code class="language-bash">curl -k --data-binary @/etc/group &quot;https://stroomp.strmdev00.org/stroom/datafeed&quot; -H &quot;Feed:TEST-FEED-V1_0&quot; -H &quot;System:EXAMPLE_SYSTEM&quot; -H &quot;Environment:EXAMPLE_ENVIRONMENT&quot;
-</code></pre>
+
+  
+
+
+
+
+
+
+<div class="code-toolbar">
+  <pre 
+    class="command-line language-bash" 
+    data-user="user" 
+    data-host="localhost" 
+    data-continuation-str="\"
+    data-filter-output="(out)"><code class="language-bash">curl -k --data-binary @/etc/group &#34;https://stroomp.strmdev00.org/stroom/datafeed&#34; -H &#34;Feed:TEST-FEED-V1_0&#34; -H &#34;System:EXAMPLE_SYSTEM&#34; -H &#34;Environment:EXAMPLE_ENVIRONMENT&#34;</code></pre>
+</div>
+
 <p>If you are monitoring the proxy log of <code>stroomp01.strmdev00.org</code> you should see a new log. As foreshadowed, we didn&rsquo;t as the time delay resulted
 in the first node getting the file. That is <code>stroomp00.strmdev00.org</code> log file gained the two entries</p>
 <pre><code class="language-text">2017-01-14T06:47:26.642Z INFO  [ajp-apr-9009-exec-2] handler.LogRequestHandler (LogRequestHandler.java:37) - log() - guid=941d2904-734f-4764-9ccf-4124b94a56f6,feed=TEST-FEED-V1_0,system=EXAMPLE_SYSTEM,environment=EXAMPLE_ENVIRONMENT,remotehost=192.168.2.144,remoteaddress=192.168.2.144
@@ -1145,9 +1190,24 @@ in the first node getting the file. That is <code>stroomp00.strmdev00.org</code>
 <ul>
 <li>On each node run the command</li>
 </ul>
-<pre><code class="language-bash">ls -l /stroomdata/stroom-working*/proxy
-</code></pre>
-<p>On <code>stroomp00</code> we see</p>
+<p>
+  
+
+
+
+
+
+
+<div class="code-toolbar">
+  <pre 
+    class="command-line language-bash" 
+    data-user="user" 
+    data-host="localhost" 
+    data-continuation-str="\"
+    data-filter-output="(out)"><code class="language-bash">ls -l /stroomdata/stroom-working*/proxy</code></pre>
+</div>
+
+On <code>stroomp00</code> we see</p>
 <pre><code class="language-text">[stroomuser@stroomp00 ~]$ ls -l /stroomdata/stroom-working*/proxy
 total 16
 -rw-rw-r--. 1 stroomuser stroomuser 785 Jan 14 17:46 001.zip
@@ -1165,8 +1225,23 @@ total 12
 [stroomuser@stroomp01 ~]$
 </code></pre>
 <p>which corresponds to the seven posts of data and the associated events in the proxy logs. To see the contents of one of these files we execute on either node, the command</p>
-<pre><code class="language-bash">unzip -c /stroomdata/stroom-working*/proxy/001.zip
-</code></pre>
+
+  
+
+
+
+
+
+
+<div class="code-toolbar">
+  <pre 
+    class="command-line language-bash" 
+    data-user="user" 
+    data-host="localhost" 
+    data-continuation-str="\"
+    data-filter-output="(out)"><code class="language-bash">unzip -c /stroomdata/stroom-working*/proxy/001.zip</code></pre>
+</div>
+
 <p>to see</p>
 <pre><code class="language-text">Archive:  /stroomdata/stroom-working-p00/proxy/001.zip
   inflating: 001.dat
@@ -1248,14 +1323,44 @@ total 24
 <h4 id="simple-direct-post-tests">Simple Direct Post tests</h4>
 <p>In this test we will use the direct feed interface of the Stroom application, rather than sending data via the proxy.
 One would normally use this interface for time sensitive data which shouldn&rsquo;t aggregate in a proxy waiting for
-the Stroom application to collect it. In this situation we use the command</p>
-<pre><code class="language-bash">curl -k --data-binary @/etc/group &quot;https://stroomp.strmdev00.org/stroom/datafeeddirect&quot; -H &quot;Feed:TEST-FEED-V1_0&quot; -H &quot;System:EXAMPLE_SYSTEM&quot; -H &quot;Environment:EXAMPLE_ENVIRONMENT&quot;
-</code></pre>
+the Stroom application to collect it. In this situation we use the command
+
+  
+
+
+
+
+
+
+<div class="code-toolbar">
+  <pre 
+    class="command-line language-bash" 
+    data-user="user" 
+    data-host="localhost" 
+    data-continuation-str="\"
+    data-filter-output="(out)"><code class="language-bash">curl -k --data-binary @/etc/group &#34;https://stroomp.strmdev00.org/stroom/datafeeddirect&#34; -H &#34;Feed:TEST-FEED-V1_0&#34; -H &#34;System:EXAMPLE_SYSTEM&#34; -H &#34;Environment:EXAMPLE_ENVIRONMENT&#34;</code></pre>
+</div>
+</p>
 <p>To prepare for this test, we monitor the Stroom application log using the <code>T</code> bash alias on each node. So on each node run the command</p>
-<pre><code class="language-bash">sudo -i -u stroomuser
-T
-</code></pre>
-<p>On each node you should see <em>LifecyleTask</em> events, for example,</p>
+
+  
+
+
+
+
+
+
+<div class="code-toolbar">
+  <pre 
+    class="command-line language-bash" 
+    data-user="user" 
+    data-host="localhost" 
+    data-continuation-str="\"
+    data-filter-output="(out)"><code class="language-bash">sudo -i -u stroomuser
+T</code></pre>
+</div>
+
+<p>On each node you should see <em>LifecycleTask</em> events, for example,</p>
 <pre><code class="language-text">2017-01-14T07:42:08.281Z INFO  [Stroom P2 #7 - LifecycleTask] spring.StroomBeanMethodExecutable (StroomBeanMethodExecutable.java:47) - Executing nodeStatusExecutor.exec
 2017-01-14T07:42:18.284Z INFO  [Stroom P2 #2 - LifecycleTask] spring.StroomBeanMethodExecutable (StroomBeanMethodExecutable.java:47) - Executing SQLStatisticEventStore.evict
 2017-01-14T07:42:18.284Z INFO  [Stroom P2 #10 - LifecycleTask] spring.StroomBeanMethodExecutable (StroomBeanMethodExecutable.java:47) - Executing activeQueriesManager.evictExpiredElements
@@ -1475,14 +1580,44 @@ probably load balancing and hence the forwarded file may turn up on any of the d
 <li>Log onto the Forwarding Proxy node and become the <code>stroomuser</code> and monitor the Stroom proxy service using the <code>Tp</code> bash macro.</li>
 <li>Log onto the destination Stroom nodes and become the <code>stroomuser</code> and monitor each node&rsquo;s Stroom proxy service using the <code>Tp</code> bash macro. That is, on each node, run</li>
 </ul>
-<pre><code class="language-bash">sudo -i -u stroomuser
-Tp
-</code></pre>
+
+  
+
+
+
+
+
+
+<div class="code-toolbar">
+  <pre 
+    class="command-line language-bash" 
+    data-user="user" 
+    data-host="localhost" 
+    data-continuation-str="\"
+    data-filter-output="(out)"><code class="language-bash">sudo -i -u stroomuser
+Tp</code></pre>
+</div>
+
 <ul>
 <li>On the &lsquo;posting&rsquo; node, run the command</li>
 </ul>
-<pre><code class="language-bash">curl -k --data-binary @/etc/group &quot;https://stroomfp0.strmdev00.org/stroom/datafeed&quot; -H &quot;Feed:TEST-FEED-V1_0&quot; -H &quot;System:EXAMPLE_SYSTEM&quot; -H &quot;Environment:EXAMPLE_ENVIRONMENT&quot;
-</code></pre>
+
+  
+
+
+
+
+
+
+<div class="code-toolbar">
+  <pre 
+    class="command-line language-bash" 
+    data-user="user" 
+    data-host="localhost" 
+    data-continuation-str="\"
+    data-filter-output="(out)"><code class="language-bash">curl -k --data-binary @/etc/group &#34;https://stroomfp0.strmdev00.org/stroom/datafeed&#34; -H &#34;Feed:TEST-FEED-V1_0&#34; -H &#34;System:EXAMPLE_SYSTEM&#34; -H &#34;Environment:EXAMPLE_ENVIRONMENT&#34;</code></pre>
+</div>
+
 <p>In the Stroom Forwarding proxy log, <code>~/stroom-proxy/instance/logs/stroom.log</code>, you will see the arrival of the
 file as per the <em>datafeed.DataFeedRequestHandler$1</em> event running under, in this case, the <em>ajp-apr-9009-exec-1</em> thread.</p>
 <pre><code class="language-text">...
@@ -1520,14 +1655,44 @@ received files are meant to be stored in.</p>
 <li>Log onto any host where you will perform the <code>curl</code> post</li>
 <li>Log onto the Standalone Proxy node and become the <code>stroomuser</code> and monitor the Stroom proxy service using the <code>Tp</code> bash macro. That is run</li>
 </ul>
-<pre><code class="language-bash">sudo -i -u stroomuser
-Tp
-</code></pre>
+
+  
+
+
+
+
+
+
+<div class="code-toolbar">
+  <pre 
+    class="command-line language-bash" 
+    data-user="user" 
+    data-host="localhost" 
+    data-continuation-str="\"
+    data-filter-output="(out)"><code class="language-bash">sudo -i -u stroomuser
+Tp</code></pre>
+</div>
+
 <ul>
 <li>On the &lsquo;posting&rsquo; node, run the command</li>
 </ul>
-<pre><code class="language-bash">curl -k --data-binary @/etc/group &quot;https://stroomsap0.strmdev00.org/stroom/datafeed&quot; -H &quot;Feed:TEST-FEED-V1_0&quot; -H &quot;System:EXAMPLE_SYSTEM&quot; -H &quot;Environment:EXAMPLE_ENVIRONMENT&quot;
-</code></pre>
+
+  
+
+
+
+
+
+
+<div class="code-toolbar">
+  <pre 
+    class="command-line language-bash" 
+    data-user="user" 
+    data-host="localhost" 
+    data-continuation-str="\"
+    data-filter-output="(out)"><code class="language-bash">curl -k --data-binary @/etc/group &#34;https://stroomsap0.strmdev00.org/stroom/datafeed&#34; -H &#34;Feed:TEST-FEED-V1_0&#34; -H &#34;System:EXAMPLE_SYSTEM&#34; -H &#34;Environment:EXAMPLE_ENVIRONMENT&#34;</code></pre>
+</div>
+
 <p>In the stroom proxy log, <code>~/stroom-proxy/instance/logs/stroom.log</code>, you will see the arrival of the file via both the <em>handler.LogRequestHandler</em> and <em>datafeed.DataFeedRequestHandler$1</em> events running under, in this case, the <em>ajp-apr-9009-exec-1</em> thread.</p>
 <pre><code class="language-text">...
 2017-01-02T02:10:00.325Z INFO  [Repository Reader Thread 1] handler.ProxyRepositoryReader (ProxyRepositoryReader.java:143) - run() - Cron Match at 2017-01-02T02:10:00.325Z
@@ -1535,10 +1700,25 @@ Tp
 2017-01-02T02:11:34.528Z INFO  [ajp-apr-9009-exec-1] datafeed.DataFeedRequestHandler$1 (DataFeedRequestHandler.java:104) - &quot;doPost() - Took 33 ms to process (concurrentRequestCount=1) 200&quot;,&quot;Environment=EXAMPLE_ENVIRONMENT&quot;,&quot;Expect=100-continue&quot;,&quot;Feed=TEST-FEED-V1_0&quot;,&quot;GUID=ebd11215-7d4c-4be6-a524-358015e2ac38&quot;,&quot;ReceivedTime=2017-01-02T02:11:34.501Z&quot;,&quot;RemoteAddress=192.168.2.220&quot;,&quot;RemoteHost=192.168.2.220&quot;,&quot;System=EXAMPLE_SYSTEM&quot;,&quot;accept=*/*&quot;,&quot;content-length=1051&quot;,&quot;content-type=application/x-www-form-urlencoded&quot;,&quot;host=stroomsap0.strmdev00.org&quot;,&quot;user-agent=curl/7.19.7 (x86_64-redhat-linux-gnu) libcurl/7.19.7 NSS/3.21 Basic ECC zlib/1.2.3 libidn/1.18 libssh2/1.4.2&quot;
 ...
 </code></pre>
-<p>Further, if you check the proxy&rsquo;s storage directory, you will see the file <code>001.zip</code>. The file names number upwards from 001.</p>
-<pre><code class="language-bash">ls -l /stroomdata/stroom-working-sap0/proxy
-</code></pre>
-<p>shows</p>
+<p>Further, if you check the proxy&rsquo;s storage directory, you will see the file <code>001.zip</code>. The file names number upwards from 001.
+
+  
+
+
+
+
+
+
+<div class="code-toolbar">
+  <pre 
+    class="command-line language-bash" 
+    data-user="user" 
+    data-host="localhost" 
+    data-continuation-str="\"
+    data-filter-output="(out)"><code class="language-bash">ls -l /stroomdata/stroom-working-sap0/proxy</code></pre>
+</div>
+
+shows</p>
 <pre><code class="language-text">[stroomuser@stroomsap0 ~]$ ls -l /stroomdata/stroom-working-sap0/proxy
 total 4
 -rw-rw-r--. 1 stroomuser stroomuser 1107 Jan  2 13:11 001.zip
@@ -1580,7 +1760,7 @@ user-agent:curl/7.19.7 (x86_64-redhat-linux-gnu) libcurl/7.19.7 NSS/3.21 Basic E
 	
 	
 	<div class="text-muted mt-5 pt-3 border-top">
-  Last modified March 9, 2026: <a href="https://github.com/gchq/stroom-docs/commit/14b415aff83f127ae78a1d2c9aac5de1fe611ddf">Change build to only check spelling if script is present (14b415a)</a>
+  Last modified March 16, 2026: <a href="https://github.com/gchq/stroom-docs/commit/0cdb5fb0963ff027665549bb124daebff70a9e93">Fix spelling (0cdb5fb)</a>
 </div>
 
 </div>

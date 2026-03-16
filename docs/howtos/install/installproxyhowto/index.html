@@ -45,13 +45,13 @@
 <meta property="og:type" content="article" />
 <meta property="og:url" content="/docs/howtos/install/installproxyhowto/" /><meta property="article:section" content="docs" />
 <meta property="article:published_time" content="2021-07-12T00:00:00+00:00" />
-<meta property="article:modified_time" content="2026-03-09T08:39:40+00:00" /><meta property="og:site_name" content="Stroom" />
+<meta property="article:modified_time" content="2026-03-16T10:25:28+00:00" /><meta property="og:site_name" content="Stroom" />
 
 <meta itemprop="name" content="Installation of Stroom Proxy">
 <meta itemprop="description" content="This HOWTO describes the installation and configuration of the Stroom Proxy software.
 "><meta itemprop="datePublished" content="2021-07-12T00:00:00+00:00" />
-<meta itemprop="dateModified" content="2026-03-09T08:39:40+00:00" />
-<meta itemprop="wordCount" content="1618">
+<meta itemprop="dateModified" content="2026-03-16T10:25:28+00:00" />
+<meta itemprop="wordCount" content="1601">
 <meta itemprop="keywords" content="installation,proxy," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Installation of Stroom Proxy"/>
 <meta name="twitter:description" content="This HOWTO describes the installation and configuration of the Stroom Proxy software.
@@ -153,7 +153,7 @@
     aria-label="Search this site…"
     autocomplete="off"
     
-    data-offline-search-index-json-src="../../../../offline-search-index.0a005bba63f0fad58d724ce154f84187.json"
+    data-offline-search-index-json-src="../../../../offline-search-index.5bbd05061c9b5c5b6db96e6f659545dc.json"
     data-offline-search-base-href="../../../../"
     data-offline-search-max-results="50"
   >
@@ -178,7 +178,7 @@
     aria-label="Search this site…"
     autocomplete="off"
     
-    data-offline-search-index-json-src="../../../../offline-search-index.0a005bba63f0fad58d724ce154f84187.json"
+    data-offline-search-index-json-src="../../../../offline-search-index.5bbd05061c9b5c5b6db96e6f659545dc.json"
     data-offline-search-base-href="../../../../"
     data-offline-search-max-results="50"
   >
@@ -1051,7 +1051,7 @@
 <div class="alert alert-warning" role="alert">
 <h4 class="alert-heading">TODO</h4>
 
-    This section was written for Stroom-Proxy v5, so is is out of date.
+    This section was written for Stroom-Proxy v5, so is out of date.
 
 </div>
 
@@ -1070,19 +1070,65 @@
 </ul>
 <h2 id="confirm-prerequisite-software-installation">Confirm Prerequisite Software Installation</h2>
 <p>The following command will ensure the prerequisite software has been deployed</p>
-<pre><code class="language-bash">sudo yum -y install java-1.8.0-openjdk java-1.8.0-openjdk-devel policycoreutils-python unzip zip
-sudo yum -y install mariadb
-or
-sudo yum -y install mysql-community-client
-</code></pre>
+
+  
+
+
+
+
+
+
+<div class="code-toolbar">
+  <pre 
+    class="command-line language-bash" 
+    data-user="user" 
+    data-host="localhost" 
+    data-continuation-str="\"
+    data-filter-output="(out)"><code class="language-bash">sudo yum -y install java-1.8.0-openjdk java-1.8.0-openjdk-devel policycoreutils-python unzip zip
+sudo yum -y install mariadb</code></pre>
+</div>
+
+<p>or</p>
+
+  
+
+
+
+
+
+
+<div class="code-toolbar">
+  <pre 
+    class="command-line language-bash" 
+    data-user="user" 
+    data-host="localhost" 
+    data-continuation-str="\"
+    data-filter-output="(out)"><code class="language-bash">sudo yum -y install mysql-community-client</code></pre>
+</div>
+
 <p>Note that we do <strong>NOT</strong> need the database client software for a Forwarding or Standalone proxy.</p>
 <h2 id="get-the-software">Get the Software</h2>
 <p>The following will gain the identified, in this case release <code>5.1-beta.10</code>, Stroom Application software release from github, then deploy it. You should regularly monitor the site for newer releases.</p>
-<pre><code class="language-bash">sudo -i -u stroomuser
+
+  
+
+
+
+
+
+
+<div class="code-toolbar">
+  <pre 
+    class="command-line language-bash" 
+    data-user="user" 
+    data-host="localhost" 
+    data-continuation-str="\"
+    data-filter-output="(out)"><code class="language-bash">sudo -i -u stroomuser
 Prx=v5.1-beta.10
 wget https://github.com/gchq/stroom-proxy/releases/download/${Prx}/stroom-proxy-distribution-${Prx}.zip
-unzip stroom-proxy-distribution-${Prx}.zip
-</code></pre>
+unzip stroom-proxy-distribution-${Prx}.zip</code></pre>
+</div>
+
 <h2 id="configure-the-software">Configure the Software</h2>
 <p>There are three different types of Stroom Proxy</p>
 <ul>
@@ -1100,9 +1146,24 @@ unzip stroom-proxy-distribution-${Prx}.zip
 <h3 id="store-proxy-configuration">Store Proxy Configuration</h3>
 <p>In our <em>Store</em> Proxy description below, we will use the multi node deployment scenario. That is we are deploying the <em>Store</em> proxy on multiple Stroom nodes (<code>stroomp00</code>, <code>stroomp01</code>) and we have configured our storage as per the <a href="../../../../docs/howtos/install/installhowto/#storage-scenario">Storage Scenario</a> which means the directories to install the inbound batches of data are <code>/stroomdata/stroom-working-p00/proxy</code> and <code>/stroomdata/stroom-working-p01/proxy</code> depending on the node.</p>
 <p>To install a <em>Store</em> proxy, we run</p>
-<pre><code class="language-bash">stroom-proxy/bin/setup.sh store
-</code></pre>
-<p>during which one is prompted for a number of configuration settings. Use the following</p>
+<p>
+  
+
+
+
+
+
+
+<div class="code-toolbar">
+  <pre 
+    class="command-line language-bash" 
+    data-user="user" 
+    data-host="localhost" 
+    data-continuation-str="\"
+    data-filter-output="(out)"><code class="language-bash">stroom-proxy/bin/setup.sh store</code></pre>
+</div>
+
+during which one is prompted for a number of configuration settings. Use the following</p>
 <pre><code>NODE to be the hostname (not FQDN) of your host (i.e. 'stroomp00' or 'stroomp01' depending on the node we are installing on)
 PORT_PREFIX should use the default, just press return
 REPO_DIR should be set to '/stroomdata/stroom-working-p00/proxy' or '/stroomdata/stroom-working-p01/proxy' depending on the node we are installing on
@@ -1119,9 +1180,24 @@ If you make a mistake in the above, just re-run the script.</p>
 <h3 id="forwarding-proxy-configuration">Forwarding Proxy Configuration</h3>
 <p>In our <em>Forwarding</em> Proxy description below, we will deploy on a host named <code>stroomfp0</code> and it will store the files in <code>/stroomdata/stroom-working-fp0/proxy</code>. Remember, we are being consistent with our Storage hierarchy to make documentation and scripting simpler. Our destination host to periodically forward the files to will be <code>stroomp.strmdev00.org</code> (the CNAME for <code>stroomp00.strmdev00.org</code>).</p>
 <p>To install a <em>Forwarding</em> proxy, we run</p>
-<pre><code class="language-bash">stroom-proxy/bin/setup.sh forward
-</code></pre>
-<p>during which one is prompted for a number of configuration settings. Use the following</p>
+<p>
+  
+
+
+
+
+
+
+<div class="code-toolbar">
+  <pre 
+    class="command-line language-bash" 
+    data-user="user" 
+    data-host="localhost" 
+    data-continuation-str="\"
+    data-filter-output="(out)"><code class="language-bash">stroom-proxy/bin/setup.sh forward</code></pre>
+</div>
+
+during which one is prompted for a number of configuration settings. Use the following</p>
 <pre><code>NODE to be the hostname (not FQDN) of your host (i.e. 'stroomfp0' in our example)
 PORT_PREFIX should use the default, just press return
 REPO_DIR should be set to '/stroomdata/stroom-working-fp0/proxy' which we created earlier.
@@ -1133,8 +1209,23 @@ JAVA_OPTS can use the defaults, but ensure you have sufficient memory, either ch
 <h3 id="store-no-database-proxy-configuration">Store No Database Proxy Configuration</h3>
 <p>In our <em>Store_No_DB</em> Proxy description below, we will deploy on a host named <code>stroomsap0</code> and it will store the files in <code>/stroomdata/stroom-working-sap0/proxy</code>. Remember, we are being consistent with our Storage hierarchy to make documentation and scripting simpler.</p>
 <p>To install a <em>Store_No_DB</em> proxy, we run</p>
-<pre><code class="language-bash">stroom-proxy/bin/setup.sh store_nodb
-</code></pre>
+
+  
+
+
+
+
+
+
+<div class="code-toolbar">
+  <pre 
+    class="command-line language-bash" 
+    data-user="user" 
+    data-host="localhost" 
+    data-continuation-str="\"
+    data-filter-output="(out)"><code class="language-bash">stroom-proxy/bin/setup.sh store_nodb</code></pre>
+</div>
+
 <p>During which one is prompted for a number of configuration settings. Use the following</p>
 <pre><code>NODE to be the hostname (not FQDN) of your host (i.e. 'stroomsap0' in our example)
 PORT_PREFIX should use the default, just press return
@@ -1144,18 +1235,48 @@ JAVA_OPTS can use the defaults, but ensure you have sufficient memory, either ch
 </code></pre>
 <p>At this point, the script will configure the proxy. There should be no errors, but review the output.</p>
 <h2 id="apachemod_jk-change">Apache/Mod_JK change</h2>
-<p>For all proxy deployments, if we are using Apache&rsquo;s mod_jk then we need to ensure the proxy&rsquo;s AJP connector specifies a 64K <code>packetSize</code>. View the file <code>stroom-proxy/instance/conf/server.xml</code> to ensure the Connector element for the AJP protocol has a <code>packetSize</code> attribute of <code>65536</code>. For example,</p>
-<pre><code class="language-bash">grep AJP stroom-proxy/instance/conf/server.xml
-</code></pre>
+<p>For all proxy deployments, if we are using Apache&rsquo;s mod_jk then we need to ensure the proxy&rsquo;s AJP connector specifies a 64K packetSize. View the file <code>stroom-proxy/instance/conf/server.xml</code> to ensure the Connector element for the AJP protocol has a packetSize attribute of <code>65536</code>. For example,</p>
+
+  
+
+
+
+
+
+
+<div class="code-toolbar">
+  <pre 
+    class="command-line language-bash" 
+    data-user="user" 
+    data-host="localhost" 
+    data-continuation-str="\"
+    data-filter-output="(out)"><code class="language-bash">grep AJP stroom-proxy/instance/conf/server.xml</code></pre>
+</div>
+
 <p>shows</p>
 <pre><code>&lt;Connector port=&quot;9009&quot; protocol=&quot;AJP/1.3&quot; connectionTimeout=&quot;20000&quot; redirectPort=&quot;8443&quot; maxThreads=&quot;200&quot; packetSize=&quot;65536&quot; /&gt;
 </code></pre>
 <p>This check is required for earlier releases of the Stroom Proxy. Releases since <code>v5.1-beta.4</code> have set the AJP <code>packetSize</code>.</p>
 <h2 id="start-the-proxy-service">Start the Proxy Service</h2>
-<p>We can now manually start our proxy service. Do so as the <code>stroomuser</code> with the command</p>
-<pre><code class="language-bash">stroom-proxy/bin/start.sh
-</code></pre>
-<p>Now monitor the directory <code>stroom-proxy/instance/logs</code> for any errors. Initially you will see the log files <code>localhost_access_log.YYYY-MM-DD.txt</code> and <code>catalina.out</code>. Check them for errors and correct (or pose a question to this arena).
+<p>We can now manually start our proxy service. Do so as the <code>stroomuser</code> with the command
+
+  
+
+
+
+
+
+
+<div class="code-toolbar">
+  <pre 
+    class="command-line language-bash" 
+    data-user="user" 
+    data-host="localhost" 
+    data-continuation-str="\"
+    data-filter-output="(out)"><code class="language-bash">stroom-proxy/bin/start.sh</code></pre>
+</div>
+
+Now monitor the directory <code>stroom-proxy/instance/logs</code> for any errors. Initially you will see the log files <code>localhost_access_log.YYYY-MM-DD.txt</code> and <code>catalina.out</code>. Check them for errors and correct (or pose a question to this arena).
 The context path and unknown version warnings in <code>catalina.out</code> can be ignored.</p>
 <p>Eventually (about 60 seconds) the log file <code>stroom-proxy/instance/logs/stroom.log</code> will appear. Again check it for errors.
 The proxy will have completely started when you see the messages</p>
@@ -1254,70 +1375,126 @@ The default template is <code>${pathId}/${id}</code> and this pattern will produ
 <h3 id="proxy-repository-template-examples">Proxy Repository Template Examples</h3>
 <p>For each of the following templates applied to a Store NoDB Proxy, the resultant proxy directory tree is shown after three posts were sent to the test feed <code>TEST-FEED-V1_0</code> and two posts to the test feed <code>FEED-NOVALUE-V9_0</code></p>
 <h4 id="example-a---the-default---pathidid">Example A - The default - <code>${pathId}/${id}</code></h4>
-<pre><code class="language-bash">[stroomuser@stroomsap0 ~]$ find /stroomdata/stroom-working-sap0/proxy/
-/stroomdata/stroom-working-sap0/proxy/
-/stroomdata/stroom-working-sap0/proxy/001.zip
-/stroomdata/stroom-working-sap0/proxy/002.zip
-/stroomdata/stroom-working-sap0/proxy/003.zip
-/stroomdata/stroom-working-sap0/proxy/004.zip
-/stroomdata/stroom-working-sap0/proxy/005.zip
-[stroomuser@stroomsap0 ~]$ 
-</code></pre>
+
+  
+
+
+
+
+
+
+<div class="code-toolbar">
+  <pre 
+    class="command-line language-bash" 
+    data-user="stroomuser" 
+    data-host="stroomsap0" 
+    data-continuation-str="\"
+    data-filter-output="(out)"><code class="language-bash">find /stroomdata/stroom-working-sap0/proxy/
+(out)/stroomdata/stroom-working-sap0/proxy/
+(out)/stroomdata/stroom-working-sap0/proxy/001.zip
+(out)/stroomdata/stroom-working-sap0/proxy/002.zip
+(out)/stroomdata/stroom-working-sap0/proxy/003.zip
+(out)/stroomdata/stroom-working-sap0/proxy/004.zip
+(out)/stroomdata/stroom-working-sap0/proxy/005.zip</code></pre>
+</div>
+
 <h4 id="example-b---a-feed-orientated-structure---feedyearmonthdaypathidid">Example B - A feed orientated structure - <code>${feed}/${year}/${month}/${day}/${pathId}/${id}</code></h4>
-<pre><code class="language-bash">[stroomuser@stroomsap0 ~]$ find /stroomdata/stroom-working-sap0/proxy/
-/stroomdata/stroom-working-sap0/proxy/
-/stroomdata/stroom-working-sap0/proxy/TEST-FEED-V1_0
-/stroomdata/stroom-working-sap0/proxy/TEST-FEED-V1_0/2017
-/stroomdata/stroom-working-sap0/proxy/TEST-FEED-V1_0/2017/07
-/stroomdata/stroom-working-sap0/proxy/TEST-FEED-V1_0/2017/07/23
-/stroomdata/stroom-working-sap0/proxy/TEST-FEED-V1_0/2017/07/23/001.zip
-/stroomdata/stroom-working-sap0/proxy/TEST-FEED-V1_0/2017/07/23/002.zip
-/stroomdata/stroom-working-sap0/proxy/TEST-FEED-V1_0/2017/07/23/003.zip
-/stroomdata/stroom-working-sap0/proxy/FEED-NOVALUE-V9_0
-/stroomdata/stroom-working-sap0/proxy/FEED-NOVALUE-V9_0/2017
-/stroomdata/stroom-working-sap0/proxy/FEED-NOVALUE-V9_0/2017/07
-/stroomdata/stroom-working-sap0/proxy/FEED-NOVALUE-V9_0/2017/07/23
-/stroomdata/stroom-working-sap0/proxy/FEED-NOVALUE-V9_0/2017/07/23/004.zip
-/stroomdata/stroom-working-sap0/proxy/FEED-NOVALUE-V9_0/2017/07/23/005.zip
-[stroomuser@stroomsap0 ~]$ 
-</code></pre>
+
+  
+
+
+
+
+
+
+<div class="code-toolbar">
+  <pre 
+    class="command-line language-bash" 
+    data-user="stroomuser" 
+    data-host="stroomsap0" 
+    data-continuation-str="\"
+    data-filter-output="(out)"><code class="language-bash">find /stroomdata/stroom-working-sap0/proxy/
+(out)/stroomdata/stroom-working-sap0/proxy/
+(out)/stroomdata/stroom-working-sap0/proxy/TEST-FEED-V1_0
+(out)/stroomdata/stroom-working-sap0/proxy/TEST-FEED-V1_0/2017
+(out)/stroomdata/stroom-working-sap0/proxy/TEST-FEED-V1_0/2017/07
+(out)/stroomdata/stroom-working-sap0/proxy/TEST-FEED-V1_0/2017/07/23
+(out)/stroomdata/stroom-working-sap0/proxy/TEST-FEED-V1_0/2017/07/23/001.zip
+(out)/stroomdata/stroom-working-sap0/proxy/TEST-FEED-V1_0/2017/07/23/002.zip
+(out)/stroomdata/stroom-working-sap0/proxy/TEST-FEED-V1_0/2017/07/23/003.zip
+(out)/stroomdata/stroom-working-sap0/proxy/FEED-NOVALUE-V9_0
+(out)/stroomdata/stroom-working-sap0/proxy/FEED-NOVALUE-V9_0/2017
+(out)/stroomdata/stroom-working-sap0/proxy/FEED-NOVALUE-V9_0/2017/07
+(out)/stroomdata/stroom-working-sap0/proxy/FEED-NOVALUE-V9_0/2017/07/23
+(out)/stroomdata/stroom-working-sap0/proxy/FEED-NOVALUE-V9_0/2017/07/23/004.zip
+(out)/stroomdata/stroom-working-sap0/proxy/FEED-NOVALUE-V9_0/2017/07/23/005.zip</code></pre>
+</div>
+
 <h4 id="example-c---a-date-orientated-structure---yearmonthdaypathidid">Example C - A date orientated structure - <code>${year}/${month}/${day}/${pathId}/${id}</code></h4>
-<pre><code class="language-bash">[stroomuser@stroomsap0 ~]$ find /stroomdata/stroom-working-sap0/proxy/
-/stroomdata/stroom-working-sap0/proxy/
-/stroomdata/stroom-working-sap0/proxy/2017
-/stroomdata/stroom-working-sap0/proxy/2017/07
-/stroomdata/stroom-working-sap0/proxy/2017/07/23
-/stroomdata/stroom-working-sap0/proxy/2017/07/23/001.zip
-/stroomdata/stroom-working-sap0/proxy/2017/07/23/002.zip
-/stroomdata/stroom-working-sap0/proxy/2017/07/23/003.zip
-/stroomdata/stroom-working-sap0/proxy/2017/07/23/004.zip
-/stroomdata/stroom-working-sap0/proxy/2017/07/23/005.zip
-[stroomuser@stroomsap0 ~]$ 
-</code></pre>
+
+  
+
+
+
+
+
+
+<div class="code-toolbar">
+  <pre 
+    class="command-line language-bash" 
+    data-user="stroomuser" 
+    data-host="stroomsap0" 
+    data-continuation-str="\"
+    data-filter-output="(out)"><code class="language-bash">find /stroomdata/stroom-working-sap0/proxy/
+(out)/stroomdata/stroom-working-sap0/proxy/
+(out)/stroomdata/stroom-working-sap0/proxy/2017
+(out)/stroomdata/stroom-working-sap0/proxy/2017/07
+(out)/stroomdata/stroom-working-sap0/proxy/2017/07/23
+(out)/stroomdata/stroom-working-sap0/proxy/2017/07/23/001.zip
+(out)/stroomdata/stroom-working-sap0/proxy/2017/07/23/002.zip
+(out)/stroomdata/stroom-working-sap0/proxy/2017/07/23/003.zip
+(out)/stroomdata/stroom-working-sap0/proxy/2017/07/23/004.zip
+(out)/stroomdata/stroom-working-sap0/proxy/2017/07/23/005.zip</code></pre>
+</div>
+
 <h4 id="example-d---a-feed-orientated-structure-but-with-a-bad-parameter---feedbadparamdaypathidid">Example D - A feed orientated structure, but with a bad parameter - <code>${feed}/${badparam}/${day}/${pathId}/${id}</code></h4>
-<pre><code class="language-bash">[stroomuser@stroomsap0 ~]$ find /stroomdata/stroom-working-sap0/proxy/
-/stroomdata/stroom-working-sap0/proxy/
-/stroomdata/stroom-working-sap0/proxy/TEST-FEED-V1_0
-/stroomdata/stroom-working-sap0/proxy/TEST-FEED-V1_0/_
-/stroomdata/stroom-working-sap0/proxy/TEST-FEED-V1_0/_/23
-/stroomdata/stroom-working-sap0/proxy/TEST-FEED-V1_0/_/23/001.zip
-/stroomdata/stroom-working-sap0/proxy/TEST-FEED-V1_0/_/23/002.zip
-/stroomdata/stroom-working-sap0/proxy/TEST-FEED-V1_0/_/23/003.zip
-/stroomdata/stroom-working-sap0/proxy/FEED-NOVALUE-V9_0
-/stroomdata/stroom-working-sap0/proxy/FEED-NOVALUE-V9_0/_
-/stroomdata/stroom-working-sap0/proxy/FEED-NOVALUE-V9_0/_/23
-/stroomdata/stroom-working-sap0/proxy/FEED-NOVALUE-V9_0/_/23/004.zip
-/stroomdata/stroom-working-sap0/proxy/FEED-NOVALUE-V9_0/_/23/005.zip
-[stroomuser@stroomsap0 ~]$ 
-</code></pre>
-<p>And one would also see a warning for each post in the proxy&rsquo;s log file of the form</p>
+<p>
+  
+
+
+
+
+
+
+<div class="code-toolbar">
+  <pre 
+    class="command-line language-bash" 
+    data-user="stroomuser" 
+    data-host="stroomsap0" 
+    data-continuation-str="\"
+    data-filter-output="(out)"><code class="language-bash">find /stroomdata/stroom-working-sap0/proxy/
+(out)/stroomdata/stroom-working-sap0/proxy/
+(out)/stroomdata/stroom-working-sap0/proxy/TEST-FEED-V1_0
+(out)/stroomdata/stroom-working-sap0/proxy/TEST-FEED-V1_0/_
+(out)/stroomdata/stroom-working-sap0/proxy/TEST-FEED-V1_0/_/23
+(out)/stroomdata/stroom-working-sap0/proxy/TEST-FEED-V1_0/_/23/001.zip
+(out)/stroomdata/stroom-working-sap0/proxy/TEST-FEED-V1_0/_/23/002.zip
+(out)/stroomdata/stroom-working-sap0/proxy/TEST-FEED-V1_0/_/23/003.zip
+(out)/stroomdata/stroom-working-sap0/proxy/FEED-NOVALUE-V9_0
+(out)/stroomdata/stroom-working-sap0/proxy/FEED-NOVALUE-V9_0/_
+(out)/stroomdata/stroom-working-sap0/proxy/FEED-NOVALUE-V9_0/_/23
+(out)/stroomdata/stroom-working-sap0/proxy/FEED-NOVALUE-V9_0/_/23/004.zip
+(out)/stroomdata/stroom-working-sap0/proxy/FEED-NOVALUE-V9_0/_/23/005.zip</code></pre>
+</div>
+
+and one would also see a warning for each post in the proxy&rsquo;s log file of the form</p>
 <pre><code>WARN  [ajp-apr-9009-exec-4] repo.StroomFileNameUtil (StroomFileNameUtil.java:133) - Unused variables found: [badparam]
 </code></pre>
 
 	
 	
 	<div class="text-muted mt-5 pt-3 border-top">
-  Last modified March 9, 2026: <a href="https://github.com/gchq/stroom-docs/commit/14b415aff83f127ae78a1d2c9aac5de1fe611ddf">Change build to only check spelling if script is present (14b415a)</a>
+  Last modified March 16, 2026: <a href="https://github.com/gchq/stroom-docs/commit/0cdb5fb0963ff027665549bb124daebff70a9e93">Fix spelling (0cdb5fb)</a>
 </div>
 
 </div>

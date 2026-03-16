@@ -149,7 +149,7 @@
     aria-label="Search this site…"
     autocomplete="off"
     
-    data-offline-search-index-json-src="../../../offline-search-index.0a005bba63f0fad58d724ce154f84187.json"
+    data-offline-search-index-json-src="../../../offline-search-index.5bbd05061c9b5c5b6db96e6f659545dc.json"
     data-offline-search-base-href="../../../"
     data-offline-search-max-results="50"
   >
@@ -1475,10 +1475,12 @@ curl \
   --silent \
   --insecure \
   --header &#34;Authorization:Bearer ${TOKEN}&#34; \
-  https://stroom-fqdn/api/node/v1/info/node1a
-(out){&#34;discoverTime&#34;:&#34;2022-02-16T17:28:37.710Z&#34;,&#34;buildInfo&#34;:{&#34;buildDate&#34;:&#34;2022-01-19T15:27:25.024677714Z&#34;,&#34;buildVersion&#34;:&#34;7.0-beta.175&#34;,&#34;upDate&#34;:&#34;2022-02-16T09:28:11.733Z&#34;},&#34;nodeName&#34;:&#34;node1a&#34;,&#34;endpointUrl&#34;:&#34;http://192.168.1.64:8080&#34;,&#34;itemList&#34;:[{&#34;nodeName&#34;:&#34;node1a&#34;,&#34;active&#34;:true,&#34;master&#34;:true}],&#34;ping&#34;:2}</code></pre>
+  https://stroom-fqdn/api/node/v1/info/node1a</code></pre>
 </div>
 
+<p>Example output:</p>
+<pre><code class="language-json">{&quot;discoverTime&quot;:&quot;2022-02-16T17:28:37.710Z&quot;,&quot;buildInfo&quot;:{&quot;buildDate&quot;:&quot;2022-01-19T15:27:25.024677714Z&quot;,&quot;buildVersion&quot;:&quot;7.0-beta.175&quot;,&quot;upDate&quot;:&quot;2022-02-16T09:28:11.733Z&quot;},&quot;nodeName&quot;:&quot;node1a&quot;,&quot;endpointUrl&quot;:&quot;http://192.168.1.64:8080&quot;,&quot;itemList&quot;:[{&quot;nodeName&quot;:&quot;node1a&quot;,&quot;active&quot;:true,&quot;master&quot;:true}],&quot;ping&quot;:2}
+</code></pre>
 
 <div class="alert alert-warning" role="alert">
 <h4 class="alert-heading">Warning</h4>
@@ -1505,7 +1507,7 @@ curl \
 </div>
 
 
-<p>You can either call the API via Nginx (or similar reverse proxy) at <code>https://stroom-fddn/api/some/path</code> or if you are making the call from one of the stroom hosts you can go direct using <code>http://localhost:8080/api/some/path</code>. The former is preferred as it is more secure.</p>
+<p>You can either call the API via Nginx (or similar reverse proxy) at <code>https://stroom-fqdn/api/some/path</code> or if you are making the call from one of the stroom hosts you can go direct using <code>http://localhost:8080/api/some/path</code>. The former is preferred as it is more secure.</p>
 <h3 id="requests-with-a-body">Requests With a Body</h3>
 <p>A lot of the API methods in Stroom require complex bodies/payloads for the request.
 The following example is an HTTP <code>POST</code> to perform a reference data lookup on the local host.</p>
@@ -1890,11 +1892,26 @@ for node_file in **/*.node; do
 done
 </code></pre>
 <p>This will output something like:</p>
-<pre><code class="language-text">./Standard Pipelines/Json/Events to JSON   (./Standard_Pipelines/Json/Events_to_JSON.XSLT.1c3d42c2-f512-423f-aa6a-050c5cad7c0f.node)
-./Standard Pipelines/Json/JSON Extraction   (./Standard_Pipelines/Json/JSON_Extraction.Pipeline.13143179-b494-4146-ac4b-9a6010cada89.node)
-./Standard Pipelines/Json/JSON Search Extraction   (./Standard_Pipelines/Json/JSON_Search_Extraction.XSLT.a8c1aa77-fb90-461a-a121-d4d87d2ff072.node)
-./Standard Pipelines/Reference Loader   (./Standard_Pipelines/Reference_Loader.Pipeline.da1c7351-086f-493b-866a-b42dbe990700.node)
-</code></pre>
+
+  
+
+
+
+
+
+
+<div class="code-toolbar">
+  <pre 
+    class="command-line language-bash" 
+    data-user="user" 
+    data-host="localhost" 
+    data-continuation-str="\"
+    data-filter-output="(out)"><code class="language-bash">(out) ./Standard Pipelines/Json/Events to JSON   (./Standard_Pipelines/Json/Events_to_JSON.XSLT.1c3d42c2-f512-423f-aa6a-050c5cad7c0f.node)
+(out) ./Standard Pipelines/Json/JSON Extraction   (./Standard_Pipelines/Json/JSON_Extraction.Pipeline.13143179-b494-4146-ac4b-9a6010cada89.node)
+(out) ./Standard Pipelines/Json/JSON Search Extraction   (./Standard_Pipelines/Json/JSON_Search_Extraction.XSLT.a8c1aa77-fb90-461a-a121-d4d87d2ff072.node)
+(out) ./Standard Pipelines/Reference Loader   (./Standard_Pipelines/Reference_Loader.Pipeline.da1c7351-086f-493b-866a-b42dbe990700.node)</code></pre>
+</div>
+
 
 </div>
 

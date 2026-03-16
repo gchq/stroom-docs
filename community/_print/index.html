@@ -149,7 +149,7 @@
     aria-label="Search this site…"
     autocomplete="off"
     
-    data-offline-search-index-json-src="../../offline-search-index.0a005bba63f0fad58d724ce154f84187.json"
+    data-offline-search-index-json-src="../../offline-search-index.5bbd05061c9b5c5b6db96e6f659545dc.json"
     data-offline-search-base-href="../../"
     data-offline-search-max-results="50"
   >
@@ -444,14 +444,14 @@ This is the multi-page printable view of this section.
 <h3 id="search-result-storage">Search result storage</h3>
 <p>Search results are stored on disk rather than in memory during creation to reduce the memory overhead incurred by search.</p>
 <h3 id="modularisation">Modularisation</h3>
-<p>Separation of Stroom components into discreet modules that have clear APIs and separate persistence where required to reduce coupling.</p>
+<p>Separation of Stroom components into discrete modules that have clear APIs and separate persistence where required to reduce coupling.</p>
 <h3 id="modernisation-of-libraries">Modernisation of libraries</h3>
 <p>Changing Stroom libraries to replace Spring with Guice and Hibernate with JOOQ.</p>
 <h3 id="annotations">Annotations</h3>
 <p>Search results in dashboards can be annotated to provide status and notes relating to the result item, e.g. an event. These annotations can later be searched to see which events have annotations associated with them.</p>
 <h2 id="v71">v7.1</h2>
 <h3 id="elastic-search-integration">Elastic search integration</h3>
-<p>Elastic search can be used for indexing data. Data can be sent to an elastic index via a pipeline element and an elastic index can be queried from a Stroom dashboard.</p>
+<p>Elasticsearch can be used for indexing data. Data can be sent to an Elasticsearch index via a pipeline element and an Elasticsearch index can be queried from a Stroom dashboard.</p>
 <h3 id="interactive-visualisations">Interactive Visualisations</h3>
 <p>Selecting or manipulating parts of visualisations can be used to trigger further queries to zoom in or select specific data etc.</p>
 <h3 id="improved-proxy-aggregation">Improved Proxy Aggregation</h3>
@@ -606,7 +606,6 @@ This is the multi-page printable view of this section.
 <li>Github Actions - The CI build and release.</li>
 <li>Bash - Various utility shell scripts.</li>
 <li>Docker - Building the stroom and stroom-proxy docker images.</li>
-<li>Docker Compose -</li>
 <li>Docker containers - Provide consistent build environments for
 <ul>
 <li>Java</li>
@@ -724,7 +723,7 @@ quit;</code></pre>
 
 <h2 id="local-configuration-file">Local configuration file</h2>
 <p>When running stroom in an IDE you need to have a local configuration file to allow you to change settings locally without affecting the repository.
-The local configuration file live in the root of the <em>Stroom</em> repository <code>./local.yml</code>.</p>
+The local configuration file lives in the root of the <em>Stroom</em> repository <code>./local.yml</code>.</p>
 <p>To create a default version of this file run this script from within the root of the stroom git repository.</p>
 
   
@@ -745,7 +744,7 @@ The local configuration file live in the root of the <em>Stroom</em> repository 
 
 <p>This will create <code>./local.yml</code> using <code>stroom-app/dev.yml</code> as a template.
 So that you can run a multi-node cluster it will also create <code>./local2.yml</code> and <code>./local3.yml</code> as well.
-These files are not source controlled so you can make any changes you like to them, e.g. setting log levels or altering stroom property <a href="../../docs/install-guide/configuration/stroom-and-proxy/configuring-stroom/">property values</a>  values.</p>
+These files are not source controlled so you can make any changes you like to them, e.g. setting log levels or altering <a href="../../docs/install-guide/configuration/stroom-and-proxy/configuring-stroom/">property values</a>.</p>
 <h2 id="stroom-resources">stroom-resources</h2>
 <p>As a minimum to develop stroom you will need clones of the <code>stroom</code> and <code>stroom-resources</code> git repositories.
 <code>stroom-resources</code> provides the docker-compose configuration for running the many docker containers needed.</p>
@@ -797,7 +796,7 @@ These layers will be cached which will speed up future builds.</p>
 <h2 id="local-or-embedded-mysql">Local or embedded MySQL</h2>
 <p>The Junit integration tests that need a database can either be run against the local MySQL (i.e. <code>stroom-all-dbs</code>) or an embedded MySQL instance.</p>
 <p>Configuring the database used can be done with the JVM argument <code>-DuseEmbeddedMySql=false</code>, which can be set in <em>Run/Debug Configurations</em> =&gt; <em>Edit configuration templates&hellip;</em> =&gt; <em>JUnit</em> =&gt; <em>VM options</em> in Intellij.
-False will use your local MySQL instance, true with use the embedded one.
+False will use your local MySQL instance, true will use the embedded one.
 The CI build uses the embedded MySQL.</p>
 <p>The pros/cons of using the embedded instance are:</p>
 <div class="td-card-deck card-deck mb-4">
@@ -910,7 +909,7 @@ As a result Stroom needs to be started up with GWT <em>Super Dev Mode</em>.
 <em>Super Dev Mode</em> handles the on-the-fly compilation of the Java user interface source into JavaScript and the source map that links client JavaScript back to Java source for client side debugging.</p>
 <p>The following steps for running and debugging Stroom in IDEA assume you have a MySQL database running on <code>localhost:3307</code>, with a database <code>stroom</code> and user <code>stroomuser</code> already created.</p>
 <h3 id="java_home">JAVA_HOME</h3>
-<p>Ensure environment variable <code>JAVA_HOME</code> is set and points to a valid JDK 15 directory</p>
+<p>Ensure environment variable <code>JAVA_HOME</code> is set and points to a valid JDK 15 directory.</p>
 
   
 
@@ -1038,7 +1037,7 @@ It may be necessary to re-run the clean, and draft compile if there have been si
 Once the browser is all set up with the dev mode favourites you can visit Stroom at</p>
 <ul>
 <li>http://localhost:8080 (bypassing Nginx)</li>
-<li>https//localhost (via Nginx)</li>
+<li>https://localhost (via Nginx)</li>
 </ul>
 <p>Running without Nginx is simpler but can hide problems with the Stroom/Nginx configuration/integration.</p>
 <h3 id="authentication">Authentication</h3>
@@ -1070,7 +1069,7 @@ To enable the browser&rsquo;s context menu you need to ensure this is property i
 <h3 id="hot-loading-gwt-ui-code-changes">Hot loading GWT UI code changes</h3>
 <p>If you make any changes to the Java code in <code>-client</code> or <code>-shared</code> modules then in order for them to be hot loaded into the Javascript code you simply need to refresh the browser.
 This will trigger Super Dev Mode to recompile any changed code.</p>
-<p>If you have make significant code changes, e.g. moving/renaming classes then GWT can get confused so you may need to run the <em>gwtDraftCompile</em> and/or <em>gwtClean</em> gradle tasks followed by <em>gwtSuperDevMode</em>.</p>
+<p>If you have made significant code changes, e.g. moving/renaming classes then GWT can get confused so you may need to run the <em>gwtDraftCompile</em> and/or <em>gwtClean</em> gradle tasks followed by <em>gwtSuperDevMode</em>.</p>
 <h3 id="debugging-gwt-ui-code">Debugging GWT UI code</h3>
 <p>To debug the GWT UI code you will need to use Chrome Dev Tools (<code>shift+ctrl+i</code>).
 Setting breakpoints in the UI code in IntelliJ will have no effect.
@@ -1098,9 +1097,9 @@ SuperDevMode creates source maps that link the running javascript back to Java c
     
   <h1 id="pg-e3d591a492d4d476636d1f49df61cb42">2.3 - Components</h1>
     <div class="lead">Stroom is broken down into separate components. Each component encapsulates a specific area of Stroom functionality and aids development by providing a single area of focus for new features and ensures separate components remain as loosely coupled as possible. Components can be tested in isolation and their interaction with other components easily understood by only allowing dependencies via minimal APIs.</div>
-	<p>Some examples of components in Stroom include</p>
+	<p>Some examples of components in Stroom include:</p>
 <ul>
-<li>stroom-activity - Component for recording a users actions against a current activity</li>
+<li>stroom-activity - Component for recording a user&rsquo;s actions against a current activity</li>
 <li>stroom-dictionary - Component for storing lists of words.</li>
 <li>stroom-statistics - Component for recording statistical data, e.g. amount of data received in X minutes.</li>
 </ul>
@@ -1121,10 +1120,10 @@ Components have further subdirectories (modules) that make up the various parts 
 </ul>
 </li>
 </ul>
-<h2 id="dependencies-between-a-modules-components">Dependencies between a modules components</h2>
+<h2 id="dependencies-between-a-modules-components">Dependencies between a module&rsquo;s components</h2>
 <p>The diagram below shows the dependencies between the different modules that make up a component as well as the internal dependencies within the <code>impl</code> module.
 The actual implementations used at runtime are determined by Guice bindings in whichever Guice modules are loaded by the application.
-Tests can bind mock implementations of a components API just by using the Guice module within the mock module.</p>
+Tests can bind mock implementations of a component&rsquo;s API just by using the Guice module within the mock module.</p>
 
 
 
@@ -1218,7 +1217,7 @@ For component testing purposes mock implementations of these APIs can be used to
 <h2 id="component-api-and-service-implementation-eg-modules-ending-in--impl">Component API and service implementation, e.g. modules ending in <code>-impl</code></h2>
 <h3 id="client-interaction---rest-services-and-gwt-action-handlers">Client interaction - REST services and GWT Action Handlers</h3>
 <p>The uppermost layer of the server side code services requests from the client.
-The client may make restful calls as is the case for the new UI or will use Actions that are handles with ActionHandlers as is the case for the legacy GWT UI.</p>
+The client may make restful calls as is the case for the new UI or will use Actions that are handled with ActionHandlers as is the case for the legacy GWT UI.</p>
 <p>Since this layer deals with all client interaction it should be responsible for creating audit logs for all user activity, e.g. accessing documents, searching etc.
 No audit logging should need to be performed at a lower level within the application as deeper levels have less knowledge of user intent since they may just be playing a part in the wider request.</p>
 <p>The client interaction layer adds no logic and asks the underlying service layer to service the encapsulated request away from the REST endpoint wrapping code or GWT action handler code.
@@ -1326,7 +1325,7 @@ If serialisation/de-serialisation is required in order to persist the object the
   <h1 id="pg-ab04a4b5e3a8bf14e1879f1cf73e88bc">2.5.1 - Releasing Stroom</h1>
     <div class="lead">How to release a new version of Stroom</div>
 	<h2 id="pre-requisites-for-a-release">Pre-requisites for a release</h2>
-<p>The follow need to be completed before a release is made.</p>
+<p>The following need to be completed before a release is made.</p>
 <h3 id="logging-changes">Logging changes</h3>
 <p>Stroom and its related repositories all have a <code>CHANGELOG.md</code> file for recording changes made between releases.
 Before making a release you should ensure that all changes have been recorded in the <em>CHANGELOG</em>.
@@ -1641,7 +1640,7 @@ If a development version of a library needs to be shared between projects then y
 <li><code>v3.3.0</code> - Initial release of v3.3, with an associated <code>3.3</code> branch.</li>
 <li><code>v3.3.1</code> - A patch release to v3.3 on the <code>3.3</code> branch.</li>
 <li><code>v3.4.0-alpha.1</code> - An alpha release of v3.4, either on <code>master</code> or a <code>3.4</code> branch</li>
-<li><code>v3.4.0-beta.1</code> - An beta release of v3.4, either on <code>master</code> or a <code>3.4</code> branch</li>
+<li><code>v3.4.0-beta.1</code> - A beta release of v3.4, either on <code>master</code> or a <code>3.4</code> branch</li>
 </ul>
 <h2 id="to-perform-a-local-build">To Perform a Local Build</h2>
 
@@ -1723,14 +1722,14 @@ gpg2  --list-secret-keys | grep &#34;\[SC\]&#34; | tr -s &#39; &#39; | cut -d&#3
 # To send the public keys to a key server
 gpg2 --keyserver hkp://pool.sks-keyservers.net --send-keys &lt;key id&gt;
 gpg2 --keyserver hkp://keyserver.ubuntu.com --send-keys &lt;key id&gt;
-gpg2 --keyserver hkp://pgp.mit.edu --send-keys &lt;key id&gt;
-
-# To display the secret key in base64 form, for use in GH actions
-key=&#34;$(gpg2 --armor --export-secret-keys &lt;key id&gt; | base64 -w0)&#34;; \
-echo -e &#34;-------\n$key\n-------&#34;; \
-key=&#34;&#34;</code></pre>
+gpg2 --keyserver hkp://pgp.mit.edu --send-keys &lt;key id&gt;</code></pre>
 </div>
 
+<p>To display the secret key in base64 form, for use in GH actions:</p>
+<pre><code class="language-bash">key=&quot;$(gpg2 --armor --export-secret-keys &lt;key id&gt; | base64 -w0)&quot;; \
+echo -e &quot;-------\n$key\n-------&quot;; \
+key=&quot;&quot;
+</code></pre>
 <h2 id="setting-up-the-gradle-build">Setting up the gradle build</h2>
 <p>The signing and release to Sonatype is done by various gradle plugins.</p>
 <pre><code class="language-groovy">id &quot;io.github.gradle-nexus.publish-plugin&quot; version &quot;1.0.0&quot;
@@ -1794,7 +1793,7 @@ Create a repo secret with the private key, named &lsquo;SSH_DEPLOY_KEY&rsquo; at
 <div class="td-content" style="--base-section-num: '3.'; page-break-before: always">
     
   <h1 id="pg-e204d024a5f9fb6c916e4aa6a4b313aa">3 - Developing Content</h1>
-    <div class="lead">This section covers the development of shared content within Stroom, e.g. content packs for processing common log file formats or or useful dashboards.</div>
+    <div class="lead">This section covers the development of shared content within Stroom, e.g. content packs for processing common log file formats or useful dashboards.</div>
 	
 <div class="alert alert-warning" role="alert">
 <h4 class="alert-heading">TODO</h4>
@@ -2308,7 +2307,7 @@ It does not auto-refresh like it does when running <code>./serve-site.sh</code> 
 
 <h2 id="additional-commands">Additional commands</h2>
 <h3 id="converting-the-plantuml-files-to-svg">Converting the PlantUML files to SVG</h3>
-<p><em>stroom-docs</em> makes used of 
+<p><em>stroom-docs</em> makes use of 
 
 
 
@@ -2335,7 +2334,7 @@ In order that they can be rendered in the site they need to be converted into SV
 
     Docsy has the capability to render PlantUML content in fenced code blocks on the fly.
 This capability makes use of internet based servers to do the conversion therefore it is not suitable for this site as this site needs to available for deployment in environments with no internet access.
-All PlantUML content should authored in <code>.puml</code> files and converted at build time.
+All PlantUML content should be authored in <code>.puml</code> files and converted at build time.
 
 </div>
 
@@ -2442,7 +2441,7 @@ When any source files are changed or added Hugo will detect this and rebuild the
 <p>This will generate all the static content and place it in <code>public/</code>.</p>
 <h3 id="generating-the-pdf">Generating the PDF</h3>
 <p>Every page has a <em>Print entire section</em> link that will display a printable view of that section and its children.
-In addition to this the GitHub Actions we generate a PDF of the <code>docs</code> section and all its children, i.e. all of the documentation (but not News/Releases or Community) in one PDF.
+In addition to this, the GitHub Actions build generates a PDF of the <code>docs</code> section and all its children, i.e. all of the documentation (but not News/Releases or Community) in one PDF.
 This makes the documentation available for offline use.</p>
 <p>To test the PDF generation, run this from the repository root:</p>
 
@@ -2882,7 +2881,7 @@ If any one of the hashes is different then the combined site will be assembled a
 <p>Although the build is run on the <code>master</code> branch it will use the <code>HEAD</code> commit of each of the release branches to build the site(s).</p>
 <p>The build and release can be forced by adding the text <code>[publish]</code> to the commit message on <code>master</code>.
 This is useful in testing, or if updated documentation is needed for any reason.</p>
-<p>For example you can run this on the <code>master</code> branch to for:</p>
+<p>For example you can run this on the <code>master</code> branch to force:</p>
 
   
 
@@ -2963,12 +2962,42 @@ It does the following:</p>
 <li>Copies the built site into a sub-directory matching the version in <code>/tmp/stroom-docs_mock_combined_site/</code>.</li>
 </ol>
 <p>To run this script do:</p>
-<pre><code class="language-bash">create_mock_combined_site.sh
-</code></pre>
+
+  
+
+
+
+
+
+
+<div class="code-toolbar">
+  <pre 
+    class="command-line language-bash" 
+    data-user="user" 
+    data-host="localhost" 
+    data-continuation-str="\"
+    data-filter-output="(out)"><code class="language-bash">create_mock_combined_site.sh</code></pre>
+</div>
+
 <p>The combined site can be served using something like the Python simple HTTP server, e.g.</p>
-<pre><code class="language-bash">cd /tmp/stroom-docs_mock_combined_site
-python -m SimpleHTTPServer 8888
-</code></pre>
+
+  
+
+
+
+
+
+
+<div class="code-toolbar">
+  <pre 
+    class="command-line language-bash" 
+    data-user="user" 
+    data-host="localhost" 
+    data-continuation-str="\"
+    data-filter-output="(out)"><code class="language-bash">cd /tmp/stroom-docs_mock_combined_site
+python -m SimpleHTTPServer 8888</code></pre>
+</div>
+
 <p>Then open a browser at <a href="localhost:8888">localhost:8888</a>.</p>
 <p>As each version of the site is a copy of the same thing the content will be all the same but it allows you to test the version drop down and archived banner.</p>
 
@@ -3358,7 +3387,7 @@ The front matter for branches and leaves works in the same way.</p>
     ├── a-page.md
     └── another-page.md
 </code></pre>
-<p>To add a new page simple create a <code>.md</code> file for the new page in the section directory, e.g.</p>
+<p>To add a new page simply create a <code>.md</code> file for the new page in the section directory, e.g.</p>
 <pre><code class="language-text">└── my-section/
     ├── _index.md
     ├── a-page.md
@@ -3482,11 +3511,26 @@ i.e. it controls the order of the pages/sections in the left hand navigation bar
 If no weight is provided then Hugo will use <code>date</code>, then <code>linkTitle</code>, then the file path.</p>
 <p>To assist with re-ordering pages you can use the script <code>change_weights.sh</code> in the root of the repo.
 E.g. to change the order of the child items of the user-guide section do the following:</p>
-<pre><code class="language-bash">./change_weight.sh content/en/docs/user-guide
-</code></pre>
+
+  
+
+
+
+
+
+
+<div class="code-toolbar">
+  <pre 
+    class="command-line language-bash" 
+    data-user="user" 
+    data-host="localhost" 
+    data-continuation-str="\"
+    data-filter-output="(out)"><code class="language-bash">./change_weight.sh content/en/docs/user-guide</code></pre>
+</div>
+
 <h2 id="date">Date</h2>
 <p>The date should be set/updated to the current date when a page/section is created or modified.
-This data is show at the bottom of the page and tells the reader when the page was last updated.</p>
+This data is shown at the bottom of the page and tells the reader when the page was last updated.</p>
 <h2 id="tags">Tags</h2>
 <p>In the front matter, <code>tags</code> is a list of tags that are applicable to the document and allow documents to be searched for by tag.
 Tag names should conform to the following conventions:</p>
@@ -3495,7 +3539,7 @@ Tag names should conform to the following conventions:</p>
 <li>The only exception to the case rule is <code>TODO</code>, which is always upper case.</li>
 <li>Singular, i.e. <code>pipeline</code> rather than <code>pipelines</code>.</li>
 </ul>
-<p>Avoid using too many unique tag names as it will make the list of tags in the sidebar to large to be useful.
+<p>Avoid using too many unique tag names as it will make the list of tags in the sidebar too large to be useful.
 When setting a tag on a document consult the list of existing tags to ensure consistency and to see if a more applicable tag already exists.</p>
 <p>Add the <code>TODO</code> tag to a page when the page is incomplete.
 This makes it easy to find areas of the documentation that are in need of attention.</p>
@@ -3830,7 +3874,7 @@ This heading level is effectively level 5 on the page but not shown on the right
 </code></pre>
 <p>Markdown supports an alternate style for headings, as shown below.
 <strong>Don&rsquo;t</strong> use this style as it is not clear from the symbols what the heading level is.</p>
-<pre><code class="language-markddown">
+<pre><code class="language-markdown">
 Heading level 1
 ===============
 
@@ -4145,7 +4189,7 @@ Color
 
 </div>
 <h2 id="tables">Tables</h2>
-<p>Tables should ideally have its columns aligned in the markdown for clarity in the raw markdown.</p>
+<p>Tables should ideally have their columns aligned in the markdown for clarity in the raw markdown.</p>
 <pre><code class="language-markdown">## Ideally do this
 
 | Artist          | Album          | Year |
@@ -4261,7 +4305,7 @@ mult-line comment
 <p>While links can be added using standard markdown link syntax you should use Hugo shortcodes to add them.
 The advantage of the shortcode is that Hugo will check for broken links when building the site.</p>
 <h3 id="external-links">External links</h3>
-<p>As this site is deployed to environments with no internet connect and is also released in PDF form it is important that any links to locations outside of the this site (i.e. on the internet) are clearly marked.
+<p>As this site is deployed to environments with no internet connection and is also released in PDF form it is important that any links to locations outside of the this site (i.e. on the internet) are clearly marked.
 To include an external link do the following:</p>
 <ul>
 <li>
@@ -4383,7 +4427,7 @@ For example, with the following markdown:</p>
 
 ### Example {#oranges-example}
 </code></pre>
-<p>This is only worth doing if you want to link to these heading.</p>
+<p>This is only worth doing if you want to link to these headings.</p>
 <h3 id="shortcode-internal-page-link-examples">Shortcode internal page link examples</h3>
 <p>Shortcode links are slightly more verbose to type but are preferable to markdown style links as the link target will be checked at site build time so you know all the links are correct.</p>
 <p>Hugo has <code>ref</code> and <code>relref</code> link shortcodes.
@@ -4826,7 +4870,7 @@ This shortcode takes the following named arguments:</p>
 Defaults to <code>text</code>.</li>
 <li><strong>lines</strong> - Whether to display line numbers or not (<code>true</code>|<code>false</code>).
 Defaults to <code>true</code>.</li>
-<li><strong>highlight</strong> - A comma separate list of lines to highlight.
+<li><strong>highlight</strong> - A comma-separated list of lines to highlight.
 Ranges of line numbers can be specified, e.g. <code>2-8,13,25-30</code>.
 Defaults to no line highlighting.</li>
 <li><strong>start</strong> - The line number to start at.
@@ -5036,7 +5080,7 @@ It will then be displayed without a prompt.
 To display a blank line with no prompt then have a line with just <code>(out)</code> in it.</p>
 <p>If your shell command is very long then you can split it into multiple lines using the shell line continuation character <code>\</code> which must be the last character on the line.
 If this character is present then it will be rendered with a different prompt to indicate it is a continuation.
-Readers can then copy/past the muli-line command into a shell and run it.</p>
+Readers can then copy/paste the multi-line command into a shell and run it.</p>
 <div class="td-card-deck card-deck mb-4">
   <div class="td-card card mb-4">
   
@@ -5312,7 +5356,7 @@ host01.company4.org	192.168.4.220	USA	LosAngeles-S19	ILM	C5-54-2	-08:00/-07:00
     <i class="external-link-icon fas fa-external-link-alt fa-sm text-secondary"></i>
   </a>
 </span>
- for syntax highlighing code blocks.
+ for syntax highlighting code blocks.
 PrismJs supports a large number of different languages however only certain languages have been included with this site.
 The language specified in the markdown code fence or in the <code>command-line</code> shortcode must be in the list of included languages.</p>
 <p>The list of included language names are:</p>
@@ -5354,7 +5398,7 @@ This can be done
   </a>
 </span>
 .
-When creating new versions of these file you must include the languages and plugins already included else you may break this site.
+When creating new versions of these files you must include the languages and plugins already included else you may break this site.
 The generated files are then copied over the top of <code>/static/css/prism.css</code> and <code>/static/js/prism.js</code>.
 Both files include a comment at the top with the link to the PrismJs download page with the currently included items selected.
 Use this link then add any additional items, bearing in mind the size of the download and its impact on page load times.</p>
@@ -5636,7 +5680,7 @@ This ensures a consistent look for all images and allows control of the size of 
                page1.md - #image shortcode used in here
 </code></pre>
 <p>Where images are only used by one page then the directory structure in <code>/assets</code> ought to mirror that of the page the images are used in, as shown above.
-If images are used by multiple pages then some other sensible organisation of the images should be used, e.g. <code>/assets/images/section-x</code> if they are limited to pages in one section, or <code>/aaets/images/common</code> if they are used in multiple sections.</p>
+If images are used by multiple pages then some other sensible organisation of the images should be used, e.g. <code>/assets/images/section-x</code> if they are limited to pages in one section, or <code>/assets/images/common</code> if they are used in multiple sections.</p>
 <h3 id="captions">Captions</h3>
 <p>The image can be displayed with a caption:</p>
 <p><strong>Example:</strong></p>
@@ -5890,8 +5934,23 @@ If it is needed by multiple pages then it should be saved in <code>/assets/image
 <p>The build process will convert all <code>.puml</code> files to a corresponding <code>.puml.svg</code> file.
 These generated <code>.puml.svg</code> files are ignored by git so need to be regenerated at build time or when you change a <code>.puml</code> file.
 The images can be generated by doing:</p>
-<pre><code class="language-bash">./container_build/runInPumlDocker.sh SVG
-</code></pre>
+
+  
+
+
+
+
+
+
+<div class="code-toolbar">
+  <pre 
+    class="command-line language-bash" 
+    data-user="user" 
+    data-host="localhost" 
+    data-continuation-str="\"
+    data-filter-output="(out)"><code class="language-bash">./container_build/runInPumlDocker.sh SVG</code></pre>
+</div>
+
 <p>You should embed a PlantUML image like this, using the <code>.puml.svg</code> file (that may not yet exist, but will have to exist before the site is built):</p>
 <p><strong>Example:</strong></p>
 
@@ -7648,7 +7707,7 @@ Menu item names are case-sensitive.</p>
 <p>To display a keyboard shortcut (AKA key binding) you can use the <code>key-bind</code> shortcode.</p>
 <p><strong>Arguments</strong>:</p>
 <ul>
-<li><code>key_bind...</code> - One or more key bindings, whit keys in the key binding delimited by <code>,</code>, <code>-</code> or <code>+</code>.
+<li><code>key_bind...</code> - One or more key bindings, with keys in the key binding delimited by <code>,</code>, <code>-</code> or <code>+</code>.
 The name and case of non-alphabet keys will be normalised, e.g. <code>del</code> =&gt; <code>Delete</code>.
 The modifier keys <code>ctrl</code>, <code>shift</code>, <code>alt</code>, <code>meta</code> will be placed first and displayed in a consistent order.</li>
 </ul>

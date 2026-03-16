@@ -45,13 +45,13 @@
 <meta property="og:type" content="article" />
 <meta property="og:url" content="/docs/sending-data/ssl/" /><meta property="article:section" content="docs" />
 <meta property="article:published_time" content="2021-07-27T00:00:00+00:00" />
-<meta property="article:modified_time" content="2026-03-09T08:39:40+00:00" /><meta property="og:site_name" content="Stroom" />
+<meta property="article:modified_time" content="2026-03-16T10:25:28+00:00" /><meta property="og:site_name" content="Stroom" />
 
 <meta itemprop="name" content="SSL Configuration">
 <meta itemprop="description" content="Configuring SSL with cURL.
 "><meta itemprop="datePublished" content="2021-07-27T00:00:00+00:00" />
-<meta itemprop="dateModified" content="2026-03-09T08:39:40+00:00" />
-<meta itemprop="wordCount" content="273">
+<meta itemprop="dateModified" content="2026-03-16T10:25:28+00:00" />
+<meta itemprop="wordCount" content="276">
 <meta itemprop="keywords" content="" /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="SSL Configuration"/>
 <meta name="twitter:description" content="Configuring SSL with cURL.
@@ -153,7 +153,7 @@
     aria-label="Search this site…"
     autocomplete="off"
     
-    data-offline-search-index-json-src="../../../offline-search-index.0a005bba63f0fad58d724ce154f84187.json"
+    data-offline-search-index-json-src="../../../offline-search-index.5bbd05061c9b5c5b6db96e6f659545dc.json"
     data-offline-search-base-href="../../../"
     data-offline-search-max-results="50"
   >
@@ -178,7 +178,7 @@
     aria-label="Search this site…"
     autocomplete="off"
     
-    data-offline-search-index-json-src="../../../offline-search-index.0a005bba63f0fad58d724ce154f84187.json"
+    data-offline-search-index-json-src="../../../offline-search-index.5bbd05061c9b5c5b6db96e6f659545dc.json"
     data-offline-search-base-href="../../../"
     data-offline-search-max-results="50"
   >
@@ -1016,43 +1016,163 @@
 	<p>This page provides a step by step guide to getting PKI authentication working correctly for Unix hosts so as to be able to sign deliveries from cURL.</p>
 <p>First make sure you have a copy of your organisation&rsquo;s CA certificate.</p>
 <p>Check that the CA certificate works by running the following command:</p>
-<pre><code class="language-bash">echo &quot;Test&quot; | curl --cacert CA.crt --data-binary @- &quot;https://&lt;Stroom_HOST&gt;/stroom/datafeed&quot;
-</code></pre>
+
+  
+
+
+
+
+
+
+<div class="code-toolbar">
+  <pre 
+    class="command-line language-bash" 
+    data-user="user" 
+    data-host="localhost" 
+    data-continuation-str="\"
+    data-filter-output="(out)"><code class="language-bash">echo &#34;Test&#34; | curl --cacert CA.crt --data-binary @- &#34;https://&lt;Stroom_HOST&gt;/stroom/datafeed&#34;</code></pre>
+</div>
+
 <p>If the response starts with the line:</p>
-<pre><code class="language-bash">curl: (60) SSL certificate problem, verify that the CA cert is OK.
-</code></pre>
+
+  
+
+
+
+
+
+
+<div class="code-toolbar">
+  <pre 
+    class="command-line language-bash" 
+    data-user="user" 
+    data-host="localhost" 
+    data-continuation-str="\"
+    data-filter-output="(out)"><code class="language-bash">(out) (60) SSL certificate problem, verify that the CA cert is OK.</code></pre>
+</div>
+
 <p>then you do not have the correct CA certificate.</p>
 <p>If the response contains the line</p>
-<pre><code class="language-bash">HTTP Status 406 - Stroom Status 100 - Feed must be specified
-</code></pre>
+
+  
+
+
+
+
+
+
+<div class="code-toolbar">
+  <pre 
+    class="command-line language-bash" 
+    data-user="user" 
+    data-host="localhost" 
+    data-continuation-str="\"
+    data-filter-output="(out)"><code class="language-bash">(out) HTTP Status 406 - Stroom Status 100 - Feed must be specified</code></pre>
+</div>
+
 <p>then one-way SSL authentication using the CA certificate is successful.</p>
 <p>The VBScript file to check windows certificates is <code>check-certs.vbs</code> (TODO link).</p>
 <h2 id="final-testing">Final Testing</h2>
 <p>Once one-way authentication has been tested, two-way authentication should be configured:</p>
 <p>The server certificate and private key should be concatenated to create a PEM file:</p>
-<pre><code class="language-bash">cat hostname.cert hostname.key &gt; hostname.pem
-</code></pre>
+
+  
+
+
+
+
+
+
+<div class="code-toolbar">
+  <pre 
+    class="command-line language-bash" 
+    data-user="user" 
+    data-host="localhost" 
+    data-continuation-str="\"
+    data-filter-output="(out)"><code class="language-bash">cat hostname.cert hostname.key &gt; hostname.pem</code></pre>
+</div>
+
 <p>Finally, test for 2-way authentication:</p>
-<pre><code class="language-bash">echo &quot;Test&quot; | curl --cacert CA.crt --cert hostname.pem --data-binary @- &quot;https://&lt;Stroom_HOST&gt;/stroom/datafeed&quot;
-</code></pre>
+
+  
+
+
+
+
+
+
+<div class="code-toolbar">
+  <pre 
+    class="command-line language-bash" 
+    data-user="user" 
+    data-host="localhost" 
+    data-continuation-str="\"
+    data-filter-output="(out)"><code class="language-bash">echo &#34;Test&#34; | curl --cacert CA.crt --cert hostname.pem --data-binary @- &#34;https://&lt;Stroom_HOST&gt;/stroom/datafeed&#34;</code></pre>
+</div>
+
 <p>If the response contains the line</p>
-<pre><code class="language-bash">HTTP Status 406 - Stroom Status 100 - Feed must be specified
-</code></pre>
+
+  
+
+
+
+
+
+
+<div class="code-toolbar">
+  <pre 
+    class="command-line language-bash" 
+    data-user="user" 
+    data-host="localhost" 
+    data-continuation-str="\"
+    data-filter-output="(out)"><code class="language-bash">(out) HTTP Status 406 - Stroom Status 100 - Feed must be specified</code></pre>
+</div>
+
 <p>then two-way SSL authentication is successful.</p>
 <h2 id="final-tidy-up">Final Tidy Up</h2>
 <p>The files <code>ca.crt</code> and <code>hostname.pem</code> are the only files required for two-way authentication and should be stored permanently on the server; all other remaining files may be deleted or backed up if required.</p>
 <h2 id="certificate-expiry">Certificate Expiry</h2>
 <p>PKI certificates expire after 2 years. To check the expiry date of a certificate, run the following command:</p>
-<pre><code class="language-bash">openssl x509 -in /path/to/certificate.pem -noout -enddate
-</code></pre>
+
+  
+
+
+
+
+
+
+<div class="code-toolbar">
+  <pre 
+    class="command-line language-bash" 
+    data-user="user" 
+    data-host="localhost" 
+    data-continuation-str="\"
+    data-filter-output="(out)"><code class="language-bash">openssl x509 -in /path/to/certificate.pem -noout -enddate</code></pre>
+</div>
+
 <p>This will give a response looking similar to:</p>
-<pre><code class="language-bash">notAfter=Aug 15 10:01:42 2013 GMT
-</code></pre>
+
+  
+
+
+
+
+
+
+<div class="code-toolbar">
+  <pre 
+    class="command-line language-bash" 
+    data-user="user" 
+    data-host="localhost" 
+    data-continuation-str="\"
+    data-filter-output="(out)"><code class="language-bash">(out) notAfter=Aug 15 10:01:42 2013 GMT</code></pre>
+</div>
+
 
 	
 	
 	<div class="text-muted mt-5 pt-3 border-top">
-  Last modified March 9, 2026: <a href="https://github.com/gchq/stroom-docs/commit/14b415aff83f127ae78a1d2c9aac5de1fe611ddf">Change build to only check spelling if script is present (14b415a)</a>
+  Last modified March 16, 2026: <a href="https://github.com/gchq/stroom-docs/commit/0cdb5fb0963ff027665549bb124daebff70a9e93">Fix spelling (0cdb5fb)</a>
 </div>
 
 </div>

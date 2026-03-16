@@ -45,9 +45,24 @@
 &lt;li&gt;Apache&amp;rsquo;s &lt;code&gt;mod_jk&lt;/code&gt; Tomcat connector plugin&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;Most of the required software are packages available via standard repositories and hence we can simply execute&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;sudo yum -y install apr apr-util apr-devel gcc httpd httpd-devel mod_ssl epel-release
-sudo yum -y install tomcat-native
-&lt;/code&gt;&lt;/pre&gt;
+
+  
+
+
+
+
+
+
+&lt;div class=&#34;code-toolbar&#34;&gt;
+  &lt;pre 
+    class=&#34;command-line language-bash&#34; 
+    data-user=&#34;user&#34; 
+    data-host=&#34;localhost&#34; 
+    data-continuation-str=&#34;\&#34;
+    data-filter-output=&#34;(out)&#34;&gt;&lt;code class=&#34;language-bash&#34;&gt;sudo yum -y install apr apr-util apr-devel gcc httpd httpd-devel mod_ssl epel-release
+sudo yum -y install tomcat-native&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
 &lt;p&gt;The reason for the distinct &lt;code&gt;tomcat-native&lt;/code&gt; installation is that this package is from the 
 
 
@@ -85,7 +100,21 @@ sudo yum -y install tomcat-native
 &lt;/span&gt;
  and install it.
 The following commands achieve this for the 1.2.42 release.&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;sudo bash
+
+  
+
+
+
+
+
+
+&lt;div class=&#34;code-toolbar&#34;&gt;
+  &lt;pre 
+    class=&#34;command-line language-bash&#34; 
+    data-user=&#34;user&#34; 
+    data-host=&#34;localhost&#34; 
+    data-continuation-str=&#34;\&#34;
+    data-filter-output=&#34;(out)&#34;&gt;&lt;code class=&#34;language-bash&#34;&gt;sudo bash
 cd /tmp
 V=1.2.42
 wget https://www.apache.org/dist/tomcat/tomcat-connectors/jk/tomcat-connectors-${V}-src.tar.gz
@@ -94,31 +123,61 @@ cd tomcat-connectors-*-src/native
 ./configure --with-apxs=/bin/apxs
 make &amp;amp;&amp;amp; make install
 cd /tmp
-rm -rf tomcat-connectors-*-src
-&lt;/code&gt;&lt;/pre&gt;
+rm -rf tomcat-connectors-*-src&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
 &lt;p&gt;Although you could remove the gcc compiler at this point, we leave it installed as one &lt;em&gt;should&lt;/em&gt; continue to upgrade the Tomcat Connectors to later releases.&lt;/p&gt;
 &lt;h2 id=&#34;configure-apache-httpd&#34;&gt;Configure Apache httpd&lt;/h2&gt;
 &lt;p&gt;We need to configure Apache as the &lt;code&gt;root&lt;/code&gt; user.&lt;/p&gt;
 &lt;p&gt;If the Apache httpd service is &amp;lsquo;fronting&amp;rsquo; a Stroom user interface, we should create an index file (/var/www/html/index.html) on all nodes so browsing to
 the root of the node will present the Stroom UI. This is not needed if you are deploying a Forwarding or Standalone Stroom proxy.&lt;/p&gt;
 &lt;h3 id=&#34;forwarding-file-for-stroom-user-interface-deployments&#34;&gt;Forwarding file for Stroom User Interface deployments&lt;/h3&gt;
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;F=/var/www/html/index.html
-printf &#39;&amp;lt;html&amp;gt;\n&#39; &amp;gt; ${F}
-printf &#39;&amp;lt;head&amp;gt;\n&#39; &amp;gt;&amp;gt; ${F}
-printf &#39;  &amp;lt;meta http-equiv=&amp;quot;Refresh&amp;quot; content=&amp;quot;0; URL=stroom&amp;quot;/&amp;gt;\n&#39; &amp;gt;&amp;gt; ${F}
-printf &#39;&amp;lt;/head&amp;gt;\n&#39; &amp;gt;&amp;gt; ${F}
-printf &#39;&amp;lt;/html&amp;gt;\n&#39; &amp;gt;&amp;gt; ${F}
-chmod 644 ${F}
-&lt;/code&gt;&lt;/pre&gt;
+
+  
+
+
+
+
+
+
+&lt;div class=&#34;code-toolbar&#34;&gt;
+  &lt;pre 
+    class=&#34;command-line language-bash&#34; 
+    data-user=&#34;user&#34; 
+    data-host=&#34;localhost&#34; 
+    data-continuation-str=&#34;\&#34;
+    data-filter-output=&#34;(out)&#34;&gt;&lt;code class=&#34;language-bash&#34;&gt;F=/var/www/html/index.html
+printf &amp;#39;&amp;lt;html&amp;gt;\n&amp;#39; &amp;gt; ${F}
+printf &amp;#39;&amp;lt;head&amp;gt;\n&amp;#39; &amp;gt;&amp;gt; ${F}
+printf &amp;#39;  &amp;lt;meta http-equiv=&amp;#34;Refresh&amp;#34; content=&amp;#34;0; URL=stroom&amp;#34;/&amp;gt;\n&amp;#39; &amp;gt;&amp;gt; ${F}
+printf &amp;#39;&amp;lt;/head&amp;gt;\n&amp;#39; &amp;gt;&amp;gt; ${F}
+printf &amp;#39;&amp;lt;/html&amp;gt;\n&amp;#39; &amp;gt;&amp;gt; ${F}
+chmod 644 ${F}&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
 &lt;p&gt;Remember, deploy this file on all nodes running the Stroom Application.&lt;/p&gt;
 &lt;h3 id=&#34;httpdconf-configuration&#34;&gt;Httpd.conf Configuration&lt;/h3&gt;
-&lt;p&gt;We modify &lt;code&gt;/etc/httpd/conf/httpd.conf&lt;/code&gt; on all nodes, but backup the file first with&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;cp /etc/httpd/conf/httpd.conf /etc/httpd/conf/httpd.conf.ORIG
-&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;We modify &lt;code&gt;/etc/httpd/conf/httpd.conf&lt;/code&gt; on all nodes, but backup the file first with
+
+  
+
+
+
+
+
+
+&lt;div class=&#34;code-toolbar&#34;&gt;
+  &lt;pre 
+    class=&#34;command-line language-bash&#34; 
+    data-user=&#34;user&#34; 
+    data-host=&#34;localhost&#34; 
+    data-continuation-str=&#34;\&#34;
+    data-filter-output=&#34;(out)&#34;&gt;&lt;code class=&#34;language-bash&#34;&gt;cp /etc/httpd/conf/httpd.conf /etc/httpd/conf/httpd.conf.ORIG&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/p&gt;
 &lt;p&gt;Irrespective of the Stroom scenario being deployed - Multi Node Stroom (Application and Proxy), single Standalone Stroom Proxy or single Forwarding
 Stroom Proxy, the configuration of the &lt;code&gt;/etc/httpd/conf/httpd.conf&lt;/code&gt; file is the same.&lt;/p&gt;
-&lt;p&gt;We start by modifying the configuration file by,
-add just before the ServerRoot directive the following directives which are designed to make the httpd service more secure.&lt;/p&gt;
+&lt;p&gt;We start by modifying the configuration file by adding just before the ServerRoot directive the following directives which are designed to make the httpd service more secure.&lt;/p&gt;
 &lt;pre&gt;&lt;code class=&#34;language-text&#34;&gt;# Stroom Change: Start - Apply generic security directives
 ServerTokens Prod
 ServerSignature Off
@@ -742,8 +801,23 @@ done
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;Now depending in the node you are on, copy the relevant &lt;code&gt;workers.properties.nodename&lt;/code&gt; file to &lt;code&gt;/etc/httpd/conf/workers&lt;/code&gt;.properties.
 The following command makes this simple.&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;cp workers.properties.`hostname -s` /etc/httpd/conf/workers.properties
-&lt;/code&gt;&lt;/pre&gt;
+
+  
+
+
+
+
+
+
+&lt;div class=&#34;code-toolbar&#34;&gt;
+  &lt;pre 
+    class=&#34;command-line language-bash&#34; 
+    data-user=&#34;user&#34; 
+    data-host=&#34;localhost&#34; 
+    data-continuation-str=&#34;\&#34;
+    data-filter-output=&#34;(out)&#34;&gt;&lt;code class=&#34;language-bash&#34;&gt;cp workers.properties.`hostname -s` /etc/httpd/conf/workers.properties&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
 &lt;p&gt;If you were to add an additional node to a multi node cluster, say the node &lt;code&gt;stroomp02.strmdev00.org&lt;/code&gt;, then you would re-run the above script with&lt;/p&gt;
 &lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;Nodes=&amp;quot;stroomp00.strmdev00.org stroomp01.strmdev00.org stroomp02.strmdev00.org&amp;quot;
 &lt;/code&gt;&lt;/pre&gt;
@@ -853,23 +927,68 @@ chmod 640 ${F}
 &lt;/code&gt;&lt;/pre&gt;
 &lt;h2 id=&#34;final-host-configuration-and-web-service-enablement&#34;&gt;Final host configuration and web service enablement&lt;/h2&gt;
 &lt;p&gt;Now tidy up the SELinux context for access on all nodes and files via the commands&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;setsebool -P httpd_enable_homedirs on
+
+  
+
+
+
+
+
+
+&lt;div class=&#34;code-toolbar&#34;&gt;
+  &lt;pre 
+    class=&#34;command-line language-bash&#34; 
+    data-user=&#34;user&#34; 
+    data-host=&#34;localhost&#34; 
+    data-continuation-str=&#34;\&#34;
+    data-filter-output=&#34;(out)&#34;&gt;&lt;code class=&#34;language-bash&#34;&gt;setsebool -P httpd_enable_homedirs on
 setsebool -P httpd_can_network_connect on
 chcon --reference /etc/httpd/conf.d/README /etc/httpd/conf.d/mod_jk.conf
-chcon --reference /etc/httpd/conf/magic /etc/httpd/conf/workers.properties
-&lt;/code&gt;&lt;/pre&gt;
+chcon --reference /etc/httpd/conf/magic /etc/httpd/conf/workers.properties&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
 &lt;p&gt;We also enable both http and https services via the firewall on all nodes. If you don&amp;rsquo;t want to present a http access point,
 then don&amp;rsquo;t enable it in the firewall setting. This is done with&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;firewall-cmd --zone=public --add-service=http --permanent
+
+  
+
+
+
+
+
+
+&lt;div class=&#34;code-toolbar&#34;&gt;
+  &lt;pre 
+    class=&#34;command-line language-bash&#34; 
+    data-user=&#34;user&#34; 
+    data-host=&#34;localhost&#34; 
+    data-continuation-str=&#34;\&#34;
+    data-filter-output=&#34;(out)&#34;&gt;&lt;code class=&#34;language-bash&#34;&gt;firewall-cmd --zone=public --add-service=http --permanent
 firewall-cmd --zone=public --add-service=https --permanent
 firewall-cmd --reload
-firewall-cmd --zone=public --list-all
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;Finally enable then start the httpd service, correcting any errors.
-It should be noted that on any errors, the suggestion of a &lt;code&gt;systemctl&lt;/code&gt; status or viewing the journal are good, but also review information in the httpd error logs found in &lt;code&gt;/var/log/httpd/&lt;/code&gt;.&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;systemctl enable httpd.service
-systemctl start httpd.service
-&lt;/code&gt;&lt;/pre&gt;
+firewall-cmd --zone=public --list-all&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;Finally enable then start the httpd service, correcting any errors. It should be noted that on any errors,
+the suggestion of a systemctl status or viewing the journal are good, but also review information in the httpd error logs found in &lt;code&gt;/var/log/httpd/&lt;/code&gt;.&lt;/p&gt;
+
+  
+
+
+
+
+
+
+&lt;div class=&#34;code-toolbar&#34;&gt;
+  &lt;pre 
+    class=&#34;command-line language-bash&#34; 
+    data-user=&#34;user&#34; 
+    data-host=&#34;localhost&#34; 
+    data-continuation-str=&#34;\&#34;
+    data-filter-output=&#34;(out)&#34;&gt;&lt;code class=&#34;language-bash&#34;&gt;systemctl enable httpd.service
+systemctl start httpd.service&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
 
       </description>
     </item>
@@ -1179,7 +1298,7 @@ Navigate to the &lt;em&gt;New&lt;/em&gt; icon, then the &lt;em&gt;Folder&lt;/em&
   &lt;/a&gt;
 &lt;/div&gt;
 
-&lt;p&gt;The click on 
+&lt;p&gt;Then click on 
 
 
 
@@ -2172,7 +2291,7 @@ In this instance, as our input data is text, we select (left click) the &lt;span
   &lt;span class=&#34;stroom-button-text&#34;&gt;OK&lt;/span&gt;
 &lt;/span&gt;
 .
-At this we see the inherited pipeline structure of&lt;/p&gt;
+At this point, we see the inherited pipeline structure of&lt;/p&gt;
 
 
 
@@ -2262,7 +2381,7 @@ At this we see the inherited pipeline structure of&lt;/p&gt;
   &lt;/a&gt;
 &lt;/div&gt;
 
-&lt;p&gt;Now identify to the &lt;strong&gt;Property&lt;/strong&gt; pane (the middle pane of the pipeline configuration tab), then and double click on the &lt;em&gt;textConverter&lt;/em&gt; Property Name to display the &lt;strong&gt;Edit
+&lt;p&gt;Now navigate to the &lt;strong&gt;Property&lt;/strong&gt; pane (the middle pane of the pipeline configuration tab), then double click on the &lt;em&gt;textConverter&lt;/em&gt; Property Name to display the &lt;strong&gt;Edit
 Property&lt;/strong&gt; selection window that allows you to edit the given property&lt;/p&gt;
 
 
@@ -2370,7 +2489,7 @@ Navigate to the &lt;code&gt;Apache HTTPD&lt;/code&gt; system group then select t
   &lt;span class=&#34;stroom-button-text&#34;&gt;OK&lt;/span&gt;
 &lt;/span&gt;
 .
-At this we will see the Property &lt;em&gt;Value&lt;/em&gt; set&lt;/p&gt;
+At this point, we will see the Property &lt;em&gt;Value&lt;/em&gt; set&lt;/p&gt;
 
 
 
@@ -3275,7 +3394,7 @@ If we were to click on the &lt;strong&gt;Meta&lt;/strong&gt; link at the top of 
 We enter Stepping Mode by pressing the stepping button &lt;span class=&#34;stroom-icon inline-svg-button icon-button  &#34; &gt;
     &lt;span class=&#34;face&#34; title=&#34;Stepping&#34;&gt;&lt;svg xmlns=&#34;http://www.w3.org/2000/svg&#34; viewBox=&#34;0 0 1792 1792&#34; height=&#34;1792&#34; width=&#34;1792&#34;&gt;&lt;path style=&#34;fill:#fff&#34; d=&#34;m 1303.3748,386.71917 0,1018.43693 c 0,18.6714 -15.2766,33.948 -33.948,33.948 l -113.1596,0 c -18.6713,0 -33.9479,-15.2766 -33.9479,-33.948 l 0,-429.72386 -485.17205,442.73726 c -58.27722,48.6587 -148.52205,7.9212 -148.52205,-69.5932 0,-571.78462 0,-247.4743 0,-905.2773 0,-77.51437 90.24483,-117.96894 148.52205,-69.59319 l 485.17205,439.62531 0,-426.61195 c 0,-18.67134 15.2766,-33.94789 33.9479,-33.94789 l 113.1596,0 c 18.6714,0 33.948,15.27655 33.948,33.94789 z&#34; /&gt;&lt;/svg&gt; &lt;/span&gt;
   &lt;/span&gt; found at the bottom right corner of the &lt;em&gt;Data/Meta-data&lt;/em&gt; pane.&lt;/p&gt;
-&lt;p&gt;We will then be requested to choose a pipeline to step with, at which, you should navigate to the &lt;code&gt;Apache-SSLBlackBox-V2.0-EVENTS&lt;/code&gt; pipeline as per&lt;/p&gt;
+&lt;p&gt;We will then be requested to choose a pipeline to step with, at which point you should navigate to the &lt;code&gt;Apache-SSLBlackBox-V2.0-EVENTS&lt;/code&gt; pipeline as per&lt;/p&gt;
 
 
 
@@ -3982,7 +4101,7 @@ LogFormat &amp;quot;%a/%{REMOTE_PORT}e %X %t %l \&amp;quot;%{SSL_CLIENT_S_DN}x\&
   &lt;/a&gt;
 &lt;/div&gt;
 
-&lt;p&gt;You should take note of the stepping key that has been displayed in each stepping window. The stepping key are the numbers enclosed in square brackets e.g. [7556:1:16] found in the top right-hand side of the stepping window next to the stepping icons&lt;/p&gt;
+&lt;p&gt;You should take note of the stepping location that has been displayed in each stepping window. The stepping location is the numbers enclosed in square brackets e.g. [7556:1:16] found in the top right-hand side of the stepping window next to the stepping icons&lt;/p&gt;
 
 
 
@@ -4017,14 +4136,14 @@ LogFormat &amp;quot;%a/%{REMOTE_PORT}e %X %t %l \&amp;quot;%{SSL_CLIENT_S_DN}x\&
       
       &lt;div class=&#34;card-body px-0 pt-2 pb-0&#34;&gt;
         &lt;hr style=&#34;border-top: 1px solid #ddd; margin-top: 0px; margin-bottom:4px;&#34;&gt;
-        &lt;figcaption class=&#34;card-text&#34; style=&#34;font-size: smaller; text-align: center;&#34;&gt;pipeline Stepping tab - Stepping Key&lt;/figcaption&gt;
+        &lt;figcaption class=&#34;card-text&#34; style=&#34;font-size: smaller; text-align: center;&#34;&gt;pipeline Stepping tab - Stepping Location&lt;/figcaption&gt;
       &lt;/div&gt;
       
     &lt;/figure&gt;
   &lt;/a&gt;
 &lt;/div&gt;
 
-&lt;p&gt;The form of these keys is [ streamId &amp;lsquo;:&amp;rsquo; subStreamId &amp;lsquo;:&amp;rsquo; recordNo]&lt;/p&gt;
+&lt;p&gt;The form of these stepping locations is [ streamId &amp;lsquo;:&amp;rsquo; subStreamId &amp;lsquo;:&amp;rsquo; recordNo]&lt;/p&gt;
 &lt;p&gt;where&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;strong&gt;streamId&lt;/strong&gt; - is the stream ID and won’t change when stepping through the selected stream.&lt;/li&gt;

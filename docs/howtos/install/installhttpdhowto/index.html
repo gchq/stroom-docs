@@ -45,12 +45,12 @@
 <meta property="og:type" content="article" />
 <meta property="og:url" content="/docs/howtos/install/installhttpdhowto/" /><meta property="article:section" content="docs" />
 <meta property="article:published_time" content="2021-07-12T00:00:00+00:00" />
-<meta property="article:modified_time" content="2026-03-09T08:39:40+00:00" /><meta property="og:site_name" content="Stroom" />
+<meta property="article:modified_time" content="2026-03-16T10:25:28+00:00" /><meta property="og:site_name" content="Stroom" />
 
 <meta itemprop="name" content="Apache Httpd/Mod_JK configuration for Stroom">
 <meta itemprop="description" content="The following is a HOWTO to assist users in configuring Apache&#39;s HTTPD with Mod_JK for Stroom.
 "><meta itemprop="datePublished" content="2021-07-12T00:00:00+00:00" />
-<meta itemprop="dateModified" content="2026-03-09T08:39:40+00:00" />
+<meta itemprop="dateModified" content="2026-03-16T10:25:28+00:00" />
 <meta itemprop="wordCount" content="4036">
 <meta itemprop="keywords" content="httpd,installation," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Apache Httpd/Mod_JK configuration for Stroom"/>
@@ -153,7 +153,7 @@
     aria-label="Search this site…"
     autocomplete="off"
     
-    data-offline-search-index-json-src="../../../../offline-search-index.0a005bba63f0fad58d724ce154f84187.json"
+    data-offline-search-index-json-src="../../../../offline-search-index.5bbd05061c9b5c5b6db96e6f659545dc.json"
     data-offline-search-base-href="../../../../"
     data-offline-search-max-results="50"
   >
@@ -178,7 +178,7 @@
     aria-label="Search this site…"
     autocomplete="off"
     
-    data-offline-search-index-json-src="../../../../offline-search-index.0a005bba63f0fad58d724ce154f84187.json"
+    data-offline-search-index-json-src="../../../../offline-search-index.5bbd05061c9b5c5b6db96e6f659545dc.json"
     data-offline-search-base-href="../../../../"
     data-offline-search-max-results="50"
   >
@@ -1073,9 +1073,24 @@
 <li>Apache&rsquo;s <code>mod_jk</code> Tomcat connector plugin</li>
 </ul>
 <p>Most of the required software are packages available via standard repositories and hence we can simply execute</p>
-<pre><code class="language-bash">sudo yum -y install apr apr-util apr-devel gcc httpd httpd-devel mod_ssl epel-release
-sudo yum -y install tomcat-native
-</code></pre>
+
+  
+
+
+
+
+
+
+<div class="code-toolbar">
+  <pre 
+    class="command-line language-bash" 
+    data-user="user" 
+    data-host="localhost" 
+    data-continuation-str="\"
+    data-filter-output="(out)"><code class="language-bash">sudo yum -y install apr apr-util apr-devel gcc httpd httpd-devel mod_ssl epel-release
+sudo yum -y install tomcat-native</code></pre>
+</div>
+
 <p>The reason for the distinct <code>tomcat-native</code> installation is that this package is from the 
 
 
@@ -1113,7 +1128,21 @@ sudo yum -y install tomcat-native
 </span>
  and install it.
 The following commands achieve this for the 1.2.42 release.</p>
-<pre><code class="language-bash">sudo bash
+
+  
+
+
+
+
+
+
+<div class="code-toolbar">
+  <pre 
+    class="command-line language-bash" 
+    data-user="user" 
+    data-host="localhost" 
+    data-continuation-str="\"
+    data-filter-output="(out)"><code class="language-bash">sudo bash
 cd /tmp
 V=1.2.42
 wget https://www.apache.org/dist/tomcat/tomcat-connectors/jk/tomcat-connectors-${V}-src.tar.gz
@@ -1122,31 +1151,61 @@ cd tomcat-connectors-*-src/native
 ./configure --with-apxs=/bin/apxs
 make &amp;&amp; make install
 cd /tmp
-rm -rf tomcat-connectors-*-src
-</code></pre>
+rm -rf tomcat-connectors-*-src</code></pre>
+</div>
+
 <p>Although you could remove the gcc compiler at this point, we leave it installed as one <em>should</em> continue to upgrade the Tomcat Connectors to later releases.</p>
 <h2 id="configure-apache-httpd">Configure Apache httpd</h2>
 <p>We need to configure Apache as the <code>root</code> user.</p>
 <p>If the Apache httpd service is &lsquo;fronting&rsquo; a Stroom user interface, we should create an index file (/var/www/html/index.html) on all nodes so browsing to
 the root of the node will present the Stroom UI. This is not needed if you are deploying a Forwarding or Standalone Stroom proxy.</p>
 <h3 id="forwarding-file-for-stroom-user-interface-deployments">Forwarding file for Stroom User Interface deployments</h3>
-<pre><code class="language-bash">F=/var/www/html/index.html
-printf '&lt;html&gt;\n' &gt; ${F}
-printf '&lt;head&gt;\n' &gt;&gt; ${F}
-printf '  &lt;meta http-equiv=&quot;Refresh&quot; content=&quot;0; URL=stroom&quot;/&gt;\n' &gt;&gt; ${F}
-printf '&lt;/head&gt;\n' &gt;&gt; ${F}
-printf '&lt;/html&gt;\n' &gt;&gt; ${F}
-chmod 644 ${F}
-</code></pre>
+
+  
+
+
+
+
+
+
+<div class="code-toolbar">
+  <pre 
+    class="command-line language-bash" 
+    data-user="user" 
+    data-host="localhost" 
+    data-continuation-str="\"
+    data-filter-output="(out)"><code class="language-bash">F=/var/www/html/index.html
+printf &#39;&lt;html&gt;\n&#39; &gt; ${F}
+printf &#39;&lt;head&gt;\n&#39; &gt;&gt; ${F}
+printf &#39;  &lt;meta http-equiv=&#34;Refresh&#34; content=&#34;0; URL=stroom&#34;/&gt;\n&#39; &gt;&gt; ${F}
+printf &#39;&lt;/head&gt;\n&#39; &gt;&gt; ${F}
+printf &#39;&lt;/html&gt;\n&#39; &gt;&gt; ${F}
+chmod 644 ${F}</code></pre>
+</div>
+
 <p>Remember, deploy this file on all nodes running the Stroom Application.</p>
 <h3 id="httpdconf-configuration">Httpd.conf Configuration</h3>
-<p>We modify <code>/etc/httpd/conf/httpd.conf</code> on all nodes, but backup the file first with</p>
-<pre><code class="language-bash">cp /etc/httpd/conf/httpd.conf /etc/httpd/conf/httpd.conf.ORIG
-</code></pre>
+<p>We modify <code>/etc/httpd/conf/httpd.conf</code> on all nodes, but backup the file first with
+
+  
+
+
+
+
+
+
+<div class="code-toolbar">
+  <pre 
+    class="command-line language-bash" 
+    data-user="user" 
+    data-host="localhost" 
+    data-continuation-str="\"
+    data-filter-output="(out)"><code class="language-bash">cp /etc/httpd/conf/httpd.conf /etc/httpd/conf/httpd.conf.ORIG</code></pre>
+</div>
+</p>
 <p>Irrespective of the Stroom scenario being deployed - Multi Node Stroom (Application and Proxy), single Standalone Stroom Proxy or single Forwarding
 Stroom Proxy, the configuration of the <code>/etc/httpd/conf/httpd.conf</code> file is the same.</p>
-<p>We start by modifying the configuration file by,
-add just before the ServerRoot directive the following directives which are designed to make the httpd service more secure.</p>
+<p>We start by modifying the configuration file by adding just before the ServerRoot directive the following directives which are designed to make the httpd service more secure.</p>
 <pre><code class="language-text"># Stroom Change: Start - Apply generic security directives
 ServerTokens Prod
 ServerSignature Off
@@ -1770,8 +1829,23 @@ done
 </code></pre>
 <p>Now depending in the node you are on, copy the relevant <code>workers.properties.nodename</code> file to <code>/etc/httpd/conf/workers</code>.properties.
 The following command makes this simple.</p>
-<pre><code class="language-bash">cp workers.properties.`hostname -s` /etc/httpd/conf/workers.properties
-</code></pre>
+
+  
+
+
+
+
+
+
+<div class="code-toolbar">
+  <pre 
+    class="command-line language-bash" 
+    data-user="user" 
+    data-host="localhost" 
+    data-continuation-str="\"
+    data-filter-output="(out)"><code class="language-bash">cp workers.properties.`hostname -s` /etc/httpd/conf/workers.properties</code></pre>
+</div>
+
 <p>If you were to add an additional node to a multi node cluster, say the node <code>stroomp02.strmdev00.org</code>, then you would re-run the above script with</p>
 <pre><code class="language-bash">Nodes=&quot;stroomp00.strmdev00.org stroomp01.strmdev00.org stroomp02.strmdev00.org&quot;
 </code></pre>
@@ -1881,28 +1955,73 @@ chmod 640 ${F}
 </code></pre>
 <h2 id="final-host-configuration-and-web-service-enablement">Final host configuration and web service enablement</h2>
 <p>Now tidy up the SELinux context for access on all nodes and files via the commands</p>
-<pre><code class="language-bash">setsebool -P httpd_enable_homedirs on
+
+  
+
+
+
+
+
+
+<div class="code-toolbar">
+  <pre 
+    class="command-line language-bash" 
+    data-user="user" 
+    data-host="localhost" 
+    data-continuation-str="\"
+    data-filter-output="(out)"><code class="language-bash">setsebool -P httpd_enable_homedirs on
 setsebool -P httpd_can_network_connect on
 chcon --reference /etc/httpd/conf.d/README /etc/httpd/conf.d/mod_jk.conf
-chcon --reference /etc/httpd/conf/magic /etc/httpd/conf/workers.properties
-</code></pre>
+chcon --reference /etc/httpd/conf/magic /etc/httpd/conf/workers.properties</code></pre>
+</div>
+
 <p>We also enable both http and https services via the firewall on all nodes. If you don&rsquo;t want to present a http access point,
 then don&rsquo;t enable it in the firewall setting. This is done with</p>
-<pre><code class="language-bash">firewall-cmd --zone=public --add-service=http --permanent
+
+  
+
+
+
+
+
+
+<div class="code-toolbar">
+  <pre 
+    class="command-line language-bash" 
+    data-user="user" 
+    data-host="localhost" 
+    data-continuation-str="\"
+    data-filter-output="(out)"><code class="language-bash">firewall-cmd --zone=public --add-service=http --permanent
 firewall-cmd --zone=public --add-service=https --permanent
 firewall-cmd --reload
-firewall-cmd --zone=public --list-all
-</code></pre>
-<p>Finally enable then start the httpd service, correcting any errors.
-It should be noted that on any errors, the suggestion of a <code>systemctl</code> status or viewing the journal are good, but also review information in the httpd error logs found in <code>/var/log/httpd/</code>.</p>
-<pre><code class="language-bash">systemctl enable httpd.service
-systemctl start httpd.service
-</code></pre>
+firewall-cmd --zone=public --list-all</code></pre>
+</div>
+
+<p>Finally enable then start the httpd service, correcting any errors. It should be noted that on any errors,
+the suggestion of a systemctl status or viewing the journal are good, but also review information in the httpd error logs found in <code>/var/log/httpd/</code>.</p>
+
+  
+
+
+
+
+
+
+<div class="code-toolbar">
+  <pre 
+    class="command-line language-bash" 
+    data-user="user" 
+    data-host="localhost" 
+    data-continuation-str="\"
+    data-filter-output="(out)"><code class="language-bash">systemctl enable httpd.service
+systemctl start httpd.service</code></pre>
+</div>
+
 
 	
 	
 	<div class="text-muted mt-5 pt-3 border-top">
-  Last modified March 9, 2026: <a href="https://github.com/gchq/stroom-docs/commit/14b415aff83f127ae78a1d2c9aac5de1fe611ddf">Change build to only check spelling if script is present (14b415a)</a>
+  Last modified March 16, 2026: <a href="https://github.com/gchq/stroom-docs/commit/0cdb5fb0963ff027665549bb124daebff70a9e93">Fix spelling (0cdb5fb)</a>
 </div>
 
 </div>

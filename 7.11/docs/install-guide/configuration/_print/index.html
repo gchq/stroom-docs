@@ -146,7 +146,7 @@ This document will …">
     aria-label="Search this site…"
     autocomplete="off"
     
-    data-offline-search-index-json-src="../../../../offline-search-index.0a005bba63f0fad58d724ce154f84187.json"
+    data-offline-search-index-json-src="../../../../offline-search-index.5bbd05061c9b5c5b6db96e6f659545dc.json"
     data-offline-search-base-href="../../../../"
     data-offline-search-max-results="50"
   >
@@ -619,8 +619,23 @@ Each part of the dot notation property name represents a key in the YAML file, e
 <p>For more details on the link between this YAML file and Stroom Properties, see <a href="../../../../docs/user-guide/properties/">Properties</a></p>
 <h3 id="variable-substitution">Variable Substitution</h3>
 <p>The YAML configuration file supports Bash style variable substitution in the form of:</p>
-<pre><code class="language-bash">${ENV_VAR_NAME:-value_if_not_set}
-</code></pre>
+
+  
+
+
+
+
+
+
+<div class="code-toolbar">
+  <pre 
+    class="command-line language-bash" 
+    data-user="user" 
+    data-host="localhost" 
+    data-continuation-str="\"
+    data-filter-output="(out)"><code class="language-bash">${ENV_VAR_NAME:-value_if_not_set}</code></pre>
+</div>
+
 <p>This allows values to be set either directly in the file or via an environment variable, e.g.</p>
 <pre><code class="language-yaml">      jdbcDriverClassName: ${STROOM_JDBC_DRIVER_CLASS_NAME:-com.mysql.cj.jdbc.Driver}
 </code></pre>
@@ -1439,7 +1454,7 @@ Useful as a reference for the structure and the default values.</li>
 </ul>
 <h3 id="scriptsenv">scripts.env</h3>
 <p>This file is used by the various shell scripts like <code>start.sh</code>, <code>stop.sh</code>, etc.
-This file should not need to be unless you want to change the locations where certain log files are written to or need to change the java memory settings.</p>
+This file should not need to be changed unless you want to change the locations where certain log files are written to or need to change the java memory settings.</p>
 <p>In a production system it is highly likely that you will need to increase the java heap size as the default is only 2G.
 The heap size settings and any other java command line options can be set by changing:</p>
 <pre><code class="language-sh">JAVA_OPTS=&quot;-Xms512m -Xmx2048m&quot;
@@ -2298,7 +2313,7 @@ Nginx is configured using multiple configuration files to aid clarity and allow 
 The main file for configuring Nginx is <code>nginx.conf.template</code> and this makes use of other files via <code>include</code> statements.</p>
 <p>The purpose of the various files is as follows:</p>
 <ul>
-<li><code>nginx.conf.template</code> - Top level configuration file that orchestrate the other files.</li>
+<li><code>nginx.conf.template</code> - Top level configuration file that orchestrates the other files.</li>
 <li><code>logging.conf.template</code> - Configures the logging output, its content and format.</li>
 <li><code>server.conf.template</code> - Configures things like SSL settings, timeouts, ports, buffering, etc.</li>
 <li>Upstream configuration

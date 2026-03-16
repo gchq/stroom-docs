@@ -45,12 +45,12 @@
 <meta property="og:type" content="article" />
 <meta property="og:url" content="/docs/howtos/install/installcertificateshowto/" /><meta property="article:section" content="docs" />
 <meta property="article:published_time" content="2021-07-12T00:00:00+00:00" />
-<meta property="article:modified_time" content="2026-03-09T08:39:40+00:00" /><meta property="og:site_name" content="Stroom" />
+<meta property="article:modified_time" content="2026-03-16T10:25:28+00:00" /><meta property="og:site_name" content="Stroom" />
 
 <meta itemprop="name" content="SSL Certificate Generation">
 <meta itemprop="description" content="A HOWTO to assist users in setting up various SSL Certificates to support a Web interface to Stroom.
 "><meta itemprop="datePublished" content="2021-07-12T00:00:00+00:00" />
-<meta itemprop="dateModified" content="2026-03-09T08:39:40+00:00" />
+<meta itemprop="dateModified" content="2026-03-16T10:25:28+00:00" />
 <meta itemprop="wordCount" content="1377">
 <meta itemprop="keywords" content="certificate,installation," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="SSL Certificate Generation"/>
@@ -153,7 +153,7 @@
     aria-label="Search this site…"
     autocomplete="off"
     
-    data-offline-search-index-json-src="../../../../offline-search-index.0a005bba63f0fad58d724ce154f84187.json"
+    data-offline-search-index-json-src="../../../../offline-search-index.5bbd05061c9b5c5b6db96e6f659545dc.json"
     data-offline-search-base-href="../../../../"
     data-offline-search-max-results="50"
   >
@@ -178,7 +178,7 @@
     aria-label="Search this site…"
     autocomplete="off"
     
-    data-offline-search-index-json-src="../../../../offline-search-index.0a005bba63f0fad58d724ce154f84187.json"
+    data-offline-search-index-json-src="../../../../offline-search-index.5bbd05061c9b5c5b6db96e6f659545dc.json"
     data-offline-search-base-href="../../../../"
     data-offline-search-max-results="50"
   >
@@ -1053,26 +1053,86 @@ involved. If you are deploying a cluster, then you will only have one certificat
 alias for the first node in the cluster and then use that alias for addressing the cluster. That is, we have set up a
 CNAME, <code>stroomp.strmdev00.org</code> for <code>stroomp00.strmdev00.org</code>. This means within the web service we deploy, the ServerName will be <code>stroomp.strmdev00.org</code>
 on each node. Since it&rsquo;s one certificate we only need to set it up on one node then deploy the certificate key files to other nodes.</p>
-<p>As the certificates will be stored in the <code>stroomuser's</code> home directory, we become the stroom user</p>
-<pre><code class="language-bash">sudo -i -u stroomuser
-</code></pre>
+<p>As the certificates will be stored in the <code>stroomuser's</code> home directory, we become the stroom user
+
+  
+
+
+
+
+
+
+<div class="code-toolbar">
+  <pre 
+    class="command-line language-bash" 
+    data-user="user" 
+    data-host="localhost" 
+    data-continuation-str="\"
+    data-filter-output="(out)"><code class="language-bash">sudo -i -u stroomuser</code></pre>
+</div>
+</p>
 <h3 id="use-host-variable">Use host variable</h3>
 <p>To make things simpler in the following bash extracts, we establish the bash variable <code>H</code> to be used in filename generation. The variable name
 is set to the name of the host (or cluster alias) your are deploying the certificates on. In our multi node HOWTO example we are using, we
 would use the host CNAME <code>stroomp</code>. Thus we execute</p>
-<pre><code class="language-bash">export H=stroomp
-</code></pre>
+
+  
+
+
+
+
+
+
+<div class="code-toolbar">
+  <pre 
+    class="command-line language-bash" 
+    data-user="user" 
+    data-host="localhost" 
+    data-continuation-str="\"
+    data-filter-output="(out)"><code class="language-bash">export H=stroomp</code></pre>
+</div>
+
 <p>Note in our the Stroom Forwarding Proxy HOWTO we would use the name <code>stroomfp0</code>. In the case of our Standalone Proxy we would use <code>stroomsap0</code>.</p>
-<p>We set up a directory to house our certificates via</p>
-<pre><code class="language-bash">cd ~stroomuser
+<p>We set up a directory to house our certificates via
+
+  
+
+
+
+
+
+
+<div class="code-toolbar">
+  <pre 
+    class="command-line language-bash" 
+    data-user="user" 
+    data-host="localhost" 
+    data-continuation-str="\"
+    data-filter-output="(out)"><code class="language-bash">cd ~stroomuser
 rm -rf stroom-jks
 mkdir -p stroom-jks stroom-jks/public stroom-jks/private
-cd stroom-jks
-</code></pre>
-<p>Create a server key for Stroom service (enter a password when prompted for both initial and verification prompts)</p>
-<pre><code class="language-bash">openssl genrsa -des3 -out private/$H.key 2048
-</code></pre>
-<p>as per</p>
+cd stroom-jks</code></pre>
+</div>
+</p>
+<p>Create a server key for Stroom service (enter a password when prompted for both initial and verification prompts)
+
+  
+
+
+
+
+
+
+<div class="code-toolbar">
+  <pre 
+    class="command-line language-bash" 
+    data-user="user" 
+    data-host="localhost" 
+    data-continuation-str="\"
+    data-filter-output="(out)"><code class="language-bash">openssl genrsa -des3 -out private/$H.key 2048</code></pre>
+</div>
+
+as per</p>
 <pre><code>Generating RSA private key, 2048 bit long modulus
 .................................................................+++
 ...............................................+++
@@ -1083,9 +1143,24 @@ Verifying - Enter pass phrase for private/stroomp.key: &lt;__ENTER_SERVER_KEY_PA
 <p>Create a signing request. The two important prompts are the password and Common Name. All the rest can use the defaults offered.
 The requested password is for the server key and you should use the host (or cluster alias) your are deploying the certificates on for
 the Common Name. In the output below we will assume a multi node cluster certificate is being generated, so will use <code>stroomp.strmdev00.org</code>.</p>
-<pre><code class="language-bash">openssl req -sha256 -new -key private/$H.key -out $H.csr
-</code></pre>
-<p>as per</p>
+<p>
+  
+
+
+
+
+
+
+<div class="code-toolbar">
+  <pre 
+    class="command-line language-bash" 
+    data-user="user" 
+    data-host="localhost" 
+    data-continuation-str="\"
+    data-filter-output="(out)"><code class="language-bash">openssl req -sha256 -new -key private/$H.key -out $H.csr</code></pre>
+</div>
+
+as per</p>
 <pre><code>Enter pass phrase for private/stroomp.key: &lt;__ENTER_SERVER_KEY_PASSWORD__&gt;
 You are about to be asked to enter information that will be incorporated
 into your certificate request.
@@ -1107,114 +1182,339 @@ to be sent with your certificate request
 A challenge password []:
 An optional company name []:
 </code></pre>
-<p>We now self sign the certificate (again enter the server key password)</p>
-<pre><code class="language-bash">openssl x509 -req -sha256 -days 720 -in $H.csr -signkey private/$H.key -out public/$H.crt
-</code></pre>
-<p>as per</p>
+<p>We now self sign the certificate (again enter the server key password)
+
+  
+
+
+
+
+
+
+<div class="code-toolbar">
+  <pre 
+    class="command-line language-bash" 
+    data-user="user" 
+    data-host="localhost" 
+    data-continuation-str="\"
+    data-filter-output="(out)"><code class="language-bash">openssl x509 -req -sha256 -days 720 -in $H.csr -signkey private/$H.key -out public/$H.crt</code></pre>
+</div>
+
+as per</p>
 <pre><code>Signature ok
 subject=/C=XX/L=Default City/O=Default Company Ltd/CN=stroomp.strmdev00.org
 Getting Private key
 Enter pass phrase for private/stroomp.key: &lt;__ENTER_SERVER_KEY_PASSWORD__&gt;
 </code></pre>
 <p>and noting the <code>subject</code> will change depending on the host name used when generating the signing request.</p>
-<p>Create insecure version of private key for Apache auto-boot (you will again need to enter the server key password)</p>
-<pre><code class="language-bash">openssl rsa -in private/$H.key -out private/$H.key.insecure
-</code></pre>
-<p>as per</p>
+<p>Create insecure version of private key for Apache auto-boot (you will again need to enter the server key password)
+
+  
+
+
+
+
+
+
+<div class="code-toolbar">
+  <pre 
+    class="command-line language-bash" 
+    data-user="user" 
+    data-host="localhost" 
+    data-continuation-str="\"
+    data-filter-output="(out)"><code class="language-bash">openssl rsa -in private/$H.key -out private/$H.key.insecure</code></pre>
+</div>
+
+as per</p>
 <pre><code>Enter pass phrase for private/stroomp.key: &lt;__ENTER_SERVER_KEY_PASSWORD__&gt;
 writing RSA key
 </code></pre>
-<p>and then move the insecure keys as appropriate</p>
-<pre><code class="language-bash">mv private/$H.key private/$H.key.secure
+<p>and then move the insecure keys as appropriate
+
+  
+
+
+
+
+
+
+<div class="code-toolbar">
+  <pre 
+    class="command-line language-bash" 
+    data-user="user" 
+    data-host="localhost" 
+    data-continuation-str="\"
+    data-filter-output="(out)"><code class="language-bash">mv private/$H.key private/$H.key.secure
 chmod 600 private/$H.key.secure
-mv private/$H.key.insecure private/$H.key
-</code></pre>
+mv private/$H.key.insecure private/$H.key</code></pre>
+</div>
+</p>
 <p>We have now completed the creation of our certificates and keys.</p>
 <h3 id="replication-of-keys-directory-to-other-nodes">Replication of Keys Directory to other nodes</h3>
 <p>If you are deploying a multi node Stroom cluster, then you would replicate the directory <code>~/stroomuser/stroom-jks</code> to each node in the cluster. That is,
 tar it up, copy the tar file to the other node(s) then <code>untar</code> it. We can make use of the other node&rsquo;s mounted file system for this process.
-That is one could execute the commands on the first node, where we created the certificates</p>
-<pre><code class="language-bash">cd ~stroomuser
+That is one could execute the commands on the first node, where we created the certificates
+
+  
+
+
+
+
+
+
+<div class="code-toolbar">
+  <pre 
+    class="command-line language-bash" 
+    data-user="user" 
+    data-host="localhost" 
+    data-continuation-str="\"
+    data-filter-output="(out)"><code class="language-bash">cd ~stroomuser
 tar cf stroom-jks.tar stroom-jks
-mv stroom-jks.tar /stroomdata/stroom-data-p01
-</code></pre>
-<p>Then on the another node, say <code>stroomp01.strmdev00.org</code>, as the stroomuser we extract the data.</p>
-<pre><code class="language-bash">sudo -i -u stroomuser
+mv stroom-jks.tar /stroomdata/stroom-data-p01</code></pre>
+</div>
+
+then on the another node, say <code>stroomp01.strmdev00.org</code>, as the stroomuser we extract the data.
+
+  
+
+
+
+
+
+
+<div class="code-toolbar">
+  <pre 
+    class="command-line language-bash" 
+    data-user="user" 
+    data-host="localhost" 
+    data-continuation-str="\"
+    data-filter-output="(out)"><code class="language-bash">sudo -i -u stroomuser
 cd ~stroomuser
-tar xf /stroomdata/stroom-data-p01/stroom-jks.tar &amp;&amp; rm -f /stroomdata/stroom-data-p01/stroom-jks.tar
-</code></pre>
+tar xf /stroomdata/stroom-data-p01/stroom-jks.tar &amp;&amp; rm -f /stroomdata/stroom-data-p01/stroom-jks.tar</code></pre>
+</div>
+</p>
 <h3 id="protection-ownership-and-selinux-context">Protection, Ownership and SELinux Context</h3>
-<p>Now ensure protection, ownership and SELinux context for these key files on <strong>ALL</strong> nodes via</p>
-<pre><code class="language-bash">chmod 700 ~stroomuser/stroom-jks/private ~stroomuser/stroom-jks
+<p>Now ensure protection, ownership and SELinux context for these key files on <strong>ALL</strong> nodes via
+
+  
+
+
+
+
+
+
+<div class="code-toolbar">
+  <pre 
+    class="command-line language-bash" 
+    data-user="user" 
+    data-host="localhost" 
+    data-continuation-str="\"
+    data-filter-output="(out)"><code class="language-bash">chmod 700 ~stroomuser/stroom-jks/private ~stroomuser/stroom-jks
 chown -R stroomuser:stroomuser ~stroomuser/stroom-jks
-chcon -R --reference /etc/pki ~stroomuser/stroom-jks
-</code></pre>
+chcon -R --reference /etc/pki ~stroomuser/stroom-jks</code></pre>
+</div>
+</p>
 <h2 id="stroom-proxy-to-proxy-key-and-trust-stores">Stroom Proxy to Proxy Key and Trust Stores</h2>
 <p>In order for a Stroom Forwarding Proxy to communicate to a central Stroom proxy over https, the JVM running the forwarding proxy needs
 relevant keystores set up.</p>
 <p>One would set up a Stroom&rsquo;s forwarding proxy SSL certificate as per <a href="#create-certificates">above</a>, with the change that the
 hostname would be different. That is, in the initial setup, we would set the hostname variable <code>H</code> to be the hostname of the forwarding
 proxy. Lets say it is <code>stroomfp0</code> thus we would set</p>
-<pre><code class="language-bash">export H=stroomfp0
-</code></pre>
-<p>and then proceed as <a href="#use-host-variable">above</a>.</p>
+<p>
+  
+
+
+
+
+
+
+<div class="code-toolbar">
+  <pre 
+    class="command-line language-bash" 
+    data-user="user" 
+    data-host="localhost" 
+    data-continuation-str="\"
+    data-filter-output="(out)"><code class="language-bash">export H=stroomfp0</code></pre>
+</div>
+
+and then proceed as <a href="#use-host-variable">above</a>.</p>
 <p>Note that you also need the public key of the central Stroom server you will be connecting to. For the following, we will assume
 the central Stroom proxy is the <code>stroomp.strmdev00.org</code> server and its public key is stored in the file <code>stroomp.crt</code>. We will store
 this file on the forwarding proxy in <code>~stroomuser/stroom-jks/public/stroomp.crt</code>.</p>
 <p>So once you have created the forwarding proxy server&rsquo;s SSL keys and have deployed the central proxy&rsquo;s public key, we next
-need to convert the proxy server&rsquo;s SSL keys into DER format. This is done by executing the following.</p>
-<pre><code class="language-bash">cd ~stroomuser/stroom-jks
+need to convert the proxy server&rsquo;s SSL keys into DER format. This is done by executing the following.
+
+  
+
+
+
+
+
+
+<div class="code-toolbar">
+  <pre 
+    class="command-line language-bash" 
+    data-user="user" 
+    data-host="localhost" 
+    data-continuation-str="\"
+    data-filter-output="(out)"><code class="language-bash">cd ~stroomuser/stroom-jks
 export H=stroomfp0
 export S=stroomp
 rm -f ${H}_k.jks ${S}_t.jks
 H_k=${H}
 S_k=${S}
 # Convert public key
-openssl x509 -in public/$H.crt -inform PERM -out public/$H.crt.der -outform DER
-</code></pre>
-<p>When you convert the local server&rsquo;s private key, you will be prompted for the server key password.</p>
-<pre><code class="language-bash"># Convert the local server's Private key
-openssl pkcs8 -topk8 -nocrypt -in private/$H.key.secure -inform PEM -out private/$H.key.der -outform DER
-</code></pre>
-<p>As per</p>
+openssl x509 -in public/$H.crt -inform PERM -out public/$H.crt.der -outform DER</code></pre>
+</div>
+</p>
+<p>When you convert the local server&rsquo;s private key, you will be prompted for the server key password.
+
+  
+
+
+
+
+
+
+<div class="code-toolbar">
+  <pre 
+    class="command-line language-bash" 
+    data-user="user" 
+    data-host="localhost" 
+    data-continuation-str="\"
+    data-filter-output="(out)"><code class="language-bash"># Convert the local server&#39;s Private key
+openssl pkcs8 -topk8 -nocrypt -in private/$H.key.secure -inform PEM -out private/$H.key.der -outform DER</code></pre>
+</div>
+</p>
+<p>as per</p>
 <pre><code class="language-bash">Enter pass phrase for private/stroomfp0.key.secure: &lt;__ENTER_SERVER_KEY_PASSWORD__&gt;
 </code></pre>
 <p>We now import these keys into our Key Store. As part of the Stroom Proxy release, an Import Keystore application has been provisioned. We identify where it&rsquo;s found with the command</p>
-<pre><code class="language-bash">find ~stroomuser/*proxy -name 'stroom*util*.jar' -print | head -1
-</code></pre>
-<p>Which should return <em>/home/stroomuser/stroom-proxy/lib/stroom-proxy-util-v5.1-beta.10.jar</em> or similar depending on the release version.
+
+  
+
+
+
+
+
+
+<div class="code-toolbar">
+  <pre 
+    class="command-line language-bash" 
+    data-user="user" 
+    data-host="localhost" 
+    data-continuation-str="\"
+    data-filter-output="(out)"><code class="language-bash">find ~stroomuser/*proxy -name &#39;stroom*util*.jar&#39; -print | head -1</code></pre>
+</div>
+
+<p>which should return <em>/home/stroomuser/stroom-proxy/lib/stroom-proxy-util-v5.1-beta.10.jar</em> or similar depending on the release version.
 To make execution simpler, we set this as a shell variable as per</p>
-<pre><code class="language-bash">Stroom_UTIL_JAR=`find ~/*proxy -name 'stroom*util*.jar' -print | head -1`
-</code></pre>
+
+  
+
+
+
+
+
+
+<div class="code-toolbar">
+  <pre 
+    class="command-line language-bash" 
+    data-user="user" 
+    data-host="localhost" 
+    data-continuation-str="\"
+    data-filter-output="(out)"><code class="language-bash">Stroom_UTIL_JAR=`find ~/*proxy -name &#39;stroom*util*.jar&#39; -print | head -1`</code></pre>
+</div>
+
 <p>We now create the keystore and import the proxy&rsquo;s server key</p>
-<pre><code class="language-bash">java -cp ${Stroom_UTIL_JAR} stroom.util.cert.ImportKey keystore=${H}_k.jks keypass=$H alias=$H keyfile=private/$H.key.der certfile=public/$H.crt.der
-</code></pre>
-<p>As per</p>
-<pre><code class="language-text">One certificate, no chain
+
+  
+
+
+
+
+
+
+<div class="code-toolbar">
+  <pre 
+    class="command-line language-bash" 
+    data-user="user" 
+    data-host="localhost" 
+    data-continuation-str="\"
+    data-filter-output="(out)"><code class="language-bash">java -cp ${Stroom_UTIL_JAR} stroom.util.cert.ImportKey keystore=${H}_k.jks keypass=$H alias=$H keyfile=private/$H.key.der certfile=public/$H.crt.der</code></pre>
+</div>
+
+<p>as per</p>
+<pre><code class="language-bash">One certificate, no chain
 </code></pre>
 <p>We now import the destination server&rsquo;s public key</p>
-<pre><code class="language-bash">keytool -import -noprompt -alias ${S} -file public/${S}.crt -keystore ${S}_k.jks -storepass ${S}
-</code></pre>
-<p>As per</p>
+
+  
+
+
+
+
+
+
+<div class="code-toolbar">
+  <pre 
+    class="command-line language-bash" 
+    data-user="user" 
+    data-host="localhost" 
+    data-continuation-str="\"
+    data-filter-output="(out)"><code class="language-bash">keytool -import -noprompt -alias ${S} -file public/${S}.crt -keystore ${S}_k.jks -storepass ${S}</code></pre>
+</div>
+
+<p>as per</p>
 <pre><code class="language-text">Certificate was added to keystore
 </code></pre>
 <p>We now add the key and trust store location and password arguments to our Stroom proxy environment files.</p>
-<pre><code class="language-bash">PWD=`pwd`
-echo &quot;export JAVA_OPTS=\&quot;-Djavax.net.ssl.trustStore=${PWD}/${S}_k.jks -Djavax.net.ssl.trustStorePassword=${S} -Djavax.net.ssl.keyStore=${PWD}/${H}_k.jks -Djavax.net.ssl.keyStorePassword=${H}\&quot;&quot; &gt;&gt; ~/env.sh
-echo &quot;JAVA_OPTS=\&quot;-Djavax.net.ssl.trustStore=${PWD}/${S}_k.jks -Djavax.net.ssl.trustStorePassword=${S} -Djavax.net.ssl.keyStore=${PWD}/${H}_k.jks -Djavax.net.ssl.keyStorePassword=${H}\&quot;&quot; &gt;&gt; ~/env_service.sh
-</code></pre>
+
+  
+
+
+
+
+
+
+<div class="code-toolbar">
+  <pre 
+    class="command-line language-bash" 
+    data-user="user" 
+    data-host="localhost" 
+    data-continuation-str="\"
+    data-filter-output="(out)"><code class="language-bash">PWD=`pwd`
+echo &#34;export JAVA_OPTS=\&#34;-Djavax.net.ssl.trustStore=${PWD}/${S}_k.jks -Djavax.net.ssl.trustStorePassword=${S} -Djavax.net.ssl.keyStore=${PWD}/${H}_k.jks -Djavax.net.ssl.keyStorePassword=${H}\&#34;&#34; &gt;&gt; ~/env.sh
+echo &#34;JAVA_OPTS=\&#34;-Djavax.net.ssl.trustStore=${PWD}/${S}_k.jks -Djavax.net.ssl.trustStorePassword=${S} -Djavax.net.ssl.keyStore=${PWD}/${H}_k.jks -Djavax.net.ssl.keyStorePassword=${H}\&#34;&#34; &gt;&gt; ~/env_service.sh</code></pre>
+</div>
+
 <p>At this point you should restart the proxy service. Using the commands</p>
-<pre><code class="language-bash">cd ~stroomuser
+
+  
+
+
+
+
+
+
+<div class="code-toolbar">
+  <pre 
+    class="command-line language-bash" 
+    data-user="user" 
+    data-host="localhost" 
+    data-continuation-str="\"
+    data-filter-output="(out)"><code class="language-bash">cd ~stroomuser
 source ./env.sh
 stroom-proxy/bin/stop.sh
-stroom-proxy/bin/start.sh
-</code></pre>
+stroom-proxy/bin/start.sh</code></pre>
+</div>
+
 <p>then check the logs to ensure it started correctly.</p>
 
 	
 	
 	<div class="text-muted mt-5 pt-3 border-top">
-  Last modified March 9, 2026: <a href="https://github.com/gchq/stroom-docs/commit/14b415aff83f127ae78a1d2c9aac5de1fe611ddf">Change build to only check spelling if script is present (14b415a)</a>
+  Last modified March 16, 2026: <a href="https://github.com/gchq/stroom-docs/commit/0cdb5fb0963ff027665549bb124daebff70a9e93">Fix spelling (0cdb5fb)</a>
 </div>
 
 </div>
