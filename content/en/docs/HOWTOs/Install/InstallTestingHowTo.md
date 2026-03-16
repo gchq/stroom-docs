@@ -261,7 +261,7 @@ sudo -i -u stroomuser
 T
 {{< /command-line >}}
 
-On each node you should see _LifecyleTask_ events, for example,
+On each node you should see _LifecycleTask_ events, for example,
 
 ```text
 2017-01-14T07:42:08.281Z INFO  [Stroom P2 #7 - LifecycleTask] spring.StroomBeanMethodExecutable (StroomBeanMethodExecutable.java:47) - Executing nodeStatusExecutor.exec

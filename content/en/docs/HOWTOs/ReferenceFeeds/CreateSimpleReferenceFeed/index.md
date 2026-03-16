@@ -21,7 +21,7 @@ A Reference Feed is temporal, in that, each time a new set of reference data is 
 Thus by using a timestamp field with the subject data, the appropriate batch of reference data can be accessed.
 
 A typical reference data set to support the Stroom XML Event schema might be one that relates to devices.
-Such a data set can contain the device logical identifiers such as fully qualified domain name and ip address and their geographical location information such as country, site, building, room and timezone.
+Such a data set can contain the device logical identifiers such as fully qualified domain name and ip address and their geographical location information such as country, site, building, room and time zone.
 
 The following example will describe how to create a reference feed for such device data.
 We will call the reference feed `GeoHost-V1.0-REFERENCE`.
@@ -29,14 +29,14 @@ We will call the reference feed `GeoHost-V1.0-REFERENCE`.
 
 ## Reference Data
 
-Our reference data will be supplied in a <TAB> separated file containing the fields
+Our reference data will be supplied in a `TAB` separated file containing the fields
 
 * the device Fully Qualified Domain Name
 * the device IP Address
 * the device Country location (using ISO 3166-1 alpha-3 codes)
 * the device Site location
 * the device Building location
-* the device TimeZone location (both standard then daylight time zone offsets from UTC)
+* the device Time Zone location (both standard then daylight time zone offsets from UTC)
 
 For simplicity, our example will use a file with just 5 entries
 
