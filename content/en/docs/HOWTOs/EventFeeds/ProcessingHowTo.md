@@ -564,11 +564,11 @@ Note that this is the 31st record, so if we were to jump to the first record usi
 
 You will note that there is no `Event` element in the _output_ pane as the _record_ template in our XSLT translation above is only storing the input's key value (_bc_software's value).
 
-Further note that the **BlueCoat_Proxy-V1.0-EVENTS** tab {{< stroom-tab "../pipeline.svg" "BlueCoat_Proxy-V1.0-EVENTS" "active" "unsaved" >}} has a _star_ in front of it and also the _Save_ icon {{< stroom-icon "save.svg" >}} is highlighted.
+Further note that the **BlueCoat_Proxy-V1.0-EVENTS** tab {{< stroom-tab "Pipeline.svg" "BlueCoat_Proxy-V1.0-EVENTS" "active" "unsaved" >}} has a _star_ in front of it and also the _Save_ icon {{< stroom-icon "save.svg" >}} is highlighted.
 This indicates that a component of the pipeline needs to be saved.
 In this case, the XSLT translation.
 
-By pressing the _Save_ icon, you will save the XSLT translation as it currently stands and both the _star_ will be removed from the tab {{< stroom-tab "../pipeline.svg" "BlueCoat_Proxy-V1.0-EVENTS" "active" "saved" >}} and the _Save_ icon {{< stroom-icon "save.svg" "Save" "disabled" >}} will no longer be highlighted.
+By pressing the _Save_ icon, you will save the XSLT translation as it currently stands and both the _star_ will be removed from the tab {{< stroom-tab "Pipeline.svg" "BlueCoat_Proxy-V1.0-EVENTS" "active" "saved" >}} and the _Save_ icon {{< stroom-icon "save.svg" "Save" "disabled" >}} will no longer be highlighted.
 
 {{< screenshot "HOWTOs/UI-FeedProcessing-45.png" >}}Stroom UI Create Feed - Translation - Stepping XSLT Translation 3{{< /screenshot >}}
 
