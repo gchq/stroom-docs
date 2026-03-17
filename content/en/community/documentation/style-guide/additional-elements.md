@@ -234,19 +234,19 @@ in the rendered site.
 
 * A [link](#alerts) to a heading anchor on this page.
 
-  ```markdown
+  ```text
   [link](#alerts)
   ```
 
 * A [link](../using-images#captions) to a heading anchor on another page, using a relative link.
 
-  ```markdown
+  ```text
   [link](../using-images#captions)
   ```
 
 * A [link](/docs/style-guide/using-images#captions) to a heading anchor on another page, using an absolute link.
 
-  ```markdown
+  ```text
   [link](/docs/style-guide/using-images#captions)
   ```
 
@@ -285,8 +285,9 @@ It will be converted to an HTML anchor so that you can link directly to the head
 
 ## Code
 
-
 ### Inline code
+
+When you need to include chunks of code, filenames, or input/output values in-line in text, e.g. `config.yml`, you can surround it with single backticks.
 
 {{< cardpane >}}
   {{< card header="Rendered" >}}
@@ -596,6 +597,51 @@ select database();
 {{< /cardpane >}}
 
 
+### Directory Listings
+
+Using the unix `tree` command you can produce directory listings to use with the `treeview` code block language.
+
+The following is an example of how to produce the directory tree in ASCII form.
+
+{{< command-line >}}
+tree -n -F -L 1 --charset=ascii
+{{</ command-line >}}
+
+{{< cardpane >}}
+  {{< card header="Rendered" >}}
+```treeview
+./
+|-- ACTIVE_SERVICES.txt
+|-- ALL_SERVICES.txt
+|-- backup_databases.sh*
+|-- certs/
+|-- command.sh*
+|-- start.sh*
+|-- status.sh*
+|-- stop.sh*
+`-- volumes/
+```
+  {{< /card >}}
+
+  {{< card header="Markdown" >}}
+````mardown
+```treeview
+./
+|-- ACTIVE_SERVICES.txt
+|-- ALL_SERVICES.txt
+|-- backup_databases.sh*
+|-- certs/
+|-- command.sh*
+|-- start.sh*
+|-- status.sh*
+|-- stop.sh*
+`-- volumes/
+```
+````
+  {{< /card >}}
+{{< /cardpane >}}
+
+
 ### Inline files
 
 Some code or text examples may be too large for a fenced block so you can put the content in a separate file and include it in-line like so.
@@ -616,7 +662,7 @@ Examples of how to use in-line files are:
 ### Supported languages
 
 This site uses {{< external-link "Prismjs" "https://prismjs.com/index.html" >}} for syntax highlighing code blocks.
-PrismJs supports a large number of different languages however only certain languages have been included with this site.
+_PrismJs_ supports a large number of different languages however only certain languages have been included with this site.
 The language specified in the markdown code fence or in the `command-line` shortcode must be in the list of included languages.
 
 The list of included language names are:
@@ -638,6 +684,7 @@ The list of included language names are:
 `sql`  
 `text`  
 `toml`  
+`treeview`  
 `xml`  
 `yaml`  
 
@@ -645,7 +692,7 @@ To include extra languages in this site you need to build a new version of the `
 This can be done {{< external-link "here" "https://prismjs.com/index.html#supported-languages" >}}.
 When creating new versions of these file you must include the languages and plugins already included else you may break this site.
 The generated files are then copied over the top of `/static/css/prism.css` and `/static/js/prism.js`.
-Both files include a comment at the top with the link to the PrismJs download page with the currently included items selected.
+Both files include a comment at the top with the link to the _PrismJs_ download page with the currently included items selected.
 Use this link then add any additional items, bearing in mind the size of the download and its impact on page load times.
 
 An example of the download link is {{< external-link "https://prismjs.com/download.html#themes=prism&languages=markup+css+clike+javascript+bash+csv+groovy+java+jq+json+markdown+python+regex+scss+sql+toml+yaml&plugins=line-highlight+line-numbers+command-line+toolbar+copy-to-clipboard+treeview */" >}}
