@@ -212,10 +212,22 @@ html {
   }
 }
 
+
+////////////////////////
+//  Definition Lists  //
+////////////////////////
+
 .td-content {
-  // Inline code
-  p code, li > code, table code {
-    background-color: $stroom-inline-code-background;
+  dl dd {
+    // Slightly indent the definition list defintion, so it can be distinguished from the body text after
+    // the definition list.
+    padding-left: 0.5em;
+
+    // If <dd> contains multiple paragraphs, the first one is not wrapped in a <p> so doesn't get the
+    // margin-top that is normally applied to all <p> elements.
+    p:first-child {
+      margin-top: 1em;
+    }
   }
 }
 
@@ -232,6 +244,45 @@ html {
   }
 }
 
+//////////////////////
+//  Bulleted Lists  //
+//////////////////////
+
+ul li p {
+  // Default is 1em which is a bit spacey.
+  // Numbered lists use 0.25em, <p> use 1rem for reference.
+  margin-bottom: 0.8em;
+}
+
+///////////////////
+//  Inline Code  //
+///////////////////
+
+// The default Docsy theme styles inline code as black text with a light grey
+// box behind. This is inconsistent with the styling of inline text
+// that appears as a Definition List definition, which is brownish text with
+// no background.
+// We have opted to do all inline code as bold brownish text with no background colour.
+.td-content {
+  // Inline code
+  p code, li > code, table code, dt code, dd code, div.alert code, h1 code, h2 code, h3 code, h4 code, h5 code, h6 code {
+    background-color: unset !important;
+    color: $stroom-inline-code-colour !important;
+    font-size: 86%;
+    font-weight: bold;
+    padding: unset !important;
+    margin: unset !important;
+  }
+
+  dl dt code {
+    font-size: 100%;
+    font-weight: bolder;
+  }
+
+  dl dd {
+    padding-left: 0.5em;
+  }
+}
 
 ////////////////////////////
 //  code-block shortcode  //
@@ -256,7 +307,6 @@ html {
     background-color: rgba(153, 122, 102, 1);
   }
 }
-
 
 // Restyle the content of the fenced code blocks
 
