@@ -22,14 +22,11 @@ We're converting `System/Visualisations/Visualisations/Version3/Doughnut`, so we
 The original Visualisation Document we're going to convert
 {{< /image >}}
 
-Function Name
-: We're going to need to copy this to our new document.
+**Function Name** - We're going to need to copy this to our new document.
 
-Script
-: We're going to leave this bit blank - our new document won't reference a Script document.
+**Script** - We're going to leave this bit blank - our new document won't reference a Script document.
 
-Settings
-: We're going to need to copy this to our new document.
+**Settings** - We're going to need to copy this to our new document.
 
 
 ### Dependencies
@@ -189,21 +186,23 @@ Regular expression search-and-replace is very useful for this, using the terms `
 
 Once all this is done we end up with the following files stored in a folder on our local machine:
 
-* common-css.css
-* common.js
-* d3-grid.js
-* d3-tip.js
-* d3.js
-* doughnut.js
-* generic-grid.js
-* js-hashes.js
-* stroom-theme.css
+* `common-css.css`
+* `common.js`
+* `d3-grid.js`
+* `d3-tip.js`
+* `d3.js`
+* `doughnut.js`
+* `generic-grid.js`
+* `js-hashes.js`
+* `stroom-theme.css`
 
-The names are not important as long as they match up with the index.html file [below]({{< relref "#indexhtml-asset" >}}).
+The names are not important as long as they match up with the `index.html` file [below]({{< relref "#indexhtml-asset" >}}).
+
 
 ## Create a New Visualisation Document
 
 {{< stroom-menu "New" "Configuration" "Visualisation" >}}
+
 
 ## Add the Assets
 
@@ -217,17 +216,14 @@ No folders are necessary - everything can go into the root directory.
 
 Select the `Settings` tab within your new Visualisation document.
 
-Function Name
-: Copy from the old visualisation, or just set it to `visualisations.Doughnut`.
+**Function Name** - Copy from the old visualisation, or just set it to `visualisations.Doughnut`.
 
-Script
-: Leave this blank
+**Script** - Leave this blank
 
-Settings
-: Copy from the old visualisation. Make sure you get the whole file.
+**Settings** - Copy from the old visualisation. Make sure you get the whole file.
 
 
-## index.html asset
+## `index.html` asset
 
 We need an HTML file which will form the core of our visualisation. 
 This must be named `index.html` to be considered for loading by Stroom.
@@ -259,10 +255,10 @@ All the assets we've uploaded need to be linked into the HTML file.
 
 Note that there are a couple of files that use the `/ui/` path:
 
-/ui/css/vis.css
+`/ui/css/vis.css`
 : Stroom visualisation CSS
 
-/ui/vis.js
+`/ui/vis.js`
 : Holds the code that Stroom uses to communicate with the visualisation.
 
 Both of these files must be included in your index.html for the visualisation to work.
