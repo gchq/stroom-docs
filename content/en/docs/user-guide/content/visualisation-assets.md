@@ -13,10 +13,10 @@ description: >
 
 Visualisations are typically composed of multiple files or assets:
 
- - Javascript 
- - CSS
- - HTML
- - Images
+* Javascript 
+* CSS
+* HTML
+* Images
 
 The Visualisation Assets system provides a way to manage these easily through the user interface.
 
@@ -94,10 +94,10 @@ To get back to the current live state and remove any unsaved changes, click the 
 The import and export or GitRepo format is designed to allow you to edit the assets within the import/export structure.
 If you look at the structure you'll have something like this:
 
-- `Name.Visualisation.UUID.json`
-- `Name.Visualisation.UUID.meta`
-- `Name.Visualisation.UUID.node`
-- `Name.Visualisation.UUID-path-assets/`
+* `Name.Visualisation.UUID.json`
+* `Name.Visualisation.UUID.meta`
+* `Name.Visualisation.UUID.node`
+* `Name.Visualisation.UUID-path-assets/`
 
 Here `Name` is the name of the Visualisation document, and UUID is a long string that looks something like `b565d110-508d-483c-95f7-69196479aee9`.
 

@@ -189,15 +189,15 @@ Regular expression search-and-replace is very useful for this, using the terms `
 
 Once all this is done we end up with the following files stored in a folder on our local machine:
 
-- common-css.css
-- common.js
-- d3-grid.js
-- d3-tip.js
-- d3.js
-- doughnut.js
-- generic-grid.js
-- js-hashes.js
-- stroom-theme.css
+* common-css.css
+* common.js
+* d3-grid.js
+* d3-tip.js
+* d3.js
+* doughnut.js
+* generic-grid.js
+* js-hashes.js
+* stroom-theme.css
 
 The names are not important as long as they match up with the index.html file [below]({{< relref "#indexhtml-asset" >}}).
 
