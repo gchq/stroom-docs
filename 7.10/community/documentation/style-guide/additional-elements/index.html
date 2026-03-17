@@ -47,13 +47,13 @@
 <meta property="og:type" content="article" />
 <meta property="og:url" content="/community/documentation/style-guide/additional-elements/" /><meta property="article:section" content="community" />
 <meta property="article:published_time" content="2021-07-20T00:00:00+00:00" />
-<meta property="article:modified_time" content="2026-03-06T16:45:20+00:00" /><meta property="og:site_name" content="Stroom" />
+<meta property="article:modified_time" content="2026-03-17T12:17:14+00:00" /><meta property="og:site_name" content="Stroom" />
 
 <meta itemprop="name" content="Additional Page Elements">
 <meta itemprop="description" content="Examples of various markdown and Hugo page elements.
 "><meta itemprop="datePublished" content="2021-07-20T00:00:00+00:00" />
-<meta itemprop="dateModified" content="2026-03-06T16:45:20+00:00" />
-<meta itemprop="wordCount" content="2858">
+<meta itemprop="dateModified" content="2026-03-17T12:17:14+00:00" />
+<meta itemprop="wordCount" content="2966">
 <meta itemprop="keywords" content="style," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Additional Page Elements"/>
 <meta name="twitter:description" content="Examples of various markdown and Hugo page elements.
@@ -62,8 +62,8 @@
 
 
 
-<link rel="preload" href="../../../../scss/main.min.c9c2acb16647e4c0a24660355bfca96b0ec94226f4c0568ac7b0913f56303345.css" as="style">
-<link href="../../../../scss/main.min.c9c2acb16647e4c0a24660355bfca96b0ec94226f4c0568ac7b0913f56303345.css" rel="stylesheet" integrity="">
+<link rel="preload" href="../../../../scss/main.min.03d3df05deb1954d0571887e2cc1dd8e554bc95fdc0fcc2c2b99f3c2c8de8c1e.css" as="style">
+<link href="../../../../scss/main.min.03d3df05deb1954d0571887e2cc1dd8e554bc95fdc0fcc2c2b99f3c2c8de8c1e.css" rel="stylesheet" integrity="">
 
 
 <script src='../../../../js/jquery-3.6.0.min.js'></script>
@@ -152,7 +152,7 @@
     aria-label="Search this site…"
     autocomplete="off"
     
-    data-offline-search-index-json-src="../../../../offline-search-index.ea2de4ae2feb8031a5a9ce8878280109.json"
+    data-offline-search-index-json-src="../../../../offline-search-index.24982d64348e5206222a5e4a35b85433.json"
     data-offline-search-base-href="../../../../"
     data-offline-search-max-results="50"
   >
@@ -177,7 +177,7 @@
     aria-label="Search this site…"
     autocomplete="off"
     
-    data-offline-search-index-json-src="../../../../offline-search-index.ea2de4ae2feb8031a5a9ce8878280109.json"
+    data-offline-search-index-json-src="../../../../offline-search-index.24982d64348e5206222a5e4a35b85433.json"
     data-offline-search-base-href="../../../../"
     data-offline-search-max-results="50"
   >
@@ -301,6 +301,7 @@
         <li><a href="#code-blocks-advanced">code blocks (advanced)</a></li>
         <li><a href="#command-line-blocks">Command line blocks</a></li>
         <li><a href="#mysql-shell-blocks">MySQL shell blocks</a></li>
+        <li><a href="#directory-listings">Directory Listings</a></li>
         <li><a href="#inline-files">Inline files</a></li>
         <li><a href="#supported-languages">Supported languages</a></li>
       </ul>
@@ -822,17 +823,17 @@ What the previous page is is defined by the <a href="../../../../community/docum
 <ul>
 <li>
 <p>A <a href="#alerts">link</a> to a heading anchor on this page.</p>
-<pre><code class="language-markdown">[link](#alerts)
+<pre><code class="language-text">[link](#alerts)
 </code></pre>
 </li>
 <li>
 <p>A <a href="../using-images#captions">link</a> to a heading anchor on another page, using a relative link.</p>
-<pre><code class="language-markdown">[link](../using-images#captions)
+<pre><code class="language-text">[link](../using-images#captions)
 </code></pre>
 </li>
 <li>
 <p>A <a href="../../../../docs/style-guide/using-images#captions">link</a> to a heading anchor on another page, using an absolute link.</p>
-<pre><code class="language-markdown">[link](/docs/style-guide/using-images#captions)
+<pre><code class="language-text">[link](/docs/style-guide/using-images#captions)
 </code></pre>
 </li>
 </ul>
@@ -892,6 +893,7 @@ This should match the heading text on the Glossary page exactly, ignoring case.
 It will be converted to an HTML anchor so that you can link directly to the heading for the term in question.</p>
 <h2 id="code">Code</h2>
 <h3 id="inline-code">Inline code</h3>
+<p>When you need to include chunks of code, filenames, or input/output values in-line in text, e.g. <code>config.yml</code>, you can surround it with single backticks.</p>
 <div class="td-card-deck card-deck mb-4">
   <div class="td-card card mb-4">
   
@@ -1505,6 +1507,97 @@ select database();
 </div>
 
 </div>
+<h3 id="directory-listings">Directory Listings</h3>
+<p>Using the unix <code>tree</code> command you can produce directory listings to use with the <code>treeview</code> code block language.</p>
+<p>The following is an example of how to produce the directory tree in ASCII form.</p>
+
+  
+
+
+
+
+
+
+<div class="code-toolbar">
+  <pre 
+    class="command-line language-bash" 
+    data-user="user" 
+    data-host="localhost" 
+    data-continuation-str="\"
+    data-filter-output="(out)"><code class="language-bash">tree -n -F -L 1 --charset=ascii</code></pre>
+</div>
+
+<div class="td-card-deck card-deck mb-4">
+  <div class="td-card card mb-4">
+  
+    <div class="card-header">
+      
+        Rendered
+      
+    </div>
+  
+  <div class="card-body">
+    
+    
+    
+      <p class="card-text">
+        
+          <pre><code class="language-treeview">./
+|-- ACTIVE_SERVICES.txt
+|-- ALL_SERVICES.txt
+|-- backup_databases.sh*
+|-- certs/
+|-- command.sh*
+|-- start.sh*
+|-- status.sh*
+|-- stop.sh*
+`-- volumes/
+</code></pre>
+
+        
+      </p>
+    
+  </div>
+  
+</div>
+
+
+  <div class="td-card card mb-4">
+  
+    <div class="card-header">
+      
+        Markdown
+      
+    </div>
+  
+  <div class="card-body">
+    
+    
+    
+      <p class="card-text">
+        
+          <pre><code class="language-mardown">```treeview
+./
+|-- ACTIVE_SERVICES.txt
+|-- ALL_SERVICES.txt
+|-- backup_databases.sh*
+|-- certs/
+|-- command.sh*
+|-- start.sh*
+|-- status.sh*
+|-- stop.sh*
+`-- volumes/
+```
+</code></pre>
+
+        
+      </p>
+    
+  </div>
+  
+</div>
+
+</div>
 <h3 id="inline-files">Inline files</h3>
 <p>Some code or text examples may be too large for a fenced block so you can put the content in a separate file and include it in-line like so.</p>
 
@@ -1615,7 +1708,7 @@ host01.company4.org	192.168.4.220	USA	LosAngeles-S19	ILM	C5-54-2	-08:00/-07:00
   </a>
 </span>
  for syntax highlighing code blocks.
-PrismJs supports a large number of different languages however only certain languages have been included with this site.
+<em>PrismJs</em> supports a large number of different languages however only certain languages have been included with this site.
 The language specified in the markdown code fence or in the <code>command-line</code> shortcode must be in the list of included languages.</p>
 <p>The list of included language names are:</p>
 <p><code>sh</code><br>
@@ -1635,6 +1728,7 @@ The language specified in the markdown code fence or in the <code>command-line</
 <code>sql</code><br>
 <code>text</code><br>
 <code>toml</code><br>
+<code>treeview</code><br>
 <code>xml</code><br>
 <code>yaml</code></p>
 <p>To include extra languages in this site you need to build a new version of the <code>prism.js</code> and <code>prism.css</code> files.
@@ -1658,7 +1752,7 @@ This can be done
 .
 When creating new versions of these file you must include the languages and plugins already included else you may break this site.
 The generated files are then copied over the top of <code>/static/css/prism.css</code> and <code>/static/js/prism.js</code>.
-Both files include a comment at the top with the link to the PrismJs download page with the currently included items selected.
+Both files include a comment at the top with the link to the <em>PrismJs</em> download page with the currently included items selected.
 Use this link then add any additional items, bearing in mind the size of the download and its impact on page load times.</p>
 <p>An example of the download link is 
 
@@ -1891,7 +1985,7 @@ root:
 	
 	
 	<div class="text-muted mt-5 pt-3 border-top">
-  Last modified March 6, 2026: <a href="https://github.com/gchq/stroom-docs/commit/0b60d48037976e43c7c9583d9a7d5aa34102ed7c">Merge branch &#39;7.9&#39; into 7.10 (0b60d48)</a>
+  Last modified March 17, 2026: <a href="https://github.com/gchq/stroom-docs/commit/b3996a7e8ecddb7ddad367b9eca85572570c3f51">Merge branch &#39;7.9&#39; into 7.10 (b3996a7)</a>
 </div>
 
 </div>

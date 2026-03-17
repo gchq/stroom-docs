@@ -556,17 +556,17 @@ What the previous page is is defined by the &lt;a href=&#34;../../community/docu
 &lt;ul&gt;
 &lt;li&gt;
 &lt;p&gt;A &lt;a href=&#34;#alerts&#34;&gt;link&lt;/a&gt; to a heading anchor on this page.&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-markdown&#34;&gt;[link](#alerts)
+&lt;pre&gt;&lt;code class=&#34;language-text&#34;&gt;[link](#alerts)
 &lt;/code&gt;&lt;/pre&gt;
 &lt;/li&gt;
 &lt;li&gt;
 &lt;p&gt;A &lt;a href=&#34;../using-images#captions&#34;&gt;link&lt;/a&gt; to a heading anchor on another page, using a relative link.&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-markdown&#34;&gt;[link](../using-images#captions)
+&lt;pre&gt;&lt;code class=&#34;language-text&#34;&gt;[link](../using-images#captions)
 &lt;/code&gt;&lt;/pre&gt;
 &lt;/li&gt;
 &lt;li&gt;
 &lt;p&gt;A &lt;a href=&#34;../../docs/style-guide/using-images#captions&#34;&gt;link&lt;/a&gt; to a heading anchor on another page, using an absolute link.&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-markdown&#34;&gt;[link](/docs/style-guide/using-images#captions)
+&lt;pre&gt;&lt;code class=&#34;language-text&#34;&gt;[link](/docs/style-guide/using-images#captions)
 &lt;/code&gt;&lt;/pre&gt;
 &lt;/li&gt;
 &lt;/ul&gt;
@@ -626,6 +626,7 @@ This should match the heading text on the Glossary page exactly, ignoring case.
 It will be converted to an HTML anchor so that you can link directly to the heading for the term in question.&lt;/p&gt;
 &lt;h2 id=&#34;code&#34;&gt;Code&lt;/h2&gt;
 &lt;h3 id=&#34;inline-code&#34;&gt;Inline code&lt;/h3&gt;
+&lt;p&gt;When you need to include chunks of code, filenames, or input/output values in-line in text, e.g. &lt;code&gt;config.yml&lt;/code&gt;, you can surround it with single backticks.&lt;/p&gt;
 &lt;div class=&#34;td-card-deck card-deck mb-4&#34;&gt;
   &lt;div class=&#34;td-card card mb-4&#34;&gt;
   
@@ -1239,6 +1240,97 @@ select database();
 &lt;/div&gt;
 
 &lt;/div&gt;
+&lt;h3 id=&#34;directory-listings&#34;&gt;Directory Listings&lt;/h3&gt;
+&lt;p&gt;Using the unix &lt;code&gt;tree&lt;/code&gt; command you can produce directory listings to use with the &lt;code&gt;treeview&lt;/code&gt; code block language.&lt;/p&gt;
+&lt;p&gt;The following is an example of how to produce the directory tree in ASCII form.&lt;/p&gt;
+
+  
+
+
+
+
+
+
+&lt;div class=&#34;code-toolbar&#34;&gt;
+  &lt;pre 
+    class=&#34;command-line language-bash&#34; 
+    data-user=&#34;user&#34; 
+    data-host=&#34;localhost&#34; 
+    data-continuation-str=&#34;\&#34;
+    data-filter-output=&#34;(out)&#34;&gt;&lt;code class=&#34;language-bash&#34;&gt;tree -n -F -L 1 --charset=ascii&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;div class=&#34;td-card-deck card-deck mb-4&#34;&gt;
+  &lt;div class=&#34;td-card card mb-4&#34;&gt;
+  
+    &lt;div class=&#34;card-header&#34;&gt;
+      
+        Rendered
+      
+    &lt;/div&gt;
+  
+  &lt;div class=&#34;card-body&#34;&gt;
+    
+    
+    
+      &lt;p class=&#34;card-text&#34;&gt;
+        
+          &lt;pre&gt;&lt;code class=&#34;language-treeview&#34;&gt;./
+|-- ACTIVE_SERVICES.txt
+|-- ALL_SERVICES.txt
+|-- backup_databases.sh*
+|-- certs/
+|-- command.sh*
+|-- start.sh*
+|-- status.sh*
+|-- stop.sh*
+`-- volumes/
+&lt;/code&gt;&lt;/pre&gt;
+
+        
+      &lt;/p&gt;
+    
+  &lt;/div&gt;
+  
+&lt;/div&gt;
+
+
+  &lt;div class=&#34;td-card card mb-4&#34;&gt;
+  
+    &lt;div class=&#34;card-header&#34;&gt;
+      
+        Markdown
+      
+    &lt;/div&gt;
+  
+  &lt;div class=&#34;card-body&#34;&gt;
+    
+    
+    
+      &lt;p class=&#34;card-text&#34;&gt;
+        
+          &lt;pre&gt;&lt;code class=&#34;language-mardown&#34;&gt;```treeview
+./
+|-- ACTIVE_SERVICES.txt
+|-- ALL_SERVICES.txt
+|-- backup_databases.sh*
+|-- certs/
+|-- command.sh*
+|-- start.sh*
+|-- status.sh*
+|-- stop.sh*
+`-- volumes/
+```
+&lt;/code&gt;&lt;/pre&gt;
+
+        
+      &lt;/p&gt;
+    
+  &lt;/div&gt;
+  
+&lt;/div&gt;
+
+&lt;/div&gt;
 &lt;h3 id=&#34;inline-files&#34;&gt;Inline files&lt;/h3&gt;
 &lt;p&gt;Some code or text examples may be too large for a fenced block so you can put the content in a separate file and include it in-line like so.&lt;/p&gt;
 
@@ -1349,7 +1441,7 @@ host01.company4.org	192.168.4.220	USA	LosAngeles-S19	ILM	C5-54-2	-08:00/-07:00
   &lt;/a&gt;
 &lt;/span&gt;
  for syntax highlighing code blocks.
-PrismJs supports a large number of different languages however only certain languages have been included with this site.
+&lt;em&gt;PrismJs&lt;/em&gt; supports a large number of different languages however only certain languages have been included with this site.
 The language specified in the markdown code fence or in the &lt;code&gt;command-line&lt;/code&gt; shortcode must be in the list of included languages.&lt;/p&gt;
 &lt;p&gt;The list of included language names are:&lt;/p&gt;
 &lt;p&gt;&lt;code&gt;sh&lt;/code&gt;&lt;br&gt;
@@ -1369,6 +1461,7 @@ The language specified in the markdown code fence or in the &lt;code&gt;command-
 &lt;code&gt;sql&lt;/code&gt;&lt;br&gt;
 &lt;code&gt;text&lt;/code&gt;&lt;br&gt;
 &lt;code&gt;toml&lt;/code&gt;&lt;br&gt;
+&lt;code&gt;treeview&lt;/code&gt;&lt;br&gt;
 &lt;code&gt;xml&lt;/code&gt;&lt;br&gt;
 &lt;code&gt;yaml&lt;/code&gt;&lt;/p&gt;
 &lt;p&gt;To include extra languages in this site you need to build a new version of the &lt;code&gt;prism.js&lt;/code&gt; and &lt;code&gt;prism.css&lt;/code&gt; files.
@@ -1392,7 +1485,7 @@ This can be done
 .
 When creating new versions of these file you must include the languages and plugins already included else you may break this site.
 The generated files are then copied over the top of &lt;code&gt;/static/css/prism.css&lt;/code&gt; and &lt;code&gt;/static/js/prism.js&lt;/code&gt;.
-Both files include a comment at the top with the link to the PrismJs download page with the currently included items selected.
+Both files include a comment at the top with the link to the &lt;em&gt;PrismJs&lt;/em&gt; download page with the currently included items selected.
 Use this link then add any additional items, bearing in mind the size of the download and its impact on page load times.&lt;/p&gt;
 &lt;p&gt;An example of the download link is 
 
