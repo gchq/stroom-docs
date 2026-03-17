@@ -62,7 +62,7 @@ This needs to be converted into plain Javascript to create a plain CSS file.
 
 The Script will look something like this (cut down for this example):
 
-````javascript 
+```javascript 
 (function() {
 var cssStr = "" +
 "/*" +
@@ -122,10 +122,10 @@ var cssStr = "" +
 "";
 d3.select(document).select("head").insert("style").text(cssStr);
 })();
-````
+```
 
 You will need to remove the quotes, + signs, prefix and suffix Javascript to end up with this:
-````css 
+```css 
 /*
  * Copyright 2016 Crown Copyright
  *
@@ -180,7 +180,7 @@ text {
 ::-webkit-scrollbar-corner {
   background: transparent;
 }
-````
+```
 
 Regular expression search-and-replace is very useful for this, using the terms `^"` and `" \+$`.
 
@@ -233,7 +233,7 @@ We need an HTML file which will form the core of our visualisation.
 This must be named `index.html` to be considered for loading by Stroom.
 
 It needs to look like this:
-````html
+```html
 <html>
   <head>
     <meta charset="UTF-8">
@@ -253,7 +253,7 @@ It needs to look like this:
     <!-- Empty -->
   </body>
 </html>
-````
+```
 
 All the assets we've uploaded need to be linked into the HTML file.
 
