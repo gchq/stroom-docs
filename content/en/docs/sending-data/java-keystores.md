@@ -18,20 +18,20 @@ If you need to create a Java keystore from a .crt and .key then this is how to d
 
 ### Convert your keys to der format
 
-```bash
+{{< command-line >}}
 openssl x509 -in <YOUR KEY>.crt -inform PEM -out <YOUR KEY>.crt.der -outform DER
 openssl pkcs8 -topk8 -nocrypt -in <YOUR KEY>.key -inform PEM -out <YOUR KEY>.key.der -outform DER
-```
+{{< /command-line >}}
 
 ### ImportKey
 Use the `ImportKey` class in the `stroom-java-client` library to import keys.
 
 For example:
 
-```bash
+{{< command-line >}}
 java ImportKey keystore=<YOUR KEY>.jks keypass=<YOUR PASSWORD> alias=<YOUR KEY> keyfile=<YOUR KEY>.key.der certfile=<YOUR KEY>.crt.der
 keytool -import -noprompt -alias CA -file <CA CERT>.crt -keystore ca.jks -storepass ca
-```
+{{< /command-line >}}
 
 ## Export
 ### ExportKey
@@ -39,8 +39,8 @@ Use the `ExportKey` class in the `stroom-java-client` library to export keys. If
 
 For example:
 
-```bash
+{{< command-line >}}
 java ExportKey keystore=<YOUR KEY>.jks keypass=<YOUR PASSWORD> alias=<YOUR KEY>
-```
+{{< /command-line >}}
 
 This will print both the key and certificate to standard out. This can then be copied into a PEM file for use with cURL or other similar application.

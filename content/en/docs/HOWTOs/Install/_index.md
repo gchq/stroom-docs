@@ -7,7 +7,7 @@ cascade:
   tags: 
     - installation
 description: >
-  Various How Tos convering installation of Stroom and its dependencies
+  Various How Tos covering installation of Stroom and its dependencies
 ---
 
 

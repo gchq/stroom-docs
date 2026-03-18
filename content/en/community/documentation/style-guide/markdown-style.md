@@ -239,7 +239,7 @@ This heading level is effectively level 5 on the page but not shown on the right
 Markdown supports an alternate style for headings, as shown below.
 **Don't** use this style as it is not clear from the symbols what the heading level is.
 
-```markddown
+```markdown
 
 Heading level 1
 ===============
@@ -403,35 +403,90 @@ This makes the file easier to edit and means the addition of one item in the mid
 
 ### Definition list
 
+The `:` character is used to mark the definition description, with the line above becoming the definition term.
+
+See [Which List to Use]({{< relref "#which-list-to-use" >}}) below for details of when to use Definition Lists.
+
+Each subsequent line in a definition description should be indented to line up with the start of the text on the first line.
+The definition description will be slightly indented when rendered to distinguish it from normal body text.
+
 {{< cardpane >}}
   {{< card header="Rendered" >}}
 Name
 : Godzilla
 
-Birthplace
-: Japan
-
 Color
 : Green
+
+Description
+: Godzilla is a multifaceted cultural icon, famously known as the "King of the Monsters."
+  Over 70 years of cinema, the character has been described in three primary ways: as a terrifying metaphor, a biological marvel, and a shifting personality. 
+
+  A "chimera" of various prehistoric animals, typically featuring the upright posture of a Tyrannosaurus rex, the dorsal plates of a Stegosaurus, and the long arms of an Iguanodon.
   {{< /card >}}
   {{< card header="Markdown" >}}
 ```markdown
 Name
 : Godzilla
 
-Birthplace
-: Japan
-
 Color
 : Green
+
+Description
+: Godzilla is a multifaceted cultural icon, famously known as the "King of the Monsters."
+  Over 70 years of cinema, the character has been described in three primary ways: as a terrifying metaphor, a biological marvel, and a shifting personality. 
+
+  A "chimera" of various prehistoric animals, typically featuring the upright posture of a Tyrannosaurus rex, the dorsal plates of a Stegosaurus, and the long arms of an Iguanodon.
 ```
   {{< /card >}}
 {{< /cardpane >}}
 
 
+### Which List to Use
+
+Definition lists work better when the definition is quite lengthy, i.e contains multiple sentences or paragraphs.
+For short definition descriptions, a bulleted list should be used instead.
+
+An example of where a bulleted list is preferable:
+
+* {{< stroom-icon "save.svg">}} - Save the document.
+* {{< stroom-icon "edit.svg">}} - Edit the document.
+* {{< stroom-icon "delete.svg">}} - Delete the document.
+
+Another example of where a bulleted list is preferable:
+
+* `proxy.zip` - A ZIP file containing the data and associated child streams.
+* `proxy.entries` - A list of the entries in the ZIP file.
+* `proxy.meta` - The meta data that is applicable to all streams in the ZIP file.
+
+An alternative is to use a table to achieve a similar result.
+
+| File  | Description |
+| - | - |
+| `proxy.zip` | A ZIP file containing the data and associated child streams. |
+| `proxy.entries` | A list of the entries in the ZIP file. |
+| `proxy.meta` | The meta data that is applicable to all streams in the ZIP file. |
+
+The following is an example of when a definition list is more appropriate:
+
+The Cat
+: Cats are small, agile predators equipped with retractable claws, sharp night vision, and exceptional hearing.
+  While they are highly effective hunters of small pests, their coats come in a beautiful variety of colors, lengths, and patterns.
+
+  Behaviorally, they are a mix of independent instincts and deep affection.
+  They communicate through purrs, meows, and subtle tail movements, easily transitioning from solitary prowling to curling up comfortably in a warm lap.
+
+The Dog
+: Dogs are incredibly diverse mammals that have been bred into a wide range of sizes, from the tiny Chihuahua to the massive Mastiff.
+  Despite these physical differences, they all share an incredible sense of smell and a deep-rooted pack instinct.
+
+  Famous for being "man's best friend," dogs are social, intelligent, and highly trainable.
+  They enthusiastically use barks, whines, and tail wags to communicate their loyalty, making them excellent working partners and devoted family companions.
+
+
 ## Tables
 
-Tables should ideally have its columns aligned in the markdown for clarity in the raw markdown.
+Tables should ideally have their columns aligned in the markdown for clarity in the raw markdown.
 
 ```markdown
 ## Ideally do this

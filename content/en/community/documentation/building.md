@@ -159,14 +159,14 @@ It does not auto-refresh like it does when running `./serve-site.sh` on your loc
 
 ### Converting the PlantUML files to SVG
 
-_stroom-docs_ makes used of {{< external-link "PlantUML" "https://plantuml.com" >}} for a lot of its diagrams.
+_stroom-docs_ makes use of {{< external-link "PlantUML" "https://plantuml.com" >}} for a lot of its diagrams.
 These are stored in the repository as `.puml` text files.
 In order that they can be rendered in the site they need to be converted into SVGs first.
 
 {{% note %}}
 Docsy has the capability to render PlantUML content in fenced code blocks on the fly.
 This capability makes use of internet based servers to do the conversion therefore it is not suitable for this site as this site needs to available for deployment in environments with no internet access.
-All PlantUML content should authored in `.puml` files and converted at build time.
+All PlantUML content should be authored in `.puml` files and converted at build time.
 {{% /note %}}
 
 To convert all `.puml` files into sibling `.puml.svg` files, run this from the repository root:
@@ -231,7 +231,7 @@ This will generate all the static content and place it in `public/`.
 ### Generating the PDF
 
 Every page has a _Print entire section_ link that will display a printable view of that section and its children.
-In addition to this the GitHub Actions we generate a PDF of the `docs` section and all its children, i.e. all of the documentation (but not News/Releases or Community) in one PDF.
+In addition to this, the GitHub Actions build generates a PDF of the `docs` section and all its children, i.e. all of the documentation (but not News/Releases or Community) in one PDF.
 This makes the documentation available for offline use.
 
 To test the PDF generation, run this from the repository root:

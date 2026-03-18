@@ -38,10 +38,10 @@ Perform the following
 - Log onto the Stroom database node (stroomdb0.strmdev00.org) as any user.
 - Log onto both Stroom nodes and become the `stroomuser` and monitor each node's Stroom proxy service using the `Tp` bash macro. That is, on each node, run
 
-```bash
+{{< command-line >}}
 sudo -i -u stroomuser
 Tp
-```
+{{< /command-line >}}
 
 You will note events of the form from
 `stroomp00.strmdev00.org`:
@@ -64,9 +64,9 @@ and from `stroomp01.strmdev00.org`:
 ```
  - On the Stroom database node, execute the command
 
-```bash
+{{< command-line >}}
 curl -k --data-binary @/etc/group "https://stroomp.strmdev00.org/stroom/datafeed" -H "Feed:TEST-FEED-V1_0" -H "System:EXAMPLE_SYSTEM" -H "Environment:EXAMPLE_ENVIRONMENT"
-```
+{{< /command-line >}}
 
 If you are monitoring the proxy log of `stroomp00.strmdev00.org` you would see two new logs indicating the successful arrival of the file
 
@@ -78,9 +78,9 @@ If you are monitoring the proxy log of `stroomp00.strmdev00.org` you would see t
 - On the Stroom database node, again execute the command
 
 
-```bash
+{{< command-line >}}
 curl -k --data-binary @/etc/group "https://stroomp.strmdev00.org/stroom/datafeed" -H "Feed:TEST-FEED-V1_0" -H "System:EXAMPLE_SYSTEM" -H "Environment:EXAMPLE_ENVIRONMENT"
-```
+{{< /command-line >}}
 
 If you are monitoring the proxy log of `stroomp01.strmdev00.org` you should see a new log. As foreshadowed, we didn't as the time delay resulted
 in the first node getting the file. That is `stroomp00.strmdev00.org` log file gained the two entries
@@ -128,9 +128,9 @@ in the first node getting the file. That is `stroomp00.strmdev00.org` log file g
 At this point we will see what the proxies have received.
 - On each node run the command
 
-```bash
+{{< command-line >}}
 ls -l /stroomdata/stroom-working*/proxy
-```
+{{< /command-line >}}
 On `stroomp00` we see
 
 ```text
@@ -156,9 +156,9 @@ total 12
 
 which corresponds to the seven posts of data and the associated events in the proxy logs. To see the contents of one of these files we execute on either node, the command
 
-```bash
+{{< command-line >}}
 unzip -c /stroomdata/stroom-working*/proxy/001.zip
-```
+{{< /command-line >}}
 
 to see
 
@@ -250,18 +250,18 @@ We have effectively tested the receipt of our data and the load balancing of the
 In this test we will use the direct feed interface of the Stroom application, rather than sending data via the proxy.
 One would normally use this interface for time sensitive data which shouldn't aggregate in a proxy waiting for
 the Stroom application to collect it. In this situation we use the command
-```bash
+{{< command-line >}}
 curl -k --data-binary @/etc/group "https://stroomp.strmdev00.org/stroom/datafeeddirect" -H "Feed:TEST-FEED-V1_0" -H "System:EXAMPLE_SYSTEM" -H "Environment:EXAMPLE_ENVIRONMENT"
-```
+{{< /command-line >}}
 
 To prepare for this test, we monitor the Stroom application log using the `T` bash alias on each node. So on each node run the command
 
-```bash
+{{< command-line >}}
 sudo -i -u stroomuser
 T
-```
+{{< /command-line >}}
 
-On each node you should see _LifecyleTask_ events, for example,
+On each node you should see _LifecycleTask_ events, for example,
 
 ```text
 2017-01-14T07:42:08.281Z INFO  [Stroom P2 #7 - LifecycleTask] spring.StroomBeanMethodExecutable (StroomBeanMethodExecutable.java:47) - Executing nodeStatusExecutor.exec
@@ -349,16 +349,16 @@ Perform the following
  - Log onto the Forwarding Proxy node and become the `stroomuser` and monitor the Stroom proxy service using the `Tp` bash macro.
  - Log onto the destination Stroom nodes and become the `stroomuser` and monitor each node's Stroom proxy service using the `Tp` bash macro. That is, on each node, run
 
-```bash
+{{< command-line >}}
 sudo -i -u stroomuser
 Tp
-```
+{{< /command-line >}}
 
 - On the 'posting' node, run the command
 
-```bash
+{{< command-line >}}
 curl -k --data-binary @/etc/group "https://stroomfp0.strmdev00.org/stroom/datafeed" -H "Feed:TEST-FEED-V1_0" -H "System:EXAMPLE_SYSTEM" -H "Environment:EXAMPLE_ENVIRONMENT"
-```
+{{< /command-line >}}
 
 In the Stroom Forwarding proxy log, `~/stroom-proxy/instance/logs/stroom.log`, you will see the arrival of the
 file as per the _datafeed.DataFeedRequestHandler$1_ event running under, in this case, the _ajp-apr-9009-exec-1_ thread.
@@ -407,16 +407,16 @@ Perform the following
 - Log onto any host where you will perform the `curl` post
 - Log onto the Standalone Proxy node and become the `stroomuser` and monitor the Stroom proxy service using the `Tp` bash macro. That is run
 
-```bash
+{{< command-line >}}
 sudo -i -u stroomuser
 Tp
-```
+{{< /command-line >}}
 
 - On the 'posting' node, run the command
 
-```bash
+{{< command-line >}}
 curl -k --data-binary @/etc/group "https://stroomsap0.strmdev00.org/stroom/datafeed" -H "Feed:TEST-FEED-V1_0" -H "System:EXAMPLE_SYSTEM" -H "Environment:EXAMPLE_ENVIRONMENT"
-```
+{{< /command-line >}}
 
 In the stroom proxy log, `~/stroom-proxy/instance/logs/stroom.log`, you will see the arrival of the file via both the _handler.LogRequestHandler_ and _datafeed.DataFeedRequestHandler$1_ events running under, in this case, the _ajp-apr-9009-exec-1_ thread.
 
@@ -429,9 +429,9 @@ In the stroom proxy log, `~/stroom-proxy/instance/logs/stroom.log`, you will see
 ```
 
 Further, if you check the proxy's storage directory, you will see the file `001.zip`. The file names number upwards from 001.
-```bash
+{{< command-line >}}
 ls -l /stroomdata/stroom-working-sap0/proxy
-```
+{{< /command-line >}}
 shows
 ```text
 [stroomuser@stroomsap0 ~]$ ls -l /stroomdata/stroom-working-sap0/proxy

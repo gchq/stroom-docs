@@ -35,15 +35,17 @@ To deploy Stroom using Apache's httpd web service as a front end (https) and Apa
 
 Most of the required software are packages available via standard repositories and hence we can simply execute
 
-```bash
+{{< command-line >}}
 sudo yum -y install apr apr-util apr-devel gcc httpd httpd-devel mod_ssl epel-release
 sudo yum -y install tomcat-native
-```
+{{< /command-line >}}
+
 The reason for the distinct `tomcat-native` installation is that this package is from the {{< external-link "EPEL" "https://fedoraproject.org/wiki/EPEL" >}} repository so it must be installed first.
 
 For the Apache mod_jk Tomcat connector we need to acquire a recent {{< external-link "release" "https://tomcat.apache.org/connectors-doc/" >}} and install it.
 The following commands achieve this for the 1.2.42 release.
-```bash
+
+{{< command-line >}}
 sudo bash
 cd /tmp
 V=1.2.42
@@ -54,7 +56,7 @@ cd tomcat-connectors-*-src/native
 make && make install
 cd /tmp
 rm -rf tomcat-connectors-*-src
-```
+{{< /command-line >}}
 
 Although you could remove the gcc compiler at this point, we leave it installed as one _should_ continue to upgrade the Tomcat Connectors to later releases.
 
@@ -69,7 +71,7 @@ the root of the node will present the Stroom UI. This is not needed if you are d
 
 ### Forwarding file for Stroom User Interface deployments
 
-```bash
+{{< command-line >}}
 F=/var/www/html/index.html
 printf '<html>\n' > ${F}
 printf '<head>\n' >> ${F}
@@ -77,7 +79,7 @@ printf '  <meta http-equiv="Refresh" content="0; URL=stroom"/>\n' >> ${F}
 printf '</head>\n' >> ${F}
 printf '</html>\n' >> ${F}
 chmod 644 ${F}
-```
+{{< /command-line >}}
 
 Remember, deploy this file on all nodes running the Stroom Application.
 
@@ -85,15 +87,14 @@ Remember, deploy this file on all nodes running the Stroom Application.
 ### Httpd.conf Configuration
 
 We modify `/etc/httpd/conf/httpd.conf` on all nodes, but backup the file first with
-```bash
+{{< command-line >}}
 cp /etc/httpd/conf/httpd.conf /etc/httpd/conf/httpd.conf.ORIG
-```
+{{< /command-line >}}
 
 Irrespective of the Stroom scenario being deployed - Multi Node Stroom (Application and Proxy), single Standalone Stroom Proxy or single Forwarding
 Stroom Proxy, the configuration of the `/etc/httpd/conf/httpd.conf` file is the same.
 
-We start by modifying the configuration file by,
-add just before the ServerRoot directive the following directives which are designed to make the httpd service more secure.
+We start by modifying the configuration file by adding just before the ServerRoot directive the following directives which are designed to make the httpd service more secure.
 
 ```text
 # Stroom Change: Start - Apply generic security directives
@@ -824,9 +825,9 @@ done
 Now depending in the node you are on, copy the relevant `workers.properties.nodename` file to `/etc/httpd/conf/workers`.properties.
 The following command makes this simple.
 
-```bash
+{{< command-line >}}
 cp workers.properties.`hostname -s` /etc/httpd/conf/workers.properties
-```
+{{< /command-line >}}
 
 If you were to add an additional node to a multi node cluster, say the node `stroomp02.strmdev00.org`, then you would re-run the above script with
 
@@ -963,28 +964,28 @@ chmod 640 ${F}
 
 Now tidy up the SELinux context for access on all nodes and files via the commands
 
-```bash
+{{< command-line >}}
 setsebool -P httpd_enable_homedirs on
 setsebool -P httpd_can_network_connect on
 chcon --reference /etc/httpd/conf.d/README /etc/httpd/conf.d/mod_jk.conf
 chcon --reference /etc/httpd/conf/magic /etc/httpd/conf/workers.properties
-```
+{{< /command-line >}}
 
 We also enable both http and https services via the firewall on all nodes. If you don't want to present a http access point,
 then don't enable it in the firewall setting. This is done with
 
-```bash
+{{< command-line >}}
 firewall-cmd --zone=public --add-service=http --permanent
 firewall-cmd --zone=public --add-service=https --permanent
 firewall-cmd --reload
 firewall-cmd --zone=public --list-all
-```
+{{< /command-line >}}
 
-Finally enable then start the httpd service, correcting any errors.
-It should be noted that on any errors, the suggestion of a `systemctl` status or viewing the journal are good, but also review information in the httpd error logs found in `/var/log/httpd/`.
+Finally enable then start the httpd service, correcting any errors. It should be noted that on any errors,
+the suggestion of a systemctl status or viewing the journal are good, but also review information in the httpd error logs found in `/var/log/httpd/`.
 
-```bash
+{{< command-line >}}
 systemctl enable httpd.service
 systemctl start httpd.service
-```
+{{< /command-line >}}
 

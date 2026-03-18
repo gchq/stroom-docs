@@ -128,7 +128,7 @@ If you already have a section that you want to add a new child page to then you 
     └── another-page.md
 ```
 
-To add a new page simple create a `.md` file for the new page in the section directory, e.g.
+To add a new page simply create a `.md` file for the new page in the section directory, e.g.
 
 ```text
 └── my-section/

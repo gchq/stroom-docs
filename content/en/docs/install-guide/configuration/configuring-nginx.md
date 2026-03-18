@@ -35,7 +35,7 @@ The main file for configuring Nginx is `nginx.conf.template` and this makes use 
 
 The purpose of the various files is as follows:
 
-* `nginx.conf.template` - Top level configuration file that orchestrate the other files.
+* `nginx.conf.template` - Top level configuration file that orchestrates the other files.
 * `logging.conf.template` - Configures the logging output, its content and format.
 * `server.conf.template` - Configures things like SSL settings, timeouts, ports, buffering, etc.
 * Upstream configuration

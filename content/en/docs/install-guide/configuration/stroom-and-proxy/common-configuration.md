@@ -104,9 +104,9 @@ For more details on the link between this YAML file and Stroom Properties, see [
 
 The YAML configuration file supports Bash style variable substitution in the form of:
 
-```bash
+{{< command-line >}}
 ${ENV_VAR_NAME:-value_if_not_set}
-```
+{{< /command-line >}}
 
 This allows values to be set either directly in the file or via an environment variable, e.g.
 

@@ -11,7 +11,7 @@ description: >
 
 ## Pre-requisites for a release
 
-The follow need to be completed before a release is made.
+The following need to be completed before a release is made.
 
 
 ### Logging changes
@@ -166,7 +166,7 @@ Semantic versioning is used, and this should be adhered to, see {{< external-lin
 * `v3.3.0` - Initial release of v3.3, with an associated `3.3` branch.
 * `v3.3.1` - A patch release to v3.3 on the `3.3` branch.
 * `v3.4.0-alpha.1` - An alpha release of v3.4, either on `master` or a `3.4` branch
-* `v3.4.0-beta.1` - An beta release of v3.4, either on `master` or a `3.4` branch
+* `v3.4.0-beta.1` - A beta release of v3.4, either on `master` or a `3.4` branch
 
 
 ## To Perform a Local Build
