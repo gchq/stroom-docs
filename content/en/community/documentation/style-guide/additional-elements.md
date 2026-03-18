@@ -17,7 +17,7 @@ The advantage of the shortcode is that Hugo will check for broken links when bui
 
 ### External links
 
-As this site is deployed to environments with no internet connect and is also released in PDF form it is important that any links to locations outside of the this site (i.e. on the internet) are clearly marked.
+As this site is deployed to environments with no internet connection and is also released in PDF form it is important that any links to locations outside of the this site (i.e. on the internet) are clearly marked.
 To include an external link do the following:
 
 * This is a link to {{< external-link "Stroom on Github" "https://github.com/gchq/stroom" >}} with a title.
@@ -101,7 +101,7 @@ If you want to avoid confusion and removed the risk of anchors breaking if new h
 ### Example {#oranges-example}
 ```
 
-This is only worth doing if you want to link to these heading.
+This is only worth doing if you want to link to these headings.
 
 
 ### Shortcode internal page link examples
@@ -234,19 +234,19 @@ in the rendered site.
 
 * A [link](#alerts) to a heading anchor on this page.
 
-  ```markdown
+  ```text
   [link](#alerts)
   ```
 
 * A [link](../using-images#captions) to a heading anchor on another page, using a relative link.
 
-  ```markdown
+  ```text
   [link](../using-images#captions)
   ```
 
 * A [link](/docs/style-guide/using-images#captions) to a heading anchor on another page, using an absolute link.
 
-  ```markdown
+  ```text
   [link](/docs/style-guide/using-images#captions)
   ```
 
@@ -285,8 +285,9 @@ It will be converted to an HTML anchor so that you can link directly to the head
 
 ## Code
 
-
 ### Inline code
+
+When you need to include chunks of code, filenames, or input/output values in-line in text, e.g. `config.yml`, you can surround it with single backticks.
 
 {{< cardpane >}}
   {{< card header="Rendered" >}}
@@ -376,7 +377,7 @@ This shortcode takes the following named arguments:
   Defaults to `text`.
 * **lines** - Whether to display line numbers or not (`true`|`false`).
   Defaults to `true`.
-* **highlight** - A comma separate list of lines to highlight.
+* **highlight** - A comma-separated list of lines to highlight.
   Ranges of line numbers can be specified, e.g. `2-8,13,25-30`.
   Defaults to no line highlighting.
 * **start** - The line number to start at.
@@ -507,7 +508,7 @@ To display a blank line with no prompt then have a line with just `(out)` in it.
 
 If your shell command is very long then you can split it into multiple lines using the shell line continuation character `\` which must be the last character on the line.
 If this character is present then it will be rendered with a different prompt to indicate it is a continuation.
-Readers can then copy/past the muli-line command into a shell and run it.
+Readers can then copy/paste the multi-line command into a shell and run it.
 
 {{< cardpane >}}
   {{< card header="Rendered" >}}
@@ -596,6 +597,51 @@ select database();
 {{< /cardpane >}}
 
 
+### Directory Listings
+
+Using the unix `tree` command you can produce directory listings to use with the `treeview` code block language.
+
+The following is an example of how to produce the directory tree in ASCII form.
+
+{{< command-line >}}
+tree -n -F -L 1 --charset=ascii
+{{</ command-line >}}
+
+{{< cardpane >}}
+  {{< card header="Rendered" >}}
+```treeview
+./
+|-- ACTIVE_SERVICES.txt
+|-- ALL_SERVICES.txt
+|-- backup_databases.sh*
+|-- certs/
+|-- command.sh*
+|-- start.sh*
+|-- status.sh*
+|-- stop.sh*
+`-- volumes/
+```
+  {{< /card >}}
+
+  {{< card header="Markdown" >}}
+````mardown
+```treeview
+./
+|-- ACTIVE_SERVICES.txt
+|-- ALL_SERVICES.txt
+|-- backup_databases.sh*
+|-- certs/
+|-- command.sh*
+|-- start.sh*
+|-- status.sh*
+|-- stop.sh*
+`-- volumes/
+```
+````
+  {{< /card >}}
+{{< /cardpane >}}
+
+
 ### Inline files
 
 Some code or text examples may be too large for a fenced block so you can put the content in a separate file and include it in-line like so.
@@ -615,8 +661,8 @@ Examples of how to use in-line files are:
 
 ### Supported languages
 
-This site uses {{< external-link "Prismjs" "https://prismjs.com/index.html" >}} for syntax highlighing code blocks.
-PrismJs supports a large number of different languages however only certain languages have been included with this site.
+This site uses {{< external-link "Prismjs" "https://prismjs.com/index.html" >}} for syntax highlighting code blocks.
+_PrismJs_ supports a large number of different languages however only certain languages have been included with this site.
 The language specified in the markdown code fence or in the `command-line` shortcode must be in the list of included languages.
 
 The list of included language names are:
@@ -638,14 +684,15 @@ The list of included language names are:
 `sql`  
 `text`  
 `toml`  
+`treeview`  
 `xml`  
 `yaml`  
 
 To include extra languages in this site you need to build a new version of the `prism.js` and `prism.css` files.
 This can be done {{< external-link "here" "https://prismjs.com/index.html#supported-languages" >}}.
-When creating new versions of these file you must include the languages and plugins already included else you may break this site.
+When creating new versions of these files you must include the languages and plugins already included else you may break this site.
 The generated files are then copied over the top of `/static/css/prism.css` and `/static/js/prism.js`.
-Both files include a comment at the top with the link to the PrismJs download page with the currently included items selected.
+Both files include a comment at the top with the link to the _PrismJs_ download page with the currently included items selected.
 Use this link then add any additional items, bearing in mind the size of the download and its impact on page load times.
 
 An example of the download link is {{< external-link "https://prismjs.com/download.html#themes=prism&languages=markup+css+clike+javascript+bash+csv+groovy+java+jq+json+markdown+python+regex+scss+sql+toml+yaml&plugins=line-highlight+line-numbers+command-line+toolbar+copy-to-clipboard+treeview */" >}}

@@ -74,6 +74,8 @@ main() {
     echo -e "  * Add a new regex pattern to (${YELLOW}ignoreRegExpList${NC}) in ${BLUE}cspell.yaml${NC} to ignore sections of text"
     echo -e "  * Surround the bad text with ${BLUE}\`<!-- cSpell:enable -->\`${NC} and ${BLUE}\`<!-- cSpell:disable -->\`${NC}"
     exit 1
+  else
+    echo -e "${GREEN}Spelling check passed.${NC}"
   fi
 }
 

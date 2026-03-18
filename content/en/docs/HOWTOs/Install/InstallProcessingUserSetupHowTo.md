@@ -22,9 +22,10 @@ description: >
 To automate the running of a Stroom Proxy or Application service under our Stroom processing user, `stroomuser`, there are a number of configuration files and scripts we need to deploy.
 
 We first become the stroomuser
-```bash
+
+{{< command-line >}}
 sudo -i -u stroomuser
-```
+{{< /command-line >}}
 
 ### Environment Variable files
 When either a Stroom Proxy or Application starts, it needs predefined environment variables. We set these up in the `stroomuser` home directory.
@@ -91,10 +92,10 @@ printf 'function Tp {\n  tail --follow=name ~/stroom-proxy/instance/logs/stroom.
 
 And test it has set up correctly
 
-```bash
+{{< command-line >}}
 . ./.bashrc
 which java
-```
+{{< /command-line >}}
 which should return `/usr/lib/jvm/java-1.8.0/bin/java`
 
 
@@ -197,6 +198,6 @@ chmod 640 ${F}
 Now we enable the Stroom service, but we **DO NOT** start it as we will manually start the Stroom services as part of
 the installation process.
 
-```bash
+{{< command-line >}}
 systemctl enable stroom-services.service
-```
+{{< /command-line >}}

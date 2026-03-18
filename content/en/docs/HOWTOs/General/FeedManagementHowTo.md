@@ -99,7 +99,7 @@ Enter **Proxy** as the folder **Name:**
 
 and press {{< stroom-btn "Ok" >}}.
 
-At this you will be presented with a new {{< stroom-tab "Folder.svg" "Proxy" "active" >}} tab for the new sub-folder and we note that it has been added below the **Event Sources** folder in the Explorer tree.
+At this point, you will be presented with a new {{< stroom-tab "Folder.svg" "Proxy" "active" >}} tab for the new sub-folder and we note that it has been added below the **Event Sources** folder in the Explorer tree.
 
 {{< screenshot "HOWTOs/UI-EventSources-05.png" >}}Stroom UI Create Folder - New sub folder tab{{< /screenshot >}}
 

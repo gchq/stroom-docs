@@ -227,7 +227,7 @@ In order to gain permissions to do anything in Stroom a Stroom administrator wil
 
 ## Configure Stroom-Proxy for KeyCloak
 
-In order to user Stroom-Proxy with OIDC
+In order to use Stroom-Proxy with OIDC
 
 Edit the `config.yml` file and set the following values
 

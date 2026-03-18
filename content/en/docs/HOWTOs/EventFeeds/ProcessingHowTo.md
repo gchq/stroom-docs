@@ -37,7 +37,7 @@ The following assumptions are used in this document.
 ## Event Source
 
 As mentioned, we will use BlueCoat Proxy logs as a sample event source.
-Although BlueCoat logs can be customised, the default is to use the W2C Extended Log File Format (ELFF).
+Although BlueCoat logs can be customised, the default is to use the W3C Extended Log File Format (ELFF).
 Our sample data set looks like:
 
 {{< textfile "HOWTOs/EventFeeds/ProcessingHowTo/sampleBluecoat.log" "text" >}}Sample BlueCoat logs{{</textfile >}}
@@ -211,10 +211,10 @@ then pressing {{< stroom-btn "Ok" >}} to see the inherited pipeline structure
 
 For the purpose of this HOWTO, we are only interested in two of the eleven (11) elements in this pipeline
 
- * the Text Converter labeled *dsParser*
- * the XSLT Translation labeled *translationFilter*
+ * the Text Converter labelled *dsParser*
+ * the XSLT Translation labelled *translationFilter*
 
-We need to assign our BlueCoat-Proxy-V1.0-EVENTS Text Converter and XSLT Translation to these elements respectively.
+We need to assign our `BlueCoat-Proxy-V1.0-EVENTS` Text Converter and XSLT Translation to these elements respectively.
 
 
 #### Text Converter Configuration
@@ -397,7 +397,7 @@ The bottom pane will show any errors the selected pipeline element has produced 
 The authoring of this data splitter translation is outside the scope of this HOWTO.
 It is recommended that one reads [Data Splitter]({{< relref "../../user-guide/data-splitter" >}}) and review the various samples found in the Stroom Context packs published, or the Pull Requests of {{< external-link "github.com/gchq/stroom-content" "https://github.com/gchq/stroom-content" >}}.
 
-For the purpose of this HOWTO, the Datasplitter appears below.
+For the purpose of this HOWTO, the Data Splitter appears below.
 The author believes the comments should support the understanding of the transformation.
 
 {{< textfile "HOWTOs/EventFeeds/ProcessingHowTo/BlueCoat.ds" "xml" >}}BlueCoat datasplitter{{</textfile >}}
@@ -420,7 +420,7 @@ So, if one was to press the {{< stroom-icon name="refresh.svg" title="Refresh st
 
 {{< screenshot "HOWTOs/UI-FeedProcessing-33.png" >}}Stroom UI Create Feed - Translation - Stepping dsParser textConverter 1{{< /screenshot >}}
 
-We see that the _input_ pane has the first line of input from our sample file and the _output_ pane has an XML **record** structure where we have defined a **data** element with the _name_ attribute of _bc_software_ and its _value_ attribute of _SGOS 3.2.4.28_.
+We see that the _input_ pane has the first line of input from our sample file and the _output_ pane has an XML **record** structure where we have defined a **data** element with the _name_ attribute of _bc_software_ and its _value_ attribute of `SGOS 3.2.4.28`.
 The definition of the **record** structure can be found in the **System/XML Schemas/records** folder.
 
 This is the result of the code in our editor
@@ -512,7 +512,7 @@ This code segment is
     xmlns:xs="http://www.w3.org/2001/XMLSchema"
     version="3.0">
 
-  <!-- Bluecoat Proxy logs in W2C Extended Log File Format (ELF) -->
+  <!-- Bluecoat Proxy logs in W3C Extended Log File Format (ELF) -->
 
   <!-- Ingest the record key value pair elements -->
   <xsl:template match="records">
@@ -586,7 +586,7 @@ Thus, our translation now is
     xmlns:xs="http://www.w3.org/2001/XMLSchema" 
     version="3.0">
 
-  <!-- Bluecoat Proxy logs in W2C Extended Log File Format (ELF) -->
+  <!-- Bluecoat Proxy logs in W3C Extended Log File Format (ELF) -->
 
   <!-- Ingest the record key value pair elements -->
   <xsl:template match="records">
@@ -877,7 +877,7 @@ To configure a Processor we select the `Processors` hyperlink of the **BlueCoat-
 {{< screenshot "HOWTOs/UI-FeedProcessing-51.png" >}}Stroom UI Enable Processing - Processors table{{< /screenshot >}}
 
 We add a Processor by pressing the add processor button {{< stroom-icon "add.svg" "Add processor">}} in the top left hand corner.
-At this point you will be presented with an `Add Filter` configuration window.
+At this point, you will be presented with an `Add Filter` configuration window.
 
 {{< screenshot "HOWTOs/UI-FeedProcessing-52.png" >}}Stroom UI Enable Processing - Add Filter 1{{< /screenshot >}}
 
