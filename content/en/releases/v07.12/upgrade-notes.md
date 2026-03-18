@@ -1,0 +1,106 @@
+---
+title: "Upgrade Notes"
+linkTitle: "Upgrade Notes"
+weight: 40
+date: 2026-03-18
+tags: 
+description: >
+  Required actions and information relating to upgrading to Stroom version 7.12.
+---
+
+{{% warning %}}
+Please read this section carefully in case any of it is relevant to your Stroom/Stroom-Proxy instance.
+{{% /warning %}}
+
+
+## Upgrade Path
+
+You can upgrade to v7.12.x from any v7.x release that is older than the version being upgraded to.
+
+If you want to upgrade to v7.12.x from v5.x or v6.x we recommend you do the following:
+
+1. Upgrade v5.x to the latest patch release of v6.0.
+1. Upgrade v6.x to the latest patch release of v7.0.
+1. Upgrade v7.x to the latest patch release of v7.12.
+
+{{% warning %}}
+v7.12 **cannot** migrate content in legacy formats, i.e. content created in v5/v6.
+You must therefore upgrade to v7.0.x first to migrate this content, before upgrading to v7.12.x.
+{{% /warning %}}
+
+
+## Java Version
+
+Stroom v7.12 requires Java 25.
+
+{{% warning %}}
+This is different to the java version required for Stroom v7.9 (Java 21).
+{{% /warning %}}
+
+Ensure the Stroom and Stroom-Proxy hosts are running the latest patch release of Java v25.
+
+
+## Configuration File Changes
+
+<!--
+Check changes using something like this (run from an up-to-date stroom repo):
+old_ver=7.11
+new_ver=7.12
+git diff origin/${old_ver}..origin/${new_ver} stroom-config/stroom-config-app/src/test/resources/stroom/config/app/expected.yaml
+git diff origin/${old_ver}..origin/${new_ver} stroom-proxy/stroom-proxy-app/src/test/resources/stroom/dist/proxy-expected.yaml
+-->
+
+### Common Configuration Changes
+
+These changes are common to both Stroom and Stroom Proxy.
+
+{{% todo %}}
+Complete this section.
+{{% /todo %}}
+
+
+### Stroom's `config.yml`
+
+{{% todo %}}
+Complete this section.
+{{% /todo %}}
+
+
+### Stroom-Proxy's `config.yml`
+
+{{% todo %}}
+Complete this section.
+{{% /todo %}}
+
+
+## Database Migrations
+
+When Stroom boots for the first time with a new version it will run any required database migrations to bring the database schema up to the correct version.
+
+{{% warning %}}
+It is highly recommended to ensure you have a database backup in place before booting stroom with a new version.
+This is to mitigate against any problems with the migration.
+It is also recommended to test the migration against a copy of your database to ensure that there are no problems when you do it for real.
+{{% /warning %}}
+
+On boot, Stroom will ensure that the migrations are only run by a single node in the cluster.
+This will be the node that reaches that point in the boot process first.
+All other nodes will wait until that is complete before proceeding with the boot process.
+
+It is recommended however to use a single node to execute the migration.
+To avoid Stroom starting up and beginning processing you can use the `migrage` command to just migrate the database and not fully boot Stroom.
+See [`migrage` command]({{< relref "/docs/user-guide/tools/command-line#migrate" >}}) for more details.
+
+
+<!-- 
+Run stroom.db.migration.TestListDbMigrations.listDbMigrationsForLatestVersion() to generate the content for
+this section
+-->
+
+
+### Migration Scripts
+ 
+{{% todo %}}
+Complete this section.
+{{% /todo %}}
+
