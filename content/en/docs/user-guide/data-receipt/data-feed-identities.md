@@ -1,11 +1,11 @@
 ---
-title: "Data Feed Keys"
-linkTitle: "Data Feed Keys"
-weight: 30
+title: "Data Feed Identities"
+linkTitle: "Data Feed Identities"
+weight: 50
 date: 2026-02-05
 tags: 
 description: >
-  Data Feed Keys is an authentication mechanism designed specifically for the `/datafeed` API.
+  Data Feed Identities is an authentication mechanism designed specifically for the `/datafeed` API.
 ---
 
 {{% todo %}}
