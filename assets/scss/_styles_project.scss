@@ -218,15 +218,20 @@ html {
 ////////////////////////
 
 .td-content {
-  dl dd {
-    // Slightly indent the definition list defintion, so it can be distinguished from the body text after
-    // the definition list.
-    padding-left: 0.5em;
+  dl {
+    dt {
+      font-style: italic;
+    }
+    dd {
+      // Slightly indent the definition list defintion, so it can be distinguished from the body text after
+      // the definition list.
+      padding-left: 0.5em;
 
-    // If <dd> contains multiple paragraphs, the first one is not wrapped in a <p> so doesn't get the
-    // margin-top that is normally applied to all <p> elements.
-    p:first-child {
-      margin-top: 1em;
+      // If <dd> contains multiple paragraphs, the first one is not wrapped in a <p> so doesn't get the
+      // margin-top that is normally applied to all <p> elements.
+      p:first-child {
+        margin-top: 1em;
+      }
     }
   }
 }
@@ -272,6 +277,8 @@ ul li p {
     font-weight: bold;
     padding: unset !important;
     margin: unset !important;
+    // We don't want it being broken up if near the end of the line
+    white-space: pre;
   }
 
   dl dt code {

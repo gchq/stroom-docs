@@ -408,7 +408,9 @@ The `:` character is used to mark the definition description, with the line abov
 See [Which List to Use]({{< relref "#which-list-to-use" >}}) below for details of when to use Definition Lists.
 
 Each subsequent line in a definition description should be indented to line up with the start of the text on the first line.
-The definition description will be slightly indented when rendered to distinguish it from normal body text.
+
+You do not need to apply any markdown styling to the definition title as this will be done by CSS.
+The definition description will also be slightly indented when rendered to distinguish it from normal body text.
 
 {{< cardpane >}}
   {{< card header="Rendered" >}}
