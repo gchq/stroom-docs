@@ -255,11 +255,8 @@ All the assets we've uploaded need to be linked into the HTML file.
 
 Note that there are a couple of files that use the `/ui/` path:
 
-`/ui/css/vis.css`
-: Stroom visualisation CSS
-
-`/ui/vis.js`
-: Holds the code that Stroom uses to communicate with the visualisation.
+* `/ui/css/vis.css` Stroom visualisation CSS
+* `/ui/vis.js` Holds the code that Stroom uses to communicate with the visualisation.
 
 Both of these files must be included in your index.html for the visualisation to work.
 

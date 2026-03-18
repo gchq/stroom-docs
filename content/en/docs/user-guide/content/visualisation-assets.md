@@ -35,30 +35,23 @@ However, you can create a directory structure if necessary.
 
 ### Operation
 
-{{< stroom-icon "save.svg" "Save">}} - Save any changes and make them live
-
-{{< stroom-icon "saveas.svg" "Save As">}} - Save the live and any unsaved changes to a new document
-
-{{< stroom-icon "refresh.svg" "Revert changes">}} - Throw away any unsaved changes and revert to the live version
-
-{{< stroom-icon "add.svg" "Add file">}} - Add an asset to the tree. The asset could be a folder, a new empty file, or an uploaded file.
-
-{{< stroom-icon "delete.svg" "Delete">}} - Delete an asset from the asset tree. 
-Note that if you delete a folder, everything under the folder will also be deleted.
-
-{{< stroom-icon "edit.svg" "Rename">}} - Edit the name of an asset. 
-
-{{% note %}}
-Note that the extension of the file is significant as it is used for:
-
-* The mimetype reported to the browser, and thus how the browser will present that file;
-* The editor mode used for the file.
-
-See [Configuration]({{< relref "#configuration" >}}) below to find out how to customise these settings. 
-{{% /note %}}
-
-{{< stroom-icon "eye.svg" "View in browser">}} - View the asset in the browser in a new window. 
-This also allows you to see the URL or path of that asset, if you need the path for another asset.
+* {{< stroom-icon "save.svg" "Save">}} Save any changes and make them live
+* {{< stroom-icon "saveas.svg" "Save As">}} Save the live and any unsaved changes to a new document
+* {{< stroom-icon "refresh.svg" "Revert changes">}} Throw away any unsaved changes and revert to the live version
+* {{< stroom-icon "add.svg" "Add file">}} Add an asset to the tree. The asset could be a folder, a new empty file, or an uploaded file.
+* {{< stroom-icon "delete.svg" "Delete">}} Delete an asset from the asset tree. 
+  Note that if you delete a folder, everything under the folder will also be deleted.
+* {{< stroom-icon "eye.svg" "View in browser">}} View the asset in the browser in a new window.
+  This also allows you to see the URL or path of that asset, if you need the path for another asset.
+* {{< stroom-icon "edit.svg" "Rename">}} Edit the name of an asset.
+   {{% note %}}
+   Note that the extension of the file is significant as it is used for:
+   
+   * The mimetype reported to the browser, and thus how the browser will present that file;
+   * The editor mode used for the file.
+   
+   See [Configuration]({{< relref "#configuration" >}}) below to find out how to customise these settings. 
+   {{% /note %}}
 
 
 ### Editing assets
@@ -192,13 +185,16 @@ appConfig:
         html: "text/html"
 ```
 
-`aceEditorModes` - You will normally want to leave these as the default values, but you may need to add a particular extension to suit your installation. 
+`aceEditorModes` 
+: You will normally want to leave these as the default values, but you may need to add a particular extension to suit your installation. 
 
-`assetCacheDir` - This is where the assets will be cached before serving them to the user interface. 
+`assetCacheDir`
+: This is where the assets will be cached before serving them to the user interface. 
 The master copy of the asset is kept in the database. 
 There is a cache on each Stroom node to reduce database load.
 
-`clearAssetCacheOnStartup` - If `true` then clear the asset cache each time Stroom starts up.
+`clearAssetCacheOnStartup`
+: If `true` then clear the asset cache each time Stroom starts up.
 
 {{% note %}}
 Stroom does not clear assets from the cache by default. 
@@ -207,11 +203,14 @@ If this causes a problem you need to set this value to `true` and restart Stroom
 The cache will then be recreated from valid content in the database.
 {{% /note %}}
 
-`default` - The mimetype to send to the browser for an asset where the asset's extension is not recognised. 
+`default`
+: The mimetype to send to the browser for an asset where the asset's extension is not recognised. 
 You probably don't need to change this.
 
-`defaultAceEditorMode` - The ACE editor mode to use when the asset's extension is not recognised.
+`defaultAceEditorMode`
+: The ACE editor mode to use when the asset's extension is not recognised.
 You probably don't need to change this.
 
-`mimetypes` - The mimetypes to send to the browser for each filename extension. 
+`mimetypes` 
+: The mimetypes to send to the browser for each filename extension. 
 You may need to add something to support a particular filename extension you use.
