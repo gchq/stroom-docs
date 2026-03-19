@@ -212,5 +212,5 @@ You probably don't need to change this.
 You probably don't need to change this.
 
 `mimetypes` 
-: The mimetypes to send to the browser for each filename extension. 
+: The MIME type to send to the browser for each filename extension. 
 You may need to add something to support a particular filename extension you use.
