@@ -1,0 +1,52 @@
+<!-- 
+Short code to add a stroom icon (from /assets/images/stroom-ui/) to the page 
+with an optional hover title. If you don't supply a title it will make one from the
+filename.
+Usage:
+stroom-icon filename [title] [enabled|disabled] [colour variant]
+e.g
+stroom-icon add.svg "Add"
+stroom-icon add.svg
+stroom-icon save.svg "Save" "disabled"
+stroom-icon save.svg "Save" "disabled" "green"
+stroom-icon name="save.svg" colour="green"
+
+Wraps a partial so the partial can be re-used in other shortcodes.
+-->
+
+{{- $type := "" -}}
+{{- $name := "" -}}
+{{- $text := "" -}}
+
+{{- if .IsNamedParams -}}
+  {{- $type = (.Get "type") -}}
+  {{- $name = (.Get "name" ) -}}
+  {{- $text = (.Get "text") -}}
+{{- else -}}
+  {{- $type = (.Get 0) -}}
+  {{- $name = (.Get 1) -}}
+  {{- $text = (.Get 2) -}}
+{{- end -}}
+
+{{- $filename := printf "document/%s.svg" $type -}}
+{{- $colour := "" -}}
+
+{{- /* Now call the partial to render the icon */ -}}
+
+<div class="exp-tree exp-tree-doc">
+  {{- partial "stroom-icon.partial.html" (dict 
+      "context" . 
+      "file" $filename 
+      "title" $type
+      "enabled" "true"
+      "colour" $colour ) -}}
+  {{- /* Strip trailing newline. */ -}}
+
+  {{- if $name -}}
+    <span class="exp-tree-doc-name">{{ $name }}</span>
+  {{- end -}}
+
+  {{- if $text -}}
+    <span class="exp-tree-doc-text">{{ $text }}</span>
+  {{- end -}}
+</div>

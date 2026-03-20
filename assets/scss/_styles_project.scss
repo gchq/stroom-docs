@@ -253,11 +253,30 @@ html {
 //  Bulleted Lists  //
 //////////////////////
 
-ul li p {
-  // Default is 1em which is a bit spacey.
-  // Numbered lists use 0.25em, <p> use 1rem for reference.
-  margin-bottom: 0.8em;
+.td-content {
+  ul li p {
+    // Default is 1em which is a bit spacey.
+    // Numbered lists use 0.25em, <p> use 1rem for reference.
+    margin-bottom: 0.8em;
+  }
+  
+  // If you have something like 
+  // * `foo`
+  //   * Some words
+  // The Top bullet will be in a <p>, so we need to dial down the margin a bit
+  ul li p:has( + ul) {
+    margin-bottom: 0.25em;
+  }
+  
+  // When you have nested bullets that don't get a <p>, we need to add a bit of space
+  // above the first child as our other css doesn't cover that.
+  // * Some plain text.
+  //   * Some plain text.
+  ul > li:first-child {
+    margin-top: 0.25em;
+  }
 }
+
 
 ///////////////////
 //  Inline Code  //
@@ -843,6 +862,59 @@ span.key-bind {
     white-space: nowrap;
   }
 }
+
+///////////////////////////////////////
+//  exp-tree/exp-tree-doc shortcode  //
+///////////////////////////////////////
+
+div.exp-tree-branch {
+
+  &.exp-tree-branch-outer {
+    // Add
+    margin-bottom: 1em;
+  }
+
+  &.exp-tree-branch-root {
+  }
+
+  &.exp-tree-branch-folder {
+    margin-left: 15px;
+  }
+
+  span.exp-tree-branch-arrow {
+    .stroom-icon svg {
+      width: 12px;
+      height: 12px;
+      color: #a9a9a9;
+    }
+  }
+
+  span.exp-tree-branch-name {
+    padding-left: 3px;
+  }
+
+  span.exp-tree-branch-text {
+    padding-left: 1em;
+    color: grey;
+  }
+
+  div.exp-tree-branch-content {
+  }
+}
+
+div.exp-tree-doc {
+  
+  // Bigger margin as there is no arrow icon for a doc
+  margin-left: 33px;
+
+  span.exp-tree-doc-name {
+  }
+  span.exp-tree-doc-text {
+    padding-left: 1em;
+    color: grey;
+  }
+}
+
 
 
 /*
