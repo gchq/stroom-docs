@@ -1,0 +1,48 @@
+<!-- 
+
+TODO this is work in progress, don't use yet
+
+-->
+
+<!-- 
+Short code to add a link to a stroom doc (from /assets/images/stroom-ui/) to the page 
+with an optional hover title. If you don't supply a title it will make one from the
+filename.
+Usage:
+stroom-icon filename [title] [enabled|disabled] [colour variant]
+e.g
+stroom-icon add.svg "Add"
+stroom-icon add.svg
+stroom-icon save.svg "Save" "disabled"
+stroom-icon save.svg "Save" "disabled" "green"
+stroom-icon name="save.svg" colour="green"
+
+Wraps a partial so the partial can be re-used in other shortcodes.
+-->
+
+{{- $filename := "" -}}
+{{- $title_arg := "" -}}
+{{- $enabled_arg := "" -}}
+{{- $colour_arg := "" -}}
+
+{{- if .IsNamedParams -}}
+  {{- $filename = (.Get "name" ) -}}
+  {{- $title_arg = (.Get "title") -}}
+  {{- $enabled_arg = (.Get "enabled") -}}
+  {{- $colour_arg = (.Get "colour") -}}
+{{- else -}}
+  {{- $filename = (.Get 0) -}}
+  {{- $title_arg = (.Get 1) -}}
+  {{- $enabled_arg = (.Get 2) -}}
+  {{- $colour_arg = (.Get 3) -}}
+{{- end -}}
+
+{{- /* Now call the partial to render the icon */ -}}
+
+{{- partial "stroom-icon.partial.html" (dict 
+    "context" . 
+    "file" $filename 
+    "title" $title_arg
+    "enabled" $enabled_arg 
+    "colour" $colour_arg ) -}}
+{{- /* Strip trailing newline. */ -}}

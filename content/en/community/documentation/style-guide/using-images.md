@@ -523,3 +523,81 @@ This is a key binding with modifiers {{</* key-bind "ctrl,shift,f" */>}}  and th
 If the key is a `,` then use `+` or `-` as the delimiter, e.g. {{</* key-bind "ctrl+alt+," */>}}, {{</* key-bind "ctrl,+" */>}} or {{</* key-bind "alt+-" */>}}.
 ```
 
+
+### Explorer Tree
+
+To render a section of the Stroom explorer tree you can use the `stroom-tree` and `stroom-tree-doc` short codes.
+
+**Arguments**:
+
+* `stroom-tree`
+  * `name` - The name of the folder.
+    If `name` is `System`, it will render with the System {{< stroom-icon "document/System.svg" >}} icon.
+  * `text` - Optional text to place next to the folder.
+    This text can be used to explain the purpose of the folder.
+
+* `stroom-tree-doc`
+  * `type` - The document type.
+    This is the name of the icon file for the document type without the `.svg` extension, e.g. `Feed`.
+    See [Document type icons]({{< relref "icon-gallery#document-type-icons" >}}) for the full list of type names.
+  * `name` - The name of the folder.
+    If `name` is `System`, it will render with the System {{< stroom-icon "document/System.svg" >}} icon.
+  * `text` - Optional text to place next to the folder.
+    This text can be used to explain the purpose of the folder.
+
+If the `stroom-tree` short code has no inner content it will be rendered as a closed folder (e.g. _SUB_SYSTEM-X1_ in the example).
+
+**Examples:**
+
+A tree that includes the System root.
+
+{{< stroom-tree "System" >}}
+  {{< stroom-tree "Configuration" >}}
+    {{< stroom-tree-doc "Dictionary" "My Dictionary" "Some descriptive text" >}}
+  {{< /stroom-tree >}}
+  {{< stroom-tree "Feeds" >}}
+    {{< stroom-tree "SYSTEM-X" >}}
+      {{< stroom-tree "SUB_SYSTEM-X1" "A closed folder" />}}
+      {{< stroom-tree "SUB_SYSTEM-X2" "An open folder" >}}
+        {{< stroom-tree-doc "Feed" "SUB_SYSTEM-X2" >}}
+        {{< stroom-tree-doc "Pipeline" "SUB_SYSTEM-X2" >}}
+        {{< stroom-tree-doc "TextConverter" "SUB_SYSTEM-X2" >}}
+        {{< stroom-tree-doc "XSLT" "SUB_SYSTEM-X2" >}}
+      {{< /stroom-tree >}}
+    {{< /stroom-tree >}}
+  {{< /stroom-tree >}}
+{{< /stroom-tree >}}
+
+A sub-tree that doesn't include the System root.
+
+{{< stroom-tree "Configuration" >}}
+  {{< stroom-tree-doc "Dictionary" "My Dictionary" "Some descriptive text" >}}
+{{< /stroom-tree >}}
+
+**Markdown:**
+
+The markdown for this examples is:
+
+```markdown
+{{</* stroom-tree "System" */>}}
+  {{</* stroom-tree "Configuration" */>}}
+    {{</* stroom-tree-doc "Dictionary" "My Dictionary" "Some descriptive text" */>}}
+  {{</* /stroom-tree */>}}
+  {{</* stroom-tree "Feeds" */>}}
+    {{</* stroom-tree "SYSTEM-X" */>}}
+      {{</* stroom-tree "SUB_SYSTEM-X1" "A closed folder" /*/>}}
+      {{</* stroom-tree "SUB_SYSTEM-X2" "An open folder" */>}}
+        {{</* stroom-tree-doc "Feed" "SUB_SYSTEM-X2" */>}}
+        {{</* stroom-tree-doc "Pipeline" "SUB_SYSTEM-X2" */>}}
+        {{</* stroom-tree-doc "TextConverter" "SUB_SYSTEM-X2" */>}}
+        {{</* stroom-tree-doc "XSLT" "SUB_SYSTEM-X2" */>}}
+      {{</* /stroom-tree */>}}
+    {{</* /stroom-tree */>}}
+  {{</* /stroom-tree */>}}
+{{</* /stroom-tree */>}}
+
+{{</* stroom-tree "Configuration" */>}}
+  {{</* stroom-tree-doc "Dictionary" "My Dictionary" "Some descriptive text" */>}}
+{{</* /stroom-tree */>}}
+```
+
