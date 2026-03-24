@@ -122,6 +122,9 @@ If the feed already exists then it is assumed the content creation has already h
   * Create the Stroom user group specified in this property if it doesn't exist.
   * Add the group defined by `additionalGroupTemplate` to this group.
 
+
+#### Copy Dependencies Example
+
 The following is an example of the content that will be created with the following assumptions:
 
 * The Feed name is `1234-AV_SCANNER-XML-EVENT_LOGGING`.
@@ -138,6 +141,25 @@ The following is an example of the content that will be created with the followi
       {{< /stroom-tree >}}
       {{< stroom-tree-doc "Feed" "1234-AV_SCANNER-XML-EVENT_LOGGING" "(Administrators: OWNER, grp-1234: VIEW, grp-1234-dev: VIEW)" >}}
       {{< stroom-tree-doc "Pipeline" "1234-AV_SCANNER-XML-EVENT_LOGGING" "(Administrators: OWNER, grp-1234: VIEW, grp-1234-dev: VIEW)" >}}
+    {{< /stroom-tree >}}
+  {{< /stroom-tree >}}
+{{< /stroom-tree >}}
+
+
+#### Don't Copy Dependencies Example
+
+The following is an example of the content that will be created with the following assumptions:
+
+* The Feed name is `1234-AV_SCANNER-XML-EVENT_LOGGING`.
+* `AccountId: 1234` in the Meta data.
+* _Copy Pipeline Element Dependencies_ is **NOT** ticked on the Content Template.
+* Default `autoContentCreation` configuration.
+
+{{< stroom-tree "System" "" >}}
+  {{< stroom-tree "Feeds" "(Administrators: OWNER)" >}}
+    {{< stroom-tree "1234" "(Administrators: OWNER, grp-1234: VIEW)" >}}
+      {{< stroom-tree-doc "Feed" "1234-AV_SCANNER-XML-EVENT_LOGGING" "(Administrators: OWNER, grp-1234: VIEW)" >}}
+      {{< stroom-tree-doc "Pipeline" "1234-AV_SCANNER-XML-EVENT_LOGGING" "(Administrators: OWNER, grp-1234: VIEW)" >}}
     {{< /stroom-tree >}}
   {{< /stroom-tree >}}
 {{< /stroom-tree >}}
@@ -165,6 +187,23 @@ The following is an example of the content that will be created with the followi
 * If `groupParentGroupName` is defined:
   * Create the Stroom user group specified in this property if it doesn't exist.
   * Add the group defined by `groupTemplate` to this group.
+
+
+#### Example
+
+The following is an example of the content that will be created with the following assumptions:
+
+* The Feed name is `1234-AV_SCANNER-XML-EVENT_LOGGING`.
+* `AccountId: 1234` in the Meta data.
+* Default `autoContentCreation` configuration.
+
+{{< stroom-tree "System" "" >}}
+  {{< stroom-tree "Feeds" "(Administrators: OWNER)" >}}
+    {{< stroom-tree "1234" "(Administrators: OWNER, grp-1234: VIEW)" >}}
+      {{< stroom-tree-doc "Feed" "1234-AV_SCANNER-XML-EVENT_LOGGING" "(Administrators: OWNER, grp-1234: VIEW)" >}}
+    {{< /stroom-tree >}}
+  {{< /stroom-tree >}}
+{{< /stroom-tree >}}
 
 
 ## Expression Fields
