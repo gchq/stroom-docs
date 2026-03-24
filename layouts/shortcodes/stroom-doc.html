@@ -23,42 +23,37 @@ stroom-doc type="xslt" show_icon="false"
 
 {{- $type = lower $type -}}
 {{- $colour := "" -}}
-{{ $data := dict }}
 {{ $data_path := "stroom/documents.json" }}
-{{ $doc_info := dict }}
 {{ with .Site.Data.stroom.documents }}
-  {{/* with . | transform.Unmarshal */}}
-    {{ $data = . }}
-    {{ $doc_info = index $data $type | default nil }}
-    {{ if $doc_info }}
-      {{- $icon_path := $doc_info.iconRelativePathStr -}}
-      {{- $type_name := $doc_info.typeDisplayName -}}
-      {{- $anchor := anchorize $type_name -}}
+  {{ $data := . }}
+  {{ $doc_info := index $data $type | default nil }}
+  {{ if $doc_info }}
+    {{- $icon_path := $doc_info.iconRelativePathStr -}}
+    {{- $type_name := $doc_info.typeDisplayName -}}
+    {{- $anchor := anchorize $type_name -}}
 
-      {{- $link_url := printf "/docs/reference-section/documents#%s" $anchor -}}
-      {{- $link_url = $link_url | relURL -}}
+    {{- $link_url := printf "/docs/reference-section/documents#%s" $anchor -}}
+    {{- $link_url = $link_url | relURL -}}
 
-      <span class="stroom-doc">
-        <a href="{{ $link_url }}" class="stroom-doc-link">
-          {{ if eq $show_icon true }}
-          <span class="stroom-doc-icon">
-            {{- partial "stroom-icon.partial.html" (dict 
-                "context" . 
-                "file" $icon_path 
-                "title" $type
-                "enabled" "true"
-                "colour" $colour ) -}}
-          </span>
-          {{ end }}
-          <span class="stroom-doc-text">{{ $type_name }}</span>
-        </a>
-      </span>
+    <span class="stroom-doc">
+      <a href="{{ $link_url }}" class="stroom-doc-link">
+        {{ if eq $show_icon true }}
+        <span class="stroom-doc-icon">
+          {{- partial "stroom-icon.partial.html" (dict 
+              "context" . 
+              "file" $icon_path 
+              "title" $type
+              "enabled" "true"
+              "colour" $colour ) -}}
+        </span>
+        {{ end }}
+        <span class="stroom-doc-text">{{ $type_name }}</span>
+      </a>
+    </span>
 
-    {{- else -}}
-      {{ errorf "stroom-doc - Unknown type '%s' in file %s" $type $data_path }}
-    {{ end }}
-
-  {{/* end */}}
+  {{- else -}}
+    {{ errorf "stroom-doc - Unknown type '%s' in file %s" $type $data_path }}
+  {{ end }}
 {{ else }}
   {{ errorf "stroom-doc - Unable to get global resource %q" $data_path }}
 {{ end }}
