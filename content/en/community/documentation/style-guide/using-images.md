@@ -329,6 +329,36 @@ And not in line
 ```
 
 
+### Document Links
+
+To display a reference to a Stroom document type, e.g. {{< stroom-doc "xslt" >}}   with associated icon you can use the `stroom-doc` short code.
+It will render as the document type name and associated icon.
+Both will be a clickable link to the appropriate section of the [Document Reference]({{< relref "docs/reference-section/documents" >}}).
+
+**Arguments**:
+
+* `type` - The type of the document (case in-sensitive), e.g. `ElasticIndex`, `feed`, etc.
+  See [Document Type Icons]({{< relref "icon-gallery#document-type-icons" >}}) for the full list (use the file name without extension).
+* `show_icon` - Whether to show the icon or not (`true` or `false`).
+  Default value is `true`.
+
+**Examples:**
+
+A {{< stroom-doc "feed" >}}, a {{< stroom-doc "XSLT" >}} and an {{< stroom-doc "gitrepo" >}}.
+
+This is one without an icon {{< stroom-doc type="Pipeline" show_icon="false" >}}.
+
+**Markdown:**
+
+The markdown for the examples above is:
+
+```text
+A {{</* stroom-doc "feed" */>}}, a {{</* stroom-doc "XSLT" */>}} and an {{</* stroom-doc "gitrepo" */>}}.
+
+This is one without an icon {{</* stroom-doc type="Pipeline" show_icon="false" */>}}.
+```
+
+
 ### Pipeline elements
 
 To display a pipeline element (as seen on the _Structure_ sub-tab on the Pipeline screen), like {{< pipe-elm "SplitFilter" >}}, you can use the shortcode `pipe-elm`.

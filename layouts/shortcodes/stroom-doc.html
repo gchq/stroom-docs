@@ -1,48 +1,64 @@
 <!-- 
-
-TODO this is work in progress, don't use yet
-
--->
-
-<!-- 
-Short code to add a link to a stroom doc (from /assets/images/stroom-ui/) to the page 
+Short code to show a link to a stroom document type, also optionally showing
+its icon.
 with an optional hover title. If you don't supply a title it will make one from the
 filename.
 Usage:
-stroom-icon filename [title] [enabled|disabled] [colour variant]
+stroom-doc type [true|false]
 e.g
-stroom-icon add.svg "Add"
-stroom-icon add.svg
-stroom-icon save.svg "Save" "disabled"
-stroom-icon save.svg "Save" "disabled" "green"
-stroom-icon name="save.svg" colour="green"
-
-Wraps a partial so the partial can be re-used in other shortcodes.
+stroom-doc feed
+stroom-doc feed false
+stroom-doc type="xslt" show_icon="false"
 -->
 
-{{- $filename := "" -}}
-{{- $title_arg := "" -}}
-{{- $enabled_arg := "" -}}
-{{- $colour_arg := "" -}}
-
+{{- $type := "" -}}
+{{- $show_icon := true -}}
 {{- if .IsNamedParams -}}
-  {{- $filename = (.Get "name" ) -}}
-  {{- $title_arg = (.Get "title") -}}
-  {{- $enabled_arg = (.Get "enabled") -}}
-  {{- $colour_arg = (.Get "colour") -}}
+  {{- $type = (.Get "type") -}}
+  {{- $show_icon = (.Get "show_icon") | default true -}}
 {{- else -}}
-  {{- $filename = (.Get 0) -}}
-  {{- $title_arg = (.Get 1) -}}
-  {{- $enabled_arg = (.Get 2) -}}
-  {{- $colour_arg = (.Get 3) -}}
+  {{- $type = (.Get 0) -}}
+  {{- $show_icon = (.Get 1) | default true -}}
 {{- end -}}
 
-{{- /* Now call the partial to render the icon */ -}}
+{{- $type = lower $type -}}
+{{- $colour := "" -}}
+{{ $data := dict }}
+{{ $data_path := "stroom/documents.json" }}
+{{ $doc_info := dict }}
+{{ with .Site.Data.stroom.documents }}
+  {{/* with . | transform.Unmarshal */}}
+    {{ $data = . }}
+    {{ $doc_info = index $data $type | default nil }}
+    {{ if $doc_info }}
+      {{- $icon_path := $doc_info.iconRelativePathStr -}}
+      {{- $type_name := $doc_info.typeDisplayName -}}
+      {{- $anchor := anchorize $type_name -}}
 
-{{- partial "stroom-icon.partial.html" (dict 
-    "context" . 
-    "file" $filename 
-    "title" $title_arg
-    "enabled" $enabled_arg 
-    "colour" $colour_arg ) -}}
-{{- /* Strip trailing newline. */ -}}
+      {{- $link_url := printf "/docs/reference-section/documents#%s" $anchor -}}
+      {{- $link_url = $link_url | relURL -}}
+
+      <span class="stroom-doc">
+        <a href="{{ $link_url }}" class="stroom-doc-link">
+          {{ if eq $show_icon true }}
+          <span class="stroom-doc-icon">
+            {{- partial "stroom-icon.partial.html" (dict 
+                "context" . 
+                "file" $icon_path 
+                "title" $type
+                "enabled" "true"
+                "colour" $colour ) -}}
+          </span>
+          {{ end }}
+          <span class="stroom-doc-text">{{ $type_name }}</span>
+        </a>
+      </span>
+
+    {{- else -}}
+      {{ errorf "stroom-doc - Unknown type '%s' in file %s" $type $data_path }}
+    {{ end }}
+
+  {{/* end */}}
+{{ else }}
+  {{ errorf "stroom-doc - Unable to get global resource %q" $data_path }}
+{{ end }}

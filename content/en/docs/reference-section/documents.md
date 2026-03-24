@@ -36,121 +36,121 @@ The following is a list of all Document types in Stroom.
 
 <!-- #~#~#~#~#~# GENERATED CONTENT START #~#~#~#~#~#~# -->
 ## Configuration
-
+ 
 Documents that are used as configuration for other documents.
-
-
+ 
+ 
 ### Dictionary
-
+ 
 * Icon: {{< stroom-icon "document/Dictionary.svg" >}}
 * Type: `Dictionary`
-
+ 
 A Dictionary is essentially a list of 'words', where each 'word' is separated by a new line.
 Dictionaries can be used in filter expressions, i.e. `IN DICTIONARY`.
 They allow for the reuse of the same set of values across many search expressions.
 Dictionaries also support inheritance so one dictionary can import the contents of other dictionaries.
-
+ 
 
 ### Documentation
-
+ 
 * Icon: {{< stroom-icon "document/Documentation.svg" >}}
 * Type: `Documentation`
-
+ 
 A Document type for simply storing user created documentation, e.g. adding a Documentation document into a folder to describe the contents of that folder.
-
+ 
 
 ### Elastic Cluster
-
+ 
 * Icon: {{< stroom-icon "document/ElasticCluster.svg" >}}
 * Type: `ElasticCluster`
-
+ 
 Defines the connection details for a single Elasticsearch cluster.
 This Elastic Cluster Document can then be used by one or more Elastic Index Documents.
-
+ 
 
 ### Git Repo
-
+ 
 * Icon: {{< stroom-icon "document/GitRepoFolder.svg" >}}
 * Type: `GitRepo`
-
+ 
 Contains the configuration for a connection to a Git repository.
-
+ 
 
 ### Kafka Configuration
-
+ 
 * Icon: {{< stroom-icon "document/KafkaConfig.svg" >}}
 * Type: `KafkaConfig`
-
+ 
 Defines the connection details for a single Kafka cluster.
 This Kafka Configuration Document can then be used by one or more {{< pipe-elm "StandardKafkaProducer" >}} pipeline elements.
-
+ 
 
 ### OpenAI Model
-
+ 
 * Icon: {{< stroom-icon "document/OpenAI.svg" >}}
 * Type: `OpenAIModel`
-
+ 
 Defines the settings required to connect to an OpenAI-compatible API and interact with a model.
-
+ 
 
 ### S3 Configuration
-
+ 
 * Icon: {{< stroom-icon "document/S3.svg" >}}
 * Type: `S3Config`
-
+ 
 Defines the config for S3
-
+ 
 
 ### Script
-
+ 
 * Icon: {{< stroom-icon "document/Script.svg" >}}
 * Type: `Script`
-
+ 
 Contains a Javascript script that is used as the source for a [visualisation]({{< relref "#visualisation" >}}) Document.
 Scripts can have dependencies on other Script Documents, e.g. to allow re-use of common code.
-
+ 
 
 ### Scylla DB
-
+ 
 * Icon: {{< stroom-icon "document/ScyllaDb.svg" >}}
 * Type: `ScyllaDB`
-
+ 
 Defines the connection details for a ScyllaDB state store instance.
-
+ 
 
 ### Visualisation
-
+ 
 * Icon: {{< stroom-icon "document/Visualisation.svg" >}}
 * Type: `Visualisation`
-
+ 
 Defines a data visualisation that can be used in a [Dashboard]({{< relref "#dashboard" >}}) Document.
 The Visualisation defines the settings that will be available to the user when it is embedded in a Dashboard.
 A Visualisation is dependent on a [Script]({{< relref "#script" >}}) Document for the Javascript code to make it work.
-
+ 
 
 
 ## Data Processing
-
+ 
 Documents relating to the processing of data.
-
-
+ 
+ 
 ### Feed
-
+ 
 * Icon: {{< stroom-icon "document/Feed.svg" >}}
 * Type: `Feed`
-
+ 
 The {{< glossary "Feed" >}} is Stroom's way of compartmentalising data that has been ingested or created by a [Pipeline]({{< relref "#pipeline" >}}).
 Ingested data must specify the Feed that it is destined for.
 
 The Feed Document defines the character encoding for the data in the Feed, the type of data that will be received into it (e.g. `Raw Events`) and optionally a Volume Group to use for data storage.
 The Feed Document can also control the ingest of data using its `Feed Status` property and be used for viewing data that belonging to that feed.
-
+ 
 
 ### Pipeline
-
+ 
 * Icon: {{< stroom-icon "document/Pipeline.svg" >}}
 * Type: `Pipeline`
-
+ 
 A Pipeline defines a chain of Pipeline elements that consumes from a source of data (a Stream of raw data or cooked events) then processes it according to the elements used in the chain.
 Pipelines can be linear or branching and support inheritance of other pipelines to allow re-use of common structural parts.
 
@@ -158,30 +158,30 @@ The Pipeline Document defines the structure of the pipeline and the configuratio
 It also defines the filter(s) that will be used to control what data is passed through the pipeline and the priority of processing.
 The Pipeline Document can be used to view the data produced by the pipeline and to monitor its processing state and progress.
 {{% see-also %}}[Pipelines]({{< relref "docs/user-guide/pipelines" >}}){{% /see-also %}}
-
+ 
 
 
 ## Indexing
-
+ 
 Documents relating to the process of adding data into an index, such as Lucene or Elasticsearch.
-
-
+ 
+ 
 ### Elastic Index
-
+ 
 * Icon: {{< stroom-icon "document/ElasticIndex.svg" >}}
 * Type: `ElasticIndex`
-
+ 
 Defines an index that exists within an Elasticsearch cluster.
 This Document is used in the configuration of the {{< pipe-elm "ElasticIndexingFilter" >}} pipeline element.
 
 {{% see-also %}}[Elasticsearch]({{< relref "docs/user-guide/indexing/elasticsearch" >}}){{% /see-also %}}
-
+ 
 
 ### Lucene Index
-
+ 
 * Icon: {{< stroom-icon "document/Index.svg" >}}
 * Type: `Index`
-
+ 
 Lucene Index is the standard built-in index within Stroom and is one of many data sources.
 An index is like a catalog in a library and provides a very fast way to access documents/records/events when searching using fields that have been indexed.
 The index stores the field values and pointers to the document they came from (the Stream and Event IDs).
@@ -193,48 +193,48 @@ It also allows for configuration of the way the data in the index will be stored
 The Lucene Index Document is used by the {{< pipe-elm \"IndexingFilter\" >}} and {{< pipe-elm "DynamicIndexingFilter" >}} pipeline elements.
 
 {{% see-also %}}[Lucene Indexes]({{< relref "docs/user-guide/indexing/lucene" >}}){{% /see-also %}}
-
+ 
 
 ### Pathways
-
+ 
 * Icon: {{< stroom-icon "document/Pathways.svg" >}}
 * Type: `Pathways`
-
+ 
 > TODO - Add description
-
+ 
 
 ### Plan B
-
+ 
 * Icon: {{< stroom-icon "document/PlanB.svg" >}}
 * Type: `PlanB`
-
+ 
 Defines a place to store state
-
+ 
 
 ### Solr Index
-
+ 
 * Icon: {{< stroom-icon "document/SolrIndex.svg" >}}
 * Type: `SolrIndex`
-
+ 
 Solr Index represents an index on a Solr cluster.
 It defines the connection details for connecting to that cluster and the structure of the index.
 It is used by the {{< pipe-elm "SolrIndexingFilter" >}} pipeline element.
 {{% see-also %}}[Solr Integration]({{< relref "docs/user-guide/indexing/solr" >}}){{% /see-also %}}
-
+ 
 
 ### State Store
-
+ 
 * Icon: {{< stroom-icon "document/StateStore.svg" >}}
 * Type: `StateStore`
-
+ 
 Defines a place to store state
-
+ 
 
 ### Statistic Store
-
+ 
 * Icon: {{< stroom-icon "document/StatisticStore.svg" >}}
 * Type: `StatisticStore`
-
+ 
 Defines a logical statistic store used to hold statistical data of a particular type and aggregation window.
 Statistics in Stroom is a way to capture counts or values from events and record how they change over time, with the counts/values aggregated (sum/mean) across time windows.
 
@@ -243,27 +243,27 @@ It also supports the definition of roll-ups that allow for aggregation over all 
 Tags can be things like `user`, `node`, `feed`, etc. and can be used to filter data when querying the statistic store in a Dashboard/Query.
 
 It is used by the {{< pipe-elm "StatisticsFilter" >}} pipeline element.
-
+ 
 
 ### Stroom-Stats Store
-
+ 
 * Icon: {{< stroom-icon "document/StroomStatsStore.svg" >}}
 * Type: `StroomStatsStore`
-
+ 
 The Stroom-Stats Store Document is deprecated and should not be used.
-
+ 
 
 
 ## Search
-
+ 
 Documents relating to searching for data in Stroom.
-
-
+ 
+ 
 ### Analytic Rule
-
+ 
 * Icon: {{< stroom-icon "document/AnalyticRule.svg" >}}
 * Type: `AnalyticRule`
-
+ 
 Defines an analytic rule which can be run to alert on events meeting a criteria.
 The criteria is defined using a StroomQL query.
 The analytic can be processed in different ways:
@@ -271,21 +271,21 @@ The analytic can be processed in different ways:
 * Streaming
 * Table Builder
 * Scheduled Query
-
+ 
 
 ### Annotation
-
+ 
 * Icon: {{< stroom-icon "edit.svg" >}}
 * Type: `Annotation`
-
+ 
 > TODO - Add description
-
+ 
 
 ### Dashboard
-
+ 
 * Icon: {{< stroom-icon "document/Dashboard.svg" >}}
 * Type: `Dashboard`
-
+ 
 The Dashboard Document defines a data querying and visualisation dashboard.
 The dashboard is highly customisable to allow querying of many different data sources of different types.
 Queried data can be displayed in tabular form, visualised using interactive charts/graphs or rendered as HTML.
@@ -293,46 +293,46 @@ Queried data can be displayed in tabular form, visualised using interactive char
 The Dashboard Doc can either be used for ad-hoc querying/visualising of data, to construct a dashboard for others to view or to just view an already constructed dashboard.
 Dashboards can be parameterised so that all queries on the dashboard are displaying data for the same user, for example.
 For ad-hoc querying of data from one data source, you are recommended to use a [Query]({{< relref "#query" >}}) instead.
-
+ 
 
 ### Query
-
+ 
 * Icon: {{< stroom-icon "document/Query.svg" >}}
 * Type: `Query`
-
+ 
 A Query Document defines a {{< glossary "StroomQL" >}} query and is used to execute that query and view its results.
 A Query can query main types of data source including [Views]({{< relref "#view" >}}), [Lucene Indexes]({{< relref "#lucene-index" >}}), and {{< glossary "searchable" "Searchables" >}}.
-
+ 
 
 ### Report
-
+ 
 * Icon: {{< stroom-icon "document/Report.svg" >}}
 * Type: `Report`
-
+ 
 Defines a report that can be run at scheduled intervals and sent to individuals via email.
 The criteria is defined using a StroomQL query.
-
+ 
 
 ### View
-
+ 
 * Icon: {{< stroom-icon "document/View.svg" >}}
 * Type: `View`
-
+ 
 A view is an abstraction over a data source (such as a [Lucene Index]({{< relref "#lucene-index" >}})) and optionally an [extraction pipeline]({{< relref "docs/user-guide/pipelines/recipies#search-extraction" >}}).
 Views provide a much simpler way for users to query data as the user can simply query against the View without any knowledge of the underlying data source or extraction of that data.
-
+ 
 
 
 ## Transformation
-
+ 
 Documents relating to the transformation of data.
-
-
+ 
+ 
 ### Text Converter
-
+ 
 * Icon: {{< stroom-icon "document/TextConverter.svg" >}}
 * Type: `TextConverter`
-
+ 
 A Text Converter Document defines the specification for splitting text data into records/fields using [Data Splitter]({{< relref "docs/user-guide/data-splitter" >}}) or for wrapping fragment XML with a {{< pipe-elm "XMLFragmentParser" >}} pipeline element.
 The content of the Document is either XML in the `data-splitter:3` namespace or a fragment parser specification (see [Pipeline Recipies]({{< relref "docs/user-guide/pipelines/recipies#xml-fragments-to-normalised-xml" >}})).
 
@@ -341,13 +341,13 @@ This Document is used by the following pipeline elements:
 * {{< pipe-elm "DSParser" >}}
 * {{< pipe-elm "XMLFragmentParser" >}}
 * {{< pipe-elm "CombinedParser" >}}
-
+ 
 
 ### XML Schema
-
+ 
 * Icon: {{< stroom-icon "document/XMLSchema.svg" >}}
 * Type: `XMLSchema`
-
+ 
 This Document defines an {{< glossary "XML Schema" >}} that can be used within Stroom for validation of XML documents.
 The XML Schema Document content is the XMLSchema text.
 This Document also defines the following:
@@ -359,13 +359,13 @@ This Document also defines the following:
 The XML Schema Document also provides a handy interactive viewer for viewing and navigating the XMLSchema in a graphical representation.
 
 This Document is used by the {{< pipe-elm "SchemaFilter" >}} pipeline element.
-
+ 
 
 ### XSL Translation
-
+ 
 * Icon: {{< stroom-icon "document/XSLT.svg" >}}
 * Type: `XSLT`
-
+ 
 The content of this Document is an {{< glossary "XSLT" >}} document for transforming data in a pipeline.
 This Document is used by the {{< pipe-elm "XSLTFilter" >}} pipeline element.
-
+ 
