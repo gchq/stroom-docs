@@ -102,12 +102,14 @@ If the feed already exists then it is assumed the content creation has already h
     * Grant `EDIT` permission to the created additional group.
 
 * Create a Feed {{< stroom-icon "document/Feed.svg" >}} in the folder defined by `destinationExplorerPathTemplate`.
-    * Grant `VIEW` permission to the created group.
-    * Grant `VIEW` permission to the created additional group.
+  * Grant `VIEW` permission to the created group.
+  * Grant `VIEW` permission to the created additional group (if _Copy Pipeline Dependencies_ is ticked).
 
 * Create a Pipeline {{< stroom-icon "document/Pipeline.svg" >}} in the folder defined by `destinationExplorerPathTemplate` and set it to inherit from the Pipeline defined in the Content Template.
+  * Grant `VIEW` permission to the created group.
   * If _Copy Pipeline Element Dependencies_ is ticked:
     * Copy the dependency documents of the parent Pipeline into this folder.
+    * Grant `VIEW` permission to the created additional group.
   * Create a Processor Filter on the new Pipeline (using the priority and concurrency setting taken from the Content Template) with the following expression:
 
     Feed `is` _X_ AND Type `=` _Y_
