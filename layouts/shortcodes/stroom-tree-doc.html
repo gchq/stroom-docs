@@ -28,25 +28,42 @@ Wraps a partial so the partial can be re-used in other shortcodes.
   {{- $text = (.Get 2) -}}
 {{- end -}}
 
-{{- $filename := printf "document/%s.svg" $type -}}
-{{- $colour := "" -}}
+{{- $type = lower $type -}}
 
-{{- /* Now call the partial to render the icon */ -}}
+{{- $data_path := "stroom/documents.json" -}}
+{{ with .Site.Data.stroom.documents }}
+  {{ $data := . }}
+  {{ $doc_info := index $data $type | default nil }}
+  {{ if $doc_info }}
+    {{- $type = $doc_info.type -}}
+    {{- $icon_path := $doc_info.iconRelativePathStr -}}
+    {{- $type_name := $doc_info.typeDisplayName -}}
+    {{- $filename := printf "document/%s.svg" $type -}}
+    {{- $colour := "" -}}
+    
+    {{- /* Now call the partial to render the icon */ -}}
+    
+    <div class="exp-tree exp-tree-doc">
+      {{- partial "stroom-icon.partial.html" (dict 
+          "context" . 
+          "file" $icon_path 
+          "title" $type_name
+          "enabled" "true"
+          "colour" $colour ) -}}
+      {{- /* Strip trailing newline. */ -}}
+    
+      {{- if $name -}}
+        <span class="exp-tree-doc-name">{{ $name }}</span>
+      {{- end -}}
+    
+      {{- if $text -}}
+        <span class="exp-tree-doc-text">{{ $text }}</span>
+      {{- end -}}
+    </div>
 
-<div class="exp-tree exp-tree-doc">
-  {{- partial "stroom-icon.partial.html" (dict 
-      "context" . 
-      "file" $filename 
-      "title" $type
-      "enabled" "true"
-      "colour" $colour ) -}}
-  {{- /* Strip trailing newline. */ -}}
-
-  {{- if $name -}}
-    <span class="exp-tree-doc-name">{{ $name }}</span>
-  {{- end -}}
-
-  {{- if $text -}}
-    <span class="exp-tree-doc-text">{{ $text }}</span>
-  {{- end -}}
-</div>
+  {{- else -}}
+    {{ errorf "stroom-doc - Unknown type '%s' in file %s" $type $data_path }}
+  {{ end }}
+{{ else }}
+  {{ errorf "stroom-tree-doc - Unable to get global resource %q" $data_path }}
+{{ end }}
