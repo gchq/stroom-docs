@@ -1,7 +1,7 @@
 # See this link for details of how this is put together
 # https://github.com/puppeteer/puppeteer/blob/main/docs/troubleshooting.md
 # https://pptr.dev/guides/docker 
-FROM node:22-bullseye-slim
+FROM node:22.22-bullseye-slim@sha256:c286bc140790fa918e9fa32f1b44f66ee0bfd9c9c10a1ca05361c1ae48daf3de
 
 # Configure default locale (important for chrome-headless-shell).
 ENV LANG=en_US.UTF-8  
