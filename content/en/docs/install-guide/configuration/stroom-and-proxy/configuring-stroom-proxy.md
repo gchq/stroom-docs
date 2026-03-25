@@ -441,12 +441,14 @@ If the liveness check fails for a destination, all forwarding for that destinati
 
 The liveness checks take the following forms:
 
-* HTTP Destination - Performs a `GET` request to the URL configured using `forwardHttpDestinations.[n].livenessCheckUrl`.
+HTTP Destination
+: Performs a `GET` request to the URL configured using `forwardHttpDestinations.[n].livenessCheckUrl`.
   If not configured it will use `/status` on the downstream host.
   The destination is considered live if it gets a `200` response.
   You can use a URL that allows the destination to control its liveness, i.e. to take itself off line during an upgrade.
 
-* File Destination - Reads or writes (`touch`) to a file defined by `forwardFileDestinations.[n].livenessCheckPath`.
+File Destination
+: Reads or writes (`touch`) to a file defined by `forwardFileDestinations.[n].livenessCheckPath`.
   Liveness checking for a file destination may be useful if the destination is on a network file share.
   `livenessCheckMode` controls whether a read or write to the file is performed.
 

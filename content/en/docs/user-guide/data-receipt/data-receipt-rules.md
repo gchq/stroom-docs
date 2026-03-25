@@ -1,7 +1,7 @@
 ---
 title: "Data Receipt Rules"
 linkTitle: "Data Receipt Rules"
-weight: 10
+weight: 20
 date: 2026-02-05
 tags: 
 description: >

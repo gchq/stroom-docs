@@ -329,6 +329,36 @@ And not in line
 ```
 
 
+### Document Links
+
+To display a reference to a Stroom document type, e.g. {{< stroom-doc "xslt" >}}   with associated icon you can use the `stroom-doc` short code.
+It will render as the document type name and associated icon.
+Both will be a clickable link to the appropriate section of the [Document Reference]({{< relref "docs/reference-section/documents" >}}).
+
+**Arguments**:
+
+* `type` - The type of the document (case in-sensitive), e.g. `ElasticIndex`, `feed`, etc.
+  See [Document Type Icons]({{< relref "icon-gallery#document-type-icons" >}}) for the full list (use the file name without extension).
+* `show_icon` - Whether to show the icon or not (`true` or `false`).
+  Default value is `true`.
+
+**Examples:**
+
+A {{< stroom-doc "feed" >}}, a {{< stroom-doc "XSLT" >}} and an {{< stroom-doc "gitrepo" >}}.
+
+This is one without an icon {{< stroom-doc type="Pipeline" show_icon="false" >}}.
+
+**Markdown:**
+
+The markdown for the examples above is:
+
+```text
+A {{</* stroom-doc "feed" */>}}, a {{</* stroom-doc "XSLT" */>}} and an {{</* stroom-doc "gitrepo" */>}}.
+
+This is one without an icon {{</* stroom-doc type="Pipeline" show_icon="false" */>}}.
+```
+
+
 ### Pipeline elements
 
 To display a pipeline element (as seen on the _Structure_ sub-tab on the Pipeline screen), like {{< pipe-elm "SplitFilter" >}}, you can use the shortcode `pipe-elm`.
@@ -521,5 +551,83 @@ The markdown for these examples is:
 This is a key binding with modifiers {{</* key-bind "ctrl,shift,f" */>}}  and this is chord type key binding {{</* key-bind "g" "p" */>}}.
 
 If the key is a `,` then use `+` or `-` as the delimiter, e.g. {{</* key-bind "ctrl+alt+," */>}}, {{</* key-bind "ctrl,+" */>}} or {{</* key-bind "alt+-" */>}}.
+```
+
+
+### Explorer Tree
+
+To render a section of the Stroom explorer tree you can use the `stroom-tree` and `stroom-tree-doc` short codes.
+
+**Arguments**:
+
+* `stroom-tree`
+  * `name` - The name of the folder.
+    If `name` is `System`, it will render with the System {{< stroom-icon "document/System.svg" >}} icon.
+  * `text` - Optional text to place next to the folder.
+    This text can be used to explain the purpose of the folder.
+
+* `stroom-tree-doc`
+  * `type` - The document type.
+    This is the name of the icon file for the document type without the `.svg` extension, e.g. `Feed`.
+    See [Document type icons]({{< relref "icon-gallery#document-type-icons" >}}) for the full list of type names.
+  * `name` - The name of the folder.
+    If `name` is `System`, it will render with the System {{< stroom-icon "document/System.svg" >}} icon.
+  * `text` - Optional text to place next to the folder.
+    This text can be used to explain the purpose of the folder.
+
+If the `stroom-tree` short code has no inner content it will be rendered as a closed folder (e.g. _SUB_SYSTEM-X1_ in the example).
+
+**Examples:**
+
+A tree that includes the System root.
+
+{{< stroom-tree "System" >}}
+  {{< stroom-tree "Configuration" >}}
+    {{< stroom-tree-doc "Dictionary" "My Dictionary" "Some descriptive text" >}}
+  {{< /stroom-tree >}}
+  {{< stroom-tree "Feeds" >}}
+    {{< stroom-tree "SYSTEM-X" >}}
+      {{< stroom-tree "SUB_SYSTEM-X1" "A closed folder" />}}
+      {{< stroom-tree "SUB_SYSTEM-X2" "An open folder" >}}
+        {{< stroom-tree-doc "Feed" "SUB_SYSTEM-X2" >}}
+        {{< stroom-tree-doc "Pipeline" "SUB_SYSTEM-X2" >}}
+        {{< stroom-tree-doc "TextConverter" "SUB_SYSTEM-X2" >}}
+        {{< stroom-tree-doc "XSLT" "SUB_SYSTEM-X2" >}}
+      {{< /stroom-tree >}}
+    {{< /stroom-tree >}}
+  {{< /stroom-tree >}}
+{{< /stroom-tree >}}
+
+A sub-tree that doesn't include the System root.
+
+{{< stroom-tree "Configuration" >}}
+  {{< stroom-tree-doc "Dictionary" "My Dictionary" "Some descriptive text" >}}
+{{< /stroom-tree >}}
+
+**Markdown:**
+
+The markdown for this examples is:
+
+```markdown
+{{</* stroom-tree "System" */>}}
+  {{</* stroom-tree "Configuration" */>}}
+    {{</* stroom-tree-doc "Dictionary" "My Dictionary" "Some descriptive text" */>}}
+  {{</* /stroom-tree */>}}
+  {{</* stroom-tree "Feeds" */>}}
+    {{</* stroom-tree "SYSTEM-X" */>}}
+      {{</* stroom-tree "SUB_SYSTEM-X1" "A closed folder" /*/>}}
+      {{</* stroom-tree "SUB_SYSTEM-X2" "An open folder" */>}}
+        {{</* stroom-tree-doc "Feed" "SUB_SYSTEM-X2" */>}}
+        {{</* stroom-tree-doc "Pipeline" "SUB_SYSTEM-X2" */>}}
+        {{</* stroom-tree-doc "TextConverter" "SUB_SYSTEM-X2" */>}}
+        {{</* stroom-tree-doc "XSLT" "SUB_SYSTEM-X2" */>}}
+      {{</* /stroom-tree */>}}
+    {{</* /stroom-tree */>}}
+  {{</* /stroom-tree */>}}
+{{</* /stroom-tree */>}}
+
+{{</* stroom-tree "Configuration" */>}}
+  {{</* stroom-tree-doc "Dictionary" "My Dictionary" "Some descriptive text" */>}}
+{{</* /stroom-tree */>}}
 ```
 
