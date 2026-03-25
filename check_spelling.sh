@@ -45,8 +45,9 @@ debug() {
 
 main() {
   IS_DEBUG=false
-  C_SPELL_VERSION="9.7.0"
-  #SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null && pwd )"
+  # You can find the tag/digests at
+  # https://github.com/streetsidesoftware/cspell-cli/pkgs/container/cspell
+  C_SPELL_VERSION="9.7.0@sha256:a4891ac46016cf025ae5e01f656e811b0b2c0ec751d98bf4f30e613791c5fbc4"
 
   setup_echo_colours
 
@@ -54,15 +55,16 @@ main() {
 
   docker \
     run \
+    --rm \
     -v "${PWD}:/workdir" \
     "ghcr.io/streetsidesoftware/cspell:${C_SPELL_VERSION}" \
-    --config \
-    cspell.yaml \
-    --no-progress \
-    --show-context \
-    --show-suggestions \
-    --color \
-    "$@" \
+      --config \
+      cspell.yaml \
+      --no-progress \
+      --show-context \
+      --show-suggestions \
+      --color \
+      "$@" \
     || status=$?
 
   if [[ $status -ne 0 ]]; then
