@@ -291,6 +291,36 @@ ul li p {
   }
 }
 
+
+//////////////////
+//  hyperlinks  //
+//////////////////
+
+.td-content {
+  // Make sure inline code get styled the same as the <a> tag
+  a, a > code {
+    color: $link-color !important;
+    // Hide the underline when not hovered
+    text-decoration: none;
+    // Make the underline start a bit lighter than the text
+    text-decoration-color: rgba($link-hover-color, 0.5) !important;
+  }
+
+  // Make sure inline code get styled the same as the <a> tag
+  a:hover, a:hover > code {
+    color: $link-hover-color !important;
+  }
+
+  a:hover, a:hover:has( > code) {
+    text-decoration-line: underline;
+    text-underline-offset: 4px; 
+    text-decoration-thickness: 2px; 
+    text-decoration-color: rgba($link-hover-color, 0.2) !important;
+    transition: text-decoration-color 0.8s ease-in-out;
+  }
+}
+
+
 ////////////////////////////
 //  code-block shortcode  //
 ////////////////////////////
