@@ -14,12 +14,25 @@
 # limitations under the License.
 #**********************************************************************
 
-FROM adoptopenjdk/openjdk15:jdk-15.0.2_7-alpine
+FROM eclipse-temurin:25.0.2_10-jre-alpine-3.23@sha256:f10d6259d0798c1e12179b6bf3b63cea0d6843f7b09c9f9c9c422c50e44379ec
 
 # Work from the shared git repo dir
 WORKDIR /builder/shared
 
 ARG PLANT_UML_VER="1.2026.1"
+
+# Pass in the uid/gid of the running user so we can use the same user id
+# in the container so that any files created can be read outside the 
+# container.
+ARG USER_ID
+ARG GROUP_ID    
+
+# Set the user ID into an env var so the entrypoint can see it
+ENV CONTAINER_USER_ID=$USER_ID \
+    LANG=en_GB.UTF-8 \
+    FONTCONFIG_PATH=/var/cache/fontconfig
+
+CMD id
 
 # graphviz, ttf-* for plantuml
 RUN apk add --no-cache \
@@ -28,28 +41,18 @@ RUN apk add --no-cache \
       graphviz \
       su-exec \
       tini \
-      ttf-droid \
-      ttf-droid-nonlatin \
+      font-droid \
+      font-droid-nonlatin \
     && curl \
       -Ls \
       https://github.com/plantuml/plantuml/releases/download/v${PLANT_UML_VER}/plantuml-${PLANT_UML_VER}.jar \
       -o /builder/plantuml.jar \
     && apk del curl
 
-# Set the user ID into an env var so the entrypoint can see it
-ENV CONTAINER_USER_ID=$USER_ID \
-    LANG=en_GB.UTF-8
 
 # Set tini as entrypoint
 ENTRYPOINT ["/sbin/tini", "--", "/builder/docker-entrypoint.sh"]
 
-CMD id
-
-# Pass in the uid/gid of the running user so we can use the same user id
-# in the container so that any files created can be read outside the 
-# container.
-ARG USER_ID
-ARG GROUP_ID    
 
 # graphviz, ttf-* for plantuml
 # As this container will be trying to use the docker cli to run/interact with other
