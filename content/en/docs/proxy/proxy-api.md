@@ -22,6 +22,20 @@ This also has a legacy alias of `/stroom/datafeed`.
 For more details of how to use this API, see [Sending Data to Stroom]({{< relref "docs/sending-data" >}}).
 
 
+### `/api/event`
+
+This is an alternative to the `/datafeed` API and is for sending individual events to Stroom-Proxy.
+
+For more details see [Event Store API]({{< relref "proxy-functions#event-store-api" >}}).
+
+{{% note %}}
+`/api/event` differs from the other `/api/...` endpoints in how requests are authenticated.
+It does not use the same authentication as the other endpoints.
+Its authentication is performed in the same way as `/datafeed` and is configured using [Event Store Configuration]({{< relref "common-configuration#receive-configuration" >}}).
+{{% /note %}}
+
+
+
 ### `/ui`
 
 This returns HTML and is intended to be used in a browser.
@@ -84,6 +98,7 @@ Stroom-Proxy presents a number of {{< glossary "REST" >}} endpoints:
 
 * `POST` - `/api/apikey/v2/verifyApiKey` - Allows an upstream Stroom-Proxy to verify an API key.
 * `POST` - `/api/event` - The [Event Store API]({{< relref "proxy-functions#event-store-api" >}}) for POSTing individual events.
+  Note that this endpoint does not use the same authentication as the other REST endpoints.
 * `POST` - `/api/feedStatus/v1/getFeedStatus` - Allows an upstream Stroom-Proxy to check the receipt status of a Feed.
 * `POST` - `/api/feedStatus/v2/getFeedStatus` - Allows an upstream Stroom-Proxy to check the receipt status of a Feed.
 * `GET`  - `/api/ruleset/v2/fetchHashedRules` - Allows an upstream Stroom-Proxy to fetch the obfuscated receipt policy rules.
