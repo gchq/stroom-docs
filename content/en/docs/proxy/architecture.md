@@ -235,7 +235,7 @@ This directory contains multiple directory queues, two per forward destination.
 
 Each forward destination directory also contains a failure directory:
 
-* `..../<destination name>/03_/failure/` - Items that have failed to forward.
+* `..../<destination name>/03_failure/` - Items that have failed to forward.
   Either they have failed too many times or have failed with an error that prevents retry.
-
+  Items in this directory are now outside the control of Stroom-Proxy and will remain until moved/deleted by an administrator.
 
