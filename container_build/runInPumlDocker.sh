@@ -221,7 +221,6 @@ time docker run \
   --rm \
   --tmpfs /tmp:exec \
   --mount "type=bind,src=${local_repo_root},dst=${dest_dir}" \
-  --read-only \
   --name "puml-build-env" \
   --env "BUILD_VERSION=${BUILD_VERSION:-SNAPSHOT}" \
   --env "DOCKER_USERNAME=${DOCKER_USERNAME}" \
