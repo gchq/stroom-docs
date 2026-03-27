@@ -300,10 +300,6 @@ Inline code `looks like this`.
   {{< /card >}}
 {{< /cardpane >}}
 
-[foo `inline code` bar]({{< relref "#foo" >}})
-
-[`inline code`]({{< relref "#foo" >}})
-
 
 ### Code blocks (simple)
 
