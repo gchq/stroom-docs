@@ -47,13 +47,13 @@
 <meta property="og:type" content="article" />
 <meta property="og:url" content="/docs/proxy/proxy-functions/" /><meta property="article:section" content="docs" />
 <meta property="article:published_time" content="2026-02-24T00:00:00+00:00" />
-<meta property="article:modified_time" content="2026-03-25T12:12:31+00:00" /><meta property="og:site_name" content="Stroom" />
+<meta property="article:modified_time" content="2026-03-26T18:07:18+00:00" /><meta property="og:site_name" content="Stroom" />
 
 <meta itemprop="name" content="Proxy Functions">
 <meta itemprop="description" content="The key functions and capabilities of Stroom-Proxy.
 "><meta itemprop="datePublished" content="2026-02-24T00:00:00+00:00" />
-<meta itemprop="dateModified" content="2026-03-25T12:12:31+00:00" />
-<meta itemprop="wordCount" content="676">
+<meta itemprop="dateModified" content="2026-03-26T18:07:18+00:00" />
+<meta itemprop="wordCount" content="1409">
 <meta itemprop="keywords" content="proxy," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Proxy Functions"/>
 <meta name="twitter:description" content="The key functions and capabilities of Stroom-Proxy.
@@ -62,8 +62,8 @@
 
 
 
-<link rel="preload" href="../../../scss/main.min.c711108f4e6304b4d5bce0316a55a87b837d313cc2d03b76aa30e5888cc525af.css" as="style">
-<link href="../../../scss/main.min.c711108f4e6304b4d5bce0316a55a87b837d313cc2d03b76aa30e5888cc525af.css" rel="stylesheet" integrity="">
+<link rel="preload" href="../../../scss/main.min.5cfa9aefae120486d713caac943d1a4890d51f7645a0ca484c454871669804e8.css" as="style">
+<link href="../../../scss/main.min.5cfa9aefae120486d713caac943d1a4890d51f7645a0ca484c454871669804e8.css" rel="stylesheet" integrity="">
 
 
 <script src='../../../js/jquery-3.6.0.min.js'></script>
@@ -154,7 +154,7 @@
     aria-label="Search this site…"
     autocomplete="off"
     
-    data-offline-search-index-json-src="../../../offline-search-index.a9e2875892777f88cd905aa0c0537dde.json"
+    data-offline-search-index-json-src="../../../offline-search-index.389076fa30d70cef024b53c25e6e8c55.json"
     data-offline-search-base-href="../../../"
     data-offline-search-max-results="50"
   >
@@ -179,7 +179,7 @@
     aria-label="Search this site…"
     autocomplete="off"
     
-    data-offline-search-index-json-src="../../../offline-search-index.a9e2875892777f88cd905aa0c0537dde.json"
+    data-offline-search-index-json-src="../../../offline-search-index.389076fa30d70cef024b53c25e6e8c55.json"
     data-offline-search-base-href="../../../"
     data-offline-search-max-results="50"
   >
@@ -797,14 +797,31 @@
             <div class="td-toc">
         <nav id="TableOfContents">
   <ul>
-    <li><a href="#receipt-filtering">Receipt Filtering</a></li>
+    <li><a href="#data-receipt">Data Receipt</a>
+      <ul>
+        <li><a href="#data-feed-api">Data Feed API</a></li>
+        <li><a href="#event-store-api">Event Store API</a>
+          <ul>
+            <li><a href="#authentication">Authentication</a></li>
+          </ul>
+        </li>
+        <li><a href="#aws-simple-queue-service-connector">AWS Simple Queue Service Connector</a></li>
+        <li><a href="#receipt-filtering">Receipt Filtering</a></li>
+      </ul>
+    </li>
     <li><a href="#splitting">Splitting</a></li>
     <li><a href="#aggregation">Aggregation</a></li>
-    <li><a href="#forwarding">Forwarding</a></li>
-    <li><a href="#instant-forwarding">Instant Forwarding</a></li>
-    <li><a href="#directory-scanning">Directory Scanning</a></li>
-    <li><a href="#event-store-api">Event Store API</a></li>
-    <li><a href="#aws-simple-queue-service-connector">AWS Simple Queue Service Connector</a></li>
+    <li><a href="#forwarding">Forwarding</a>
+      <ul>
+        <li><a href="#instant-forwarding">Instant Forwarding</a></li>
+        <li><a href="#forward-failure-handling">Forward Failure Handling</a></li>
+      </ul>
+    </li>
+    <li><a href="#directory-scanning">Directory Scanning</a>
+      <ul>
+        <li><a href="#example">Example</a></li>
+      </ul>
+    </li>
   </ul>
 </nav>
       </div>
@@ -1045,7 +1062,75 @@
 
 		
 	</header>    
-	<h2 id="receipt-filtering">Receipt Filtering</h2>
+	<h2 id="data-receipt">Data Receipt</h2>
+<h3 id="data-feed-api">Data Feed API</h3>
+<p>This is Stroom-Proxy&rsquo;s traditional API for receiving data and Stroom shares the same API.
+See <a href="../../../docs/proxy/proxy-api/#datafeed"><code>/datafeed</code></a> for more details.</p>
+<h3 id="event-store-api">Event Store API</h3>
+<p>Stroom-Proxy presents an alternative HTTP <code>POST</code> API at <a href="../../../docs/proxy/proxy-functions/"><code>/api/event</code></a> to receive individual events.
+If the Stroom-Proxy instances are sufficiently resilient then client systems can use this API to send events directly without needing to buffer them locally.
+It must only be used for sending a single event, not a batch of events.</p>
+<p>The HTTP headers <code>Feed</code> and <code>Type</code> are used to provide the Feed and Stream Type, which are used as the compound aggregation key.
+The request content is assumed to be <em>UTF-8</em> encoded text data but can be in any format, e.g. <code>XML</code>, <code>JSON</code>, <code>CSV</code>, etc.</p>
+<p>Stroom-Proxy will convert each request into the following JSON object and aggregate them by <code>Feed</code> and Stream <code>Type</code> in the Event Store, with one file per key.
+The JSON combines the receipt information, the HTTP headers and the event data into one structured object that can be processed and transformed by Stroom.</p>
+<pre><code class="language-json">{
+  &quot;version&quot;: 0,
+  &quot;event-id&quot;: &quot;1771956627189_0001_P_test-proxy&quot;,
+  &quot;proxy-id&quot;: &quot;test-proxy&quot;,
+  &quot;feed&quot;: &quot;FEED_X&quot;,
+  &quot;type&quot;: &quot;Raw Events&quot;,
+  &quot;receive-time&quot;: &quot;2026-02-24T18:10:27.192Z&quot;,
+  &quot;headers&quot;: [
+    { &quot;name&quot;: &quot;Feed&quot;, &quot;value&quot;: &quot;FEED_X&quot; },
+    { &quot;name&quot;: &quot;Type&quot;, &quot;value&quot;: &quot;Raw Events&quot; }
+  ],
+  &quot;detail&quot;: &quot;this\nis some data \n with new \n\n lines&quot;
+}
+</code></pre>
+<ul>
+<li><code>version</code> - The version of the Event structure, currently <code>0</code>.</li>
+<li><code>event-id</code> - A unique ID for the event.
+This uses the <a href="../../../docs/proxy/receipt-id/">Receipt ID</a> which is a unique identifier for the event.</li>
+<li><code>proxy-id</code> - The unique identity for the Stroom-Proxy instance within the estate.</li>
+<li><code>feed</code> - The Feed the event is destined for, taken from the <code>Feed</code> HTTP header.</li>
+<li><code>type</code> - The Stream Type the event is destined for, taken from the <code>Type</code> HTTP header.</li>
+<li><code>receive-time</code> - The ISO-8601 timestamp taken when the event was received.</li>
+<li><code>headers</code> - A list of the meta attributes extracted from the HTTP headers.</li>
+<li><code>detail</code> - The event payload, i.e. the HTTP request content.</li>
+</ul>
+<p>Each event is written as one line in the aggregated file, delimited by a Line Feed (<code>\n</code>).
+A file containing one JSON object per line is typically referred to as 
+
+
+
+
+
+
+
+  
+  
+
+<span class="external-link">
+  <a href="https://jsonlines.org" target="_blank" class="external-link" style="" title="JSON Lines Format (external link to https://jsonlines.org)">
+    <span>JSON Lines Format</span>
+    <i class="external-link-icon fas fa-external-link-alt fa-sm text-secondary"></i>
+  </a>
+</span>
+.
+This format is mean easier to parse than a single JSON object containing many events.</p>
+<p>If Stroom-Proxy is configured for <a href="#aggregation">aggregation</a> then the Event Store essentially adds another layer of aggregation in front of Stroom-Proxy&rsquo;s standard aggregation.
+The Event Store aggregation is configured separately to the standard aggregation.
+See <a href="../../../docs/install-guide/configuration/stroom-and-proxy/configuring-stroom-proxy/#event-store-configuration">Event Store Configuration</a> for details on how to configure the Event Store and the aggregation thresholds.</p>
+<p>Once a file of one or more individual event objects has met its aggregation thresholds it will be processed in the same way as data arriving via <code>/datafeed</code>.</p>
+<h4 id="authentication">Authentication</h4>
+<p><code>/api/event</code> differs from the other <code>/api/...</code> <a href="../../../docs/proxy/proxy-api/#rest-api">REST endpoints</a> in how requests are authenticated.
+It does not use the same authentication as the other endpoints.</p>
+<p>Its authentication is performed in the same way as <code>/datafeed</code> and is configured using <a href="../../../docs/install-guide/configuration/stroom-and-proxy/common-configuration/#receive-configuration">Event Store Configuration</a>.</p>
+<h3 id="aws-simple-queue-service-connector">AWS Simple Queue Service Connector</h3>
+<p>Stroom-Proxy Supports receiving individual events from one or more AWS Simple Queue Service queues.
+Each event received is treated in the same way as event received via the <a href="#event-store-api">Event Store API</a>.</p>
+<h3 id="receipt-filtering">Receipt Filtering</h3>
 <p>Stroom-Proxy can be configured a number of different methods of data receipt filtering:</p>
 <ul>
 <li><code>FEED_STATUS</code> - Data is filtered based on the <em>Status</em> of the Feed in Stroom.</li>
@@ -1073,65 +1158,90 @@ Note, this is a target as Stroom-Proxy may received a single item of data that i
 <li>File - The data (in ZIP format) is written to a configured directory.</li>
 <li>HTTP - The data (in ZIP format) is POSTed to a configured URL.</li>
 </ul>
-<h2 id="instant-forwarding">Instant Forwarding</h2>
+<p>If multiple destinations are configured, the ZIP to be forwarded will be copied to each of the forward destination input queues.
+This means the failure to send to one destination has no impact on sending to the other destinations.</p>
+<p>Forwarding is configured using <a href="../../../docs/install-guide/configuration/stroom-and-proxy/configuring-stroom-proxy/#forward-configuration">Forward Configuration</a>.</p>
+<p>For details of the directories used in forwarding, see <a href="../../../docs/proxy/architecture/#40_forwarding_input_queue"><code>/40_forwarding_input_queue/</code></a> and <a href="../../../docs/proxy/architecture/#50_forwarding"><code>/50_forwarding/</code></a>.</p>
+<h3 id="instant-forwarding">Instant Forwarding</h3>
 <p>This is a special type of forwarding that means data is streamed directly to a destination rather than being written to local disk first.
-The instant forwarding is only possible if there is only one forwarding destination configured.
+The instant forwarding is only possible if there is only <strong>one</strong> forwarding destination configured.
 Data will still be subject to the configured receipt filtering.</p>
+<p>Instant forwarding is enabled by setting <code>instant</code> to <code>true</code> on the forward destination configuration branch.</p>
+<h3 id="forward-failure-handling">Forward Failure Handling</h3>
+<p>When there is a failure to forward a ZIP, Stroom-Proxy will move it to one of two places:</p>
+<dl>
+<dt>Retry Queue</dt>
+<dd>If the reason for the failure is considered a recoverable one, e.g. the HTTP destination is down, it will move the ZIP onto the retry queue.
+<p>The retry behaviour is configured using <a href="../../../docs/install-guide/configuration/stroom-and-proxy/configuring-stroom-proxy/#queue-configuration">Queue Configuration</a></p>
+</dd>
+<dt>Failure Directory</dt>
+<dd>If the failure is deemed unrecoverable, the ZIP will be moved to the <code>03_failure</code> sub directory within the forward destination directory.
+At this point the ZIP file is no longer under the control of Stroom-Proxy and will have to be dealt with manually by the administrator.
+<p>If the reason for the failure is addressed it is possible to re-process the failed data by moving it into a directory that is configured for <a href="#directory-scanning">Directory Scanning</a>.</p>
+</dd>
+</dl>
 <h2 id="directory-scanning">Directory Scanning</h2>
+<p>Stroom-Proxy can periodically scan one or more directories to look for ZIP files to ingest.
+Any ZIP files found will be treated as if they were received via the <code>/datafeed</code> API.
+The scanning will recurse into any directories found.</p>
+<p>This feature is primarily aimed at re-processing data that Stroom-Proxy has been unable to forward due to an un-recoverable error or too many retries.
+This mechanism can also be used as an additional means of passing data into Stroom-Proxy (instead of via <code>/datafeed</code>).</p>
+<h3 id="example">Example</h3>
+<p>A typical case scenario is that some data has failed to send to Stroom and the retry age has been reached so the ZIP has been moved to the forward failure directory:</p>
+<p>Contents of <code>data/50_forwarding/downstream/</code></p>
+<pre><code class="language-text">./03_failure/20251014/BAD_FEED/0/001/proxy.zip
+./03_failure/20251014/BAD_FEED/0/001/proxy.meta
+./03_failure/20251014/BAD_FEED/0/001/error.log
+</code></pre>
+<p>If you wish to re-send this ZIP you can do the following:</p>
 
-<div class="alert alert-primary" role="alert">
-<h4 class="alert-heading">Note</h4>
+  
 
 
-    This feature was added in Stroom-Proxy 7.10.
+
+
+
+
+<div class="code-toolbar">
+  <pre 
+    class="command-line language-bash" 
+    data-user="user" 
+    data-host="localhost" 
+    data-continuation-str="\"
+    data-filter-output="(out)"><code class="language-bash">mv data/50_forwarding/downstream/03_failure/20251014/BAD_FEED/0/001 &#34;./zip_file_ingest/${uuidgen)&#34;</code></pre>
+</div>
+
+<p>This will move the <code>001</code> directory into <code>zip_file_ingest/</code>, renaming it to a unique <span class="glossary-link">
+  <a href="../../../docs/glossary/#uuid" title="Glossary entry for UUID">
+    <span>UUID</span>
+    <i class="glossary-link-icon fas fa-book fa-sm text-primary"></i>
+  </a>
+</span> to ensure it doesn&rsquo;t clash with any existing files/directories.
+The name of this directory in the ingest directory has no bearing on processing, other than the order in which directories are scanned.</p>
+<p>On the next scan, Stroom-Proxy will discover the <code>proxy.zip</code> file.
+It will check for the presence of any of the optional associated side-car files (i.e. <code>proxy.meta</code> and <code>error.log</code>).
+The entries in the <code>.meta</code> file will be consumed.
+The <code>error.log</code> file will be deleted following successful ingest.</p>
+<p>Stroom-Proxy will scan into all sub-directories within the ingest directory, regardless of depth.</p>
+<p>The <code>.meta</code> sidecar file is optional, but if provided will be used to provide meta values equivalent to HTTP headers when sending to <code>/datafeed</code>.
+For a <code>.meta</code> file to be consumed, it must have the same base-name as the ZIP file, e.g. <code>data.zip</code> and <code>data.meta</code>, and be in the same directory as the ZIP file.</p>
+
+<div class="alert alert-warning" role="alert">
+<h4 class="alert-heading">Warning</h4>
+
+    <p>Stroom-Proxy may be scanning at the same time as you are moving files in to the <code>zip_file_ingest</code> directory.</p>
+<p>Therefore, it is important that if you are supplying sidecar files that you move a parent directory rather than the files themselves (as is shown in the above <code>mv</code> example).
+This will ensure that the move happens atomically, so all files will be visible to the scanner.</p>
+
 
 </div>
 
 
-<p>Stroom-Proxy can periodically scan one or more directories to look for ZIP files to ingest.
-Any ZIP files found will be treated as if they were received via the <code>/datafeed</code> API.
-The scanning will recurse into any directories found.</p>
-<p>This feature is primarily aimed at re-processing data that Stroom-Proxy has been unable to forward due to an un-recoverable error or too many retries.</p>
-<h2 id="event-store-api">Event Store API</h2>
-<p>Stroom-Proxy presents a HTTP POST API at <code>/api/event</code> to receive individual events.
-If the Stroom-Proxy instances are sufficiently resilient then client systems can use this API to send events directly without needing to buffer them locally.</p>
-<p>HTTP headers are used to provide the Feed and Stream Type, which are used as the key for aggregation.
-The POSTed data is assumed to text data, UTF8 encoded.</p>
-<p>Each event is converted into the following JSON object and aggregated by Feed and Stream Type in the Event Store.
-The JSON combines the receipt information, the HTTP headers and the event data into one structured object that can be processed and transformed by Stroom.</p>
-<pre><code class="language-json">{
-  &quot;version&quot;: 0,
-  &quot;event-id&quot;: &quot;1771956627189_0001_P_test-proxy&quot;,
-  &quot;proxy-id&quot;: &quot;test-proxy&quot;,
-  &quot;feed&quot;: &quot;FEED_X&quot;,
-  &quot;type&quot;: &quot;Raw Events&quot;,
-  &quot;receive-time&quot;: &quot;2026-02-24T18:10:27.192Z&quot;,
-  &quot;headers&quot;: [
-    { &quot;name&quot;: &quot;Feed&quot;, &quot;value&quot;: &quot;FEED_X&quot; },
-    { &quot;name&quot;: &quot;Type&quot;, &quot;value&quot;: &quot;Raw Events&quot; }
-  ],
-  &quot;detail&quot;: &quot;this\nis some data \n with new \n\n lines&quot;
-}
-</code></pre>
-<ul>
-<li><code>version</code> - The version of the Event structure, currently <code>0</code>.</li>
-<li><code>event-id</code> - A unique ID for the event.
-This uses the <a href="../../../docs/proxy/receipt-id/">Receipt ID</a> which is a unique identifier for the event.</li>
-<li><code>proxy-id</code> - The unique identity for the Stroom-Proxy instance within the estate.</li>
-<li><code>feed</code> - The Feed the event is destined for, taken from the <code>Feed</code> HTTP header.</li>
-<li><code>type</code> - The Stream Type the event is destined for, taken from the <code>Type</code> HTTP header.</li>
-<li><code>receive-time</code> - The ISO-8601 timestamp taken when the event was received.</li>
-<li><code>headers</code> - A list of the meta attributes extracted from the HTTP headers.</li>
-<li><code>detail</code> - The event payload.</li>
-</ul>
-<h2 id="aws-simple-queue-service-connector">AWS Simple Queue Service Connector</h2>
-<p>Stroom-Proxy Supports receiving individual events from one or more AWS Simple Queue Service queues.
-Each event received is treated in the same way as event received via the <a href="#event-store-api">Event Store API</a>.</p>
 
 	
 	
 	<div class="text-muted mt-5 pt-3 border-top">
-  Last modified March 25, 2026: <a href="https://github.com/gchq/stroom-docs/commit/398bf0a2c9e79937b950f1b3b1a94f7807597609">Change check_spelling.sh to use --rm and an image digest (398bf0a)</a>
+  Last modified March 26, 2026: <a href="https://github.com/gchq/stroom-docs/commit/2e0eef5122482180a24818efe3f6a71e537ec168">Merge branch &#39;7.10&#39; into 7.11 (2e0eef5)</a>
 </div>
 
 </div>

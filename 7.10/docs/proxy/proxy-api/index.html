@@ -47,13 +47,13 @@
 <meta property="og:type" content="article" />
 <meta property="og:url" content="/docs/proxy/proxy-api/" /><meta property="article:section" content="docs" />
 <meta property="article:published_time" content="2026-02-26T00:00:00+00:00" />
-<meta property="article:modified_time" content="2026-03-18T14:48:26+00:00" /><meta property="og:site_name" content="Stroom" />
+<meta property="article:modified_time" content="2026-03-26T18:07:15+00:00" /><meta property="og:site_name" content="Stroom" />
 
 <meta itemprop="name" content="Proxy API">
 <meta itemprop="description" content="Details of the various APIs presented by Stroom-Proxy.
 "><meta itemprop="datePublished" content="2026-02-26T00:00:00+00:00" />
-<meta itemprop="dateModified" content="2026-03-18T14:48:26+00:00" />
-<meta itemprop="wordCount" content="1036">
+<meta itemprop="dateModified" content="2026-03-26T18:07:15+00:00" />
+<meta itemprop="wordCount" content="1116">
 <meta itemprop="keywords" content="" /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Proxy API"/>
 <meta name="twitter:description" content="Details of the various APIs presented by Stroom-Proxy.
@@ -62,8 +62,8 @@
 
 
 
-<link rel="preload" href="../../../scss/main.min.03fcb3825230b8d75b15e1be8bacf2dcc4e5a6d0ca39894a7d653f68ae00d2e0.css" as="style">
-<link href="../../../scss/main.min.03fcb3825230b8d75b15e1be8bacf2dcc4e5a6d0ca39894a7d653f68ae00d2e0.css" rel="stylesheet" integrity="">
+<link rel="preload" href="../../../scss/main.min.7bb14e43903f5669f89b91884d38103cae419ec3362436c737ed5d2d975761d3.css" as="style">
+<link href="../../../scss/main.min.7bb14e43903f5669f89b91884d38103cae419ec3362436c737ed5d2d975761d3.css" rel="stylesheet" integrity="">
 
 
 <script src='../../../js/jquery-3.6.0.min.js'></script>
@@ -112,7 +112,9 @@
 	
 	
 	
-	<a class="dropdown-item" href="../../../../">7.11 (Latest)</a>
+	<a class="dropdown-item" href="../../../../">7.12 (Latest)</a>
+	
+	<a class="dropdown-item" href="../../../../7.11">7.11</a>
 	
 	<a class="dropdown-item" href="../../../">7.10</a>
 	
@@ -152,7 +154,7 @@
     aria-label="Search this site…"
     autocomplete="off"
     
-    data-offline-search-index-json-src="../../../offline-search-index.d7289e90f54fad4eb82cee0744d2ad7a.json"
+    data-offline-search-index-json-src="../../../offline-search-index.58a4eb8f0ad59d504cc394a27e096b3c.json"
     data-offline-search-base-href="../../../"
     data-offline-search-max-results="50"
   >
@@ -177,7 +179,7 @@
     aria-label="Search this site…"
     autocomplete="off"
     
-    data-offline-search-index-json-src="../../../offline-search-index.d7289e90f54fad4eb82cee0744d2ad7a.json"
+    data-offline-search-index-json-src="../../../offline-search-index.58a4eb8f0ad59d504cc394a27e096b3c.json"
     data-offline-search-base-href="../../../"
     data-offline-search-max-results="50"
   >
@@ -779,6 +781,7 @@
     <li><a href="#application-apis">Application APIs</a>
       <ul>
         <li><a href="#datafeed"><code>/datafeed</code></a></li>
+        <li><a href="#apievent"><code>/api/event</code></a></li>
         <li><a href="#ui"><code>/ui</code></a></li>
         <li><a href="#status"><code>/status</code></a></li>
         <li><a href="#debug"><code>/debug</code></a></li>
@@ -985,7 +988,7 @@
     <p>
     The page that you are currently viewing is for an old version of Stroom (7.10).
       
-      The documentation for the latest version of Stroom (7.11)
+      The documentation for the latest version of Stroom (7.12)
       can be found using the version drop-down at the top of the screen or by clicking
         <a href="../../../../">here</a>.
     </p>
@@ -1034,6 +1037,23 @@ Administrators may still want to restrict access to specific endpoints, e.g. mak
 <p>Stroom-Proxy presents the same <code>/datafeed</code> API as Stroom.
 This also has a legacy alias of <code>/stroom/datafeed</code>.</p>
 <p>For more details of how to use this API, see <a href="../../../docs/sending-data/">Sending Data to Stroom</a>.</p>
+<h3 id="apievent"><code>/api/event</code></h3>
+<p>This is an alternative to the <code>/datafeed</code> API and is for sending individual events to Stroom-Proxy.</p>
+<p>For more details see <a href="../../../docs/proxy/proxy-functions/#event-store-api">Event Store API</a>.</p>
+
+<div class="alert alert-primary" role="alert">
+<h4 class="alert-heading">Note</h4>
+
+
+
+    <p><code>/api/event</code> differs from the other <code>/api/...</code> endpoints in how requests are authenticated.
+It does not use the same authentication as the other endpoints.
+Its authentication is performed in the same way as <code>/datafeed</code> and is configured using <a href="../../../docs/install-guide/configuration/stroom-and-proxy/common-configuration/#receive-configuration">Event Store Configuration</a>.</p>
+
+
+</div>
+
+
 <h3 id="ui"><code>/ui</code></h3>
 <p>This returns HTML and is intended to be used in a browser.
 It will display something like:</p>
@@ -1097,7 +1117,8 @@ A datafeed request can be POSTed to this endpoint instead, so that the client ca
 <!-- TODO Create a swagger UI for proxy rest API - https://github.com/gchq/stroom/issues/5417 -->
 <ul>
 <li><code>POST</code> - <code>/api/apikey/v2/verifyApiKey</code> - Allows an upstream Stroom-Proxy to verify an API key.</li>
-<li><code>POST</code> - <code>/api/event</code> - The <a href="../../../docs/proxy/proxy-functions/#event-store-api">Event Store API</a> for POSTing individual events.</li>
+<li><code>POST</code> - <code>/api/event</code> - The <a href="../../../docs/proxy/proxy-functions/#event-store-api">Event Store API</a> for POSTing individual events.
+Note that this endpoint does not use the same authentication as the other REST endpoints.</li>
 <li><code>POST</code> - <code>/api/feedStatus/v1/getFeedStatus</code> - Allows an upstream Stroom-Proxy to check the receipt status of a Feed.</li>
 <li><code>POST</code> - <code>/api/feedStatus/v2/getFeedStatus</code> - Allows an upstream Stroom-Proxy to check the receipt status of a Feed.</li>
 <li><code>GET</code>  - <code>/api/ruleset/v2/fetchHashedRules</code> - Allows an upstream Stroom-Proxy to fetch the obfuscated receipt policy rules.</li>
@@ -1117,7 +1138,7 @@ A datafeed request can be POSTed to this endpoint instead, so that the client ca
   
 
 <span class="external-link">
-  <a href="https://www.dropwizard.io/projects/metrics/en/stable/manual/servlets/" target="_blank" class="" style="" title="Metrics Servlets (external link to https://www.dropwizard.io/projects/metrics/en/stable/manual/servlets/)">
+  <a href="https://www.dropwizard.io/projects/metrics/en/stable/manual/servlets/" target="_blank" class="external-link" style="" title="Metrics Servlets (external link to https://www.dropwizard.io/projects/metrics/en/stable/manual/servlets/)">
     <span>Metrics Servlets</span>
     <i class="external-link-icon fas fa-external-link-alt fa-sm text-secondary"></i>
   </a>
@@ -1152,7 +1173,7 @@ For more details see
   
 
 <span class="external-link">
-  <a href="https://metrics.dropwizard.io" target="_blank" class="" style="" title="Dropwizard Metrics (external link to https://metrics.dropwizard.io)">
+  <a href="https://metrics.dropwizard.io" target="_blank" class="external-link" style="" title="Dropwizard Metrics (external link to https://metrics.dropwizard.io)">
     <span>Dropwizard Metrics</span>
     <i class="external-link-icon fas fa-external-link-alt fa-sm text-secondary"></i>
   </a>
@@ -1173,7 +1194,7 @@ Exposes the same data as Dropwizard Metrics, but in a format suitable for scrapi
   
 
 <span class="external-link">
-  <a href="https://prometheus.io" target="_blank" class="" style="" title="Prometheus (external link to https://prometheus.io)">
+  <a href="https://prometheus.io" target="_blank" class="external-link" style="" title="Prometheus (external link to https://prometheus.io)">
     <span>Prometheus</span>
     <i class="external-link-icon fas fa-external-link-alt fa-sm text-secondary"></i>
   </a>
@@ -1282,7 +1303,7 @@ Can be useful for debugging.</p>
 	
 	
 	<div class="text-muted mt-5 pt-3 border-top">
-  Last modified March 18, 2026: <a href="https://github.com/gchq/stroom-docs/commit/81b5c5a5d3b4178a76e707dc60dc052fd419ba36">Merge branch &#39;7.9&#39; into 7.10 (81b5c5a)</a>
+  Last modified March 26, 2026: <a href="https://github.com/gchq/stroom-docs/commit/1df0f5db5737cf3f4b2ed17d8a737acd81a0363a">Merge branch &#39;7.9&#39; into 7.10 (1df0f5d)</a>
 </div>
 
 </div>
