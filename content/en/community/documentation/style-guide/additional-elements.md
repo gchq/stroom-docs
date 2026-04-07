@@ -250,6 +250,7 @@ in the rendered site.
   [link](/docs/style-guide/using-images#captions)
   ```
 
+
 ### Download file links
 
 You can create a link to download a file, like these:
@@ -270,17 +271,60 @@ All paths are relative to `/assets/files/`.
 ### Glossary links
 
 If you need to create a link to an item in the [Glossary]({{< relref "docs/glossary" >}}) you can use the `glossary` shortcode.
-E.g.
 
-* A {{< glossary "feed" >}} is something you should know about, and so are {{< glossary "stream" "streams" >}}.
+
+**Arguments**:
+
+* `term` - The glossary term.
+  This must match the front matter `title` in the glossary page, e.g. `Stream Type`.
+  This is case-insensitive.
+* `display_text` - Optional.
+  The text to display in line, e.g. `Feeds` if referring to something plural.
+  If this argument is not supplied, the page `title` will be displayed in-line.
+
+**Examples:**
+
+* A {{< glossary "feed" >}} is something you should know about, and so are {{< glossary "stream" "Streams" >}}.
 
   ```markdown
-  A {{</* glossary "feed" */>}} is something you should know about, and so are {{</* glossary "stream" "streams" */>}}.
+  A {{</* glossary "feed" */>}} is something you should know about, and so are {{</* glossary "stream" "Streams" */>}}.
   ```
 
-The argument to the shortcode is the glossary term.
+The argument to the shortcode is the glossary term (c.
 This should match the heading text on the Glossary page exactly, ignoring case.
 It will be converted to an HTML anchor so that you can link directly to the heading for the term in question.
+
+
+#### Creating a Glossary Entry
+
+To create a glossary entry, create a file like this:
+
+```text
+---
+title: "Example Term"
+linkTitle: "Example"
+description: >
+  A short description of the term that will be shown in the tooltip.
+  Simple inline _markdown_ only, **no** bullets or shortcodes.
+---
+
+Optional additional detail about the term that can contain all markdown and shortcodes.
+
+{{%/* see-also */%}}
+* {{</* glossary "Another Term" */>}}
+* {{</* glossary "And Another Term" */>}}
+{{%/* /see-also */%}}
+```
+
+* `title` - Will be used as the tooltip title and inline text (unless overridden).
+* `linkTitle` - If title is quite long, use an abbreviated form for the sidebar menus.
+* `description` - This will form the content of the tooltip so don't make it too long.
+  Simple inline markdown only, no bullets or shortcodes.
+  Line breaks are ignored.
+
+The file name must be of the form `glossary-xxx.md`, where `xxx` is the page title in anchor form, e.g. `glossary-example-term`.
+
+Place the file in the directory `content/en/docs/glossary/X/` where `X` is the letter of the alphabet corresponding to the first letter of the first word of the term, e.g. `content/en/docs/glossary/e/`.
 
 
 ## Code

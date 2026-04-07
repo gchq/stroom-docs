@@ -1,6 +1,6 @@
 ---
-title: "Stream type"
-linkTitle: "Stream type"
+title: "Stream Type"
+linkTitle: "Stream Type"
 description: >
   All _Streams_ must have a Stream Type.
   The list of Stream Types is configured using the _Property_ `stroom.data.meta.metaTypes`.
@@ -20,6 +20,7 @@ Some Stream Types, such as `Meta` and `Context` only exist as [child streams]({{
 
 {{% see-also %}}
 * [Streams Concept]({{< relref "docs/user-guide/concepts/streams" >}})
+* {{< glossary "Stream" >}}
 * {{< glossary "Events" >}}
 * {{< glossary "Raw Events" >}}
 * {{< glossary "Property" >}}

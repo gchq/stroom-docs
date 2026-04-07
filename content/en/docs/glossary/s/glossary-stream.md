@@ -8,5 +8,6 @@ description: >
 {{% see-also %}}
 * [Streams Concept]({{< relref "docs/user-guide/concepts/streams" >}})
 * {{< glossary "Events" >}}
+* {{< glossary "Stream Type" >}}
 {{% /see-also %}}
 
