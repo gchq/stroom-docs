@@ -1,0 +1,61 @@
+<!-- 
+{{/*
+
+Creates a link to an item in the Glossay page.
+
+Arguments:
+
+term - The file name of the glossary file without the extension, e.g. "api-key".
+title - An optional title for the glossary link text and tooltip title. If not provided
+        the title will be optained from the page title. Generaly you should not need this arg.
+
+e.g. {{< glossary "Feed" >}}
+e.g. {{< glossary "Feed" "Feeds">}}
+
+
+NOTE: This shortcode takes the page's summary, see https://gohugo.io/content-management/summaries/
+To ensure the summary is treated as markdown and not plain text, you must include
+
+<#!--more--#>   (remove the hashes)
+
+between the first couple of lines and the rest of the page content.
+If the glossary item is very short, then put it right at the end.
+
+NOTE: Don't include any shortcodes in the lines that form the summary (e.g. no links to other 
+glossary terms as this behaves strangely when rendered. Thus, keep the summary to markdown
+or plain text only.
+*/}}
+-->
+{{- $term := strings.Trim (strings.Trim (.Get 0) " ") " " -}}
+{{- $title_arg := strings.Trim (strings.Trim (.Get 1) " ") " " -}}
+{{ $slug := anchorize $term }}
+{{ $letter := substr $slug 0 1 }}
+{{- $page_path := printf "/docs/glossary/%s/glossary-%s.md" $letter $slug -}}
+
+{{ with .Site.GetPage $page_path }}
+  {{- $gloss_page := . -}}
+  {{ $title := $title_arg | default ($gloss_page.Title) }}
+  {{ $summary := $gloss_page.Summary }}
+  
+  {{- $url := printf "/docs/glossary#%s" $slug -}}
+  {{- $url = $url | relURL }}
+  
+  <span class="glossary-link">
+    <a href="{{- $url -}}">
+      <span>{{- $title -}}</span>
+      <i class="glossary-link-icon fas fa-book fa-sm text-primary"></i>
+    </a>
+    {{ if $summary }}
+      <div class="glossary-tooltip">
+        <div class="glossary-tooltip-title">{{- $title -}}</div>
+        <div class="glossary-tooltip-summary">{{- $summary -}}</div>
+        {{ if $gloss_page.Truncated }}
+          <div class="glossary-tooltip-truncated">Click to see more details...</div>
+        {{ end }}
+      </div>
+    {{ end }}
+  </span>
+{{ else }}
+  {{ errorf "stroom-glossary - Unable to find page %q" $page_path }}
+{{ end }}
+

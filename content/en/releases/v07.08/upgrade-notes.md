@@ -80,7 +80,7 @@ appConfig:
 
 #### OpenID HTTP Client
 
-Added the property `httpClient` for configuring the HTTP client used to fetch the {{< glossary "identity-provider-idp" "IDP's">}} configuration.
+Added the property `httpClient` for configuring the HTTP client used to fetch the {{< glossary "idp" "IDP's">}} configuration.
 
 ```yml
   security:

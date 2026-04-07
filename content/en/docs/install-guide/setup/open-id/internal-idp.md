@@ -9,7 +9,7 @@ description: >
   
 ---
 
-By default a new Stroom instance/cluster will use its own internal {{< glossary "identity provider idp" "Identity Provider (IDP)" >}} for authentication.
+By default a new Stroom instance/cluster will use its own internal {{< glossary "idp" >}} for authentication.
 
 {{% note %}}
 An exception to this is the `_test` variant of the Stroom Docker stack which will default to using [Test Credentials]({{< relref "test-credentials" >}})
