@@ -9,7 +9,7 @@ description: >
   
 ---
 
-You may be running Stroom in an environment with an existing {{< glossary "identity provider idp" "Identity Provider (IDP)" >}} (KeyCloak, Cognito, Google, Active Directory, etc.) and want to use that for authenticating users.
+You may be running Stroom in an environment with an existing {{< glossary "idp" >}} (KeyCloak, Cognito, Google, Active Directory, etc.) and want to use that for authenticating users.
 Stroom supports 3rd party IDPs that conform to the {{< external-link "Open ID Connect" "https://openid.net/connect/" >}} specification.
 
 The following is a guide to setting up a new stroom instance/cluster with KeyCloak as the 3rd party IDP.

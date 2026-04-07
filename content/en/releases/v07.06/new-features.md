@@ -286,7 +286,7 @@ The following sub-tabs are available:
 It is now possible to change the enabled state of a Stroom User.
 This is as distinct from changing the enabled state of an Account.
 
-This is mostly useful for cases where Stroom is configured to use an external {{< glossary "identity-provider-idp" "Identity Provider" >}} and an administrator wants to create the Stroom User associated with an IDP user but does not want to allow them to log in yet.
+This is mostly useful for cases where Stroom is configured to use an external {{< glossary "idp" "Identity Provider" >}} and an administrator wants to create the Stroom User associated with an IDP user but does not want to allow them to log in yet.
 
 A disabled user will be unable to log in and anything running as the User (e.g. a Pipeline processor filter) will fail.
 
@@ -317,7 +317,7 @@ Now the User only needs `View` permission to see the dependences/dependants.
 
 When a Stroom User Account is created it will now create the corresponding Stroom User record.
 Previously this was a two step process.
-This is only applicable when using the internal {{< glossary "identity-provider-idp" "Identity Provider">}}.
+This is only applicable when using the internal {{< glossary "idp" "Identity Provider">}}.
 
 
 ## Analytic Email Notifications

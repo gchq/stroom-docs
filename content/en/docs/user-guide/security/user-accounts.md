@@ -18,7 +18,7 @@ Therefore this section will be updated with more detail in v7.6.
 
 
 {{% note %}}
-If Stroom is configured to use an external {{< glossary "identity provider idp" "Identity Provider">}} (e.g. Azure Active Directory or AWS Cognito) then all user accounts are managed within that {{< glossary "identity provider idp" "Identity Provider">}} and the Manage Accounts screen in Stroom will not be available.
+If Stroom is configured to use an external {{< glossary "idp" >}} (e.g. Azure Active Directory or AWS Cognito) then all user accounts are managed within that {{< glossary "idp" >}} and the Manage Accounts screen in Stroom will not be available.
 For more details about external Identity Providers, see [Open ID Connect]({{< relref "docs/install-guide/setup/open-id" >}}).
 {{% /note %}}
 

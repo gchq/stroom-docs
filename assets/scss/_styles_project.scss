@@ -468,8 +468,95 @@ pre[class*=language-] {
   overflow-wrap: anywhere;
 }
 
+
+/////////////////////////////////
+//  Glossary Links & Tooltips  //
+/////////////////////////////////
+
 .glossary-link-icon {
   opacity: 0.8;
+}
+
+.glossary-link {
+  position: relative;
+  display: inline-block; /* Helps with bounding box calculations */
+}
+
+.glossary-tooltip-title {
+  color: $primary;
+  font-weight: bold;
+  font-size: 1rem;
+}
+
+.glossary-tooltip {
+  position: absolute;
+  bottom: 125%; /* Position it above the text */
+  left: 50%;
+  transform: translateX(-50%); /* Center it horizontally */
+  z-index: 100; /* Ensure it floats above other content */
+  pointer-events: none; /* Prevents the tooltip itself from triggering hover glitches */
+
+  //background-color: #333;
+  background-color: white;
+  //color: #fff;
+  //color: #fff;
+  padding: 6px 12px;
+  border-radius: 9px;
+  border-color: $primary;
+  border-style: solid;
+  border-width: 3px;
+  font-size: 0.85rem;
+  //white-space: nowrap; [> Keeps the heading on a single line <]
+  box-shadow: 5px 5px 4px rgba(0, 0, 0, 0.2);
+
+  /* Hide it and set up the transition properties */
+  opacity: 0;
+  visibility: hidden;
+  
+  /* Transition for a smooth fade out when mouse leaves (no delay) */
+  transition: opacity 0.2s ease, visibility 0.2s ease;
+  transition-delay: 0s; 
+
+  text-wrap: wrap;
+  width: 600px;
+}
+
+/* 3. Show the tooltip on hover with a delay */
+.glossary-link:hover .glossary-tooltip {
+  opacity: 1;
+  visibility: visible;
+  
+  /* Adds a 0.5 second delay ONLY when hovering */
+  transition-delay: 0.3s; 
+}
+
+.glossary-tooltip-title, .glossary-tooltip-summary, .glossary-tooltip-truncated {
+  display: block;
+}
+
+/* Optional: Add a small triangle pointing down to the link */
+.glossary-tooltip::after {
+  content: "";
+  position: absolute;
+  top: 100%; /* At the bottom of the tooltip */
+  left: 50%;
+  margin-left: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: #333 transparent transparent transparent;
+}
+
+span.glossary-tooltip {
+  visibility: hidden;
+}
+
+span.glossary-tooltip-summary {
+  margin-top: 0.15em;
+}
+
+span.glossary-tooltip-truncated {
+  margin-top: 0.15em;
+  font-size: 90%;
 }
 
 
