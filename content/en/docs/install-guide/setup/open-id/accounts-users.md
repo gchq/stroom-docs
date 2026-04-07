@@ -14,7 +14,7 @@ In Stroom we have the concept of Users and Accounts, and it is important to unde
 
 ## Accounts
 
-{{< glossary "Account" "Accounts" >}} are user identities in the internal {{< glossary "identity provider idp" "Identity Provider (IDP)" >}}.
+{{< glossary "Account" "Accounts" >}} are user identities in the internal {{< glossary "idp" >}}.
 The internal IDP is used when you want Stroom to manage all the authentication.
 The internal IDP is the default option and the simplest for test environments.
 Accounts are not applicable when using an external 3rd party IDP.

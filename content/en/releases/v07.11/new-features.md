@@ -245,7 +245,7 @@ inRange(5, 3, 4)
 
 ### API Key Verification
 
-When you have more that one Stroom Proxy in a chain (e.g. _Remote Stroom Proxy_ -> _Local Stroom Proxy_ -> _Stroom_), the remote Stroom Proxy may receive requests from client using {{< glossary "API Keys" >}}.
+When you have more that one Stroom Proxy in a chain (e.g. _Remote Stroom Proxy_ -> _Local Stroom Proxy_ -> _Stroom_), the remote Stroom Proxy may receive requests from client using {{< glossary "API Key" "Api Keys" >}}.
 On its own, Stroom Proxy is unable to authenticate an API Key as they were created by Stroom.
 Instead it needs to make a request to the downstream Stroom Proxy to authenticate the API Key.
 This Stroom Proxy can in turn make a similar request to Stroom.
