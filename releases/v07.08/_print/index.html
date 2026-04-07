@@ -56,8 +56,8 @@
 
 
 
-<link rel="preload" href="../../../scss/main.min.c73182fb2d2296df72e7d46da34b827b8d1fc0edeefcb4cf2ee452f973aabbc6.css" as="style">
-<link href="../../../scss/main.min.c73182fb2d2296df72e7d46da34b827b8d1fc0edeefcb4cf2ee452f973aabbc6.css" rel="stylesheet" integrity="">
+<link rel="preload" href="../../../scss/main.min.396476946a9b6e781a9b8d417186b5e7ca15aa5c2d8a2821b87b82f11629222e.css" as="style">
+<link href="../../../scss/main.min.396476946a9b6e781a9b8d417186b5e7ca15aa5c2d8a2821b87b82f11629222e.css" rel="stylesheet" integrity="">
 
 
 <script src='../../../js/jquery-3.6.0.min.js'></script>
@@ -151,7 +151,7 @@
     aria-label="Search this site…"
     autocomplete="off"
     
-    data-offline-search-index-json-src="../../../offline-search-index.e30402deab946829f4bafeeca7e40345.json"
+    data-offline-search-index-json-src="../../../offline-search-index.e34a56b9844271fafa603b6588213df7.json"
     data-offline-search-base-href="../../../"
     data-offline-search-max-results="50"
   >
@@ -331,7 +331,7 @@ Reports can be emailed to individuals or written as a stream for onward processi
       </a>
 
       
-      <span class="USED FOR SPLITTING" ></span>
+      <span style="display:none;" class="USED FOR SPLITTING" ></span>
 
     
   
@@ -351,11 +351,12 @@ These have been standardised to all use the Apache HTTP client which means a con
 <p><code>&lt;timestamp&gt;_&lt;seq no&gt;_&lt;(P|S)&gt;_&lt;proxyId or stroom nodeName&gt;</code></p>
 <ul>
 <li><code>&lt;timestamp&gt;</code> - The receipt timestamp in milliseconds since the <span class="glossary-link">
-  <a href="../../../docs/glossary/#unix-epoch" title="Glossary entry for Unix Epoch">
-    <span>Unix Epoch</span>
-    <i class="glossary-link-icon fas fa-book fa-sm text-primary"></i>
-  </a>
-</span>, zero padded.</li>
+    <a href="../../../docs/glossary/u/glossary-unix-epoch">
+      <span>Unix Epoch</span>
+      <i class="glossary-link-icon fas fa-book fa-sm text-primary"></i>
+    </a><span class="glossary-tooltip">
+      <span class="glossary-tooltip-title">Unix Epoch</span>
+      <span class="glossary-tooltip-summary">The Unix epoch is 00:00:00 UTC on 1st January 1970. Some timestamps in Stroom are represented as the number of milliseconds since the Unix epoch, e.g. <code>1738331628276</code>, and may be referred to as <em>epoch ms</em> or <em>epoch milliseconds</em>.</span><span class="glossary-tooltip-truncated">Click to see more details...</span></span></span>, zero padded.</li>
 <li><code>&lt;seq no&gt;</code> - This is zero padded four digit sequential number (starting at <code>0000</code>) that is used to distinguish between multiple receipt events happening during the same millisecond.</li>
 <li><code>&lt;P|S&gt;</code> - Indicates whether the item was received by Stroom (<code>S</code>) or Stroom-Proxy (<code>P</code>).</li>
 <li><code>&lt;proxyId or stroom nodeName&gt;</code> - For Stroom-Proxy this will be the <code>proxyId</code> that is either set in configuration to uniquely identify a proxy instance or is one of the FQDN/IP.
@@ -512,11 +513,12 @@ If you do not remove it, Stroom will not boot.</p>
 </code></pre>
 <h4 id="openid-http-client">OpenID HTTP Client</h4>
 <p>Added the property <code>httpClient</code> for configuring the HTTP client used to fetch the <span class="glossary-link">
-  <a href="../../../docs/glossary/#identity-provider-idp" title="Glossary entry for IDP&#39;s">
-    <span>IDP&#39;s</span>
-    <i class="glossary-link-icon fas fa-book fa-sm text-primary"></i>
-  </a>
-</span> configuration.</p>
+    <a href="../../../docs/glossary/i/glossary-idp">
+      <span>IDP&#39;s</span>
+      <i class="glossary-link-icon fas fa-book fa-sm text-primary"></i>
+    </a><span class="glossary-tooltip">
+      <span class="glossary-tooltip-title">Identity Provider (IDP)</span>
+      <span class="glossary-tooltip-summary">An <strong>Id</strong>entity <strong>P</strong>rovider is a system or service that can authenticate a user and assert their identity. <em>Identity providers</em> can support single sign on (SSO), which allows the user to sign in once to the <em>Identity Provider</em> so they are then authenticated to all systems using that IDP.</span><span class="glossary-tooltip-truncated">Click to see more details...</span></span></span> configuration.</p>
 <pre><code class="language-yml">  security:
     authentication:
       openId:
@@ -571,19 +573,8 @@ this section
     <div class="lead">Full list of changes in this release.</div>
 	<!--
 To build this list run diff_changelog.sh in the root of the stroom repo.
-E.g. ./diff_changelog.sh 7.4 7.5 | sed -E -e 's/^/\n/' -e 's|Issue \*\*#([0-9]+)\*\*|Issue **
-
-
-
-
-
-
-
-  
-  
-
-<span class="external-link">
-  <a href="https://github.com/gchq/stroom/issues/%5c1" target="_blank" class="external-link" style="" title="#\1 (external link to https://github.com/gchq/stroom/issues/\1)">
+E.g. ./diff_changelog.sh 7.4 7.5 | sed -E -e 's/^/\n/' -e 's|Issue \*\*#([0-9]+)\*\*|Issue **<span class="external-link">
+  <a href="https://github.com/gchq/stroom/issues/%5c1" target="_blank" class="external-link" title="#\1 (external link to https://github.com/gchq/stroom/issues/\1)">
     <span>#\1</span>
     <i class="external-link-icon fas fa-external-link-alt fa-sm text-secondary"></i>
   </a>
@@ -592,19 +583,8 @@ E.g. ./diff_changelog.sh 7.4 7.5 | sed -E -e 's/^/\n/' -e 's|Issue \*\*#([0-9]+)
 -->
 <ul>
 <li>
-<p>Issue <strong>
-
-
-
-
-
-
-
-  
-  
-
-<span class="external-link">
-  <a href="https://github.com/gchq/stroom/issues/4682" target="_blank" class="external-link" style="" title="#4682 (external link to https://github.com/gchq/stroom/issues/4682)">
+<p>Issue <strong><span class="external-link">
+  <a href="https://github.com/gchq/stroom/issues/4682" target="_blank" class="external-link" title="#4682 (external link to https://github.com/gchq/stroom/issues/4682)">
     <span>#4682</span>
     <i class="external-link-icon fas fa-external-link-alt fa-sm text-secondary"></i>
   </a>
@@ -621,19 +601,8 @@ E.g. ./diff_changelog.sh 7.4 7.5 | sed -E -e 's/^/\n/' -e 's|Issue \*\*#([0-9]+)
 <p>Change proxy logging to still log datafeed events even if the <code>metaKeys</code> config prop is empty.</p>
 </li>
 <li>
-<p>Issue <strong>
-
-
-
-
-
-
-
-  
-  
-
-<span class="external-link">
-  <a href="https://github.com/gchq/stroom/issues/4695" target="_blank" class="external-link" style="" title="#4695 (external link to https://github.com/gchq/stroom/issues/4695)">
+<p>Issue <strong><span class="external-link">
+  <a href="https://github.com/gchq/stroom/issues/4695" target="_blank" class="external-link" title="#4695 (external link to https://github.com/gchq/stroom/issues/4695)">
     <span>#4695</span>
     <i class="external-link-icon fas fa-external-link-alt fa-sm text-secondary"></i>
   </a>
@@ -653,19 +622,8 @@ E.g. ./diff_changelog.sh 7.4 7.5 | sed -E -e 's/^/\n/' -e 's|Issue \*\*#([0-9]+)
 <p>Change default <code>identityProviderType</code> to <code>INTERNAL_IDP</code> in stroom prod config.</p>
 </li>
 <li>
-<p>Issue <strong>
-
-
-
-
-
-
-
-  
-  
-
-<span class="external-link">
-  <a href="https://github.com/gchq/stroom/issues/4661" target="_blank" class="external-link" style="" title="#4661 (external link to https://github.com/gchq/stroom/issues/4661)">
+<p>Issue <strong><span class="external-link">
+  <a href="https://github.com/gchq/stroom/issues/4661" target="_blank" class="external-link" title="#4661 (external link to https://github.com/gchq/stroom/issues/4661)">
     <span>#4661</span>
     <i class="external-link-icon fas fa-external-link-alt fa-sm text-secondary"></i>
   </a>
@@ -673,19 +631,8 @@ E.g. ./diff_changelog.sh 7.4 7.5 | sed -E -e 's/^/\n/' -e 's|Issue \*\*#([0-9]+)
 </strong> : Use Apache HttpClient.</p>
 </li>
 <li>
-<p>Issue <strong>
-
-
-
-
-
-
-
-  
-  
-
-<span class="external-link">
-  <a href="https://github.com/gchq/stroom/issues/4378" target="_blank" class="external-link" style="" title="#4378 (external link to https://github.com/gchq/stroom/issues/4378)">
+<p>Issue <strong><span class="external-link">
+  <a href="https://github.com/gchq/stroom/issues/4378" target="_blank" class="external-link" title="#4378 (external link to https://github.com/gchq/stroom/issues/4378)">
     <span>#4378</span>
     <i class="external-link-icon fas fa-external-link-alt fa-sm text-secondary"></i>
   </a>
@@ -693,19 +640,8 @@ E.g. ./diff_changelog.sh 7.4 7.5 | sed -E -e 's/^/\n/' -e 's|Issue \*\*#([0-9]+)
 </strong> : Add reporting.</p>
 </li>
 <li>
-<p>Issue <strong>
-
-
-
-
-
-
-
-  
-  
-
-<span class="external-link">
-  <a href="https://github.com/gchq/stroom/issues/2201" target="_blank" class="external-link" style="" title="#2201 (external link to https://github.com/gchq/stroom/issues/2201)">
+<p>Issue <strong><span class="external-link">
+  <a href="https://github.com/gchq/stroom/issues/2201" target="_blank" class="external-link" title="#2201 (external link to https://github.com/gchq/stroom/issues/2201)">
     <span>#2201</span>
     <i class="external-link-icon fas fa-external-link-alt fa-sm text-secondary"></i>
   </a>

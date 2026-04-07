@@ -91,19 +91,18 @@
         
 &lt;div class=&#34;alert alert-primary&#34; role=&#34;alert&#34;&gt;
 &lt;h4 class=&#34;alert-heading&#34;&gt;See Also&lt;/h4&gt;
-
-
-    &lt;p&gt;&lt;a href=&#34;../../docs/install-guide/setup/mysql-server-setup/&#34;&gt;MySQL Server Setup&lt;/a&gt;&lt;/p&gt;
+&lt;div class=&#34;alert-content&#34;&gt;
+  
+  &lt;p&gt;&lt;a href=&#34;../../docs/install-guide/setup/mysql-server-setup/&#34;&gt;MySQL Server Setup&lt;/a&gt;
 &lt;span class=&#34;external-link&#34;&gt;
-  &lt;a href=&#34;https://dev.mysql.com/doc/refman/8.0/en/server-administration.html&#34; target=&#34;_blank&#34; class=&#34;external-link&#34; style=&#34;&#34; title=&#34;MySQL Server Administration (external link to https://dev.mysql.com/doc/refman/8.0/en/server-administration.html)&#34;&gt;
-    &lt;span&gt;MySQL Server Administration&lt;/span&gt;
-    &lt;i class=&#34;external-link-icon fas fa-external-link-alt fa-sm text-secondary&#34;&gt;&lt;/i&gt;
-  &lt;/a&gt;
-&lt;/span&gt;
-
+&lt;a href=&#34;https://dev.mysql.com/doc/refman/8.0/en/server-administration.html&#34; target=&#34;_blank&#34; class=&#34;external-link&#34; title=&#34;MySQL Server Administration (external link to https://dev.mysql.com/doc/refman/8.0/en/server-administration.html)&#34;&gt;
+&lt;span&gt;MySQL Server Administration&lt;/span&gt;
+&lt;i class=&#34;external-link-icon fas fa-external-link-alt fa-sm text-secondary&#34;&gt;&lt;/i&gt;
+&lt;/a&gt;
+&lt;/span&gt;&lt;/p&gt;
 
 &lt;/div&gt;
-
+&lt;/div&gt;
 
 &lt;h2 id=&#34;general-configuration&#34;&gt;General configuration&lt;/h2&gt;
 &lt;p&gt;MySQL is configured via the &lt;code&gt;.cnf&lt;/code&gt; file which is typically located in one of these locations:&lt;/p&gt;
@@ -121,19 +120,8 @@
 A value of &lt;code&gt;0&lt;/code&gt; means tables are stored on the filesystem in the case used in CREATE TABLE and sql is case sensitive.
 This is the default in linux and is the preferred value for deployments of stroom of v7+.
 A value of &lt;code&gt;1&lt;/code&gt; means tables are stored on the filesystem in lowercase but sql is case insensitive.
-See also 
-
-
-
-
-
-
-
-  
-  
-
-&lt;span class=&#34;external-link&#34;&gt;
-  &lt;a href=&#34;https://dev.mysql.com/doc/refman/8.0/en/identifier-case-sensitivity.html&#34; target=&#34;_blank&#34; class=&#34;external-link&#34; style=&#34;&#34; title=&#34;Identifier Case Sensitivity (external link to https://dev.mysql.com/doc/refman/8.0/en/identifier-case-sensitivity.html)&#34;&gt;
+See also &lt;span class=&#34;external-link&#34;&gt;
+  &lt;a href=&#34;https://dev.mysql.com/doc/refman/8.0/en/identifier-case-sensitivity.html&#34; target=&#34;_blank&#34; class=&#34;external-link&#34; title=&#34;Identifier Case Sensitivity (external link to https://dev.mysql.com/doc/refman/8.0/en/identifier-case-sensitivity.html)&#34;&gt;
     &lt;span&gt;Identifier Case Sensitivity&lt;/span&gt;
     &lt;i class=&#34;external-link-icon fas fa-external-link-alt fa-sm text-secondary&#34;&gt;&lt;/i&gt;
   &lt;/a&gt;
@@ -145,19 +133,8 @@ See also
 For a clustered deployment of stroom, the default value of 151 will typically be too low.
 Each stroom node will hold a pool of open database connections for its use, therefore with a large number of stroom nodes and a big connection pool the total number of connections can be very large.
 This property should be set taking into account the values of the stroom properties of the form &lt;code&gt;*.db.connectionPool.maxPoolSize&lt;/code&gt;.
-See also 
-
-
-
-
-
-
-
-  
-  
-
-&lt;span class=&#34;external-link&#34;&gt;
-  &lt;a href=&#34;https://dev.mysql.com/doc/refman/8.0/en/connection-interfaces.html&#34; target=&#34;_blank&#34; class=&#34;external-link&#34; style=&#34;&#34; title=&#34;Connection Interfaces (external link to https://dev.mysql.com/doc/refman/8.0/en/connection-interfaces.html)&#34;&gt;
+See also &lt;span class=&#34;external-link&#34;&gt;
+  &lt;a href=&#34;https://dev.mysql.com/doc/refman/8.0/en/connection-interfaces.html&#34; target=&#34;_blank&#34; class=&#34;external-link&#34; title=&#34;Connection Interfaces (external link to https://dev.mysql.com/doc/refman/8.0/en/connection-interfaces.html)&#34;&gt;
     &lt;span&gt;Connection Interfaces&lt;/span&gt;
     &lt;i class=&#34;external-link-icon fas fa-external-link-alt fa-sm text-secondary&#34;&gt;&lt;/i&gt;
   &lt;/a&gt;
@@ -168,19 +145,8 @@ See also
 &lt;p&gt;&lt;code&gt;innodb_buffer_pool_size&lt;/code&gt;/&lt;code&gt;innodb_buffer_pool_instances&lt;/code&gt; - Controls the amount of memory available to MySQL for caching table/index data.
 Typically this will be set to 80% of available RAM, assuming MySQL is running on a dedicated host and the total amount of table/index data is greater than 80% of available RAM.
 &lt;em&gt;Note&lt;/em&gt;: &lt;code&gt;innodb_buffer_pool_size&lt;/code&gt; must be set to a value that is equal to or a multiple of &lt;code&gt;innodb_buffer_pool_chunk_size * innodb_buffer_pool_instances&lt;/code&gt;.
-See also 
-
-
-
-
-
-
-
-  
-  
-
-&lt;span class=&#34;external-link&#34;&gt;
-  &lt;a href=&#34;https://dev.mysql.com/doc/refman/8.0/en/innodb-buffer-pool-resize.html&#34; target=&#34;_blank&#34; class=&#34;external-link&#34; style=&#34;&#34; title=&#34;Configuring InnoDB Buffer Pool Size (external link to https://dev.mysql.com/doc/refman/8.0/en/innodb-buffer-pool-resize.html)&#34;&gt;
+See also &lt;span class=&#34;external-link&#34;&gt;
+  &lt;a href=&#34;https://dev.mysql.com/doc/refman/8.0/en/innodb-buffer-pool-resize.html&#34; target=&#34;_blank&#34; class=&#34;external-link&#34; title=&#34;Configuring InnoDB Buffer Pool Size (external link to https://dev.mysql.com/doc/refman/8.0/en/innodb-buffer-pool-resize.html)&#34;&gt;
     &lt;span&gt;Configuring InnoDB Buffer Pool Size&lt;/span&gt;
     &lt;i class=&#34;external-link-icon fas fa-external-link-alt fa-sm text-secondary&#34;&gt;&lt;/i&gt;
   &lt;/a&gt;

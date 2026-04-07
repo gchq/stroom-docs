@@ -58,8 +58,8 @@
 
 
 
-<link rel="preload" href="../../../../../scss/main.min.5cfa9aefae120486d713caac943d1a4890d51f7645a0ca484c454871669804e8.css" as="style">
-<link href="../../../../../scss/main.min.5cfa9aefae120486d713caac943d1a4890d51f7645a0ca484c454871669804e8.css" rel="stylesheet" integrity="">
+<link rel="preload" href="../../../../../scss/main.min.b1ba44c06a05e77129aa782ddd0966945dbdb4581ae5f96db549359f5d32b830.css" as="style">
+<link href="../../../../../scss/main.min.b1ba44c06a05e77129aa782ddd0966945dbdb4581ae5f96db549359f5d32b830.css" rel="stylesheet" integrity="">
 
 
 <script src='../../../../../js/jquery-3.6.0.min.js'></script>
@@ -150,7 +150,7 @@
     aria-label="Search this site…"
     autocomplete="off"
     
-    data-offline-search-index-json-src="../../../../../offline-search-index.fc716308d434cdd3ae2968675f68f008.json"
+    data-offline-search-index-json-src="../../../../../offline-search-index.d9c719ee974cb144bf5f6d08507b7ced.json"
     data-offline-search-base-href="../../../../../"
     data-offline-search-max-results="50"
   >
@@ -276,16 +276,18 @@ This is the multi-page printable view of this section.
 	<p>In Stroom we have the concept of Users and Accounts, and it is important to understand the distinction.</p>
 <h2 id="accounts">Accounts</h2>
 <p><span class="glossary-link">
-  <a href="../../../../../docs/glossary/#account" title="Glossary entry for Accounts">
-    <span>Accounts</span>
-    <i class="glossary-link-icon fas fa-book fa-sm text-primary"></i>
-  </a>
-</span> are user identities in the internal <span class="glossary-link">
-  <a href="../../../../../docs/glossary/#identity-provider-idp" title="Glossary entry for Identity Provider (IDP)">
-    <span>Identity Provider (IDP)</span>
-    <i class="glossary-link-icon fas fa-book fa-sm text-primary"></i>
-  </a>
-</span>.
+    <a href="../../../../../docs/glossary/a/glossary-account">
+      <span>Accounts</span>
+      <i class="glossary-link-icon fas fa-book fa-sm text-primary"></i>
+    </a><span class="glossary-tooltip">
+      <span class="glossary-tooltip-title">Account</span>
+      <span class="glossary-tooltip-summary">Refers to a user account in Stroom&rsquo;s internal Identity Provider.</span><span class="glossary-tooltip-truncated">Click to see more details...</span></span></span> are user identities in the internal <span class="glossary-link">
+    <a href="../../../../../docs/glossary/i/glossary-idp">
+      <span>Identity Provider (IDP)</span>
+      <i class="glossary-link-icon fas fa-book fa-sm text-primary"></i>
+    </a><span class="glossary-tooltip">
+      <span class="glossary-tooltip-title">Identity Provider (IDP)</span>
+      <span class="glossary-tooltip-summary">An <strong>Id</strong>entity <strong>P</strong>rovider is a system or service that can authenticate a user and assert their identity. <em>Identity providers</em> can support single sign on (SSO), which allows the user to sign in once to the <em>Identity Provider</em> so they are then authenticated to all systems using that IDP.</span><span class="glossary-tooltip-truncated">Click to see more details...</span></span></span>.
 The internal IDP is used when you want Stroom to manage all the authentication.
 The internal IDP is the default option and the simplest for test environments.
 Accounts are not applicable when using an external 3rd party IDP.</p>
@@ -297,11 +299,12 @@ A Stroom user account has a unique identity that will be associated with a Stroo
 <p>Accounts are stored in the <code>account</code> database table.</p>
 <h2 id="stroom-users">Stroom Users</h2>
 <p>A <span class="glossary-link">
-  <a href="../../../../../docs/glossary/#user" title="Glossary entry for user">
-    <span>user</span>
-    <i class="glossary-link-icon fas fa-book fa-sm text-primary"></i>
-  </a>
-</span> in Stroom is used for managing authorisation, i.e. permissions and group memberships.
+    <a href="../../../../../docs/glossary/u/glossary-user">
+      <span>User</span>
+      <i class="glossary-link-icon fas fa-book fa-sm text-primary"></i>
+    </a><span class="glossary-tooltip">
+      <span class="glossary-tooltip-title">User</span>
+      <span class="glossary-tooltip-summary">Refers to a Stroom User that is linked to either an <em>Account</em> in Stroom&rsquo;s internal <em>Identity Provider</em> or a user account in an external <em>Identity Provider</em>. A Stroom User is only concerned with authorisation (i.e. application/document permissions and group memberships), and not authentication.</span><span class="glossary-tooltip-truncated">Click to see more details...</span></span></span> in Stroom is used for managing authorisation, i.e. permissions and group memberships.
 It plays no part in authentication.
 A user has a unique identifier that is provided by the IDP (internal or 3rd party) to identify it.
 This ID is also the link it to the Stroom <em>Account</em> in the case of the internal IDP or the identity on a 3rd party IDP.</p>
@@ -327,11 +330,12 @@ This ID is also the link it to the Stroom <em>Account</em> in the case of the in
   <h1 id="pg-90712ddf545b0ddc40f1e55dc3e39fb1">2 - Stroom&#39;s Internal IDP</h1>
     <div class="lead">Details about Stroom&rsquo;s own internal identity provider and authentication mechanisms.</div>
 	<p>By default a new Stroom instance/cluster will use its own internal <span class="glossary-link">
-  <a href="../../../../../docs/glossary/#identity-provider-idp" title="Glossary entry for Identity Provider (IDP)">
-    <span>Identity Provider (IDP)</span>
-    <i class="glossary-link-icon fas fa-book fa-sm text-primary"></i>
-  </a>
-</span> for authentication.</p>
+    <a href="../../../../../docs/glossary/i/glossary-idp">
+      <span>Identity Provider (IDP)</span>
+      <i class="glossary-link-icon fas fa-book fa-sm text-primary"></i>
+    </a><span class="glossary-tooltip">
+      <span class="glossary-tooltip-title">Identity Provider (IDP)</span>
+      <span class="glossary-tooltip-summary">An <strong>Id</strong>entity <strong>P</strong>rovider is a system or service that can authenticate a user and assert their identity. <em>Identity providers</em> can support single sign on (SSO), which allows the user to sign in once to the <em>Identity Provider</em> so they are then authenticated to all systems using that IDP.</span><span class="glossary-tooltip-truncated">Click to see more details...</span></span></span> for authentication.</p>
 
 <div class="alert alert-primary" role="alert">
 <h4 class="alert-heading">Note</h4>
@@ -347,11 +351,12 @@ This ID is also the link it to the Stroom <em>Account</em> in the case of the in
 <p>In this configuration, Stroom acts as its own Open ID Connect Identity Provider and manages both the user accounts for authentication and the user/group permissions, (see <a href="../../../../../docs/install-guide/setup/open-id/accounts-users/">Accounts and Users</a>).</p>
 <p>A fresh install will come pre-loaded with a user account called <code>admin</code> with the password <code>admin</code>.
 This user is a member of a <span class="glossary-link">
-  <a href="../../../../../docs/glossary/#group-users" title="Glossary entry for group">
-    <span>group</span>
-    <i class="glossary-link-icon fas fa-book fa-sm text-primary"></i>
-  </a>
-</span> called <code>Administrators</code> which has the <code>Administrator</code> application permission.
+    <a href="../../../../../docs/glossary/g/glossary-group-users">
+      <span>group</span>
+      <i class="glossary-link-icon fas fa-book fa-sm text-primary"></i>
+    </a><span class="glossary-tooltip">
+      <span class="glossary-tooltip-title">Group (users)</span>
+      <span class="glossary-tooltip-summary">A named group of users to which application and document permissions can be assigned. Users can belong to multiple groups. A Group can belong to multiple groups. Groups allow permissions to be assigned to the group such that members of that group inherit those permissions.</span><span class="glossary-tooltip-truncated">Click to see more details...</span></span></span> called <code>Administrators</code> which has the <code>Administrator</code> application permission.
 This admin user can be used to set up the other users on the system.</p>
 <p>Additional user accounts are created and maintained using the <em>Tools</em> =&gt; <em>Users</em> menu item.</p>
 <h2 id="configuration-for-the-internal-idp">Configuration for the internal IDP</h2>
@@ -392,24 +397,14 @@ This admin user can be used to set up the other users on the system.</p>
   <h1 id="pg-84584124b4e9dfcb1a92fb6fb04aa336">3 - External IDP</h1>
     <div class="lead">How to setup KeyCloak as an external identity provider for Stroom.</div>
 	<p>You may be running Stroom in an environment with an existing <span class="glossary-link">
-  <a href="../../../../../docs/glossary/#identity-provider-idp" title="Glossary entry for Identity Provider (IDP)">
-    <span>Identity Provider (IDP)</span>
-    <i class="glossary-link-icon fas fa-book fa-sm text-primary"></i>
-  </a>
-</span> (KeyCloak, Cognito, Google, Active Directory, etc.) and want to use that for authenticating users.
-Stroom supports 3rd party IDPs that conform to the 
-
-
-
-
-
-
-
-  
-  
-
-<span class="external-link">
-  <a href="https://openid.net/connect/" target="_blank" class="external-link" style="" title="Open ID Connect (external link to https://openid.net/connect/)">
+    <a href="../../../../../docs/glossary/i/glossary-idp">
+      <span>Identity Provider (IDP)</span>
+      <i class="glossary-link-icon fas fa-book fa-sm text-primary"></i>
+    </a><span class="glossary-tooltip">
+      <span class="glossary-tooltip-title">Identity Provider (IDP)</span>
+      <span class="glossary-tooltip-summary">An <strong>Id</strong>entity <strong>P</strong>rovider is a system or service that can authenticate a user and assert their identity. <em>Identity providers</em> can support single sign on (SSO), which allows the user to sign in once to the <em>Identity Provider</em> so they are then authenticated to all systems using that IDP.</span><span class="glossary-tooltip-truncated">Click to see more details...</span></span></span> (KeyCloak, Cognito, Google, Active Directory, etc.) and want to use that for authenticating users.
+Stroom supports 3rd party IDPs that conform to the <span class="external-link">
+  <a href="https://openid.net/connect/" target="_blank" class="external-link" title="Open ID Connect (external link to https://openid.net/connect/)">
     <span>Open ID Connect</span>
     <i class="external-link-icon fas fa-external-link-alt fa-sm text-secondary"></i>
   </a>
@@ -471,19 +466,8 @@ This will create a docker container called <code>keycloak</code> that uses an em
     data-filter-output="(out)"><code class="language-bash">docker start -a keycloak</code></pre>
 </div>
 
-<p>KeyCloak should now be running on 
-
-
-
-
-
-
-
-  
-  
-
-<span class="external-link">
-  <a href="http://localhost:9999/admin" target="_blank" class="external-link" style="" title="External link to http://localhost:9999/admin">
+<p>KeyCloak should now be running on <span class="external-link">
+  <a href="http://localhost:9999/admin" target="_blank" class="external-link" title="External link to http://localhost:9999/admin">
     <span>http://localhost:9999/admin</span>
     <i class="external-link-icon fas fa-external-link-alt fa-sm text-secondary"></i>
   </a>
@@ -582,11 +566,12 @@ The values will reflect the host/port that the IDP is running on along with the 
 <p>In the <em>Users</em> section of KeyCloak click on user <code>admin</code>.
 On the <em>Details</em> tab copy the value of the <em>ID</em> field.
 The ID is in the form of a <span class="glossary-link">
-  <a href="../../../../../docs/glossary/#uuid" title="Glossary entry for UUID">
-    <span>UUID</span>
-    <i class="glossary-link-icon fas fa-book fa-sm text-primary"></i>
-  </a>
-</span>
+    <a href="../../../../../docs/glossary/u/glossary-uuid">
+      <span>UUID</span>
+      <i class="glossary-link-icon fas fa-book fa-sm text-primary"></i>
+    </a><span class="glossary-tooltip">
+      <span class="glossary-tooltip-title">UUID</span>
+      <span class="glossary-tooltip-summary">A <strong>U</strong>niversally <strong>U</strong>nique <strong>Id</strong>entifier for uniquely identifying something. <em>UUIDs</em> are used as the identifier in <em>Doc Refs</em>. An example of a <em>UUID</em> is <code>4ffeb895-53c9-40d6-bf33-3ef025401ad3</code>.</span><span class="glossary-tooltip-truncated">Click to see more details...</span></span></span>
 This ID will be used in Stroom to uniquely identify the user and associate it with the identity in KeyCloak.</p>
 <p>To set up Stroom with this admin user run the following (<strong>before</strong> Stroom has been started for the first time):</p>
 
@@ -618,13 +603,12 @@ This command is repeatable as it will skip any users/groups/memberships that alr
 
 <div class="alert alert-primary" role="alert">
 <h4 class="alert-heading">See Also</h4>
-
-
-    <p>See <a href="../../../../../docs/user-guide/tools/command-line/">Command Line Tools</a> for more details on using the <code>manage_users</code> command.</p>
-
+<div class="alert-content">
+  
+  <p>See <a href="../../../../../docs/user-guide/tools/command-line/">Command Line Tools</a> for more details on using the <code>manage_users</code> command.</p>
 
 </div>
-
+</div>
 
 <p>This command will do the following:</p>
 <ul>
@@ -732,13 +716,13 @@ This assumes the downstream Stroom or Stroom-Proxy is also configured to use the
 
 
     <p>We strongly recommend you install <em>jq</em> if you are working with JSON responses from the IDP.
-It allows you to parse and extract parts of the JSON response.</p>
+It allows you to parse and extract parts of the JSON response.
 <span class="external-link">
-  <a href="https://stedolan.github.io/jq/" target="_blank" class="external-link" style="" title="External link to https://stedolan.github.io/jq/">
-    <span>https://stedolan.github.io/jq/</span>
-    <i class="external-link-icon fas fa-external-link-alt fa-sm text-secondary"></i>
-  </a>
-</span>
+<a href="https://stedolan.github.io/jq/" target="_blank" class="external-link" title="External link to https://stedolan.github.io/jq/">
+<span><a href="https://stedolan.github.io/jq/">https://stedolan.github.io/jq/</a></span>
+<i class="external-link-icon fas fa-external-link-alt fa-sm text-secondary"></i>
+</a>
+</span></p>
 
 
 </div>
@@ -890,11 +874,10 @@ If you are configuring a production instance of Stroom or Stroom-Proxy you must 
         identityProviderType: TEST_CREDENTIALS
 </code></pre>
 <p>When you start the Stroom instance you will see a large banner message in the logs that will include the <span class="glossary-link">
-  <a href="../../../../../docs/glossary/#token" title="Glossary entry for token">
-    <span>token</span>
-    <i class="glossary-link-icon fas fa-book fa-sm text-primary"></i>
-  </a>
-</span> that can be used in API calls or by Stroom-proxy for its feed status checks.</p>
+    <a href="../../../../../docs/glossary/t/glossary-token">
+      <span>Token</span>
+      <i class="glossary-link-icon fas fa-book fa-sm text-primary"></i>
+    </a></span> that can be used in API calls or by Stroom-proxy for its feed status checks.</p>
 <p>To configure Stroom-Proxy to use these credentials set the following:</p>
 <pre><code class="language-yaml">  feedStatus:
     apiKey: &quot;THE_TOKEN_OBTAINED_FROM_STROOM'S_LOGS&quot;

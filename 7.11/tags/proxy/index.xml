@@ -27,11 +27,12 @@
 &lt;ul&gt;
 &lt;li&gt;
 &lt;p&gt;App - There is an &lt;em&gt;app&lt;/em&gt; version that runs Stroom-Proxy as a Java &lt;span class=&#34;glossary-link&#34;&gt;
-  &lt;a href=&#34;../../docs/glossary/#jar&#34; title=&#34;Glossary entry for JAR&#34;&gt;
-    &lt;span&gt;JAR&lt;/span&gt;
-    &lt;i class=&#34;glossary-link-icon fas fa-book fa-sm text-primary&#34;&gt;&lt;/i&gt;
-  &lt;/a&gt;
-&lt;/span&gt; file locally on the server and has settings contained in a configuration file that controls access to the stroom server and database.&lt;/p&gt;
+    &lt;a href=&#34;../../docs/glossary/j/glossary-jar&#34;&gt;
+      &lt;span&gt;JAR&lt;/span&gt;
+      &lt;i class=&#34;glossary-link-icon fas fa-book fa-sm text-primary&#34;&gt;&lt;/i&gt;
+    &lt;/a&gt;&lt;span class=&#34;glossary-tooltip&#34;&gt;
+      &lt;span class=&#34;glossary-tooltip-title&#34;&gt;JAR&lt;/span&gt;
+      &lt;span class=&#34;glossary-tooltip-summary&#34;&gt;&lt;strong&gt;J&lt;/strong&gt;ava &lt;strong&gt;Ar&lt;/strong&gt;chive is a file format for distributing Java class files, associated metadata and resource files. It is a compressed archive based on the {{&amp;lt; glossary &amp;ldquo;ZIP&amp;rdquo; &amp;gt;}} format, so can be inspected with any tool capable of reading a ZIP file. Stroom and Stroom-Proxy are distributed as JAR files.&lt;/span&gt;&lt;span class=&#34;glossary-tooltip-truncated&#34;&gt;Click to see more details...&lt;/span&gt;&lt;/span&gt;&lt;/span&gt; file locally on the server and has settings contained in a configuration file that controls access to the stroom server and database.&lt;/p&gt;
 &lt;/li&gt;
 &lt;li&gt;
 &lt;p&gt;Docker Stack - Stroom-Proxy, Nginx and Stroom-Log-Sender run in Docker containers, orchestrated using Docker Compose and some shell scripts.
@@ -131,37 +132,15 @@ firewall-cmd --reload&lt;/code&gt;&lt;/pre&gt;
 &lt;h3 id=&#34;download-and-install-docker&#34;&gt;Download and install docker&lt;/h3&gt;
 &lt;p&gt;To install Docker Engine and the Docker Composer Plugin see:&lt;/p&gt;
 &lt;ul&gt;
-&lt;li&gt;
-
-
-
-
-
-
-
-  
-  
-
-&lt;span class=&#34;external-link&#34;&gt;
-  &lt;a href=&#34;https://docs.docker.com/engine/install&#34; target=&#34;_blank&#34; class=&#34;external-link&#34; style=&#34;&#34; title=&#34;Docker Engine (external link to https://docs.docker.com/engine/install)&#34;&gt;
+&lt;li&gt;&lt;span class=&#34;external-link&#34;&gt;
+  &lt;a href=&#34;https://docs.docker.com/engine/install&#34; target=&#34;_blank&#34; class=&#34;external-link&#34; title=&#34;Docker Engine (external link to https://docs.docker.com/engine/install)&#34;&gt;
     &lt;span&gt;Docker Engine&lt;/span&gt;
     &lt;i class=&#34;external-link-icon fas fa-external-link-alt fa-sm text-secondary&#34;&gt;&lt;/i&gt;
   &lt;/a&gt;
 &lt;/span&gt;
 &lt;/li&gt;
-&lt;li&gt;
-
-
-
-
-
-
-
-  
-  
-
-&lt;span class=&#34;external-link&#34;&gt;
-  &lt;a href=&#34;https://docs.docker.com/compose/install&#34; target=&#34;_blank&#34; class=&#34;external-link&#34; style=&#34;&#34; title=&#34;Docker Compose Plugin (external link to https://docs.docker.com/compose/install)&#34;&gt;
+&lt;li&gt;&lt;span class=&#34;external-link&#34;&gt;
+  &lt;a href=&#34;https://docs.docker.com/compose/install&#34; target=&#34;_blank&#34; class=&#34;external-link&#34; title=&#34;Docker Compose Plugin (external link to https://docs.docker.com/compose/install)&#34;&gt;
     &lt;span&gt;Docker Compose Plugin&lt;/span&gt;
     &lt;i class=&#34;external-link-icon fas fa-external-link-alt fa-sm text-secondary&#34;&gt;&lt;/i&gt;
   &lt;/a&gt;
@@ -184,19 +163,8 @@ It is therefore recommended to relocate this directory to a mount with more spac
 &lt;li&gt;Start the Docker engine.&lt;/li&gt;
 &lt;/ol&gt;
 &lt;h3 id=&#34;download-and-install-docker-stack&#34;&gt;Download and Install Docker Stack&lt;/h3&gt;
-&lt;p&gt;The &lt;em&gt;stroom_proxy&lt;/em&gt; Docker stack is available from 
-
-
-
-
-
-
-
-  
-  
-
-&lt;span class=&#34;external-link&#34;&gt;
-  &lt;a href=&#34;https://github.com/gchq/stroom-resources/releases&#34; target=&#34;_blank&#34; class=&#34;external-link&#34; style=&#34;&#34; title=&#34;stroom-resources releases (external link to https://github.com/gchq/stroom-resources/releases)&#34;&gt;
+&lt;p&gt;The &lt;em&gt;stroom_proxy&lt;/em&gt; Docker stack is available from &lt;span class=&#34;external-link&#34;&gt;
+  &lt;a href=&#34;https://github.com/gchq/stroom-resources/releases&#34; target=&#34;_blank&#34; class=&#34;external-link&#34; title=&#34;stroom-resources releases (external link to https://github.com/gchq/stroom-resources/releases)&#34;&gt;
     &lt;span&gt;stroom-resources releases&lt;/span&gt;
     &lt;i class=&#34;external-link-icon fas fa-external-link-alt fa-sm text-secondary&#34;&gt;&lt;/i&gt;
   &lt;/a&gt;
@@ -288,11 +256,12 @@ export STROOM_PROXY_REMOTE_FORWARD_URL=&amp;quot;http://stroom-serve.somewhere.c
 &lt;p&gt;This is the bare bones installation method that requires installing everything manually.
 If you are able to use Docker we recommend doing this as there are less things to install and configure, e.g. nginx, send_to_stroom.sh, cron, etc.&lt;/p&gt;
 &lt;p&gt;Stroom-Proxy is distributed as a (&lt;span class=&#34;glossary-link&#34;&gt;
-  &lt;a href=&#34;../../docs/glossary/#jar&#34; title=&#34;Glossary entry for JAR&#34;&gt;
-    &lt;span&gt;JAR&lt;/span&gt;
-    &lt;i class=&#34;glossary-link-icon fas fa-book fa-sm text-primary&#34;&gt;&lt;/i&gt;
-  &lt;/a&gt;
-&lt;/span&gt;) file so this method will run this JAR using the &lt;code&gt;java&lt;/code&gt; executable.&lt;/p&gt;
+    &lt;a href=&#34;../../docs/glossary/j/glossary-jar&#34;&gt;
+      &lt;span&gt;JAR&lt;/span&gt;
+      &lt;i class=&#34;glossary-link-icon fas fa-book fa-sm text-primary&#34;&gt;&lt;/i&gt;
+    &lt;/a&gt;&lt;span class=&#34;glossary-tooltip&#34;&gt;
+      &lt;span class=&#34;glossary-tooltip-title&#34;&gt;JAR&lt;/span&gt;
+      &lt;span class=&#34;glossary-tooltip-summary&#34;&gt;&lt;strong&gt;J&lt;/strong&gt;ava &lt;strong&gt;Ar&lt;/strong&gt;chive is a file format for distributing Java class files, associated metadata and resource files. It is a compressed archive based on the {{&amp;lt; glossary &amp;ldquo;ZIP&amp;rdquo; &amp;gt;}} format, so can be inspected with any tool capable of reading a ZIP file. Stroom and Stroom-Proxy are distributed as JAR files.&lt;/span&gt;&lt;span class=&#34;glossary-tooltip-truncated&#34;&gt;Click to see more details...&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;) file so this method will run this JAR using the &lt;code&gt;java&lt;/code&gt; executable.&lt;/p&gt;
 &lt;p&gt;The pre-requisites for this deployment are:&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;RHEL/CentOS/Rocky&lt;/li&gt;
@@ -312,19 +281,8 @@ If you are able to use Docker we recommend doing this as there are less things t
 
 
 &lt;h3 id=&#34;download-and-install-stroom-v7-app-version&#34;&gt;Download and install Stroom v7 (app version)&lt;/h3&gt;
-&lt;p&gt;Stroom-Proxy releases are available from 
-
-
-
-
-
-
-
-  
-  
-
-&lt;span class=&#34;external-link&#34;&gt;
-  &lt;a href=&#34;https://github.com/gchq/stroom/releases&#34; target=&#34;_blank&#34; class=&#34;external-link&#34; style=&#34;&#34; title=&#34;github.com/gchq/stroom/releases (external link to https://github.com/gchq/stroom/releases)&#34;&gt;
+&lt;p&gt;Stroom-Proxy releases are available from &lt;span class=&#34;external-link&#34;&gt;
+  &lt;a href=&#34;https://github.com/gchq/stroom/releases&#34; target=&#34;_blank&#34; class=&#34;external-link&#34; title=&#34;github.com/gchq/stroom/releases (external link to https://github.com/gchq/stroom/releases)&#34;&gt;
     &lt;span&gt;github.com/gchq/stroom/releases&lt;/span&gt;
     &lt;i class=&#34;external-link-icon fas fa-external-link-alt fa-sm text-secondary&#34;&gt;&lt;/i&gt;
   &lt;/a&gt;
@@ -404,19 +362,8 @@ This uses the &lt;a href=&#34;../../docs/proxy/receipt-id/&#34;&gt;Receipt ID&lt
 &lt;li&gt;&lt;code&gt;detail&lt;/code&gt; - The event payload, i.e. the HTTP request content.&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;Each event is written as one line in the aggregated file, delimited by a Line Feed (&lt;code&gt;\n&lt;/code&gt;).
-A file containing one JSON object per line is typically referred to as 
-
-
-
-
-
-
-
-  
-  
-
-&lt;span class=&#34;external-link&#34;&gt;
-  &lt;a href=&#34;https://jsonlines.org&#34; target=&#34;_blank&#34; class=&#34;external-link&#34; style=&#34;&#34; title=&#34;JSON Lines Format (external link to https://jsonlines.org)&#34;&gt;
+A file containing one JSON object per line is typically referred to as &lt;span class=&#34;external-link&#34;&gt;
+  &lt;a href=&#34;https://jsonlines.org&#34; target=&#34;_blank&#34; class=&#34;external-link&#34; title=&#34;JSON Lines Format (external link to https://jsonlines.org)&#34;&gt;
     &lt;span&gt;JSON Lines Format&lt;/span&gt;
     &lt;i class=&#34;external-link-icon fas fa-external-link-alt fa-sm text-secondary&#34;&gt;&lt;/i&gt;
   &lt;/a&gt;
@@ -516,11 +463,12 @@ This mechanism can also be used as an additional means of passing data into Stro
 &lt;/div&gt;
 
 &lt;p&gt;This will move the &lt;code&gt;001&lt;/code&gt; directory into &lt;code&gt;zip_file_ingest/&lt;/code&gt;, renaming it to a unique &lt;span class=&#34;glossary-link&#34;&gt;
-  &lt;a href=&#34;../../docs/glossary/#uuid&#34; title=&#34;Glossary entry for UUID&#34;&gt;
-    &lt;span&gt;UUID&lt;/span&gt;
-    &lt;i class=&#34;glossary-link-icon fas fa-book fa-sm text-primary&#34;&gt;&lt;/i&gt;
-  &lt;/a&gt;
-&lt;/span&gt; to ensure it doesn&amp;rsquo;t clash with any existing files/directories.
+    &lt;a href=&#34;../../docs/glossary/u/glossary-uuid&#34;&gt;
+      &lt;span&gt;UUID&lt;/span&gt;
+      &lt;i class=&#34;glossary-link-icon fas fa-book fa-sm text-primary&#34;&gt;&lt;/i&gt;
+    &lt;/a&gt;&lt;span class=&#34;glossary-tooltip&#34;&gt;
+      &lt;span class=&#34;glossary-tooltip-title&#34;&gt;UUID&lt;/span&gt;
+      &lt;span class=&#34;glossary-tooltip-summary&#34;&gt;A &lt;strong&gt;U&lt;/strong&gt;niversally &lt;strong&gt;U&lt;/strong&gt;nique &lt;strong&gt;Id&lt;/strong&gt;entifier for uniquely identifying something. &lt;em&gt;UUIDs&lt;/em&gt; are used as the identifier in &lt;em&gt;Doc Refs&lt;/em&gt;. An example of a &lt;em&gt;UUID&lt;/em&gt; is &lt;code&gt;4ffeb895-53c9-40d6-bf33-3ef025401ad3&lt;/code&gt;.&lt;/span&gt;&lt;span class=&#34;glossary-tooltip-truncated&#34;&gt;Click to see more details...&lt;/span&gt;&lt;/span&gt;&lt;/span&gt; to ensure it doesn&amp;rsquo;t clash with any existing files/directories.
 The name of this directory in the ingest directory has no bearing on processing, other than the order in which directories are scanned.&lt;/p&gt;
 &lt;p&gt;On the next scan, Stroom-Proxy will discover the &lt;code&gt;proxy.zip&lt;/code&gt; file.
 It will check for the presence of any of the optional associated side-car files (i.e. &lt;code&gt;proxy.meta&lt;/code&gt; and &lt;code&gt;error.log&lt;/code&gt;).
@@ -657,11 +605,12 @@ Once the data has been successfully written to one of these directories, the dir
 
 &lt;h4 id=&#34;01_receiving_simple&#34;&gt;&lt;code&gt;/01_receiving_simple/&lt;/code&gt;&lt;/h4&gt;
 &lt;p&gt;This directory is the reception for area for data that is NOT a &lt;span class=&#34;glossary-link&#34;&gt;
-  &lt;a href=&#34;../../docs/glossary/#zip&#34; title=&#34;Glossary entry for ZIP&#34;&gt;
-    &lt;span&gt;ZIP&lt;/span&gt;
-    &lt;i class=&#34;glossary-link-icon fas fa-book fa-sm text-primary&#34;&gt;&lt;/i&gt;
-  &lt;/a&gt;
-&lt;/span&gt; file, i.e. uncompressed or &lt;code&gt;gzip&lt;/code&gt; compressed data.
+    &lt;a href=&#34;../../docs/glossary/z/glossary-zip&#34;&gt;
+      &lt;span&gt;ZIP&lt;/span&gt;
+      &lt;i class=&#34;glossary-link-icon fas fa-book fa-sm text-primary&#34;&gt;&lt;/i&gt;
+    &lt;/a&gt;&lt;span class=&#34;glossary-tooltip&#34;&gt;
+      &lt;span class=&#34;glossary-tooltip-title&#34;&gt;ZIP&lt;/span&gt;
+      &lt;span class=&#34;glossary-tooltip-summary&#34;&gt;A compressed file format for storing a one or more files with an associated directory structure. Stroom and Stroom Proxy use the ZIP format for exporting content and data as well as its Proxy ZIP format for holding multiple streams of data with associated meta data.&lt;/span&gt;&lt;span class=&#34;glossary-tooltip-truncated&#34;&gt;Click to see more details...&lt;/span&gt;&lt;/span&gt;&lt;/span&gt; file, i.e. uncompressed or &lt;code&gt;gzip&lt;/code&gt; compressed data.
 It contains numbered directories.&lt;/p&gt;
 &lt;p&gt;Data will be written to this directory before the client receives the HTTP response.&lt;/p&gt;
 &lt;p&gt;Each numbered directory will contain two files:&lt;/p&gt;
@@ -672,11 +621,12 @@ It contains numbered directories.&lt;/p&gt;
 &lt;p&gt;The filenames are always the same as it is only dealing with a single stream.&lt;/p&gt;
 &lt;h4 id=&#34;02_receiving_zip&#34;&gt;&lt;code&gt;/02_receiving_zip/&lt;/code&gt;&lt;/h4&gt;
 &lt;p&gt;This directory is the reception for area for data that has been received as a &lt;span class=&#34;glossary-link&#34;&gt;
-  &lt;a href=&#34;../../docs/glossary/#zip&#34; title=&#34;Glossary entry for ZIP&#34;&gt;
-    &lt;span&gt;ZIP&lt;/span&gt;
-    &lt;i class=&#34;glossary-link-icon fas fa-book fa-sm text-primary&#34;&gt;&lt;/i&gt;
-  &lt;/a&gt;
-&lt;/span&gt; file which may contain one or more streams of data and associated metadata.
+    &lt;a href=&#34;../../docs/glossary/z/glossary-zip&#34;&gt;
+      &lt;span&gt;ZIP&lt;/span&gt;
+      &lt;i class=&#34;glossary-link-icon fas fa-book fa-sm text-primary&#34;&gt;&lt;/i&gt;
+    &lt;/a&gt;&lt;span class=&#34;glossary-tooltip&#34;&gt;
+      &lt;span class=&#34;glossary-tooltip-title&#34;&gt;ZIP&lt;/span&gt;
+      &lt;span class=&#34;glossary-tooltip-summary&#34;&gt;A compressed file format for storing a one or more files with an associated directory structure. Stroom and Stroom Proxy use the ZIP format for exporting content and data as well as its Proxy ZIP format for holding multiple streams of data with associated meta data.&lt;/span&gt;&lt;span class=&#34;glossary-tooltip-truncated&#34;&gt;Click to see more details...&lt;/span&gt;&lt;/span&gt;&lt;/span&gt; file which may contain one or more streams of data and associated metadata.
 It contains numbered directories.&lt;/p&gt;
 &lt;p&gt;Received ZIP files will be written to a numbered sub-directory in this directory before the client receives the HTTP response.&lt;/p&gt;
 &lt;p&gt;All &lt;code&gt;.meta&lt;/code&gt; files in the ZIP file will be updated to add the HTTP headers from the request.
@@ -782,30 +732,34 @@ Items in this directory are now outside the control of Stroom-Proxy and will rem
         
         &lt;p&gt;Stroom-Proxy&amp;rsquo;s primary role is to act as a front door for data being sent to Stroom.
 Data can be sent to Stroom-Proxy in small chunks and it will aggregate the data into larger chunks (grouped by &lt;span class=&#34;glossary-link&#34;&gt;
-  &lt;a href=&#34;../../docs/glossary/#feed&#34; title=&#34;Glossary entry for Feed&#34;&gt;
-    &lt;span&gt;Feed&lt;/span&gt;
-    &lt;i class=&#34;glossary-link-icon fas fa-book fa-sm text-primary&#34;&gt;&lt;/i&gt;
-  &lt;/a&gt;
-&lt;/span&gt; and &lt;span class=&#34;glossary-link&#34;&gt;
-  &lt;a href=&#34;../../docs/glossary/#stream-type&#34; title=&#34;Glossary entry for Stream Type&#34;&gt;
-    &lt;span&gt;Stream Type&lt;/span&gt;
-    &lt;i class=&#34;glossary-link-icon fas fa-book fa-sm text-primary&#34;&gt;&lt;/i&gt;
-  &lt;/a&gt;
-&lt;/span&gt;) so that Stroom doesn&amp;rsquo;t have to process lots of small &lt;span class=&#34;glossary-link&#34;&gt;
-  &lt;a href=&#34;../../docs/glossary/#stream&#34; title=&#34;Glossary entry for Streams&#34;&gt;
-    &lt;span&gt;Streams&lt;/span&gt;
-    &lt;i class=&#34;glossary-link-icon fas fa-book fa-sm text-primary&#34;&gt;&lt;/i&gt;
-  &lt;/a&gt;
-&lt;/span&gt;.
+    &lt;a href=&#34;../../docs/glossary/f/glossary-feed&#34;&gt;
+      &lt;span&gt;Feed&lt;/span&gt;
+      &lt;i class=&#34;glossary-link-icon fas fa-book fa-sm text-primary&#34;&gt;&lt;/i&gt;
+    &lt;/a&gt;&lt;span class=&#34;glossary-tooltip&#34;&gt;
+      &lt;span class=&#34;glossary-tooltip-title&#34;&gt;Feed&lt;/span&gt;
+      &lt;span class=&#34;glossary-tooltip-summary&#34;&gt;A Feed is a means of organising and categorising data in Stroom. A Feed contains multiple &lt;em&gt;Streams&lt;/em&gt; of data that have been ingested into Stroom or output by a &lt;em&gt;Pipeline&lt;/em&gt;. Typically a Feed will contain &lt;em&gt;Streams&lt;/em&gt; of data that are all from one system and have a common data format.&lt;/span&gt;&lt;span class=&#34;glossary-tooltip-truncated&#34;&gt;Click to see more details...&lt;/span&gt;&lt;/span&gt;&lt;/span&gt; and &lt;span class=&#34;glossary-link&#34;&gt;
+    &lt;a href=&#34;../../docs/glossary/s/glossary-stream-type&#34;&gt;
+      &lt;span&gt;Stream Type&lt;/span&gt;
+      &lt;i class=&#34;glossary-link-icon fas fa-book fa-sm text-primary&#34;&gt;&lt;/i&gt;
+    &lt;/a&gt;&lt;span class=&#34;glossary-tooltip&#34;&gt;
+      &lt;span class=&#34;glossary-tooltip-title&#34;&gt;Stream Type&lt;/span&gt;
+      &lt;span class=&#34;glossary-tooltip-summary&#34;&gt;All &lt;em&gt;Streams&lt;/em&gt; must have a Stream Type. The list of Stream Types is configured using the &lt;em&gt;Property&lt;/em&gt; &lt;code&gt;stroom.data.meta.metaTypes&lt;/code&gt;.&lt;/span&gt;&lt;span class=&#34;glossary-tooltip-truncated&#34;&gt;Click to see more details...&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;) so that Stroom doesn&amp;rsquo;t have to process lots of small &lt;span class=&#34;glossary-link&#34;&gt;
+    &lt;a href=&#34;../../docs/glossary/s/glossary-stream&#34;&gt;
+      &lt;span&gt;Streams&lt;/span&gt;
+      &lt;i class=&#34;glossary-link-icon fas fa-book fa-sm text-primary&#34;&gt;&lt;/i&gt;
+    &lt;/a&gt;&lt;span class=&#34;glossary-tooltip&#34;&gt;
+      &lt;span class=&#34;glossary-tooltip-title&#34;&gt;Stream&lt;/span&gt;
+      &lt;span class=&#34;glossary-tooltip-summary&#34;&gt;A Stream is the unit of data that Stroom works with and will typically contain many &lt;em&gt;Events&lt;/em&gt;.&lt;/span&gt;&lt;span class=&#34;glossary-tooltip-truncated&#34;&gt;Click to see more details...&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;.
 It also provides a separation between the client and Stroom, so Stroom can be taken offline while data is still being accepted by Stroom-Proxy.&lt;/p&gt;
 &lt;p&gt;See &lt;a href=&#34;../../docs/architecture/#overview&#34;&gt;Architecture&lt;/a&gt; for an example of how Stroom-Proxy is typically deployed.&lt;/p&gt;
 &lt;h2 id=&#34;api&#34;&gt;API&lt;/h2&gt;
 &lt;p&gt;Stroom-Proxy presents an identical &lt;em&gt;HTTP POST&lt;/em&gt; &lt;code&gt;/datafeed&lt;/code&gt; &lt;span class=&#34;glossary-link&#34;&gt;
-  &lt;a href=&#34;../../docs/glossary/#api&#34; title=&#34;Glossary entry for API&#34;&gt;
-    &lt;span&gt;API&lt;/span&gt;
-    &lt;i class=&#34;glossary-link-icon fas fa-book fa-sm text-primary&#34;&gt;&lt;/i&gt;
-  &lt;/a&gt;
-&lt;/span&gt; to Stroom, so clients can send the same data in the same way to either Stroom or Stroom-Proxy.
+    &lt;a href=&#34;../../docs/glossary/a/glossary-api&#34;&gt;
+      &lt;span&gt;API&lt;/span&gt;
+      &lt;i class=&#34;glossary-link-icon fas fa-book fa-sm text-primary&#34;&gt;&lt;/i&gt;
+    &lt;/a&gt;&lt;span class=&#34;glossary-tooltip&#34;&gt;
+      &lt;span class=&#34;glossary-tooltip-title&#34;&gt;API&lt;/span&gt;
+      &lt;span class=&#34;glossary-tooltip-summary&#34;&gt;&lt;em&gt;Application Programming Interface&lt;/em&gt;. An interface that one system can present so other systems can use it to communicate. Stroom has a number of APIs, e.g. its many &lt;em&gt;REST&lt;/em&gt; APIs and its &lt;code&gt;/datafeed&lt;/code&gt; interface for data receipt.&lt;/span&gt;&lt;span class=&#34;glossary-tooltip-truncated&#34;&gt;Click to see more details...&lt;/span&gt;&lt;/span&gt;&lt;/span&gt; to Stroom, so clients can send the same data in the same way to either Stroom or Stroom-Proxy.
 For more detail on sending data into Stroom-Proxy, see &lt;a href=&#34;../../docs/sending-data/&#34;&gt;Sending Data&lt;/a&gt;.&lt;/p&gt;
 &lt;p&gt;It also presents a number of other APIs for administration and communication with other proxies.
 For more detail on Stroom-Proxy&amp;rsquo;s other APIs, see &lt;a href=&#34;../../docs/proxy/proxy-api/&#34;&gt;Proxy API&lt;/a&gt;.&lt;/p&gt;
@@ -815,32 +769,36 @@ For more detail on Stroom-Proxy&amp;rsquo;s other APIs, see &lt;a href=&#34;../.
 &lt;li&gt;&lt;em&gt;Receipt Filtering&lt;/em&gt; - The process of filtering the incoming data based on the HTTP headers.
 Data can either be &lt;em&gt;Received&lt;/em&gt;, silently &lt;em&gt;Dropped&lt;/em&gt; or &lt;em&gt;Rejected&lt;/em&gt; with an error.&lt;/li&gt;
 &lt;li&gt;&lt;em&gt;Splitting&lt;/em&gt; - Splitting received &lt;span class=&#34;glossary-link&#34;&gt;
-  &lt;a href=&#34;../../docs/glossary/#zip&#34; title=&#34;Glossary entry for ZIP&#34;&gt;
-    &lt;span&gt;ZIP&lt;/span&gt;
-    &lt;i class=&#34;glossary-link-icon fas fa-book fa-sm text-primary&#34;&gt;&lt;/i&gt;
-  &lt;/a&gt;
-&lt;/span&gt; files by &lt;span class=&#34;glossary-link&#34;&gt;
-  &lt;a href=&#34;../../docs/glossary/#feed&#34; title=&#34;Glossary entry for Feed&#34;&gt;
-    &lt;span&gt;Feed&lt;/span&gt;
-    &lt;i class=&#34;glossary-link-icon fas fa-book fa-sm text-primary&#34;&gt;&lt;/i&gt;
-  &lt;/a&gt;
-&lt;/span&gt; and &lt;span class=&#34;glossary-link&#34;&gt;
-  &lt;a href=&#34;../../docs/glossary/#stream-type&#34; title=&#34;Glossary entry for Stream Type&#34;&gt;
-    &lt;span&gt;Stream Type&lt;/span&gt;
-    &lt;i class=&#34;glossary-link-icon fas fa-book fa-sm text-primary&#34;&gt;&lt;/i&gt;
-  &lt;/a&gt;
-&lt;/span&gt;.&lt;/li&gt;
+    &lt;a href=&#34;../../docs/glossary/z/glossary-zip&#34;&gt;
+      &lt;span&gt;ZIP&lt;/span&gt;
+      &lt;i class=&#34;glossary-link-icon fas fa-book fa-sm text-primary&#34;&gt;&lt;/i&gt;
+    &lt;/a&gt;&lt;span class=&#34;glossary-tooltip&#34;&gt;
+      &lt;span class=&#34;glossary-tooltip-title&#34;&gt;ZIP&lt;/span&gt;
+      &lt;span class=&#34;glossary-tooltip-summary&#34;&gt;A compressed file format for storing a one or more files with an associated directory structure. Stroom and Stroom Proxy use the ZIP format for exporting content and data as well as its Proxy ZIP format for holding multiple streams of data with associated meta data.&lt;/span&gt;&lt;span class=&#34;glossary-tooltip-truncated&#34;&gt;Click to see more details...&lt;/span&gt;&lt;/span&gt;&lt;/span&gt; files by &lt;span class=&#34;glossary-link&#34;&gt;
+    &lt;a href=&#34;../../docs/glossary/f/glossary-feed&#34;&gt;
+      &lt;span&gt;Feed&lt;/span&gt;
+      &lt;i class=&#34;glossary-link-icon fas fa-book fa-sm text-primary&#34;&gt;&lt;/i&gt;
+    &lt;/a&gt;&lt;span class=&#34;glossary-tooltip&#34;&gt;
+      &lt;span class=&#34;glossary-tooltip-title&#34;&gt;Feed&lt;/span&gt;
+      &lt;span class=&#34;glossary-tooltip-summary&#34;&gt;A Feed is a means of organising and categorising data in Stroom. A Feed contains multiple &lt;em&gt;Streams&lt;/em&gt; of data that have been ingested into Stroom or output by a &lt;em&gt;Pipeline&lt;/em&gt;. Typically a Feed will contain &lt;em&gt;Streams&lt;/em&gt; of data that are all from one system and have a common data format.&lt;/span&gt;&lt;span class=&#34;glossary-tooltip-truncated&#34;&gt;Click to see more details...&lt;/span&gt;&lt;/span&gt;&lt;/span&gt; and &lt;span class=&#34;glossary-link&#34;&gt;
+    &lt;a href=&#34;../../docs/glossary/s/glossary-stream-type&#34;&gt;
+      &lt;span&gt;Stream Type&lt;/span&gt;
+      &lt;i class=&#34;glossary-link-icon fas fa-book fa-sm text-primary&#34;&gt;&lt;/i&gt;
+    &lt;/a&gt;&lt;span class=&#34;glossary-tooltip&#34;&gt;
+      &lt;span class=&#34;glossary-tooltip-title&#34;&gt;Stream Type&lt;/span&gt;
+      &lt;span class=&#34;glossary-tooltip-summary&#34;&gt;All &lt;em&gt;Streams&lt;/em&gt; must have a Stream Type. The list of Stream Types is configured using the &lt;em&gt;Property&lt;/em&gt; &lt;code&gt;stroom.data.meta.metaTypes&lt;/code&gt;.&lt;/span&gt;&lt;span class=&#34;glossary-tooltip-truncated&#34;&gt;Click to see more details...&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;.&lt;/li&gt;
 &lt;li&gt;&lt;em&gt;Aggregation&lt;/em&gt; - Storing received data locally and forwarding it when the aggregation limits have been reached.&lt;/li&gt;
 &lt;li&gt;&lt;em&gt;Forwarding&lt;/em&gt; - Forwarding the received/aggregated data to one or more forward destinations.&lt;/li&gt;
 &lt;li&gt;&lt;em&gt;Instant Forwarding&lt;/em&gt; - Data is streamed to a single &lt;em&gt;HTTP&lt;/em&gt; forward destination (i.e. Stroom or another Stroom-Proxy) as the data is received.
 This function does not support multiple forward destinations or aggregations.&lt;/li&gt;
 &lt;li&gt;&lt;em&gt;Directory Scanning&lt;/em&gt; - Periodically scanning one or more directories for ZIP files in &lt;a href=&#34;../../docs/sending-data/payloads/#stroom-zip-format&#34;&gt;Stroom ZIP Format&lt;/a&gt;.&lt;/li&gt;
 &lt;li&gt;&lt;em&gt;Event Store&lt;/em&gt; - Stroom-Proxy presents an &lt;span class=&#34;glossary-link&#34;&gt;
-  &lt;a href=&#34;../../docs/glossary/#api&#34; title=&#34;Glossary entry for API&#34;&gt;
-    &lt;span&gt;API&lt;/span&gt;
-    &lt;i class=&#34;glossary-link-icon fas fa-book fa-sm text-primary&#34;&gt;&lt;/i&gt;
-  &lt;/a&gt;
-&lt;/span&gt; for receiving individual events.
+    &lt;a href=&#34;../../docs/glossary/a/glossary-api&#34;&gt;
+      &lt;span&gt;API&lt;/span&gt;
+      &lt;i class=&#34;glossary-link-icon fas fa-book fa-sm text-primary&#34;&gt;&lt;/i&gt;
+    &lt;/a&gt;&lt;span class=&#34;glossary-tooltip&#34;&gt;
+      &lt;span class=&#34;glossary-tooltip-title&#34;&gt;API&lt;/span&gt;
+      &lt;span class=&#34;glossary-tooltip-summary&#34;&gt;&lt;em&gt;Application Programming Interface&lt;/em&gt;. An interface that one system can present so other systems can use it to communicate. Stroom has a number of APIs, e.g. its many &lt;em&gt;REST&lt;/em&gt; APIs and its &lt;code&gt;/datafeed&lt;/code&gt; interface for data receipt.&lt;/span&gt;&lt;span class=&#34;glossary-tooltip-truncated&#34;&gt;Click to see more details...&lt;/span&gt;&lt;/span&gt;&lt;/span&gt; for receiving individual events.
 This is to support applications that want to log events directly to Stroom-Proxy rather than writing them to rolled files locally.&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;For a more detailed explanation of each function, see &lt;a href=&#34;../../docs/proxy/proxy-functions/&#34;&gt;Proxy Functions&lt;/a&gt;.&lt;/p&gt;
@@ -1316,31 +1274,19 @@ and one would also see a warning for each post in the proxy&amp;rsquo;s log file
         
 &lt;div class=&#34;alert alert-primary&#34; role=&#34;alert&#34;&gt;
 &lt;h4 class=&#34;alert-heading&#34;&gt;See Also&lt;/h4&gt;
-
-
-    &lt;p&gt;&lt;a href=&#34;../../docs/install-guide/configuration/stroom-and-proxy/common-configuration/&#34;&gt;Stroom and Stroom-Proxy Common Configuration&lt;/a&gt;&lt;br&gt;
+&lt;div class=&#34;alert-content&#34;&gt;
+  
+  &lt;p&gt;&lt;a href=&#34;../../docs/install-guide/configuration/stroom-and-proxy/common-configuration/&#34;&gt;Stroom and Stroom-Proxy Common Configuration&lt;/a&gt;&lt;br&gt;
 &lt;a href=&#34;../../docs/user-guide/properties/&#34;&gt;Stroom Properties&lt;/a&gt;&lt;/p&gt;
 
-
 &lt;/div&gt;
-
+&lt;/div&gt;
 
 &lt;p&gt;The configuration of Stroom-proxy is very much the same as for Stroom with the only difference being the structure of the application specific part of the &lt;code&gt;config.yml&lt;/code&gt; file.
 Stroom-proxy has a &lt;code&gt;proxyConfig&lt;/code&gt; key in the YAML while Stroom has &lt;code&gt;appConfig&lt;/code&gt;.&lt;/p&gt;
 &lt;h2 id=&#34;yaml-configuration-file&#34;&gt;YAML Configuration File&lt;/h2&gt;
-&lt;p&gt;The Stroom-proxy application is essentially just an executable 
-
-
-
-
-
-
-
-  
-  
-
-&lt;span class=&#34;external-link&#34;&gt;
-  &lt;a href=&#34;https://en.wikipedia.org/wiki/JAR_%28file_format%29&#34; target=&#34;_blank&#34; class=&#34;external-link&#34; style=&#34;&#34; title=&#34;JAR (external link to https://en.wikipedia.org/wiki/JAR_%28file_format%29)&#34;&gt;
+&lt;p&gt;The Stroom-proxy application is essentially just an executable &lt;span class=&#34;external-link&#34;&gt;
+  &lt;a href=&#34;https://en.wikipedia.org/wiki/JAR_%28file_format%29&#34; target=&#34;_blank&#34; class=&#34;external-link&#34; title=&#34;JAR (external link to https://en.wikipedia.org/wiki/JAR_%28file_format%29)&#34;&gt;
     &lt;span&gt;JAR&lt;/span&gt;
     &lt;i class=&#34;external-link-icon fas fa-external-link-alt fa-sm text-secondary&#34;&gt;&lt;/i&gt;
   &lt;/a&gt;
@@ -1506,11 +1452,12 @@ It is primarily used as a means of manually re-processing files that have failed
 &lt;/code&gt;&lt;/pre&gt;
 &lt;h3 id=&#34;event-store-configuration&#34;&gt;Event Store Configuration&lt;/h3&gt;
 &lt;p&gt;The Event Store is used to store and aggregate individual events received via the &lt;code&gt;/api/event&lt;/code&gt; &lt;span class=&#34;glossary-link&#34;&gt;
-  &lt;a href=&#34;../../docs/glossary/#api&#34; title=&#34;Glossary entry for API&#34;&gt;
-    &lt;span&gt;API&lt;/span&gt;
-    &lt;i class=&#34;glossary-link-icon fas fa-book fa-sm text-primary&#34;&gt;&lt;/i&gt;
-  &lt;/a&gt;
-&lt;/span&gt; or the SQS Connectors.
+    &lt;a href=&#34;../../docs/glossary/a/glossary-api&#34;&gt;
+      &lt;span&gt;API&lt;/span&gt;
+      &lt;i class=&#34;glossary-link-icon fas fa-book fa-sm text-primary&#34;&gt;&lt;/i&gt;
+    &lt;/a&gt;&lt;span class=&#34;glossary-tooltip&#34;&gt;
+      &lt;span class=&#34;glossary-tooltip-title&#34;&gt;API&lt;/span&gt;
+      &lt;span class=&#34;glossary-tooltip-summary&#34;&gt;&lt;em&gt;Application Programming Interface&lt;/em&gt;. An interface that one system can present so other systems can use it to communicate. Stroom has a number of APIs, e.g. its many &lt;em&gt;REST&lt;/em&gt; APIs and its &lt;code&gt;/datafeed&lt;/code&gt; interface for data receipt.&lt;/span&gt;&lt;span class=&#34;glossary-tooltip-truncated&#34;&gt;Click to see more details...&lt;/span&gt;&lt;/span&gt;&lt;/span&gt; or the SQS Connectors.
 Events are appended to files specific to the Feed and Stream Type of the event.
 Once a threshold is reached, the file will be rolled and processed by Stroom-Proxy.&lt;/p&gt;
 &lt;p&gt;Each event is stored as a JSON line in the file.&lt;/p&gt;
