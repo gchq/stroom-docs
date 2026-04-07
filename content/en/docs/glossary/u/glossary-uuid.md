@@ -1,6 +1,6 @@
 ---
 title: "UUID"
-linkTitle: "Uuid"
+linkTitle: "UUID"
 description: >
   A **U**niversally **U**nique **Id**entifier for uniquely identifying something.
   _UUIDs_ are used as the identifier in _Doc Refs_.

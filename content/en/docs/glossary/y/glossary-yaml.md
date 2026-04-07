@@ -1,6 +1,6 @@
 ---
-title: "Yaml"
-linkTitle: "Yaml"
+title: "YAML"
+linkTitle: "YAML"
 description: >
   **Y**AML **A**in't **M**arkup **L**anguage.
   A human readable data format often used for configuration files.

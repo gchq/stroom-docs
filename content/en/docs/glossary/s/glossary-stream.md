@@ -6,7 +6,7 @@ description: >
 ---
 
 {{% see-also %}}
-[Streams Concept]({{< relref "docs/user-guide/concepts/streams" >}})
-{{< glossary "Event" >}}
+* [Streams Concept]({{< relref "docs/user-guide/concepts/streams" >}})
+* {{< glossary "Events" >}}
 {{% /see-also %}}
 

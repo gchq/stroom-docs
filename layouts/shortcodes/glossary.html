@@ -27,14 +27,15 @@ or plain text only.
 */}}
 -->
 {{- $term := strings.Trim (strings.Trim (.Get 0) " ") " " -}}
-{{- $title_arg := strings.Trim (strings.Trim (.Get 1) " ") " " -}}
+{{- $display_text_arg := strings.Trim (strings.Trim (.Get 1) " ") " " -}}
 {{- $slug := anchorize $term -}}
 {{- $letter := substr $slug 0 1 -}}
 {{- $page_file := printf "/docs/glossary/%s/glossary-%s.md" $letter $slug -}}
 
 {{- with .Site.GetPage $page_file -}}
   {{- $gloss_page := . -}}
-  {{- $title := $title_arg | default ($gloss_page.Title) -}}
+  {{- $display_text := $display_text_arg | default ($gloss_page.Title) -}}
+  {{- $title := $gloss_page.Title -}}
   {{- $summary := $gloss_page.Description | markdownify -}}
   
   {{- $url := printf "/docs/glossary/%s/glossary-%s" $letter $slug -}}
@@ -42,17 +43,17 @@ or plain text only.
   
   <span class="glossary-link">
     <a href="{{- $url -}}">
-      <span>{{- $title -}}</span>
+      <span>{{- $display_text -}}</span>
       <i class="glossary-link-icon fas fa-book fa-sm text-primary"></i>
     </a>
   {{- if $summary -}}
-    <div class="glossary-tooltip">
-      <div class="glossary-tooltip-title">{{- $title -}}</div>
-      <div class="glossary-tooltip-summary">{{- $summary -}}</div>
+    <span class="glossary-tooltip">
+      <span class="glossary-tooltip-title">{{- $title -}}</span>
+      <span class="glossary-tooltip-summary">{{- $summary -}}</span>
       {{- if $gloss_page.RawContent -}}
-        <div class="glossary-tooltip-truncated">Click to see more details...</div>
+        <span class="glossary-tooltip-truncated">Click to see more details...</span>
       {{- end -}}
-    </div>
+    </span>
   {{- end -}}
   </span>
 {{- else -}}
