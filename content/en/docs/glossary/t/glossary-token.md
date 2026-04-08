@@ -1,7 +1,7 @@
 ---
 title: "Token"
 linkTitle: "Token"
-destination: >
+description: >
   Typically refers to an authentication token that may be used for user authentication.
   A Stroom _API Key_ is a form of authentication token.
 ---
