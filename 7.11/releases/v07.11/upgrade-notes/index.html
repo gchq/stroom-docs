@@ -47,13 +47,13 @@
 <meta property="og:type" content="article" />
 <meta property="og:url" content="/releases/v07.11/upgrade-notes/" /><meta property="article:section" content="releases" />
 <meta property="article:published_time" content="2025-09-23T00:00:00+00:00" />
-<meta property="article:modified_time" content="2026-04-08T13:32:55+01:00" /><meta property="og:site_name" content="Stroom" />
+<meta property="article:modified_time" content="2026-04-16T16:47:33+01:00" /><meta property="og:site_name" content="Stroom" />
 
 <meta itemprop="name" content="Upgrade Notes">
 <meta itemprop="description" content="Required actions and information relating to upgrading to Stroom version 7.11.
 "><meta itemprop="datePublished" content="2025-09-23T00:00:00+00:00" />
-<meta itemprop="dateModified" content="2026-04-08T13:32:55+01:00" />
-<meta itemprop="wordCount" content="2425">
+<meta itemprop="dateModified" content="2026-04-16T16:47:33+01:00" />
+<meta itemprop="wordCount" content="2871">
 <meta itemprop="keywords" content="" /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Upgrade Notes"/>
 <meta name="twitter:description" content="Required actions and information relating to upgrading to Stroom version 7.11.
@@ -154,7 +154,7 @@
     aria-label="Search this site…"
     autocomplete="off"
     
-    data-offline-search-index-json-src="../../../offline-search-index.1768b63f02b9d128efaa27bc51b7c098.json"
+    data-offline-search-index-json-src="../../../offline-search-index.505404f6f9ade3ed914e75679aff5b52.json"
     data-offline-search-base-href="../../../"
     data-offline-search-max-results="50"
   >
@@ -179,7 +179,7 @@
     aria-label="Search this site…"
     autocomplete="off"
     
-    data-offline-search-index-json-src="../../../offline-search-index.1768b63f02b9d128efaa27bc51b7c098.json"
+    data-offline-search-index-json-src="../../../offline-search-index.505404f6f9ade3ed914e75679aff5b52.json"
     data-offline-search-base-href="../../../"
     data-offline-search-max-results="50"
   >
@@ -412,6 +412,7 @@
     </li>
     <li><a href="#database-migrations">Database Migrations</a>
       <ul>
+        <li><a href="#pre-migration-scripts">Pre-Migration Scripts</a></li>
         <li><a href="#migration-scripts">Migration Scripts</a>
           <ul>
             <li><a href="#module-stroom-annotation">Module <code>stroom-annotation</code></a></li>
@@ -944,8 +945,85 @@ It is also recommended to test the migration against a copy of your database to 
 This will be the node that reaches that point in the boot process first.
 All other nodes will wait until that is complete before proceeding with the boot process.</p>
 <p>It is recommended however to use a single node to execute the migration.
-To avoid Stroom starting up and beginning processing you can use the <code>migrage</code> command to just migrate the database and not fully boot Stroom.
-See <a href="../../../docs/user-guide/tools/command-line/#migrate"><code>migrage</code> command</a> for more details.</p>
+To avoid Stroom starting up and beginning processing you can use the <code>migrate</code> command to just migrate the database and not fully boot Stroom.
+See <a href="../../../docs/user-guide/tools/command-line/#migrate"><code>migrate</code> command</a> for more details.</p>
+<h3 id="pre-migration-scripts">Pre-Migration Scripts</h3>
+
+<div class="alert alert-warning" role="alert">
+<h4 class="alert-heading">Warning</h4>
+
+    It is important that you run this pre-migration check or the database migration may fail.
+
+</div>
+
+
+<p>A previous database migration in v7.6 may have resulted in <code>annotation_entry</code> database records with no value in the <code>entry_user_uuid</code> column.
+This is likely caused by annotations being linked to users that were no longer in Stroom when the 7.6 migration ran.
+If that is the case then the v7.11 migration <code>V07_11_00_001__annotation3.sql</code> will fail.</p>
+<p>To establish if you need you have any records in this state, run the following script against the Stroom database.
+This script can also be downloaded from <span class="external-link">
+  <a href="https://raw.githubusercontent.com/gchq/stroom/refs/heads/7.11/scripts/v07_11_db_pre_migration_checks.sql" target="_blank" class="external-link" title="v07_11_db_pre_migration_checks.sql (external link to https://raw.githubusercontent.com/gchq/stroom/refs/heads/7.11/scripts/v07_11_db_pre_migration_checks.sql)">
+    <span>v07_11_db_pre_migration_checks.sql</span>
+    <i class="external-link-icon fas fa-external-link-alt fa-sm text-secondary"></i>
+  </a>
+</span>
+ on GitHub.</p>
+<pre><code class="language-sql">-- A set of SQL queries to run before migrating from v6 to v7
+-- See https://gchq.github.io/stroom-docs/releases/v07.11/upgrade-notes/
+-- 
+-- Run with the mysql --table arg to get formatted output
+-- e.g.
+-- mysql --force --table -h&quot;localhost&quot; -P&quot;3306&quot; -u&quot;stroomuser&quot; -p&quot;stroompassword1&quot; stroom &lt; v07_11_db_pre_migration_checks.sql &gt; v07_11_db_pre_migration_checks.out 2&gt;&amp;1
+-- docker exec -i stroom-all-dbs mysql --force --table -h&quot;localhost&quot; -P&quot;3307&quot; -u&quot;stroomuser&quot; -p&quot;stroompassword1&quot; stroom &lt; v07_11_db_pre_migration_checks.sql &gt; v07_11_db_pre_migration_checks.out 2&gt;&amp;1
+
+\! echo 'Find annotation entries with no assigned user. No action required if this returns nothing.';
+
+SELECT a.id, a.title, ae.id AS entry_id
+FROM annotation a
+INNER JOIN annotation_entry ae ON a.id = ae.fk_annotation_id
+WHERE ae.entry_user_uuid IS NULL
+OR ae.entry_user_uuid = '';
+
+\! echo 'Listing all enabled Stroom users for reference';
+
+SELECT uuid, name, display_name, full_name
+FROM stroom_user su
+WHERE is_group = false
+AND enabled = true
+ORDER by name;
+
+\! echo 'Finished';
+</code></pre>
+<p><strong>If</strong> the first <code>SELECT</code> statement returns any rows you will need to take remedial action.</p>
+<p>In order to fix the missing data, you need the <span class="glossary-link">
+    <a href="../../../docs/glossary/u/glossary-uuid">
+      <span>UUID</span>
+      <i class="glossary-link-icon fas fa-book fa-sm text-primary"></i>
+    </a><span class="glossary-tooltip">
+      <span class="glossary-tooltip-title">UUID</span>
+      <span class="glossary-tooltip-summary">A <strong>U</strong>niversally <strong>U</strong>nique <strong>Id</strong>entifier for uniquely identifying something. <em>UUIDs</em> are used as the identifier in <em>Doc Refs</em>. An example of a <em>UUID</em> is <code>4ffeb895-53c9-40d6-bf33-3ef025401ad3</code>.</span><span class="glossary-tooltip-truncated">Click to see more details...</span></span></span> of a user that can be associated with the annotation entries.
+You will need to establish the <span class="glossary-link">
+    <a href="../../../docs/glossary/u/glossary-uuid">
+      <span>UUID</span>
+      <i class="glossary-link-icon fas fa-book fa-sm text-primary"></i>
+    </a><span class="glossary-tooltip">
+      <span class="glossary-tooltip-title">UUID</span>
+      <span class="glossary-tooltip-summary">A <strong>U</strong>niversally <strong>U</strong>nique <strong>Id</strong>entifier for uniquely identifying something. <em>UUIDs</em> are used as the identifier in <em>Doc Refs</em>. An example of a <em>UUID</em> is <code>4ffeb895-53c9-40d6-bf33-3ef025401ad3</code>.</span><span class="glossary-tooltip-truncated">Click to see more details...</span></span></span> of a suitable user, for example a user that is an administrator.
+The above script will also list all enabled users in your Stroom instance.</p>
+<p>Select the <code>uuid</code> of an appropriate user and run the following <span class="glossary-link">
+    <a href="../../../docs/glossary/s/glossary-sql">
+      <span>SQL</span>
+      <i class="glossary-link-icon fas fa-book fa-sm text-primary"></i>
+    </a><span class="glossary-tooltip">
+      <span class="glossary-tooltip-title">SQL</span>
+      <span class="glossary-tooltip-summary"><strong>S</strong>tructured <strong>Q</strong>uery <strong>L</strong>anguage (SQL). The language used in the MySQL database to query and manipulate the data.</span><span class="glossary-tooltip-truncated">Click to see more details...</span></span></span> statement, replacing <code>&lt;insert user UUID here&gt;</code> with the chosen UUID value.</p>
+<pre><code class="language-sql">UPDATE annotation_entry
+SET entry_user_uuid = '&lt;insert user UUID here&gt;'
+WHERE entry_user_uuid IS NULL
+OR entry_user_uuid = '';
+</code></pre>
+<p>Once complete, re-run the <code>v07_11_db_pre_migration_checks.sql</code> script to verify that the column is now fully populated.
+Then proceed with the 7.11 migration.</p>
 <!-- 
 Run stroom.db.migration.TestListDbMigrations.listDbMigrationsForLatestVersion() to generate the content for
 this section
@@ -1211,7 +1289,7 @@ CALL processor_add_column_v1(
 	
 	
 	<div class="text-muted mt-5 pt-3 border-top">
-  Last modified April 8, 2026: <a href="https://github.com/gchq/stroom-docs/commit/d379293b120d7189d9755f0014b905ddd1d24c80">Fix mistake in glossary-token.md front matter (d379293)</a>
+  Last modified April 16, 2026: <a href="https://github.com/gchq/stroom-docs/commit/56418db46bad646417579a00e8da9080eb3e3d3a">Add pre-mig check for 7.11, fix some typos (56418db)</a>
 </div>
 
 </div>
