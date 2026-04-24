@@ -50,27 +50,61 @@ git diff origin/${old_ver}..origin/${new_ver} stroom-config/stroom-config-app/sr
 git diff origin/${old_ver}..origin/${new_ver} stroom-proxy/stroom-proxy-app/src/test/resources/stroom/dist/proxy-expected.yaml
 -->
 
+
 ### Common Configuration Changes
 
 These changes are common to both Stroom and Stroom Proxy.
 
-{{% todo %}}
-Complete this section.
-{{% /todo %}}
+#### Changes to `receive` Branch
+
+```yaml
+    dataFeedIdentitiesDir: "data_feed_identities" # Default value changed from "data_feed_keys"
+```
 
 
 ### Stroom's `config.yml`
 
-{{% todo %}}
-Complete this section.
-{{% /todo %}}
+#### Changes to `autoContentCreation` Branch
+
+```yaml
+  autoContentCreation:
+
+    # An optional group to add the group defined by groupTemplate to.
+    # The value of this property is the name of a group. It can be the same 
+    # as groupParentGroupName if required. 
+    # It allows all the templated groups to belong to a common group for easier 
+    # permission management.
+    additionalGroupParentGroupName: "Data Feed Developer"  # New property
+
+    # If set, when Stroom auto-creates a feed, it will create an additional user group with a 
+    # name derived from this template. This is in addition to the user group defined by 'groupTemplate'.
+    # If not set, only the latter user group will be created. Default value is 'grp-${accountid}-dev'. 
+    # If this property is set in the YAML file, use single quotes to prevent the 
+    # variables being expanded when the config file is loaded.
+    additionalGroupTemplate: "grp-${accountid}-dev"        # Default value changed from "grp-${accountid}-sandbox"
+
+    # An optional templated sub-path of 'destinationExplorerPathTemplate'. If set, copied dependencies (e.g.
+    # XSLT filters, Test Converters, etc.) will be created in the sub-directory defined by this template. 
+    # If not set, that content will be created in the directory 
+    destinationExplorerSubPathTemplate: "dev"              # New property
+
+    # An optional group to add the group defined by groupTemplate to.
+    # The value of this property is the name of a group. 
+    # It allows all the templated groups to belong to a common group for easier 
+    # permission management.
+    groupParentGroupName: "Data Feed Reader"               # New property
+```
+
+
+#### `stroom.data.meta.dataFormats`
+
+An additional default value of `JSON_LINES` has been added for handling data in JSON Lines format, i.e. one complete JSON object per line.
+This is a useful format for JSON log events.
 
 
 ### Stroom-Proxy's `config.yml`
 
-{{% todo %}}
-Complete this section.
-{{% /todo %}}
+No Stroom-Proxy specific configuration changes have been made.
 
 
 ## Database Migrations
@@ -100,7 +134,4 @@ this section
 
 ### Migration Scripts
  
-{{% todo %}}
-Complete this section.
-{{% /todo %}}
-
+There are no database migrations in v7.12.
