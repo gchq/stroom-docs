@@ -45,13 +45,13 @@
 <meta property="og:type" content="article" />
 <meta property="og:url" content="/releases/v07.12/upgrade-notes/" /><meta property="article:section" content="releases" />
 <meta property="article:published_time" content="2026-03-18T00:00:00+00:00" />
-<meta property="article:modified_time" content="2026-04-16T16:48:02+01:00" /><meta property="og:site_name" content="Stroom" />
+<meta property="article:modified_time" content="2026-04-24T16:15:43+01:00" /><meta property="og:site_name" content="Stroom" />
 
 <meta itemprop="name" content="Upgrade Notes">
 <meta itemprop="description" content="Required actions and information relating to upgrading to Stroom version 7.12.
 "><meta itemprop="datePublished" content="2026-03-18T00:00:00+00:00" />
-<meta itemprop="dateModified" content="2026-04-16T16:48:02+01:00" />
-<meta itemprop="wordCount" content="361">
+<meta itemprop="dateModified" content="2026-04-24T16:15:43+01:00" />
+<meta itemprop="wordCount" content="647">
 <meta itemprop="keywords" content="" /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Upgrade Notes"/>
 <meta name="twitter:description" content="Required actions and information relating to upgrading to Stroom version 7.12.
@@ -155,7 +155,7 @@
     aria-label="Search this site…"
     autocomplete="off"
     
-    data-offline-search-index-json-src="../../../offline-search-index.d6edbee06ae63d4dd54e9ce86debf4d0.json"
+    data-offline-search-index-json-src="../../../offline-search-index.9fb7c88d48cacf52b99cb95d4b3e3b68.json"
     data-offline-search-base-href="../../../"
     data-offline-search-max-results="50"
   >
@@ -180,7 +180,7 @@
     aria-label="Search this site…"
     autocomplete="off"
     
-    data-offline-search-index-json-src="../../../offline-search-index.d6edbee06ae63d4dd54e9ce86debf4d0.json"
+    data-offline-search-index-json-src="../../../offline-search-index.9fb7c88d48cacf52b99cb95d4b3e3b68.json"
     data-offline-search-base-href="../../../"
     data-offline-search-max-results="50"
   >
@@ -396,8 +396,17 @@
     <li><a href="#java-version">Java Version</a></li>
     <li><a href="#configuration-file-changes">Configuration File Changes</a>
       <ul>
-        <li><a href="#common-configuration-changes">Common Configuration Changes</a></li>
-        <li><a href="#strooms-configyml">Stroom&rsquo;s <code>config.yml</code></a></li>
+        <li><a href="#common-configuration-changes">Common Configuration Changes</a>
+          <ul>
+            <li><a href="#changes-to-receive-branch">Changes to <code>receive</code> Branch</a></li>
+          </ul>
+        </li>
+        <li><a href="#strooms-configyml">Stroom&rsquo;s <code>config.yml</code></a>
+          <ul>
+            <li><a href="#changes-to-autocontentcreation-branch">Changes to <code>autoContentCreation</code> Branch</a></li>
+            <li><a href="#stroomdatametadataformats"><code>stroom.data.meta.dataFormats</code></a></li>
+          </ul>
+        </li>
         <li><a href="#stroom-proxys-configyml">Stroom-Proxy&rsquo;s <code>config.yml</code></a></li>
       </ul>
     </li>
@@ -669,32 +678,43 @@ git diff origin/${old_ver}..origin/${new_ver} stroom-proxy/stroom-proxy-app/src/
 -->
 <h3 id="common-configuration-changes">Common Configuration Changes</h3>
 <p>These changes are common to both Stroom and Stroom Proxy.</p>
-
-<div class="alert alert-warning" role="alert">
-<h4 class="alert-heading">TODO</h4>
-
-    Complete this section.
-
-</div>
-
+<h4 id="changes-to-receive-branch">Changes to <code>receive</code> Branch</h4>
+<pre><code class="language-yaml">    dataFeedIdentitiesDir: &quot;data_feed_identities&quot; # Default value changed from &quot;data_feed_keys&quot;
+</code></pre>
 <h3 id="strooms-configyml">Stroom&rsquo;s <code>config.yml</code></h3>
+<h4 id="changes-to-autocontentcreation-branch">Changes to <code>autoContentCreation</code> Branch</h4>
+<pre><code class="language-yaml">  autoContentCreation:
 
-<div class="alert alert-warning" role="alert">
-<h4 class="alert-heading">TODO</h4>
+    # An optional group to add the group defined by groupTemplate to.
+    # The value of this property is the name of a group. It can be the same 
+    # as groupParentGroupName if required. 
+    # It allows all the templated groups to belong to a common group for easier 
+    # permission management.
+    additionalGroupParentGroupName: &quot;Data Feed Developer&quot;  # New property
 
-    Complete this section.
+    # If set, when Stroom auto-creates a feed, it will create an additional user group with a 
+    # name derived from this template. This is in addition to the user group defined by 'groupTemplate'.
+    # If not set, only the latter user group will be created. Default value is 'grp-${accountid}-dev'. 
+    # If this property is set in the YAML file, use single quotes to prevent the 
+    # variables being expanded when the config file is loaded.
+    additionalGroupTemplate: &quot;grp-${accountid}-dev&quot;        # Default value changed from &quot;grp-${accountid}-sandbox&quot;
 
-</div>
+    # An optional templated sub-path of 'destinationExplorerPathTemplate'. If set, copied dependencies (e.g.
+    # XSLT filters, Test Converters, etc.) will be created in the sub-directory defined by this template. 
+    # If not set, that content will be created in the directory 
+    destinationExplorerSubPathTemplate: &quot;dev&quot;              # New property
 
+    # An optional group to add the group defined by groupTemplate to.
+    # The value of this property is the name of a group. 
+    # It allows all the templated groups to belong to a common group for easier 
+    # permission management.
+    groupParentGroupName: &quot;Data Feed Reader&quot;               # New property
+</code></pre>
+<h4 id="stroomdatametadataformats"><code>stroom.data.meta.dataFormats</code></h4>
+<p>An additional default value of <code>JSON_LINES</code> has been added for handling data in JSON Lines format, i.e. one complete JSON object per line.
+This is a useful format for JSON log events.</p>
 <h3 id="stroom-proxys-configyml">Stroom-Proxy&rsquo;s <code>config.yml</code></h3>
-
-<div class="alert alert-warning" role="alert">
-<h4 class="alert-heading">TODO</h4>
-
-    Complete this section.
-
-</div>
-
+<p>No Stroom-Proxy specific configuration changes have been made.</p>
 <h2 id="database-migrations">Database Migrations</h2>
 <p>When Stroom boots for the first time with a new version it will run any required database migrations to bring the database schema up to the correct version.</p>
 
@@ -719,19 +739,12 @@ Run stroom.db.migration.TestListDbMigrations.listDbMigrationsForLatestVersion() 
 this section
 -->
 <h3 id="migration-scripts">Migration Scripts</h3>
-
-<div class="alert alert-warning" role="alert">
-<h4 class="alert-heading">TODO</h4>
-
-    Complete this section.
-
-</div>
-
+<p>There are no database migrations in v7.12.</p>
 
 	
 	
 	<div class="text-muted mt-5 pt-3 border-top">
-  Last modified April 16, 2026: <a href="https://github.com/gchq/stroom-docs/commit/3554796dc607aa31172ccc9b6e9cb57b8ac10776">Merge branch &#39;7.11&#39; into 7.12 (3554796)</a>
+  Last modified April 24, 2026: <a href="https://github.com/gchq/stroom-docs/commit/597c57eb9340cb44578442021fe493adec54def2">Fill in 7.12 upgrade notes (597c57e)</a>
 </div>
 
 </div>
