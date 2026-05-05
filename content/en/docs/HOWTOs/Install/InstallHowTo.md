@@ -132,7 +132,14 @@ described in the [Web Service Integration](#web-service-integration "Web Service
 
 Note also, that Standalone or Forwarding Stroom Proxy deployments do __NOT__ need a database client deployed.
 
+
 ### Entropy Issues in Virtual environments
+
+{{% todo %}}
+This section is likely out of date due to changes in the Linux kernal and how _SecureRandom_ is implemented.
+Unless you are experiencing delays, there is no need to install `haveged`.
+{{% /todo %}}
+
 Both the Stroom Application and Stroom Proxy currently run on Tomcat (Version 7) which relies on the Java SecureRandom class to provide
 random values for any generated session identifiers as well as other components. In some circumstances the Java runtime can be delayed if the entropy source that is
 used to initialise SecureRandom is short of entropy. The delay is caused by the Java runtime waiting on the blocking entropy souce
@@ -148,7 +155,8 @@ A reasonable value would be over 2000 and a poor value would be below a few hund
 If you are deploying Stroom onto systems with low available entropy, the start time for the Stroom Proxy can be as high as 5 minutes and for
 the Application as high as 15 minutes.
 
-One software based solution would be to install the {{< external-link "haveged" "http://www.issihosts.com/haveged" >}} service that attempts to provide an easy-to-use, unpredictable random number generator based upon an adaptation of the HAVEGE algorithm.
+One software based solution would be to install the {{< external-link "haveged" "https://github.com/jirka-h/haveged" >}} service that attempts to provide an easy-to-use, unpredictable random number generator based upon an adaptation of the HAVEGE algorithm.
+
 To install execute
 ```bash
 yum -y install haveged
