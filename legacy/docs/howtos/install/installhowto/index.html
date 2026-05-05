@@ -31,13 +31,13 @@
 <meta property="og:type" content="article" />
 <meta property="og:url" content="/docs/howtos/install/installhowto/" /><meta property="article:section" content="docs" />
 <meta property="article:published_time" content="2021-07-12T00:00:00+00:00" />
-<meta property="article:modified_time" content="2026-03-25T16:49:10+00:00" /><meta property="og:site_name" content="Stroom" />
+<meta property="article:modified_time" content="2026-05-05T16:41:39+01:00" /><meta property="og:site_name" content="Stroom" />
 
 <meta itemprop="name" content="Installation">
 <meta itemprop="description" content="This HOWTO is provided to assist users in setting up a number of different Stroom environments based on Centos 7.3 infrastructure.
 "><meta itemprop="datePublished" content="2021-07-12T00:00:00+00:00" />
-<meta itemprop="dateModified" content="2026-03-25T16:49:10+00:00" />
-<meta itemprop="wordCount" content="5625">
+<meta itemprop="dateModified" content="2026-05-05T16:41:39+01:00" />
+<meta itemprop="wordCount" content="5657">
 <meta itemprop="keywords" content="installation," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Installation"/>
 <meta name="twitter:description" content="This HOWTO is provided to assist users in setting up a number of different Stroom environments based on Centos 7.3 infrastructure.
@@ -128,7 +128,7 @@
     aria-label="Search this site…"
     autocomplete="off"
     
-    data-offline-search-index-json-src="../../../../offline-search-index.174ba7b4d6ff766a22571eeee4f270ca.json"
+    data-offline-search-index-json-src="../../../../offline-search-index.27bb33648a63f5f75d01a7e0f1cd203f.json"
     data-offline-search-base-href="../../../../"
     data-offline-search-max-results="50"
   >
@@ -153,7 +153,7 @@
     aria-label="Search this site…"
     autocomplete="off"
     
-    data-offline-search-index-json-src="../../../../offline-search-index.174ba7b4d6ff766a22571eeee4f270ca.json"
+    data-offline-search-index-json-src="../../../../offline-search-index.27bb33648a63f5f75d01a7e0f1cd203f.json"
     data-offline-search-base-href="../../../../"
     data-offline-search-max-results="50"
   >
@@ -1013,6 +1013,15 @@ Once you have installed the MySQL repository files, install the client via</p>
 described in the <a href="#web-service-integration" title="Web Service Integration">Web Service Integration</a> section of this document.</p>
 <p>Note also, that Standalone or Forwarding Stroom Proxy deployments do <strong>NOT</strong> need a database client deployed.</p>
 <h3 id="entropy-issues-in-virtual-environments">Entropy Issues in Virtual environments</h3>
+
+<div class="alert alert-warning" role="alert">
+<h4 class="alert-heading">TODO</h4>
+
+    This section is likely out of date due to changes in the Linux kernal and how <em>SecureRandom</em> is implemented.
+Unless you are experiencing delays, there is no need to install <code>haveged</code>.
+
+</div>
+
 <p>Both the Stroom Application and Stroom Proxy currently run on Tomcat (Version 7) which relies on the Java SecureRandom class to provide
 random values for any generated session identifiers as well as other components. In some circumstances the Java runtime can be delayed if the entropy source that is
 used to initialise SecureRandom is short of entropy. The delay is caused by the Java runtime waiting on the blocking entropy souce
@@ -1024,7 +1033,7 @@ a system&rsquo;s entropy.</p>
 <p>A reasonable value would be over 2000 and a poor value would be below a few hundred.</p>
 <p>If you are deploying Stroom onto systems with low available entropy, the start time for the Stroom Proxy can be as high as 5 minutes and for
 the Application as high as 15 minutes.</p>
-<p>One software based solution would be to install the <a href="http://www.issihosts.com/haveged" title="Haveged Web Site">haveged (external link)</a> service that attempts to provide an easy-to-use, unpredictable random number generator based upon an adaptation of the HAVEGE algorithm.
+<p>One software based solution would be to install the <a href="https://github.com/jirka-h/haveged" title="Haveged Web Site">haveged (external link)</a> service that attempts to provide an easy-to-use, unpredictable random number generator based upon an adaptation of the HAVEGE algorithm.
 To install execute</p>
 <pre><code class="language-bash">yum -y install haveged
 systemctl enable haveged
@@ -1691,7 +1700,7 @@ load balancing for the <code>stroomp.strmdev00.org</code> cluster.</p>
 	
 	
 	<div class="text-muted mt-5 pt-3 border-top">
-  Last modified March 25, 2026: <a href="https://github.com/gchq/stroom-docs/commit/e253d8ed7e4d40cee4beb405a929ef63de621163">Change to use docker digests (e253d8e)</a>
+  Last modified May 5, 2026: <a href="https://github.com/gchq/stroom-docs/commit/4fa1d37c383e2ba53fe11d7f272b9a13eb187350">Update section on haveged and SecureRandom (4fa1d37)</a>
 </div>
 
 </div>

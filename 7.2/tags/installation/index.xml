@@ -1651,6 +1651,15 @@ Once you have installed the MySQL repository files, install the client via&lt;/p
 described in the &lt;a href=&#34;#web-service-integration&#34; title=&#34;Web Service Integration&#34;&gt;Web Service Integration&lt;/a&gt; section of this document.&lt;/p&gt;
 &lt;p&gt;Note also, that Standalone or Forwarding Stroom Proxy deployments do &lt;strong&gt;NOT&lt;/strong&gt; need a database client deployed.&lt;/p&gt;
 &lt;h3 id=&#34;entropy-issues-in-virtual-environments&#34;&gt;Entropy Issues in Virtual environments&lt;/h3&gt;
+
+&lt;div class=&#34;alert alert-warning&#34; role=&#34;alert&#34;&gt;
+&lt;h4 class=&#34;alert-heading&#34;&gt;TODO&lt;/h4&gt;
+
+    This section is likely out of date due to changes in the Linux kernal and how &lt;em&gt;SecureRandom&lt;/em&gt; is implemented.
+Unless you are experiencing delays, there is no need to install &lt;code&gt;haveged&lt;/code&gt;.
+
+&lt;/div&gt;
+
 &lt;p&gt;Both the Stroom Application and Stroom Proxy currently run on Tomcat (Version 7) which relies on the Java SecureRandom class to provide
 random values for any generated session identifiers as well as other components. In some circumstances the Java runtime can be delayed if the entropy source that is
 used to initialise SecureRandom is short of entropy. The delay is caused by the Java runtime waiting on the blocking entropy souce
@@ -1674,13 +1683,13 @@ the Application as high as 15 minutes.&lt;/p&gt;
   
 
 &lt;span class=&#34;external-link&#34;&gt;
-  &lt;a href=&#34;http://www.issihosts.com/haveged&#34; target=&#34;_blank&#34; class=&#34;&#34; style=&#34;&#34; title=&#34;haveged (external link to http://www.issihosts.com/haveged)&#34;&gt;
+  &lt;a href=&#34;https://github.com/jirka-h/haveged&#34; target=&#34;_blank&#34; class=&#34;&#34; style=&#34;&#34; title=&#34;haveged (external link to https://github.com/jirka-h/haveged)&#34;&gt;
     &lt;span&gt;haveged&lt;/span&gt;
     &lt;i class=&#34;external-link-icon fas fa-external-link-alt fa-sm text-secondary&#34;&gt;&lt;/i&gt;
   &lt;/a&gt;
 &lt;/span&gt;
- service that attempts to provide an easy-to-use, unpredictable random number generator based upon an adaptation of the HAVEGE algorithm.
-To install execute&lt;/p&gt;
+ service that attempts to provide an easy-to-use, unpredictable random number generator based upon an adaptation of the HAVEGE algorithm.&lt;/p&gt;
+&lt;p&gt;To install execute&lt;/p&gt;
 &lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;yum -y install haveged
 systemctl enable haveged
 systemctl start haveged

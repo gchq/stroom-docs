@@ -150,7 +150,7 @@
     aria-label="Search this site…"
     autocomplete="off"
     
-    data-offline-search-index-json-src="../../../offline-search-index.505404f6f9ade3ed914e75679aff5b52.json"
+    data-offline-search-index-json-src="../../../offline-search-index.164a076d3dba237e4b7d98239a3e3057.json"
     data-offline-search-base-href="../../../"
     data-offline-search-max-results="50"
   >
@@ -7852,7 +7852,16 @@ Once you have installed the MySQL repository files, install the client via</p>
 This is described in the <a href="#web-service-integration" title="Web Service Integration">Web Service Integration</a> section of this document.</p>
 <p>Note also, that Standalone or Forwarding Stroom Proxy deployments do <strong>NOT</strong> need a database client deployed.</p>
 <h3 id="entropy-issues-in-virtual-environments">Entropy Issues in Virtual environments</h3>
-<p>Both the Stroom Application and Stroom Proxy currently run on Tomcat (Version 7) which relies on the Java <em>SecureRandom</em> class to provide
+
+<div class="alert alert-warning" role="alert">
+<h4 class="alert-heading">TODO</h4>
+
+    This section is likely out of date due to changes in the Linux kernel and how <em>SecureRandom</em> is implemented.
+Unless you are experiencing delays, there is no need to install <code>haveged</code>.
+
+</div>
+
+<p>Both the Stroom Application and Stroom Proxy currently run on Tomcat (Version 7) which relies on the Java SecureRandom class to provide
 random values for any generated session identifiers as well as other components. In some circumstances the Java runtime can be delayed if the entropy source that is
 used to initialise <em>SecureRandom</em> is short of entropy. The delay is caused by the Java runtime waiting on the blocking entropy source
 /dev/random to have sufficient entropy. This quite often occurs in virtual environments were there are few sources that can contribute to
@@ -7879,13 +7888,13 @@ A reasonable value would be over 2000 and a poor value would be below a few hund
 <p>If you are deploying Stroom onto systems with low available entropy, the start time for the Stroom Proxy can be as high as 5 minutes and for
 the Application as high as 15 minutes.</p>
 <p>One software based solution would be to install the <span class="external-link">
-  <a href="http://www.issihosts.com/haveged" target="_blank" class="external-link" title="haveged (external link to http://www.issihosts.com/haveged)">
+  <a href="https://github.com/jirka-h/haveged" target="_blank" class="external-link" title="haveged (external link to https://github.com/jirka-h/haveged)">
     <span>haveged</span>
     <i class="external-link-icon fas fa-external-link-alt fa-sm text-secondary"></i>
   </a>
 </span>
- service that attempts to provide an easy-to-use, unpredictable random number generator based upon an adaptation of the &lsquo;HAVEGE&rsquo; algorithm.
-To install execute
+ service that attempts to provide an easy-to-use, unpredictable random number generator based upon an adaptation of the HAVEGE algorithm.</p>
+<p>To install execute
 
   
 

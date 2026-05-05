@@ -151,7 +151,7 @@
     aria-label="Search this site…"
     autocomplete="off"
     
-    data-offline-search-index-json-src="../../../offline-search-index.9fb7c88d48cacf52b99cb95d4b3e3b68.json"
+    data-offline-search-index-json-src="../../../offline-search-index.96330c2fe9a5b0dfde20db3196efd9f9.json"
     data-offline-search-base-href="../../../"
     data-offline-search-max-results="50"
   >
@@ -265,12 +265,31 @@ This is the multi-page printable view of this section.
     
   <h1 id="pg-3ae30335867272330b4a465b320a78a2">1 - New Features</h1>
     <div class="lead">New features in Stroom version 7.12.</div>
-	
-<div class="alert alert-warning" role="alert">
-<h4 class="alert-heading">TODO</h4>
+	<h2 id="x509-data-feed-identities">X509 Data Feed Identities</h2>
+<p><em>Data Feed Identities</em> (formally <em>Data Feed Keys</em> v7.11) have been changed to include identities that authenticate using X509 certificates.</p>
 
-    Complete this section.
+<div class="alert alert-primary" role="alert">
+<h4 class="alert-heading">See Also</h4>
+<div class="alert-content">
+  
+  <p><a href="../../../docs/user-guide/data-receipt/data-feed-identities/#certificate-identities">Certificate Identities</a></p>
 
+</div>
+</div>
+
+<h2 id="auto-content-creation-changes">Auto Content Creation Changes</h2>
+<p>Additional configuration properties have been added to provide more control over auto-generated content.</p>
+
+<div class="alert alert-primary" role="alert">
+<h4 class="alert-heading">See Also</h4>
+<div class="alert-content">
+  
+  <ul>
+<li><a href="../../../releases/v07.12/upgrade-notes/#changes-to-autocontentcreation-branch">Upgrade Notes</a></li>
+<li><a href="../../../docs/user-guide/data-receipt/content-templates/">Content Templates name</a></li>
+</ul>
+
+</div>
 </div>
 
 
@@ -293,14 +312,7 @@ This is the multi-page printable view of this section.
     
   <h1 id="pg-ffd0a0cbab9712b85abeb57838b5277f">2 - Preview Features (experimental)</h1>
     <div class="lead">Preview features in Stroom version 7.12. Preview features are somewhat experimental in nature and are therefore subject to breaking changes in future releases.</div>
-	
-<div class="alert alert-warning" role="alert">
-<h4 class="alert-heading">TODO</h4>
-
-    Complete this section.
-
-</div>
-
+	<p>There are no preview features in this release.</p>
 
 </div>
 
@@ -331,35 +343,15 @@ This is the multi-page printable view of this section.
 
 
 <h2 id="stroom">Stroom</h2>
-<p>Breaking changes relating to Stroom.</p>
-
-<div class="alert alert-warning" role="alert">
-<h4 class="alert-heading">TODO</h4>
-
-    Complete this section.
-
-</div>
-
+<p>No Stroom specific breaking changes.</p>
 <h2 id="stroom-proxy">Stroom-Proxy</h2>
-<p>Breaking changes relating to Stroom Proxy.</p>
-
-<div class="alert alert-warning" role="alert">
-<h4 class="alert-heading">TODO</h4>
-
-    Complete this section.
-
-</div>
-
+<p>No Stroom-Proxy specific breaking changes.</p>
 <h2 id="stroom--stroom-proxy">Stroom &amp; Stroom-Proxy</h2>
-<p>Breaking changes that are common to both Stroom and Stroom Proxy.</p>
-
-<div class="alert alert-warning" role="alert">
-<h4 class="alert-heading">TODO</h4>
-
-    Complete this section.
-
-</div>
-
+<p>The following breaking changes are common to both Stroom and Stroom Proxy.</p>
+<h3 id="data-feed-keys">Data Feed Keys</h3>
+<p>The property <code>.receive.dataFeedKeysDir</code> has been renamed to <code>.receive.dataFeedIdentitiesDir</code>.</p>
+<p>The required structure of the files in this directory has changed.
+See <a href="../../../docs/user-guide/data-receipt/data-feed-identities/">Data Feed Identities</a> for more details.</p>
 
 </div>
 
@@ -430,6 +422,7 @@ git diff origin/${old_ver}..origin/${new_ver} stroom-proxy/stroom-proxy-app/src/
 <h3 id="common-configuration-changes">Common Configuration Changes</h3>
 <p>These changes are common to both Stroom and Stroom Proxy.</p>
 <h4 id="changes-to-receive-branch">Changes to <code>receive</code> Branch</h4>
+<p>The property <code>dataFeedIdentitiesDir</code> has been renamed from <code>dataFeedKeysDir</code>, and its default value has changed to <code>data_feed_identities</code>.</p>
 <pre><code class="language-yaml">    dataFeedIdentitiesDir: &quot;data_feed_identities&quot; # Default value changed from &quot;data_feed_keys&quot;
 </code></pre>
 <h3 id="strooms-configyml">Stroom&rsquo;s <code>config.yml</code></h3>
@@ -535,41 +528,54 @@ OR, if you use Vim use this command (changing the path to the stroom repo) to re
 **@g'
 -->
 <h2 id="new-features-and-changes">New Features and Changes</h2>
-
-<div class="alert alert-warning" role="alert">
-<h4 class="alert-heading">TODO</h4>
-
-    Complete this section.
-
-</div>
-
+<ul>
+<li>
+<p>Feature <strong><span class="external-link">
+  <a href="https://github.com/gchq/stroom/issues/5427" target="_blank" class="external-link" title="#5427 (external link to https://github.com/gchq/stroom/issues/5427)">
+    <span>#5427</span>
+    <i class="external-link-icon fas fa-external-link-alt fa-sm text-secondary"></i>
+  </a>
+</span>
+</strong> : Change the Data Feed Key authentication mechanism to support authentication by X509 certificate DN. Add a new allowed type of <code>CERTIFICATE_IDENTITY</code> to <code>.receive.enabledAuthenticationTypes</code>. Rename property <code>.receive.dataFeedKeysDir</code> to  <code>.receive.dataFeedIdentitiesDir</code> and change the structure of the files in it, all files will have to be replaced. Rename property <code>.receive.dataFeedKeyOwnerMetaKey</code> to <code>.receive.dataFeedOwnerMetaKey</code>. Change the default value of <code>.receive.dataFeedIdentitiesDir</code> from <code>data_feed_keys</code> to <code>data_feed_identities</code>.</p>
+</li>
+<li>
+<p>Feature <strong><span class="external-link">
+  <a href="https://github.com/gchq/stroom/issues/5442" target="_blank" class="external-link" title="#5442 (external link to https://github.com/gchq/stroom/issues/5442)">
+    <span>#5442</span>
+    <i class="external-link-icon fas fa-external-link-alt fa-sm text-secondary"></i>
+  </a>
+</span>
+</strong> : Add more configuration options to <code>stroom.autoContentCreation</code> to improve the explorer structure and permissions of the generated content. Add properties <code>additionalGroupParentGroupName</code>, <code>destinationExplorerSubPathTemplate</code> and <code>groupParentGroupName</code>. All have sensible defaults.</p>
+</li>
+<li>
+<p>Feature <strong><span class="external-link">
+  <a href="https://github.com/gchq/stroom/issues/5473" target="_blank" class="external-link" title="#5473 (external link to https://github.com/gchq/stroom/issues/5473)">
+    <span>#5473</span>
+    <i class="external-link-icon fas fa-external-link-alt fa-sm text-secondary"></i>
+  </a>
+</span>
+</strong> : Add <code>JSON_LINES</code> to the base list of data formats in the <code>.data.meta.dataFormats</code> property.</p>
+</li>
+</ul>
 <h2 id="bug-fixes">Bug Fixes</h2>
-
-<div class="alert alert-warning" role="alert">
-<h4 class="alert-heading">TODO</h4>
-
-    Complete this section.
-
-</div>
-
+<ul>
+<li>
+<p>Bug <strong><span class="external-link">
+  <a href="https://github.com/gchq/stroom/issues/5532" target="_blank" class="external-link" title="#5532 (external link to https://github.com/gchq/stroom/issues/5532)">
+    <span>#5532</span>
+    <i class="external-link-icon fas fa-external-link-alt fa-sm text-secondary"></i>
+  </a>
+</span>
+</strong> : Relax Data Feed Identities validation so salt is optional.</p>
+</li>
+<li>
+<p>Bug : Add missing directories (data_feed_identities, git_repo, lmdb_library, planb, reference_staging_data) as volumes in the docker image.</p>
+</li>
+</ul>
 <h2 id="code-refactor">Code Refactor</h2>
-
-<div class="alert alert-warning" role="alert">
-<h4 class="alert-heading">TODO</h4>
-
-    Complete this section.
-
-</div>
-
+<p>No <em>Code Refactor</em> changes.</p>
 <h2 id="dependency-changes">Dependency Changes</h2>
-
-<div class="alert alert-warning" role="alert">
-<h4 class="alert-heading">TODO</h4>
-
-    Complete this section.
-
-</div>
-
+<p>No <em>Dependency</em> changes.</p>
 
 </div>
 
