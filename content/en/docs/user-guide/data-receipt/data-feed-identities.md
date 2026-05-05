@@ -54,7 +54,7 @@ Files added to this directory while Stroom-Proxy/Stroom is running will be read 
 Files deleted from this directory will result in all entries associated with the file path being removed from the in-memory store of hashed keys.
 
 
-### Common properties
+## Common properties
 
 The following JSON properties are common to both types:
 
@@ -119,7 +119,7 @@ The regular expression pattern for a Data Feed Key is
 Data Feed Identities are used in the same way as API Keys or OAuth2 tokens, i.e. using the Header `Authorization: Bearer <data feed key>`.
 
 
-### Certificate Identities
+## Certificate Identities
 
 These identities allow client systems to authenticate with an X509 certificate.
 Typically the TLS will be terminated by an Nginx or load balancer sitting in front of Stroom/Stroom-Proxy, and it will pass the DN as a header (configured by `.receive.x509CertificateDnHeader`).

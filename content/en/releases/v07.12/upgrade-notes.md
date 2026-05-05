@@ -57,6 +57,8 @@ These changes are common to both Stroom and Stroom Proxy.
 
 #### Changes to `receive` Branch
 
+The property `dataFeedIdentitiesDir` has been renamed from `dataFeedKeysDir`, and its default value has changed to `data_feed_identities`.
+
 ```yaml
     dataFeedIdentitiesDir: "data_feed_identities" # Default value changed from "data_feed_keys"
 ```

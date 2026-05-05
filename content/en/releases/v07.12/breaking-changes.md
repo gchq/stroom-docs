@@ -15,28 +15,23 @@ Please read this section carefully in case any of the changes affect you.
 
 ## Stroom
 
-Breaking changes relating to Stroom.
-
-{{% todo %}}
-Complete this section.
-{{% /todo %}}
+No Stroom specific breaking changes.
 
 
 ## Stroom-Proxy
 
-Breaking changes relating to Stroom Proxy.
-
-{{% todo %}}
-Complete this section.
-{{% /todo %}}
+No Stroom-Proxy specific breaking changes.
 
 
 ## Stroom & Stroom-Proxy
 
-Breaking changes that are common to both Stroom and Stroom Proxy.
+The following breaking changes are common to both Stroom and Stroom Proxy.
 
-{{% todo %}}
-Complete this section.
-{{% /todo %}}
+### Data Feed Keys
+
+The property `.receive.dataFeedKeysDir` has been renamed to `.receive.dataFeedIdentitiesDir`.
+
+The required structure of the files in this directory has changed.
+See [Data Feed Identities]({{< relref "docs/user-guide/data-receipt/data-feed-identities" >}}) for more details.
 
 
