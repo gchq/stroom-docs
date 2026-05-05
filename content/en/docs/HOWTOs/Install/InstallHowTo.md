@@ -152,7 +152,7 @@ Note also, that Standalone or Forwarding Stroom Proxy deployments do __NOT__ nee
 ### Entropy Issues in Virtual environments
 
 {{% todo %}}
-This section is likely out of date due to changes in the Linux kernal and how _SecureRandom_ is implemented.
+This section is likely out of date due to changes in the Linux kernel and how _SecureRandom_ is implemented.
 Unless you are experiencing delays, there is no need to install `haveged`.
 {{% /todo %}}
 
