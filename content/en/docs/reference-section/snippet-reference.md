@@ -33,10 +33,16 @@ The following is an example of a snippet with multiple tab positions:
 Tab positions are expressed like `${n}` or `${n:xxx}`, where `n` is a number indication the order of the tab position and `xxx` is the default value at that tab position. Sometimes `xxx` will not be a default value, but will instead be a string to hint at the kind of thing the user is expected to overtype with where no obvious default is available.
 `${0}` is a special tab position in that it defines the last tab position.
 
+Snippets all have a unique _Tab Trigger_, e.g. `first` is the Tab Trigger for the `Eval first value` snippet.
+
 To insert a snippet do one of the following:
 
-* Type the whole Tab Trigger then hit {{< key-bind "tab" >}}.
-* Type some characters from the Name then hit {{< key-bind "ctrl,space" >}} to select it from the list.
+* Type the whole Tab Trigger (e.g. `first`) then hit {{< key-bind "tab" >}}.
+  The snippet will be inserted into the editor.
+
+* Type some characters from the Name of the snippet (e.g. `evalfval`), then hit {{< key-bind "ctrl,space" >}} to see a filtered list of matches.
+  Use the cursor keys to select the desired item or type more characters to narrow down the filter.
+  Hit {{< key-bind "enter" >}} or {{< key-bind "tab" >}} to insert the snippet.
 
 The snippet will be inserted (replacing the Tab Trigger if used) and the cursor will be positioned on the first tab position (`${1}` if present, otherwise `${0}`).
 If the tab position has a default value then the whole of that default value will be selected allowing the user to quickly over type it.
@@ -914,9 +920,9 @@ $0
 ````
 
 
-### Eval first first value (`first`)
+### Eval first value (`first`)
 
-**Name**: `Eval first first value`, **Tab Trigger**: `first`
+**Name**: `Eval first value`, **Tab Trigger**: `first`
 
 ```text
 eval ${1:field_name} = first(${1})
