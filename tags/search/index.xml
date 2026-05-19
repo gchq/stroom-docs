@@ -1123,14 +1123,141 @@ where &amp;lt;FIELD&amp;gt; &amp;lt;CONDITION&amp;gt; &amp;lt;VALUE&amp;gt; [and
 select &amp;lt;FIELD&amp;gt; [as &amp;lt;COLUMN NAME&amp;gt;], ...
 [show as] &amp;lt;VIS_NAME&amp;gt; (&amp;lt;VIS_CONTROL_ID_1&amp;gt; = &amp;lt;COLUMN_1&amp;gt;, &amp;lt;VIS_CONTROL_ID_2&amp;gt; = &amp;lt;COLUMN_2&amp;gt;)
 &lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;fields&#34;&gt;Fields&lt;/h2&gt;
+&lt;p&gt;Fields are the fields in a data source.
+Fields are case-sensitive.&lt;/p&gt;
+&lt;p&gt;If the field name contains white space then it &lt;strong&gt;must&lt;/strong&gt; be surround by braces and preceded by a dollar sign, e.g &lt;code&gt;${Create Time}&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;If the field name does not contain spaces it can be written with or without the braces, e.g. &lt;code&gt;Status&lt;/code&gt; or &lt;code&gt;${Status}&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;Fields can added to the query text in one of three ways:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Directly typing the field name (with braces as required).&lt;/li&gt;
+&lt;li&gt;Double clicking the field name in the Field picker in the left hand pane.
+Field names with spaces will be pasted in with braces.&lt;/li&gt;
+&lt;li&gt;Using code completion.
+In the query editor hit 
+
+
+
+
+
+
+  
+
+
+&lt;span class=&#34;key-bind key-bind-single &#34;&gt;
+  
+    
+    
+    
+      
+    
+
+    
+
+    
+      
+    
+
+    
+
+    
+
+    
+
+    
+      
+      
+    
+      
+      
+        
+          
+          
+        
+        
+      
+    
+
+    
+    
+      
+    
+    &lt;span class=&#34;key-bind-group key-bind-multiple&#34;&gt;
+    
+      &lt;span class=&#34;key-bind-key&#34;&gt;Ctrl ^&lt;/span&gt;
+      &lt;span class=&#34;key-bind-plus&#34;&gt;+&lt;/span&gt;
+      &lt;span class=&#34;key-bind-key&#34;&gt;Space ␣&lt;/span&gt;
+      &lt;/span&gt;
+    &lt;/span&gt;
+ to bring up a list of context aware completion terms, e.g. field names, then hit tab to insert it.
+You could also type a few characters from the name before hitting 
+
+
+
+
+
+
+  
+
+
+&lt;span class=&#34;key-bind key-bind-single &#34;&gt;
+  
+    
+    
+    
+      
+    
+
+    
+
+    
+      
+    
+
+    
+
+    
+
+    
+
+    
+      
+      
+    
+      
+      
+        
+          
+          
+        
+        
+      
+    
+
+    
+    
+      
+    
+    &lt;span class=&#34;key-bind-group key-bind-multiple&#34;&gt;
+    
+      &lt;span class=&#34;key-bind-key&#34;&gt;Ctrl ^&lt;/span&gt;
+      &lt;span class=&#34;key-bind-plus&#34;&gt;+&lt;/span&gt;
+      &lt;span class=&#34;key-bind-key&#34;&gt;Space ␣&lt;/span&gt;
+      &lt;/span&gt;
+    &lt;/span&gt;
+ to pre-filter the list.
+Field names with spaces will be pasted in with braces.&lt;/li&gt;
+&lt;/ul&gt;
 &lt;h2 id=&#34;keywords&#34;&gt;Keywords&lt;/h2&gt;
+&lt;p&gt;Keywords are the reserved words that define the structure of the query, e.g. &lt;code&gt;from&lt;/code&gt;, &lt;code&gt;select&lt;/code&gt;, &lt;code&gt;where&lt;/code&gt;.
+Unlike fields, they are case-insensitive.&lt;/p&gt;
 &lt;h3 id=&#34;from&#34;&gt;From&lt;/h3&gt;
 &lt;p&gt;The first part of a StroomQL expression is the &lt;code&gt;from&lt;/code&gt; clause that defines the single data source to query.
 All queries must include the &lt;code&gt;from&lt;/code&gt; clause.&lt;/p&gt;
 &lt;p&gt;Select the data source to query, e.g.&lt;/p&gt;
 &lt;pre&gt;&lt;code class=&#34;language-stroomql&#34;&gt;from my_source
 &lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;If the name of the data source contains white space then it must be quoted, e.g.&lt;/p&gt;
+&lt;p&gt;If the name of the data source contains white space then it must be quoted using &lt;code&gt;&amp;quot;&lt;/code&gt; double quotes, e.g.&lt;/p&gt;
 &lt;pre&gt;&lt;code class=&#34;language-stroomql&#34;&gt;from &amp;quot;my source&amp;quot;
 &lt;/code&gt;&lt;/pre&gt;
 &lt;h3 id=&#34;where&#34;&gt;Where&lt;/h3&gt;
@@ -1148,14 +1275,41 @@ and (feed = &amp;quot;my feed&amp;quot; or feed = &amp;quot;other feed&amp;quot;
 &lt;h4 id=&#34;conditions&#34;&gt;Conditions&lt;/h4&gt;
 &lt;p&gt;Supported conditions are:&lt;/p&gt;
 &lt;ul&gt;
-&lt;li&gt;&lt;code&gt;=&lt;/code&gt;&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;!=&lt;/code&gt;&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;&amp;gt;&lt;/code&gt;&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;&amp;gt;=&lt;/code&gt;&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;&amp;lt;&lt;/code&gt;&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;&amp;lt;=&lt;/code&gt;&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;is null&lt;/code&gt;&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;is not null&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;=&lt;/code&gt; - Equals.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;!=&lt;/code&gt; - Not equals.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;&amp;gt;&lt;/code&gt; - Greater than.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;&amp;gt;=&lt;/code&gt; - Greater than or equal to.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;&amp;lt;&lt;/code&gt; - Less than.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;&amp;lt;=&lt;/code&gt; - Less than or equal to.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;is null&lt;/code&gt; - The value is &lt;code&gt;null&lt;/code&gt;.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;is not null&lt;/code&gt; - The value is not &lt;code&gt;null&lt;/code&gt;.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;in&lt;/code&gt; - The value is in a list of allowed values.&lt;br&gt;
+e.g. &lt;code&gt;StreamId in (1001, 1002, 2009)&lt;/code&gt;&lt;br&gt;
+or &lt;code&gt;Feed in (&amp;quot;FEED_X&amp;quot;, &amp;quot;FEED_Y&amp;quot;)&lt;/code&gt;.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;in dictionary&lt;/code&gt; - The value is in a list of allowed values that are contained in a 
+
+  
+  
+  &lt;span class=&#34;stroom-doc&#34;&gt;
+      &lt;a href=&#34;../../docs/reference-section/documents#dictionary&#34; class=&#34;stroom-doc-link&#34;&gt;
+        
+        &lt;span class=&#34;stroom-doc-icon&#34;&gt;&lt;span class=&#34;stroom-icon inline-svg-button icon-button  &#34; &gt;
+    &lt;span class=&#34;face&#34; title=&#34;dictionary&#34;&gt;&lt;svg xmlns=&#34;http://www.w3.org/2000/svg&#34; width=&#34;1792&#34; height=&#34;1792&#34; viewBox=&#34;0 0 1792 1792&#34;&gt;&lt;path style=&#34;fill:var(--icon-colour__blue)&#34; d=&#34;M1703 478q40 57 18 129l-275 906q-19 64-76.5 107.5t-122.5 43.5h-923q-77 0-148.5-53.5t-99.5-131.5q-24-67-2-127 0-4 3-27t4-37q1-8-3-21.5t-3-19.5q2-11 8-21t16.5-23.5 16.5-23.5q23-38 45-91.5t30-91.5q3-10 .5-30t-.5-28q3-11 17-28t17-23q21-36 42-92t25-90q1-9-2.5-32t.5-28q4-13 22-30.5t22-22.5q19-26 42.5-84.5t27.5-96.5q1-8-3-25.5t-2-26.5q2-8 9-18t18-23 17-21q8-12 16.5-30.5t15-35 16-36 19.5-32 26.5-23.5 36-11.5 47.5 5.5l-1 3q38-9 51-9h761q74 0 114 56t18 130l-274 906q-36 119-71.5 153.5t-128.5 34.5h-869q-27 0-38 15-11 16-1 43 24 70 144 70h923q29 0 56-15.5t35-41.5l300-987q7-22 5-57 38 15 59 43zm-1064 2q-4 13 2 22.5t20 9.5h608q13 0 25.5-9.5t16.5-22.5l21-64q4-13-2-22.5t-20-9.5h-608q-13 0-25.5 9.5t-16.5 22.5zm-83 256q-4 13 2 22.5t20 9.5h608q13 0 25.5-9.5t16.5-22.5l21-64q4-13-2-22.5t-20-9.5h-608q-13 0-25.5 9.5t-16.5 22.5z&#34;/&gt;&lt;/svg&gt;&lt;/span&gt;
+  &lt;/span&gt;&lt;/span&gt;
+        
+        &lt;span class=&#34;stroom-doc-text&#34;&gt;Dictionary&lt;/span&gt;
+      &lt;/a&gt;
+    &lt;/span&gt;
+
+.&lt;br&gt;
+e.g. &lt;code&gt;Feed in dictionary &amp;quot;My Dict&amp;quot;&lt;/code&gt; (using the dictionary&amp;rsquo;s unique name)&lt;br&gt;
+or  &lt;code&gt;Feed in dictionary &amp;quot;fb7a8cea-e6b4-4d94-8f7e-47ff3b3c7711&amp;quot;&lt;/code&gt; (using the dictionary&amp;rsquo;s &lt;span class=&#34;glossary-link&#34;&gt;
+    &lt;a href=&#34;../../docs/glossary/u/glossary-uuid&#34;&gt;
+      &lt;span&gt;UUID&lt;/span&gt;
+      &lt;i class=&#34;glossary-link-icon fas fa-book fa-sm text-primary&#34;&gt;&lt;/i&gt;
+    &lt;/a&gt;&lt;span class=&#34;glossary-tooltip&#34;&gt;
+      &lt;span class=&#34;glossary-tooltip-title&#34;&gt;UUID&lt;/span&gt;
+      &lt;span class=&#34;glossary-tooltip-summary&#34;&gt;A &lt;strong&gt;U&lt;/strong&gt;niversally &lt;strong&gt;U&lt;/strong&gt;nique &lt;strong&gt;Id&lt;/strong&gt;entifier for uniquely identifying something. &lt;em&gt;UUIDs&lt;/em&gt; are used as the identifier in &lt;em&gt;Doc Refs&lt;/em&gt;. An example of a &lt;em&gt;UUID&lt;/em&gt; is &lt;code&gt;4ffeb895-53c9-40d6-bf33-3ef025401ad3&lt;/code&gt;.&lt;/span&gt;&lt;span class=&#34;glossary-tooltip-truncated&#34;&gt;Click to see more details...&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;).&lt;/li&gt;
 &lt;/ul&gt;
 &lt;h4 id=&#34;andornot&#34;&gt;And|Or|Not&lt;/h4&gt;
 &lt;p&gt;Logical operators to add to where and filter clauses.&lt;/p&gt;
@@ -1351,6 +1505,618 @@ sort by Sl desc
 select Sl, StreamId as &amp;quot;Stream Id&amp;quot;, EventId as &amp;quot;Event Id&amp;quot;, EventTime as &amp;quot;Event Time&amp;quot;, UserId as &amp;quot;User Id&amp;quot;, FirstName, count
 limit 10
 &lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;help-pane&#34;&gt;Help Pane&lt;/h2&gt;
+&lt;p&gt;The left hand pane of the Query editor provides help for building a StroomQL query.
+It contains the following items:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;em&gt;Data Sources&lt;/em&gt; - The list of data sources (visible to the user) that can be queried.&lt;/li&gt;
+&lt;li&gt;&lt;em&gt;Structure&lt;/em&gt; - The list of keywords available to use, e.g. &lt;code&gt;select&lt;/code&gt;.&lt;/li&gt;
+&lt;li&gt;&lt;em&gt;Annotation Fields&lt;/em&gt; - The list of special fields for accessing data from Annotations linked to the data being queried.
+The fields list will only be available once a complete &lt;code&gt;from ...&lt;/code&gt; clause has been added that uses a data source that supports Annotations, e.g. an Index.&lt;/li&gt;
+&lt;li&gt;&lt;em&gt;Fields&lt;/em&gt; - The list of fields that can be used in the Query.
+The fields list will only be available once a complete &lt;code&gt;from ...&lt;/code&gt; clause has been added.&lt;/li&gt;
+&lt;li&gt;&lt;em&gt;Functions&lt;/em&gt; - The list of &lt;a href=&#34;../../docs/reference-section/expressions/&#34;&gt;Expression Functions&lt;/a&gt; that can be used.&lt;/li&gt;
+&lt;li&gt;&lt;em&gt;Visualisations&lt;/em&gt; - The list of 
+
+  
+  
+  &lt;span class=&#34;stroom-doc&#34;&gt;
+      &lt;a href=&#34;../../docs/reference-section/documents#visualisation&#34; class=&#34;stroom-doc-link&#34;&gt;
+        
+        &lt;span class=&#34;stroom-doc-icon&#34;&gt;&lt;span class=&#34;stroom-icon inline-svg-button icon-button  &#34; &gt;
+    &lt;span class=&#34;face&#34; title=&#34;visualisation&#34;&gt;&lt;svg xmlns=&#34;http://www.w3.org/2000/svg&#34; width=&#34;1792&#34; height=&#34;1792&#34; viewBox=&#34;0 0 1792 1792&#34;&gt;&lt;path style=&#34;fill:var(--icon-colour__blue)&#34; d=&#34;m 768,890 546,546 Q 1208,1544 1066.5,1604 925,1664 768,1664 559,1664 382.5,1561 206,1458 103,1281.5 0,1105 0,896 0,687 103,510.5 206,334 382.5,231 559,128 768,128 l 0,762 z&#34;/&gt;&lt;path style=&#34;fill:var(--icon-colour__orange)&#34; d=&#34;m 955,896 773,0 q 0,157 -60,298.5 -60,141.5 -168,247.5 z&#34;/&gt;&lt;path style=&#34;fill:var(--icon-colour__green)&#34; d=&#34;M 1664,768 896,768 896,0 Q 1105,0 1281.5,103 1458,206 1561,382.5 1664,559 1664,768 Z&#34;/&gt;&lt;/svg&gt;&lt;/span&gt;
+  &lt;/span&gt;&lt;/span&gt;
+        
+        &lt;span class=&#34;stroom-doc-text&#34;&gt;Visualisation&lt;/span&gt;
+      &lt;/a&gt;
+    &lt;/span&gt;
+
+ documents that can be included in the 
+
+  
+  
+  &lt;span class=&#34;stroom-doc&#34;&gt;
+      &lt;a href=&#34;../../docs/reference-section/documents#query&#34; class=&#34;stroom-doc-link&#34;&gt;
+        
+        &lt;span class=&#34;stroom-doc-icon&#34;&gt;&lt;span class=&#34;stroom-icon inline-svg-button icon-button  &#34; &gt;
+    &lt;span class=&#34;face&#34; title=&#34;query&#34;&gt;&lt;svg xmlns=&#34;http://www.w3.org/2000/svg&#34; width=&#34;1792&#34; height=&#34;1792&#34; viewBox=&#34;0 0 1792 1792&#34;&gt;&lt;path style=&#34;fill:var(--icon-colour__blue)&#34; d=&#34;M1216 832q0-185-131.5-316.5t-316.5-131.5-316.5 131.5-131.5 316.5 131.5 316.5 316.5 131.5 316.5-131.5 131.5-316.5zm512 832q0 52-38 90t-90 38q-54 0-90-38l-343-342q-179 124-399 124-143 0-273.5-55.5t-225-150-150-225-55.5-273.5 55.5-273.5 150-225 225-150 273.5-55.5 273.5 55.5 225 150 150 225 55.5 273.5q0 220-124 399l343 343q37 37 37 90z&#34;/&gt;&lt;/svg&gt;&lt;/span&gt;
+  &lt;/span&gt;&lt;/span&gt;
+        
+        &lt;span class=&#34;stroom-doc-text&#34;&gt;Query&lt;/span&gt;
+      &lt;/a&gt;
+    &lt;/span&gt;
+
+.&lt;/li&gt;
+&lt;li&gt;&lt;em&gt;Dictionaries&lt;/em&gt; - The list of 
+
+  
+  
+  &lt;span class=&#34;stroom-doc&#34;&gt;
+      &lt;a href=&#34;../../docs/reference-section/documents#dictionary&#34; class=&#34;stroom-doc-link&#34;&gt;
+        
+        &lt;span class=&#34;stroom-doc-icon&#34;&gt;&lt;span class=&#34;stroom-icon inline-svg-button icon-button  &#34; &gt;
+    &lt;span class=&#34;face&#34; title=&#34;dictionary&#34;&gt;&lt;svg xmlns=&#34;http://www.w3.org/2000/svg&#34; width=&#34;1792&#34; height=&#34;1792&#34; viewBox=&#34;0 0 1792 1792&#34;&gt;&lt;path style=&#34;fill:var(--icon-colour__blue)&#34; d=&#34;M1703 478q40 57 18 129l-275 906q-19 64-76.5 107.5t-122.5 43.5h-923q-77 0-148.5-53.5t-99.5-131.5q-24-67-2-127 0-4 3-27t4-37q1-8-3-21.5t-3-19.5q2-11 8-21t16.5-23.5 16.5-23.5q23-38 45-91.5t30-91.5q3-10 .5-30t-.5-28q3-11 17-28t17-23q21-36 42-92t25-90q1-9-2.5-32t.5-28q4-13 22-30.5t22-22.5q19-26 42.5-84.5t27.5-96.5q1-8-3-25.5t-2-26.5q2-8 9-18t18-23 17-21q8-12 16.5-30.5t15-35 16-36 19.5-32 26.5-23.5 36-11.5 47.5 5.5l-1 3q38-9 51-9h761q74 0 114 56t18 130l-274 906q-36 119-71.5 153.5t-128.5 34.5h-869q-27 0-38 15-11 16-1 43 24 70 144 70h923q29 0 56-15.5t35-41.5l300-987q7-22 5-57 38 15 59 43zm-1064 2q-4 13 2 22.5t20 9.5h608q13 0 25.5-9.5t16.5-22.5l21-64q4-13-2-22.5t-20-9.5h-608q-13 0-25.5 9.5t-16.5 22.5zm-83 256q-4 13 2 22.5t20 9.5h608q13 0 25.5-9.5t16.5-22.5l21-64q4-13-2-22.5t-20-9.5h-608q-13 0-25.5 9.5t-16.5 22.5z&#34;/&gt;&lt;/svg&gt;&lt;/span&gt;
+  &lt;/span&gt;&lt;/span&gt;
+        
+        &lt;span class=&#34;stroom-doc-text&#34;&gt;Dictionary&lt;/span&gt;
+      &lt;/a&gt;
+    &lt;/span&gt;
+
+ documents that can be used in &lt;a href=&#34;#conditions&#34;&gt;&lt;code&gt;in dictionary&lt;/code&gt;&lt;/a&gt; terms.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Clicking on an item will show some detailed help about that item in the bottom of the pane.&lt;/p&gt;
+&lt;p&gt;Double clicking on the item will insert it into the query editor.
+It will be inserted with double quotes or braces as appropriate to the item being inserted.&lt;/p&gt;
+&lt;h2 id=&#34;code-completion&#34;&gt;Code Completion&lt;/h2&gt;
+&lt;p&gt;The StroomQL editor benefits from code completion to speed up the writing of queries.&lt;/p&gt;
+&lt;p&gt;Pressing 
+
+
+
+
+
+
+  
+
+
+&lt;span class=&#34;key-bind key-bind-multiple &#34;&gt;
+  
+    
+    
+    
+      
+    
+
+    
+
+    
+      
+    
+
+    
+
+    
+
+    
+
+    
+      
+      
+    
+
+    
+    
+      
+    
+    &lt;span class=&#34;key-bind-group key-bind-single&#34;&gt;
+    
+      &lt;span class=&#34;key-bind-key&#34;&gt;Ctrl ^&lt;/span&gt;
+      &lt;/span&gt;
+    &lt;span class=&#34;key-bind-comma&#34;&gt;,&lt;/span&gt;
+    
+    
+    
+      
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+      
+      
+        
+          
+          
+        
+        
+      
+    
+
+    
+    
+      
+    
+    &lt;span class=&#34;key-bind-group key-bind-single&#34;&gt;
+    
+      &lt;span class=&#34;key-bind-key&#34;&gt;Space ␣&lt;/span&gt;
+      &lt;/span&gt;
+    &lt;/span&gt;
+ in the query editor will bring up a context aware context menu listing items that can be inserted into the query, e.g. fields, functions, keywords, dictionaries, data sources, etc.&lt;/p&gt;
+&lt;p&gt;If you type some letters of the item you want, e.g. &lt;code&gt;sub&lt;/code&gt; then 
+
+
+
+
+
+
+  
+
+
+&lt;span class=&#34;key-bind key-bind-multiple &#34;&gt;
+  
+    
+    
+    
+      
+    
+
+    
+
+    
+      
+    
+
+    
+
+    
+
+    
+
+    
+      
+      
+    
+
+    
+    
+      
+    
+    &lt;span class=&#34;key-bind-group key-bind-single&#34;&gt;
+    
+      &lt;span class=&#34;key-bind-key&#34;&gt;Ctrl ^&lt;/span&gt;
+      &lt;/span&gt;
+    &lt;span class=&#34;key-bind-comma&#34;&gt;,&lt;/span&gt;
+    
+    
+    
+      
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+      
+      
+        
+          
+          
+        
+        
+      
+    
+
+    
+    
+      
+    
+    &lt;span class=&#34;key-bind-group key-bind-single&#34;&gt;
+    
+      &lt;span class=&#34;key-bind-key&#34;&gt;Space ␣&lt;/span&gt;
+      &lt;/span&gt;
+    &lt;/span&gt;
+, it will bring up a list of items that contain the letters &lt;code&gt;sub&lt;/code&gt; in that order, e.g. &lt;code&gt;substring(..)&lt;/code&gt;, &lt;code&gt;isDouble(..)&lt;/code&gt;, etc.&lt;/p&gt;
+&lt;p&gt;You can either use the cursor keys to scroll up/down the list or continue typing letters to further refine the filtering of the list.
+Hit 
+
+
+
+
+
+
+  
+
+
+&lt;span class=&#34;key-bind key-bind-single &#34;&gt;
+  
+    
+    
+    
+      
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+      
+      
+        
+          
+          
+        
+        
+      
+    
+
+    
+    
+      
+    
+    &lt;span class=&#34;key-bind-group key-bind-single&#34;&gt;
+    
+      &lt;span class=&#34;key-bind-key&#34;&gt;Enter ↵&lt;/span&gt;
+      &lt;/span&gt;
+    &lt;/span&gt;
+ or 
+
+
+
+
+
+
+  
+
+
+&lt;span class=&#34;key-bind key-bind-single &#34;&gt;
+  
+    
+    
+    
+      
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+      
+      
+        
+          
+          
+        
+        
+      
+    
+
+    
+    
+      
+    
+    &lt;span class=&#34;key-bind-group key-bind-single&#34;&gt;
+    
+      &lt;span class=&#34;key-bind-key&#34;&gt;Tab ↹&lt;/span&gt;
+      &lt;/span&gt;
+    &lt;/span&gt;
+ to insert the item into the editor.&lt;/p&gt;
+&lt;p&gt;The context menu also includes &lt;a href=&#34;../../docs/reference-section/snippet-reference/#stroom-query-language-snippets&#34;&gt;completion snippets&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;The context menu also shows some more detailed help, e.g. to describe the argument to functions.&lt;/p&gt;
+&lt;h3 id=&#34;functions&#34;&gt;Functions&lt;/h3&gt;
+&lt;p&gt;&lt;a href=&#34;../../docs/reference-section/expressions/&#34;&gt;Expression Functions&lt;/a&gt; are inserted with &lt;em&gt;tab stops&lt;/em&gt; to enable fast population of the function arguments.
+For example:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;Type &lt;code&gt;sub&lt;/code&gt; then hit 
+
+
+
+
+
+
+  
+
+
+&lt;span class=&#34;key-bind key-bind-multiple &#34;&gt;
+  
+    
+    
+    
+      
+    
+
+    
+
+    
+      
+    
+
+    
+
+    
+
+    
+
+    
+      
+      
+    
+
+    
+    
+      
+    
+    &lt;span class=&#34;key-bind-group key-bind-single&#34;&gt;
+    
+      &lt;span class=&#34;key-bind-key&#34;&gt;Ctrl ^&lt;/span&gt;
+      &lt;/span&gt;
+    &lt;span class=&#34;key-bind-comma&#34;&gt;,&lt;/span&gt;
+    
+    
+    
+      
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+      
+      
+        
+          
+          
+        
+        
+      
+    
+
+    
+    
+      
+    
+    &lt;span class=&#34;key-bind-group key-bind-single&#34;&gt;
+    
+      &lt;span class=&#34;key-bind-key&#34;&gt;Space ␣&lt;/span&gt;
+      &lt;/span&gt;
+    &lt;/span&gt;
+.&lt;/li&gt;
+&lt;li&gt;Select &lt;code&gt;substring(..)&lt;/code&gt; from the list and hit 
+
+
+
+
+
+
+  
+
+
+&lt;span class=&#34;key-bind key-bind-single &#34;&gt;
+  
+    
+    
+    
+      
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+      
+      
+        
+          
+          
+        
+        
+      
+    
+
+    
+    
+      
+    
+    &lt;span class=&#34;key-bind-group key-bind-single&#34;&gt;
+    
+      &lt;span class=&#34;key-bind-key&#34;&gt;Tab ↹&lt;/span&gt;
+      &lt;/span&gt;
+    &lt;/span&gt;
+.&lt;br&gt;
+&lt;code&gt;substring(input, startIndex, endIndex)&lt;/code&gt; is inserted, with &lt;code&gt;input&lt;/code&gt; highlighted.&lt;/li&gt;
+&lt;li&gt;Type &lt;code&gt;Feed&lt;/code&gt; to replace &lt;code&gt;input&lt;/code&gt; with &lt;code&gt;Feed&lt;/code&gt;, then hit 
+
+
+
+
+
+
+  
+
+
+&lt;span class=&#34;key-bind key-bind-single &#34;&gt;
+  
+    
+    
+    
+      
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+      
+      
+        
+          
+          
+        
+        
+      
+    
+
+    
+    
+      
+    
+    &lt;span class=&#34;key-bind-group key-bind-single&#34;&gt;
+    
+      &lt;span class=&#34;key-bind-key&#34;&gt;Tab ↹&lt;/span&gt;
+      &lt;/span&gt;
+    &lt;/span&gt;
+.&lt;br&gt;
+&lt;code&gt;substring(Feed, startIndex, endIndex)&lt;/code&gt; is displayed, with &lt;code&gt;startIndex&lt;/code&gt; highlighted.&lt;/li&gt;
+&lt;li&gt;Type &lt;code&gt;0&lt;/code&gt; to replace &lt;code&gt;startIndex&lt;/code&gt; with &lt;code&gt;0&lt;/code&gt;, then hit 
+
+
+
+
+
+
+  
+
+
+&lt;span class=&#34;key-bind key-bind-single &#34;&gt;
+  
+    
+    
+    
+      
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+      
+      
+        
+          
+          
+        
+        
+      
+    
+
+    
+    
+      
+    
+    &lt;span class=&#34;key-bind-group key-bind-single&#34;&gt;
+    
+      &lt;span class=&#34;key-bind-key&#34;&gt;Tab ↹&lt;/span&gt;
+      &lt;/span&gt;
+    &lt;/span&gt;
+.&lt;br&gt;
+&lt;code&gt;substring(Feed, 0, endIndex)&lt;/code&gt; is displayed, with &lt;code&gt;endIndex&lt;/code&gt; highlighted.&lt;/li&gt;
+&lt;li&gt;Type &lt;code&gt;5&lt;/code&gt; to replace &lt;code&gt;endIndex&lt;/code&gt; with &lt;code&gt;5&lt;/code&gt;, then hit 
+
+
+
+
+
+
+  
+
+
+&lt;span class=&#34;key-bind key-bind-single &#34;&gt;
+  
+    
+    
+    
+      
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+      
+      
+        
+          
+          
+        
+        
+      
+    
+
+    
+    
+      
+    
+    &lt;span class=&#34;key-bind-group key-bind-single&#34;&gt;
+    
+      &lt;span class=&#34;key-bind-key&#34;&gt;Tab ↹&lt;/span&gt;
+      &lt;/span&gt;
+    &lt;/span&gt;
+.&lt;br&gt;
+&lt;code&gt;substring(Feed, 0, 5)&lt;/code&gt; is displayed, with the cursor now positioned after the closing bracket.&lt;/li&gt;
+&lt;/ol&gt;
 
       </description>
     </item>

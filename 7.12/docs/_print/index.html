@@ -151,7 +151,7 @@
     aria-label="Search this site…"
     autocomplete="off"
     
-    data-offline-search-index-json-src="../../offline-search-index.96330c2fe9a5b0dfde20db3196efd9f9.json"
+    data-offline-search-index-json-src="../../offline-search-index.d0d687208a8ed8fc4540f7c5b086cb85.json"
     data-offline-search-base-href="../../"
     data-offline-search-max-results="50"
   >
@@ -3629,8 +3629,8 @@ This is the multi-page printable view of this section.
 <div class="content">
       <blockquote>
 <p>Applicable Stroom version: &ldquo;<strong>7.12</strong>&rdquo;<br>
-Documentation generated on: <strong>05 May 2026, 17:05 UTC</strong><br>
-Documentation release version: <strong>stroom-docs-v3820</strong></p>
+Documentation generated on: <strong>19 May 2026, 11:47 UTC</strong><br>
+Documentation release version: <strong>stroom-docs-v3837</strong></p>
 <p>To see the documentation for other versions of Stroom click the version drop-down at the top of the screen.</p>
 </blockquote>
 
@@ -75069,14 +75069,141 @@ where &lt;FIELD&gt; &lt;CONDITION&gt; &lt;VALUE&gt; [and|or|not]
 select &lt;FIELD&gt; [as &lt;COLUMN NAME&gt;], ...
 [show as] &lt;VIS_NAME&gt; (&lt;VIS_CONTROL_ID_1&gt; = &lt;COLUMN_1&gt;, &lt;VIS_CONTROL_ID_2&gt; = &lt;COLUMN_2&gt;)
 </code></pre>
+<h2 id="fields">Fields</h2>
+<p>Fields are the fields in a data source.
+Fields are case-sensitive.</p>
+<p>If the field name contains white space then it <strong>must</strong> be surround by braces and preceded by a dollar sign, e.g <code>${Create Time}</code>.</p>
+<p>If the field name does not contain spaces it can be written with or without the braces, e.g. <code>Status</code> or <code>${Status}</code>.</p>
+<p>Fields can added to the query text in one of three ways:</p>
+<ul>
+<li>Directly typing the field name (with braces as required).</li>
+<li>Double clicking the field name in the Field picker in the left hand pane.
+Field names with spaces will be pasted in with braces.</li>
+<li>Using code completion.
+In the query editor hit 
+
+
+
+
+
+
+  
+
+
+<span class="key-bind key-bind-single ">
+  
+    
+    
+    
+      
+    
+
+    
+
+    
+      
+    
+
+    
+
+    
+
+    
+
+    
+      
+      
+    
+      
+      
+        
+          
+          
+        
+        
+      
+    
+
+    
+    
+      
+    
+    <span class="key-bind-group key-bind-multiple">
+    
+      <span class="key-bind-key">Ctrl ^</span>
+      <span class="key-bind-plus">+</span>
+      <span class="key-bind-key">Space ␣</span>
+      </span>
+    </span>
+ to bring up a list of context aware completion terms, e.g. field names, then hit tab to insert it.
+You could also type a few characters from the name before hitting 
+
+
+
+
+
+
+  
+
+
+<span class="key-bind key-bind-single ">
+  
+    
+    
+    
+      
+    
+
+    
+
+    
+      
+    
+
+    
+
+    
+
+    
+
+    
+      
+      
+    
+      
+      
+        
+          
+          
+        
+        
+      
+    
+
+    
+    
+      
+    
+    <span class="key-bind-group key-bind-multiple">
+    
+      <span class="key-bind-key">Ctrl ^</span>
+      <span class="key-bind-plus">+</span>
+      <span class="key-bind-key">Space ␣</span>
+      </span>
+    </span>
+ to pre-filter the list.
+Field names with spaces will be pasted in with braces.</li>
+</ul>
 <h2 id="keywords">Keywords</h2>
+<p>Keywords are the reserved words that define the structure of the query, e.g. <code>from</code>, <code>select</code>, <code>where</code>.
+Unlike fields, they are case-insensitive.</p>
 <h3 id="from">From</h3>
 <p>The first part of a StroomQL expression is the <code>from</code> clause that defines the single data source to query.
 All queries must include the <code>from</code> clause.</p>
 <p>Select the data source to query, e.g.</p>
 <pre><code class="language-stroomql">from my_source
 </code></pre>
-<p>If the name of the data source contains white space then it must be quoted, e.g.</p>
+<p>If the name of the data source contains white space then it must be quoted using <code>&quot;</code> double quotes, e.g.</p>
 <pre><code class="language-stroomql">from &quot;my source&quot;
 </code></pre>
 <h3 id="where">Where</h3>
@@ -75094,14 +75221,41 @@ and (feed = &quot;my feed&quot; or feed = &quot;other feed&quot;)
 <h4 id="conditions">Conditions</h4>
 <p>Supported conditions are:</p>
 <ul>
-<li><code>=</code></li>
-<li><code>!=</code></li>
-<li><code>&gt;</code></li>
-<li><code>&gt;=</code></li>
-<li><code>&lt;</code></li>
-<li><code>&lt;=</code></li>
-<li><code>is null</code></li>
-<li><code>is not null</code></li>
+<li><code>=</code> - Equals.</li>
+<li><code>!=</code> - Not equals.</li>
+<li><code>&gt;</code> - Greater than.</li>
+<li><code>&gt;=</code> - Greater than or equal to.</li>
+<li><code>&lt;</code> - Less than.</li>
+<li><code>&lt;=</code> - Less than or equal to.</li>
+<li><code>is null</code> - The value is <code>null</code>.</li>
+<li><code>is not null</code> - The value is not <code>null</code>.</li>
+<li><code>in</code> - The value is in a list of allowed values.<br>
+e.g. <code>StreamId in (1001, 1002, 2009)</code><br>
+or <code>Feed in (&quot;FEED_X&quot;, &quot;FEED_Y&quot;)</code>.</li>
+<li><code>in dictionary</code> - The value is in a list of allowed values that are contained in a 
+
+  
+  
+  <span class="stroom-doc">
+      <a href="../../docs/reference-section/documents#dictionary" class="stroom-doc-link">
+        
+        <span class="stroom-doc-icon"><span class="stroom-icon inline-svg-button icon-button  " >
+    <span class="face" title="dictionary"><svg xmlns="http://www.w3.org/2000/svg" width="1792" height="1792" viewBox="0 0 1792 1792"><path style="fill:var(--icon-colour__blue)" d="M1703 478q40 57 18 129l-275 906q-19 64-76.5 107.5t-122.5 43.5h-923q-77 0-148.5-53.5t-99.5-131.5q-24-67-2-127 0-4 3-27t4-37q1-8-3-21.5t-3-19.5q2-11 8-21t16.5-23.5 16.5-23.5q23-38 45-91.5t30-91.5q3-10 .5-30t-.5-28q3-11 17-28t17-23q21-36 42-92t25-90q1-9-2.5-32t.5-28q4-13 22-30.5t22-22.5q19-26 42.5-84.5t27.5-96.5q1-8-3-25.5t-2-26.5q2-8 9-18t18-23 17-21q8-12 16.5-30.5t15-35 16-36 19.5-32 26.5-23.5 36-11.5 47.5 5.5l-1 3q38-9 51-9h761q74 0 114 56t18 130l-274 906q-36 119-71.5 153.5t-128.5 34.5h-869q-27 0-38 15-11 16-1 43 24 70 144 70h923q29 0 56-15.5t35-41.5l300-987q7-22 5-57 38 15 59 43zm-1064 2q-4 13 2 22.5t20 9.5h608q13 0 25.5-9.5t16.5-22.5l21-64q4-13-2-22.5t-20-9.5h-608q-13 0-25.5 9.5t-16.5 22.5zm-83 256q-4 13 2 22.5t20 9.5h608q13 0 25.5-9.5t16.5-22.5l21-64q4-13-2-22.5t-20-9.5h-608q-13 0-25.5 9.5t-16.5 22.5z"/></svg></span>
+  </span></span>
+        
+        <span class="stroom-doc-text">Dictionary</span>
+      </a>
+    </span>
+
+.<br>
+e.g. <code>Feed in dictionary &quot;My Dict&quot;</code> (using the dictionary&rsquo;s unique name)<br>
+or  <code>Feed in dictionary &quot;fb7a8cea-e6b4-4d94-8f7e-47ff3b3c7711&quot;</code> (using the dictionary&rsquo;s <span class="glossary-link">
+    <a href="../../docs/glossary/u/glossary-uuid">
+      <span>UUID</span>
+      <i class="glossary-link-icon fas fa-book fa-sm text-primary"></i>
+    </a><span class="glossary-tooltip">
+      <span class="glossary-tooltip-title">UUID</span>
+      <span class="glossary-tooltip-summary">A <strong>U</strong>niversally <strong>U</strong>nique <strong>Id</strong>entifier for uniquely identifying something. <em>UUIDs</em> are used as the identifier in <em>Doc Refs</em>. An example of a <em>UUID</em> is <code>4ffeb895-53c9-40d6-bf33-3ef025401ad3</code>.</span><span class="glossary-tooltip-truncated">Click to see more details...</span></span></span>).</li>
 </ul>
 <h4 id="andornot">And|Or|Not</h4>
 <p>Logical operators to add to where and filter clauses.</p>
@@ -75297,6 +75451,618 @@ sort by Sl desc
 select Sl, StreamId as &quot;Stream Id&quot;, EventId as &quot;Event Id&quot;, EventTime as &quot;Event Time&quot;, UserId as &quot;User Id&quot;, FirstName, count
 limit 10
 </code></pre>
+<h2 id="help-pane">Help Pane</h2>
+<p>The left hand pane of the Query editor provides help for building a StroomQL query.
+It contains the following items:</p>
+<ul>
+<li><em>Data Sources</em> - The list of data sources (visible to the user) that can be queried.</li>
+<li><em>Structure</em> - The list of keywords available to use, e.g. <code>select</code>.</li>
+<li><em>Annotation Fields</em> - The list of special fields for accessing data from Annotations linked to the data being queried.
+The fields list will only be available once a complete <code>from ...</code> clause has been added that uses a data source that supports Annotations, e.g. an Index.</li>
+<li><em>Fields</em> - The list of fields that can be used in the Query.
+The fields list will only be available once a complete <code>from ...</code> clause has been added.</li>
+<li><em>Functions</em> - The list of <a href="../../docs/reference-section/expressions/">Expression Functions</a> that can be used.</li>
+<li><em>Visualisations</em> - The list of 
+
+  
+  
+  <span class="stroom-doc">
+      <a href="../../docs/reference-section/documents#visualisation" class="stroom-doc-link">
+        
+        <span class="stroom-doc-icon"><span class="stroom-icon inline-svg-button icon-button  " >
+    <span class="face" title="visualisation"><svg xmlns="http://www.w3.org/2000/svg" width="1792" height="1792" viewBox="0 0 1792 1792"><path style="fill:var(--icon-colour__blue)" d="m 768,890 546,546 Q 1208,1544 1066.5,1604 925,1664 768,1664 559,1664 382.5,1561 206,1458 103,1281.5 0,1105 0,896 0,687 103,510.5 206,334 382.5,231 559,128 768,128 l 0,762 z"/><path style="fill:var(--icon-colour__orange)" d="m 955,896 773,0 q 0,157 -60,298.5 -60,141.5 -168,247.5 z"/><path style="fill:var(--icon-colour__green)" d="M 1664,768 896,768 896,0 Q 1105,0 1281.5,103 1458,206 1561,382.5 1664,559 1664,768 Z"/></svg></span>
+  </span></span>
+        
+        <span class="stroom-doc-text">Visualisation</span>
+      </a>
+    </span>
+
+ documents that can be included in the 
+
+  
+  
+  <span class="stroom-doc">
+      <a href="../../docs/reference-section/documents#query" class="stroom-doc-link">
+        
+        <span class="stroom-doc-icon"><span class="stroom-icon inline-svg-button icon-button  " >
+    <span class="face" title="query"><svg xmlns="http://www.w3.org/2000/svg" width="1792" height="1792" viewBox="0 0 1792 1792"><path style="fill:var(--icon-colour__blue)" d="M1216 832q0-185-131.5-316.5t-316.5-131.5-316.5 131.5-131.5 316.5 131.5 316.5 316.5 131.5 316.5-131.5 131.5-316.5zm512 832q0 52-38 90t-90 38q-54 0-90-38l-343-342q-179 124-399 124-143 0-273.5-55.5t-225-150-150-225-55.5-273.5 55.5-273.5 150-225 225-150 273.5-55.5 273.5 55.5 225 150 150 225 55.5 273.5q0 220-124 399l343 343q37 37 37 90z"/></svg></span>
+  </span></span>
+        
+        <span class="stroom-doc-text">Query</span>
+      </a>
+    </span>
+
+.</li>
+<li><em>Dictionaries</em> - The list of 
+
+  
+  
+  <span class="stroom-doc">
+      <a href="../../docs/reference-section/documents#dictionary" class="stroom-doc-link">
+        
+        <span class="stroom-doc-icon"><span class="stroom-icon inline-svg-button icon-button  " >
+    <span class="face" title="dictionary"><svg xmlns="http://www.w3.org/2000/svg" width="1792" height="1792" viewBox="0 0 1792 1792"><path style="fill:var(--icon-colour__blue)" d="M1703 478q40 57 18 129l-275 906q-19 64-76.5 107.5t-122.5 43.5h-923q-77 0-148.5-53.5t-99.5-131.5q-24-67-2-127 0-4 3-27t4-37q1-8-3-21.5t-3-19.5q2-11 8-21t16.5-23.5 16.5-23.5q23-38 45-91.5t30-91.5q3-10 .5-30t-.5-28q3-11 17-28t17-23q21-36 42-92t25-90q1-9-2.5-32t.5-28q4-13 22-30.5t22-22.5q19-26 42.5-84.5t27.5-96.5q1-8-3-25.5t-2-26.5q2-8 9-18t18-23 17-21q8-12 16.5-30.5t15-35 16-36 19.5-32 26.5-23.5 36-11.5 47.5 5.5l-1 3q38-9 51-9h761q74 0 114 56t18 130l-274 906q-36 119-71.5 153.5t-128.5 34.5h-869q-27 0-38 15-11 16-1 43 24 70 144 70h923q29 0 56-15.5t35-41.5l300-987q7-22 5-57 38 15 59 43zm-1064 2q-4 13 2 22.5t20 9.5h608q13 0 25.5-9.5t16.5-22.5l21-64q4-13-2-22.5t-20-9.5h-608q-13 0-25.5 9.5t-16.5 22.5zm-83 256q-4 13 2 22.5t20 9.5h608q13 0 25.5-9.5t16.5-22.5l21-64q4-13-2-22.5t-20-9.5h-608q-13 0-25.5 9.5t-16.5 22.5z"/></svg></span>
+  </span></span>
+        
+        <span class="stroom-doc-text">Dictionary</span>
+      </a>
+    </span>
+
+ documents that can be used in <a href="#conditions"><code>in dictionary</code></a> terms.</li>
+</ul>
+<p>Clicking on an item will show some detailed help about that item in the bottom of the pane.</p>
+<p>Double clicking on the item will insert it into the query editor.
+It will be inserted with double quotes or braces as appropriate to the item being inserted.</p>
+<h2 id="code-completion">Code Completion</h2>
+<p>The StroomQL editor benefits from code completion to speed up the writing of queries.</p>
+<p>Pressing 
+
+
+
+
+
+
+  
+
+
+<span class="key-bind key-bind-multiple ">
+  
+    
+    
+    
+      
+    
+
+    
+
+    
+      
+    
+
+    
+
+    
+
+    
+
+    
+      
+      
+    
+
+    
+    
+      
+    
+    <span class="key-bind-group key-bind-single">
+    
+      <span class="key-bind-key">Ctrl ^</span>
+      </span>
+    <span class="key-bind-comma">,</span>
+    
+    
+    
+      
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+      
+      
+        
+          
+          
+        
+        
+      
+    
+
+    
+    
+      
+    
+    <span class="key-bind-group key-bind-single">
+    
+      <span class="key-bind-key">Space ␣</span>
+      </span>
+    </span>
+ in the query editor will bring up a context aware context menu listing items that can be inserted into the query, e.g. fields, functions, keywords, dictionaries, data sources, etc.</p>
+<p>If you type some letters of the item you want, e.g. <code>sub</code> then 
+
+
+
+
+
+
+  
+
+
+<span class="key-bind key-bind-multiple ">
+  
+    
+    
+    
+      
+    
+
+    
+
+    
+      
+    
+
+    
+
+    
+
+    
+
+    
+      
+      
+    
+
+    
+    
+      
+    
+    <span class="key-bind-group key-bind-single">
+    
+      <span class="key-bind-key">Ctrl ^</span>
+      </span>
+    <span class="key-bind-comma">,</span>
+    
+    
+    
+      
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+      
+      
+        
+          
+          
+        
+        
+      
+    
+
+    
+    
+      
+    
+    <span class="key-bind-group key-bind-single">
+    
+      <span class="key-bind-key">Space ␣</span>
+      </span>
+    </span>
+, it will bring up a list of items that contain the letters <code>sub</code> in that order, e.g. <code>substring(..)</code>, <code>isDouble(..)</code>, etc.</p>
+<p>You can either use the cursor keys to scroll up/down the list or continue typing letters to further refine the filtering of the list.
+Hit 
+
+
+
+
+
+
+  
+
+
+<span class="key-bind key-bind-single ">
+  
+    
+    
+    
+      
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+      
+      
+        
+          
+          
+        
+        
+      
+    
+
+    
+    
+      
+    
+    <span class="key-bind-group key-bind-single">
+    
+      <span class="key-bind-key">Enter ↵</span>
+      </span>
+    </span>
+ or 
+
+
+
+
+
+
+  
+
+
+<span class="key-bind key-bind-single ">
+  
+    
+    
+    
+      
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+      
+      
+        
+          
+          
+        
+        
+      
+    
+
+    
+    
+      
+    
+    <span class="key-bind-group key-bind-single">
+    
+      <span class="key-bind-key">Tab ↹</span>
+      </span>
+    </span>
+ to insert the item into the editor.</p>
+<p>The context menu also includes <a href="../../docs/reference-section/snippet-reference/#stroom-query-language-snippets">completion snippets</a>.</p>
+<p>The context menu also shows some more detailed help, e.g. to describe the argument to functions.</p>
+<h3 id="functions">Functions</h3>
+<p><a href="../../docs/reference-section/expressions/">Expression Functions</a> are inserted with <em>tab stops</em> to enable fast population of the function arguments.
+For example:</p>
+<ol>
+<li>Type <code>sub</code> then hit 
+
+
+
+
+
+
+  
+
+
+<span class="key-bind key-bind-multiple ">
+  
+    
+    
+    
+      
+    
+
+    
+
+    
+      
+    
+
+    
+
+    
+
+    
+
+    
+      
+      
+    
+
+    
+    
+      
+    
+    <span class="key-bind-group key-bind-single">
+    
+      <span class="key-bind-key">Ctrl ^</span>
+      </span>
+    <span class="key-bind-comma">,</span>
+    
+    
+    
+      
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+      
+      
+        
+          
+          
+        
+        
+      
+    
+
+    
+    
+      
+    
+    <span class="key-bind-group key-bind-single">
+    
+      <span class="key-bind-key">Space ␣</span>
+      </span>
+    </span>
+.</li>
+<li>Select <code>substring(..)</code> from the list and hit 
+
+
+
+
+
+
+  
+
+
+<span class="key-bind key-bind-single ">
+  
+    
+    
+    
+      
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+      
+      
+        
+          
+          
+        
+        
+      
+    
+
+    
+    
+      
+    
+    <span class="key-bind-group key-bind-single">
+    
+      <span class="key-bind-key">Tab ↹</span>
+      </span>
+    </span>
+.<br>
+<code>substring(input, startIndex, endIndex)</code> is inserted, with <code>input</code> highlighted.</li>
+<li>Type <code>Feed</code> to replace <code>input</code> with <code>Feed</code>, then hit 
+
+
+
+
+
+
+  
+
+
+<span class="key-bind key-bind-single ">
+  
+    
+    
+    
+      
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+      
+      
+        
+          
+          
+        
+        
+      
+    
+
+    
+    
+      
+    
+    <span class="key-bind-group key-bind-single">
+    
+      <span class="key-bind-key">Tab ↹</span>
+      </span>
+    </span>
+.<br>
+<code>substring(Feed, startIndex, endIndex)</code> is displayed, with <code>startIndex</code> highlighted.</li>
+<li>Type <code>0</code> to replace <code>startIndex</code> with <code>0</code>, then hit 
+
+
+
+
+
+
+  
+
+
+<span class="key-bind key-bind-single ">
+  
+    
+    
+    
+      
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+      
+      
+        
+          
+          
+        
+        
+      
+    
+
+    
+    
+      
+    
+    <span class="key-bind-group key-bind-single">
+    
+      <span class="key-bind-key">Tab ↹</span>
+      </span>
+    </span>
+.<br>
+<code>substring(Feed, 0, endIndex)</code> is displayed, with <code>endIndex</code> highlighted.</li>
+<li>Type <code>5</code> to replace <code>endIndex</code> with <code>5</code>, then hit 
+
+
+
+
+
+
+  
+
+
+<span class="key-bind key-bind-single ">
+  
+    
+    
+    
+      
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+      
+      
+        
+          
+          
+        
+        
+      
+    
+
+    
+    
+      
+    
+    <span class="key-bind-group key-bind-single">
+    
+      <span class="key-bind-key">Tab ↹</span>
+      </span>
+    </span>
+.<br>
+<code>substring(Feed, 0, 5)</code> is displayed, with the cursor now positioned after the closing bracket.</li>
+</ol>
 
 </div>
 
@@ -82831,9 +83597,11 @@ The following is an example of a snippet with multiple tab positions:</p>
 </code></pre>
 <p>Tab positions are expressed like <code>${n}</code> or <code>${n:xxx}</code>, where <code>n</code> is a number indication the order of the tab position and <code>xxx</code> is the default value at that tab position. Sometimes <code>xxx</code> will not be a default value, but will instead be a string to hint at the kind of thing the user is expected to overtype with where no obvious default is available.
 <code>${0}</code> is a special tab position in that it defines the last tab position.</p>
+<p>Snippets all have a unique <em>Tab Trigger</em>, e.g. <code>first</code> is the Tab Trigger for the <code>Eval first value</code> snippet.</p>
 <p>To insert a snippet do one of the following:</p>
 <ul>
-<li>Type the whole Tab Trigger then hit 
+<li>
+<p>Type the whole Tab Trigger (e.g. <code>first</code>) then hit 
 
 
 
@@ -82881,8 +83649,11 @@ The following is an example of a snippet with multiple tab positions:</p>
       <span class="key-bind-key">Tab ↹</span>
       </span>
     </span>
-.</li>
-<li>Type some characters from the Name then hit 
+.
+The snippet will be inserted into the editor.</p>
+</li>
+<li>
+<p>Type some characters from the Name of the snippet (e.g. <code>evalfval</code>), then hit 
 
 
 
@@ -82937,7 +83708,106 @@ The following is an example of a snippet with multiple tab positions:</p>
       <span class="key-bind-key">Space ␣</span>
       </span>
     </span>
- to select it from the list.</li>
+ to see a filtered list of matches.
+Use the cursor keys to select the desired item or type more characters to narrow down the filter.
+Hit 
+
+
+
+
+
+
+  
+
+
+<span class="key-bind key-bind-single ">
+  
+    
+    
+    
+      
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+      
+      
+        
+          
+          
+        
+        
+      
+    
+
+    
+    
+      
+    
+    <span class="key-bind-group key-bind-single">
+    
+      <span class="key-bind-key">Enter ↵</span>
+      </span>
+    </span>
+ or 
+
+
+
+
+
+
+  
+
+
+<span class="key-bind key-bind-single ">
+  
+    
+    
+    
+      
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+      
+      
+        
+          
+          
+        
+        
+      
+    
+
+    
+    
+      
+    
+    <span class="key-bind-group key-bind-single">
+    
+      <span class="key-bind-key">Tab ↹</span>
+      </span>
+    </span>
+ to insert the snippet.</p>
+</li>
 </ul>
 <p>The snippet will be inserted (replacing the Tab Trigger if used) and the cursor will be positioned on the first tab position (<code>${1}</code> if present, otherwise <code>${0}</code>).
 If the tab position has a default value then the whole of that default value will be selected allowing the user to quickly over type it.
@@ -83499,8 +84369,8 @@ $0
 eval EventId = first(EventId)
 $0
 </code></pre>
-<h3 id="eval-first-first-value-first">Eval first first value (<code>first</code>)</h3>
-<p><strong>Name</strong>: <code>Eval first first value</code>, <strong>Tab Trigger</strong>: <code>first</code></p>
+<h3 id="eval-first-value-first">Eval first value (<code>first</code>)</h3>
+<p><strong>Name</strong>: <code>Eval first value</code>, <strong>Tab Trigger</strong>: <code>first</code></p>
 <pre><code class="language-text">eval ${1:field_name} = first(${1})
 $0
 </code></pre>
