@@ -372,7 +372,6 @@ appConfig / proxyConfig:
         # will use for authentication. Valid values are:
         # INTERNAL_IDP - Stroom's internal IDP. Not valid for Stroom-Proxy.
         # EXTERNAL_IDP - An external IDP such as KeyCloak/Cognito,
-        # TEST_CREDENTIALS - Use hard-coded authentication credentials for test/demo only and
         # NO_IDP - No IDP is used. API keys are set in config for feed status checks. Only for use by Stroom-Proxy
         # Changing this property will require a restart of the application
         identityProviderType: "NO_IDP"

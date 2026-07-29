@@ -2,50 +2,59 @@
 title: "Login"
 linkTitle: "Login"
 #weight:
-date: 2021-07-09
+date: 2026-07-29
 tags:
   - authentication
 description: >
   This HOWTO shows how to log into the Stroom User Interface.
 ---
 
+This walks through a first login as the default `admin` account.
+For what happens behind these screens, and for account states, lockouts and password resets, see [Signing In]({{< relref "docs/user-guide/security/signing-in" >}}).
+
+
 ## Assumptions
 
-The following assumptions are used in this document.
-- for manual login, we will log in as the user `admin` whose password is set to `admin` and the password is pre-expired
-- for PKI Certificate login, the Stroom deployment would have been configured to accept PKI Logins
+- The deployment uses Stroom's internal {{< glossary "idp" >}}.
+- The default `admin` account exists with the password `admin`.
+  This account is only created when `stroom.security.identity.autoCreateAdminAccountOnBoot` is enabled, which is not the default.
+  See [Internal IDP]({{< relref "docs/install-guide/setup/open-id/internal-idp" >}}).
+- For certificate login, the deployment has `stroom.security.identity.allowCertificateAuthentication` enabled.
 
 
 ## Manual Login
 
-Within the **Login** panel, enter `admin` into the *User Name:* entry box and `admin` into the *Password:* entry box as per
+Enter `admin` into the *User Name:* entry box and `admin` into the *Password:* entry box.
 
 {{< screenshot "HOWTOs/UI-Login-01.png" >}}Stroom UI Login - logging in as admin{{< /screenshot >}}
 
-When you press the {{< stroom-btn "Login" >}} button, you are advised that your user's password has expired and you need to change it.
+Press the {{< stroom-btn "Login" >}} button.
+As this is the account's first login, you are told the password must be changed before you can continue.
 
 {{< screenshot "HOWTOs/UI-Login-02.png" >}}Stroom UI Login - password expiry{{< /screenshot >}}
 
-Press the {{< stroom-btn "Ok" >}} button and enter the old password `admin` and a new password with confirmation in the appropriate entry boxes.
+Press {{< stroom-btn "Ok" >}}, then enter the old password `admin` and a new password with confirmation.
+The new password must meet the configured password policy.
 
 {{< screenshot "HOWTOs/UI-Login-03.png" >}}Stroom UI Login - password change{{< /screenshot >}}
 
-Again press the {{< stroom-btn "Ok" >}} button to see the confirmation that the password has changed.
+Press {{< stroom-btn "Ok" >}} again to see the confirmation that the password has changed.
 
-{{< screenshot "HOWTOs/UI-Login-04.png" >}}Stroom UI Login - password change confirmation{{< /screenshot >}}.
+{{< screenshot "HOWTOs/UI-Login-04.png" >}}Stroom UI Login - password change confirmation{{< /screenshot >}}
 
-On pressing {{< stroom-btn "Close" >}} you will be logged in as the `admin` user and you will be presented with the __Main Menu__ (`Item Tools Monitoring User Help`), and the `Explorer` and `Welcome` panels (or tabs).
+On pressing {{< stroom-btn "Close" >}} you are logged in as the `admin` user, and are presented with the __Main Menu__, and the `Explorer` and `Welcome` panels.
 
 {{< screenshot "HOWTOs/UI-Login-06.png" >}}Stroom UI Login - user logged in{{< /screenshot >}}
 
-We have now successfully logged on as the `admin` user.
-
-The next time you login with this account, you will not be prompted to change the password until the password expiry period has been met.
+You will not be asked to change this password again until it reaches the age set by `stroom.security.identity.passwordPolicy.mandatoryPasswordChangeDuration`.
 
 
-## PKI Certificate Login
+## Certificate Login
 
-To login using a PKI Certificate, a user should have their Personal PKI certificate loaded in the browser (and selected if
-you have multiple certificates) and the user just needs to go to the Stroom UI URL, and providing you have an account, you will be
-automatically logged in.
+Load your personal PKI certificate into your browser, selecting it if you hold more than one, then go to the Stroom UI URL.
+Provided you have an account, you are logged in without being asked for a password.
 
+{{% see-also %}}
+[Signing In]({{< relref "docs/user-guide/security/signing-in" >}})
+[User Accounts]({{< relref "docs/user-guide/security/user-accounts" >}})
+{{% /see-also %}}

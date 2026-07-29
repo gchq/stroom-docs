@@ -12,16 +12,23 @@ description: >
 By default a new Stroom instance/cluster will use its own internal {{< glossary "idp" >}} for authentication.
 
 {{% note %}}
-An exception to this is the `_test` variant of the Stroom Docker stack which will default to using [Test Credentials]({{< relref "test-credentials" >}})
+The `_test` variant of the Stroom Docker stack also uses the internal {{< glossary "idp" >}}, with the addition of an [Insecure Test Credential]({{< relref "test-credentials" >}}) so that Stroom-Proxy can authenticate without further setup.
 {{% /note %}}
 
 In this configuration, Stroom acts as its own Open ID Connect Identity Provider and manages both the user accounts for authentication and the user/group permissions, (see [Accounts and Users]({{< relref "accounts-users" >}})).
 
-A fresh install will come pre-loaded with a user account called `admin` with the password `admin`.
-This user is a member of a {{< glossary "group users" "group">}} called `Administrators` which has the `Administrator` application permission.
-This admin user can be used to set up the other users on the system.
+A fresh install can create a user account called `admin` with the password `admin`, which is a member of a {{< glossary "group users" "group">}} called `Administrators` holding the `Administrator` application permission.
+This admin user can then be used to set up the other users on the system.
 
-Additional user accounts are created and maintained using the _Tools_ => _Users_ menu item.
+This bootstrap account is **only created when `stroom.security.identity.autoCreateAdminAccountOnBoot` is set to `true`**, which is not the default.
+Without it, no account is created and the deployment must be given an administrator by other means.
+The password is deliberately weak, and by default Stroom requires it to be changed at the first login, governed by `stroom.security.identity.passwordPolicy.forcePasswordChangeOnFirstLogin`.
+
+Additional user accounts are created and maintained using
+
+{{< stroom-menu "Security" "Manage Accounts" >}}
+
+See [User Accounts]({{< relref "docs/user-guide/security/user-accounts" >}}) for managing those accounts, and [Signing In]({{< relref "docs/user-guide/security/signing-in" >}}) for what users experience.
 
 ## Configuration for the internal IDP
 
