@@ -322,7 +322,7 @@ Care needs to be taken when changing the cache properties to avoid changing the 
 ### Open ID Configuration
 
 Both Stroom and Stroom-Proxy share the same configuration structure for configuring Open ID Connect authentication.
-This section of config is only applicable if `appConfig/proxyConfig.security.authentication.identityProviderType` is set to `EXTERNAL_IDP`.
+This section of config is only applicable if `appConfig/proxyConfig.security.authentication.openId.identityProviderType` is set to `EXTERNAL_IDP`.
 
 ```yaml
 appConfig / proxyConfig:
@@ -331,13 +331,17 @@ appConfig / proxyConfig:
       openId:
         # A set of audience claim values, one of which must appear in the audience
         # claim in the token.
-        # If empty, no validation will be performed on the audience claim
+        # If empty, the audience claim is validated against the configured clientId instead
+        # (unless validateAudience is false, in which case no audience validation is performed).
         # If audienceClaimRequired is false and there is no audience claim in the token,
-        # then allowedAudiences will be ignored
+        # then the audience is not validated
         allowedAudiences: []
-        # If true the token will fail validation if the audience claim is not present
-        # and allowedAudiences is not empty
-        audienceClaimRequired: false
+        # If true (the default) an inbound token fails validation when it does not carry an
+        # audience (aud) claim. The audience, when present, is validated against
+        # allowedAudiences, or the configured clientId when allowedAudiences is empty.
+        # Set this to false only for external identity providers that omit the aud claim on
+        # their access tokens, e.g. AWS Cognito
+        audienceClaimRequired: true
         # The authentication endpoint used in OpenId authentication
         # Should only be set if not using a configuration endpoint
         authEndpoint: null
@@ -402,6 +406,14 @@ appConfig / proxyConfig:
         requestScopes:
         - "openid"
         - "email"
+        # The JOSE 'typ' header value a token must carry to be accepted as a bearer access
+        # token on the API, e.g. 'at+jwt' (RFC 9068) or 'Bearer' (KeyCloak).
+        # When set, a token of any other type - such as an id_token - is rejected on the
+        # bearer path even if its signature is valid, preventing it from being replayed
+        # as an access token. Leave unset (the default) to accept any type, for identity
+        # providers that do not set a distinct type. Only applies to an external identity
+        # provider
+        requiredAccessTokenType: null
         # The token endpoint used in OpenId authentication
         # Should only be set if not using a configuration endpoint
         tokenEndpoint: null
@@ -419,7 +431,18 @@ appConfig / proxyConfig:
         # returned by the IDP when it is not a sub path of 'openIdConfigurationEndpoint'. If
         # this set is empty then Stroom will verify that the
         validIssuers: []
+        # If true (the default) the audience (aud) claim of an inbound token is validated
+        # when using an external identity provider. It is checked against allowedAudiences,
+        # or against the configured clientId when allowedAudiences is empty. Set to false to
+        # disable audience validation entirely. This is not recommended as a token minted for
+        # another application at the same identity provider could then be replayed against
+        # stroom
+        validateAudience: true
 ```
+
+{{% see-also %}}
+See [External IDP]({{< relref "docs/install-guide/setup/open-id/external-idp" >}}) for how to set these values up for a given identity provider, and [Stroom Configuration]({{< relref "docs/install-guide/setup/open-id/external-idp/stroom-configuration" >}}) for what each one does.
+{{% /see-also %}}
 
 
 ## Jersey HTTP Client Configuration

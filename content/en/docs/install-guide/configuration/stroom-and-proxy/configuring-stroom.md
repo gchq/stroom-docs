@@ -954,7 +954,7 @@ appConfig:
       maxApiKeyExpiryAge: "P365D"
       openId:
         allowedAudiences: []
-        audienceClaimRequired: false
+        audienceClaimRequired: true
         authEndpoint: null
         clientCredentialsScopes:
         - "openid"
@@ -973,10 +973,12 @@ appConfig:
         requestScopes:
         - "openid"
         - "email"
+        requiredAccessTokenType: null
         tokenEndpoint: null
         uniqueIdentityClaim: "sub"
         userDisplayNameClaim: "preferred_username"
         validIssuers: []
+        validateAudience: true
       preventLogin: false
     authorisation:
       appPermissionIdCache:
