@@ -103,7 +103,7 @@ This happens when:
 The email is deliberately the same in all three cases and does not say which one applies.
 It goes to the address held against the account, so it tells the account holder something is wrong without telling whoever made the request anything at all.
 
-No email of any kind is sent when there is nobody to send it to, that is when the address matches no account, the account has no email address recorded, password resets are turned off, or an email was already sent within the cooldown period.
+No email of any kind is sent when there is nobody to send it to, that is when the address matches no account, the account has no email address recorded, password resets are turned off, or an email was already sent within the cool-down period.
 
 
 ## Signing In With A Certificate
