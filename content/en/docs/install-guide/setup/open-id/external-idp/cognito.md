@@ -16,6 +16,11 @@ This page covers using an {{< external-link "Amazon Cognito" "https://docs.aws.a
 Read [External IDP]({{< relref "docs/install-guide/setup/open-id/external-idp" >}}) first for what Stroom needs from any provider, and [Stroom Configuration]({{< relref "stroom-configuration" >}}) for what each setting does.
 {{% /see-also %}}
 
+{{% note %}}
+This page covers Stroom itself being the OIDC client of the user pool.
+If Stroom sits behind an AWS Application Load Balancer whose listener rule does the authentication, the load balancer is the client instead - see [AWS ALB and Cognito]({{< relref "docs/install-guide/setup/open-id/edge-proxy/aws-alb-cognito" >}}).
+{{% /note %}}
+
 Cognito differs from a typical OIDC provider in two ways that directly affect the Stroom configuration, so they are worth knowing before you start.
 
 * Its **access tokens carry no `aud` claim**, using `client_id` instead. Stroom requires an audience claim by default, so this has to be turned off.

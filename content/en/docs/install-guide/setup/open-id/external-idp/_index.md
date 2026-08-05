@@ -13,6 +13,11 @@ description: >
 You may be running Stroom in an environment with an existing {{< glossary "idp" >}} (KeyCloak, Cognito, Google, Active Directory, etc.) and want to use that for authenticating users.
 Stroom supports 3rd party IDPs that conform to the {{< external-link "Open ID Connect" "https://openid.net/connect/" >}} specification.
 
+{{% note %}}
+On this page and its children, **Stroom itself signs the user in** at the provider.
+If a load balancer or reverse proxy in front of Stroom performs the sign in instead - an AWS ALB with an `authenticate-cognito` rule, NGINX with oauth2-proxy - you want [Edge Proxy RP]({{< relref "docs/install-guide/setup/open-id/edge-proxy" >}}), not this page.
+{{% /note %}}
+
 This page describes what Stroom needs from any such provider.
 It applies whichever provider you use, so read it before following one of the provider specific pages.
 

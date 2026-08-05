@@ -17,6 +17,11 @@ It assumes you have deployed a new instance or cluster of Stroom and have **not*
 Read [External IDP]({{< relref "docs/install-guide/setup/open-id/external-idp" >}}) first for what Stroom needs from any provider, and [Stroom Configuration]({{< relref "stroom-configuration" >}}) for what each setting does.
 {{% /see-also %}}
 
+{{% note %}}
+This page covers Stroom itself being the OIDC client of the realm.
+If an authenticating reverse proxy (e.g. NGINX with oauth2-proxy) in front of Stroom does the sign in against KeyCloak instead, see [NGINX, oauth2-proxy and KeyCloak]({{< relref "docs/install-guide/setup/open-id/edge-proxy/nginx-oauth2-proxy" >}}).
+{{% /note %}}
+
 
 ## Running KeyCloak
 
