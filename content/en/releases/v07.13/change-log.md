@@ -113,9 +113,9 @@ OR, if you use Vim use this command (changing the path to the stroom repo) to re
 
 * Bug **{{< external-link "#5679" "https://github.com/gchq/stroom/issues/5679" >}}** : Fix processor task creation not recording errors against the filter tracker, and not stopping when a task creation limit has been reached.
 
-* Bug **{{< external-link "#5685" "https://github.com/gchq/stroom/issues/5685" >}}** : Fix inability to unset **Max Processing Tasks** on a processor filter.
+* Bug **{{< external-link "#5685" "https://github.com/gchq/stroom/issues/5685" >}}** : Fix inability to unset _Max Processing Tasks_ on a processor filter.
 
-* Bug **{{< external-link "#5678" "https://github.com/gchq/stroom/issues/5678" >}}** : Fix processor task retention only using the `stroom.processor.deleteAge` value that was current when the node started. The `Processor Task Retention` job now reads the property on each run, so a change to it takes effect without a node restart.
+* Bug **{{< external-link "#5678" "https://github.com/gchq/stroom/issues/5678" >}}** : Fix processor task retention only using the `stroom.processor.deleteAge` value that was current when the node started. The _Processor Task Retention_ job now reads the property on each run, so a change to it takes effect without a node restart.
 
 * Bug **{{< external-link "#5663" "https://github.com/gchq/stroom/issues/5663" >}}** : Fix OpenAPI spec for polymorphic types.
 
