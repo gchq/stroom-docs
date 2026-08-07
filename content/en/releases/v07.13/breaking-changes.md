@@ -17,6 +17,11 @@ Please read this section carefully in case any of the changes affect you.
 
 Breaking changes relating to Stroom.
 
+A number of configuration properties have been removed.
+If any of these properties have been set in the YAML configuration file, Stroom will no longer boot.
+Some properties have also had their default values changed.
+See [Upgrade Notes]({{< relref "./upgrade-notes" >}}) for details.
+
 {{% todo %}}
 Complete this section.
 {{% /todo %}}
