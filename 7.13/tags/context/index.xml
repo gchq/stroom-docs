@@ -1,0 +1,203 @@
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Stroom – context</title>
+    <link>/tags/context/</link>
+    <description>Recent content in context on Stroom</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Tue, 27 Jul 2021 00:00:00 +0000</lastBuildDate>
+    
+	  <atom:link href="/tags/context/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+      
+        
+      
+    
+    
+    <item>
+      <title>Docs: Context Data</title>
+      <link>/docs/user-guide/pipelines/context-data/</link>
+      <pubDate>Tue, 27 Jul 2021 00:00:00 +0000</pubDate>
+      
+      <guid>/docs/user-guide/pipelines/context-data/</guid>
+      <description>
+        
+        
+        
+&lt;div class=&#34;alert alert-warning&#34; role=&#34;alert&#34;&gt;
+&lt;h4 class=&#34;alert-heading&#34;&gt;TODO&lt;/h4&gt;
+
+    This section needs some explanation.
+
+&lt;/div&gt;
+
+&lt;h2 id=&#34;context-file&#34;&gt;Context File&lt;/h2&gt;
+&lt;h3 id=&#34;input-file&#34;&gt;Input File:&lt;/h3&gt;
+&lt;pre&gt;&lt;code class=&#34;language-xml&#34;&gt;&amp;lt;?xml version=&amp;quot;1.0&amp;quot; encoding=&amp;quot;UTF-8&amp;quot;?&amp;gt;
+&amp;lt;SomeData&amp;gt;
+	&amp;lt;SomeEvent&amp;gt;
+			&amp;lt;SomeTime&amp;gt;01/01/2009:12:00:01&amp;lt;/SomeTime&amp;gt;
+			&amp;lt;SomeAction&amp;gt;OPEN&amp;lt;/SomeAction&amp;gt;
+			&amp;lt;SomeUser&amp;gt;userone&amp;lt;/SomeUser&amp;gt;
+			&amp;lt;SomeFile&amp;gt;D:\TranslationKit\example\VerySimple\OpenFileEvents.txt&amp;lt;/SomeFile&amp;gt;
+	&amp;lt;/SomeEvent&amp;gt;
+&amp;lt;/SomeData&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&#34;context-file-1&#34;&gt;Context File:&lt;/h3&gt;
+&lt;pre&gt;&lt;code class=&#34;language-xml&#34;&gt;&amp;lt;?xml version=&amp;quot;1.0&amp;quot; encoding=&amp;quot;UTF-8&amp;quot;?&amp;gt;
+&amp;lt;SomeContext&amp;gt;
+	&amp;lt;Machine&amp;gt;MyMachine&amp;lt;/Machine&amp;gt;
+&amp;lt;/SomeContext&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&#34;context-xslt&#34;&gt;Context XSLT:&lt;/h3&gt;
+&lt;pre&gt;&lt;code class=&#34;language-xml&#34;&gt;&amp;lt;?xml version=&amp;quot;1.0&amp;quot; encoding=&amp;quot;UTF-8&amp;quot; ?&amp;gt;
+&amp;lt;xsl:stylesheet
+	xmlns=&amp;quot;reference-data:2&amp;quot;
+	xmlns:evt=&amp;quot;event-logging:3&amp;quot;
+	xmlns:xsi=&amp;quot;http://www.w3.org/2001/XMLSchema-instance&amp;quot;
+	xmlns:xsl=&amp;quot;http://www.w3.org/1999/XSL/Transform&amp;quot;
+	version=&amp;quot;2.0&amp;quot;&amp;gt;
+		
+		&amp;lt;xsl:template match=&amp;quot;SomeContext&amp;quot;&amp;gt;
+			&amp;lt;referenceData 
+					xsi:schemaLocation=&amp;quot;event-logging:3 file://event-logging-v3.0.0.xsd reference-data:2 file://reference-data-v2.0.1.xsd&amp;quot;
+					version=&amp;quot;2.0.1&amp;quot;&amp;gt;
+							
+					&amp;lt;xsl:apply-templates/&amp;gt;
+			&amp;lt;/referenceData&amp;gt;
+		&amp;lt;/xsl:template&amp;gt;
+
+		&amp;lt;xsl:template match=&amp;quot;Machine&amp;quot;&amp;gt;
+			&amp;lt;reference&amp;gt;
+					&amp;lt;map&amp;gt;CONTEXT&amp;lt;/map&amp;gt;
+					&amp;lt;key&amp;gt;Machine&amp;lt;/key&amp;gt;
+					&amp;lt;value&amp;gt;&amp;lt;xsl:value-of select=&amp;quot;.&amp;quot;/&amp;gt;&amp;lt;/value&amp;gt;
+			&amp;lt;/reference&amp;gt;
+		&amp;lt;/xsl:template&amp;gt;
+		
+&amp;lt;/xsl:stylesheet&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&#34;context-xml-translation&#34;&gt;Context XML Translation:&lt;/h3&gt;
+&lt;pre&gt;&lt;code class=&#34;language-xml&#34;&gt;&amp;lt;?xml version=&amp;quot;1.0&amp;quot; encoding=&amp;quot;UTF-8&amp;quot;?&amp;gt;
+&amp;lt;referenceData xmlns:evt=&amp;quot;event-logging:3&amp;quot;
+								xmlns:xsi=&amp;quot;http://www.w3.org/2001/XMLSchema-instance&amp;quot;
+								xmlns=&amp;quot;reference-data:2&amp;quot;
+								xsi:schemaLocation=&amp;quot;event-logging:3 file://event-logging-v3.0.0.xsd reference-data:2 file://reference-data-v2.0.1.xsd&amp;quot;
+								version=&amp;quot;2.0.1&amp;quot;&amp;gt;
+		&amp;lt;reference&amp;gt;
+			&amp;lt;map&amp;gt;CONTEXT&amp;lt;/map&amp;gt;
+			&amp;lt;key&amp;gt;Machine&amp;lt;/key&amp;gt;
+			&amp;lt;value&amp;gt;MyMachine&amp;lt;/value&amp;gt;
+		&amp;lt;/reference&amp;gt;
+&amp;lt;/referenceData&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&#34;input-file-1&#34;&gt;Input File:&lt;/h3&gt;
+&lt;pre&gt;&lt;code class=&#34;language-xml&#34;&gt;&amp;lt;?xml version=&amp;quot;1.0&amp;quot; encoding=&amp;quot;UTF-8&amp;quot;?&amp;gt;
+&amp;lt;SomeData&amp;gt;
+	&amp;lt;SomeEvent&amp;gt;
+			&amp;lt;SomeTime&amp;gt;01/01/2009:12:00:01&amp;lt;/SomeTime&amp;gt;
+			&amp;lt;SomeAction&amp;gt;OPEN&amp;lt;/SomeAction&amp;gt;
+			&amp;lt;SomeUser&amp;gt;userone&amp;lt;/SomeUser&amp;gt;
+			&amp;lt;SomeFile&amp;gt;D:\TranslationKit\example\VerySimple\OpenFileEvents.txt&amp;lt;/SomeFile&amp;gt;
+	&amp;lt;/SomeEvent&amp;gt;
+&amp;lt;/SomeData&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&#34;main-xslt-note-the-use-of-the-context-lookup&#34;&gt;Main XSLT (Note the use of the context lookup):&lt;/h3&gt;
+&lt;pre&gt;&lt;code class=&#34;language-xml&#34;&gt;&amp;lt;?xml version=&amp;quot;1.0&amp;quot; encoding=&amp;quot;UTF-8&amp;quot; ?&amp;gt;
+&amp;lt;xsl:stylesheet
+	xmlns=&amp;quot;event-logging:3&amp;quot;
+	xmlns:xsl=&amp;quot;http://www.w3.org/1999/XSL/Transform&amp;quot;
+	xmlns:xsi=&amp;quot;http://www.w3.org/2001/XMLSchema-instance&amp;quot; 
+	version=&amp;quot;2.0&amp;quot;&amp;gt;
+	
+    &amp;lt;xsl:template match=&amp;quot;SomeData&amp;quot;&amp;gt;
+        &amp;lt;Events xsi:schemaLocation=&amp;quot;event-logging:3 file://event-logging-v3.0.0.xsd&amp;quot; Version=&amp;quot;3.0.0&amp;quot;&amp;gt;
+            &amp;lt;xsl:apply-templates/&amp;gt;
+        &amp;lt;/Events&amp;gt;
+    &amp;lt;/xsl:template&amp;gt;
+    &amp;lt;xsl:template match=&amp;quot;SomeEvent&amp;quot;&amp;gt;
+        &amp;lt;xsl:if test=&amp;quot;SomeAction = &#39;OPEN&#39;&amp;quot;&amp;gt;
+            &amp;lt;Event&amp;gt;
+                &amp;lt;EventTime&amp;gt;
+                        &amp;lt;TimeCreated&amp;gt;
+                            &amp;lt;xsl:value-of select=&amp;quot;s:format-date(SomeTime, &#39;dd/MM/yyyy:hh:mm:ss&#39;)&amp;quot;/&amp;gt;
+                        &amp;lt;/TimeCreated&amp;gt;
+                &amp;lt;/EventTime&amp;gt;
+				&amp;lt;EventSource&amp;gt;
+					&amp;lt;System&amp;gt;Example&amp;lt;/System&amp;gt;
+					&amp;lt;Environment&amp;gt;Example&amp;lt;/Environment&amp;gt;
+					&amp;lt;Generator&amp;gt;Very Simple Provider&amp;lt;/Generator&amp;gt;
+					&amp;lt;Device&amp;gt;
+						&amp;lt;IPAddress&amp;gt;182.80.32.132&amp;lt;/IPAddress&amp;gt;
+						&amp;lt;Location&amp;gt;
+							&amp;lt;Country&amp;gt;UK&amp;lt;/Country&amp;gt;
+							&amp;lt;Site&amp;gt;&amp;lt;xsl:value-of select=&amp;quot;s:lookup(&#39;CONTEXT&#39;, &#39;Machine&#39;)&amp;quot;/&amp;gt;&amp;lt;/Site&amp;gt;
+							&amp;lt;Building&amp;gt;Main&amp;lt;/Building&amp;gt;
+							&amp;lt;Floor&amp;gt;1&amp;lt;/Floor&amp;gt;              
+							&amp;lt;Room&amp;gt;1aaa&amp;lt;/Room&amp;gt;
+						&amp;lt;/Location&amp;gt;           
+					&amp;lt;/Device&amp;gt;
+					&amp;lt;User&amp;gt;&amp;lt;Id&amp;gt;&amp;lt;xsl:value-of select=&amp;quot;SomeUser&amp;quot;/&amp;gt;&amp;lt;/Id&amp;gt;&amp;lt;/User&amp;gt;
+				&amp;lt;/EventSource&amp;gt;
+				&amp;lt;EventDetail&amp;gt;
+					&amp;lt;View&amp;gt;
+						&amp;lt;Document&amp;gt;
+							&amp;lt;Title&amp;gt;UNKNOWN&amp;lt;/Title&amp;gt;
+							&amp;lt;File&amp;gt;
+								&amp;lt;Path&amp;gt;&amp;lt;xsl:value-of select=&amp;quot;SomeFile&amp;quot;/&amp;gt;&amp;lt;/Path&amp;gt;
+							&amp;lt;/File&amp;gt;
+						&amp;lt;/Document&amp;gt;
+					&amp;lt;/View&amp;gt;
+				&amp;lt;/EventDetail&amp;gt;
+            &amp;lt;/Event&amp;gt;
+        &amp;lt;/xsl:if&amp;gt;
+    &amp;lt;/xsl:template&amp;gt;
+&amp;lt;/xsl:stylesheet&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&#34;main-output-xml&#34;&gt;Main Output XML:&lt;/h3&gt;
+&lt;pre&gt;&lt;code class=&#34;language-xml&#34;&gt;&amp;lt;?xml version=&amp;quot;1.0&amp;quot; encoding=&amp;quot;UTF-8&amp;quot;?&amp;gt;
+&amp;lt;Events xmlns:xsi=&amp;quot;http://www.w3.org/2001/XMLSchema-instance&amp;quot;
+				xmlns=&amp;quot;event-logging:3&amp;quot;
+				xsi:schemaLocation=&amp;quot;event-logging:3 file://event-logging-v3.0.0.xsd&amp;quot;
+				Version=&amp;quot;3.0.0&amp;quot;&amp;gt;
+		&amp;lt;Event Id=&amp;quot;6:1&amp;quot;&amp;gt;
+			&amp;lt;EventTime&amp;gt;
+					&amp;lt;TimeCreated&amp;gt;2009-01-01T00:00:01.000Z&amp;lt;/TimeCreated&amp;gt;
+			&amp;lt;/EventTime&amp;gt;
+			&amp;lt;EventSource&amp;gt;
+					&amp;lt;System&amp;gt;Example&amp;lt;/System&amp;gt;
+					&amp;lt;Environment&amp;gt;Example&amp;lt;/Environment&amp;gt;
+					&amp;lt;Generator&amp;gt;Very Simple Provider&amp;lt;/Generator&amp;gt;
+					&amp;lt;Device&amp;gt;
+						&amp;lt;IPAddress&amp;gt;182.80.32.132&amp;lt;/IPAddress&amp;gt;
+						&amp;lt;Location&amp;gt;
+								&amp;lt;Country&amp;gt;UK&amp;lt;/Country&amp;gt;
+								&amp;lt;Site&amp;gt;MyMachine&amp;lt;/Site&amp;gt;
+								&amp;lt;Building&amp;gt;Main&amp;lt;/Building&amp;gt;
+								&amp;lt;Floor&amp;gt;1&amp;lt;/Floor&amp;gt;
+								&amp;lt;Room&amp;gt;1aaa&amp;lt;/Room&amp;gt;
+						&amp;lt;/Location&amp;gt;
+					&amp;lt;/Device&amp;gt;
+					&amp;lt;User&amp;gt;
+						&amp;lt;Id&amp;gt;userone&amp;lt;/Id&amp;gt;
+					&amp;lt;/User&amp;gt;
+			&amp;lt;/EventSource&amp;gt;
+			&amp;lt;EventDetail&amp;gt;
+					&amp;lt;View&amp;gt;
+						&amp;lt;Document&amp;gt;
+								&amp;lt;Title&amp;gt;UNKNOWN&amp;lt;/Title&amp;gt;
+								&amp;lt;File&amp;gt;
+									&amp;lt;Path&amp;gt;D:\TranslationKit\example\VerySimple\OpenFileEvents.txt&amp;lt;/Path&amp;gt;
+								&amp;lt;/File&amp;gt;
+						&amp;lt;/Document&amp;gt;
+					&amp;lt;/View&amp;gt;
+			&amp;lt;/EventDetail&amp;gt;
+		&amp;lt;/Event&amp;gt;
+&amp;lt;/Events&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+      </description>
+    </item>
+    
+  </channel>
+</rss>

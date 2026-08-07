@@ -1,0 +1,872 @@
+<!doctype html>
+<html itemscope itemtype="http://schema.org/WebPage" lang="en" class="no-js">
+  <head>
+    
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="generator" content="Hugo 0.95.0" />
+<link rel="canonical" type="text/html" href="../../../../../../docs/install-guide/setup/open-id/edge-proxy/">
+<meta name="robots" content="noindex, nofollow">
+
+<link rel="preload" href="../../../../../../fonts/google_open_sans_300.ttf" as="font" type="font/ttf" crossorigin >
+<link rel="preload" href="../../../../../../fonts/google_open_sans_300i.ttf" as="font" type="font/ttf" crossorigin >
+<link rel="preload" href="../../../../../../fonts/google_open_sans_400.ttf" as="font" type="font/ttf" crossorigin >
+<link rel="preload" href="../../../../../../fonts/google_open_sans_400i.ttf" as="font" type="font/ttf" crossorigin >
+<link rel="preload" href="../../../../../../fonts/google_open_sans_700.ttf" as="font" type="font/ttf" crossorigin >
+<link rel="preload" href="../../../../../../fonts/google_open_sans_700i.ttf" as="font" type="font/ttf" crossorigin >
+<link rel="preload" href="../../../../../../webfonts/fa-brands-400.ttf" as="font" type="font/ttf" crossorigin >
+<link rel="preload" href="../../../../../../webfonts/fa-brands-400.woff2" as="font" type="font/woff2" crossorigin >
+
+
+<link rel="preload" href="../../../../../../webfonts/fa-solid-900.ttf" as="font" type="font/ttf" crossorigin >
+<link rel="preload" href="../../../../../../webfonts/fa-solid-900.woff2" as="font" type="font/woff2" crossorigin >
+
+
+
+
+
+
+<link rel="shortcut icon" href="../../../../../../favicons/favicon.ico" >
+<link rel="apple-touch-icon" href="../../../../../../favicons/apple-touch-icon-180x180.png" sizes="180x180">
+<link rel="icon" type="image/png" href="../../../../../../favicons/favicon-16x16.png" sizes="16x16">
+<link rel="icon" type="image/png" href="../../../../../../favicons/favicon-32x32.png" sizes="32x32">
+<link rel="icon" type="image/png" href="../../../../../../favicons/android-36x36.png" sizes="36x36">
+<link rel="icon" type="image/png" href="../../../../../../favicons/android-48x48.png" sizes="48x48">
+<link rel="icon" type="image/png" href="../../../../../../favicons/android-72x72.png" sizes="72x72">
+<link rel="icon" type="image/png" href="../../../../../../favicons/android-96x96.png" sizes="96x96">
+<link rel="icon" type="image/png" href="../../../../../../favicons/android-144x144.png" sizes="144x144">
+<link rel="icon" type="image/png" href="../../../../../../favicons/android-192x192.png" sizes="192x192">
+
+<title>Edge Proxy as the Relying Party | Stroom</title>
+<meta name="description" content="Running Stroom behind an authenticating reverse proxy, such as an AWS Application Load Balancer with Cognito, that completes the Open ID Connect flow itself.
+">
+<meta property="og:title" content="Edge Proxy as the Relying Party" />
+<meta property="og:description" content="Running Stroom behind an authenticating reverse proxy, such as an AWS Application Load Balancer with Cognito, that completes the Open ID Connect flow itself.
+" />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="/docs/install-guide/setup/open-id/edge-proxy/" /><meta property="og:site_name" content="Stroom" />
+
+<meta itemprop="name" content="Edge Proxy as the Relying Party">
+<meta itemprop="description" content="Running Stroom behind an authenticating reverse proxy, such as an AWS Application Load Balancer with Cognito, that completes the Open ID Connect flow itself.
+"><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Edge Proxy as the Relying Party"/>
+<meta name="twitter:description" content="Running Stroom behind an authenticating reverse proxy, such as an AWS Application Load Balancer with Cognito, that completes the Open ID Connect flow itself.
+"/>
+
+
+
+
+<link rel="preload" href="../../../../../../scss/main.min.396476946a9b6e781a9b8d417186b5e7ca15aa5c2d8a2821b87b82f11629222e.css" as="style">
+<link href="../../../../../../scss/main.min.396476946a9b6e781a9b8d417186b5e7ca15aa5c2d8a2821b87b82f11629222e.css" rel="stylesheet" integrity="">
+
+
+<script src='../../../../../../js/jquery-3.6.0.min.js'></script>
+
+
+
+
+<link rel="stylesheet" href="../../../../../../css/prism.css"/>
+
+
+<link rel="stylesheet" href="../../../../../../css/stroom-ui/icon-colours.min.c7f7492721ac22f5e69eb7c9e66ec2d6dda4fbb93805fdb5f383e323f347838d.css" integrity="sha256-x/dJJyGsIvXmnrfJ5m7C1t2k&#43;7k4Bf2184PjI/NHg40=">
+
+<link rel="stylesheet" href="../../../../../../css/stroom-ui/material_design_colors.min.ab1318fe69a1013ff756090954c02c5364ff48d150dcc94468a73d2e3efd3fc0.css" integrity="sha256-qxMY/mmhAT/3VgkJVMAsU2T/SNFQ3MlEaKc9Lj79P8A=">
+
+<link rel="stylesheet" href="../../../../../../css/stroom-ui/theme-root.min.bebaa7a01087d1ece8e812db2a1a91349b15556d04f84eea180c6d23491738c4.css" integrity="sha256-vrqnoBCH0ezo6BLbKhqRNJsVVW0E&#43;E7qGAxtI0kXOMQ=">
+
+<link rel="stylesheet" href="../../../../../../css/stroom-ui/theme-dark.min.bc08bf14d505124d1eb4316e6df1348b0985e517e3cc0f5a590a03a968cc8c65.css" integrity="sha256-vAi/FNUFEk0etDFubfE0iwmF5RfjzA9aWQoDqWjMjGU=">
+
+
+
+
+  </head>
+  <body class="td-section">
+    <header>
+      <nav class="js-navbar-scroll navbar navbar-expand navbar-dark flex-column flex-md-row td-navbar">
+  <a class="navbar-brand" href="../../../../../../"><span class="navbar-brand__logo navbar-logo"><svg xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:svg="http://www.w3.org/2000/svg" xmlns="http://www.w3.org/2000/svg" xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape" width="110.61089" height="30.000004" viewBox="0 0 88.488641 23.999957" id="svg2" inkscape:version="0.91 r13725" sodipodi:docname="logo.svg"><defs id="defs20"/><sodipodi:namedview pagecolor="#989898" bordercolor="#666666" borderopacity="1" objecttolerance="10" gridtolerance="10" guidetolerance="10" inkscape:pageopacity="0" inkscape:pageshadow="2" inkscape:window-width="1920" inkscape:window-height="1137" id="namedview18" showgrid="false" fit-margin-top="0" fit-margin-left="0" fit-margin-right="0" fit-margin-bottom="0" inkscape:zoom="5.5951814" inkscape:cx="55.451414" inkscape:cy="16.275348" inkscape:window-x="0" inkscape:window-y="0" inkscape:window-maximized="1" inkscape:current-layer="svg2"/><g id="g4150" style="opacity:.97000002" transform="matrix(0.03883584,0,0,0.03883584,0,-3.1155874e-4)"><path id="path6" d="M121.99991 205.98497C54.999958 205.98497.0 259.98493.0 327.98487c0 66.99994 54.999958 121.99989 121.99991 121.99989h167.99987c24.99998.0 44.99996 20.99998 44.99996 44.99996.0 24.99998-19.99998 44.99996-44.99996 44.99996H109.20929C65.984126 553.87219 27.100843 581.57313.01093599 617.98462H289.99978c66.99994.0 121.99991-54.99996 121.99991-122.9999.0-66.99994-54.99997-121.99989-121.99991-121.99989H121.99991c-24.999984.0-44.999969-19.99999-44.999969-44.99996.0-24.99998 19.999985-44.99996 44.999969-44.99996h228.79045c26.9905-35.88325 65.47093-63.18547 108.21554-76.99994H121.99991z" style="fill:#fff" inkscape:connector-curvature="0"/><path id="path8" d="M601.44485-.00077860649C572.6583 8.3697982 546.49491 22.822962 524.44491 41.902305V205.78969l.002.19528h-.002c-65.11 48e-5-123.03145 30.0199-160.74675 76.99994h160.74675v334.99971h76.99994V282.98491h144.85298c27.16134-36.05885 65.96411-63.39275 109.02184-76.99994H601.44485v-205.98574860649z" style="fill:#fff" inkscape:connector-curvature="0"/><path id="path10" d="m919.42586 205.98497c-113.99519.0-205.99537 92.00648-206.00296 205.99982-15e-5 68.67178.0 137.32749.0 205.99983h77.99994c-.012-68.6493.0176-137.46869.0-205.99983.0846-70.92785 57.05747-128.99988 128.00462-128.99988 5.28623.0 10.49823.32864 15.62183.95311 18.2219-24.51229 41.78461-45.0838 68.42501-60.15146-25.65065-11.43799-54.08662-17.80159-84.04684-17.80159z" style="fill:#fff" inkscape:connector-curvature="0"/><path id="path12" d="m1109.4153 205.98457c-113.99994.0-205.99983 91.99993-205.99983 205.99984.0 112.9999 91.99989 205.9998 205.99983 205.9998 114 0 205.9999-92.9999 205.9999-205.9998.0-113.99991-91.9999-205.99984-205.9999-205.99984zm0 333.99974c-70.9999.0-128.99994-56.99996-128.99994-127.9999.0-70.99995 58.00004-128.9999 128.99994-128.9999 71 0 128.9999 57.99995 128.9999 128.9999.0 70.99994-57.9999 127.9999-128.9999 127.9999z" style="fill:#fff" inkscape:connector-curvature="0"/><path id="path14" d="m1444.4737 205.98457c-113.9999.0-205.9998 91.99993-205.9998 205.99984.0 112.9999 91.9999 205.9998 205.9998 205.9998s205.9999-92.9999 205.9999-205.9998c0-113.99991-92-205.99984-205.9999-205.99984zm0 333.99974c-70.9999.0-128.9999-56.99996-128.9999-127.9999.0-70.99995 58-128.9999 128.9999-128.9999 71 0 128.9999 57.99995 128.9999 128.9999.0 70.99994-57.9999 127.9999-128.9999 127.9999z" style="fill:#fff" inkscape:connector-curvature="0"/><path id="path16" d="m1738.5308 379.98447c0-53 43-97 95.9999-97 53 0 97 44 97 97v237.9997h76.9999v-237.9997c0-53 43-97 96.9999-97 53 0 95.9999 44 95.9999 97v237.9997h77v-237.9997c0-96-77-173.9999-172.9999-173.9999-54.9999.0-103.9999 24.99998-135.9999 64.99995-31.9999-39.99997-79.9999-64.99995-134.9999-64.99995-95.9999.0-173.9998 77.9999-173.9998 173.9999v237.9997h77.9999z" style="fill:#fff" inkscape:connector-curvature="0"/></g></svg></span><span class="navbar-brand__name">Stroom</span></a>
+  <div class="td-navbar-nav-scroll ml-md-auto" id="main_navbar">
+    <ul class="navbar-nav mt-2 mt-lg-0">
+      <li class="nav-item mr-4 mb-2 mb-lg-0">
+        <a class="nav-link" href="../../../../../../about/about/"><span>About</span></a>
+      </li>
+      <li class="nav-item mr-4 mb-2 mb-lg-0">
+        <a class="nav-link active" href="../../../../../../docs/"><span class="active">Documentation</span></a>
+      </li>
+      <li class="nav-item mr-4 mb-2 mb-lg-0">
+        <a class="nav-link" href="../../../../../../releases/"><span>Releases Notes</span></a>
+      </li>
+      <li class="nav-item mr-4 mb-2 mb-lg-0">
+        <a class="nav-link" href="../../../../../../community/"><span>Community</span></a>
+      </li>
+      <li class="nav-item mr-4 mb-2 mb-lg-0">
+        <a class="nav-link" href="../../../../../../news/"><span>News</span></a>
+      </li>
+      <li class="nav-item dropdown mr-4 d-none d-lg-block">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+	Stroom Version (7.13)
+</a>
+<div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+	
+	
+	
+	<a class="dropdown-item" href="../../../../../../">7.13 (Latest)</a>
+	
+	<a class="dropdown-item" href="../../../../../../7.12">7.12</a>
+	
+	<a class="dropdown-item" href="../../../../../../7.11">7.11</a>
+	
+	<a class="dropdown-item" href="../../../../../../7.10">7.10</a>
+	
+	<a class="dropdown-item" href="../../../../../../7.9">7.9</a>
+	
+	<a class="dropdown-item" href="../../../../../../7.8">7.8</a>
+	
+	<a class="dropdown-item" href="../../../../../../7.7">7.7</a>
+	
+	<a class="dropdown-item" href="../../../../../../7.6">7.6</a>
+	
+	<a class="dropdown-item" href="../../../../../../7.5">7.5</a>
+	
+	<a class="dropdown-item" href="../../../../../../7.4">7.4</a>
+	
+	<a class="dropdown-item" href="../../../../../../7.3">7.3</a>
+	
+	<a class="dropdown-item" href="../../../../../../7.2">7.2</a>
+	
+	<a class="dropdown-item" href="../../../../../../7.1">7.1</a>
+	
+	<a class="dropdown-item" href="../../../../../../7.0">7.0</a>
+	
+	<a class="dropdown-item" href="../../../../../../legacy">Legacy</a>
+	
+</div>
+</li>
+      </ul>
+  </div>
+  <div class="navbar-nav d-none d-lg-block">
+    <div class="td-search td-search--offline">
+  <div class="td-search__icon"></div>
+  <input
+    type="search"
+    class="td-search__input form-control"
+    placeholder="Search this site…"
+    aria-label="Search this site…"
+    autocomplete="off"
+    
+    data-offline-search-index-json-src="../../../../../../offline-search-index.a4ae77e3b32471e895099601d0367a2f.json"
+    data-offline-search-base-href="../../../../../../"
+    data-offline-search-max-results="50"
+  >
+</div>
+
+  </div>
+</nav>
+    </header>
+    <div class="container-fluid td-outer">
+      <div class="td-main">
+        <div class="row flex-xl-nowrap">
+          <main class="col-12 col-md-9 col-xl-8 pl-md-5" role="main">
+            
+
+
+
+
+<div class="td-content">
+<div class="pageinfo pageinfo-primary d-print-none">
+<p>
+This is the multi-page printable view of this section.
+<a href="#" onclick="print();return false;">Click here to print</a>.
+</p><p>
+<a href="../../../../../../docs/install-guide/setup/open-id/edge-proxy/">Return to the regular view of this page</a>.
+</p>
+</div>
+
+
+
+<h1 class="title">Edge Proxy as the Relying Party</h1>
+<div class="lead">Running Stroom behind an authenticating reverse proxy, such as an AWS Application Load Balancer with Cognito, that completes the Open ID Connect flow itself.</div>
+
+
+
+
+    <ul>
+    
+  
+  
+  
+  
+
+  
+    
+    
+	
+<li>1: <a href="#pg-16ec30cde28ceeabf09d16ee1c972cef">AWS ALB and Cognito</a></li>
+
+
+    
+  
+    
+    
+	
+<li>2: <a href="#pg-62370e6737583c65c93d95737298f52e">NGINX, oauth2-proxy and KeyCloak</a></li>
+
+
+    
+  
+
+    </ul>
+
+
+<div class="content">
+      <p>Normally Stroom is its own Open ID Connect client, or Relying Party: it redirects the browser to the <span class="glossary-link">
+    <a href="../../../../../../docs/glossary/i/glossary-idp">
+      <span>Identity Provider (IDP)</span>
+      <i class="glossary-link-icon fas fa-book fa-sm text-primary"></i>
+    </a><span class="glossary-tooltip">
+      <span class="glossary-tooltip-title">Identity Provider (IDP)</span>
+      <span class="glossary-tooltip-summary">An <strong>Id</strong>entity <strong>P</strong>rovider is a system or service that can authenticate a user and assert their identity. <em>Identity providers</em> can support single sign on (SSO), which allows the user to sign in once to the <em>Identity Provider</em> so they are then authenticated to all systems using that IDP.</span><span class="glossary-tooltip-truncated">Click to see more details...</span></span></span>, exchanges the authorization code for tokens, and holds them in its session.
+That is the model described by <a href="../../../../../../docs/install-guide/setup/open-id/internal-idp/">Internal IDP</a> and <a href="../../../../../../docs/install-guide/setup/open-id/external-idp/">External IDP</a>.</p>
+<p>Some environments put an <strong>authenticating reverse proxy</strong> in front of Stroom instead.
+The proxy completes the OIDC flow before a request ever reaches Stroom, holds the tokens itself, and injects a verified credential into each request it forwards.
+Examples include:</p>
+<ul>
+<li>An AWS <span class="external-link">
+  <a href="https://docs.aws.amazon.com/elasticloadbalancing/latest/application/listener-authenticate-users.html" target="_blank" class="external-link" title="Application Load Balancer (external link to https://docs.aws.amazon.com/elasticloadbalancing/latest/application/listener-authenticate-users.html)">
+    <span>Application Load Balancer</span>
+    <i class="external-link-icon fas fa-external-link-alt fa-sm text-secondary"></i>
+  </a>
+</span>
+ with an <code>authenticate-cognito</code> or <code>authenticate-oidc</code> listener rule, which injects a signed <code>x-amzn-oidc-data</code> header.</li>
+<li>NGINX with <span class="external-link">
+  <a href="https://oauth2-proxy.github.io/oauth2-proxy/" target="_blank" class="external-link" title="oauth2-proxy (external link to https://oauth2-proxy.github.io/oauth2-proxy/)">
+    <span>oauth2-proxy</span>
+    <i class="external-link-icon fas fa-external-link-alt fa-sm text-secondary"></i>
+  </a>
+</span>
+ (or NGINX Plus&rsquo;s native OIDC support, or <code>lua-resty-openidc</code>), which relays the IDP&rsquo;s token as an <code>Authorization: Bearer</code> header.</li>
+</ul>
+<p>This is common in cloud and government estates where a policy requires that unauthenticated traffic never reaches the application.
+Stroom supports it as a first class deployment model.</p>
+
+<div class="alert alert-primary" role="alert">
+<h4 class="alert-heading">Note</h4>
+
+
+    This model requires the <code>edgeAuthentication</code> configuration, available from Stroom 7.13.
+
+</div>
+
+
+<h2 id="the-one-rule-exactly-one-relying-party">The one rule: exactly one Relying Party</h2>
+<p>For any given path, exactly one component runs the OIDC flow — the proxy, or Stroom, never both.</p>
+<p>If Stroom is left in its normal configuration behind an authenticating proxy, both try to be the Relying Party.
+The browser is driven through a second, redundant OIDC flow stacked on the one the proxy already completed, which needs a second client registration at the IDP, doubles the cookies on every request, and typically fails with <code>Stroom Loading, Authentication Error: Failed to Fetch</code>.</p>
+<p>Setting <code>edgeAuthentication.enabled</code> tells Stroom the proxy owns the flow.
+Stroom then:</p>
+<ul>
+<li>Accepts the proxy&rsquo;s injected credential, verified cryptographically on every request, as the user&rsquo;s identity.
+No Stroom session is created; the identity is re-derived from the headers each time, which is also how the proxy&rsquo;s own token refresh reaches Stroom.</li>
+<li>Never starts an OIDC flow of its own, and disables its OIDC callback endpoint.</li>
+<li>Treats the injected credential as needing Cross-Site Request Forgery (CSRF) protection on browser requests, because the browser attaches the <em>proxy&rsquo;s</em> session cookie automatically, even to cross site requests.</li>
+<li>Can end the proxy&rsquo;s session on logout, not just its own.</li>
+</ul>
+
+<div class="alert alert-warning" role="alert">
+<h4 class="alert-heading">Warning</h4>
+
+    With <code>edgeAuthentication.enabled</code> set, <strong>all browser access must go through the proxy</strong>.
+A browser that reaches Stroom directly (an internal load balancer, a port forward) has no way to sign in, because Stroom will not start a flow.
+Direct machine access is unaffected: API keys and bearer tokens work as they always have.
+
+</div>
+
+
+<h2 id="stroom-configuration">Stroom configuration</h2>
+<pre><code class="language-yaml">  security:
+    authentication:
+      edgeAuthentication:
+        enabled: true
+        logout:
+          cookiesToExpire: [ &quot;AWSELBAuthSessionCookie&quot; ]
+          signOutUrl: &quot;https://MY_DOMAIN.auth.REGION.amazoncognito.com/logout?client_id=CLIENT_ID&amp;logout_uri=POST_LOGOUT_URI&quot;
+      openId:
+        identityProviderType: EXTERNAL_IDP
+        # ... provider settings, see the worked examples ...
+</code></pre>
+<h3 id="edgeauthenticationenabled"><code>edgeAuthentication.enabled</code></h3>
+<p>Declares that the proxy is the Relying Party, with the effects described above.
+Requires <code>identityProviderType: EXTERNAL_IDP</code>; Stroom will refuse to start otherwise.</p>
+<h3 id="edgeauthenticationlogoutcookiestoexpire"><code>edgeAuthentication.logout.cookiesToExpire</code></h3>
+<p>Signing out of Stroom does not end the proxy&rsquo;s session by itself; without help, the very next request would silently sign the user straight back in.
+This setting lists the proxy&rsquo;s session cookie <strong>name prefixes</strong>, which Stroom expires when the user logs out.</p>
+<p>They are prefixes because proxies shard large session cookies: an ALB&rsquo;s <code>AWSELBAuthSessionCookie</code> arrives as <code>AWSELBAuthSessionCookie-0</code>, <code>-1</code> and so on, and oauth2-proxy chunks <code>_oauth2_proxy</code> the same way.</p>
+<h3 id="edgeauthenticationlogoutsignouturl"><code>edgeAuthentication.logout.signOutUrl</code></h3>
+<p>Where to send the browser after logging out of Stroom, normally the proxy&rsquo;s or IDP&rsquo;s own sign out endpoint, so the session ends everywhere.
+For Cognito this is the hosted UI&rsquo;s <code>/logout</code> endpoint; for oauth2-proxy it is <code>/oauth2/sign_out</code>.</p>
+<p>If it is not set, Stroom logs a warning at each logout: the proxy session survives, and the user may be signed straight back in.</p>
+
+<div class="alert alert-warning" role="alert">
+<h4 class="alert-heading">Warning</h4>
+
+    The page the user lands on after signing out must be on a path the proxy does <strong>not</strong> authenticate, otherwise the sign in flow simply restarts and the user never sees that they signed out.
+
+</div>
+
+
+<h3 id="csrfprotectbrowseroriginatedrequests"><code>csrf.protectBrowserOriginatedRequests</code></h3>
+<p>On by default, and independent of <code>edgeAuthentication</code>.
+It rejects a state changing request whose token arrived on a request the browser marked as cross site, unless the request carries the <code>X-CSRF</code> header.
+Browsers do not let a cross site page attach an <code>Authorization</code> header, so such a token can only have been injected by a proxy — this is the safety net for a proxy that nobody declared in the configuration.</p>
+<p>Non browser clients are unaffected, as they send none of the browser fetch metadata this check relies on.</p>
+
+<div class="alert alert-primary" role="alert">
+<h4 class="alert-heading">Note</h4>
+
+
+    One visible consequence of edge mode: an <strong>in-browser</strong> tool that attaches its own bearer token (for example Swagger UI&rsquo;s <em>try it out</em>) must send an <code>X-CSRF: 1</code> header on state changing requests.
+Scripts, <code>curl</code> and other non browser automation are unaffected.
+
+</div>
+
+
+<h2 id="what-the-proxy-must-and-must-not-authenticate">What the proxy must and must not authenticate</h2>
+<p>Stroom is not only a web application; it ingests data, serves health checks and its nodes talk to each other.
+None of that traffic can complete an interactive sign in, so the proxy&rsquo;s authenticate rule must cover the browser facing paths <strong>only</strong>.</p>
+<table>
+<thead>
+<tr>
+<th>Path</th>
+<th>Proxy rule</th>
+<th>Why</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>/</code>, <code>/stroom/*</code>, <code>/ui/*</code></td>
+<td>Authenticate</td>
+<td>The UI</td>
+</tr>
+<tr>
+<td><code>/api/*</code></td>
+<td>Authenticate</td>
+<td>Browser API calls</td>
+</tr>
+<tr>
+<td><code>/datafeed</code> (and its legacy aliases)</td>
+<td>Bypass</td>
+<td>Data receipt from Stroom-Proxies and clients, authenticated by certificate, token or API key</td>
+</tr>
+<tr>
+<td><code>/remoting/remotefeedservice.rpc</code></td>
+<td>Bypass</td>
+<td>Feed status RPC</td>
+</tr>
+<tr>
+<td><code>/status</code></td>
+<td>Bypass</td>
+<td>Health checks</td>
+</tr>
+<tr>
+<td>Admin port (<code>/stroomAdmin</code>)</td>
+<td>Bypass</td>
+<td>Should not be publicly exposed at all</td>
+</tr>
+</tbody>
+</table>
+<p>Stroom still authenticates the bypassed paths itself — bypassing the proxy does not bypass Stroom&rsquo;s own checks.</p>
+<p>Node to node traffic inside a cluster does not go through the proxy and needs no special handling.</p>
+<h2 id="trust-prerequisites">Trust prerequisites</h2>
+<p>Stroom verifies the signature of whatever credential the proxy injects, so a forged header does not authenticate.
+Two things must still be true of the deployment, and Stroom cannot verify them from the inside:</p>
+<ol>
+<li><strong>Stroom is unreachable except through the proxy</strong> — a security group, firewall rule or network policy allowing traffic to Stroom&rsquo;s application port only from the proxy.</li>
+<li><strong>The proxy overwrites the headers it injects</strong>, so a client cannot supply its own.
+The ALB does this for its <code>x-amzn-oidc-*</code> headers; with NGINX make sure <code>proxy_set_header</code> is used for the <code>Authorization</code> header, which overwrites, and nothing upstream re-adds it.</li>
+</ol>
+<h2 id="request-header-sizes">Request header sizes</h2>
+<p>Authenticating proxies make requests big.
+An ALB&rsquo;s session cookie is sharded at 4KB per shard, and the injected token headers come on top, so an ordinary authenticated request can exceed the 8KB per request default that Jetty applies when nothing is configured.
+The failure looks like a network error, not an authentication error.</p>
+<p>Set a larger limit on every Stroom node:</p>
+<pre><code class="language-yaml">server:
+  applicationConnectors:
+    - type: http
+      port: 8080
+      useForwardedHeaders: true
+      maxRequestHeaderSize: 32KiB
+</code></pre>
+<h2 id="user-accounts-and-permissions">User accounts and permissions</h2>
+<p>Exactly as with any <a href="../../../../../../docs/install-guide/setup/open-id/external-idp/">external IDP</a>, the proxy establishes <em>who the user is</em>; Stroom still decides <em>what they may do</em>.
+A Stroom user record is created automatically the first time a verified identity is seen, with no permissions.
+Anyone the IDP will authenticate can therefore reach an empty Stroom UI, so if that is not wanted, restrict who can authenticate at the IDP or proxy (for example, limit the Cognito app client or the ALB rule to a group).</p>
+
+<div class="alert alert-primary" role="alert">
+<h4 class="alert-heading">See Also</h4>
+<div class="alert-content">
+  
+  <p><a href="../../../../../../docs/install-guide/setup/open-id/accounts-users/">Accounts and Users</a> for how identities map to Stroom users and permissions.</p>
+
+</div>
+</div>
+
+<h2 id="worked-examples">Worked examples</h2>
+<ul>
+<li><a href="../../../../../../docs/install-guide/setup/open-id/edge-proxy/aws-alb-cognito/">AWS ALB and Cognito</a> - the load balancer authenticates against a Cognito user pool and injects a signed <code>x-amzn-oidc-data</code> header.</li>
+<li><a href="../../../../../../docs/install-guide/setup/open-id/edge-proxy/nginx-oauth2-proxy/">NGINX, oauth2-proxy and KeyCloak</a> - the proxy authenticates against KeyCloak (or any OIDC provider) and relays the IDP&rsquo;s token as a bearer header.</li>
+</ul>
+<h2 id="troubleshooting">Troubleshooting</h2>
+<table>
+<thead>
+<tr>
+<th>Symptom</th>
+<th>Likely cause</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Authentication Error: Failed to Fetch</code> at the loading screen</td>
+<td><code>edgeAuthentication.enabled</code> not set, so Stroom started a second flow of its own; or the proxy session lapsed (Stroom reloads the page once to let the proxy re-authenticate, then shows this)</td>
+</tr>
+<tr>
+<td>Browser bounces between Stroom and the IDP forever</td>
+<td>Two Relying Parties: Stroom is running its own flow behind the proxy. Set <code>edgeAuthentication.enabled</code></td>
+</tr>
+<tr>
+<td>HTTP 403 with <code>Authenticated user is not permitted to use stroom</code></td>
+<td>The proxy&rsquo;s credential verified, but the user is unknown or disabled in Stroom, or the token could not be validated - check the issuer and (for an ALB) <code>expectedSignerPrefixes</code></td>
+</tr>
+<tr>
+<td>Requests fail with what looks like a network error</td>
+<td>Header size - set <code>maxRequestHeaderSize</code></td>
+</tr>
+<tr>
+<td>Data feeds or health checks broken</td>
+<td>The proxy&rsquo;s authenticate rule covers a machine path - see the path table above</td>
+</tr>
+<tr>
+<td>Signing out signs the user straight back in</td>
+<td><code>logout.cookiesToExpire</code> / <code>logout.signOutUrl</code> not set, or the post logout page is behind the proxy&rsquo;s authenticate rule</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+
+
+  
+  
+  
+  
+
+  
+  
+
+  
+    
+    
+	
+    
+
+
+
+<div class="td-content" style="--base-section-num: '1.'; page-break-before: always">
+    
+  <h1 id="pg-16ec30cde28ceeabf09d16ee1c972cef">1 - AWS ALB and Cognito</h1>
+    <div class="lead">Running Stroom behind an AWS Application Load Balancer that authenticates users against an Amazon Cognito user pool.</div>
+	<p>In this deployment the <span class="external-link">
+  <a href="https://docs.aws.amazon.com/elasticloadbalancing/latest/application/listener-authenticate-users.html" target="_blank" class="external-link" title="Application Load Balancer (external link to https://docs.aws.amazon.com/elasticloadbalancing/latest/application/listener-authenticate-users.html)">
+    <span>Application Load Balancer</span>
+    <i class="external-link-icon fas fa-external-link-alt fa-sm text-secondary"></i>
+  </a>
+</span>
+ is the Open ID Connect Relying Party.
+Its listener rule sends unauthenticated browsers to Cognito, completes the code flow, holds the session in <code>AWSELBAuthSessionCookie</code> cookies, and forwards each authenticated request to Stroom with three extra headers:</p>
+<table>
+<thead>
+<tr>
+<th>Header</th>
+<th>Contents</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>x-amzn-oidc-data</code></td>
+<td>The user&rsquo;s claims as a JWT, <strong>signed by the ALB</strong> with a regional AWS key (ES256)</td>
+</tr>
+<tr>
+<td><code>x-amzn-oidc-accesstoken</code></td>
+<td>The access token from Cognito, in plain text</td>
+</tr>
+<tr>
+<td><code>x-amzn-oidc-identity</code></td>
+<td>The <code>sub</code> claim, in plain text</td>
+</tr>
+</tbody>
+</table>
+<p>Stroom authenticates the request by verifying the <code>x-amzn-oidc-data</code> signature against AWS&rsquo;s regional public key endpoint, checking the token&rsquo;s issuer against the configured one, and checking that the signing load balancer is one of yours.</p>
+
+<div class="alert alert-primary" role="alert">
+<h4 class="alert-heading">See Also</h4>
+<div class="alert-content">
+  
+  <p>Read <a href="../../../../../../docs/install-guide/setup/open-id/edge-proxy/">Edge Proxy RP</a> first for the model, the path scoping rules and the trust prerequisites.
+The <a href="../../../../../../docs/install-guide/setup/open-id/external-idp/cognito/">Amazon Cognito</a> page covers creating the user pool; this page covers what is different when the ALB, not Stroom, is the client.</p>
+
+</div>
+</div>
+
+<h2 id="cognito-setup">Cognito setup</h2>
+<p>Create a user pool, hosted UI domain and app client as described on the <a href="../../../../../../docs/install-guide/setup/open-id/external-idp/cognito/">Cognito</a> page, with these differences:</p>
+<ul>
+<li>The app client belongs to the <strong>ALB</strong>, not to Stroom, so its allowed callback URL is the ALB&rsquo;s own:
+<code>https://STROOM_FQDN/oauth2/idpresponse</code>
+(this fixed path is handled by the load balancer itself and never reaches Stroom).</li>
+<li>The client must have a <strong>client secret</strong> and use the code grant; the ALB requires both.</li>
+<li>Register the post logout landing page as an allowed sign out URL for the client (see <a href="#logout">Logout</a>).</li>
+</ul>
+<p>No second app client for Stroom is needed.
+The ALB is the only OIDC client in this topology.</p>
+<h2 id="load-balancer-setup">Load balancer setup</h2>
+<p>Order the listener rules so machine traffic is forwarded <em>without</em> authentication, then authenticate everything else:</p>
+<ol>
+<li>Paths <code>/datafeed*</code>, <code>/stroom/datafeed*</code>, <code>/remoting/*</code>, <code>/status</code> → <strong>forward</strong> to the Stroom target group.</li>
+<li>Default → <strong>authenticate-cognito</strong> (your user pool, app client and hosted UI domain) then <strong>forward</strong> to the Stroom target group.</li>
+</ol>
+<p>Points worth knowing:</p>
+<ul>
+<li><code>SessionCookieName</code> defaults to <code>AWSELBAuthSessionCookie</code>; if you change it, change <code>edgeAuthentication.logout.cookiesToExpire</code> to match.</li>
+<li>The session cookie is sharded at 4KB per shard (<code>-0</code>, <code>-1</code>, &hellip;), which is why the <a href="../../../../../../docs/install-guide/setup/open-id/edge-proxy/#request-header-sizes">header size limit</a> matters.</li>
+<li>If the total claims and access token exceed 11KB the ALB itself returns HTTP 500 and increments its <code>ELBAuthUserClaimsSizeExceeded</code> metric — trim what the IDP puts in the token if you hit this.</li>
+<li>Restrict the Stroom target&rsquo;s security group to accept traffic only from the ALB&rsquo;s security group; this is <a href="../../../../../../docs/install-guide/setup/open-id/edge-proxy/#trust-prerequisites">trust prerequisite one</a>.</li>
+</ul>
+<h2 id="stroom-configuration">Stroom configuration</h2>
+<pre><code class="language-yaml">server:
+  applicationConnectors:
+    - type: http
+      port: 8080
+      useForwardedHeaders: true
+      maxRequestHeaderSize: 32KiB
+
+appConfig:
+  publicUri: &quot;https://STROOM_FQDN&quot;    # the ALB's public address
+  security:
+    authentication:
+      edgeAuthentication:
+        enabled: true
+        logout:
+          cookiesToExpire: [ &quot;AWSELBAuthSessionCookie&quot; ]
+          signOutUrl: &quot;https://MY_DOMAIN.auth.REGION.amazoncognito.com/logout?\
+client_id=ALB_CLIENT_ID&amp;logout_uri=https://STROOM_FQDN/loggedOut&quot;
+      openId:
+        identityProviderType: EXTERNAL_IDP
+        # Cognito's discovery document; supplies the issuer that x-amzn-oidc-data is
+        # checked against. Stroom runs no flow of its own, so no clientSecret is needed.
+        openIdConfigurationEndpoint: &quot;https://cognito-idp.REGION.amazonaws.com/\
+POOL_ID/.well-known/openid-configuration&quot;
+        clientId: &quot;ALB_CLIENT_ID&quot;
+        # MANDATORY - pins the JWT's 'signer' header to your load balancer(s).
+        # Without it, every x-amzn-oidc-data token is rejected. Each value must reach at
+        # least the account id; use the full ALB ARN where you know it.
+        expectedSignerPrefixes:
+          - &quot;arn:aws:elasticloadbalancing:REGION:ACCOUNT_ID:&quot;
+</code></pre>
+<h3 id="expectedsignerprefixes"><code>expectedSignerPrefixes</code></h3>
+<p>The regional AWS endpoint that Stroom fetches verification keys from serves the keys of <strong>every</strong> load balancer in that region, so the signature alone proves a token came from <em>an</em> ALB, not from <em>your</em> ALB.
+This setting closes that gap: the <code>signer</code> field in the token&rsquo;s header, which is the signing load balancer&rsquo;s ARN, must start with one of the configured values.</p>
+<p>It is required — with it unset, every ALB token is rejected, and the log message names this property.</p>
+<h3 id="publickeyuripattern"><code>publicKeyUriPattern</code></h3>
+<p>The default value fetches keys from <code>https://public-keys.auth.elb.${awsRegion}.amazonaws.com/${keyId}</code>, which is correct for the commercial AWS regions.
+AWS GovCloud serves the keys from different, S3 hosted endpoints, so GovCloud deployments must override it, e.g.:</p>
+<pre><code class="language-yaml">        publicKeyUriPattern: &quot;https://s3-us-gov-west-1.amazonaws.com/\
+aws-elb-public-keys-prod-us-gov-west-1/${keyId}&quot;
+</code></pre>
+<h3 id="identity-claims">Identity claims</h3>
+<p>The claims in <code>x-amzn-oidc-data</code> come from Cognito&rsquo;s <strong>user info</strong> endpoint, not from an ID token.
+The default <code>uniqueIdentityClaim</code> of <code>sub</code> is correct and stable; set <code>userDisplayNameClaim</code> to taste (<code>username</code> and <code>email</code> are usually available).</p>
+<h2 id="logout">Logout</h2>
+<p>AWS documents ending an ALB session as the application&rsquo;s job: expire the session cookies and send the browser to the IDP&rsquo;s logout endpoint.
+The configuration above does exactly that — <code>cookiesToExpire</code> removes the <code>AWSELBAuthSessionCookie</code> shards and <code>signOutUrl</code> sends the browser to Cognito&rsquo;s <code>/logout</code>.</p>
+<p>Two registration details make it work:</p>
+<ul>
+<li>The <code>logout_uri</code> value must be registered in the Cognito app client as an <strong>allowed sign out URL</strong>.</li>
+<li>The page it points at must be matched by a <strong>forward</strong> rule, not the authenticate rule, or the sign in flow simply restarts and the user never appears to sign out.</li>
+</ul>
+<h2 id="verifying-it-works">Verifying it works</h2>
+<p>After deploying, load Stroom in a browser and check, in the developer tools network tab:</p>
+<ol>
+<li>You are redirected to the Cognito hosted UI, sign in, and land back at Stroom.</li>
+<li>The request to <code>/api/auth/flow/v1/status</code> returns <code>200</code> with <code>&quot;authenticated&quot;: true</code> and the UI loads.</li>
+<li>There is <strong>no</strong> navigation to <code>.../oauth2/authorize</code> on the Cognito domain after that first sign in — if there is, Stroom is running a second flow and <code>edgeAuthentication.enabled</code> is not set.</li>
+</ol>
+<p>On the Stroom side, the log should not contain <code>Redirecting with an AuthenticationRequest to:</code> during normal browsing.</p>
+
+</div>
+
+
+
+
+    
+	
+  
+    
+    
+	
+    
+
+
+
+<div class="td-content" style="--base-section-num: '2.'; page-break-before: always">
+    
+  <h1 id="pg-62370e6737583c65c93d95737298f52e">2 - NGINX, oauth2-proxy and KeyCloak</h1>
+    <div class="lead">Running Stroom behind NGINX with oauth2-proxy authenticating users against KeyCloak (or any Open ID Connect provider).</div>
+	<p>In this deployment <span class="external-link">
+  <a href="https://oauth2-proxy.github.io/oauth2-proxy/" target="_blank" class="external-link" title="oauth2-proxy (external link to https://oauth2-proxy.github.io/oauth2-proxy/)">
+    <span>oauth2-proxy</span>
+    <i class="external-link-icon fas fa-external-link-alt fa-sm text-secondary"></i>
+  </a>
+</span>
+ is the Open ID Connect Relying Party.
+NGINX asks it to authorise each request (<code>auth_request</code>); oauth2-proxy completes the code flow against the <span class="glossary-link">
+    <a href="../../../../../../docs/glossary/i/glossary-idp">
+      <span>Identity Provider (IDP)</span>
+      <i class="glossary-link-icon fas fa-book fa-sm text-primary"></i>
+    </a><span class="glossary-tooltip">
+      <span class="glossary-tooltip-title">Identity Provider (IDP)</span>
+      <span class="glossary-tooltip-summary">An <strong>Id</strong>entity <strong>P</strong>rovider is a system or service that can authenticate a user and assert their identity. <em>Identity providers</em> can support single sign on (SSO), which allows the user to sign in once to the <em>Identity Provider</em> so they are then authenticated to all systems using that IDP.</span><span class="glossary-tooltip-truncated">Click to see more details...</span></span></span>, holds its session in <code>_oauth2_proxy</code> cookies, and hands back the IDP&rsquo;s token, which NGINX forwards to Stroom as an <code>Authorization: Bearer</code> header.</p>
+<p>Unlike the ALB, nothing here mints its own token: Stroom receives the <strong>IDP&rsquo;s own token</strong> and verifies it against the IDP&rsquo;s published keys, exactly as it would verify a token presented by an API client.
+That is why this pattern works unchanged with KeyCloak, Cognito or Entra ID behind the proxy.</p>
+
+<div class="alert alert-primary" role="alert">
+<h4 class="alert-heading">See Also</h4>
+<div class="alert-content">
+  
+  <p>Read <a href="../../../../../../docs/install-guide/setup/open-id/edge-proxy/">Edge Proxy RP</a> first for the model, the path scoping rules and the trust prerequisites.
+The <a href="../../../../../../docs/install-guide/setup/open-id/external-idp/keycloak/">KeyCloak</a> page covers setting up the realm and client; here the client belongs to oauth2-proxy rather than to Stroom.</p>
+
+</div>
+</div>
+
+<h2 id="keycloak-setup">KeyCloak setup</h2>
+<p>Create a realm and a confidential client as described on the <a href="../../../../../../docs/install-guide/setup/open-id/external-idp/keycloak/">KeyCloak</a> page, with one difference: the client&rsquo;s redirect URI is <strong>oauth2-proxy&rsquo;s</strong> callback, <code>https://STROOM_FQDN/oauth2/callback</code>, not Stroom&rsquo;s.</p>
+<p>No second client for Stroom is needed.</p>
+<h2 id="oauth2-proxy-setup">oauth2-proxy setup</h2>
+<pre><code class="language-ini">provider = &quot;keycloak-oidc&quot;
+oidc_issuer_url = &quot;https://IDP_HOST/realms/REALM&quot;
+client_id = &quot;stroom-proxy-client&quot;
+client_secret = &quot;THE_CLIENT_SECRET&quot;
+redirect_url = &quot;https://STROOM_FQDN/oauth2/callback&quot;
+cookie_secret = &quot;RANDOM_32_BYTES_BASE64&quot;
+
+# Hand the IDP's token to NGINX so it can be forwarded to Stroom.
+set_authorization_header = true
+
+# Refresh the session before the access token expires, so the forwarded
+# token is always live.
+cookie_refresh = &quot;4m&quot;
+</code></pre>
+
+<div class="alert alert-primary" role="alert">
+<h4 class="alert-heading">Note</h4>
+
+
+    <code>set_authorization_header</code> forwards the <strong>ID token</strong>, not the access token.
+Stroom verifies either happily, but this means the <code>requiredAccessTokenType</code> Stroom setting must be left unset — an ID token does not carry an access token&rsquo;s <code>typ</code> header and would be rejected.
+
+</div>
+
+
+<h2 id="nginx-setup">NGINX setup</h2>
+<p>The essential shape — authenticate the browser paths, forward the machine paths untouched, and <strong>overwrite</strong> the <code>Authorization</code> header on everything proxied:</p>
+<pre><code class="language-nginx">server {
+    listen 443 ssl;
+    server_name STROOM_FQDN;
+
+    # oauth2-proxy's own endpoints (sign in, callback, sign out)
+    location /oauth2/ {
+        proxy_pass       http://oauth2-proxy:4180;
+        proxy_set_header Host              $host;
+        proxy_set_header X-Real-IP         $remote_addr;
+        proxy_set_header X-Forwarded-Proto $scheme;
+    }
+
+    # Subrequest endpoint used by auth_request
+    location = /oauth2/auth {
+        internal;
+        proxy_pass              http://oauth2-proxy:4180;
+        proxy_set_header        Content-Length &quot;&quot;;
+        proxy_pass_request_body off;
+    }
+
+    # Browser facing paths - authenticated
+    location / {
+        auth_request /oauth2/auth;
+        error_page 401 = /oauth2/sign_in;
+
+        # Take the token oauth2-proxy returned and forward it to Stroom.
+        # proxy_set_header OVERWRITES any client supplied Authorization header,
+        # which is one of the trust prerequisites.
+        auth_request_set $auth_token $upstream_http_authorization;
+        proxy_set_header Authorization $auth_token;
+
+        proxy_pass       https://stroom-backend:8080/;
+        proxy_set_header Host              $host;
+        proxy_set_header X-Forwarded-Proto $scheme;
+        proxy_set_header X-Forwarded-Host  $host;
+    }
+
+    # Machine paths - no auth_request, Stroom authenticates these itself
+    location /datafeed  { proxy_pass https://stroom-backend:8080/datafeed; }
+    location /remoting/ { proxy_pass https://stroom-backend:8080/remoting/; }
+    location /status    { proxy_pass https://stroom-backend:8080/status; }
+}
+</code></pre>
+<h2 id="stroom-configuration">Stroom configuration</h2>
+<pre><code class="language-yaml">server:
+  applicationConnectors:
+    - type: http
+      port: 8080
+      useForwardedHeaders: true
+      maxRequestHeaderSize: 32KiB    # oauth2-proxy chunks its session cookie
+
+appConfig:
+  publicUri: &quot;https://STROOM_FQDN&quot;
+  security:
+    authentication:
+      edgeAuthentication:
+        enabled: true
+        logout:
+          cookiesToExpire: [ &quot;_oauth2_proxy&quot; ]
+          signOutUrl: &quot;https://STROOM_FQDN/oauth2/sign_out&quot;
+      openId:
+        identityProviderType: EXTERNAL_IDP
+        # The real IDP's discovery document - Stroom verifies the forwarded token
+        # against the keys it advertises.
+        openIdConfigurationEndpoint: &quot;https://IDP_HOST/realms/REALM/\
+.well-known/openid-configuration&quot;
+        # oauth2-proxy's client - the forwarded token's audience is this client.
+        clientId: &quot;stroom-proxy-client&quot;
+        # Leave requiredAccessTokenType unset: oauth2-proxy forwards the ID token.
+</code></pre>
+<p>No <code>clientSecret</code> is needed; Stroom runs no flow of its own.</p>
+
+<div class="alert alert-primary" role="alert">
+<h4 class="alert-heading">Note</h4>
+
+
+    oauth2-proxy can also run in a mode that forwards only plain headers such as <code>X-Forwarded-User</code> or <code>X-Auth-Request-Email</code> rather than a token.
+Stroom does <strong>not</strong> support that: there is no signature to verify, so trusting those headers would mean trusting every hop unconditionally.
+Always configure <code>set_authorization_header</code> so a verifiable token reaches Stroom.
+
+</div>
+
+
+<h2 id="logout">Logout</h2>
+<p>The configuration above expires oauth2-proxy&rsquo;s (chunked) session cookies and sends the browser to <code>/oauth2/sign_out</code>, which ends the proxy session.
+To also end the KeyCloak session, give oauth2-proxy&rsquo;s sign out a redirect to KeyCloak&rsquo;s end session endpoint:</p>
+<pre><code class="language-yaml">          signOutUrl: &quot;https://STROOM_FQDN/oauth2/sign_out?rd=https%3A%2F%2FIDP_HOST%2Frealms%2FREALM%2Fprotocol%2Fopenid-connect%2Flogout&quot;
+</code></pre>
+<p>(The <code>rd</code> value must be URL encoded and allowed by oauth2-proxy&rsquo;s <code>whitelist_domains</code>.)</p>
+<h2 id="verifying-it-works">Verifying it works</h2>
+<ol>
+<li>Loading Stroom redirects via oauth2-proxy to KeyCloak; after signing in, the UI loads.</li>
+<li>The request to <code>/api/auth/flow/v1/status</code> returns <code>200</code> with <code>&quot;authenticated&quot;: true</code>, and there is no subsequent navigation to KeyCloak&rsquo;s <code>/auth</code> endpoint.</li>
+<li><code>curl -H &quot;Authorization: Bearer $TOKEN&quot; https://stroom-backend:8080/api/...</code> from inside the network still works — machine access does not traverse the proxy.</li>
+</ol>
+
+</div>
+
+
+
+
+    
+	
+  
+
+
+
+          </main>
+        </div>
+      </div>
+      
+<footer class="bg-dark py-5 row d-print-none">
+  <div class="container-fluid mx-sm-5">
+    <div class="row">
+      <div class="col-6 col-sm-4 text-xs-center order-sm-2">
+        
+        
+        
+      </div>
+      <div class="col-6 col-sm-4 text-right text-xs-center order-sm-3">
+        
+        
+        
+<ul class="list-inline mb-0">
+  
+  <li class="list-inline-item mx-2 h3" data-toggle="tooltip" data-placement="top" title="GitHub" aria-label="GitHub">
+    <a class="text-white" target="_blank" rel="noopener" href="https://github.com/gchq/stroom" aria-label="GitHub">
+      <i class="fab fa-github"></i>
+    </a>
+  </li>
+  
+</ul>
+
+        
+        
+      </div>
+      <div class="col-12 col-sm-4 text-center py-2 order-sm-2">
+        <small class="text-white">&copy; 2026 Crown Copyright All Rights Reserved</small>
+        
+	
+      </div>
+    </div>
+  </div>
+</footer>
+
+
+    </div>
+    
+
+<script src='../../../../../../js/popper.min.js'></script>
+<script src='../../../../../../js/bootstrap.min.js'></script>
+
+
+
+
+
+
+    <script src='../../../../../../js/lunr.min.js'></script>
+  
+
+
+<script src='../../../../../../js/tabpane-persist.js'></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script src="../../../../../../js/main.min.cbc1d428d83561c4dec32da9374290554119d7483329f849251cb7153b2ecd07.js" integrity="sha256-y8HUKNg1YcTewy2pN0KQVUEZ10gzKfhJJRy3FTsuzQc=" crossorigin="anonymous"></script>
+
+
+
+<script src='../../../../../../js/prism.js'></script>
+
+
+
+  </body>
+</html>

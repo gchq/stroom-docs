@@ -5,6 +5,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <meta name="generator" content="Hugo 0.95.0" />
+<link rel="alternate" type="text/html" href="../../../../../docs/install-guide/setup/open-id/external-idp/_print/">
 <meta name="robots" content="index, follow">
 
 <link rel="preload" href="../../../../../fonts/google_open_sans_300.ttf" as="font" type="font/ttf" crossorigin >
@@ -37,24 +38,19 @@
 <link rel="icon" type="image/png" href="../../../../../favicons/android-192x192.png" sizes="192x192">
 
 <title>External IDP | Stroom</title>
-<meta name="description" content="How to setup KeyCloak as an external identity provider for Stroom.
+<meta name="description" content="How to set up Stroom to use a 3rd party identity provider such as KeyCloak, Cognito or Google for authentication.
 ">
 <meta property="og:title" content="External IDP" />
-<meta property="og:description" content="How to setup KeyCloak as an external identity provider for Stroom.
+<meta property="og:description" content="How to set up Stroom to use a 3rd party identity provider such as KeyCloak, Cognito or Google for authentication.
 " />
-<meta property="og:type" content="article" />
-<meta property="og:url" content="/docs/install-guide/setup/open-id/external-idp/" /><meta property="article:section" content="docs" />
-<meta property="article:published_time" content="2022-11-25T00:00:00+00:00" />
-<meta property="article:modified_time" content="2026-05-19T12:38:05+01:00" /><meta property="og:site_name" content="Stroom" />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="/docs/install-guide/setup/open-id/external-idp/" /><meta property="og:site_name" content="Stroom" />
 
 <meta itemprop="name" content="External IDP">
-<meta itemprop="description" content="How to setup KeyCloak as an external identity provider for Stroom.
-"><meta itemprop="datePublished" content="2022-11-25T00:00:00+00:00" />
-<meta itemprop="dateModified" content="2026-05-19T12:38:05+01:00" />
-<meta itemprop="wordCount" content="1595">
-<meta itemprop="keywords" content="" /><meta name="twitter:card" content="summary"/>
+<meta itemprop="description" content="How to set up Stroom to use a 3rd party identity provider such as KeyCloak, Cognito or Google for authentication.
+"><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="External IDP"/>
-<meta name="twitter:description" content="How to setup KeyCloak as an external identity provider for Stroom.
+<meta name="twitter:description" content="How to set up Stroom to use a 3rd party identity provider such as KeyCloak, Cognito or Google for authentication.
 "/>
 
 
@@ -84,7 +80,7 @@
 
 
   </head>
-  <body class="td-page">
+  <body class="td-section">
     <header>
       <nav class="js-navbar-scroll navbar navbar-expand navbar-dark flex-column flex-md-row td-navbar">
   <a class="navbar-brand" href="../../../../../"><span class="navbar-brand__logo navbar-logo"><svg xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:svg="http://www.w3.org/2000/svg" xmlns="http://www.w3.org/2000/svg" xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape" width="110.61089" height="30.000004" viewBox="0 0 88.488641 23.999957" id="svg2" inkscape:version="0.91 r13725" sodipodi:docname="logo.svg"><defs id="defs20"/><sodipodi:namedview pagecolor="#989898" bordercolor="#666666" borderopacity="1" objecttolerance="10" gridtolerance="10" guidetolerance="10" inkscape:pageopacity="0" inkscape:pageshadow="2" inkscape:window-width="1920" inkscape:window-height="1137" id="namedview18" showgrid="false" fit-margin-top="0" fit-margin-left="0" fit-margin-right="0" fit-margin-bottom="0" inkscape:zoom="5.5951814" inkscape:cx="55.451414" inkscape:cy="16.275348" inkscape:window-x="0" inkscape:window-y="0" inkscape:window-maximized="1" inkscape:current-layer="svg2"/><g id="g4150" style="opacity:.97000002" transform="matrix(0.03883584,0,0,0.03883584,0,-3.1155874e-4)"><path id="path6" d="M121.99991 205.98497C54.999958 205.98497.0 259.98493.0 327.98487c0 66.99994 54.999958 121.99989 121.99991 121.99989h167.99987c24.99998.0 44.99996 20.99998 44.99996 44.99996.0 24.99998-19.99998 44.99996-44.99996 44.99996H109.20929C65.984126 553.87219 27.100843 581.57313.01093599 617.98462H289.99978c66.99994.0 121.99991-54.99996 121.99991-122.9999.0-66.99994-54.99997-121.99989-121.99991-121.99989H121.99991c-24.999984.0-44.999969-19.99999-44.999969-44.99996.0-24.99998 19.999985-44.99996 44.999969-44.99996h228.79045c26.9905-35.88325 65.47093-63.18547 108.21554-76.99994H121.99991z" style="fill:#fff" inkscape:connector-curvature="0"/><path id="path8" d="M601.44485-.00077860649C572.6583 8.3697982 546.49491 22.822962 524.44491 41.902305V205.78969l.002.19528h-.002c-65.11 48e-5-123.03145 30.0199-160.74675 76.99994h160.74675v334.99971h76.99994V282.98491h144.85298c27.16134-36.05885 65.96411-63.39275 109.02184-76.99994H601.44485v-205.98574860649z" style="fill:#fff" inkscape:connector-curvature="0"/><path id="path10" d="m919.42586 205.98497c-113.99519.0-205.99537 92.00648-206.00296 205.99982-15e-5 68.67178.0 137.32749.0 205.99983h77.99994c-.012-68.6493.0176-137.46869.0-205.99983.0846-70.92785 57.05747-128.99988 128.00462-128.99988 5.28623.0 10.49823.32864 15.62183.95311 18.2219-24.51229 41.78461-45.0838 68.42501-60.15146-25.65065-11.43799-54.08662-17.80159-84.04684-17.80159z" style="fill:#fff" inkscape:connector-curvature="0"/><path id="path12" d="m1109.4153 205.98457c-113.99994.0-205.99983 91.99993-205.99983 205.99984.0 112.9999 91.99989 205.9998 205.99983 205.9998 114 0 205.9999-92.9999 205.9999-205.9998.0-113.99991-91.9999-205.99984-205.9999-205.99984zm0 333.99974c-70.9999.0-128.99994-56.99996-128.99994-127.9999.0-70.99995 58.00004-128.9999 128.99994-128.9999 71 0 128.9999 57.99995 128.9999 128.9999.0 70.99994-57.9999 127.9999-128.9999 127.9999z" style="fill:#fff" inkscape:connector-curvature="0"/><path id="path14" d="m1444.4737 205.98457c-113.9999.0-205.9998 91.99993-205.9998 205.99984.0 112.9999 91.9999 205.9998 205.9998 205.9998s205.9999-92.9999 205.9999-205.9998c0-113.99991-92-205.99984-205.9999-205.99984zm0 333.99974c-70.9999.0-128.9999-56.99996-128.9999-127.9999.0-70.99995 58-128.9999 128.9999-128.9999 71 0 128.9999 57.99995 128.9999 128.9999.0 70.99994-57.9999 127.9999-128.9999 127.9999z" style="fill:#fff" inkscape:connector-curvature="0"/><path id="path16" d="m1738.5308 379.98447c0-53 43-97 95.9999-97 53 0 97 44 97 97v237.9997h76.9999v-237.9997c0-53 43-97 96.9999-97 53 0 95.9999 44 95.9999 97v237.9997h77v-237.9997c0-96-77-173.9999-172.9999-173.9999-54.9999.0-103.9999 24.99998-135.9999 64.99995-31.9999-39.99997-79.9999-64.99995-134.9999-64.99995-95.9999.0-173.9998 77.9999-173.9998 173.9999v237.9997h77.9999z" style="fill:#fff" inkscape:connector-curvature="0"/></g></svg></span><span class="navbar-brand__name">Stroom</span></a>
@@ -107,13 +103,15 @@
       </li>
       <li class="nav-item dropdown mr-4 d-none d-lg-block">
         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-	Stroom Version (7.12)
+	Stroom Version (7.13)
 </a>
 <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
 	
 	
 	
-	<a class="dropdown-item" href="../../../../../">7.12 (Latest)</a>
+	<a class="dropdown-item" href="../../../../../">7.13 (Latest)</a>
+	
+	<a class="dropdown-item" href="../../../../../7.12">7.12</a>
 	
 	<a class="dropdown-item" href="../../../../../7.11">7.11</a>
 	
@@ -155,7 +153,7 @@
     aria-label="Search this site…"
     autocomplete="off"
     
-    data-offline-search-index-json-src="../../../../../offline-search-index.0b75ac6449ed36a769a464bbf3096878.json"
+    data-offline-search-index-json-src="../../../../../offline-search-index.a4ae77e3b32471e895099601d0367a2f.json"
     data-offline-search-base-href="../../../../../"
     data-offline-search-max-results="50"
   >
@@ -180,7 +178,7 @@
     aria-label="Search this site…"
     autocomplete="off"
     
-    data-offline-search-index-json-src="../../../../../offline-search-index.0b75ac6449ed36a769a464bbf3096878.json"
+    data-offline-search-index-json-src="../../../../../offline-search-index.a4ae77e3b32471e895099601d0367a2f.json"
     data-offline-search-base-href="../../../../../"
     data-offline-search-max-results="50"
   >
@@ -269,12 +267,34 @@
   <a href="../../../../../docs/install-guide/setup/open-id/accounts-users/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-docsinstall-guidesetupopen-idaccounts-users"><span class="">Accounts vs Users</span></a>
 </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-docsinstall-guidesetupopen-idinternal-idp-li">
   <a href="../../../../../docs/install-guide/setup/open-id/internal-idp/" title="Stroom&#39;s Internal IDP" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-docsinstall-guidesetupopen-idinternal-idp"><span class="">Internal IDP</span></a>
-</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child active-path" id="m-docsinstall-guidesetupopen-idexternal-idp-li">
-  <a href="../../../../../docs/install-guide/setup/open-id/external-idp/" class="align-left pl-0 active td-sidebar-link td-sidebar-link__page" id="m-docsinstall-guidesetupopen-idexternal-idp"><span class="td-sidebar-nav-active-item">External IDP</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section with-child active-path" id="m-docsinstall-guidesetupopen-idexternal-idp-li">
+  <a href="../../../../../docs/install-guide/setup/open-id/external-idp/" class="align-left pl-0 active td-sidebar-link td-sidebar-link__section" id="m-docsinstall-guidesetupopen-idexternal-idp"><span class="td-sidebar-nav-active-item">External IDP</span></a>
+  <ul class="ul-5 foldable">
+    <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-docsinstall-guidesetupopen-idexternal-idpstroom-configuration-li">
+  <a href="../../../../../docs/install-guide/setup/open-id/external-idp/stroom-configuration/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-docsinstall-guidesetupopen-idexternal-idpstroom-configuration"><span class="">Stroom Configuration</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-docsinstall-guidesetupopen-idexternal-idpkeycloak-li">
+  <a href="../../../../../docs/install-guide/setup/open-id/external-idp/keycloak/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-docsinstall-guidesetupopen-idexternal-idpkeycloak"><span class="">KeyCloak</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-docsinstall-guidesetupopen-idexternal-idpcognito-li">
+  <a href="../../../../../docs/install-guide/setup/open-id/external-idp/cognito/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-docsinstall-guidesetupopen-idexternal-idpcognito"><span class="">Amazon Cognito</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-docsinstall-guidesetupopen-idexternal-idpgoogle-li">
+  <a href="../../../../../docs/install-guide/setup/open-id/external-idp/google/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-docsinstall-guidesetupopen-idexternal-idpgoogle"><span class="">Google</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-docsinstall-guidesetupopen-idexternal-idpazure-ad-li">
+  <a href="../../../../../docs/install-guide/setup/open-id/external-idp/azure-ad/" title="Microsoft Entra ID (Azure AD)" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-docsinstall-guidesetupopen-idexternal-idpazure-ad"><span class="">Microsoft Entra ID</span></a>
+</li>
+  </ul>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section with-child" id="m-docsinstall-guidesetupopen-idedge-proxy-li">
+  <a href="../../../../../docs/install-guide/setup/open-id/edge-proxy/" title="Edge Proxy as the Relying Party" class="align-left pl-0 td-sidebar-link td-sidebar-link__section" id="m-docsinstall-guidesetupopen-idedge-proxy"><span class="">Edge Proxy RP</span></a>
+  <ul class="ul-5 foldable">
+    <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-docsinstall-guidesetupopen-idedge-proxyaws-alb-cognito-li">
+  <a href="../../../../../docs/install-guide/setup/open-id/edge-proxy/aws-alb-cognito/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-docsinstall-guidesetupopen-idedge-proxyaws-alb-cognito"><span class="">AWS ALB and Cognito</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-docsinstall-guidesetupopen-idedge-proxynginx-oauth2-proxy-li">
+  <a href="../../../../../docs/install-guide/setup/open-id/edge-proxy/nginx-oauth2-proxy/" title="NGINX, oauth2-proxy and KeyCloak" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-docsinstall-guidesetupopen-idedge-proxynginx-oauth2-proxy"><span class="">NGINX and oauth2-proxy</span></a>
+</li>
+  </ul>
 </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-docsinstall-guidesetupopen-idtokens-for-api-li">
   <a href="../../../../../docs/install-guide/setup/open-id/tokens-for-api/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-docsinstall-guidesetupopen-idtokens-for-api"><span class="">Tokens for API use</span></a>
 </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-docsinstall-guidesetupopen-idtest-credentials-li">
-  <a href="../../../../../docs/install-guide/setup/open-id/test-credentials/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-docsinstall-guidesetupopen-idtest-credentials"><span class="">Test Credentials</span></a>
+  <a href="../../../../../docs/install-guide/setup/open-id/test-credentials/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-docsinstall-guidesetupopen-idtest-credentials"><span class="">Insecure Test Credential</span></a>
 </li>
   </ul>
 </li>
@@ -338,10 +358,10 @@
 </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section with-child collapse" id="m-docshowtosauthentication-li">
   <a href="../../../../../docs/howtos/authentication/" class="align-left pl-0 td-sidebar-link td-sidebar-link__section" id="m-docshowtosauthentication"><span class="">Authentication</span></a>
   <ul class="ul-3 foldable">
-    <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-docshowtosauthenticationcreateuserhowto-li">
-  <a href="../../../../../docs/howtos/authentication/createuserhowto/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-docshowtosauthenticationcreateuserhowto"><span class="">Create a user</span></a>
-</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-docshowtosauthenticationuserloginhowto-li">
+    <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-docshowtosauthenticationuserloginhowto-li">
   <a href="../../../../../docs/howtos/authentication/userloginhowto/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-docshowtosauthenticationuserloginhowto"><span class="">Login</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-docshowtosauthenticationcreateuserhowto-li">
+  <a href="../../../../../docs/howtos/authentication/createuserhowto/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-docshowtosauthenticationcreateuserhowto"><span class="">Create a user</span></a>
 </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-docshowtosauthenticationuserlogouthowto-li">
   <a href="../../../../../docs/howtos/authentication/userlogouthowto/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-docshowtosauthenticationuserlogouthowto"><span class="">Logout</span></a>
 </li>
@@ -619,6 +639,12 @@
   <a href="../../../../../docs/user-guide/security/credentials/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-docsuser-guidesecuritycredentials"><span class="">Credentials</span></a>
 </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-docsuser-guidesecurityuser-accounts-li">
   <a href="../../../../../docs/user-guide/security/user-accounts/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-docsuser-guidesecurityuser-accounts"><span class="">User Accounts</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-docsuser-guidesecuritysigning-in-li">
+  <a href="../../../../../docs/user-guide/security/signing-in/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-docsuser-guidesecuritysigning-in"><span class="">Signing In</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-docsuser-guidesecuritysessions-and-tokens-li">
+  <a href="../../../../../docs/user-guide/security/sessions-and-tokens/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-docsuser-guidesecuritysessions-and-tokens"><span class="">Sessions and Tokens</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-docsuser-guidesecuritysigning-keys-li">
+  <a href="../../../../../docs/user-guide/security/signing-keys/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-docsuser-guidesecuritysigning-keys"><span class="">Signing Keys</span></a>
 </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-docsuser-guidesecurityusers-and-groups-li">
   <a href="../../../../../docs/user-guide/security/users-and-groups/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-docsuser-guidesecurityusers-and-groups"><span class="">Users and Groups</span></a>
 </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-docsuser-guidesecurityapp-permissions-li">
@@ -1056,31 +1082,28 @@
           <aside class="d-none d-xl-block col-xl-2 td-sidebar-toc d-print-none">
             
 <div class="td-page-meta ml-2 pb-1 pt-2 mb-0">
-<a href="https://github.com/gchq/stroom-docs/tree/7.12/content/en/docs/install-guide/setup/open-id/external-idp.md" class="td-page-meta--view" target="_blank" rel="noopener"><i class="fa-solid fa-file-lines fa-fw"></i> View page source</a>
-  <a href="https://github.com/gchq/stroom-docs/edit/7.12/content/en/docs/install-guide/setup/open-id/external-idp.md" class="td-page-meta--edit" target="_blank" rel="noopener"><i class="fa-solid fa-pen-to-square fa-fw"></i> Edit this page</a>
-  <a href="https://github.com/gchq/stroom-docs/new/7.12/content/en/docs/install-guide/setup/open-id/external-idp.md?filename=change-me.md&amp;value=---%0Atitle%3A&#43;%22Long&#43;Page&#43;Title%22%0AlinkTitle%3A&#43;%22Short&#43;Nav&#43;Title%22%0Aweight%3A&#43;100%0Adescription%3A&#43;%3E-%0A&#43;&#43;&#43;&#43;&#43;Page&#43;description&#43;for&#43;heading&#43;and&#43;indexes.%0A---%0A%0A%23%23&#43;Heading%0A%0AEdit&#43;this&#43;template&#43;to&#43;create&#43;your&#43;new&#43;page.%0A%0A%2A&#43;Give&#43;it&#43;a&#43;good&#43;name%2C&#43;ending&#43;in&#43;%60.md%60&#43;-&#43;e.g.&#43;%60getting-started.md%60%0A%2A&#43;Edit&#43;the&#43;%22front&#43;matter%22&#43;section&#43;at&#43;the&#43;top&#43;of&#43;the&#43;page&#43;%28weight&#43;controls&#43;how&#43;its&#43;ordered&#43;amongst&#43;other&#43;pages&#43;in&#43;the&#43;same&#43;directory%3B&#43;lowest&#43;number&#43;first%29.%0A%2A&#43;Add&#43;a&#43;good&#43;commit&#43;message&#43;at&#43;the&#43;bottom&#43;of&#43;the&#43;page&#43;%28%3C80&#43;characters%3B&#43;use&#43;the&#43;extended&#43;description&#43;field&#43;for&#43;more&#43;detail%29.%0A%2A&#43;Create&#43;a&#43;new&#43;branch&#43;so&#43;you&#43;can&#43;preview&#43;your&#43;new&#43;file&#43;and&#43;request&#43;a&#43;review&#43;via&#43;Pull&#43;Request.%0A" class="td-page-meta--child" target="_blank" rel="noopener"><i class="fa-solid fa-pen-to-square fa-fw"></i> Create child page</a>
+<a href="https://github.com/gchq/stroom-docs/tree/7.13/content/en/docs/install-guide/setup/open-id/external-idp/_index.md" class="td-page-meta--view" target="_blank" rel="noopener"><i class="fa-solid fa-file-lines fa-fw"></i> View page source</a>
+  <a href="https://github.com/gchq/stroom-docs/edit/7.13/content/en/docs/install-guide/setup/open-id/external-idp/_index.md" class="td-page-meta--edit" target="_blank" rel="noopener"><i class="fa-solid fa-pen-to-square fa-fw"></i> Edit this page</a>
+  <a href="https://github.com/gchq/stroom-docs/new/7.13/content/en/docs/install-guide/setup/open-id/external-idp/_index.md?filename=change-me.md&amp;value=---%0Atitle%3A&#43;%22Long&#43;Page&#43;Title%22%0AlinkTitle%3A&#43;%22Short&#43;Nav&#43;Title%22%0Aweight%3A&#43;100%0Adescription%3A&#43;%3E-%0A&#43;&#43;&#43;&#43;&#43;Page&#43;description&#43;for&#43;heading&#43;and&#43;indexes.%0A---%0A%0A%23%23&#43;Heading%0A%0AEdit&#43;this&#43;template&#43;to&#43;create&#43;your&#43;new&#43;page.%0A%0A%2A&#43;Give&#43;it&#43;a&#43;good&#43;name%2C&#43;ending&#43;in&#43;%60.md%60&#43;-&#43;e.g.&#43;%60getting-started.md%60%0A%2A&#43;Edit&#43;the&#43;%22front&#43;matter%22&#43;section&#43;at&#43;the&#43;top&#43;of&#43;the&#43;page&#43;%28weight&#43;controls&#43;how&#43;its&#43;ordered&#43;amongst&#43;other&#43;pages&#43;in&#43;the&#43;same&#43;directory%3B&#43;lowest&#43;number&#43;first%29.%0A%2A&#43;Add&#43;a&#43;good&#43;commit&#43;message&#43;at&#43;the&#43;bottom&#43;of&#43;the&#43;page&#43;%28%3C80&#43;characters%3B&#43;use&#43;the&#43;extended&#43;description&#43;field&#43;for&#43;more&#43;detail%29.%0A%2A&#43;Create&#43;a&#43;new&#43;branch&#43;so&#43;you&#43;can&#43;preview&#43;your&#43;new&#43;file&#43;and&#43;request&#43;a&#43;review&#43;via&#43;Pull&#43;Request.%0A" class="td-page-meta--child" target="_blank" rel="noopener"><i class="fa-solid fa-pen-to-square fa-fw"></i> Create child page</a>
   <a href="https://github.com/gchq/stroom-docs/issues/new?title=External%20IDP" class="td-page-meta--issue" target="_blank" rel="noopener"><i class="fa-solid fa-list-check fa-fw"></i> Create documentation issue</a>
   <a href="https://github.com/gchq/stroom/issues/new" class="td-page-meta--project-issue" target="_blank" rel="noopener"><i class="fa-solid fa-list-check fa-fw"></i> Create project issue</a>
-  <a id="print" href="../../../../../docs/install-guide/setup/open-id/_print/"><i class="fa-solid fa-print fa-fw"></i> Print entire section</a>
+  <a id="print" href="../../../../../docs/install-guide/setup/open-id/external-idp/_print/"><i class="fa-solid fa-print fa-fw"></i> Print entire section</a>
 
 </div>
 
             <div class="td-toc">
         <nav id="TableOfContents">
   <ul>
-    <li><a href="#running-keycloak">Running KeyCloak</a></li>
-    <li><a href="#creating-a-realm">Creating a realm</a></li>
-    <li><a href="#creating-a-client">Creating a client</a></li>
-    <li><a href="#creating-users">Creating users</a></li>
-    <li><a href="#configure-stroom-for-keycloak">Configure Stroom for KeyCloak</a></li>
-    <li><a href="#setting-up-the-admin-user-in-stroom">Setting up the admin user in Stroom</a></li>
-    <li><a href="#logging-into-stroom">Logging into Stroom</a>
+    <li><a href="#what-stroom-needs-from-the-provider">What Stroom needs from the provider</a>
       <ul>
-        <li><a href="#as-the-administrator">As the administrator</a></li>
-        <li><a href="#as-an-ordinary-user">As an ordinary user</a></li>
+        <li><a href="#the-redirect-uri">The redirect URI</a></li>
+        <li><a href="#the-post-logout-redirect-uri">The post logout redirect URI</a></li>
+        <li><a href="#pkce">PKCE</a></li>
+        <li><a href="#claims">Claims</a></li>
       </ul>
     </li>
-    <li><a href="#configure-stroom-proxy-for-keycloak">Configure Stroom-Proxy for KeyCloak</a></li>
+    <li><a href="#token-validation">Token validation</a></li>
+    <li><a href="#users-and-permissions">Users and permissions</a></li>
   </ul>
 </nav>
       </div>
@@ -1108,13 +1131,15 @@
       
       <ul class="taxonomy-terms">
         
-          <li><a class="taxonomy-term" href="../../../../../tags/account/" data-taxonomy-term="account"><span class="taxonomy-label">account</span><span class="taxonomy-count">1</span></a></li>
+          <li><a class="taxonomy-term" href="../../../../../tags/account/" data-taxonomy-term="account"><span class="taxonomy-label">account</span><span class="taxonomy-count">2</span></a></li>
+        
+          <li><a class="taxonomy-term" href="../../../../../tags/administration/" data-taxonomy-term="administration"><span class="taxonomy-label">administration</span><span class="taxonomy-count">1</span></a></li>
         
           <li><a class="taxonomy-term" href="../../../../../tags/analytic/" data-taxonomy-term="analytic"><span class="taxonomy-label">analytic</span><span class="taxonomy-count">1</span></a></li>
         
           <li><a class="taxonomy-term" href="../../../../../tags/api/" data-taxonomy-term="api"><span class="taxonomy-label">api</span><span class="taxonomy-count">8</span></a></li>
         
-          <li><a class="taxonomy-term" href="../../../../../tags/authentication/" data-taxonomy-term="authentication"><span class="taxonomy-label">authentication</span><span class="taxonomy-count">7</span></a></li>
+          <li><a class="taxonomy-term" href="../../../../../tags/authentication/" data-taxonomy-term="authentication"><span class="taxonomy-label">authentication</span><span class="taxonomy-count">19</span></a></li>
         
           <li><a class="taxonomy-term" href="../../../../../tags/authorisation/" data-taxonomy-term="authorisation"><span class="taxonomy-label">authorisation</span><span class="taxonomy-count">3</span></a></li>
         
@@ -1196,7 +1221,9 @@
         
           <li><a class="taxonomy-term" href="../../../../../tags/node/" data-taxonomy-term="node"><span class="taxonomy-label">node</span><span class="taxonomy-count">1</span></a></li>
         
-          <li><a class="taxonomy-term" href="../../../../../tags/open-id/" data-taxonomy-term="open-id"><span class="taxonomy-label">open-id</span><span class="taxonomy-count">1</span></a></li>
+          <li><a class="taxonomy-term" href="../../../../../tags/open-id/" data-taxonomy-term="open-id"><span class="taxonomy-label">open-id</span><span class="taxonomy-count">10</span></a></li>
+        
+          <li><a class="taxonomy-term" href="../../../../../tags/password/" data-taxonomy-term="password"><span class="taxonomy-label">password</span><span class="taxonomy-count">1</span></a></li>
         
           <li><a class="taxonomy-term" href="../../../../../tags/permission/" data-taxonomy-term="permission"><span class="taxonomy-label">permission</span><span class="taxonomy-count">2</span></a></li>
         
@@ -1220,6 +1247,8 @@
         
           <li><a class="taxonomy-term" href="../../../../../tags/security/" data-taxonomy-term="security"><span class="taxonomy-label">security</span><span class="taxonomy-count">1</span></a></li>
         
+          <li><a class="taxonomy-term" href="../../../../../tags/session/" data-taxonomy-term="session"><span class="taxonomy-label">session</span><span class="taxonomy-count">1</span></a></li>
+        
           <li><a class="taxonomy-term" href="../../../../../tags/solr/" data-taxonomy-term="solr"><span class="taxonomy-label">solr</span><span class="taxonomy-count">2</span></a></li>
         
           <li><a class="taxonomy-term" href="../../../../../tags/source/" data-taxonomy-term="source"><span class="taxonomy-label">source</span><span class="taxonomy-count">1</span></a></li>
@@ -1234,13 +1263,13 @@
         
           <li><a class="taxonomy-term" href="../../../../../tags/todo/" data-taxonomy-term="todo"><span class="taxonomy-label">TODO</span><span class="taxonomy-count">14</span></a></li>
         
-          <li><a class="taxonomy-term" href="../../../../../tags/token/" data-taxonomy-term="token"><span class="taxonomy-label">token</span><span class="taxonomy-count">2</span></a></li>
+          <li><a class="taxonomy-term" href="../../../../../tags/token/" data-taxonomy-term="token"><span class="taxonomy-label">token</span><span class="taxonomy-count">4</span></a></li>
         
           <li><a class="taxonomy-term" href="../../../../../tags/truststore/" data-taxonomy-term="truststore"><span class="taxonomy-label">truststore</span><span class="taxonomy-count">1</span></a></li>
         
           <li><a class="taxonomy-term" href="../../../../../tags/upgrade/" data-taxonomy-term="upgrade"><span class="taxonomy-label">upgrade</span><span class="taxonomy-count">1</span></a></li>
         
-          <li><a class="taxonomy-term" href="../../../../../tags/user/" data-taxonomy-term="user"><span class="taxonomy-label">user</span><span class="taxonomy-count">3</span></a></li>
+          <li><a class="taxonomy-term" href="../../../../../tags/user/" data-taxonomy-term="user"><span class="taxonomy-label">user</span><span class="taxonomy-count">5</span></a></li>
         
           <li><a class="taxonomy-term" href="../../../../../tags/visualisation/" data-taxonomy-term="visualisation"><span class="taxonomy-label">visualisation</span><span class="taxonomy-count">1</span></a></li>
         
@@ -1283,7 +1312,7 @@
             
 <div class="td-content">
 	<h1>External IDP</h1>
-	<div class="lead">How to setup KeyCloak as an external identity provider for Stroom.</div>
+  <div class="lead">How to set up Stroom to use a 3rd party identity provider such as KeyCloak, Cognito or Google for authentication.</div>
 	<header class="article-meta">
 		
 
@@ -1295,10 +1324,21 @@
     
 
 
+<div class="taxonomy taxonomy-terms-article taxo-tags">
+  <h5 class="taxonomy-title">Tags:</h5>
+  <ul class="taxonomy-terms">
+    
+      <li><a class="taxonomy-term" href="../../../../../tags/open-id/" data-taxonomy-term="open-id"><span class="taxonomy-label">open-id</span></a></li>
+    
+      <li><a class="taxonomy-term" href="../../../../../tags/authentication/" data-taxonomy-term="authentication"><span class="taxonomy-label">authentication</span></a></li>
+    
+  </ul>
+</div>
+
   
 
 		
-	</header>    
+	</header>
 	<p>You may be running Stroom in an environment with an existing <span class="glossary-link">
     <a href="../../../../../docs/glossary/i/glossary-idp">
       <span>Identity Provider (IDP)</span>
@@ -1313,294 +1353,242 @@ Stroom supports 3rd party IDPs that conform to the <span class="external-link">
   </a>
 </span>
  specification.</p>
-<p>The following is a guide to setting up a new stroom instance/cluster with KeyCloak as the 3rd party IDP.
-KeyCloak is an Open ID Connect IDP.
-Configuration for other IDPs will be very similar so these instructions will have to be adapted accordingly.
-It is assumed that you have deployed a new instance/cluster of stroom AND have not yet started it.</p>
-<h2 id="running-keycloak">Running KeyCloak</h2>
-<blockquote>
-<p>If you already have a KeyCloak instance running then move on to the next section.</p>
-</blockquote>
-<p>This section is not a definitive guide to running/administering KeyCloak.
-It describes how to run KeyCloak using non-production settings for simplicity and to demonstrate using a 3rd party IDP.
-You should consult the KeyCloak documentation on how to set up a production ready instance of KeyCloak.</p>
-<p>The easiest way to run KeyCloak is using Docker.
-To create a KeyCloak container do the following:</p>
-
-  
-
-
-
-
-
-
-<div class="code-toolbar">
-  <pre 
-    class="command-line language-bash" 
-    data-user="user" 
-    data-host="localhost" 
-    data-continuation-str="\"
-    data-filter-output="(out)"><code class="language-bash">docker create \
-  --name keycloak \
-  -p 9999:8080 \
-  -e KEYCLOAK_ADMIN=admin \
-  -e KEYCLOAK_ADMIN_PASSWORD=admin \
-  quay.io/keycloak/keycloak:20.0.1 \
-  start-dev</code></pre>
-</div>
-
-<p>This example maps KeyCloak&rsquo;s port to port <code>9999</code> to avoid any clash with Stroom that also runs on <code>8080</code>.
-This will create a docker container called <code>keycloak</code> that uses an embedded H2 database to hold its state.</p>
-<p>To start the container in the foreground, do:</p>
-
-  
-
-
-
-
-
-
-<div class="code-toolbar">
-  <pre 
-    class="command-line language-bash" 
-    data-user="user" 
-    data-host="localhost" 
-    data-continuation-str="\"
-    data-filter-output="(out)"><code class="language-bash">docker start -a keycloak</code></pre>
-</div>
-
-<p>KeyCloak should now be running on <span class="external-link">
-  <a href="http://localhost:9999/admin" target="_blank" class="external-link" title="External link to http://localhost:9999/admin">
-    <span>http://localhost:9999/admin</span>
-    <i class="external-link-icon fas fa-external-link-alt fa-sm text-secondary"></i>
-  </a>
-</span>
-.
-If you want to run KeyCloak on a different port then delete the container and create it with a different port for the <code>-p</code> argument.</p>
-<p>Log into KeyCloak using the username <code>admin</code> and password <code>admin</code> as specified in the environment variables set in the container creation command above.
-You should see the admin console.</p>
-<h2 id="creating-a-realm">Creating a realm</h2>
-<p>First you need to create a Realm.</p>
-<ol>
-<li>Click on the drop-down in the left pane that contains the word <code>master</code>.</li>
-<li>Click <em>Create Realm</em>.</li>
-<li>Set the <em>Realm name</em> to <code>StroomRealm</code>.</li>
-<li>Click <em>Create</em>.</li>
-</ol>
-<h2 id="creating-a-client">Creating a client</h2>
-<p>In the new realm click on <em>Clients</em> in the left pane, then <em>Create client</em>.</p>
-<ol>
-<li>Set the <em>Client ID</em> to <code>StroomClient</code>.</li>
-<li>Click <em>Next</em>.</li>
-<li>Set <em>Client authentication</em> to on.</li>
-<li>Ensure the following are ticked:
-<ul>
-<li>Standard flow</li>
-<li>Direct access grants</li>
-</ul>
-</li>
-<li>Click <em>Save</em>.</li>
-</ol>
-<p>Open the new <em>Client</em> and on the <em>Settings</em> tab set:</p>
-<ul>
-<li><em>Valid redirect URIs</em> to <code>https://localhost/*</code></li>
-<li><em>Valid post logout redirect URIs</em> to <code>https://localhost/*</code></li>
-</ul>
-<p>On the <em>Credentials</em> tab copy the <em>Client secret</em> for use later in Stroom config.</p>
-<h2 id="creating-users">Creating users</h2>
-<p>Click on <em>Users</em> in the left pane then <em>Add user</em>.
-Set the following:</p>
-<ul>
-<li>Username - <code>admin</code></li>
-<li>First name - <code>Administrator</code></li>
-<li>Last name - <code>Administrator</code></li>
-</ul>
-<p>Click <em>Create</em>.</p>
-<p>Select the <em>Credentials</em> tab and click <em>Set password</em>.</p>
-<p>Set the password to <code>admin</code> and set <em>Temporary</em> to off.</p>
 
 <div class="alert alert-primary" role="alert">
 <h4 class="alert-heading">Note</h4>
 
 
-    Standard practice would be for there to be a number of administrators where each has their own identity (in their own name) on the IDP.
-Each would be granted the <code>Administrator</code> application permission (directly or via a group).
-For this example we are calling our administrator <code>admin</code>.
+
+    <p>On this page and its children, <strong>Stroom itself signs the user in</strong> at the provider.
+If a load balancer or reverse proxy in front of Stroom performs the sign in instead - an AWS ALB with an <code>authenticate-cognito</code> rule, NGINX with oauth2-proxy - you want <a href="../../../../../docs/install-guide/setup/open-id/edge-proxy/">Edge Proxy RP</a>, not this page.</p>
+
 
 </div>
 
 
-<p>Repeat this process for the following user:</p>
+<p>This page describes what Stroom needs from any such provider.
+It applies whichever provider you use, so read it before following one of the provider specific pages.</p>
 <ul>
-<li>Username - <code>jbloggs</code></li>
-<li>First name - <code>Joe</code></li>
-<li>Last name - <code>Bloggs</code></li>
-<li>Password - <code>password</code></li>
+<li><a href="../../../../../docs/install-guide/setup/open-id/external-idp/stroom-configuration/">Stroom Configuration</a> - every Stroom setting involved, and what it does.</li>
+<li><a href="../../../../../docs/install-guide/setup/open-id/external-idp/keycloak/">KeyCloak</a></li>
+<li><a href="../../../../../docs/install-guide/setup/open-id/external-idp/cognito/">Amazon Cognito</a></li>
+<li><a href="../../../../../docs/install-guide/setup/open-id/external-idp/google/">Google</a></li>
+<li><a href="../../../../../docs/install-guide/setup/open-id/external-idp/azure-ad/">Microsoft Entra ID (Azure AD)</a></li>
 </ul>
-<h2 id="configure-stroom-for-keycloak">Configure Stroom for KeyCloak</h2>
-<p>Edit the <code>config.yml</code> file and set the following values</p>
-<pre><code class="language-yaml">  receive:
-    # Set to true to require authentication for /datafeed requests
-    authenticationRequired: true
-    # Set to true to allow authentication using an Open ID token
-    tokenAuthenticationEnabled: true
-  security:
-    authentication:
-      authenticationRequired: true
-      openId:
-        # The client ID created in KeyCloak
-        clientId: &quot;StroomClient&quot;
-        # The client secret copied from KeyCloak above
-        clientSecret: &quot;XwTPPudGZkDK2hu31MZkotzRUdBWfHO6&quot;
-        # Tells Stroom to use an external IDP for authentication
-        identityProviderType: EXTERNAL_IDP
-        # The URL on the IDP to redirect users to when logging out in Stroom
-        logoutEndpoint: &quot;http://localhost:9999/realms/StroomRealm/protocol/openid-connect/logout&quot;
-        # The endpoint to obtain the rest of the IDPs configuration. Specific to the realm/issuer.
-        openIdConfigurationEndpoint: &quot;http://localhost:9999/realms/StroomRealm/.well-known/openid-configuration&quot;
+<h2 id="what-stroom-needs-from-the-provider">What Stroom needs from the provider</h2>
+<p>Stroom is a confidential OAuth 2.0 client using the authorization code flow.
+To register it with a provider you need the following.</p>
+<table>
+<thead>
+<tr>
+<th>What</th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Client type</td>
+<td>Confidential, i.e. one that is issued a client secret. Stroom is a server side application and keeps its secret on the server.</td>
+</tr>
+<tr>
+<td>Grant type / flow</td>
+<td>Authorization code. Stroom does not use the implicit or password flows.</td>
+</tr>
+<tr>
+<td>Redirect URI</td>
+<td><code>https://STROOM_FQDN/api/auth/flow/v1/signin-oidc</code> (see below)</td>
+</tr>
+<tr>
+<td>Post logout redirect URI</td>
+<td><code>https://STROOM_FQDN/</code> (see below)</td>
+</tr>
+<tr>
+<td>PKCE</td>
+<td>Supported, and may be required (see below)</td>
+</tr>
+<tr>
+<td>Scopes</td>
+<td><code>openid</code> and <code>email</code> by default</td>
+</tr>
+</tbody>
+</table>
+<p><code>STROOM_FQDN</code> is the public facing address of Stroom, which is what you have configured as <code>appConfig.publicUri</code> and is the address users type into their browser.
+If Stroom is behind a load balancer or Nginx, it is that address and not the address of an individual node.</p>
+<h3 id="the-redirect-uri">The redirect URI</h3>
+<p>The redirect URI, sometimes called the callback or reply URL, is where the provider sends the user&rsquo;s browser once they have authenticated.</p>
+<p>Stroom uses a single fixed redirect URI:</p>
+<pre><code>https://STROOM_FQDN/api/auth/flow/v1/signin-oidc
 </code></pre>
-<p>These values are obtained from the IDP.
-In the case of KeyCloak they can be found by clicking on <em>Realm settings</em> =&gt; <em>Endpoints</em> =&gt; <em>OpenID Endpoint Configuration</em> and extracting the various values from the JSON response.
-Alternatively they can typically be found at this address on any Open ID Connect IDP, <em>https://host/.well-known/openid-configuration</em>.
-The values will reflect the host/port that the IDP is running on along with the name of the realm.</p>
-<p>Setting the above values assumes <em>KeyCloak</em> is running on <code>localhost:9999</code> and the <em>Realm</em> name is <code>StroomRealm</code>.</p>
-<h2 id="setting-up-the-admin-user-in-stroom">Setting up the admin user in Stroom</h2>
-<p>Now that the <code>admin</code> user exists in the IDP we need to grant it <code>Administrator</code> rights in Stroom.</p>
-<p>In the <em>Users</em> section of KeyCloak click on user <code>admin</code>.
-On the <em>Details</em> tab copy the value of the <em>ID</em> field.
-The ID is in the form of a <span class="glossary-link">
-    <a href="../../../../../docs/glossary/u/glossary-uuid">
-      <span>UUID</span>
-      <i class="glossary-link-icon fas fa-book fa-sm text-primary"></i>
-    </a><span class="glossary-tooltip">
-      <span class="glossary-tooltip-title">UUID</span>
-      <span class="glossary-tooltip-summary">A <strong>U</strong>niversally <strong>U</strong>nique <strong>Id</strong>entifier for uniquely identifying something. <em>UUIDs</em> are used as the identifier in <em>Doc Refs</em>. An example of a <em>UUID</em> is <code>4ffeb895-53c9-40d6-bf33-3ef025401ad3</code>.</span><span class="glossary-tooltip-truncated">Click to see more details...</span></span></span>
-This ID will be used in Stroom to uniquely identify the user and associate it with the identity in KeyCloak.</p>
-<p>To set up Stroom with this admin user run the following (<strong>before</strong> Stroom has been started for the first time):</p>
+<p>Register that exact value.
+It does not vary with the page the user was trying to reach, so there is no need to register a wildcard, and you should not do so.
+The page the user came from is remembered separately by Stroom and does not travel through the provider.</p>
 
-  
+<div class="alert alert-warning" role="alert">
+<h4 class="alert-heading">Warning</h4>
 
+    Earlier versions of Stroom sent the user&rsquo;s current page as the redirect URI, which meant registering a wildcard such as <code>https://STROOM_FQDN/*</code> at the provider.
+That is no longer how it works.
+If you are upgrading, replace any such wildcard with the single exact URI above, otherwise sign in will be refused by the provider.
 
-
-
-
-
-<div class="code-toolbar">
-  <pre 
-    class="command-line language-bash" 
-    data-user="user" 
-    data-host="localhost" 
-    data-continuation-str="\"
-    data-filter-output="(out)"><code class="language-bash">subject_id=&#34;XXX&#34;; \
-java -jar /absolute/path/to/stroom-app-all.jar \
-  manage_users \
-  ../local.yml \
-  --createUser &#34;${subject_id}&#34; \
-  --createGroup Administrators \
-  --addToGroup &#34;${subject_id}&#34; Administrators \
-  --grantPermission Administrators &#34;Administrator&#34;</code></pre>
 </div>
 
-<p>Where <code>XXX</code> is the user ID copied from the IDP as described above.
-This command is repeatable as it will skip any users/groups/memberships that already exist.</p>
+
+<p>If Stroom is served under a path prefix, i.e. <code>appConfig.publicUri.pathPrefix</code> is set, that prefix comes before <code>/api</code>.</p>
+<h3 id="the-post-logout-redirect-uri">The post logout redirect URI</h3>
+<p>When a user signs out, Stroom sends them to the provider&rsquo;s logout endpoint and asks to be returned to Stroom&rsquo;s public root:</p>
+<pre><code>https://STROOM_FQDN/
+</code></pre>
+<p>Stroom appends a <code>state</code> query parameter to that URI.
+Providers that match post logout redirect URIs exactly may need to be told to permit it, so if sign out leaves the user on an error page at the provider, that is the usual cause.</p>
+<p>The name of the parameter Stroom uses to pass this URI is controlled by <code>logoutRedirectParamName</code>, which may be <code>post_logout_redirect_uri</code>, the default and current specification, or <code>redirect_uri</code> for older providers.</p>
+<h3 id="pkce">PKCE</h3>
+<p>Stroom always sends a <span class="external-link">
+  <a href="https://datatracker.ietf.org/doc/html/rfc7636" target="_blank" class="external-link" title="PKCE (external link to https://datatracker.ietf.org/doc/html/rfc7636)">
+    <span>PKCE</span>
+    <i class="external-link-icon fas fa-external-link-alt fa-sm text-secondary"></i>
+  </a>
+</span>
+ <code>code_challenge</code> using the <code>S256</code> method, and the matching <code>code_verifier</code> when it exchanges the authorization code for tokens.</p>
+<p>There is nothing to configure in Stroom for this.
+Providers that require PKCE, and anything following OAuth 2.1, will be satisfied, and providers that do not support it ignore the extra parameters.
+Where the provider lets you insist on PKCE, as KeyCloak does, you can safely turn that on.</p>
+<h3 id="claims">Claims</h3>
+<p>Stroom reads three things about a user from the token.</p>
+<table>
+<thead>
+<tr>
+<th>Setting</th>
+<th>Default</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>uniqueIdentityClaim</code></td>
+<td><code>sub</code></td>
+<td>Links the identity at the provider to a Stroom user. Must be unique at the provider and must never change for a given person.</td>
+</tr>
+<tr>
+<td><code>userDisplayNameClaim</code></td>
+<td><code>preferred_username</code></td>
+<td>A friendlier name shown in the Stroom UI. Need not be unique and may change.</td>
+</tr>
+<tr>
+<td><code>fullNameClaimTemplate</code></td>
+<td><code>${name}</code></td>
+<td>Builds the user&rsquo;s full name from claim values, e.g. <code>'${given_name} ${family_name}'</code>.</td>
+</tr>
+</tbody>
+</table>
+<p>Not every provider issues <code>preferred_username</code>, so check the provider page before assuming the defaults will do.</p>
+
+<div class="alert alert-warning" role="alert">
+<h4 class="alert-heading">Warning</h4>
+
+    Do not set <code>uniqueIdentityClaim</code> to an email address or a username.
+Both can be reassigned to a different person at the provider, and whoever holds it next would inherit the Stroom user, along with its permissions.
+
+</div>
+
+
+<h2 id="token-validation">Token validation</h2>
+<p>Stroom validates every token it is given, whether that is the <code>id_token</code> from an interactive sign in or a bearer access token presented to the API.</p>
+<p>The signature must verify against a key from the provider&rsquo;s JWKS, and the algorithm must be one of the RSA, RSA-PSS or ECDSA families.
+Unsigned tokens and tokens signed with an HMAC algorithm are refused.</p>
+<p>The issuer must match what the provider advertised, and the audience must match what Stroom expects.
+Audience validation is the part most likely to need attention, because providers differ in what they put in the <code>aud</code> claim of an <strong>access</strong> token.
+See <a href="../../../../../docs/install-guide/setup/open-id/external-idp/stroom-configuration/#audience-validation">Audience validation</a>.</p>
+
+<div class="alert alert-primary" role="alert">
+<h4 class="alert-heading">Note</h4>
+
+
+    <code>id_token</code>s carry an <code>aud</code> claim holding the client id at every provider, so interactive sign in works with the default settings.
+It is API authentication with access tokens where providers differ.
+
+</div>
+
+
+<h2 id="users-and-permissions">Users and permissions</h2>
+<p>Authentication is handled by the provider.
+Authorisation, i.e. what a user may do once they are in, is always handled by Stroom.</p>
+<p>Whenever a user successfully signs in via the provider, Stroom automatically creates an entry for them in its own user table.
+That user starts with no permissions and no group memberships, so an administrator must grant those.
+This does mean a new user has to sign in once before an administrator can do anything with them.</p>
+<p>The very first administrator is a chicken and egg problem, since there is nobody able to grant permissions yet.
+That is solved with the <code>manage_users</code> command, described on each provider page.</p>
 
 <div class="alert alert-primary" role="alert">
 <h4 class="alert-heading">See Also</h4>
 <div class="alert-content">
   
-  <p>See <a href="../../../../../docs/user-guide/tools/command-line/">Command Line Tools</a> for more details on using the <code>manage_users</code> command.</p>
+  <p>See <a href="../../../../../docs/install-guide/setup/open-id/accounts-users/">Accounts and Users</a> for how identities at the provider relate to Stroom users.</p>
 
 </div>
 </div>
 
-<p>This command will do the following:</p>
-<ul>
-<li>Create the Stroom User by creating an entry in the <code>stroom_user</code> database table for the IDP&rsquo;s <code>admin</code> user.</li>
-<li>Ensure that an <code>Administrators</code> group exists (i.e. an entry in the <code>stroom_user</code> database table for the <code>Administrators</code> group).</li>
-<li>Add the <code>admin</code> user to the group <code>Administrators</code>.</li>
-<li>Grant the application permission <code>Administrator</code> to the group <code>Administrators</code>.</li>
-</ul>
 
-<div class="alert alert-primary" role="alert">
-<h4 class="alert-heading">Note</h4>
-
-
-    This process is only required to bootstrap the admin user to allow them to log in with administrator rights to be able to manage the permissions and group memberships of other users.
-It does not need to be done for every user.
-Whenever a user successfully logs in via the IDP, Stroom will automatically create an entry in the <code>stroom_user</code> table for that user.
-The user will have no permissions or group memberships so this will need to be applied by the administrator.
-This does mean that new users will need to login before the administrator can manage their permissions/memberships.
-
+        <div class="section-index">
+    
+    
+    
+    
+    
+    
+    
+    
+    <hr class="panel-line">
+        
+            
+            <div class="entry">
+                <h5>
+                    <a href="../../../../../docs/install-guide/setup/open-id/external-idp/stroom-configuration/">Stroom Configuration</a>
+                </h5>
+                <p>A reference for every Stroom and Stroom-Proxy setting involved in authenticating against an external identity provider.</p>
+            </div>
+        
+            
+            <div class="entry">
+                <h5>
+                    <a href="../../../../../docs/install-guide/setup/open-id/external-idp/keycloak/">KeyCloak</a>
+                </h5>
+                <p>How to set up KeyCloak as an external identity provider for Stroom.</p>
+            </div>
+        
+            
+            <div class="entry">
+                <h5>
+                    <a href="../../../../../docs/install-guide/setup/open-id/external-idp/cognito/">Amazon Cognito</a>
+                </h5>
+                <p>How to set up an Amazon Cognito user pool as an external identity provider for Stroom.</p>
+            </div>
+        
+            
+            <div class="entry">
+                <h5>
+                    <a href="../../../../../docs/install-guide/setup/open-id/external-idp/google/">Google</a>
+                </h5>
+                <p>How to set up Google as an external identity provider for Stroom.</p>
+            </div>
+        
+            
+            <div class="entry">
+                <h5>
+                    <a href="../../../../../docs/install-guide/setup/open-id/external-idp/azure-ad/">Microsoft Entra ID (Azure AD)</a>
+                </h5>
+                <p>How to set up Microsoft Entra ID, formerly Azure Active Directory, as an external identity provider for Stroom.</p>
+            </div>
+        
+    
 </div>
-
-
-<h2 id="logging-into-stroom">Logging into Stroom</h2>
-<h3 id="as-the-administrator">As the administrator</h3>
-<p>Now that the user and permissions have been set up in Stroom, the administrator can log in.</p>
-<p>First start the Stroom instance/cluster.</p>
-
-<div class="alert alert-warning" role="alert">
-<h4 class="alert-heading">Warning</h4>
-
-    If the <code>manage_users</code> command is run while Stroom is running you will likely not see the effect when logging in as the user permissions are cached.
-Without Administrator rights you will not be able to clear the caches so you will need to wait for the cache entries to expire or restart Stroom.
-
-</div>
-
-
-<p>Navigate to <em>http://STROOM_FQDN</em> and Stroom should re-direct you to the IDP (KeyCloak) to authenticate.
-Enter the username of <code>admin</code> and password <code>admin</code>.
-You should be authenticated by KeyCloak and re-directed back to stroom.
-Your user ID is shown in the bottom right corner of the Welcome tab.</p>
-<p>As an administrator, the <em>Tools</em> =&gt; <em>User Permissions</em> menu item will be available to manage the permissions of any users that have logged on at least once.</p>
-<p>Now select <em>User</em> =&gt; <em>Logout</em> to be re-directed to the IDP to logout.
-Once you logout of the IDP it should re-direct you back to the IDP login screen for Stroom to log back in again.</p>
-<h3 id="as-an-ordinary-user">As an ordinary user</h3>
-<p>On the IDP login screen, login as user <code>jbloggs</code> with the password <code>password</code>.
-You will be re-directed to Stroom however the explorer tree will be empty and most of the menu items will be disabled.
-In order to gain permissions to do anything in Stroom a Stroom administrator will need to grant application/document permissions and/or group memberships to the user via the <em>Tools</em> =&gt; <em>User Permissions</em> menu item.</p>
-<h2 id="configure-stroom-proxy-for-keycloak">Configure Stroom-Proxy for KeyCloak</h2>
-<p>In order to use Stroom-Proxy with OIDC</p>
-<p>Edit the <code>config.yml</code> file and set the following values</p>
-<pre><code class="language-yaml">  receive:
-    # Set to true to require authentication for /datafeed requests
-    authenticationRequired: true
-    # Set to true to allow authentication using an Open ID token
-    tokenAuthenticationEnabled: true
-  security:
-    authentication:
-      openId:
-        # The client ID created in KeyCloak
-        clientId: &quot;StroomClient&quot;
-        # The client secret copied from KeyCloak above
-        clientSecret: &quot;XwTPPudGZkDK2hu31MZkotzRUdBWfHO6&quot;
-        # Tells Stroom to use an external IDP for authentication
-        identityProviderType: EXTERNAL_IDP
-        # The URL on the IDP to redirect users to when logging out in Stroom
-        logoutEndpoint: &quot;http://localhost:9999/realms/StroomRealm/protocol/openid-connect/logout&quot;
-        # The endpoint to obtain the rest of the IDPs configuration. Specific to the realm/issuer.
-        openIdConfigurationEndpoint: &quot;http://localhost:9999/realms/StroomRealm/.well-known/openid-configuration&quot;
-</code></pre>
-<p>If Stroom-Proxy is configured to forward data onto another Stroom-Proxy or Stroom instance then it can use tokens when forwarding the data.
-This assumes the downstream Stroom or Stroom-Proxy is also configured to use the same external IDP.</p>
-<pre><code class="language-yaml">  forwardHttpDestinations:
-
-      # If true, adds a token for the service user to the request
-    - addOpenIdAccessToken: true
-      enabled: true
-      name: &quot;downstream&quot;
-      forwardUrl: &quot;http://somehost/stroom/datafeed&quot;
-</code></pre>
-<p>The token used will be for the service user account of the identity provider client used by Stroom-Proxy.</p>
 
 	
 	
 	<div class="text-muted mt-5 pt-3 border-top">
-  Last modified May 19, 2026: <a href="https://github.com/gchq/stroom-docs/commit/71115e476c7e9cec227b7f64749b63ca6f5c45b3">Update stroom-query-language WRT whitespace in fields (71115e4)</a>
+  Last modified August 5, 2026: <a href="https://github.com/gchq/stroom-docs/commit/77846774f040329a09c275050badf55eb9228e4f">Fix spelling error (7784677)</a>
 </div>
 
 </div>
-
 
           </main>
         </div>

@@ -1,0 +1,175 @@
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Stroom – password</title>
+    <link>/tags/password/</link>
+    <description>Recent content in password on Stroom</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Wed, 29 Jul 2026 00:00:00 +0000</lastBuildDate>
+    
+	  <atom:link href="/tags/password/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+      
+        
+      
+    
+    
+    <item>
+      <title>Docs: Signing In</title>
+      <link>/docs/user-guide/security/signing-in/</link>
+      <pubDate>Wed, 29 Jul 2026 00:00:00 +0000</pubDate>
+      
+      <guid>/docs/user-guide/security/signing-in/</guid>
+      <description>
+        
+        
+        &lt;p&gt;This page describes what a user experiences when signing in to Stroom using its internal &lt;span class=&#34;glossary-link&#34;&gt;
+    &lt;a href=&#34;../../docs/glossary/i/glossary-idp&#34;&gt;
+      &lt;span&gt;Identity Provider (IDP)&lt;/span&gt;
+      &lt;i class=&#34;glossary-link-icon fas fa-book fa-sm text-primary&#34;&gt;&lt;/i&gt;
+    &lt;/a&gt;&lt;span class=&#34;glossary-tooltip&#34;&gt;
+      &lt;span class=&#34;glossary-tooltip-title&#34;&gt;Identity Provider (IDP)&lt;/span&gt;
+      &lt;span class=&#34;glossary-tooltip-summary&#34;&gt;An &lt;strong&gt;Id&lt;/strong&gt;entity &lt;strong&gt;P&lt;/strong&gt;rovider is a system or service that can authenticate a user and assert their identity. &lt;em&gt;Identity providers&lt;/em&gt; can support single sign on (SSO), which allows the user to sign in once to the &lt;em&gt;Identity Provider&lt;/em&gt; so they are then authenticated to all systems using that IDP.&lt;/span&gt;&lt;span class=&#34;glossary-tooltip-truncated&#34;&gt;Click to see more details...&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;.&lt;/p&gt;
+
+&lt;div class=&#34;alert alert-primary&#34; role=&#34;alert&#34;&gt;
+&lt;h4 class=&#34;alert-heading&#34;&gt;Note&lt;/h4&gt;
+
+
+
+    &lt;p&gt;None of this applies when Stroom is configured to use an external &lt;span class=&#34;glossary-link&#34;&gt;
+&lt;a href=&#34;../../docs/glossary/i/glossary-idp&#34;&gt;
+&lt;span&gt;Identity Provider (IDP)&lt;/span&gt;
+&lt;i class=&#34;glossary-link-icon fas fa-book fa-sm text-primary&#34;&gt;&lt;/i&gt;
+&lt;/a&gt;&lt;span class=&#34;glossary-tooltip&#34;&gt;
+&lt;span class=&#34;glossary-tooltip-title&#34;&gt;Identity Provider (IDP)&lt;/span&gt;
+&lt;span class=&#34;glossary-tooltip-summary&#34;&gt;An &lt;strong&gt;Id&lt;/strong&gt;entity &lt;strong&gt;P&lt;/strong&gt;rovider is a system or service that can authenticate a user and assert their identity. &lt;em&gt;Identity providers&lt;/em&gt; can support single sign on (SSO), which allows the user to sign in once to the &lt;em&gt;Identity Provider&lt;/em&gt; so they are then authenticated to all systems using that IDP.&lt;/span&gt;&lt;span class=&#34;glossary-tooltip-truncated&#34;&gt;Click to see more details…&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;.
+In that case sign in, password policy and account recovery are all handled by that provider.
+See &lt;a href=&#34;../../docs/install-guide/setup/open-id/&#34;&gt;Open ID Connect&lt;/a&gt;.&lt;/p&gt;
+
+
+&lt;/div&gt;
+
+
+&lt;h2 id=&#34;signing-in-with-a-password&#34;&gt;Signing In With A Password&lt;/h2&gt;
+&lt;p&gt;The outcome of a sign in attempt depends on the state of the account as well as the password.&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;Situation&lt;/th&gt;
+&lt;th&gt;What the user is told&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;Correct password, account in good order&lt;/td&gt;
+&lt;td&gt;Signed in. Any earlier failed attempts are forgotten.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Wrong password&lt;/td&gt;
+&lt;td&gt;Invalid credentials. The failure is counted towards locking the account.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Account disabled&lt;/td&gt;
+&lt;td&gt;The account is disabled and they should contact an administrator.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Account locked&lt;/td&gt;
+&lt;td&gt;The account is locked, together with the quickest way to recover it.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Account inactive, correct password&lt;/td&gt;
+&lt;td&gt;Either signed in, or told the account has been deactivated. See &lt;a href=&#34;../../docs/user-guide/security/user-accounts/&#34;&gt;User Accounts&lt;/a&gt;.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;A wrong password and a user id that does not exist produce exactly the same answer, so the sign in screen cannot be used to discover which accounts exist.&lt;/p&gt;
+&lt;p&gt;For a disabled or locked account the password is not checked at all.
+Neither state can be talked out of with a correct password, so there is nothing to be gained by checking one, and refusing without checking means the sign in screen cannot be used to test whether a password is correct.&lt;/p&gt;
+&lt;p&gt;Failed attempts against a disabled or locked account are not counted, because the account is already refused.&lt;/p&gt;
+&lt;h3 id=&#34;being-asked-to-change-your-password&#34;&gt;Being Asked To Change Your Password&lt;/h3&gt;
+&lt;p&gt;A user may be signed in successfully and then be required to set a new password before they can do anything else.
+This happens in three cases:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;It is their first ever sign in and &lt;code&gt;stroom.security.identity.passwordPolicy.forcePasswordChangeOnFirstLogin&lt;/code&gt; is enabled, which it is by default.&lt;/li&gt;
+&lt;li&gt;An administrator has set a new password for them and asked that it be changed.&lt;/li&gt;
+&lt;li&gt;Their password is older than &lt;code&gt;stroom.security.identity.passwordPolicy.mandatoryPasswordChangeDuration&lt;/code&gt;.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;The new password must satisfy the password policy, which is applied by the server on every route that sets a password.
+The previous password cannot be reused.&lt;/p&gt;
+&lt;h2 id=&#34;getting-locked-out&#34;&gt;Getting Locked Out&lt;/h2&gt;
+&lt;p&gt;After a number of consecutive wrong passwords, controlled by &lt;code&gt;stroom.security.identity.failedLoginLockThreshold&lt;/code&gt;, the account is locked.&lt;/p&gt;
+&lt;p&gt;The message shown to a locked user depends on how the system is configured, and always gives them the cheapest way back in.&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;Configuration&lt;/th&gt;
+&lt;th&gt;What the user is told&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;Locks lapse on their own, which is the default&lt;/td&gt;
+&lt;td&gt;To try again in approximately so many minutes.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Locks lapse and self service reset is enabled&lt;/td&gt;
+&lt;td&gt;The same, plus a pointer to &lt;em&gt;Forgot password?&lt;/em&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Locks never lapse (&lt;code&gt;failedLoginLockDuration&lt;/code&gt; is zero)&lt;/td&gt;
+&lt;td&gt;To contact an administrator.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Locks never lapse and self service reset is enabled&lt;/td&gt;
+&lt;td&gt;To use &lt;em&gt;Forgot password?&lt;/em&gt; or contact an administrator.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;An administrator is only named where an administrator really is the only way back.
+In a default configuration a locked user is told to wait, which avoids a support request for something that resolves itself.&lt;/p&gt;
+&lt;p&gt;See &lt;a href=&#34;../../docs/user-guide/security/user-accounts/&#34;&gt;User Accounts&lt;/a&gt; for the three ways an account becomes usable again.&lt;/p&gt;
+&lt;h2 id=&#34;resetting-a-forgotten-password&#34;&gt;Resetting A Forgotten Password&lt;/h2&gt;
+&lt;p&gt;If the user has an email address recorded against their account, and &lt;code&gt;stroom.security.identity.passwordPolicy.allowPasswordResets&lt;/code&gt; is enabled, they can use &lt;em&gt;Forgot password?&lt;/em&gt; on the sign in screen to be emailed a link for setting a new password.&lt;/p&gt;
+&lt;p&gt;The response shown on screen is the same whether or not the address belongs to an account, so this screen cannot be used to discover which email addresses have accounts.&lt;/p&gt;
+&lt;p&gt;The link is valid for &lt;code&gt;stroom.security.identity.token.emailResetTokenExpiration&lt;/code&gt;, ten minutes by default, and can be used only once.
+Requesting another link invalidates any earlier one.
+Repeated requests are rate limited by &lt;code&gt;stroom.security.identity.passwordResetRequestCooldown&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;Completing a reset ends all of that user&amp;rsquo;s existing sessions everywhere in the cluster.
+They then sign in with their new password.&lt;/p&gt;
+&lt;h3 id=&#34;when-a-reset-cannot-be-completed&#34;&gt;When A Reset Cannot Be Completed&lt;/h3&gt;
+&lt;p&gt;Some accounts cannot be recovered this way.
+Rather than sending a link that would not work, Stroom emails the account holder to say that the reset cannot currently be completed and that they should contact an administrator if it continues.&lt;/p&gt;
+&lt;p&gt;This happens when:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;The account is disabled.
+Only an administrator can enable it again.&lt;/li&gt;
+&lt;li&gt;The account is locked and &lt;code&gt;stroom.security.identity.allowLockedAccountPasswordReset&lt;/code&gt; is not enabled.
+Note that a lock which has already lapsed does not prevent a reset.&lt;/li&gt;
+&lt;li&gt;The account is inactive and &lt;code&gt;stroom.security.identity.reactivateInactiveAccountsOnLogin&lt;/code&gt; is not enabled.
+Without it, setting a new password would not be enough to sign in, so an administrator has to reactivate the account first.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;The email is deliberately the same in all three cases and does not say which one applies.
+It goes to the address held against the account, so it tells the account holder something is wrong without telling whoever made the request anything at all.&lt;/p&gt;
+&lt;p&gt;No email of any kind is sent when there is nobody to send it to, that is when the address matches no account, the account has no email address recorded, password resets are turned off, or an email was already sent within the cool-down period.&lt;/p&gt;
+&lt;h2 id=&#34;signing-in-with-a-certificate&#34;&gt;Signing In With A Certificate&lt;/h2&gt;
+&lt;p&gt;If &lt;code&gt;stroom.security.identity.allowCertificateAuthentication&lt;/code&gt; is enabled, a user presenting a valid certificate can be signed in without typing a password.
+The user id is taken from the certificate&amp;rsquo;s common name using &lt;code&gt;stroom.security.identity.certificateCnPattern&lt;/code&gt; and &lt;code&gt;stroom.security.identity.certificateCnCaptureGroupIndex&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;A valid certificate is treated in exactly the same way as a correct password.
+The same account states apply in the same order, so a disabled or locked account is still refused, and an inactive account is either reactivated or refused depending on &lt;code&gt;stroom.security.identity.reactivateInactiveAccountsOnLogin&lt;/code&gt;.&lt;/p&gt;
+
+&lt;div class=&#34;alert alert-primary&#34; role=&#34;alert&#34;&gt;
+&lt;h4 class=&#34;alert-heading&#34;&gt;See Also&lt;/h4&gt;
+&lt;div class=&#34;alert-content&#34;&gt;
+  
+  &lt;p&gt;&lt;a href=&#34;../../docs/user-guide/security/user-accounts/&#34;&gt;User Accounts&lt;/a&gt;
+&lt;a href=&#34;../../docs/user-guide/security/sessions-and-tokens/&#34;&gt;Sessions and Tokens&lt;/a&gt;&lt;/p&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+
+
+      </description>
+    </item>
+    
+  </channel>
+</rss>
