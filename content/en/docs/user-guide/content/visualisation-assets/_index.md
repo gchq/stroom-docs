@@ -46,10 +46,10 @@ However, you can create a directory structure if necessary.
 * {{< stroom-icon "edit.svg" "Rename">}} Edit the name of an asset.
    {{% note %}}
    Note that the extension of the file is significant as it is used for:
-   
+
    * The mimetype reported to the browser, and thus how the browser will present that file;
    * The editor mode used for the file.
-   
+
    See [Configuration]({{< relref "#configuration" >}}) below to find out how to customise these settings. 
    {{% /note %}}
 
