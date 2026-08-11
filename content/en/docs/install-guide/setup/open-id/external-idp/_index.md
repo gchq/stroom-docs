@@ -140,5 +140,5 @@ The very first administrator is a chicken and egg problem, since there is nobody
 That is solved with the `manage_users` command, described on each provider page.
 
 {{% see-also %}}
-See [Accounts and Users]({{< relref "docs/install-guide/setup/open-id/accounts-users" >}}) for how identities at the provider relate to Stroom users.
+See [Creating the First Administrator]({{< relref "docs/install-guide/setup/create-first-admin" >}}) for the full procedure, and [Accounts and Users]({{< relref "docs/install-guide/setup/open-id/accounts-users" >}}) for how identities at the provider relate to Stroom users.
 {{% /see-also %}}

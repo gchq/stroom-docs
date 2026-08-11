@@ -171,11 +171,11 @@ Find the `sub` of the user who is to be the administrator, which for Cognito is 
 subject_id="XXX"; \
 java -jar /absolute/path/to/stroom-app-all.jar \
   manage_users \
-  ../local.yml \
   --createUser "${subject_id}" \
   --createGroup Administrators \
   --addToGroup "${subject_id}" Administrators \
-  --grantPermission Administrators "Administrator"
+  --grantPermission Administrators "Administrator" \
+  ../local.yml
 {{</ command-line >}}
 
 {{% see-also %}}

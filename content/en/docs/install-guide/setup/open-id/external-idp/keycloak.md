@@ -227,11 +227,11 @@ To set up Stroom with this admin user run the following (**before** Stroom has b
 subject_id="XXX"; \
 java -jar /absolute/path/to/stroom-app-all.jar \
   manage_users \
-  ../local.yml \
   --createUser "${subject_id}" \
   --createGroup Administrators \
   --addToGroup "${subject_id}" Administrators \
-  --grantPermission Administrators "Administrator"
+  --grantPermission Administrators "Administrator" \
+  ../local.yml
 {{</ command-line >}}
 
 Where `XXX` is the user ID copied from the IDP as described above.

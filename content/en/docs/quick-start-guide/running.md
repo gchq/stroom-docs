@@ -13,6 +13,11 @@ description: >
 For this quick start you want a simple single-node Stroom.
 You will want to follow [these instructions]({{< relref "docs/install-guide/single-node-docker" >}}) for setting up a single node _stroom_core_test_ stack installation in the simplest way.
 
+{{% note %}}
+Use the _stroom_core_test_ stack, which comes with an `admin` account ready to log in with.
+The other stacks create no accounts at all, and need an administrator to be created first, see [Creating the First Administrator]({{< relref "docs/install-guide/setup/create-first-admin" >}}).
+{{% /note %}}
+
 ## First look
 
 Once you log into Stroom you will see that it comes pre-loaded with some content as can be seen in the left hand explorer pane.
