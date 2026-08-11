@@ -8,9 +8,9 @@ description: >
   House style conventions for basic Markdown use.
 ---
 
-## Line breaks
+## Line Breaks
 
-### Sentence per line
+### Sentence per Line
 
 Each sentence must start on a new line, even in numbered/bulleted lists.
 This makes it easier to move sentences around or to remove them and limits the scope of changes when it comes to git diffs and merges.
@@ -57,7 +57,7 @@ This is the start of a new paragraph.
 {{< /cardpane >}}
 
 
-### No hard line breaks.
+### No Hard Line Breaks.
 
 Long lines should **not** be hard wrapped by adding line breaks.
 You should instead rely on your editor to soft wrap long lines that cannot fit on the visible screen area.
@@ -66,7 +66,7 @@ It also relies on each person's editor being configured to the same wrap column.
 Adding hard wraps also means a slight change at the start of a paragraph will potentially cause all subsequent lines to be re-wrapped and thus appear as a substantial difference in the commit.
 
 ```markdown
-## Don't do this
+## Don't Do This
 
 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
 incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis
@@ -76,7 +76,7 @@ fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
 culpa qui officia deserunt mollit anim id est laborum.
 
 
-## Do this instead
+## Do This Instead
 
 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
 Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
@@ -94,7 +94,7 @@ Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deseru
 {{< /cardpane >}}
 
 
-### Forced line breaks
+### Forced Line Breaks
 
 In some circumstances, e.g. a list of items that is not bulleted, you may want to prevent the joining of adjacent lines when rendered.
 You can force a line break by adding two spaces `␣␣` at the end of a line.
@@ -146,11 +146,11 @@ Paragraph 2.
 {{< /cardpane >}}
 
 
-## Blank lines and spacing
+## Blank Lines and Spacing
 
 * A heading line should be preceded by two blank lines and followed by one blank line.
   This makes the headings clearer in the markdown source.
-  The only exception to this is when one heading come immediately after its parent heading with no text in between.
+  The only exception to this is when one heading comes immediately after its parent heading with no text in between, in which case one blank line is used.
 * A fenced code block should be surrounded by one blank line.
 * Paragraphs should be separated by one blank line.
 * Bulleted and numbered lists should be surrounded by one blank line.
@@ -164,7 +164,7 @@ The text belonging to the previous heading.
 
 ## A Heading
 
-## A sub heading
+### A Sub Heading
 
 The text of this heading.
 A second sentence in this paragraph.
@@ -205,33 +205,33 @@ The `#` characters should **always** be followed by one space character
 The following is an example of the heading levels.
 
 ```markdown
-# Heading level 1
+# Heading Level 1
 
 DON'T use this level in your documents.
 Level one headings will be generated from the `title` in the document's front matter.
 
 
-## Heading level 2
+## Heading Level 2
 
 This heading level is effectively level 1 on the page and right hand pane, e.g. `1`.
 
 
-### Heading level 3
+### Heading Level 3
 
 This heading level is effectively level 2 on the page and right hand pane, e.g. `1.1`.
 
 
-#### Heading level 4
+#### Heading Level 4
 
 This heading level is effectively level 3 on the page and right hand pane, e.g. `1.1.1`.
 
 
-##### Heading level 5
+##### Heading Level 5
 
 This heading level is effectively level 4 on the page but not shown on the right hand pane.
 
 
-###### Heading level 6
+###### Heading Level 6
 
 This heading level is effectively level 5 on the page but not shown on the right hand pane.
 ```
@@ -241,20 +241,49 @@ Markdown supports an alternate style for headings, as shown below.
 
 ```markdown
 
-Heading level 1
+Heading Level 1
 ===============
 
 Don't use this style.
 
 
-Heading level 2
+Heading Level 2
 ---------------
 
 Don't use this style.
 ```
 
 
-### Table of contents
+### Heading Capitalisation
+
+Headings should use _title case_, i.e. capitalise the first word, the last word and all the principal words in between.
+Leave articles (`a`, `an`, `the`), coordinating conjunctions (`and`, `but`, `or`, `nor`) and prepositions of three letters or fewer (`at`, `by`, `in`, `of`, `on`, `to`, `up`, etc.) in lower case, unless they are the first or last word of the heading.
+Longer prepositions, such as `With`, `From` and `Into`, are capitalised.
+
+The same applies to the `title` and `linkTitle` in a page's [front matter]({{< relref "front-matter#title-and-link-title" >}}).
+
+Two things keep their own case regardless:
+
+* Acronyms and proper nouns, e.g. `IDP`, `Stroom`, `MySQL`.
+* Code, file names and identifiers written in backticks, which must match the real thing exactly, e.g. `` `create_account` ``.
+
+```markdown
+## Create the Account                     <-- 'the' is not a principal word
+
+## Running Commands With the Zip Distribution
+
+## Finding the User's Identifier on an External IDP
+
+## Accounts and Stroom Users
+
+## `manage_users`                         <-- an identifier, so left as-is
+```
+
+Avoid starting a heading with a bare number, e.g. `## 1. Create the account`, as the numbering collides with the numbering of the right hand contents pane.
+Write `## Step 1 - Create the Account` instead.
+
+
+### Table of Contents
 
 The page table of contents (right hand pane) is controlled by this in `config.toml`.
 
@@ -269,34 +298,34 @@ The page table of contents (right hand pane) is controlled by this in `config.to
 The maximum depth of the table of contents can be controlled with `endLevel`.
 
 
-## Heading example (level 2)
+## Heading Example (Level 2)
 
 This is an example of a level 2 heading.
 
 
-### Heading example (level 3)
+### Heading Example (Level 3)
 
 This is an example of a level 3 heading.
 
 
-#### Heading example (level 4)
+#### Heading Example (Level 4)
 
 This is an example of a level 4 heading.
 
 
-##### Heading example (level 5)
+##### Heading Example (Level 5)
 
 This is an example of a level 5 heading.
 
 
-###### Heading example (level 6)
+###### Heading Example (Level 6)
 
 This is an example of a level 6 heading.
 
 
-## Block quotes
+## Block Quotes
 
-### Single line
+### Single Line
 
 A simple paragraph block quote.
 
@@ -309,7 +338,7 @@ A simple paragraph block quote.
 > This is the second sentence on the same line.
 
 
-### Multi line
+### Multi Line
 
 A pair of spaces at the end of a line can be used to force line breaks, e.g.:
 
@@ -326,7 +355,7 @@ A pair of spaces at the end of a line can be used to force line breaks, e.g.:
 
 ## Lists
 
-### Bulleted list
+### Bulleted List
 
 {{< cardpane >}}
   {{< card header="Rendered" >}}
@@ -401,7 +430,7 @@ This makes the file easier to edit and means the addition of one item in the mid
 {{< /cardpane >}}
 
 
-### Definition list
+### Definition List
 
 The `:` character is used to mark the definition description, with the line above becoming the definition term.
 
@@ -491,7 +520,7 @@ The Dog
 Tables should ideally have their columns aligned in the markdown for clarity in the raw markdown.
 
 ```markdown
-## Ideally do this
+## Ideally Do This
 
 | Artist          | Album          | Year |
 |-----------------|----------------|------|
@@ -499,7 +528,7 @@ Tables should ideally have their columns aligned in the markdown for clarity in 
 | Prince          | Purple Rain    | 1984 |
 | Beastie Boys    | License to Ill | 1986 |
 
-## Or this
+## Or This
 
 Artist          | Album          | Year
 ----------------|----------------|-----
@@ -507,7 +536,7 @@ Michael Jackson | Thriller       | 1982
 Prince          | Purple Rain    | 1984
 Beastie Boys    | License to Ill | 1986
 
-## But this is acceptable
+## But This Is Acceptable
 
 | Artist | Album | Year |
 |-|-|-|
@@ -531,7 +560,7 @@ If you are editing the documentation with Vim then the plugin {{< external-link 
 Simply position the cursor somewhere in the table and do `:Tabularize\|` to 'tabularize' on the `|` character.
 
 
-### Line breaks in cells
+### Line Breaks in Cells
 
 If you need a line break in a table cell then use `<br>`.
 

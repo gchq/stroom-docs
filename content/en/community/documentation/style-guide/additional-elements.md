@@ -15,7 +15,7 @@ While links can be added using standard markdown link syntax you should use Hugo
 The advantage of the shortcode is that Hugo will check for broken links when building the site.
 
 
-### External links
+### External Links
 
 As this site is deployed to environments with no internet connection and is also released in PDF form it is important that any links to locations outside of the this site (i.e. on the internet) are clearly marked.
 To include an external link do the following:
@@ -51,7 +51,6 @@ This will not work for version `legacy` as that is not an actual Stroom version.
 {{% /warning %}}
 
 
-
 ### Anchors
 
 You can link to headings on a page using its anchor.
@@ -67,7 +66,7 @@ For example the heading `Mr O'Neil's 1st Event (something)` becomes as an anchor
 See The link examples below that use anchors.
 
 
-#### Duplicate anchors
+#### Duplicate Anchors
 
 If you have two headings on the same page then Hugo will suffix the anchors with a sequential number to ensure uniqueness of the anchor.
 For example, with the following markdown:
@@ -104,7 +103,7 @@ If you want to avoid confusion and removed the risk of anchors breaking if new h
 This is only worth doing if you want to link to these headings.
 
 
-### Shortcode internal page link examples
+### Shortcode Internal Page Link Examples
 
 Shortcode links are slightly more verbose to type but are preferable to markdown style links as the link target will be checked at site build time so you know all the links are correct.
 
@@ -114,7 +113,7 @@ Use only `relref` as this will be translated into a relative path when the site 
 The following are some example of different links to internal content.
 
 
-#### Heading anchor
+#### Heading Anchor
 
 * A [link]({{< relref "#alerts" >}}) to a heading anchor on this page.
 
@@ -123,7 +122,7 @@ The following are some example of different links to internal content.
   ```
 
 
-#### Absolute path
+#### Absolute Path
 
 * A [link]({{< relref "community/documentation/style-guide/using-images#captions" >}}) to a heading anchor on another page, using an absolute path.
 
@@ -132,7 +131,7 @@ The following are some example of different links to internal content.
   ```
 
 
-#### Relative path
+#### Relative Path
 
 * A [link]({{< relref "../versions" >}}) to a heading anchor on page above this one, using a relative path.
 
@@ -141,7 +140,7 @@ The following are some example of different links to internal content.
   ```
 
 
-#### Unique page name
+#### Unique Page Name
 
 * A [link]({{< relref "running#basic-configuration" >}}) to a heading anchor on another page, using only the unique page name.
   This is quicker to type and won't break if pages are moved but will not work if the page name is not unique.
@@ -151,7 +150,7 @@ The following are some example of different links to internal content.
   ```
 
 
-#### Section link
+#### Section Link
 
 * A [link]({{< relref "docs/HOWTOs" >}}) to a branch/section in the document tree, i.e. to the `\_index.md`.
 
@@ -160,7 +159,7 @@ The following are some example of different links to internal content.
   ```
 
 
-#### Next page in section link
+#### Next Page in Section Link
 
 * A link to the next page in the current section.
   If the current page is the last page in the section then no link will be displayed.
@@ -177,7 +176,7 @@ The following are some example of different links to internal content.
   ```
 
 
-#### Previous page in section link
+#### Previous Page in Section Link
 
 * A link to the previous page in the current section.
   If the current page is the last page in the section then no link will be displayed.
@@ -194,7 +193,7 @@ The following are some example of different links to internal content.
   ```
 
 
-### Markdown page link examples
+### Markdown Page Link Examples
 
 {{% warning %}}
 Don't use markdown style links for internal page links as they can't be verified at site build time like the short code links can.
@@ -251,7 +250,7 @@ in the rendered site.
   ```
 
 
-### Download file links
+### Download File Links
 
 You can create a link to download a file, like these:
 
@@ -268,7 +267,7 @@ You can create a link to download a file, like these:
 All paths are relative to `/assets/files/`.
 
 
-### Glossary links
+### Glossary Links
 
 If you need to create a link to an item in the [Glossary]({{< relref "docs/glossary" >}}) you can use the `glossary` shortcode.
 
@@ -329,7 +328,7 @@ Place the file in the directory `content/en/docs/glossary/X/` where `X` is the l
 
 ## Code
 
-### Inline code
+### Inline Code
 
 When you need to include chunks of code, filenames, or input/output values in-line in text, e.g. `config.yml`, you can surround it with single backticks.
 
@@ -345,7 +344,7 @@ Inline code `looks like this`.
 {{< /cardpane >}}
 
 
-### Code blocks (simple)
+### Code Blocks (Simple)
 
 Code blocks should be surrounded with fences `` ```language-type `` and `` ``` `` with the [language]({{< relref "#supported-languages" >}}) type **always** specified to ensure correct syntax highlighting.
 If the language type is not supplied then styling will be different to fenced blocks with a language.
@@ -412,7 +411,7 @@ echo "${VAR}"
 {{< /cardpane >}}
 
 
-### code blocks (advanced)
+### Code Blocks (Advanced)
 
 If you need to show line numbers or to highlight sections of a code block then you can use the `code-block` shortcode.
 This shortcode takes the following named arguments:
@@ -534,7 +533,7 @@ The following is an example of how to use the shortcode.
 {{< /code-block >}}
 
 
-### Command line blocks
+### Command Line Blocks
 
 To demonstrate commands being run on the command line you can use the `command-line` shortcode.
 This results in a code block with the shell prompt displayed on the left of each line.
@@ -578,7 +577,7 @@ id
 {{< /cardpane >}}
 
 
-### MySQL shell blocks
+### MySQL Shell Blocks
 
 To demonstrate commands being run in a MySQL shell you can use the `sql-shell` shortcode.
 This works in a similar way to the `command-line` shortcode but has a different prompt and no shortcode arguments.
@@ -686,7 +685,7 @@ tree -n -F -L 1 --charset=ascii
 {{< /cardpane >}}
 
 
-### Inline files
+### Inline Files
 
 Some code or text examples may be too large for a fenced block so you can put the content in a separate file and include it in-line like so.
 
@@ -703,7 +702,7 @@ Examples of how to use in-line files are:
   ```
 
 
-### Supported languages
+### Supported Languages
 
 This site uses {{< external-link "Prismjs" "https://prismjs.com/index.html" >}} for syntax highlighting code blocks.
 _PrismJs_ supports a large number of different languages however only certain languages have been included with this site.
@@ -755,7 +754,7 @@ Using shortcodes, e.g. `{{</* pipe-elm "SplitFilter" */>}}` inside an of these a
 {{% /warning %}}
 
 
-### Warning block Quote
+### Warning Block Quote
 
 {{% warning %}}
 This is a warning that can contain _markdown_.
@@ -770,7 +769,7 @@ This is a warning that can contain _markdown_.
 ```
 
 
-### Page level warning
+### Page Level Warning
 
 {{% page-warning %}}
 This is a warning that can contain _markdown_.
@@ -785,7 +784,7 @@ This is a warning that can contain _markdown_.
 ```
 
 
-### Note block Quote
+### Note Block Quote
 
 {{% note %}}
 This is a note that can contain **markdown**.
@@ -800,7 +799,7 @@ This is a note that can contain **markdown**.
 ```
 
 
-### See also block Quote
+### See Also Block Quote
 
 Useful for linking to other areas of the documentation or to external sites.
 
@@ -819,7 +818,7 @@ The markdown for this is:
 ```
 
 
-### Page level info
+### Page Level Info
 
 {{% pageinfo %}}
 This is some info that can contain **markdown**.
@@ -834,7 +833,7 @@ This is some info that can contain **markdown**.
 ```
 
 
-### TODO block Quote
+### TODO Block Quote
 
 Used to indicate areas of the documentation that are unfinished or incorrect.
 
@@ -903,6 +902,6 @@ root:
 <!-- spell-checker: enable -->
 
 
-## Tabbed panes
+## Tabbed Panes
 
 Hugo/Docsy have shortcodes for {{< external-link "tabbed panes" "https://www.docsy.dev/docs/content/shortcodes/#tabbed-panes" >}} however these mean only one tab will be printed or visible in the generated PDF so their use should be avoided.
