@@ -145,11 +145,11 @@ The simplest route is therefore:
 subject_id="XXX"; \
 java -jar /absolute/path/to/stroom-app-all.jar \
   manage_users \
-  ../local.yml \
   --createUser "${subject_id}" \
   --createGroup Administrators \
   --addToGroup "${subject_id}" Administrators \
-  --grantPermission Administrators "Administrator"
+  --grantPermission Administrators "Administrator" \
+  ../local.yml
 {{</ command-line >}}
 
 The command is repeatable and will skip anything that already exists, so running it against a user that signed in earlier is fine.

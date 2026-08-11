@@ -150,9 +150,10 @@ Open a browser (preferably Chrome) at [https://localhost](https://localhost) and
 * password: _admin_
 
 {{% note %}}
-If you have installed the `stroom_core` stack no user accounts are created by default.
-You will need to manually create an administrator account.
+The `admin`/`admin` login above only exists in the `stroom_core_test` stack.
 
+If you have installed the `stroom_core` stack then no user accounts are created by default and nobody can log in until you create one.
+See [Creating the First Administrator]({{< relref "docs/install-guide/setup/create-first-admin" >}}).
 {{% /note %}}
 
 
