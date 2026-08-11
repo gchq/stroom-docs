@@ -1,7 +1,7 @@
 ---
 title: "Finding Things"
 linkTitle: "Finding Things"
-weight: 60
+weight: 50
 date: 2021-07-27
 tags: 
 description: >
