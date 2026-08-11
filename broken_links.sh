@@ -36,6 +36,25 @@ indent="    "
 # Make sites think we are a broweser, as some don't like requests from curl
 user_agent="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36"
 
+# Options applied to every curl call so that a transient network problem
+# doesn't fail the build. Without these, all the attempts below happen within
+# a second or so of each other, so a brief outage breaks them all.
+# --retry-all-errors is needed for curl to retry connection failures, which are
+# the ones that produce a 000 response.
+curl_retry_args=(
+  "--connect-timeout" "10"
+  "--max-time" "30"
+  "--retry" "3"
+  "--retry-delay" "2"
+  "--retry-all-errors"
+)
+
+# A response of 000 means curl got no HTTP response at all, i.e. DNS failure,
+# connection refused, TLS failure or timeout. That is a different thing to a
+# site telling us the page has gone, so it gets one more go after a pause and
+# is then reported as a warning rather than an error.
+unreachable_retry_delay_secs=10
+
 setup_echo_colours() {
   # Exit the script on any error
   set -e
@@ -124,6 +143,7 @@ verify_http_link() {
     local response_code
     response_code="$( \
       curl \
+        "${curl_retry_args[@]}" \
         --insecure \
         --silent \
         --head \
@@ -139,6 +159,7 @@ verify_http_link() {
       echo -e "${indent}${NC}Re-checking URL with --user-agent (${YELLOW}${user_agent}${NC}) ${NC}${link_url}${NC}"
       response_code="$( \
         curl \
+          "${curl_retry_args[@]}" \
           --insecure \
           --silent \
           --head \
@@ -157,6 +178,7 @@ verify_http_link() {
       echo -e "${indent}${NC}Re-checking URL without --head ${NC}${link_url}${NC}"
       response_code="$( \
         curl \
+          "${curl_retry_args[@]}" \
           --insecure \
           --silent \
           --location \
@@ -172,6 +194,28 @@ verify_http_link() {
       echo -e "${indent}${NC}Re-checking URL without --head and with --user-agent ${NC}${link_url}${NC}"
       response_code="$( \
         curl \
+          "${curl_retry_args[@]}" \
+          --insecure \
+          --silent \
+          --location \
+          --user-agent "${user_agent}" \
+          --output /dev/null \
+          --write-out "%{http_code}" \
+          "${header_args[@]}" \
+          "${link_url}" \
+        || echo "" )"
+    fi
+
+    if [[ -z "${response_code}" || "${response_code}" == "000" ]]; then
+      # No HTTP response at all, so the host was unreachable rather than the
+      # page being gone. Give it one more go after a pause in case it is a
+      # blip on the network or the far end is briefly down.
+      echo -e "${indent}${YELLOW}No response from host, waiting" \
+        "${unreachable_retry_delay_secs}s then re-checking ${NC}${link_url}${NC}"
+      sleep "${unreachable_retry_delay_secs}"
+      response_code="$( \
+        curl \
+          "${curl_retry_args[@]}" \
           --insecure \
           --silent \
           --location \
@@ -187,6 +231,14 @@ verify_http_link() {
       # Link is good so add to our set/map so we don't have to hit it again
       checked_links_map["${link_url}"]=1
       new_checked_links_map["${link_url}"]=1
+    elif [[ -z "${response_code}" || "${response_code}" == "000" ]]; then
+      # Still no response, so we cannot say whether the link is broken. Warn
+      # rather than fail, as failing the build on someone else's outage is
+      # worse than missing a link that has genuinely gone. A dead page returns
+      # 404/410, which is still treated as an error below.
+      echo -e "${indent}${YELLOW}Warning${NC}: Unable to reach host for link" \
+        "[${BLUE}${link_name}${NC}] with url [${BLUE}${link_url}${NC}]" \
+        "in ${BLUE}${source_file}${NC}, so cannot check it."
     elif [[ "${response_code}" =~ ^429 ]]; then
       echo -e "${indent}${NC}Got 429 rate limit response, have to assume URL is ok ${NC}${link_url}${NC}"
       # There doesn't seem to be any rhyme or reason when github returns
