@@ -373,6 +373,8 @@ The arguments to the command are as follows:
 * `-c` `--comments` - Optional string to set the comments for the API Key.
 * `-o` `--outFile` - Optional path to use to output the API Key string to.
   If not set, the API Key string will be output to _stdout_.
+* `-a` `--hashAlgorithm` - Optional name of the hash algorithm used to hash the API Key.
+  If not set, Stroom's default is used.
 
 
 ## Typical Use Cases

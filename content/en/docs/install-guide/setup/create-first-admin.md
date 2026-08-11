@@ -205,7 +205,8 @@ See [`USER_IDENTIFIER`]({{< relref "docs/user-guide/tools/command-line#user_iden
 
 {{% note %}}
 Ideally run this **before** the administrator first logs in.
-If they have already logged in then Stroom will have created a user for them automatically, and `--createUser` will simply leave it as it is; the `--addToGroup` and `--grantPermission` arguments are what actually give them access.
+If they have already logged in then Stroom will have created a user for them automatically, and `--createUser` will leave that user alone, other than re-enabling it if it had been disabled.
+The `--addToGroup` and `--grantPermission` arguments are what actually give them access.
 {{% /note %}}
 
 
