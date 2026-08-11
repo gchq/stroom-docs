@@ -8,18 +8,18 @@ description: >
   Describes the file and directory structure for the site.
 ---
 
-## File names
+## File Names
 
 Ideally files and directories should be named using _lower-kebab-case_, e.g. `site-structure.md`.
 
 
-## Directory structure
+## Directory Structure
 
 All page content, i.e. markdown, is located underneath `content/en`.
 This directory has one sub-directory for each of the top navigation bar items.
 
 
-### Stroom-Docs top level sections
+### Stroom-Docs Top Level Sections
 
 Each of the following sections can have a different styling that is appropriate to its content, e.g. documentation vs blog.
 
@@ -58,6 +58,7 @@ The date should be set in ISO 8601 date format, i.e.
 date: 2021-07-09
 ```
 
+
 ##### Releases (`news/releases`)
 
 Each new minor version release of Stroom should have a file in this directory.
@@ -84,7 +85,7 @@ This can include developer documentation for building and developing Stroom.
 This has the same structure as `docs`.
 
 
-### Documentation content
+### Documentation Content
 
 The `docs` and `community` top level sections have a tree structure for their content.
 Each of these directories will contain three different types of entities:
@@ -115,9 +116,10 @@ The front matter in this index file defines the meta data for that section, e.g.
 A leaf (i.e. a page with no children) is just a markdown file with front matter.
 The front matter for branches and leaves works in the same way.
 
-## How do I...?
 
-### Add a child page
+## How Do I...?
+
+### Add a Child Page
 
 If you already have a section that you want to add a new child page to then you will already have a structure like this:
 
@@ -156,7 +158,8 @@ The new page should now appear in the list of child pages on the section page an
 
 If you want to control the position of the new page relative to its siblings then adjust the [weight]({{< relref "front-matter#weight" >}}) of this page and that of its siblings to get the order that you want.
 
-### Add a new section
+
+### Add a New Section
 
 If you want to add a sub-section to an existing section then you will already have a structure like this:
 
