@@ -26,6 +26,8 @@ However they all share the same API definition.
 
 The detailed documentation for the request/responses is contained in the _Swagger_ definition linked to above.
 
+If you simply want to run a _Stroom Query Language_ query and get the rows back as CSV, without building a _SearchRequest_ model, see the [CSV Search API]({{< relref "csv-search-api" >}}).
+
 
 ## Common endpoints
 
