@@ -14,7 +14,7 @@ This page is the reference for those commands.
 If you are setting up a new installation and need to give it an administrator, follow [Creating the First Administrator]({{< relref "docs/install-guide/setup/create-first-admin" >}}) instead, which walks through the whole task.
 
 
-## Which command do I need?
+## Which Command Do I Need?
 
 | Goal | Command |
 | ---- | ------- |
@@ -26,10 +26,10 @@ If you are setting up a new installation and need to give it an administrator, f
 | Create an {{< glossary "API Key" >}} for a user | [`create_api_key`](#create_api_key) |
 
 Note that creating an administrator on a fresh installation using the internal {{< glossary "idp" >}} needs **both** `create_account` and `manage_users`.
-See [Accounts and Stroom users](#accounts-and-stroom-users) below for why.
+See [Accounts and Stroom Users](#accounts-and-stroom-users) below for why.
 
 
-## Running commands
+## Running Commands
 
 The basic structure of the shell command for starting one of stroom's commands depends on whether you are running the zip distribution of stroom or a docker stack.
 
@@ -43,7 +43,7 @@ Also, each command will run in its own JVM so are not really intended to be run 
 {{% /note %}}
 
 
-### Running commands with the zip distribution
+### Running Commands With the Zip Distribution
 
 The commands are run by passing the command and any of its arguments to the `java` command.
 The jar file is in the `bin` directory of the zip distribution.
@@ -66,7 +66,7 @@ reset_password \
 {{</ command-line >}}
 
 
-### Running commands in a stroom Docker stack
+### Running Commands in a Stroom Docker Stack
 
 Commands are run in a Docker stack using the `command.sh` script found in the root of the stack directory structure.
 
@@ -88,7 +88,7 @@ reset_password \
 {{</ command-line >}}
 
 
-## Accounts and Stroom users
+## Accounts and Stroom Users
 
 Several of the commands below only make sense once you understand that Stroom keeps *authentication* and *authorisation* separate.
 
@@ -106,7 +106,7 @@ See [Accounts vs Users]({{< relref "docs/install-guide/setup/open-id/accounts-us
 {{% /see-also %}}
 
 
-## Command reference
+## Command Reference
 
 {{% note %}}
 All the examples below assume you are running stroom as part of the zip distribution.
@@ -174,7 +174,7 @@ See [Creating the First Administrator]({{< relref "docs/install-guide/setup/crea
 {{% /warning %}}
 
 This command creates an account for authentication only.
-A Stroom user with the same username is also needed before that person has any permissions, see [Accounts and Stroom users](#accounts-and-stroom-users) and [`manage_users`](#manage_users).
+A Stroom user with the same username is also needed before that person has any permissions, see [Accounts and Stroom Users](#accounts-and-stroom-users) and [`manage_users`](#manage_users).
 
 The command will fail if the account already exists.
 This command should NOT be run if you are using an external identity provider.
@@ -233,7 +233,7 @@ It works regardless of whether the internal identity provider or an external one
 {{% warning %}}
 This command does **not** create an account for authentication.
 When using the internal IDP you need [`create_account`]({{< relref "#create_account" >}}) as well, and the username must match exactly.
-See [Accounts and Stroom users](#accounts-and-stroom-users).
+See [Accounts and Stroom Users](#accounts-and-stroom-users).
 {{% /warning %}}
 
 This command is not intended for automation of user management tasks on a running Stroom instance that you can authenticate with.

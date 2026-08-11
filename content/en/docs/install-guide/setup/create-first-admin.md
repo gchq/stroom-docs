@@ -16,7 +16,7 @@ This page covers how to create that first administrator from the command line.
 Once you have one, all further users, groups and permissions can be managed from within the Stroom user interface.
 
 
-## Do you need to do this?
+## Do You Need to Do This?
 
 You do **not** need to do this if either of the following applies:
 
@@ -34,7 +34,7 @@ Setting it on an installation that has already started will not retrospectively 
 {{% /note %}}
 
 
-## Which procedure do you need?
+## Which Procedure Do You Need?
 
 If you have not started Stroom yet, follow the section matching the {{< glossary "idp" >}} you have configured, either [Internal IDP](#internal-idp) or [External IDP](#external-idp).
 
@@ -57,7 +57,7 @@ See [Accounts vs Users]({{< relref "open-id/accounts-users" >}}) for a fuller de
 {{% /see-also %}}
 
 
-## Before you start
+## Before You Start
 
 You will need:
 
@@ -90,7 +90,8 @@ Creating an administrator takes two commands, because an account and a Stroom us
 
 Assuming you want to set up `johndoe` as an administrator:
 
-### 1. Create the account
+
+### Step 1 - Create the Account
 
 {{< command-line "stroomuser" "localhost" >}}
 java -jar /absolute/path/to/stroom-app-all.jar \
@@ -116,7 +117,8 @@ create_account \
 By default Stroom will require this password to be changed at first login, governed by `stroom.security.identity.passwordPolicy.forcePasswordChangeOnFirstLogin`.
 Pass `--noPasswordChange` if you do not want that.
 
-### 2. Create the Stroom user and grant permissions
+
+### Step 2 - Create the Stroom User and Grant Permissions
 
 {{< command-line "stroomuser" "localhost" >}}
 java -jar /absolute/path/to/stroom-app-all.jar \
@@ -168,7 +170,8 @@ The provider is responsible for the credentials.
 Do **not** run `create_account` or `reset_password` when using an external IDP.
 {{% /warning %}}
 
-### Finding the user's identifier on an external IDP
+
+### Finding the User's Identifier on an External IDP
 
 Stroom links a Stroom user to an identity on the provider using a single claim from the authentication token.
 Which claim is used is set by `stroom.security.authentication.openId.uniqueIdentityClaim`, which defaults to `sub`.
@@ -183,7 +186,8 @@ The provider-specific pages describe where to find this value:
 * [Google]({{< relref "open-id/external-idp/google" >}})
 * [Azure AD / Entra ID]({{< relref "open-id/external-idp/azure-ad" >}})
 
-### Create the Stroom user and grant permissions
+
+### Create the Stroom User and Grant Permissions
 
 Assuming the unique identifier for _John Doe_ is `b6e06181-9e10-44eb-a33a-537509ec3abd`:
 
@@ -210,7 +214,7 @@ The `--addToGroup` and `--grantPermission` arguments are what actually give them
 {{% /note %}}
 
 
-## Verifying it worked
+## Verifying It Worked
 
 Start Stroom, then log in as the new administrator.
 
@@ -230,7 +234,7 @@ Without Administrator rights you cannot clear the caches from the user interface
 {{% /warning %}}
 
 
-## What to do next
+## What to Do Next
 
 Now that you have an administrator you can manage everything else from within Stroom:
 
