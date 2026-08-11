@@ -50,7 +50,9 @@ This is the start of a new paragraph.
 
 **Which renders as:**
 
+<!-- style-check: disable -->
 This is the first sentence of the paragraph. This is the second. This it the third and final one.
+<!-- style-check: enable -->
 
 This is the start of a new paragraph.
   {{< /card >}}

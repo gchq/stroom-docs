@@ -228,6 +228,42 @@ To perform a full build of the static site, run this from the repository root:
 This will generate all the static content and place it in `public/`.
 
 
+### Checking the Style
+
+The mechanically verifiable parts of the [Style Guide]({{< relref "style-guide" >}}), e.g. heading capitalisation and sentence per line, can be checked with:
+
+{{< command-line >}}
+./check_style.sh
+{{</ command-line >}}
+
+This reports a summary and always succeeds.
+Useful variations:
+
+{{< command-line >}}
+./check_style.sh --detail
+./check_style.sh --rule title-case
+./check_style.sh content/en/docs/user-guide/my-page.md
+{{</ command-line >}}
+
+There is a large backlog of pre-existing findings, recorded per file in `style-baseline.tsv`.
+To check that a change has not added to it, run:
+
+{{< command-line >}}
+./check_style.sh --ratchet
+{{</ command-line >}}
+
+This fails only if a file has more findings than its baseline, and lists the new ones.
+After clearing some of the backlog, refresh the baseline with `./check_style.sh --update-baseline`.
+
+Where a page breaks a rule deliberately, e.g. an example showing what not to do, exempt just that part:
+
+```markdown
+<!-- style-check: disable -->
+This is the first sentence. This is a second one on the same line.
+<!-- style-check: enable -->
+```
+
+
 ### Generating the PDF
 
 Every page has a _Print entire section_ link that will display a printable view of that section and its children.
