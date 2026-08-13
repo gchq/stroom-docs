@@ -4,7 +4,7 @@
     <link>/tags/api/</link>
     <description>Recent content in api on Stroom</description>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Tue, 11 Jun 2024 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Tue, 11 Aug 2026 00:00:00 +0000</lastBuildDate>
     
 	  <atom:link href="/tags/api/index.xml" rel="self" type="application/rss+xml" />
     
@@ -454,6 +454,7 @@ Stroom&amp;rsquo;s SQL Statistics store.&lt;/li&gt;
 Searchables are various data sources that allow you to search the internals of Stroom, e.g. local reference data store, annotations, processor tasks, etc.&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;The detailed documentation for the request/responses is contained in the &lt;em&gt;Swagger&lt;/em&gt; definition linked to above.&lt;/p&gt;
+&lt;p&gt;If you simply want to run a &lt;em&gt;Stroom Query Language&lt;/em&gt; query and get the rows back as CSV, without building a &lt;em&gt;SearchRequest&lt;/em&gt; model, see the &lt;a href=&#34;../../docs/user-guide/api/csv-search-api/&#34;&gt;CSV Search API&lt;/a&gt;.&lt;/p&gt;
 &lt;h2 id=&#34;common-endpoints&#34;&gt;Common endpoints&lt;/h2&gt;
 &lt;p&gt;The standard query endpoints are&lt;/p&gt;
 &lt;ul&gt;
@@ -495,6 +496,220 @@ Then, clicking the download icon on the query pane of the dashboard will generat
 &lt;p&gt;Stroom will only hold search results from completed queries for a certain length of time.
 It will also terminate running queries that are too old.
 In order to prevent queries being aged off you can hit this endpoint to indicate to Stroom that you still have an interest in a particular query by supplying the query key.&lt;/p&gt;
+
+      </description>
+    </item>
+    
+    <item>
+      <title>Docs: CSV Search API</title>
+      <link>/docs/user-guide/api/csv-search-api/</link>
+      <pubDate>Tue, 11 Aug 2026 00:00:00 +0000</pubDate>
+      
+      <guid>/docs/user-guide/api/csv-search-api/</guid>
+      <description>
+        
+        
+        &lt;h2 id=&#34;csv-search&#34;&gt;CSV search&lt;/h2&gt;
+&lt;p&gt;This endpoint runs a &lt;a href=&#34;../../docs/user-guide/search/queries/stroom-query-language/&#34;&gt;Stroom Query Language&lt;/a&gt; query and returns the results as CSV.&lt;/p&gt;
+&lt;p&gt;Unlike the &lt;a href=&#34;../../docs/user-guide/api/query-api/&#34;&gt;Query APIs&lt;/a&gt;, which need a JSON &lt;em&gt;SearchRequest&lt;/em&gt; describing both the query terms and how the results should be structured, this endpoint takes the query as a single string and always returns a table.
+It is intended for the common case of pulling a modest set of rows out of &lt;em&gt;Stroom&lt;/em&gt; from a script.&lt;/p&gt;
+&lt;p&gt;The Swagger specification for the endpoint can be found &lt;span class=&#34;external-link&#34;&gt;
+  &lt;a href=&#34;https://gchq.github.io/stroom/v7.13/#/Queries/queryCsv&#34; target=&#34;_blank&#34; class=&#34;external-link&#34; title=&#34;here (external link to https://gchq.github.io/stroom/v7.13/#/Queries/queryCsv)&#34;&gt;
+    &lt;span&gt;here&lt;/span&gt;
+    &lt;i class=&#34;external-link-icon fas fa-external-link-alt fa-sm text-secondary&#34;&gt;&lt;/i&gt;
+  &lt;/a&gt;
+&lt;/span&gt;
+.&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;GET /api/query/v1/csv/search
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;The call is authenticated in the same way as any other &lt;em&gt;Stroom&lt;/em&gt; API, so you will need an &lt;a href=&#34;../../docs/user-guide/api/calling-api/#authentication&#34;&gt;API Key&lt;/a&gt;.
+The examples below assume it is held in &lt;code&gt;${TOKEN}&lt;/code&gt;.&lt;/p&gt;
+&lt;h3 id=&#34;parameters&#34;&gt;Parameters&lt;/h3&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;Parameter&lt;/th&gt;
+&lt;th&gt;Default&lt;/th&gt;
+&lt;th&gt;Description&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;query&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;&lt;em&gt;(required)&lt;/em&gt;&lt;/td&gt;
+&lt;td&gt;The &lt;em&gt;Stroom Query Language&lt;/em&gt; query to run.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;offset&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;0&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;The index of the first row to return.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;length&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;100&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;The maximum number of rows to return.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;incremental&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;true&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;Whether to return the results found so far rather than waiting for the query to finish. See &lt;a href=&#34;#incremental-and-non-incremental-searches&#34;&gt;Incremental and non incremental searches&lt;/a&gt;.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;timeout&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;&lt;em&gt;see below&lt;/em&gt;&lt;/td&gt;
+&lt;td&gt;How long, in milliseconds, the server will wait for the query to finish before responding. Defaults to 1,000 for an incremental search and 300,000 (five minutes) for a non incremental one.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;h3 id=&#34;response&#34;&gt;Response&lt;/h3&gt;
+&lt;p&gt;The response body is &lt;code&gt;text/plain&lt;/code&gt; CSV.
+The first line holds the column names and each subsequent line holds one row.
+Only visible columns are included, so a column hidden in the query is also absent from the CSV, as are &lt;em&gt;Stroom&lt;/em&gt;&amp;rsquo;s internal special columns.&lt;/p&gt;
+&lt;p&gt;A query that matches nothing returns an empty body, which is not an error.&lt;/p&gt;
+&lt;h3 id=&#34;incremental-and-non-incremental-searches&#34;&gt;Incremental and non incremental searches&lt;/h3&gt;
+&lt;p&gt;Searches in &lt;em&gt;Stroom&lt;/em&gt; are asynchronous, so a response can be sent back before the query has finished.
+This means an empty or short CSV body on its own is ambiguous, as it could mean either that the query matched little, or that it had not got very far by the time the server replied.&lt;/p&gt;
+&lt;p&gt;Every response therefore carries two headers to resolve that ambiguity.&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;Header&lt;/th&gt;
+&lt;th&gt;Description&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;X-Stroom-Search-Incremental&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;Whether the search ran incrementally, i.e. the value of the &lt;code&gt;incremental&lt;/code&gt; parameter.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;X-Stroom-Search-Complete&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;Whether the search finished. &lt;code&gt;false&lt;/code&gt; means the CSV holds only the rows found so far, so it is a subset of the matching data.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;div class=&#34;alert alert-primary&#34; role=&#34;alert&#34;&gt;
+&lt;h4 class=&#34;alert-heading&#34;&gt;Note&lt;/h4&gt;
+
+
+    Always check &lt;code&gt;X-Stroom-Search-Complete&lt;/code&gt; before treating the CSV as the full result set.
+A truncated result and a complete one are otherwise indistinguishable.
+
+&lt;/div&gt;
+
+
+&lt;p&gt;An &lt;strong&gt;incremental&lt;/strong&gt; search (the default) returns whatever rows have been found when the timeout expires.
+This gets you a quick answer at the cost of it probably being partial, and is the right choice when you want to see something immediately.
+If &lt;code&gt;X-Stroom-Search-Complete&lt;/code&gt; is &lt;code&gt;false&lt;/code&gt; you can request the data again, optionally with a longer &lt;code&gt;timeout&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;A &lt;strong&gt;non incremental&lt;/strong&gt; search waits for the query to finish and so returns the whole result set, subject to &lt;code&gt;offset&lt;/code&gt; and &lt;code&gt;length&lt;/code&gt;.
+This is the right choice for a script that needs complete data.
+The trade off is that the request holds open for as long as the query takes, so allow for that in the client&amp;rsquo;s own timeout.&lt;/p&gt;
+&lt;h3 id=&#34;errors&#34;&gt;Errors&lt;/h3&gt;
+&lt;p&gt;Omitting the &lt;code&gt;query&lt;/code&gt; parameter returns a &lt;code&gt;400&lt;/code&gt; with the body &lt;code&gt;query not supplied&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;A query that &lt;em&gt;Stroom&lt;/em&gt; rejects, for example one that will not parse or that names a data source that cannot be found, returns a &lt;code&gt;400&lt;/code&gt; whose body is the reason.&lt;/p&gt;
+
+  
+
+
+
+
+
+
+&lt;div class=&#34;code-toolbar&#34;&gt;
+  &lt;pre 
+    class=&#34;command-line language-bash&#34; 
+    data-user=&#34;user&#34; 
+    data-host=&#34;localhost&#34; 
+    data-continuation-str=&#34;\&#34;
+    data-filter-output=&#34;(out)&#34;&gt;&lt;code class=&#34;language-bash&#34;&gt;curl --silent --get --include \
+  --header &amp;#34;Authorization:Bearer ${TOKEN}&amp;#34; \
+  --data-urlencode &amp;#39;query=from &amp;#34;Example Index&amp;#34; take 3&amp;#39; \
+  https://stroom-fqdn/api/query/v1/csv/search&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-text&#34;&gt;HTTP/1.1 400 Bad Request
+Content-Type: text/plain
+
+Expected one of [select, where] but got &#39;take&#39;
+Error at line 1, column 22
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;The first line is the reason reported by the query parser, so its exact wording depends on the query.
+The &lt;code&gt;Error at line ..., column ...&lt;/code&gt; line is only present when the parser reports a location for the problem.&lt;/p&gt;
+&lt;p&gt;A non incremental search that hits its &lt;code&gt;timeout&lt;/code&gt; also returns a &lt;code&gt;400&lt;/code&gt;, with a body of the form &lt;code&gt;The search timed out after PT5M&lt;/code&gt;.
+Either raise &lt;code&gt;timeout&lt;/code&gt; or switch to an incremental search, which returns the rows found so far instead of failing.&lt;/p&gt;
+&lt;p&gt;The bodies of the above are &lt;code&gt;text/plain&lt;/code&gt;.
+Any other failure is a fault in &lt;em&gt;Stroom&lt;/em&gt; rather than a problem with the request, and returns a &lt;code&gt;500&lt;/code&gt; whose body is a JSON object with &lt;code&gt;code&lt;/code&gt;, &lt;code&gt;message&lt;/code&gt; and &lt;code&gt;details&lt;/code&gt; fields.&lt;/p&gt;
+
+&lt;div class=&#34;alert alert-primary&#34; role=&#34;alert&#34;&gt;
+&lt;h4 class=&#34;alert-heading&#34;&gt;Note&lt;/h4&gt;
+
+
+    The &lt;code&gt;X-Stroom-Search-Incremental&lt;/code&gt; and &lt;code&gt;X-Stroom-Search-Complete&lt;/code&gt; headers are only present on a successful response.
+A client that reads them should check the status code first, as an error carries neither header.
+
+&lt;/div&gt;
+
+
+&lt;h3 id=&#34;examples&#34;&gt;Examples&lt;/h3&gt;
+&lt;p&gt;Fetch the first 1,000 rows, waiting up to two minutes for the query to finish.&lt;/p&gt;
+
+  
+
+
+
+
+
+
+&lt;div class=&#34;code-toolbar&#34;&gt;
+  &lt;pre 
+    class=&#34;command-line language-bash&#34; 
+    data-user=&#34;user&#34; 
+    data-host=&#34;localhost&#34; 
+    data-continuation-str=&#34;\&#34;
+    data-filter-output=&#34;(out)&#34;&gt;&lt;code class=&#34;language-bash&#34;&gt;TOKEN=&amp;#34;...API KEY GOES IN HERE...&amp;#34;
+curl \
+  --silent \
+  --get \
+  --header &amp;#34;Authorization:Bearer ${TOKEN}&amp;#34; \
+  --data-urlencode &amp;#39;query=from &amp;#34;Example Index&amp;#34; where EventTime &amp;gt; now() - 1d select EventTime, UserId&amp;#39; \
+  --data-urlencode &amp;#39;length=1000&amp;#39; \
+  --data-urlencode &amp;#39;incremental=false&amp;#39; \
+  --data-urlencode &amp;#39;timeout=120000&amp;#39; \
+  --output results.csv \
+  https://stroom-fqdn/api/query/v1/csv/search&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;Using &lt;code&gt;--data-urlencode&lt;/code&gt; with &lt;code&gt;--get&lt;/code&gt; lets &lt;code&gt;curl&lt;/code&gt; do the URL encoding, which matters because a query will usually contain spaces and quotes.&lt;/p&gt;
+&lt;p&gt;The next example takes the quick, possibly partial, answer and checks whether it was complete.
+The headers are written to &lt;code&gt;headers.out&lt;/code&gt; so they can be inspected separately from the CSV.&lt;/p&gt;
+
+  
+
+
+
+
+
+
+&lt;div class=&#34;code-toolbar&#34;&gt;
+  &lt;pre 
+    class=&#34;command-line language-bash&#34; 
+    data-user=&#34;user&#34; 
+    data-host=&#34;localhost&#34; 
+    data-continuation-str=&#34;\&#34;
+    data-filter-output=&#34;(out)&#34;&gt;&lt;code class=&#34;language-bash&#34;&gt;curl \
+  --silent \
+  --get \
+  --header &amp;#34;Authorization:Bearer ${TOKEN}&amp;#34; \
+  --data-urlencode &amp;#39;query=from &amp;#34;Example Index&amp;#34; select EventTime, UserId&amp;#39; \
+  --dump-header headers.out \
+  --output results.csv \
+  https://stroom-fqdn/api/query/v1/csv/search
+grep --ignore-case &amp;#39;X-Stroom-Search-Complete&amp;#39; headers.out&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-text&#34;&gt;X-Stroom-Search-Complete: false
+&lt;/code&gt;&lt;/pre&gt;
 
       </description>
     </item>

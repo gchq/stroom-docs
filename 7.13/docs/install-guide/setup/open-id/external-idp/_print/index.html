@@ -137,8 +137,6 @@
 	
 	<a class="dropdown-item" href="../../../../../../7.0">7.0</a>
 	
-	<a class="dropdown-item" href="../../../../../../legacy">Legacy</a>
-	
 </div>
 </li>
       </ul>
@@ -153,7 +151,7 @@
     aria-label="Search this site…"
     autocomplete="off"
     
-    data-offline-search-index-json-src="../../../../../../offline-search-index.c53f44a201bcf2058d5dcf2bbc46067c.json"
+    data-offline-search-index-json-src="../../../../../../offline-search-index.95b12371d9f23e70cddb1f62f4c00605.json"
     data-offline-search-base-href="../../../../../../"
     data-offline-search-max-results="50"
   >
@@ -425,7 +423,7 @@ That is solved with the <code>manage_users</code> command, described on each pro
 <h4 class="alert-heading">See Also</h4>
 <div class="alert-content">
   
-  <p>See <a href="../../../../../../docs/install-guide/setup/open-id/accounts-users/">Accounts and Users</a> for how identities at the provider relate to Stroom users.</p>
+  <p>See <a href="../../../../../../docs/install-guide/setup/create-first-admin/">Creating the First Administrator</a> for the full procedure, and <a href="../../../../../../docs/install-guide/setup/open-id/accounts-users/">Accounts and Users</a> for how identities at the provider relate to Stroom users.</p>
 
 </div>
 </div>
@@ -1082,11 +1080,11 @@ This ID is the <code>sub</code> claim, which is what Stroom uses to uniquely ide
     data-filter-output="(out)"><code class="language-bash">subject_id=&#34;XXX&#34;; \
 java -jar /absolute/path/to/stroom-app-all.jar \
   manage_users \
-  ../local.yml \
   --createUser &#34;${subject_id}&#34; \
   --createGroup Administrators \
   --addToGroup &#34;${subject_id}&#34; Administrators \
-  --grantPermission Administrators &#34;Administrator&#34;</code></pre>
+  --grantPermission Administrators &#34;Administrator&#34; \
+  ../local.yml</code></pre>
 </div>
 
 <p>Where <code>XXX</code> is the user ID copied from the IDP as described above.
@@ -1579,11 +1577,11 @@ Find the <code>sub</code> of the user who is to be the administrator, which for 
     data-filter-output="(out)"><code class="language-bash">subject_id=&#34;XXX&#34;; \
 java -jar /absolute/path/to/stroom-app-all.jar \
   manage_users \
-  ../local.yml \
   --createUser &#34;${subject_id}&#34; \
   --createGroup Administrators \
   --addToGroup &#34;${subject_id}&#34; Administrators \
-  --grantPermission Administrators &#34;Administrator&#34;</code></pre>
+  --grantPermission Administrators &#34;Administrator&#34; \
+  ../local.yml</code></pre>
 </div>
 
 
@@ -1859,11 +1857,11 @@ Unlike KeyCloak and Cognito, Google does not show this in an admin console; the 
     data-filter-output="(out)"><code class="language-bash">subject_id=&#34;XXX&#34;; \
 java -jar /absolute/path/to/stroom-app-all.jar \
   manage_users \
-  ../local.yml \
   --createUser &#34;${subject_id}&#34; \
   --createGroup Administrators \
   --addToGroup &#34;${subject_id}&#34; Administrators \
-  --grantPermission Administrators &#34;Administrator&#34;</code></pre>
+  --grantPermission Administrators &#34;Administrator&#34; \
+  ../local.yml</code></pre>
 </div>
 
 <p>The command is repeatable and will skip anything that already exists, so running it against a user that signed in earlier is fine.</p>
@@ -2159,11 +2157,11 @@ If you are using <code>sub</code>, it is pairwise and not shown anywhere in the 
     data-filter-output="(out)"><code class="language-bash">subject_id=&#34;XXX&#34;; \
 java -jar /absolute/path/to/stroom-app-all.jar \
   manage_users \
-  ../local.yml \
   --createUser &#34;${subject_id}&#34; \
   --createGroup Administrators \
   --addToGroup &#34;${subject_id}&#34; Administrators \
-  --grantPermission Administrators &#34;Administrator&#34;</code></pre>
+  --grantPermission Administrators &#34;Administrator&#34; \
+  ../local.yml</code></pre>
 </div>
 
 <p>The command is repeatable and will skip anything that already exists, so running it against a user who has already signed in is fine.

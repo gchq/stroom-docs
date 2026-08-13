@@ -1,0 +1,451 @@
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Stroom – install</title>
+    <link>/tags/install/</link>
+    <description>Recent content in install on Stroom</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Tue, 11 Aug 2026 00:00:00 +0000</lastBuildDate>
+    
+	  <atom:link href="/tags/install/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+      
+        
+      
+    
+    
+    <item>
+      <title>Docs: Creating the First Administrator</title>
+      <link>/docs/install-guide/setup/create-first-admin/</link>
+      <pubDate>Tue, 11 Aug 2026 00:00:00 +0000</pubDate>
+      
+      <guid>/docs/install-guide/setup/create-first-admin/</guid>
+      <description>
+        
+        
+        &lt;p&gt;A new Stroom installation normally has no administrator.
+Until one exists, nobody can log in and set the system up, so this is a required step for most installations.&lt;/p&gt;
+&lt;p&gt;This page covers how to create that first administrator from the command line.
+Once you have one, all further users, groups and permissions can be managed from within the Stroom user interface.&lt;/p&gt;
+&lt;h2 id=&#34;do-you-need-to-do-this&#34;&gt;Do You Need to Do This?&lt;/h2&gt;
+&lt;p&gt;You do &lt;strong&gt;not&lt;/strong&gt; need to do this if either of the following applies:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;You are running the &lt;code&gt;stroom_core_test&lt;/code&gt; Docker stack, which is pre-configured with an &lt;code&gt;admin&lt;/code&gt; account (password &lt;code&gt;admin&lt;/code&gt;).
+See &lt;a href=&#34;../../docs/install-guide/single-node-docker/&#34;&gt;Single Node (Docker)&lt;/a&gt;.&lt;/li&gt;
+&lt;li&gt;You have set &lt;code&gt;stroom.security.identity.autoCreateAdminAccountOnBoot&lt;/code&gt; to &lt;code&gt;true&lt;/code&gt; &lt;strong&gt;before first boot&lt;/strong&gt;, in which case Stroom creates the &lt;code&gt;admin&lt;/code&gt; account for you.
+This property defaults to &lt;code&gt;false&lt;/code&gt;.
+See &lt;a href=&#34;../../docs/install-guide/setup/open-id/internal-idp/&#34;&gt;Internal IDP&lt;/a&gt;.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Everyone else needs to create an administrator manually.&lt;/p&gt;
+
+&lt;div class=&#34;alert alert-primary&#34; role=&#34;alert&#34;&gt;
+&lt;h4 class=&#34;alert-heading&#34;&gt;Note&lt;/h4&gt;
+
+
+    &lt;code&gt;autoCreateAdminAccountOnBoot&lt;/code&gt; only has an effect on a fresh database.
+Setting it on an installation that has already started will not retrospectively create the account, so use this page instead.
+
+&lt;/div&gt;
+
+
+&lt;h2 id=&#34;which-procedure-do-you-need&#34;&gt;Which Procedure Do You Need?&lt;/h2&gt;
+&lt;p&gt;If you have not started Stroom yet, follow the section matching the &lt;span class=&#34;glossary-link&#34;&gt;
+    &lt;a href=&#34;../../docs/glossary/i/glossary-idp&#34;&gt;
+      &lt;span&gt;Identity Provider (IDP)&lt;/span&gt;
+      &lt;i class=&#34;glossary-link-icon fas fa-book fa-sm text-primary&#34;&gt;&lt;/i&gt;
+    &lt;/a&gt;&lt;span class=&#34;glossary-tooltip&#34;&gt;
+      &lt;span class=&#34;glossary-tooltip-title&#34;&gt;Identity Provider (IDP)&lt;/span&gt;
+      &lt;span class=&#34;glossary-tooltip-summary&#34;&gt;An &lt;strong&gt;Id&lt;/strong&gt;entity &lt;strong&gt;P&lt;/strong&gt;rovider is a system or service that can authenticate a user and assert their identity. &lt;em&gt;Identity providers&lt;/em&gt; can support single sign on (SSO), which allows the user to sign in once to the &lt;em&gt;Identity Provider&lt;/em&gt; so they are then authenticated to all systems using that IDP.&lt;/span&gt;&lt;span class=&#34;glossary-tooltip-truncated&#34;&gt;Click to see more details...&lt;/span&gt;&lt;/span&gt;&lt;/span&gt; you have configured, either &lt;a href=&#34;#internal-idp&#34;&gt;Internal IDP&lt;/a&gt; or &lt;a href=&#34;#external-idp&#34;&gt;External IDP&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;If you have already started Stroom and hit a problem, use this table to find the right one.&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;Symptom&lt;/th&gt;
+&lt;th&gt;Cause&lt;/th&gt;
+&lt;th&gt;What to do&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;You reach the Stroom login page but have no credentials that work&lt;/td&gt;
+&lt;td&gt;Using the &lt;span class=&#34;glossary-link&#34;&gt;
+    &lt;a href=&#34;../../docs/glossary/i/glossary-idp&#34;&gt;
+      &lt;span&gt;internal IDP&lt;/span&gt;
+      &lt;i class=&#34;glossary-link-icon fas fa-book fa-sm text-primary&#34;&gt;&lt;/i&gt;
+    &lt;/a&gt;&lt;span class=&#34;glossary-tooltip&#34;&gt;
+      &lt;span class=&#34;glossary-tooltip-title&#34;&gt;Identity Provider (IDP)&lt;/span&gt;
+      &lt;span class=&#34;glossary-tooltip-summary&#34;&gt;An &lt;strong&gt;Id&lt;/strong&gt;entity &lt;strong&gt;P&lt;/strong&gt;rovider is a system or service that can authenticate a user and assert their identity. &lt;em&gt;Identity providers&lt;/em&gt; can support single sign on (SSO), which allows the user to sign in once to the &lt;em&gt;Identity Provider&lt;/em&gt; so they are then authenticated to all systems using that IDP.&lt;/span&gt;&lt;span class=&#34;glossary-tooltip-truncated&#34;&gt;Click to see more details...&lt;/span&gt;&lt;/span&gt;&lt;/span&gt; and no &lt;span class=&#34;glossary-link&#34;&gt;
+    &lt;a href=&#34;../../docs/glossary/a/glossary-account&#34;&gt;
+      &lt;span&gt;account&lt;/span&gt;
+      &lt;i class=&#34;glossary-link-icon fas fa-book fa-sm text-primary&#34;&gt;&lt;/i&gt;
+    &lt;/a&gt;&lt;span class=&#34;glossary-tooltip&#34;&gt;
+      &lt;span class=&#34;glossary-tooltip-title&#34;&gt;Account&lt;/span&gt;
+      &lt;span class=&#34;glossary-tooltip-summary&#34;&gt;Refers to a user account in Stroom&amp;rsquo;s internal Identity Provider. An Account holds the credentials a person authenticates with, and exists only where Stroom is its own Identity Provider, unlike a &lt;em&gt;User&lt;/em&gt; which exists in every deployment.&lt;/span&gt;&lt;span class=&#34;glossary-tooltip-truncated&#34;&gt;Click to see more details...&lt;/span&gt;&lt;/span&gt;&lt;/span&gt; exists&lt;/td&gt;
+&lt;td&gt;&lt;a href=&#34;#internal-idp&#34;&gt;Internal IDP&lt;/a&gt; below&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;You can sign in via your identity provider, but Stroom shows no content and you cannot create anything&lt;/td&gt;
+&lt;td&gt;Using an external &lt;span class=&#34;glossary-link&#34;&gt;
+    &lt;a href=&#34;../../docs/glossary/i/glossary-idp&#34;&gt;
+      &lt;span&gt;Identity Provider (IDP)&lt;/span&gt;
+      &lt;i class=&#34;glossary-link-icon fas fa-book fa-sm text-primary&#34;&gt;&lt;/i&gt;
+    &lt;/a&gt;&lt;span class=&#34;glossary-tooltip&#34;&gt;
+      &lt;span class=&#34;glossary-tooltip-title&#34;&gt;Identity Provider (IDP)&lt;/span&gt;
+      &lt;span class=&#34;glossary-tooltip-summary&#34;&gt;An &lt;strong&gt;Id&lt;/strong&gt;entity &lt;strong&gt;P&lt;/strong&gt;rovider is a system or service that can authenticate a user and assert their identity. &lt;em&gt;Identity providers&lt;/em&gt; can support single sign on (SSO), which allows the user to sign in once to the &lt;em&gt;Identity Provider&lt;/em&gt; so they are then authenticated to all systems using that IDP.&lt;/span&gt;&lt;span class=&#34;glossary-tooltip-truncated&#34;&gt;Click to see more details...&lt;/span&gt;&lt;/span&gt;&lt;/span&gt; and no &lt;span class=&#34;glossary-link&#34;&gt;
+    &lt;a href=&#34;../../docs/glossary/u/glossary-user&#34;&gt;
+      &lt;span&gt;Stroom user&lt;/span&gt;
+      &lt;i class=&#34;glossary-link-icon fas fa-book fa-sm text-primary&#34;&gt;&lt;/i&gt;
+    &lt;/a&gt;&lt;span class=&#34;glossary-tooltip&#34;&gt;
+      &lt;span class=&#34;glossary-tooltip-title&#34;&gt;User&lt;/span&gt;
+      &lt;span class=&#34;glossary-tooltip-summary&#34;&gt;Refers to a Stroom User that is linked to either an &lt;em&gt;Account&lt;/em&gt; in Stroom&amp;rsquo;s internal &lt;em&gt;Identity Provider&lt;/em&gt; or a user account in an external &lt;em&gt;Identity Provider&lt;/em&gt;. A Stroom User is primarily concerned with authorisation (i.e. application/document permissions and group memberships) rather than authentication, though disabling one also refuses that person at authentication and ends any access they currently hold.&lt;/span&gt;&lt;span class=&#34;glossary-tooltip-truncated&#34;&gt;Click to see more details...&lt;/span&gt;&lt;/span&gt;&lt;/span&gt; exists for your identity, or it has no permissions&lt;/td&gt;
+&lt;td&gt;&lt;a href=&#34;#external-idp&#34;&gt;External IDP&lt;/a&gt; below&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;The two cases differ because Stroom separates &lt;em&gt;authentication&lt;/em&gt; from &lt;em&gt;authorisation&lt;/em&gt;:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;An &lt;strong&gt;Account&lt;/strong&gt; is an identity used to log in.
+Accounts only exist in Stroom when the internal IDP is used; with an external IDP the accounts live in that provider.&lt;/li&gt;
+&lt;li&gt;A &lt;strong&gt;Stroom user&lt;/strong&gt; is the entity that holds group memberships and permissions.
+One is always needed, whichever IDP is in use.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;div class=&#34;alert alert-primary&#34; role=&#34;alert&#34;&gt;
+&lt;h4 class=&#34;alert-heading&#34;&gt;See Also&lt;/h4&gt;
+&lt;div class=&#34;alert-content&#34;&gt;
+  
+  &lt;p&gt;See &lt;a href=&#34;../../docs/install-guide/setup/open-id/accounts-users/&#34;&gt;Accounts vs Users&lt;/a&gt; for a fuller description of this distinction.&lt;/p&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;h2 id=&#34;before-you-start&#34;&gt;Before You Start&lt;/h2&gt;
+&lt;p&gt;You will need:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Shell access to a Stroom node as the &lt;a href=&#34;../../docs/install-guide/setup/processing-user-setup/&#34;&gt;processing user&lt;/a&gt;, e.g. &lt;code&gt;stroomuser&lt;/code&gt;.&lt;/li&gt;
+&lt;li&gt;Stroom &lt;strong&gt;not running&lt;/strong&gt; on that node.
+Each command runs in its own JVM and is not intended to be run against a live node.&lt;/li&gt;
+&lt;li&gt;For an external IDP, the unique identifier of the person who will be the administrator, as held by that provider.
+See &lt;a href=&#34;#finding-the-users-identifier-on-an-external-idp&#34;&gt;Finding the user&amp;rsquo;s identifier on an external IDP&lt;/a&gt;.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;The commands below are shown in two forms.
+Use whichever matches your installation:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Zip distribution&lt;/strong&gt; - &lt;code&gt;java -jar /absolute/path/to/stroom-app-all.jar COMMAND [ARGS] path/to/config.yml&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Docker stack&lt;/strong&gt; - &lt;code&gt;./command.sh COMMAND [ARGS]&lt;/code&gt; run from the root of the stack directory.
+The script supplies the config file path for you, so do &lt;strong&gt;not&lt;/strong&gt; pass one.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;div class=&#34;alert alert-primary&#34; role=&#34;alert&#34;&gt;
+&lt;h4 class=&#34;alert-heading&#34;&gt;See Also&lt;/h4&gt;
+&lt;div class=&#34;alert-content&#34;&gt;
+  
+  &lt;p&gt;See &lt;a href=&#34;../../docs/user-guide/tools/command-line/&#34;&gt;Command Line Tools&lt;/a&gt; for the full reference for each command used here.&lt;/p&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;h2 id=&#34;internal-idp&#34;&gt;Internal IDP&lt;/h2&gt;
+&lt;p&gt;This is the default configuration, where Stroom manages its own accounts.&lt;/p&gt;
+&lt;p&gt;Creating an administrator takes two commands, because an account and a Stroom user are two different things:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;code&gt;create_account&lt;/code&gt; creates the account used to log in.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;manage_users&lt;/code&gt; creates the Stroom user, creates an &lt;code&gt;Administrators&lt;/code&gt; group holding the &lt;code&gt;Administrator&lt;/code&gt; application permission, and puts the user in that group.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;Assuming you want to set up &lt;code&gt;johndoe&lt;/code&gt; as an administrator:&lt;/p&gt;
+&lt;h3 id=&#34;step-1---create-the-account&#34;&gt;Step 1 - Create the Account&lt;/h3&gt;
+
+  
+
+
+
+
+
+
+&lt;div class=&#34;code-toolbar&#34;&gt;
+  &lt;pre 
+    class=&#34;command-line language-bash&#34; 
+    data-user=&#34;stroomuser&#34; 
+    data-host=&#34;localhost&#34; 
+    data-continuation-str=&#34;\&#34;
+    data-filter-output=&#34;(out)&#34;&gt;&lt;code class=&#34;language-bash&#34;&gt;java -jar /absolute/path/to/stroom-app-all.jar \
+create_account \
+--user johndoe \
+--firstName John \
+--lastName Doe \
+--password &amp;#34;correct horse battery staple&amp;#34; \
+path/to/config.yml&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;Or, in a Docker stack:&lt;/p&gt;
+
+  
+
+
+
+
+
+
+&lt;div class=&#34;code-toolbar&#34;&gt;
+  &lt;pre 
+    class=&#34;command-line language-bash&#34; 
+    data-user=&#34;stroomuser&#34; 
+    data-host=&#34;localhost&#34; 
+    data-continuation-str=&#34;\&#34;
+    data-filter-output=&#34;(out)&#34;&gt;&lt;code class=&#34;language-bash&#34;&gt;./command.sh \
+create_account \
+--user johndoe \
+--firstName John \
+--lastName Doe \
+--password &amp;#34;correct horse battery staple&amp;#34;&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;By default Stroom will require this password to be changed at first login, governed by &lt;code&gt;stroom.security.identity.passwordPolicy.forcePasswordChangeOnFirstLogin&lt;/code&gt;.
+Pass &lt;code&gt;--noPasswordChange&lt;/code&gt; if you do not want that.&lt;/p&gt;
+&lt;h3 id=&#34;step-2---create-the-stroom-user-and-grant-permissions&#34;&gt;Step 2 - Create the Stroom User and Grant Permissions&lt;/h3&gt;
+
+  
+
+
+
+
+
+
+&lt;div class=&#34;code-toolbar&#34;&gt;
+  &lt;pre 
+    class=&#34;command-line language-bash&#34; 
+    data-user=&#34;stroomuser&#34; 
+    data-host=&#34;localhost&#34; 
+    data-continuation-str=&#34;\&#34;
+    data-filter-output=&#34;(out)&#34;&gt;&lt;code class=&#34;language-bash&#34;&gt;java -jar /absolute/path/to/stroom-app-all.jar \
+manage_users \
+--createUser johndoe \
+--createGroup Administrators \
+--addToGroup johndoe Administrators \
+--grantPermission Administrators &amp;#34;Administrator&amp;#34; \
+path/to/config.yml&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;Or, in a Docker stack:&lt;/p&gt;
+
+  
+
+
+
+
+
+
+&lt;div class=&#34;code-toolbar&#34;&gt;
+  &lt;pre 
+    class=&#34;command-line language-bash&#34; 
+    data-user=&#34;stroomuser&#34; 
+    data-host=&#34;localhost&#34; 
+    data-continuation-str=&#34;\&#34;
+    data-filter-output=&#34;(out)&#34;&gt;&lt;code class=&#34;language-bash&#34;&gt;./command.sh \
+manage_users \
+--createUser johndoe \
+--createGroup Administrators \
+--addToGroup johndoe Administrators \
+--grantPermission Administrators &amp;#34;Administrator&amp;#34;&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+
+&lt;div class=&#34;alert alert-warning&#34; role=&#34;alert&#34;&gt;
+&lt;h4 class=&#34;alert-heading&#34;&gt;Warning&lt;/h4&gt;
+
+    The username must match &lt;strong&gt;exactly&lt;/strong&gt; between &lt;code&gt;--user&lt;/code&gt; (in &lt;code&gt;create_account&lt;/code&gt;), &lt;code&gt;--createUser&lt;/code&gt; and &lt;code&gt;--addToGroup&lt;/code&gt; (in &lt;code&gt;manage_users&lt;/code&gt;).
+A mismatch produces an account that can log in but has no permissions.
+
+&lt;/div&gt;
+
+
+&lt;p&gt;To set up more than one administrator, repeat the &lt;code&gt;create_account&lt;/code&gt; command for each person and pass the extra &lt;code&gt;--createUser&lt;/code&gt;/&lt;code&gt;--addToGroup&lt;/code&gt; arguments in a single &lt;code&gt;manage_users&lt;/code&gt; command:&lt;/p&gt;
+
+  
+
+
+
+
+
+
+&lt;div class=&#34;code-toolbar&#34;&gt;
+  &lt;pre 
+    class=&#34;command-line language-bash&#34; 
+    data-user=&#34;stroomuser&#34; 
+    data-host=&#34;localhost&#34; 
+    data-continuation-str=&#34;\&#34;
+    data-filter-output=&#34;(out)&#34;&gt;&lt;code class=&#34;language-bash&#34;&gt;java -jar /absolute/path/to/stroom-app-all.jar \
+manage_users \
+--createUser johndoe \
+--createUser janedoe \
+--createGroup Administrators \
+--addToGroup johndoe Administrators \
+--addToGroup janedoe Administrators \
+--grantPermission Administrators &amp;#34;Administrator&amp;#34; \
+path/to/config.yml&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h2 id=&#34;external-idp&#34;&gt;External IDP&lt;/h2&gt;
+&lt;p&gt;Where a 3rd party identity provider holds the accounts, you only need to create the Stroom user, not an account.
+The provider is responsible for the credentials.&lt;/p&gt;
+
+&lt;div class=&#34;alert alert-warning&#34; role=&#34;alert&#34;&gt;
+&lt;h4 class=&#34;alert-heading&#34;&gt;Warning&lt;/h4&gt;
+
+    Do &lt;strong&gt;not&lt;/strong&gt; run &lt;code&gt;create_account&lt;/code&gt; or &lt;code&gt;reset_password&lt;/code&gt; when using an external IDP.
+
+&lt;/div&gt;
+
+
+&lt;h3 id=&#34;finding-the-users-identifier-on-an-external-idp&#34;&gt;Finding the User&amp;rsquo;s Identifier on an External IDP&lt;/h3&gt;
+&lt;p&gt;Stroom links a Stroom user to an identity on the provider using a single claim from the authentication token.
+Which claim is used is set by &lt;code&gt;stroom.security.authentication.openId.uniqueIdentityClaim&lt;/code&gt;, which defaults to &lt;code&gt;sub&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;Establish that claim first, then find its value for the person who will be the administrator.
+Depending on the provider, the value may look like a &lt;span class=&#34;glossary-link&#34;&gt;
+    &lt;a href=&#34;../../docs/glossary/u/glossary-uuid&#34;&gt;
+      &lt;span&gt;UUID&lt;/span&gt;
+      &lt;i class=&#34;glossary-link-icon fas fa-book fa-sm text-primary&#34;&gt;&lt;/i&gt;
+    &lt;/a&gt;&lt;span class=&#34;glossary-tooltip&#34;&gt;
+      &lt;span class=&#34;glossary-tooltip-title&#34;&gt;UUID&lt;/span&gt;
+      &lt;span class=&#34;glossary-tooltip-summary&#34;&gt;A &lt;strong&gt;U&lt;/strong&gt;niversally &lt;strong&gt;U&lt;/strong&gt;nique &lt;strong&gt;Id&lt;/strong&gt;entifier for uniquely identifying something. &lt;em&gt;UUIDs&lt;/em&gt; are used as the identifier in &lt;em&gt;Doc Refs&lt;/em&gt;. An example of a &lt;em&gt;UUID&lt;/em&gt; is &lt;code&gt;4ffeb895-53c9-40d6-bf33-3ef025401ad3&lt;/code&gt;.&lt;/span&gt;&lt;span class=&#34;glossary-tooltip-truncated&#34;&gt;Click to see more details...&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;, an email address, or something else.&lt;/p&gt;
+&lt;p&gt;The provider-specific pages describe where to find this value:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;../../docs/install-guide/setup/open-id/external-idp/keycloak/#setting-up-the-admin-user-in-stroom&#34;&gt;KeyCloak&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;../../docs/install-guide/setup/open-id/external-idp/cognito/&#34;&gt;AWS Cognito&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;../../docs/install-guide/setup/open-id/external-idp/google/&#34;&gt;Google&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;../../docs/install-guide/setup/open-id/external-idp/azure-ad/&#34;&gt;Azure AD / Entra ID&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;create-the-stroom-user-and-grant-permissions&#34;&gt;Create the Stroom User and Grant Permissions&lt;/h3&gt;
+&lt;p&gt;Assuming the unique identifier for &lt;em&gt;John Doe&lt;/em&gt; is &lt;code&gt;b6e06181-9e10-44eb-a33a-537509ec3abd&lt;/code&gt;:&lt;/p&gt;
+
+  
+
+
+
+
+
+
+&lt;div class=&#34;code-toolbar&#34;&gt;
+  &lt;pre 
+    class=&#34;command-line language-bash&#34; 
+    data-user=&#34;stroomuser&#34; 
+    data-host=&#34;localhost&#34; 
+    data-continuation-str=&#34;\&#34;
+    data-filter-output=&#34;(out)&#34;&gt;&lt;code class=&#34;language-bash&#34;&gt;subject_id=&amp;#34;b6e06181-9e10-44eb-a33a-537509ec3abd&amp;#34;; \
+java -jar /absolute/path/to/stroom-app-all.jar \
+manage_users \
+--createUser &amp;#34;${subject_id},johndoe,John Doe&amp;#34; \
+--createGroup Administrators \
+--addToGroup &amp;#34;${subject_id}&amp;#34; Administrators \
+--grantPermission Administrators &amp;#34;Administrator&amp;#34; \
+path/to/config.yml&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;The &lt;code&gt;johndoe&lt;/code&gt; and &lt;code&gt;John Doe&lt;/code&gt; parts are the optional display name and full name.
+They are there so the Stroom user interface shows something more human friendly than a UUID.
+They are only initial values and are overwritten with the values from the provider when the user first logs in.
+See &lt;a href=&#34;../../docs/user-guide/tools/command-line/#user_identifier&#34;&gt;&lt;code&gt;USER_IDENTIFIER&lt;/code&gt;&lt;/a&gt; for the format of this argument.&lt;/p&gt;
+
+&lt;div class=&#34;alert alert-primary&#34; role=&#34;alert&#34;&gt;
+&lt;h4 class=&#34;alert-heading&#34;&gt;Note&lt;/h4&gt;
+
+
+    Ideally run this &lt;strong&gt;before&lt;/strong&gt; the administrator first logs in.
+If they have already logged in then Stroom will have created a user for them automatically, and &lt;code&gt;--createUser&lt;/code&gt; will leave that user alone, other than re-enabling it if it had been disabled.
+The &lt;code&gt;--addToGroup&lt;/code&gt; and &lt;code&gt;--grantPermission&lt;/code&gt; arguments are what actually give them access.
+
+&lt;/div&gt;
+
+
+&lt;h2 id=&#34;verifying-it-worked&#34;&gt;Verifying It Worked&lt;/h2&gt;
+&lt;p&gt;Start Stroom, then log in as the new administrator.&lt;/p&gt;
+&lt;p&gt;If the login succeeds and the main menu includes&lt;/p&gt;
+
+
+
+
+
+  &lt;div class=&#34;stroom-theme-dark stroom-menu&#34;&gt;
+    
+    
+
+      
+
+      
+      
+
+
+      
+
+  
+  
+  &lt;div class=&#34;stroom-menu-item-background&#34; style=&#34;margin-top: 0px;&#34;&gt;
+    
+    &lt;div class=&#34;stroom-menu-item &#34; &gt;
+
+      &lt;div class=&#34;stroom-menu-item-text&#34;&gt;Security
+      &lt;/div&gt;
+        &lt;div class=&#34;stroom-menu-item-arrow&#34;&gt;
+          &lt;span class=&#34;stroom-icon inline-svg-button icon-button  &#34; &gt;
+    &lt;span class=&#34;face&#34; title=&#34;Arrow right&#34;&gt;&lt;svg xmlns=&#34;http://www.w3.org/2000/svg&#34; width=&#34;1427.7665&#34; height=&#34;1427.7665&#34; viewBox=&#34;0 0 1427.7665 1427.7665&#34;&gt;&lt;g style=&#34;stroke:currentColor;stroke-width:167.567&#34;&gt;&lt;path d=&#34;m 415.05387,83.70929 c -39.92654,0.4303 -75.41463,48.3887 -40.0468,81.9121 C 567.552,348.69899 760.75555,531.15431 953.73208,713.82391 760.75555,896.49341 567.552,1078.9486 375.00707,1262.0262 c -46.19471,43.7855 28.48812,112.1966 76.0571,67.1681 195.93558,-185.823 392.95261,-370.82479 587.98693,-557.52749 5.6117,-4.8034 10.4633,-10.2473 14.4855,-16.1231 9.643,-12.4844 13.9638,-27.0796 13.6909,-41.7198 0.2729,-14.6402 -4.0479,-29.2354 -13.6909,-41.7198 -4.0222,-5.8758 -8.8738,-11.3198 -14.4855,-16.1231 C 844.01678,469.27821 646.99975,284.27629 451.06417,98.45319 439.91519,87.89979 427.27628,83.57749 415.05387,83.70929 Z&#34;/&gt;&lt;/g&gt;&lt;/svg&gt; &lt;/span&gt;
+  &lt;/span&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+
+      
+
+      
+      
+        
+      
+
+
+      
+
+  
+  
+  &lt;div class=&#34;stroom-menu-item-background&#34; style=&#34;margin-top: 7px;&#34;&gt;
+    
+    &lt;div class=&#34;stroom-menu-item stroom-menu-item-leaf&#34; &gt;
+        &lt;div class=&#34;stroom-menu-item-icon&#34;&gt;
+          &lt;span class=&#34;stroom-icon inline-svg-button icon-button  &#34; &gt;
+    &lt;span class=&#34;face&#34; title=&#34;User&#34;&gt;&lt;svg xmlns=&#34;http://www.w3.org/2000/svg&#34; width=&#34;1792&#34; height=&#34;1792&#34; viewBox=&#34;0 0 1792 1792&#34;&gt;&lt;path style=&#34;fill:currentColor&#34; d=&#34;M1536 1399q0 109-62.5 187t-150.5 78h-854q-88 0-150.5-78t-62.5-187q0-85 8.5-160.5t31.5-152 58.5-131 94-89 134.5-34.5q131 128 313 128t313-128q76 0 134.5 34.5t94 89 58.5 131 31.5 152 8.5 160.5zm-256-887q0 159-112.5 271.5t-271.5 112.5-271.5-112.5-112.5-271.5 112.5-271.5 271.5-112.5 271.5 112.5 112.5 271.5z&#34;/&gt;&lt;/svg&gt;&lt;/span&gt;
+  &lt;/span&gt;
+        &lt;/div&gt;
+
+      &lt;div class=&#34;stroom-menu-item-text&#34;&gt;Users
+      &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+  &lt;/div&gt;
+
+
+
+&lt;p&gt;then the user has the &lt;code&gt;Administrator&lt;/code&gt; application permission and the setup is complete.&lt;/p&gt;
+&lt;p&gt;If you can log in but see nothing and the &lt;em&gt;Security&lt;/em&gt; menu is missing or sparse, the account exists but the Stroom user has no permissions.
+Re-check that the identifiers matched exactly, then re-run the &lt;code&gt;manage_users&lt;/code&gt; command.
+It is idempotent, so it is safe to run again.&lt;/p&gt;
+
+&lt;div class=&#34;alert alert-warning&#34; role=&#34;alert&#34;&gt;
+&lt;h4 class=&#34;alert-heading&#34;&gt;Warning&lt;/h4&gt;
+
+    If &lt;code&gt;manage_users&lt;/code&gt; was run while Stroom was running, the new permissions may not take effect immediately because user permissions are cached.
+Without Administrator rights you cannot clear the caches from the user interface, so either wait for the cache entries to expire or restart Stroom.
+
+&lt;/div&gt;
+
+
+&lt;h2 id=&#34;what-to-do-next&#34;&gt;What to Do Next&lt;/h2&gt;
+&lt;p&gt;Now that you have an administrator you can manage everything else from within Stroom:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;../../docs/user-guide/security/user-accounts/&#34;&gt;User Accounts&lt;/a&gt; - creating further accounts (internal IDP only).&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;../../docs/user-guide/security/users-and-groups/&#34;&gt;Users and Groups&lt;/a&gt; - creating users and groups.&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;../../docs/user-guide/security/app-permissions/&#34;&gt;Application Permissions&lt;/a&gt; - granting permissions.&lt;/li&gt;
+&lt;/ul&gt;
+
+      </description>
+    </item>
+    
+  </channel>
+</rss>

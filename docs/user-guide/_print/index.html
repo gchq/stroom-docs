@@ -137,8 +137,6 @@
 	
 	<a class="dropdown-item" href="../../../7.0">7.0</a>
 	
-	<a class="dropdown-item" href="../../../legacy">Legacy</a>
-	
 </div>
 </li>
       </ul>
@@ -153,7 +151,7 @@
     aria-label="Search this site…"
     autocomplete="off"
     
-    data-offline-search-index-json-src="../../../offline-search-index.c53f44a201bcf2058d5dcf2bbc46067c.json"
+    data-offline-search-index-json-src="../../../offline-search-index.95b12371d9f23e70cddb1f62f4c00605.json"
     data-offline-search-base-href="../../../"
     data-offline-search-max-results="50"
   >
@@ -239,7 +237,7 @@ This is the multi-page printable view of this section.
     
     
 	
-<li>1.4: <a href="#pg-8ed196b75957dc22a07bf211c5127a88">Export Content API</a></li>
+<li>1.4: <a href="#pg-4292d4ddfddfede4cc5c01c02155eb00">CSV Search API</a></li>
 
 
     
@@ -247,7 +245,7 @@ This is the multi-page printable view of this section.
     
     
 	
-<li>1.5: <a href="#pg-73fff410e6d154b348127ae441c14736">Reference Data API</a></li>
+<li>1.5: <a href="#pg-8ed196b75957dc22a07bf211c5127a88">Export Content API</a></li>
 
 
     
@@ -255,7 +253,7 @@ This is the multi-page printable view of this section.
     
     
 	
-<li>1.6: <a href="#pg-ea9d4bde3ec18b50f1732e047f37f904">Data Download API</a></li>
+<li>1.6: <a href="#pg-73fff410e6d154b348127ae441c14736">Reference Data API</a></li>
 
 
     
@@ -263,7 +261,7 @@ This is the multi-page printable view of this section.
     
     
 	
-<li>1.7: <a href="#pg-ac0532a5d597013b31c385379a2ad086">Authentication Proxy</a></li>
+<li>1.7: <a href="#pg-ea9d4bde3ec18b50f1732e047f37f904">Data Download API</a></li>
 
 
     
@@ -271,7 +269,7 @@ This is the multi-page printable view of this section.
     
     
 	
-<li>1.8: <a href="#pg-6f43c1652ae62fe37477692f2f30f0de">Explorer API</a></li>
+<li>1.8: <a href="#pg-ac0532a5d597013b31c385379a2ad086">Authentication Proxy</a></li>
 
 
     
@@ -279,7 +277,15 @@ This is the multi-page printable view of this section.
     
     
 	
-<li>1.9: <a href="#pg-9e897e4b060814c0423032fc5005acfd">Feed API</a></li>
+<li>1.9: <a href="#pg-6f43c1652ae62fe37477692f2f30f0de">Explorer API</a></li>
+
+
+    
+  
+    
+    
+	
+<li>1.10: <a href="#pg-9e897e4b060814c0423032fc5005acfd">Feed API</a></li>
 
 
     
@@ -1144,7 +1150,7 @@ This is the multi-page printable view of this section.
     
     
 	
-<li>15.5: <a href="#pg-edd94d397808907fa6efd3a312433f48">Git Repo</a></li>
+<li>15.5: <a href="#pg-52f10af0490705cee982fea37e82250d">Finding Things</a></li>
 
 
     
@@ -1152,7 +1158,7 @@ This is the multi-page printable view of this section.
     
     
 	
-<li>15.6: <a href="#pg-52f10af0490705cee982fea37e82250d">Finding Things</a></li>
+<li>15.6: <a href="#pg-edd94d397808907fa6efd3a312433f48">Git Repo</a></li>
 
 
     
@@ -1160,7 +1166,34 @@ This is the multi-page printable view of this section.
     
     
 	
-<li>15.7: <a href="#pg-7704d47a8cda58737fd97341e1181f9d">Content Import and Export</a></li>
+<li>15.7: <a href="#pg-83c9ba2ffa4b5e80e0fc8f35d4182a8b">Visualisation Assets</a></li>
+
+
+    
+    <ul>
+        
+  
+  
+  
+  
+
+  
+    
+    
+	
+<li>15.7.1: <a href="#pg-90cbf69b23623ac6494edea7ef0b4e48">Visualisation Assets Example</a></li>
+
+
+    
+  
+
+    </ul>
+    
+  
+    
+    
+	
+<li>15.8: <a href="#pg-7704d47a8cda58737fd97341e1181f9d">Content Import and Export</a></li>
 
 
     
@@ -1675,6 +1708,7 @@ Stroom&rsquo;s SQL Statistics store.</li>
 Searchables are various data sources that allow you to search the internals of Stroom, e.g. local reference data store, annotations, processor tasks, etc.</li>
 </ul>
 <p>The detailed documentation for the request/responses is contained in the <em>Swagger</em> definition linked to above.</p>
+<p>If you simply want to run a <em>Stroom Query Language</em> query and get the rows back as CSV, without building a <em>SearchRequest</em> model, see the <a href="../../../docs/user-guide/api/csv-search-api/">CSV Search API</a>.</p>
 <h2 id="common-endpoints">Common endpoints</h2>
 <p>The standard query endpoints are</p>
 <ul>
@@ -1734,7 +1768,228 @@ In order to prevent queries being aged off you can hit this endpoint to indicate
 
 <div class="td-content" style="--base-section-num: '1.4.'; page-break-before: always">
     
-  <h1 id="pg-8ed196b75957dc22a07bf211c5127a88">1.4 - Export Content API</h1>
+  <h1 id="pg-4292d4ddfddfede4cc5c01c02155eb00">1.4 - CSV Search API</h1>
+    <div class="lead">The API for running a Stroom Query Language query and getting the results back as CSV.</div>
+	<h2 id="csv-search">CSV search</h2>
+<p>This endpoint runs a <a href="../../../docs/user-guide/search/queries/stroom-query-language/">Stroom Query Language</a> query and returns the results as CSV.</p>
+<p>Unlike the <a href="../../../docs/user-guide/api/query-api/">Query APIs</a>, which need a JSON <em>SearchRequest</em> describing both the query terms and how the results should be structured, this endpoint takes the query as a single string and always returns a table.
+It is intended for the common case of pulling a modest set of rows out of <em>Stroom</em> from a script.</p>
+<p>The Swagger specification for the endpoint can be found <span class="external-link">
+  <a href="https://gchq.github.io/stroom/v7.13/#/Queries/queryCsv" target="_blank" class="external-link" title="here (external link to https://gchq.github.io/stroom/v7.13/#/Queries/queryCsv)">
+    <span>here</span>
+    <i class="external-link-icon fas fa-external-link-alt fa-sm text-secondary"></i>
+  </a>
+</span>
+.</p>
+<pre><code>GET /api/query/v1/csv/search
+</code></pre>
+<p>The call is authenticated in the same way as any other <em>Stroom</em> API, so you will need an <a href="../../../docs/user-guide/api/calling-api/#authentication">API Key</a>.
+The examples below assume it is held in <code>${TOKEN}</code>.</p>
+<h3 id="parameters">Parameters</h3>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>query</code></td>
+<td><em>(required)</em></td>
+<td>The <em>Stroom Query Language</em> query to run.</td>
+</tr>
+<tr>
+<td><code>offset</code></td>
+<td><code>0</code></td>
+<td>The index of the first row to return.</td>
+</tr>
+<tr>
+<td><code>length</code></td>
+<td><code>100</code></td>
+<td>The maximum number of rows to return.</td>
+</tr>
+<tr>
+<td><code>incremental</code></td>
+<td><code>true</code></td>
+<td>Whether to return the results found so far rather than waiting for the query to finish. See <a href="#incremental-and-non-incremental-searches">Incremental and non incremental searches</a>.</td>
+</tr>
+<tr>
+<td><code>timeout</code></td>
+<td><em>see below</em></td>
+<td>How long, in milliseconds, the server will wait for the query to finish before responding. Defaults to 1,000 for an incremental search and 300,000 (five minutes) for a non incremental one.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="response">Response</h3>
+<p>The response body is <code>text/plain</code> CSV.
+The first line holds the column names and each subsequent line holds one row.
+Only visible columns are included, so a column hidden in the query is also absent from the CSV, as are <em>Stroom</em>&rsquo;s internal special columns.</p>
+<p>A query that matches nothing returns an empty body, which is not an error.</p>
+<h3 id="incremental-and-non-incremental-searches">Incremental and non incremental searches</h3>
+<p>Searches in <em>Stroom</em> are asynchronous, so a response can be sent back before the query has finished.
+This means an empty or short CSV body on its own is ambiguous, as it could mean either that the query matched little, or that it had not got very far by the time the server replied.</p>
+<p>Every response therefore carries two headers to resolve that ambiguity.</p>
+<table>
+<thead>
+<tr>
+<th>Header</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>X-Stroom-Search-Incremental</code></td>
+<td>Whether the search ran incrementally, i.e. the value of the <code>incremental</code> parameter.</td>
+</tr>
+<tr>
+<td><code>X-Stroom-Search-Complete</code></td>
+<td>Whether the search finished. <code>false</code> means the CSV holds only the rows found so far, so it is a subset of the matching data.</td>
+</tr>
+</tbody>
+</table>
+
+<div class="alert alert-primary" role="alert">
+<h4 class="alert-heading">Note</h4>
+
+
+    Always check <code>X-Stroom-Search-Complete</code> before treating the CSV as the full result set.
+A truncated result and a complete one are otherwise indistinguishable.
+
+</div>
+
+
+<p>An <strong>incremental</strong> search (the default) returns whatever rows have been found when the timeout expires.
+This gets you a quick answer at the cost of it probably being partial, and is the right choice when you want to see something immediately.
+If <code>X-Stroom-Search-Complete</code> is <code>false</code> you can request the data again, optionally with a longer <code>timeout</code>.</p>
+<p>A <strong>non incremental</strong> search waits for the query to finish and so returns the whole result set, subject to <code>offset</code> and <code>length</code>.
+This is the right choice for a script that needs complete data.
+The trade off is that the request holds open for as long as the query takes, so allow for that in the client&rsquo;s own timeout.</p>
+<h3 id="errors">Errors</h3>
+<p>Omitting the <code>query</code> parameter returns a <code>400</code> with the body <code>query not supplied</code>.</p>
+<p>A query that <em>Stroom</em> rejects, for example one that will not parse or that names a data source that cannot be found, returns a <code>400</code> whose body is the reason.</p>
+
+  
+
+
+
+
+
+
+<div class="code-toolbar">
+  <pre 
+    class="command-line language-bash" 
+    data-user="user" 
+    data-host="localhost" 
+    data-continuation-str="\"
+    data-filter-output="(out)"><code class="language-bash">curl --silent --get --include \
+  --header &#34;Authorization:Bearer ${TOKEN}&#34; \
+  --data-urlencode &#39;query=from &#34;Example Index&#34; take 3&#39; \
+  https://stroom-fqdn/api/query/v1/csv/search</code></pre>
+</div>
+
+<pre><code class="language-text">HTTP/1.1 400 Bad Request
+Content-Type: text/plain
+
+Expected one of [select, where] but got 'take'
+Error at line 1, column 22
+</code></pre>
+<p>The first line is the reason reported by the query parser, so its exact wording depends on the query.
+The <code>Error at line ..., column ...</code> line is only present when the parser reports a location for the problem.</p>
+<p>A non incremental search that hits its <code>timeout</code> also returns a <code>400</code>, with a body of the form <code>The search timed out after PT5M</code>.
+Either raise <code>timeout</code> or switch to an incremental search, which returns the rows found so far instead of failing.</p>
+<p>The bodies of the above are <code>text/plain</code>.
+Any other failure is a fault in <em>Stroom</em> rather than a problem with the request, and returns a <code>500</code> whose body is a JSON object with <code>code</code>, <code>message</code> and <code>details</code> fields.</p>
+
+<div class="alert alert-primary" role="alert">
+<h4 class="alert-heading">Note</h4>
+
+
+    The <code>X-Stroom-Search-Incremental</code> and <code>X-Stroom-Search-Complete</code> headers are only present on a successful response.
+A client that reads them should check the status code first, as an error carries neither header.
+
+</div>
+
+
+<h3 id="examples">Examples</h3>
+<p>Fetch the first 1,000 rows, waiting up to two minutes for the query to finish.</p>
+
+  
+
+
+
+
+
+
+<div class="code-toolbar">
+  <pre 
+    class="command-line language-bash" 
+    data-user="user" 
+    data-host="localhost" 
+    data-continuation-str="\"
+    data-filter-output="(out)"><code class="language-bash">TOKEN=&#34;...API KEY GOES IN HERE...&#34;
+curl \
+  --silent \
+  --get \
+  --header &#34;Authorization:Bearer ${TOKEN}&#34; \
+  --data-urlencode &#39;query=from &#34;Example Index&#34; where EventTime &gt; now() - 1d select EventTime, UserId&#39; \
+  --data-urlencode &#39;length=1000&#39; \
+  --data-urlencode &#39;incremental=false&#39; \
+  --data-urlencode &#39;timeout=120000&#39; \
+  --output results.csv \
+  https://stroom-fqdn/api/query/v1/csv/search</code></pre>
+</div>
+
+<p>Using <code>--data-urlencode</code> with <code>--get</code> lets <code>curl</code> do the URL encoding, which matters because a query will usually contain spaces and quotes.</p>
+<p>The next example takes the quick, possibly partial, answer and checks whether it was complete.
+The headers are written to <code>headers.out</code> so they can be inspected separately from the CSV.</p>
+
+  
+
+
+
+
+
+
+<div class="code-toolbar">
+  <pre 
+    class="command-line language-bash" 
+    data-user="user" 
+    data-host="localhost" 
+    data-continuation-str="\"
+    data-filter-output="(out)"><code class="language-bash">curl \
+  --silent \
+  --get \
+  --header &#34;Authorization:Bearer ${TOKEN}&#34; \
+  --data-urlencode &#39;query=from &#34;Example Index&#34; select EventTime, UserId&#39; \
+  --dump-header headers.out \
+  --output results.csv \
+  https://stroom-fqdn/api/query/v1/csv/search
+grep --ignore-case &#39;X-Stroom-Search-Complete&#39; headers.out</code></pre>
+</div>
+
+<pre><code class="language-text">X-Stroom-Search-Complete: false
+</code></pre>
+
+</div>
+
+
+
+
+    
+	
+  
+    
+    
+	
+    
+
+
+
+<div class="td-content" style="--base-section-num: '1.5.'; page-break-before: always">
+    
+  <h1 id="pg-8ed196b75957dc22a07bf211c5127a88">1.5 - Export Content API</h1>
     <div class="lead">An API method for exporting all Stroom content to a zip file.</div>
 	<p>Stroom has <span class="glossary-link">
     <a href="../../../docs/glossary/a/glossary-api">
@@ -1884,9 +2139,9 @@ done
 
 
 
-<div class="td-content" style="--base-section-num: '1.5.'; page-break-before: always">
+<div class="td-content" style="--base-section-num: '1.6.'; page-break-before: always">
     
-  <h1 id="pg-73fff410e6d154b348127ae441c14736">1.5 - Reference Data API</h1>
+  <h1 id="pg-73fff410e6d154b348127ae441c14736">1.6 - Reference Data API</h1>
     <div class="lead">How to perform reference data loads and lookups using the API.</div>
 	<p>The reference data store has an API to allow other systems to access the reference data store.</p>
 <h2 id="apirefdatav1lookup"><code>/api/refData/v1/lookup</code></h2>
@@ -1963,9 +2218,9 @@ If you send it to a UI node that does not do processing, it is likely to trigger
 
 
 
-<div class="td-content" style="--base-section-num: '1.6.'; page-break-before: always">
+<div class="td-content" style="--base-section-num: '1.7.'; page-break-before: always">
     
-  <h1 id="pg-ea9d4bde3ec18b50f1732e047f37f904">1.6 - Data Download API</h1>
+  <h1 id="pg-ea9d4bde3ec18b50f1732e047f37f904">1.7 - Data Download API</h1>
     <div class="lead">The API for downloading stream data in ZIP form.</div>
 	<h2 id="download-zip">Download ZIP</h2>
 <p>This endpoint provides the means to download one or more streams (and their associated meta data and child streams) that match the supplied criteria as a single ZIP file.</p>
@@ -2051,9 +2306,9 @@ curl \
 
 
 
-<div class="td-content" style="--base-section-num: '1.7.'; page-break-before: always">
+<div class="td-content" style="--base-section-num: '1.8.'; page-break-before: always">
     
-  <h1 id="pg-ac0532a5d597013b31c385379a2ad086">1.7 - Authentication Proxy</h1>
+  <h1 id="pg-ac0532a5d597013b31c385379a2ad086">1.8 - Authentication Proxy</h1>
     <div class="lead">An endpoint to use Stroom as a proxy for an external IDP to obtain access tokens.</div>
 	<p>During provisioning of a Stroom instance that is configured to use an external IDP, it is sometimes required to call Stroom&rsquo;s API to provision the system in an automated way.
 In order to call the API, some form of authentication will be needed, e.g. an access token from IDP.</p>
@@ -2123,9 +2378,9 @@ curl \
 
 
 
-<div class="td-content" style="--base-section-num: '1.8.'; page-break-before: always">
+<div class="td-content" style="--base-section-num: '1.9.'; page-break-before: always">
     
-  <h1 id="pg-6f43c1652ae62fe37477692f2f30f0de">1.8 - Explorer API</h1>
+  <h1 id="pg-6f43c1652ae62fe37477692f2f30f0de">1.9 - Explorer API</h1>
     <div class="lead">The API for managing the folders and documents in the explorer tree.</div>
 	<h2 id="creating-a-new-document">Creating a New Document</h2>
 <p>The explorer API is responsible for creation of all document types.
@@ -2198,9 +2453,9 @@ The explorer API is used to create the initial skeleton of a document then the A
 
 
 
-<div class="td-content" style="--base-section-num: '1.9.'; page-break-before: always">
+<div class="td-content" style="--base-section-num: '1.10.'; page-break-before: always">
     
-  <h1 id="pg-9e897e4b060814c0423032fc5005acfd">1.9 - Feed API</h1>
+  <h1 id="pg-9e897e4b060814c0423032fc5005acfd">1.10 - Feed API</h1>
     <div class="lead">The API for fetching and updating feeds.</div>
 	<h2 id="creating-a-feed">Creating a Feed</h2>
 <p>In order to create a Feed you must first <a href="../../../docs/user-guide/api/explorer-api/">create the skeleton document</a> using the Explorer API.</p>
@@ -30693,7 +30948,70 @@ of the destination folder. You will be the owner of the moved document if not al
   <h1 id="pg-75d7e9d7b1cee4d8756d17b998f45770">14.1 - Command Line Tools</h1>
     <div class="lead">Command line actions for administering Stroom.</div>
 	<p>Stroom has a number of tools that are available from the command line in addition to starting the main application.</p>
-<h2 id="running-commands">Running commands</h2>
+<p>This page is the reference for those commands.
+If you are setting up a new installation and need to give it an administrator, follow <a href="../../../docs/install-guide/setup/create-first-admin/">Creating the First Administrator</a> instead, which walks through the whole task.</p>
+<h2 id="which-command-do-i-need">Which Command Do I Need?</h2>
+<table>
+<thead>
+<tr>
+<th>Goal</th>
+<th>Command</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Start the application</td>
+<td><a href="#server"><code>server</code></a></td>
+</tr>
+<tr>
+<td>Migrate the database without starting the application</td>
+<td><a href="#migrate"><code>migrate</code></a></td>
+</tr>
+<tr>
+<td>Create an account so somebody can log in (internal <span class="glossary-link">
+    <a href="../../../docs/glossary/i/glossary-idp">
+      <span>Identity Provider (IDP)</span>
+      <i class="glossary-link-icon fas fa-book fa-sm text-primary"></i>
+    </a><span class="glossary-tooltip">
+      <span class="glossary-tooltip-title">Identity Provider (IDP)</span>
+      <span class="glossary-tooltip-summary">An <strong>Id</strong>entity <strong>P</strong>rovider is a system or service that can authenticate a user and assert their identity. <em>Identity providers</em> can support single sign on (SSO), which allows the user to sign in once to the <em>Identity Provider</em> so they are then authenticated to all systems using that IDP.</span><span class="glossary-tooltip-truncated">Click to see more details...</span></span></span> only)</td>
+<td><a href="#create_account"><code>create_account</code></a></td>
+</tr>
+<tr>
+<td>Change the password of an existing account (internal <span class="glossary-link">
+    <a href="../../../docs/glossary/i/glossary-idp">
+      <span>Identity Provider (IDP)</span>
+      <i class="glossary-link-icon fas fa-book fa-sm text-primary"></i>
+    </a><span class="glossary-tooltip">
+      <span class="glossary-tooltip-title">Identity Provider (IDP)</span>
+      <span class="glossary-tooltip-summary">An <strong>Id</strong>entity <strong>P</strong>rovider is a system or service that can authenticate a user and assert their identity. <em>Identity providers</em> can support single sign on (SSO), which allows the user to sign in once to the <em>Identity Provider</em> so they are then authenticated to all systems using that IDP.</span><span class="glossary-tooltip-truncated">Click to see more details...</span></span></span> only)</td>
+<td><a href="#reset_password"><code>reset_password</code></a></td>
+</tr>
+<tr>
+<td>Create Stroom users and groups, or grant/revoke permissions</td>
+<td><a href="#manage_users"><code>manage_users</code></a></td>
+</tr>
+<tr>
+<td>Create an <span class="glossary-link">
+    <a href="../../../docs/glossary/a/glossary-api-key">
+      <span>API Key</span>
+      <i class="glossary-link-icon fas fa-book fa-sm text-primary"></i>
+    </a><span class="glossary-tooltip">
+      <span class="glossary-tooltip-title">API Key</span>
+      <span class="glossary-tooltip-summary"><em>API Keys</em> are a form of authentication token that are created within Stroom for use by Stroom-Proxy instances or other clients that want to use Stroom&rsquo;s <em>API</em>. It is an encrypted string that contains details of the user and the expiration date of the token. Possession of a valid API Key for a user account means that you can do anything that the user can do in the user interface via the API.</span><span class="glossary-tooltip-truncated">Click to see more details...</span></span></span> for a user</td>
+<td><a href="#create_api_key"><code>create_api_key</code></a></td>
+</tr>
+</tbody>
+</table>
+<p>Note that creating an administrator on a fresh installation using the internal <span class="glossary-link">
+    <a href="../../../docs/glossary/i/glossary-idp">
+      <span>Identity Provider (IDP)</span>
+      <i class="glossary-link-icon fas fa-book fa-sm text-primary"></i>
+    </a><span class="glossary-tooltip">
+      <span class="glossary-tooltip-title">Identity Provider (IDP)</span>
+      <span class="glossary-tooltip-summary">An <strong>Id</strong>entity <strong>P</strong>rovider is a system or service that can authenticate a user and assert their identity. <em>Identity providers</em> can support single sign on (SSO), which allows the user to sign in once to the <em>Identity Provider</em> so they are then authenticated to all systems using that IDP.</span><span class="glossary-tooltip-truncated">Click to see more details...</span></span></span> needs <strong>both</strong> <code>create_account</code> and <code>manage_users</code>.
+See <a href="#accounts-and-stroom-users">Accounts and Stroom Users</a> below for why.</p>
+<h2 id="running-commands">Running Commands</h2>
 <p>The basic structure of the shell command for starting one of stroom&rsquo;s commands depends on whether you are running the zip distribution of stroom or a docker stack.</p>
 <p>In either case, <code>COMMAND</code> is the name of the stroom command to run, as specified by the various headings on this page.
 Each command value is described in its own section and may take no arguments or a mixture of mandatory and optional arguments.</p>
@@ -30709,7 +31027,7 @@ Also, each command will run in its own JVM so are not really intended to be run 
 </div>
 
 
-<h3 id="running-commands-with-the-zip-distribution">Running commands with the zip distribution</h3>
+<h3 id="running-commands-with-the-zip-distribution">Running Commands With the Zip Distribution</h3>
 <p>The commands are run by passing the command and any of its arguments to the <code>java</code> command.
 The jar file is in the <code>bin</code> directory of the zip distribution.</p>
 
@@ -30754,7 +31072,7 @@ reset_password \
 /opt/stroom/config/config.yml</code></pre>
 </div>
 
-<h3 id="running-commands-in-a-stroom-docker-stack">Running commands in a stroom Docker stack</h3>
+<h3 id="running-commands-in-a-stroom-docker-stack">Running Commands in a Stroom Docker Stack</h3>
 <p>Commands are run in a Docker stack using the <code>command.sh</code> script found in the root of the stack directory structure.</p>
 
 <div class="alert alert-primary" role="alert">
@@ -30804,7 +31122,46 @@ reset_password \
 -p &#34;correct horse battery staple&#34;</code></pre>
 </div>
 
-<h2 id="command-reference">Command reference</h2>
+<h2 id="accounts-and-stroom-users">Accounts and Stroom Users</h2>
+<p>Several of the commands below only make sense once you understand that Stroom keeps <em>authentication</em> and <em>authorisation</em> separate.</p>
+<ul>
+<li>An <span class="glossary-link">
+    <a href="../../../docs/glossary/a/glossary-account">
+      <span>Account</span>
+      <i class="glossary-link-icon fas fa-book fa-sm text-primary"></i>
+    </a><span class="glossary-tooltip">
+      <span class="glossary-tooltip-title">Account</span>
+      <span class="glossary-tooltip-summary">Refers to a user account in Stroom&rsquo;s internal Identity Provider. An Account holds the credentials a person authenticates with, and exists only where Stroom is its own Identity Provider, unlike a <em>User</em> which exists in every deployment.</span><span class="glossary-tooltip-truncated">Click to see more details...</span></span></span> is an identity used to log in.
+Accounts only exist within Stroom when the internal <span class="glossary-link">
+    <a href="../../../docs/glossary/i/glossary-idp">
+      <span>Identity Provider (IDP)</span>
+      <i class="glossary-link-icon fas fa-book fa-sm text-primary"></i>
+    </a><span class="glossary-tooltip">
+      <span class="glossary-tooltip-title">Identity Provider (IDP)</span>
+      <span class="glossary-tooltip-summary">An <strong>Id</strong>entity <strong>P</strong>rovider is a system or service that can authenticate a user and assert their identity. <em>Identity providers</em> can support single sign on (SSO), which allows the user to sign in once to the <em>Identity Provider</em> so they are then authenticated to all systems using that IDP.</span><span class="glossary-tooltip-truncated">Click to see more details...</span></span></span> is used.
+With an external IDP the accounts live in that provider and the mechanism for creating them is specific to it.</li>
+<li>A Stroom <span class="glossary-link">
+    <a href="../../../docs/glossary/u/glossary-user">
+      <span>User</span>
+      <i class="glossary-link-icon fas fa-book fa-sm text-primary"></i>
+    </a><span class="glossary-tooltip">
+      <span class="glossary-tooltip-title">User</span>
+      <span class="glossary-tooltip-summary">Refers to a Stroom User that is linked to either an <em>Account</em> in Stroom&rsquo;s internal <em>Identity Provider</em> or a user account in an external <em>Identity Provider</em>. A Stroom User is primarily concerned with authorisation (i.e. application/document permissions and group memberships) rather than authentication, though disabling one also refuses that person at authentication and ends any access they currently hold.</span><span class="glossary-tooltip-truncated">Click to see more details...</span></span></span> is the entity that holds group memberships and permissions.
+One is always needed, whichever IDP is in use.</li>
+</ul>
+<p>So when using the internal IDP, a person needs <strong>both</strong> an account (to authenticate) and a Stroom user with the same identifier (to be authorised).
+When using an external IDP they need only a Stroom user.</p>
+
+<div class="alert alert-primary" role="alert">
+<h4 class="alert-heading">See Also</h4>
+<div class="alert-content">
+  
+  <p>See <a href="../../../docs/install-guide/setup/open-id/accounts-users/">Accounts vs Users</a> for a fuller description.</p>
+
+</div>
+</div>
+
+<h2 id="command-reference">Command Reference</h2>
 
 <div class="alert alert-primary" role="alert">
 <h4 class="alert-heading">Note</h4>
@@ -30896,16 +31253,30 @@ path/to/config.yml</code></pre>
 <li><code>--noPasswordChange</code> - If set do not require a password change on first login.</li>
 <li><code>--neverExpires</code> - If set, the account will never expire.</li>
 </ul>
-<p>This command will create an account in the internal identity provider within Stroom.
-Stroom is able to use an external OpenID identity providers such as Google or AWS Cognito but by default will use its own.
-When configured to use its own (the default) it will auto create an admin account when starting up a fresh instance.
-There are times when you may wish to create this account manually which this command allows.</p>
-<h4 id="authentication-accounts-and-stroom-users">Authentication Accounts and Stroom Users</h4>
-<p>The user account used for authentication is distinct to the Stroom <em>user</em> entity that is used for authorisation within Stroom.
-If an external IDP is used then the mechanism for creating the authentication account will be specific to that IDP.
-If using the default internal Stroom IDP then an account must be created in order to authenticate, either from within the UI if you are already authenticated as a privileged user or using this command.
-In either case a Stroom user will need to exist with the same username as the authentication account.</p>
-<p>The command will fail if the user already exists.
+<p>This command creates an <span class="glossary-link">
+    <a href="../../../docs/glossary/a/glossary-account">
+      <span>Account</span>
+      <i class="glossary-link-icon fas fa-book fa-sm text-primary"></i>
+    </a><span class="glossary-tooltip">
+      <span class="glossary-tooltip-title">Account</span>
+      <span class="glossary-tooltip-summary">Refers to a user account in Stroom&rsquo;s internal Identity Provider. An Account holds the credentials a person authenticates with, and exists only where Stroom is its own Identity Provider, unlike a <em>User</em> which exists in every deployment.</span><span class="glossary-tooltip-truncated">Click to see more details...</span></span></span> in the internal identity provider within Stroom.
+Stroom is able to use an external OpenID identity provider such as Google or AWS Cognito but by default will use its own.</p>
+
+<div class="alert alert-warning" role="alert">
+<h4 class="alert-heading">Warning</h4>
+
+
+    <p>A fresh installation using the internal IDP does <strong>not</strong> create an <code>admin</code> account unless <code>stroom.security.identity.autoCreateAdminAccountOnBoot</code> is set to <code>true</code> before first boot, and that property defaults to <code>false</code>.
+Most new installations therefore need this command.</p>
+<p>See <a href="../../../docs/install-guide/setup/create-first-admin/">Creating the First Administrator</a>.</p>
+
+
+</div>
+
+
+<p>This command creates an account for authentication only.
+A Stroom user with the same username is also needed before that person has any permissions, see <a href="#accounts-and-stroom-users">Accounts and Stroom Users</a> and <a href="#manage_users"><code>manage_users</code></a>.</p>
+<p>The command will fail if the account already exists.
 This command should NOT be run if you are using an external identity provider.</p>
 <p>This command will also run any necessary database migrations to ensure it is working with the correct version of the database schema.</p>
 <h3 id="reset_password"><code>reset_password</code></h3>
@@ -30925,8 +31296,8 @@ This command should NOT be run if you are using an external identity provider.</
     data-continuation-str="\"
     data-filter-output="(out)"><code class="language-bash">java -jar /absolute/path/to/stroom-app-all.jar \
 reset_password \
---u USER \
---p PASSWORD \
+--user USER \
+--password PASSWORD \
 path/to/config.yml</code></pre>
 </div>
 
@@ -30964,7 +31335,7 @@ path/to/config.yml</code></pre>
 <p>Where the named arguments are:</p>
 <ul>
 <li><code>--createUser</code> <code>USER_IDENTIFIER</code> - Creates a Stroom user with the supplied user identifier.
-See <a href="#user-identifier">below</a> for the format of this argument.</li>
+See <a href="#user_identifier">below</a> for the format of this argument.</li>
 <li><code>--createGroup</code> <code>GROUP_IDENTIFIER</code> - Creates a Stroom user group with the supplied group name.</li>
 <li><code>--addToGroup</code> <code>USER_OR_GROUP_IDENTIFIER</code> <code>TARGET_GROUP</code> - Adds a user/group to an existing group.</li>
 <li><code>--removeFromGroup</code> <code>USER_OR_GROUP_IDENTIFIER</code> <code>TARGET_GROUP</code> - Removes a user/group from an existing group.</li>
@@ -30972,25 +31343,24 @@ See <a href="#user-identifier">below</a> for the format of this argument.</li>
 <li><code>--revokePermission</code> <code>USER_OR_GROUP_IDENTIFIER</code> <code>PERMISSION_IDENTIFIER</code> - Revokes the named application permission from the user/group.</li>
 <li><code>--listPermissions</code> - Lists all the valid permission names.</li>
 </ul>
-<p>This command allows you to manage the user permissions within Stroom regardless of whether the internal identity provider or an external party is used.
-A typical use case for this is when using an external identity provider.
-In this instance Stroom has no way of auto creating an admin user when first started so the association between the account on the 3rd party IDP and the stroom user needs to be made manually.</p>
-<p>This command is not intended for automation of user management tasks on a running Stroom instance that you can authenticate with.
-It is only intended for cases where you cannot authenticate with Stroom, i.e. when setting up a new Stroom with a 3rd party IDP or when scripting the creation of a test environment.
-If you want to automate actions that can be performed in the UI then you can make use of the REST API that is described at <code>/stroom/noauth/swagger-ui</code>.</p>
+<p>This command creates Stroom users and groups and manages their permissions.
+It works regardless of whether the internal identity provider or an external one is used, and is the only way to give a brand new installation an administrator.</p>
 
 <div class="alert alert-warning" role="alert">
 <h4 class="alert-heading">Warning</h4>
 
 
-    <p>See the <a href="#authentication-accounts-and-stroom-users">section</a> above about the distinction between authentication accounts and stroom users.</p>
-<p>This command does <strong>not</strong> create an account for authentication.
-See <a href="#create_account"><code>create_account</code></a> for that.</p>
+    <p>This command does <strong>not</strong> create an account for authentication.
+When using the internal IDP you need <a href="#create_account"><code>create_account</code></a> as well, and the username must match exactly.
+See <a href="#accounts-and-stroom-users">Accounts and Stroom Users</a>.</p>
 
 
 </div>
 
 
+<p>This command is not intended for automation of user management tasks on a running Stroom instance that you can authenticate with.
+It is only intended for cases where you cannot authenticate with Stroom, i.e. when setting up a new Stroom or when scripting the creation of a test environment.
+If you want to automate actions that can be performed in the UI then you can make use of the REST API that is described at <code>/stroom/noauth/swagger-ui</code>.</p>
 <p>The following is an example command to create a new stroom user <code>jbloggs</code>, create a group called <code>Administrators</code> with the <em>Administrator</em> application permission and then add <code>jbloggs</code> to the <code>Administrators</code> group.
 This is a typical command to bootstrap a stroom instance with one admin user so they can login to stroom with full privileges to manage other users from within the application.</p>
 
@@ -31034,16 +31404,15 @@ It can be run multiple times with the same value with no error.</p>
 It allows you to automate the setup of some or all Stroom users and their group membership and application permissions.</p>
 
 <div class="alert alert-primary" role="alert">
-<h4 class="alert-heading">Note</h4>
-
-
-
-    <p>See <a href="#typical-use-cases">below</a> for examples of using this command.</p>
-
+<h4 class="alert-heading">See Also</h4>
+<div class="alert-content">
+  
+  <p>See <a href="../../../docs/install-guide/setup/create-first-admin/">Creating the First Administrator</a> for worked examples of bootstrapping a new installation with both the internal and an external IDP.</p>
 
 </div>
+</div>
 
-
+<h4 id="user_identifier"><code>USER_IDENTIFIER</code></h4>
 <p>External OIDC identity providers have a unique identifier for each user (this may be called <code>sub</code> or <code>oid</code>) and this often takes the form of a <span class="glossary-link">
     <a href="../../../docs/glossary/u/glossary-uuid">
       <span>UUID</span>
@@ -31051,8 +31420,8 @@ It allows you to automate the setup of some or all Stroom users and their group 
     </a><span class="glossary-tooltip">
       <span class="glossary-tooltip-title">UUID</span>
       <span class="glossary-tooltip-summary">A <strong>U</strong>niversally <strong>U</strong>nique <strong>Id</strong>entifier for uniquely identifying something. <em>UUIDs</em> are used as the identifier in <em>Doc Refs</em>. An example of a <em>UUID</em> is <code>4ffeb895-53c9-40d6-bf33-3ef025401ad3</code>.</span><span class="glossary-tooltip-truncated">Click to see more details...</span></span></span>.
-Stroom stores this unique identifier (known as a <em>Subject ID</em> in stroom) against a user so it is able to associate the stroom user with the identity provider user.</p>
-<h4 id="user_identifier"><code>USER_IDENTIFIER</code></h4>
+Stroom stores this unique identifier (known as a <em>Subject ID</em> in stroom) against a user so it is able to associate the stroom user with the identity provider user.
+Which claim is used for this is governed by <code>stroom.security.authentication.openId.uniqueIdentityClaim</code>, which defaults to <code>sub</code>.</p>
 <p>The <code>USER_IDENTIFIER</code> is of the form <code>subject_id[,display_name[,full_name]]</code> e.g.:</p>
 <ul>
 <li><code>eaddac6e-6762-404c-9778-4b74338d4a17</code></li>
@@ -31060,7 +31429,8 @@ Stroom stores this unique identifier (known as a <em>Subject ID</em> in stroom) 
 <li><code>eaddac6e-6762-404c-9778-4b74338d4a17,jbloggs,Joe Bloggs</code></li>
 </ul>
 <p>The optional parts are so that stroom can display more human friendly identifiers for a user.
-They are only initial values and will always be over written with the values from the identity provider when the user logs in.</p>
+They are only initial values and will always be over written with the values from the identity provider when the user logs in.
+The properties <code>stroom.security.authentication.openId.userDisplayNameClaim</code> (defaults to <code>preferred_username</code>) and <code>stroom.security.authentication.openId.fullNameClaimTemplate</code> (defaults to <code>${name}</code>) control which claims are used for the <em>Display Name</em> and <em>Full Name</em> fields once that happens.</p>
 <p>The following are examples of various uses of the <code>--createUser</code> argument group.</p>
 
   
@@ -31100,11 +31470,11 @@ manage_users \
 path/to/config.yml</code></pre>
 </div>
 
-<h5 id="group_identifier"><code>GROUP_IDENTIFIER</code></h5>
+<h4 id="group_identifier"><code>GROUP_IDENTIFIER</code></h4>
 <p>The <code>GROUP_IDENTIFIER</code> is the name of the group in stroom, e.g. <code>Administrators</code>, <code>Analysts</code>, etc.
 Groups are created by an admin to help manage permissions for large number of similar users.
 Groups relate only to stroom and have nothing to do with the identity provider.</p>
-<h5 id="user_or_group_identifier"><code>USER_OR_GROUP_IDENTIFIER</code></h5>
+<h4 id="user_or_group_identifier"><code>USER_OR_GROUP_IDENTIFIER</code></h4>
 <p>The <code>USER_OR_GROUP_IDENTIFIER</code> can either be the identifier for a user or a group, e.g. when granting a permission to a user/group.</p>
 <p>It takes the following forms (with examples for each):</p>
 <ul>
@@ -31154,129 +31524,32 @@ path/to/config.yml</code></pre>
 
 <p>The arguments to the command are as follows:</p>
 <ul>
-<li><code>u</code> <code>user</code> - The identity of the user to create the API Key for.
+<li><code>-u</code> <code>--user</code> - The identity of the user to create the API Key for.
 This is the unique subject ID of the user.</li>
-<li><code>n</code> <code>keyName</code> - The name of the key.
+<li><code>-n</code> <code>--keyName</code> - The name of the key.
 This must be unique for the user.</li>
-<li><code>e</code> <code>expiresDays</code> - Optional number of days after which the key should expire.
+<li><code>-e</code> <code>--expiresDays</code> - Optional number of days after which the key should expire.
 This must not be greater than the configured property <code>stroom.security.authentication.maxApiKeyExpiryAge</code>.
 If not set, it will be defaulted to the maximum configured age.</li>
-<li><code>c</code> <code>comments</code> - Optional string to set the comments for the API Key.</li>
-<li><code>o</code> <code>outFile</code> - Optional path to use to output the API Key string to.
+<li><code>-c</code> <code>--comments</code> - Optional string to set the comments for the API Key.</li>
+<li><code>-o</code> <code>--outFile</code> - Optional path to use to output the API Key string to.
 If not set, the API Key string will be output to <em>stdout</em>.</li>
+<li><code>-a</code> <code>--hashAlgorithm</code> - Optional name of the hash algorithm used to hash the API Key.
+If not set, Stroom&rsquo;s default is used.</li>
 </ul>
 <h2 id="typical-use-cases">Typical Use Cases</h2>
-<h3 id="creating-an-internal-idp-administrator">Creating an Internal IDP Administrator</h3>
-<p>If you have installed a new Stroom instance (and are not using the <code>stroom_core_test</code> Docker stack) that is using the default Internal IDP, then you will need to create an administrator account in order to login and set up your stroom instance.</p>
-<p>Assuming that you are running the <code>stroom_core</code> docker stack that is configured to use the internal IDP and want to setup <code>johndoe</code> and <code>janedoe</code> as administrators, you need to do the following:</p>
-<p>First create the Stroom user accounts:</p>
-
-  
-
-
-
-
-
-
-<div class="code-toolbar">
-  <pre 
-    class="command-line language-bash" 
-    data-user="stroomuser" 
-    data-host="localhost" 
-    data-continuation-str="\"
-    data-filter-output="(out)"><code class="language-bash">./command.sh \
-create_account \
---user johndoe \
---firstName John \
---lastName Doe \
---password &#34;correct horse battery staple&#34;
-
-./command.sh \
-create_account \
---user janedoe \
---firstName Jane \
---lastName Doe \
---password &#34;staple battery horse correct&#34;</code></pre>
-</div>
-
-<p>Now create the corresponding Stroom users and grant the admin permissions.</p>
-
-  
-
-
-
-
-
-
-<div class="code-toolbar">
-  <pre 
-    class="command-line language-bash" 
-    data-user="stroomuser" 
-    data-host="localhost" 
-    data-continuation-str="\"
-    data-filter-output="(out)"><code class="language-bash">./command.sh \
-manage_users \
---createUser johndoe \
---createUser janedoe \
---createGroup Administrators \
---addToGroup johndoe Administrators \
---addToGroup janedoe Administrators \
---grantPermission Administrators &#34;Administrator&#34; \
-path/to/config.yml</code></pre>
-</div>
-
+<p>The most common use of these commands is bootstrapping a brand new installation with an administrator, using <code>create_account</code> and/or <code>manage_users</code>.</p>
+<p>That task is documented as a step by step procedure, covering both the internal and an external identity provider, and both the zip and Docker forms of each command:</p>
 
 <div class="alert alert-primary" role="alert">
-<h4 class="alert-heading">Note</h4>
-
-
-    The username in arguments <code>--user</code> (in <code>create_account</code>), <code>--createUser</code> (in <code>manage_users</code>) and <code>--addToGroup</code> (in <code>manage_users</code>) must match exactly.
-
-</div>
-
-
-<p>See <a href="#running-commands-with-the-zip-distribution">above</a> for how to run the commands on a Stroom ZIP distribution (i.e. without the docker stack).</p>
-<h3 id="creating-an-external-idp-administrator">Creating an External IDP Administrator</h3>
-<p>If you have installed a new Stroom instance that has been configured to use an external IDP, you will need to create as a minimum a Stroom user (but not an account) that corresponds to the user identity (on the external IDP) of the person that will be an administrator.</p>
-<p>If you don&rsquo;t do this, the person will be able to login, but will have no permissions to set up any other users or create any content.</p>
-<p>First you need to establish the <code>claim</code> in the authentication tokens that will be used to uniquely identify the user.
-This is configured using the property <code>stroom.authentication.openiId.uniqueIdentityClaim</code>, which has a default value of <code>sub</code>.
-This may need to be changed if the IDP in use has a different claim to uniquely identify the user identity.</p>
-<p>Once you have established the claim that will be used to identify the user and have configured Stroom accordingly, you need to find the value of this claim in the IDP for the user that will be the administrator.
-This value may look like an email address, or a <span class="glossary-link">
-    <a href="../../../docs/glossary/u/glossary-uuid">
-      <span>UUID</span>
-      <i class="glossary-link-icon fas fa-book fa-sm text-primary"></i>
-    </a><span class="glossary-tooltip">
-      <span class="glossary-tooltip-title">UUID</span>
-      <span class="glossary-tooltip-summary">A <strong>U</strong>niversally <strong>U</strong>nique <strong>Id</strong>entifier for uniquely identifying something. <em>UUIDs</em> are used as the identifier in <em>Doc Refs</em>. An example of a <em>UUID</em> is <code>4ffeb895-53c9-40d6-bf33-3ef025401ad3</code>.</span><span class="glossary-tooltip-truncated">Click to see more details...</span></span></span> or something else.</p>
-<p>Assuming the unique identifier for <em>John Doe</em> is <code>b6e06181-9e10-44eb-a33a-537509ec3abd</code>, do the following to set them up as an administrator.</p>
-
+<h4 class="alert-heading">See Also</h4>
+<div class="alert-content">
   
+  <p>See <a href="../../../docs/install-guide/setup/create-first-admin/">Creating the First Administrator</a>.</p>
 
-
-
-
-
-
-<div class="code-toolbar">
-  <pre 
-    class="command-line language-bash" 
-    data-user="stroomuser" 
-    data-host="localhost" 
-    data-continuation-str="\"
-    data-filter-output="(out)"><code class="language-bash">java -jar /absolute/path/to/stroom-app-all.jar \
-manage_users \
---createUser &#34;2b6e06181-9e10-44eb-a33a-537509ec3abd2,johndoe,John Doe&#34; \
---createGroup Administrators \
---addToGroup &#34;2b6e06181-9e10-44eb-a33a-537509ec3abd2&#34; Administrators \
---grantPermission Administrators &#34;Administrator&#34; \
-path/to/config.yml</code></pre>
+</div>
 </div>
 
-<p>Identity providers may also have a more friendly <em>Display Name</em> and <em>Full Name</em> for the user, though these may not be unique.
-The above command will set initial values for these fields, so that you have more human friendly values in the Stroom UI, but once the user has logged in, the values will be obtained from the IDP tokens.</p>
-<p>The properties <code>stroom.authentication.openiId.userDisplayNameClaim</code> (defaults to <code>preferred_username</code>) and <code>stroom.authentication.openiId.fullNameClaimTemplate</code> (defaults to <code>${name}</code>) allow you to control which IDP claims are used for the <em>Display Name</em> and <em>Full Name</em> fields in Stroom.</p>
 
 </div>
 
@@ -33173,305 +33446,7 @@ Markdown should be sufficient for most cases, with the possible exception of com
 
 <div class="td-content" style="--base-section-num: '15.5.'; page-break-before: always">
     
-  <h1 id="pg-edd94d397808907fa6efd3a312433f48">15.5 - Git Repo</h1>
-    <div class="lead">Import and export from Git Repositories.</div>
-	<h2 id="motivation">Motivation</h2>
-<p>The Git Repo configuration item allows users to synchronise Stroom configuration via <span class="glossary-link">
-    <a href="../../../docs/glossary/g/glossary-git">
-      <span>Git</span>
-      <i class="glossary-link-icon fas fa-book fa-sm text-primary"></i>
-    </a><span class="glossary-tooltip">
-      <span class="glossary-tooltip-title">Git</span>
-      <span class="glossary-tooltip-summary"><em>Git</em> is a free and open source distributed version control system. It is used for controlling, organizing, and tracking different versions in history of computer files, typically text files but also any other type of file. It allows all changes made to a file to be viewed and tracked over time and for branching/merging of the repository for separate strands of work.</span><span class="glossary-tooltip-truncated">Click to see more details...</span></span></span> repositories.
-Stroom content can be stored in the Git repository and downloaded to other Stroom clusters.</p>
-<h2 id="appearance">Appearance</h2>
-<p>A Git Repo document appears in the Explorer Tree with this icon: <span class="stroom-icon inline-svg-button icon-button  " >
-    <span class="face" title="Git repo"><svg width="92pt" height="92pt" viewBox="0 0 92 92" version="1.1" xmlns="http://www.w3.org/2000/svg"><g transform="translate(-4.9938649e-4,-0.05665769)" style="fill:#fff"><path style="fill:#fff;fill-opacity:1;fill-rule:nonzero;stroke:none" d="M 90.156,41.965 50.036,1.848 c -2.311429,-2.31291276 -6.060571,-2.31291276 -8.372,0 C 28.356942,15.161941 15.042127,28.468128 1.73,41.777 c -2.30838489,2.312914 -2.30838489,6.058086 0,8.371 L 41.852,90.27 c 2.312798,2.30772 6.057202,2.30772 8.37,0 L 90.156,50.336 c 2.308385,-2.312914 2.308385,-6.058086 0,-8.371"/></g><g transform="translate(-4.9938649e-4,-0.05665769)"><path style="fill:#f03c2e;fill-opacity:1;fill-rule:nonzero;stroke:none" d="M 90.156,41.965 50.036,1.848 a 5.918,5.918 0 0 0 -8.372,0 l -8.328,8.332 10.566,10.566 a 7.03,7.03 0 0 1 7.23,1.684 7.034,7.034 0 0 1 1.669,7.277 l 10.187,10.184 a 7.028,7.028 0 0 1 7.278,1.672 7.04,7.04 0 0 1 0,9.957 7.05,7.05 0 0 1 -9.965,0 7.044,7.044 0 0 1 -1.528,-7.66 l -9.5,-9.497 V 59.36 a 7.04,7.04 0 0 1 1.86,11.29 7.04,7.04 0 0 1 -9.957,0 7.04,7.04 0 0 1 0,-9.958 7.06,7.06 0 0 1 2.304,-1.539 V 33.926 A 7.049,7.049 0 0 1 39.66,24.692 L 29.242,14.272 1.73,41.777 a 5.925,5.925 0 0 0 0,8.371 L 41.852,90.27 a 5.925,5.925 0 0 0 8.37,0 L 90.156,50.336 a 5.925,5.925 0 0 0 0,-8.371"/></g></svg></span>
-  </span>.
-Any Stroom content can be added below it.
-All that content will be managed by the Git Repo instance.</p>
-<p>Git Repo instances can have other Git Repo instances under them in the Explorer Tree.
-However, the top-level Git Repo will not manage the lower-level Git Repos nor their contents.
-So Git Repos can be nested, and each will work independently.</p>
-<h2 id="creation">Creation</h2>
-<p>Git Repo instances can be created by:</p>
-<ul>
-<li>
-<p>Pressing the <span class="stroom-icon inline-svg-button icon-button  " >
-    <span class="face" title="Add"><svg xmlns="http://www.w3.org/2000/svg" width="1792" height="1792" viewBox="0 0 1792 1792"><path style="fill:currentColor" d="m 1600,800 0,192 q 0,40 -28,68 -28,28 -68,28 l -416,0 0,416 q 0,40 -28,68 -28,28 -68,28 l -192,0 q -40,0 -68,-28 -28,-28 -28,-68 l 0,-416 -416,0 q -40,0 -68,-28 -28,-28 -28,-68 l 0,-192 q 0,-40 28,-68 28,-28 68,-28 l 416,0 0,-416 q 0,-40 28,-68 28,-28 68,-28 l 192,0 q 40,0 68,28 28,28 28,68 l 0,416 416,0 q 40,0 68,28 28,28 28,68 z"/></svg> </span>
-  </span> button in the top-left of the Explorer Tree, then</p>
-
-
-
-
-
-  <div class="stroom-theme-dark stroom-menu">
-    
-    
-
-      
-
-      
-      
-
-
-      
-
-  
-  
-  <div class="stroom-menu-item-background" style="margin-top: 0px;">
-    
-    <div class="stroom-menu-item " >
-
-      <div class="stroom-menu-item-text">Configuration
-      </div>
-        <div class="stroom-menu-item-arrow">
-          <span class="stroom-icon inline-svg-button icon-button  " >
-    <span class="face" title="Arrow right"><svg xmlns="http://www.w3.org/2000/svg" width="1427.7665" height="1427.7665" viewBox="0 0 1427.7665 1427.7665"><g style="stroke:currentColor;stroke-width:167.567"><path d="m 415.05387,83.70929 c -39.92654,0.4303 -75.41463,48.3887 -40.0468,81.9121 C 567.552,348.69899 760.75555,531.15431 953.73208,713.82391 760.75555,896.49341 567.552,1078.9486 375.00707,1262.0262 c -46.19471,43.7855 28.48812,112.1966 76.0571,67.1681 195.93558,-185.823 392.95261,-370.82479 587.98693,-557.52749 5.6117,-4.8034 10.4633,-10.2473 14.4855,-16.1231 9.643,-12.4844 13.9638,-27.0796 13.6909,-41.7198 0.2729,-14.6402 -4.0479,-29.2354 -13.6909,-41.7198 -4.0222,-5.8758 -8.8738,-11.3198 -14.4855,-16.1231 C 844.01678,469.27821 646.99975,284.27629 451.06417,98.45319 439.91519,87.89979 427.27628,83.57749 415.05387,83.70929 Z"/></g></svg> </span>
-  </span>
-        </div>
-    </div>
-  </div>
-
-      
-
-      
-      
-        
-      
-
-
-      
-
-  
-  
-  <div class="stroom-menu-item-background" style="margin-top: 7px;">
-    
-    <div class="stroom-menu-item stroom-menu-item-leaf" >
-        <div class="stroom-menu-item-icon">
-          <span class="stroom-icon inline-svg-button icon-button  " >
-    <span class="face" title="Git repo"><svg width="92pt" height="92pt" viewBox="0 0 92 92" version="1.1" xmlns="http://www.w3.org/2000/svg"><g transform="translate(-4.9938649e-4,-0.05665769)" style="fill:#fff"><path style="fill:#fff;fill-opacity:1;fill-rule:nonzero;stroke:none" d="M 90.156,41.965 50.036,1.848 c -2.311429,-2.31291276 -6.060571,-2.31291276 -8.372,0 C 28.356942,15.161941 15.042127,28.468128 1.73,41.777 c -2.30838489,2.312914 -2.30838489,6.058086 0,8.371 L 41.852,90.27 c 2.312798,2.30772 6.057202,2.30772 8.37,0 L 90.156,50.336 c 2.308385,-2.312914 2.308385,-6.058086 0,-8.371"/></g><g transform="translate(-4.9938649e-4,-0.05665769)"><path style="fill:#f03c2e;fill-opacity:1;fill-rule:nonzero;stroke:none" d="M 90.156,41.965 50.036,1.848 a 5.918,5.918 0 0 0 -8.372,0 l -8.328,8.332 10.566,10.566 a 7.03,7.03 0 0 1 7.23,1.684 7.034,7.034 0 0 1 1.669,7.277 l 10.187,10.184 a 7.028,7.028 0 0 1 7.278,1.672 7.04,7.04 0 0 1 0,9.957 7.05,7.05 0 0 1 -9.965,0 7.044,7.044 0 0 1 -1.528,-7.66 l -9.5,-9.497 V 59.36 a 7.04,7.04 0 0 1 1.86,11.29 7.04,7.04 0 0 1 -9.957,0 7.04,7.04 0 0 1 0,-9.958 7.06,7.06 0 0 1 2.304,-1.539 V 33.926 A 7.049,7.049 0 0 1 39.66,24.692 L 29.242,14.272 1.73,41.777 a 5.925,5.925 0 0 0 0,8.371 L 41.852,90.27 a 5.925,5.925 0 0 0 8.37,0 L 90.156,50.336 a 5.925,5.925 0 0 0 0,-8.371"/></g></svg></span>
-  </span>
-        </div>
-
-      <div class="stroom-menu-item-text">Git Repo
-      </div>
-    </div>
-  </div>
-  </div>
-
-
-
-</li>
-<li>
-<p>Right-clicking on an item within the Explorer Tree and selecting
-
-
-
-
-
-  <div class="stroom-theme-dark stroom-menu">
-    
-    
-
-      
-
-      
-      
-
-
-      
-
-  
-  
-  <div class="stroom-menu-item-background" style="margin-top: 0px;">
-    
-    <div class="stroom-menu-item " >
-        <div class="stroom-menu-item-icon">
-          <span class="stroom-icon inline-svg-button icon-button  " >
-    <span class="face" title="Add"><svg xmlns="http://www.w3.org/2000/svg" width="1792" height="1792" viewBox="0 0 1792 1792"><path style="fill:currentColor" d="m 1600,800 0,192 q 0,40 -28,68 -28,28 -68,28 l -416,0 0,416 q 0,40 -28,68 -28,28 -68,28 l -192,0 q -40,0 -68,-28 -28,-28 -28,-68 l 0,-416 -416,0 q -40,0 -68,-28 -28,-28 -28,-68 l 0,-192 q 0,-40 28,-68 28,-28 68,-28 l 416,0 0,-416 q 0,-40 28,-68 28,-28 68,-28 l 192,0 q 40,0 68,28 28,28 28,68 l 0,416 416,0 q 40,0 68,28 28,28 28,68 z"/></svg> </span>
-  </span>
-        </div>
-
-      <div class="stroom-menu-item-text">New
-      </div>
-        <div class="stroom-menu-item-arrow">
-          <span class="stroom-icon inline-svg-button icon-button  " >
-    <span class="face" title="Arrow right"><svg xmlns="http://www.w3.org/2000/svg" width="1427.7665" height="1427.7665" viewBox="0 0 1427.7665 1427.7665"><g style="stroke:currentColor;stroke-width:167.567"><path d="m 415.05387,83.70929 c -39.92654,0.4303 -75.41463,48.3887 -40.0468,81.9121 C 567.552,348.69899 760.75555,531.15431 953.73208,713.82391 760.75555,896.49341 567.552,1078.9486 375.00707,1262.0262 c -46.19471,43.7855 28.48812,112.1966 76.0571,67.1681 195.93558,-185.823 392.95261,-370.82479 587.98693,-557.52749 5.6117,-4.8034 10.4633,-10.2473 14.4855,-16.1231 9.643,-12.4844 13.9638,-27.0796 13.6909,-41.7198 0.2729,-14.6402 -4.0479,-29.2354 -13.6909,-41.7198 -4.0222,-5.8758 -8.8738,-11.3198 -14.4855,-16.1231 C 844.01678,469.27821 646.99975,284.27629 451.06417,98.45319 439.91519,87.89979 427.27628,83.57749 415.05387,83.70929 Z"/></g></svg> </span>
-  </span>
-        </div>
-    </div>
-  </div>
-
-      
-
-      
-      
-        
-      
-
-
-      
-
-  
-  
-  <div class="stroom-menu-item-background" style="margin-top: 7px;">
-    
-    <div class="stroom-menu-item stroom-menu-item-leaf" >
-        <div class="stroom-menu-item-icon">
-          <span class="stroom-icon inline-svg-button icon-button  " >
-    <span class="face" title="Git repo"><svg width="92pt" height="92pt" viewBox="0 0 92 92" version="1.1" xmlns="http://www.w3.org/2000/svg"><g transform="translate(-4.9938649e-4,-0.05665769)" style="fill:#fff"><path style="fill:#fff;fill-opacity:1;fill-rule:nonzero;stroke:none" d="M 90.156,41.965 50.036,1.848 c -2.311429,-2.31291276 -6.060571,-2.31291276 -8.372,0 C 28.356942,15.161941 15.042127,28.468128 1.73,41.777 c -2.30838489,2.312914 -2.30838489,6.058086 0,8.371 L 41.852,90.27 c 2.312798,2.30772 6.057202,2.30772 8.37,0 L 90.156,50.336 c 2.308385,-2.312914 2.308385,-6.058086 0,-8.371"/></g><g transform="translate(-4.9938649e-4,-0.05665769)"><path style="fill:#f03c2e;fill-opacity:1;fill-rule:nonzero;stroke:none" d="M 90.156,41.965 50.036,1.848 a 5.918,5.918 0 0 0 -8.372,0 l -8.328,8.332 10.566,10.566 a 7.03,7.03 0 0 1 7.23,1.684 7.034,7.034 0 0 1 1.669,7.277 l 10.187,10.184 a 7.028,7.028 0 0 1 7.278,1.672 7.04,7.04 0 0 1 0,9.957 7.05,7.05 0 0 1 -9.965,0 7.044,7.044 0 0 1 -1.528,-7.66 l -9.5,-9.497 V 59.36 a 7.04,7.04 0 0 1 1.86,11.29 7.04,7.04 0 0 1 -9.957,0 7.04,7.04 0 0 1 0,-9.958 7.06,7.06 0 0 1 2.304,-1.539 V 33.926 A 7.049,7.049 0 0 1 39.66,24.692 L 29.242,14.272 1.73,41.777 a 5.925,5.925 0 0 0 0,8.371 L 41.852,90.27 a 5.925,5.925 0 0 0 8.37,0 L 90.156,50.336 a 5.925,5.925 0 0 0 0,-8.371"/></g></svg></span>
-  </span>
-        </div>
-
-      <div class="stroom-menu-item-text">Git Repo
-      </div>
-    </div>
-  </div>
-  </div>
-
-
-</p>
-</li>
-<li>
-<p>Importing a Content Pack from the Content Store.
-This is described elsewhere in the documentation.</p>
-</li>
-</ul>
-<h2 id="settings">Settings</h2>
-
-<div class="alert alert-primary" role="alert">
-<h4 class="alert-heading">Note</h4>
-
-
-    Git Repo instances created from Content Packs have a slightly different appearance.
-
-</div>
-
-
-<p>This page describes Git Repo instances created by adding them manually.</p>
-<h3 id="git-repository-url">Git repository URL</h3>
-<p>The URL that identifies the Git repository.
-For example, <span class="external-link">
-  <a href="https://github.com/gchq/stroom-content.git" target="_blank" class="external-link" title="https://github.com/gchq/stroom-content.git (external link to https://github.com/gchq/stroom-content.git)">
-    <span>https://github.com/gchq/stroom-content.git</span>
-    <i class="external-link-icon fas fa-external-link-alt fa-sm text-secondary"></i>
-  </a>
-</span>
- or <code>git@github.com:gchq/stroom-content.git</code>.</p>
-<h3 id="git-branch">Git branch</h3>
-<p>The branch within the repository.
-Branches can be used to separate out content for different versions of Stroom, or content that is in development.
-Examples might be <code>7.1</code>, <code>7.2</code>, <code>7.5</code>, <code>7.10</code>.</p>
-<h3 id="git-path">Git path</h3>
-<p>The path within the Git repository to the content to be imported.
-Within the overall Git repository there may be multiple sets of content that could be imported.
-For example, the <span class="external-link">
-  <a href="https://github.com/gchq/stroom-content/" target="_blank" class="external-link" title="Stroom Content repository (external link to https://github.com/gchq/stroom-content/)">
-    <span>Stroom Content repository</span>
-    <i class="external-link-icon fas fa-external-link-alt fa-sm text-secondary"></i>
-  </a>
-</span>
- contains multiple sets of content under the <span class="external-link">
-  <a href="https://github.com/gchq/stroom-content/tree/master/source" target="_blank" class="external-link" title="stroom-content/source (external link to https://github.com/gchq/stroom-content/tree/master/source)">
-    <span>stroom-content/source</span>
-    <i class="external-link-icon fas fa-external-link-alt fa-sm text-secondary"></i>
-  </a>
-</span>
- path.</p>
-<p>Examples in this case include:</p>
-<ul>
-<li>
-<p><span class="external-link">
-  <a href="https://github.com/gchq/stroom-content/tree/master/source/core-xml-schemas/stroomContent" target="_blank" class="external-link" title="source/core-xml-schemas/stroomContent (external link to https://github.com/gchq/stroom-content/tree/master/source/core-xml-schemas/stroomContent)">
-    <span>source/core-xml-schemas/stroomContent</span>
-    <i class="external-link-icon fas fa-external-link-alt fa-sm text-secondary"></i>
-  </a>
-</span>
- core-xml-schemas content pack</p>
-</li>
-<li>
-<p><span class="external-link">
-  <a href="https://github.com/gchq/stroom-content/tree/master/source/example-index/stroomContent" target="_blank" class="external-link" title="source/example-index/stroomContent (external link to https://github.com/gchq/stroom-content/tree/master/source/example-index/stroomContent)">
-    <span>source/example-index/stroomContent</span>
-    <i class="external-link-icon fas fa-external-link-alt fa-sm text-secondary"></i>
-  </a>
-</span>
- example-index content pack</p>
-</li>
-<li>
-<p><span class="external-link">
-  <a href="https://github.com/gchq/stroom-content/tree/master/source/stroom-101/stroomContent" target="_blank" class="external-link" title="source/stroom-101/stroomContent (external link to https://github.com/gchq/stroom-content/tree/master/source/stroom-101/stroomContent)">
-    <span>source/stroom-101/stroomContent</span>
-    <i class="external-link-icon fas fa-external-link-alt fa-sm text-secondary"></i>
-  </a>
-</span>
- stroom-101 content pack, providing the content for the introductory example.</p>
-</li>
-</ul>
-<p>If the content is stored in the 7.11 format (import export format version 2.0) then the path can point to anywhere within the content.
-This means Stroom can import a subset of the content available within Git.
-However, with earlier import/export formats the path must point to the root of the content pack.</p>
-<p>You&rsquo;ll know when you are at the root of the Stroom import/export content as you&rsquo;ll see files and folders that look like these:</p>
-<ul>
-<li><code>Stroom_101.Folder.71fed11d-7aff-409d-82ff-d7c2fef45eb1.node</code></li>
-<li><code>XML_Schemas.Folder.428918b8-4088-42ad-8c49-663b7a428ea9</code></li>
-<li><code>index_documents_v1_0.XMLSchema.b5c7bd44-ca00-448d-ba64-66b48f926ec4.meta</code></li>
-</ul>
-<p>You can tell which format the data is in by opening one of the <code>*.node</code> files in a text editor.
-If the file contains the line <code>version=V2</code> the file is in version 2 format.
-If the line is missing or contains the line <code>version=V1</code> then the data is in version 1 format.</p>
-<h3 id="git-commit">Git commit</h3>
-<p>Each update to a Git repository is known as a Commit.
-These commits are labelled with a number that look like this: <code>ca82a6dff817ec66f44342007202690a93763949</code> or a shorter version like this: <code>ca82a6d</code>.
-The short version is the first 7 characters of the full number.
-Git will recognise this as long as the number has enough characters to be unique in the repository.
-The number identifies the state of the whole repository - every file - at that point in time.</p>
-<p>If you want to always get the same version of content, regardless of what else may have been committed to that repository, you can set the Git Repo Git commit field.</p>
-<h3 id="automatically-push">Automatically push</h3>
-<p>If this is checked then the <code>Git Repo Push</code> job will automatically push any changes into Git every minute.</p>
-<h3 id="credentials">Credentials</h3>
-<p>See the <a href="../../../docs/user-guide/security/credentials/">Credentials page</a> for full details.</p>
-<p>Git Repo can use credentials of type:</p>
-<ul>
-<li>Username / Password</li>
-<li>Access Token</li>
-<li>SSH Key</li>
-</ul>
-<h3 id="push-to-git">Push to Git</h3>
-<p>This button will attempt to push any changes into the remote Git repository.</p>
-<h3 id="check-for-updates">Check for updates</h3>
-<p>This button will determine whether there are any newer versions available in the remote Git repository.</p>
-<h3 id="pull-from-git">Pull from Git</h3>
-<p>This button will pull down any newer version from the remote Git repository.</p>
-
-<div class="alert alert-warning" role="alert">
-<h4 class="alert-heading">Warning</h4>
-
-    Note that any local changes may be deleted or overridden.
-
-</div>
-
-
-
-</div>
-
-
-
-
-    
-	
-  
-    
-    
-	
-    
-
-
-
-<div class="td-content" style="--base-section-num: '15.6.'; page-break-before: always">
-    
-  <h1 id="pg-52f10af0490705cee982fea37e82250d">15.6 - Finding Things</h1>
+  <h1 id="pg-52f10af0490705cee982fea37e82250d">15.5 - Finding Things</h1>
     <div class="lead">How to find things in Stroom, for example content, simple string values, etc.</div>
 	<h2 id="explorer-tree">Explorer Tree</h2>
 
@@ -34082,9 +34057,1052 @@ E.g:</p>
 
 
 
+<div class="td-content" style="--base-section-num: '15.6.'; page-break-before: always">
+    
+  <h1 id="pg-edd94d397808907fa6efd3a312433f48">15.6 - Git Repo</h1>
+    <div class="lead">Import and export from Git Repositories.</div>
+	<h2 id="motivation">Motivation</h2>
+<p>The Git Repo configuration item allows users to synchronise Stroom configuration via <span class="glossary-link">
+    <a href="../../../docs/glossary/g/glossary-git">
+      <span>Git</span>
+      <i class="glossary-link-icon fas fa-book fa-sm text-primary"></i>
+    </a><span class="glossary-tooltip">
+      <span class="glossary-tooltip-title">Git</span>
+      <span class="glossary-tooltip-summary"><em>Git</em> is a free and open source distributed version control system. It is used for controlling, organizing, and tracking different versions in history of computer files, typically text files but also any other type of file. It allows all changes made to a file to be viewed and tracked over time and for branching/merging of the repository for separate strands of work.</span><span class="glossary-tooltip-truncated">Click to see more details...</span></span></span> repositories.
+Stroom content can be stored in the Git repository and downloaded to other Stroom clusters.</p>
+<h2 id="appearance">Appearance</h2>
+<p>A Git Repo document appears in the Explorer Tree with this icon: <span class="stroom-icon inline-svg-button icon-button  " >
+    <span class="face" title="Git repo"><svg width="92pt" height="92pt" viewBox="0 0 92 92" version="1.1" xmlns="http://www.w3.org/2000/svg"><g transform="translate(-4.9938649e-4,-0.05665769)" style="fill:#fff"><path style="fill:#fff;fill-opacity:1;fill-rule:nonzero;stroke:none" d="M 90.156,41.965 50.036,1.848 c -2.311429,-2.31291276 -6.060571,-2.31291276 -8.372,0 C 28.356942,15.161941 15.042127,28.468128 1.73,41.777 c -2.30838489,2.312914 -2.30838489,6.058086 0,8.371 L 41.852,90.27 c 2.312798,2.30772 6.057202,2.30772 8.37,0 L 90.156,50.336 c 2.308385,-2.312914 2.308385,-6.058086 0,-8.371"/></g><g transform="translate(-4.9938649e-4,-0.05665769)"><path style="fill:#f03c2e;fill-opacity:1;fill-rule:nonzero;stroke:none" d="M 90.156,41.965 50.036,1.848 a 5.918,5.918 0 0 0 -8.372,0 l -8.328,8.332 10.566,10.566 a 7.03,7.03 0 0 1 7.23,1.684 7.034,7.034 0 0 1 1.669,7.277 l 10.187,10.184 a 7.028,7.028 0 0 1 7.278,1.672 7.04,7.04 0 0 1 0,9.957 7.05,7.05 0 0 1 -9.965,0 7.044,7.044 0 0 1 -1.528,-7.66 l -9.5,-9.497 V 59.36 a 7.04,7.04 0 0 1 1.86,11.29 7.04,7.04 0 0 1 -9.957,0 7.04,7.04 0 0 1 0,-9.958 7.06,7.06 0 0 1 2.304,-1.539 V 33.926 A 7.049,7.049 0 0 1 39.66,24.692 L 29.242,14.272 1.73,41.777 a 5.925,5.925 0 0 0 0,8.371 L 41.852,90.27 a 5.925,5.925 0 0 0 8.37,0 L 90.156,50.336 a 5.925,5.925 0 0 0 0,-8.371"/></g></svg></span>
+  </span>.
+Any Stroom content can be added below it.
+All that content will be managed by the Git Repo instance.</p>
+<p>Git Repo instances can have other Git Repo instances under them in the Explorer Tree.
+However, the top-level Git Repo will not manage the lower-level Git Repos nor their contents.
+So Git Repos can be nested, and each will work independently.</p>
+<h2 id="creation">Creation</h2>
+<p>Git Repo instances can be created by:</p>
+<ul>
+<li>
+<p>Pressing the <span class="stroom-icon inline-svg-button icon-button  " >
+    <span class="face" title="Add"><svg xmlns="http://www.w3.org/2000/svg" width="1792" height="1792" viewBox="0 0 1792 1792"><path style="fill:currentColor" d="m 1600,800 0,192 q 0,40 -28,68 -28,28 -68,28 l -416,0 0,416 q 0,40 -28,68 -28,28 -68,28 l -192,0 q -40,0 -68,-28 -28,-28 -28,-68 l 0,-416 -416,0 q -40,0 -68,-28 -28,-28 -28,-68 l 0,-192 q 0,-40 28,-68 28,-28 68,-28 l 416,0 0,-416 q 0,-40 28,-68 28,-28 68,-28 l 192,0 q 40,0 68,28 28,28 28,68 l 0,416 416,0 q 40,0 68,28 28,28 28,68 z"/></svg> </span>
+  </span> button in the top-left of the Explorer Tree, then</p>
+
+
+
+
+
+  <div class="stroom-theme-dark stroom-menu">
+    
+    
+
+      
+
+      
+      
+
+
+      
+
+  
+  
+  <div class="stroom-menu-item-background" style="margin-top: 0px;">
+    
+    <div class="stroom-menu-item " >
+
+      <div class="stroom-menu-item-text">Configuration
+      </div>
+        <div class="stroom-menu-item-arrow">
+          <span class="stroom-icon inline-svg-button icon-button  " >
+    <span class="face" title="Arrow right"><svg xmlns="http://www.w3.org/2000/svg" width="1427.7665" height="1427.7665" viewBox="0 0 1427.7665 1427.7665"><g style="stroke:currentColor;stroke-width:167.567"><path d="m 415.05387,83.70929 c -39.92654,0.4303 -75.41463,48.3887 -40.0468,81.9121 C 567.552,348.69899 760.75555,531.15431 953.73208,713.82391 760.75555,896.49341 567.552,1078.9486 375.00707,1262.0262 c -46.19471,43.7855 28.48812,112.1966 76.0571,67.1681 195.93558,-185.823 392.95261,-370.82479 587.98693,-557.52749 5.6117,-4.8034 10.4633,-10.2473 14.4855,-16.1231 9.643,-12.4844 13.9638,-27.0796 13.6909,-41.7198 0.2729,-14.6402 -4.0479,-29.2354 -13.6909,-41.7198 -4.0222,-5.8758 -8.8738,-11.3198 -14.4855,-16.1231 C 844.01678,469.27821 646.99975,284.27629 451.06417,98.45319 439.91519,87.89979 427.27628,83.57749 415.05387,83.70929 Z"/></g></svg> </span>
+  </span>
+        </div>
+    </div>
+  </div>
+
+      
+
+      
+      
+        
+      
+
+
+      
+
+  
+  
+  <div class="stroom-menu-item-background" style="margin-top: 7px;">
+    
+    <div class="stroom-menu-item stroom-menu-item-leaf" >
+        <div class="stroom-menu-item-icon">
+          <span class="stroom-icon inline-svg-button icon-button  " >
+    <span class="face" title="Git repo"><svg width="92pt" height="92pt" viewBox="0 0 92 92" version="1.1" xmlns="http://www.w3.org/2000/svg"><g transform="translate(-4.9938649e-4,-0.05665769)" style="fill:#fff"><path style="fill:#fff;fill-opacity:1;fill-rule:nonzero;stroke:none" d="M 90.156,41.965 50.036,1.848 c -2.311429,-2.31291276 -6.060571,-2.31291276 -8.372,0 C 28.356942,15.161941 15.042127,28.468128 1.73,41.777 c -2.30838489,2.312914 -2.30838489,6.058086 0,8.371 L 41.852,90.27 c 2.312798,2.30772 6.057202,2.30772 8.37,0 L 90.156,50.336 c 2.308385,-2.312914 2.308385,-6.058086 0,-8.371"/></g><g transform="translate(-4.9938649e-4,-0.05665769)"><path style="fill:#f03c2e;fill-opacity:1;fill-rule:nonzero;stroke:none" d="M 90.156,41.965 50.036,1.848 a 5.918,5.918 0 0 0 -8.372,0 l -8.328,8.332 10.566,10.566 a 7.03,7.03 0 0 1 7.23,1.684 7.034,7.034 0 0 1 1.669,7.277 l 10.187,10.184 a 7.028,7.028 0 0 1 7.278,1.672 7.04,7.04 0 0 1 0,9.957 7.05,7.05 0 0 1 -9.965,0 7.044,7.044 0 0 1 -1.528,-7.66 l -9.5,-9.497 V 59.36 a 7.04,7.04 0 0 1 1.86,11.29 7.04,7.04 0 0 1 -9.957,0 7.04,7.04 0 0 1 0,-9.958 7.06,7.06 0 0 1 2.304,-1.539 V 33.926 A 7.049,7.049 0 0 1 39.66,24.692 L 29.242,14.272 1.73,41.777 a 5.925,5.925 0 0 0 0,8.371 L 41.852,90.27 a 5.925,5.925 0 0 0 8.37,0 L 90.156,50.336 a 5.925,5.925 0 0 0 0,-8.371"/></g></svg></span>
+  </span>
+        </div>
+
+      <div class="stroom-menu-item-text">Git Repo
+      </div>
+    </div>
+  </div>
+  </div>
+
+
+
+</li>
+<li>
+<p>Right-clicking on an item within the Explorer Tree and selecting
+
+
+
+
+
+  <div class="stroom-theme-dark stroom-menu">
+    
+    
+
+      
+
+      
+      
+
+
+      
+
+  
+  
+  <div class="stroom-menu-item-background" style="margin-top: 0px;">
+    
+    <div class="stroom-menu-item " >
+        <div class="stroom-menu-item-icon">
+          <span class="stroom-icon inline-svg-button icon-button  " >
+    <span class="face" title="Add"><svg xmlns="http://www.w3.org/2000/svg" width="1792" height="1792" viewBox="0 0 1792 1792"><path style="fill:currentColor" d="m 1600,800 0,192 q 0,40 -28,68 -28,28 -68,28 l -416,0 0,416 q 0,40 -28,68 -28,28 -68,28 l -192,0 q -40,0 -68,-28 -28,-28 -28,-68 l 0,-416 -416,0 q -40,0 -68,-28 -28,-28 -28,-68 l 0,-192 q 0,-40 28,-68 28,-28 68,-28 l 416,0 0,-416 q 0,-40 28,-68 28,-28 68,-28 l 192,0 q 40,0 68,28 28,28 28,68 l 0,416 416,0 q 40,0 68,28 28,28 28,68 z"/></svg> </span>
+  </span>
+        </div>
+
+      <div class="stroom-menu-item-text">New
+      </div>
+        <div class="stroom-menu-item-arrow">
+          <span class="stroom-icon inline-svg-button icon-button  " >
+    <span class="face" title="Arrow right"><svg xmlns="http://www.w3.org/2000/svg" width="1427.7665" height="1427.7665" viewBox="0 0 1427.7665 1427.7665"><g style="stroke:currentColor;stroke-width:167.567"><path d="m 415.05387,83.70929 c -39.92654,0.4303 -75.41463,48.3887 -40.0468,81.9121 C 567.552,348.69899 760.75555,531.15431 953.73208,713.82391 760.75555,896.49341 567.552,1078.9486 375.00707,1262.0262 c -46.19471,43.7855 28.48812,112.1966 76.0571,67.1681 195.93558,-185.823 392.95261,-370.82479 587.98693,-557.52749 5.6117,-4.8034 10.4633,-10.2473 14.4855,-16.1231 9.643,-12.4844 13.9638,-27.0796 13.6909,-41.7198 0.2729,-14.6402 -4.0479,-29.2354 -13.6909,-41.7198 -4.0222,-5.8758 -8.8738,-11.3198 -14.4855,-16.1231 C 844.01678,469.27821 646.99975,284.27629 451.06417,98.45319 439.91519,87.89979 427.27628,83.57749 415.05387,83.70929 Z"/></g></svg> </span>
+  </span>
+        </div>
+    </div>
+  </div>
+
+      
+
+      
+      
+        
+      
+
+
+      
+
+  
+  
+  <div class="stroom-menu-item-background" style="margin-top: 7px;">
+    
+    <div class="stroom-menu-item stroom-menu-item-leaf" >
+        <div class="stroom-menu-item-icon">
+          <span class="stroom-icon inline-svg-button icon-button  " >
+    <span class="face" title="Git repo"><svg width="92pt" height="92pt" viewBox="0 0 92 92" version="1.1" xmlns="http://www.w3.org/2000/svg"><g transform="translate(-4.9938649e-4,-0.05665769)" style="fill:#fff"><path style="fill:#fff;fill-opacity:1;fill-rule:nonzero;stroke:none" d="M 90.156,41.965 50.036,1.848 c -2.311429,-2.31291276 -6.060571,-2.31291276 -8.372,0 C 28.356942,15.161941 15.042127,28.468128 1.73,41.777 c -2.30838489,2.312914 -2.30838489,6.058086 0,8.371 L 41.852,90.27 c 2.312798,2.30772 6.057202,2.30772 8.37,0 L 90.156,50.336 c 2.308385,-2.312914 2.308385,-6.058086 0,-8.371"/></g><g transform="translate(-4.9938649e-4,-0.05665769)"><path style="fill:#f03c2e;fill-opacity:1;fill-rule:nonzero;stroke:none" d="M 90.156,41.965 50.036,1.848 a 5.918,5.918 0 0 0 -8.372,0 l -8.328,8.332 10.566,10.566 a 7.03,7.03 0 0 1 7.23,1.684 7.034,7.034 0 0 1 1.669,7.277 l 10.187,10.184 a 7.028,7.028 0 0 1 7.278,1.672 7.04,7.04 0 0 1 0,9.957 7.05,7.05 0 0 1 -9.965,0 7.044,7.044 0 0 1 -1.528,-7.66 l -9.5,-9.497 V 59.36 a 7.04,7.04 0 0 1 1.86,11.29 7.04,7.04 0 0 1 -9.957,0 7.04,7.04 0 0 1 0,-9.958 7.06,7.06 0 0 1 2.304,-1.539 V 33.926 A 7.049,7.049 0 0 1 39.66,24.692 L 29.242,14.272 1.73,41.777 a 5.925,5.925 0 0 0 0,8.371 L 41.852,90.27 a 5.925,5.925 0 0 0 8.37,0 L 90.156,50.336 a 5.925,5.925 0 0 0 0,-8.371"/></g></svg></span>
+  </span>
+        </div>
+
+      <div class="stroom-menu-item-text">Git Repo
+      </div>
+    </div>
+  </div>
+  </div>
+
+
+</p>
+</li>
+<li>
+<p>Importing a Content Pack from the Content Store.
+This is described elsewhere in the documentation.</p>
+</li>
+</ul>
+<h2 id="settings">Settings</h2>
+
+<div class="alert alert-primary" role="alert">
+<h4 class="alert-heading">Note</h4>
+
+
+    Git Repo instances created from Content Packs have a slightly different appearance.
+
+</div>
+
+
+<p>This page describes Git Repo instances created by adding them manually.</p>
+<h3 id="git-repository-url">Git repository URL</h3>
+<p>The URL that identifies the Git repository.
+For example, <span class="external-link">
+  <a href="https://github.com/gchq/stroom-content.git" target="_blank" class="external-link" title="https://github.com/gchq/stroom-content.git (external link to https://github.com/gchq/stroom-content.git)">
+    <span>https://github.com/gchq/stroom-content.git</span>
+    <i class="external-link-icon fas fa-external-link-alt fa-sm text-secondary"></i>
+  </a>
+</span>
+ or <code>git@github.com:gchq/stroom-content.git</code>.</p>
+<h3 id="git-branch">Git branch</h3>
+<p>The branch within the repository.
+Branches can be used to separate out content for different versions of Stroom, or content that is in development.
+Examples might be <code>7.1</code>, <code>7.2</code>, <code>7.5</code>, <code>7.10</code>.</p>
+<h3 id="git-path">Git path</h3>
+<p>The path within the Git repository to the content to be imported.
+Within the overall Git repository there may be multiple sets of content that could be imported.
+For example, the <span class="external-link">
+  <a href="https://github.com/gchq/stroom-content/" target="_blank" class="external-link" title="Stroom Content repository (external link to https://github.com/gchq/stroom-content/)">
+    <span>Stroom Content repository</span>
+    <i class="external-link-icon fas fa-external-link-alt fa-sm text-secondary"></i>
+  </a>
+</span>
+ contains multiple sets of content under the <span class="external-link">
+  <a href="https://github.com/gchq/stroom-content/tree/master/source" target="_blank" class="external-link" title="stroom-content/source (external link to https://github.com/gchq/stroom-content/tree/master/source)">
+    <span>stroom-content/source</span>
+    <i class="external-link-icon fas fa-external-link-alt fa-sm text-secondary"></i>
+  </a>
+</span>
+ path.</p>
+<p>Examples in this case include:</p>
+<ul>
+<li>
+<p><span class="external-link">
+  <a href="https://github.com/gchq/stroom-content/tree/master/source/core-xml-schemas/stroomContent" target="_blank" class="external-link" title="source/core-xml-schemas/stroomContent (external link to https://github.com/gchq/stroom-content/tree/master/source/core-xml-schemas/stroomContent)">
+    <span>source/core-xml-schemas/stroomContent</span>
+    <i class="external-link-icon fas fa-external-link-alt fa-sm text-secondary"></i>
+  </a>
+</span>
+ core-xml-schemas content pack</p>
+</li>
+<li>
+<p><span class="external-link">
+  <a href="https://github.com/gchq/stroom-content/tree/master/source/example-index/stroomContent" target="_blank" class="external-link" title="source/example-index/stroomContent (external link to https://github.com/gchq/stroom-content/tree/master/source/example-index/stroomContent)">
+    <span>source/example-index/stroomContent</span>
+    <i class="external-link-icon fas fa-external-link-alt fa-sm text-secondary"></i>
+  </a>
+</span>
+ example-index content pack</p>
+</li>
+<li>
+<p><span class="external-link">
+  <a href="https://github.com/gchq/stroom-content/tree/master/source/stroom-101/stroomContent" target="_blank" class="external-link" title="source/stroom-101/stroomContent (external link to https://github.com/gchq/stroom-content/tree/master/source/stroom-101/stroomContent)">
+    <span>source/stroom-101/stroomContent</span>
+    <i class="external-link-icon fas fa-external-link-alt fa-sm text-secondary"></i>
+  </a>
+</span>
+ stroom-101 content pack, providing the content for the introductory example.</p>
+</li>
+</ul>
+<p>If the content is stored in the 7.11 format (import export format version 2.0) then the path can point to anywhere within the content.
+This means Stroom can import a subset of the content available within Git.
+However, with earlier import/export formats the path must point to the root of the content pack.</p>
+<p>You&rsquo;ll know when you are at the root of the Stroom import/export content as you&rsquo;ll see files and folders that look like these:</p>
+<ul>
+<li><code>Stroom_101.Folder.71fed11d-7aff-409d-82ff-d7c2fef45eb1.node</code></li>
+<li><code>XML_Schemas.Folder.428918b8-4088-42ad-8c49-663b7a428ea9</code></li>
+<li><code>index_documents_v1_0.XMLSchema.b5c7bd44-ca00-448d-ba64-66b48f926ec4.meta</code></li>
+</ul>
+<p>You can tell which format the data is in by opening one of the <code>*.node</code> files in a text editor.
+If the file contains the line <code>version=V2</code> the file is in version 2 format.
+If the line is missing or contains the line <code>version=V1</code> then the data is in version 1 format.</p>
+<h3 id="git-commit">Git commit</h3>
+<p>Each update to a Git repository is known as a Commit.
+These commits are labelled with a number that look like this: <code>ca82a6dff817ec66f44342007202690a93763949</code> or a shorter version like this: <code>ca82a6d</code>.
+The short version is the first 7 characters of the full number.
+Git will recognise this as long as the number has enough characters to be unique in the repository.
+The number identifies the state of the whole repository - every file - at that point in time.</p>
+<p>If you want to always get the same version of content, regardless of what else may have been committed to that repository, you can set the Git Repo Git commit field.</p>
+<h3 id="automatically-push">Automatically push</h3>
+<p>If this is checked then the <code>Git Repo Push</code> job will automatically push any changes into Git every minute.</p>
+<h3 id="credentials">Credentials</h3>
+<p>See the <a href="../../../docs/user-guide/security/credentials/">Credentials page</a> for full details.</p>
+<p>Git Repo can use credentials of type:</p>
+<ul>
+<li>Username / Password</li>
+<li>Access Token</li>
+<li>SSH Key</li>
+</ul>
+<h3 id="push-to-git">Push to Git</h3>
+<p>This button will attempt to push any changes into the remote Git repository.</p>
+<h3 id="check-for-updates">Check for updates</h3>
+<p>This button will determine whether there are any newer versions available in the remote Git repository.</p>
+<h3 id="pull-from-git">Pull from Git</h3>
+<p>This button will pull down any newer version from the remote Git repository.</p>
+
+<div class="alert alert-warning" role="alert">
+<h4 class="alert-heading">Warning</h4>
+
+    Note that any local changes may be deleted or overridden.
+
+</div>
+
+
+
+</div>
+
+
+
+
+    
+	
+  
+    
+    
+	
+    
+
+
+
 <div class="td-content" style="--base-section-num: '15.7.'; page-break-before: always">
     
-  <h1 id="pg-7704d47a8cda58737fd97341e1181f9d">15.7 - Content Import and Export</h1>
+  <h1 id="pg-83c9ba2ffa4b5e80e0fc8f35d4182a8b">15.7 - Visualisation Assets</h1>
+    <div class="lead">Manage assets within Visualisations</div>
+	<h2 id="motivation">Motivation</h2>
+<p>Visualisations are typically composed of multiple files or assets:</p>
+<ul>
+<li>Javascript</li>
+<li>CSS</li>
+<li>HTML</li>
+<li>Images</li>
+</ul>
+<p>The Visualisation Assets system provides a way to manage these easily through the user interface.</p>
+<h2 id="user-interface">User Interface</h2>
+<p>The Assets tab within a Visualisation allows you to upload and edit files within a folder structure. For example:</p>
+
+
+
+
+
+
+
+  
+  
+  
+  
+  
+
+
+
+
+
+
+
+  
+
+
+
+<div class="card rounded shadow-stroom p-2 td-post-card mb-4 mt-4" style="width: fit-content;">
+
+  <a title="images/content/visualisation-asset-ui.png" href="../../../images/content/visualisation-asset-ui.png">
+    <figure style="margin-block-end: 0px" >
+      
+      <img class="card-img-top" src="../../../images/content/visualisation-asset-ui.png" style="max-width: fit-content" alt="images/content/visualisation-asset-ui.png">
+      
+
+      
+      <div class="card-body px-0 pt-2 pb-0">
+        <hr style="border-top: 1px solid #ddd; margin-top: 0px; margin-bottom:4px;">
+        <figcaption class="card-text" style="font-size: smaller; text-align: center;">
+Visualisation Assets Tab
+</figcaption>
+      </div>
+      
+    </figure>
+  </a>
+</div>
+
+<p>In this example, all the assets are in the same directory.
+However, you can create a directory structure if necessary.</p>
+<h3 id="operation">Operation</h3>
+<ul>
+<li><span class="stroom-icon inline-svg-button icon-button  " >
+    <span class="face" title="Save"><svg xmlns="http://www.w3.org/2000/svg" width="1792" height="1792" viewBox="0 0 1792 1792"><!--! Font Awesome Free 6.4.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><path style="fill:currentColor;stroke-width:0.570676;stroke-dasharray:none" d="M 339.40234 116.52148 C 216.56504 116.52148 116.69531 216.3912 116.69531 339.22852 L 116.69531 1452.7715 C 116.69531 1575.6089 216.56504 1675.4785 339.40234 1675.4785 L 1452.5977 1675.4785 C 1575.4349 1675.4785 1675.3047 1575.6089 1675.3047 1452.7715 L 1675.3047 598.82422 C 1675.3047 539.66744 1651.9901 482.94523 1610.2324 441.1875 L 1610.5801 440.83984 L 1351.334 181.59375 C 1309.5761 139.83602 1252.8561 116.52148 1193.6992 116.52148 L 339.40234 116.52148 z M 339.40234 283.55273 L 395.08008 283.55273 L 395.08008 645.45312 C 395.08008 691.73461 432.31423 728.96875 478.5957 728.96875 L 1146.7207 728.96875 C 1193.0023 728.96875 1230.2363 691.73461 1230.2363 645.45312 L 1230.2363 297.12305 C 1231.2803 298.167 1231.9756 298.8623 1233.0195 299.90625 L 1492.6152 558.80469 L 1492.2676 559.1543 C 1502.707 569.59373 1508.6211 583.8594 1508.6211 598.47461 L 1508.6211 1452.7715 C 1508.6211 1483.3939 1483.5678 1508.4473 1452.9453 1508.4473 L 1395.6113 1508.4473 L 1395.6113 1059.8359 C 1395.6113 981.08539 1331.5826 917.05859 1252.832 917.05859 L 539.16797 917.05859 C 460.41738 917.05859 396.38867 981.08539 396.38867 1059.8359 L 396.38867 1508.4473 L 339.40234 1508.4473 C 308.78001 1508.4473 283.72656 1483.3939 283.72656 1452.7715 L 283.72656 339.22852 C 283.72656 308.60619 308.78001 283.55273 339.40234 283.55273 z M 562.11133 283.55273 L 1063.2051 283.55273 L 1063.2051 561.9375 L 562.11133 561.9375 L 562.11133 283.55273 z M 538.94531 1024.1426 L 1252.832 1024.1426 C 1272.4639 1024.1426 1288.5273 1040.2041 1288.5273 1059.8359 L 1288.5273 1508.4473 L 503.25 1508.4473 L 503.25 1059.8359 C 503.25 1040.2041 519.31334 1024.1426 538.94531 1024.1426 z " /></svg> </span>
+  </span> Save any changes and make them live</li>
+<li><span class="stroom-icon inline-svg-button icon-button  " >
+    <span class="face" title="Save As"><svg width="1792" height="1792" viewBox="0 0 1792 1792" version="1.1" id="svg240" sodipodi:docname="saveas.svg" inkscape:version="1.2.2 (b0a8486541, 2022-12-01)" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape" xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd" xmlns="http://www.w3.org/2000/svg" xmlns:svg="http://www.w3.org/2000/svg"><defs id="defs244"><linearGradient id="linearGradient914" inkscape:swatch="solid"><stop style="stop-color:var(--icon-colour__black);stop-opacity:1;" offset="0" id="stop912" /></linearGradient><inkscape:path-effect effect="fill_between_many" method="originald" linkedpaths="#path8251,0,1|#path8246,0,1" id="path-effect8253" /></defs><sodipodi:namedview id="namedview242" pagecolor="var(--icon-colour__white)" bordercolor="var(--icon-colour__black)" borderopacity="0.25" inkscape:showpageshadow="2" inkscape:pageopacity="0.0" inkscape:pagecheckerboard="0" inkscape:deskcolor="#d1d1d1" showgrid="false" inkscape:zoom="0.26871636" inkscape:cx="844.7569" inkscape:cy="1114.5581" inkscape:window-width="1920" inkscape:window-height="1172" inkscape:window-x="0" inkscape:window-y="0" inkscape:window-maximized="1" inkscape:current-layer="svg240" /><!--! Font Awesome Free 6.4.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><path id="path4265" style="fill:currentColor;fill-opacity:1;stroke-width:0.5839" d="m 1692.4485,1645.6688 c 53.3816,-53.3818 53.3816,-139.6698 0,-193.0514 l -73.1255,-73.3693 -238.6328,238.6328 73.3693,73.3693 c 53.3816,53.3818 139.6696,53.3818 193.0512,0 z M 1156.1948,916.36376 c -14.8687,-14.86883 -33.1501,-26.32523 -53.3814,-32.90651 L 886.36189,811.3068 c -20.96268,-7.06884 -44.11906,-1.46243 -59.96289,14.13755 -15.84383,15.60012 -21.20653,38.75651 -14.13769,59.9629 l 72.15045,216.45155 c 6.58141,19.9876 18.03768,38.269 32.90651,53.3816 l 408.04033,407.7965 238.8766,-238.8766 z M 339.40234,116.52148 c -122.83717,0 -222.70703,99.86984 -222.70703,222.70704 V 1452.7715 c 0,122.8373 99.86986,222.707 222.70703,222.707 H 1343.6699 l -138.2265,-138.8691 -28.0313,-28.1621 H 503.25 v -448.6114 c 0,-19.6317 16.06336,-35.6933 35.69531,-35.6933 h 251.1211 L 757.86914,917.05859 H 539.16797 c -78.75051,0 -142.7793,64.02692 -142.7793,142.77731 v 448.6114 h -56.98633 c -30.6223,0 -55.67578,-25.0534 -55.67578,-55.6758 V 339.22852 c 0,-30.6223 25.05348,-55.67579 55.67578,-55.67579 h 55.67774 v 361.90039 c 0,46.28145 37.2342,83.51563 83.51562,83.51563 h 668.125 c 46.2816,0 83.5156,-37.23418 83.5156,-83.51563 V 297.12305 c 1.044,1.04395 1.7393,1.73925 2.7832,2.7832 l 259.5957,258.89844 -0.3476,0.34961 c 10.4394,10.43942 16.3535,24.70511 16.3535,39.32031 v 560.24019 l 38.0605,38.2383 128.6231,129.2227 V 598.82422 c 0,-59.15672 -23.3146,-115.87903 -65.0723,-157.63672 l 0.3477,-0.34766 -259.2461,-259.24609 c -41.7579,-41.75769 -98.4779,-65.07227 -157.6348,-65.07227 z M 562.11133,283.55273 H 1063.2051 V 561.9375 H 562.11133 Z" /></svg> </span>
+  </span> Save the live and any unsaved changes to a new document</li>
+<li><span class="stroom-icon inline-svg-button icon-button  " >
+    <span class="face" title="Revert changes"><svg xmlns="http://www.w3.org/2000/svg" width="1792" height="1792" viewBox="0 0 1792 1792"><path style="fill:currentColor" d="M1639 1056q0 5-1 7-64 268-268 434.5t-478 166.5q-146 0-282.5-55t-243.5-157l-129 129q-19 19-45 19t-45-19-19-45v-448q0-26 19-45t45-19h448q26 0 45 19t19 45-19 45l-137 137q71 66 161 102t187 36q134 0 250-65t186-179q11-17 53-117 8-23 30-23h192q13 0 22.5 9.5t9.5 22.5zm25-800v448q0 26-19 45t-45 19h-448q-26 0-45-19t-19-45 19-45l138-138q-148-137-349-137-134 0-250 65t-186 179q-11 17-53 117-8 23-30 23h-199q-13 0-22.5-9.5t-9.5-22.5v-7q65-268 270-434.5t480-166.5q146 0 284 55.5t245 156.5l130-129q19-19 45-19t45 19 19 45z"/></svg></span>
+  </span> Throw away any unsaved changes and revert to the live version</li>
+<li><span class="stroom-icon inline-svg-button icon-button  " >
+    <span class="face" title="Add file"><svg xmlns="http://www.w3.org/2000/svg" width="1792" height="1792" viewBox="0 0 1792 1792"><path style="fill:currentColor" d="m 1600,800 0,192 q 0,40 -28,68 -28,28 -68,28 l -416,0 0,416 q 0,40 -28,68 -28,28 -68,28 l -192,0 q -40,0 -68,-28 -28,-28 -28,-68 l 0,-416 -416,0 q -40,0 -68,-28 -28,-28 -28,-68 l 0,-192 q 0,-40 28,-68 28,-28 68,-28 l 416,0 0,-416 q 0,-40 28,-68 28,-28 68,-28 l 192,0 q 40,0 68,28 28,28 28,68 l 0,416 416,0 q 40,0 68,28 28,28 28,68 z"/></svg> </span>
+  </span> Add an asset to the tree. The asset could be a folder, a new empty file, or an uploaded file.</li>
+<li><span class="stroom-icon inline-svg-button icon-button  " >
+    <span class="face" title="Delete"><svg xmlns="http://www.w3.org/2000/svg" width="1792" height="1792" viewBox="0 0 1792 1792"><path style="fill:currentColor" d="M704 1376v-704q0-14-9-23t-23-9h-64q-14 0-23 9t-9 23v704q0 14 9 23t23 9h64q14 0 23-9t9-23zm256 0v-704q0-14-9-23t-23-9h-64q-14 0-23 9t-9 23v704q0 14 9 23t23 9h64q14 0 23-9t9-23zm256 0v-704q0-14-9-23t-23-9h-64q-14 0-23 9t-9 23v704q0 14 9 23t23 9h64q14 0 23-9t9-23zm-544-992h448l-48-117q-7-9-17-11h-317q-10 2-17 11zm928 32v64q0 14-9 23t-23 9h-96v948q0 83-47 143.5t-113 60.5h-832q-66 0-113-58.5t-47-141.5v-952h-96q-14 0-23-9t-9-23v-64q0-14 9-23t23-9h309l70-167q15-37 54-63t79-26h320q40 0 79 26t54 63l70 167h309q14 0 23 9t9 23z"/></svg></span>
+  </span> Delete an asset from the asset tree.
+Note that if you delete a folder, everything under the folder will also be deleted.</li>
+<li><span class="stroom-icon inline-svg-button icon-button  " >
+    <span class="face" title="View in browser"><svg width="16" height="16" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg"><path style="fill:currentColor" d="M16 8s-3-5.5-8-5.5S0 8 0 8s3 5.5 8 5.5S16 8 16 8zM1.173 8a13.133 13.133 0 0 1 1.66-2.043C4.12 4.668 5.88 3.5 8 3.5c2.12 0 3.879 1.168 5.168 2.457A13.133 13.133 0 0 1 14.828 8c-.058.087-.122.183-.195.288-.335.48-.83 1.12-1.465 1.755C11.879 11.332 10.119 12.5 8 12.5c-2.12 0-3.879-1.168-5.168-2.457A13.134 13.134 0 0 1 1.172 8z"/><path style="fill:currentColor" d="M8 5.5a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5zM4.5 8a3.5 3.5 0 1 1 7 0 3.5 3.5 0 0 1-7 0z"/></svg></span>
+  </span> View the asset in the browser in a new window.
+This also allows you to see the URL or path of that asset, if you need the path for another asset.</li>
+<li><span class="stroom-icon inline-svg-button icon-button  " >
+    <span class="face" title="Rename"><svg xmlns="http://www.w3.org/2000/svg" width="1792" height="1792" viewBox="0 0 1792 1792"><path style="fill:currentColor" d="M491 1536l91-91-235-235-91 91v107h128v128h107zm523-928q0-22-22-22-10 0-17 7l-542 542q-7 7-7 17 0 22 22 22 10 0 17-7l542-542q7-7 7-17zm-54-192l416 416-832 832h-416v-416zm683 96q0 53-37 90l-166 166-416-416 166-165q36-38 90-38 53 0 91 38l235 234q37 39 37 91z"/></svg></span>
+  </span> Edit the name of an asset.
+
+<div class="alert alert-primary" role="alert">
+<h4 class="alert-heading">Note</h4>
+
+
+
+    <p>Note that the extension of the file is significant as it is used for:</p>
+<ul>
+<li>The mimetype reported to the browser, and thus how the browser will present that file;</li>
+<li>The editor mode used for the file.</li>
+</ul>
+<p>See <a href="#configuration">Configuration</a> below to find out how to customise these settings.</p>
+
+
+</div>
+
+</li>
+</ul>
+<h3 id="editing-assets">Editing assets</h3>
+<p>Selecting (clicking on) an asset will display the asset in the editor, where possible.</p>
+<p>Stroom tries to allow you to edit all assets within the browser.
+There are two restrictions:</p>
+<ol>
+<li>The asset must not be larger than 512KiB.
+The asset&rsquo;s content is transferred to the user-interface in RAM and thus the size must be restricted to avoid problems.</li>
+<li>The asset&rsquo;s content must be convertible to UTF-8 text.</li>
+</ol>
+<p>Note that the file&rsquo;s extension isn&rsquo;t considered when attempting to load a file.
+As long as it is small enough and can be converted to UTF-8 text, it can be edited.</p>
+
+<div class="alert alert-primary" role="alert">
+<h4 class="alert-heading">Note</h4>
+
+
+
+    <p>Due to the potentially large size of assets, the user-interface implements a staged save where the asset is first saved to a staging area in the database.
+When you click <span class="stroom-icon inline-svg-button icon-button  " >
+<span class="face" title="Save"><svg xmlns="http://www.w3.org/2000/svg" width="1792" height="1792" viewBox="0 0 1792 1792"><!--! Font Awesome Free 6.4.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><path style="fill:currentColor;stroke-width:0.570676;stroke-dasharray:none" d="M 339.40234 116.52148 C 216.56504 116.52148 116.69531 216.3912 116.69531 339.22852 L 116.69531 1452.7715 C 116.69531 1575.6089 216.56504 1675.4785 339.40234 1675.4785 L 1452.5977 1675.4785 C 1575.4349 1675.4785 1675.3047 1575.6089 1675.3047 1452.7715 L 1675.3047 598.82422 C 1675.3047 539.66744 1651.9901 482.94523 1610.2324 441.1875 L 1610.5801 440.83984 L 1351.334 181.59375 C 1309.5761 139.83602 1252.8561 116.52148 1193.6992 116.52148 L 339.40234 116.52148 z M 339.40234 283.55273 L 395.08008 283.55273 L 395.08008 645.45312 C 395.08008 691.73461 432.31423 728.96875 478.5957 728.96875 L 1146.7207 728.96875 C 1193.0023 728.96875 1230.2363 691.73461 1230.2363 645.45312 L 1230.2363 297.12305 C 1231.2803 298.167 1231.9756 298.8623 1233.0195 299.90625 L 1492.6152 558.80469 L 1492.2676 559.1543 C 1502.707 569.59373 1508.6211 583.8594 1508.6211 598.47461 L 1508.6211 1452.7715 C 1508.6211 1483.3939 1483.5678 1508.4473 1452.9453 1508.4473 L 1395.6113 1508.4473 L 1395.6113 1059.8359 C 1395.6113 981.08539 1331.5826 917.05859 1252.832 917.05859 L 539.16797 917.05859 C 460.41738 917.05859 396.38867 981.08539 396.38867 1059.8359 L 396.38867 1508.4473 L 339.40234 1508.4473 C 308.78001 1508.4473 283.72656 1483.3939 283.72656 1452.7715 L 283.72656 339.22852 C 283.72656 308.60619 308.78001 283.55273 339.40234 283.55273 z M 562.11133 283.55273 L 1063.2051 283.55273 L 1063.2051 561.9375 L 562.11133 561.9375 L 562.11133 283.55273 z M 538.94531 1024.1426 L 1252.832 1024.1426 C 1272.4639 1024.1426 1288.5273 1040.2041 1288.5273 1059.8359 L 1288.5273 1508.4473 L 503.25 1508.4473 L 503.25 1059.8359 C 503.25 1040.2041 519.31334 1024.1426 538.94531 1024.1426 z " /></svg> </span>
+</span> the data is copied across to the live area of the database, where the asset can be downloaded.
+Generally this doesn’t make any difference to how you use the user-interface; however you will find that unsaved changes persist even though you’ve closed a tab or the browser.</p>
+<p>To get back to the current live state and remove any unsaved changes, click the <span class="stroom-icon inline-svg-button icon-button  " >
+<span class="face" title="Revert changes"><svg xmlns="http://www.w3.org/2000/svg" width="1792" height="1792" viewBox="0 0 1792 1792"><path style="fill:currentColor" d="M1639 1056q0 5-1 7-64 268-268 434.5t-478 166.5q-146 0-282.5-55t-243.5-157l-129 129q-19 19-45 19t-45-19-19-45v-448q0-26 19-45t45-19h448q26 0 45 19t19 45-19 45l-137 137q71 66 161 102t187 36q134 0 250-65t186-179q11-17 53-117 8-23 30-23h192q13 0 22.5 9.5t9.5 22.5zm25-800v448q0 26-19 45t-45 19h-448q-26 0-45-19t-19-45 19-45l138-138q-148-137-349-137-134 0-250 65t-186 179q-11 17-53 117-8 23-30 23h-199q-13 0-22.5-9.5t-9.5-22.5v-7q65-268 270-434.5t480-166.5q146 0 284 55.5t245 156.5l130-129q19-19 45-19t45 19 19 45z"/></svg></span>
+</span> icon.</p>
+
+
+</div>
+
+
+<h3 id="import-and-export-gitrepo-structure">Import and Export, GitRepo Structure</h3>
+<p>The Import and Export or GitRepo format is designed to allow you to edit the assets within the import/export structure.
+If you look at the structure you&rsquo;ll have something like this:</p>
+<ul>
+<li><code>Name.Visualisation.UUID.json</code></li>
+<li><code>Name.Visualisation.UUID.meta</code></li>
+<li><code>Name.Visualisation.UUID.node</code></li>
+<li><code>Name.Visualisation.UUID-path-assets/</code></li>
+</ul>
+<p>Here <code>Name</code> is the name of the Visualisation document, and UUID is a long string that looks something like <code>b565d110-508d-483c-95f7-69196479aee9</code>.</p>
+<p>The first three files (<code>.json</code>, <code>.meta</code> and <code>.node</code>) should not be edited.
+However, under the <code>-path-assets/</code> directory you&rsquo;ll find your assets in the same structure as shown in the Stroom user-interface.
+You may edit, add or delete files as required.
+When you re-import the files or Pull from the GitRepo, the files within Stroom will be updated.</p>
+<h2 id="assets-and-visualisations">Assets and Visualisations</h2>
+<p>The assets can be used directly via <a href="#http-access">links</a> from Scripts.</p>
+<p>Alternatively you can define an asset named <code>index.html</code> in the root of your asset tree.
+If this exists then Stroom will load that as the visualisation.</p>
+<h2 id="http-access">HTTP Access</h2>
+<p>The assets are available via the URL <code>/assets/&lt;doc-id&gt;/asset-path</code>, where the <code>&lt;doc-id&gt;</code> is the
+ID of the document that owns the assets.
+The easy way to find the URL is by clicking the <span class="stroom-icon inline-svg-button icon-button  " >
+    <span class="face" title="Eye"><svg width="16" height="16" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg"><path style="fill:currentColor" d="M16 8s-3-5.5-8-5.5S0 8 0 8s3 5.5 8 5.5S16 8 16 8zM1.173 8a13.133 13.133 0 0 1 1.66-2.043C4.12 4.668 5.88 3.5 8 3.5c2.12 0 3.879 1.168 5.168 2.457A13.133 13.133 0 0 1 14.828 8c-.058.087-.122.183-.195.288-.335.48-.83 1.12-1.465 1.755C11.879 11.332 10.119 12.5 8 12.5c-2.12 0-3.879-1.168-5.168-2.457A13.134 13.134 0 0 1 1.172 8z"/><path style="fill:currentColor" d="M8 5.5a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5zM4.5 8a3.5 3.5 0 1 1 7 0 3.5 3.5 0 0 1-7 0z"/></svg></span>
+  </span> icon.</p>
+<p>Note that this icon is only enabled when there are no unsaved changes.</p>
+<p>In the example screenshot <a href="#user-interface">above</a>, the file <code>index.html</code> has the URL <code>https://localhost/assets/b565d110-508d-483c-95f7-69196479aee9/index.html</code>.</p>
+<h3 id="browser-cache">Browser Cache</h3>
+<p>Note that your browser will cache the assets.
+This is a good thing as it will greatly speed up Stroom by reducing bandwidth requirements and server load.</p>
+<p>Files will only be loaded when the 
+
+
+
+
+
+
+
+
+
+
+
+
+<span class="stroom-theme-dark stroom-tab " title="Dashboard tab - 'Dashboard'" >
+  <span class="stroom-tab-icon">
+    <span class="stroom-icon inline-svg-button icon-button  " >
+    <span class="face" title="Dashboard"><!-- Created with Inkscape (http://www.inkscape.org/) --><svg version="1.1" id="svg4591" width="512" height="512" viewBox="0 0 512 512" sodipodi:docname="Dashboard.svg" inkscape:version="1.2.1 (9c6d41e410, 2022-07-14, custom)" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape" xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd" xmlns="http://www.w3.org/2000/svg" ><defs id="defs4595" /><sodipodi:namedview id="namedview4593" pagecolor="var(--icon-colour__white)" bordercolor="#666666" borderopacity="1.0" inkscape:showpageshadow="2" inkscape:pageopacity="0.0" inkscape:pagecheckerboard="0" inkscape:deskcolor="#d1d1d1" showgrid="false" inkscape:zoom="0.35458919" inkscape:cx="530.191" inkscape:cy="589.41447" inkscape:window-width="2560" inkscape:window-height="1403" inkscape:window-x="2560" inkscape:window-y="0" inkscape:window-maximized="1" inkscape:current-layer="g4597" /><g inkscape:groupmode="layer" inkscape:label="Image" id="g4597"><rect style="fill:var(--icon-colour__orange);fill-opacity:1;stroke:var(--icon-colour__orange);stroke-width:18.00002425;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:none;stroke-opacity:1;paint-order:fill markers stroke" id="rect4655" width="151.83469" height="195.54515" x="73.71109" y="73.244606" transform="matrix(1,0,-0.00232161,0.99999731,0,0)" /><rect style="fill:var(--icon-colour__yellow);fill-opacity:1;stroke:var(--icon-colour__yellow);stroke-width:18.00002425;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:none;stroke-opacity:1;paint-order:fill markers stroke" id="rect4655-5" width="151.83469" height="195.54515" x="287.34845" y="243.71935" transform="matrix(1,0,-0.00232161,0.99999731,0,0)" /><rect style="fill:var(--icon-colour__green);fill-opacity:1;stroke:var(--icon-colour__green);stroke-width:18.00007497;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:none;stroke-opacity:1;paint-order:fill markers stroke" id="rect4655-5-9" width="155.95563" height="108.24628" x="285.01883" y="71.178368" transform="matrix(1,0,-0.00408154,0.99999167,0,0)" /><rect style="fill:var(--icon-colour__blue);fill-opacity:1;stroke:var(--icon-colour__blue);stroke-width:18.00007497;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:none;stroke-opacity:1;paint-order:fill markers stroke" id="rect4655-5-9-2" width="155.95563" height="108.24628" x="72.821693" y="331.08734" transform="matrix(1,0,-0.00408154,0.99999167,0,0)" /></g></svg> </span>
+  </span>
+  </span>
+  <span class="stroom-tab-name">Dashboard</span>
+  <span class="stroom-tab-cross">
+    <span class="stroom-icon inline-svg-button icon-button  " >
+    <span class="face" title="Tab close"><svg xmlns="http://www.w3.org/2000/svg" version="1.1" height="45" width="45" viewBox="0 0 45 45"><g style="stroke:currentColor;stroke-width:4.5;stroke-linecap:round;" transform="translate(13.9661017,13.5677966)"><path d="M -2.5783352e-4,-0.00146808 17.435473,18.212367"/><path d="M -2.5783352e-4,18.212367 17.435473,-0.00146808"/></g></svg> </span>
+  </span>
+  </span>
+</span>
+
+ tab is opened.
+Changing file contents will only take effect if you close and reopen the tab.
+There is no need to refresh the browser or log out of Stroom.</p>
+<p>The file <code>/index.html</code> will always be reloaded every time the tab is opened.</p>
+<p>Other files will be reloaded if they have changed.</p>
+<p>Thus the development procedure will look like this:</p>
+<ol>
+<li>Make a change and <span class="stroom-icon inline-svg-button icon-button  " >
+    <span class="face" title="Save"><svg xmlns="http://www.w3.org/2000/svg" width="1792" height="1792" viewBox="0 0 1792 1792"><!--! Font Awesome Free 6.4.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><path style="fill:currentColor;stroke-width:0.570676;stroke-dasharray:none" d="M 339.40234 116.52148 C 216.56504 116.52148 116.69531 216.3912 116.69531 339.22852 L 116.69531 1452.7715 C 116.69531 1575.6089 216.56504 1675.4785 339.40234 1675.4785 L 1452.5977 1675.4785 C 1575.4349 1675.4785 1675.3047 1575.6089 1675.3047 1452.7715 L 1675.3047 598.82422 C 1675.3047 539.66744 1651.9901 482.94523 1610.2324 441.1875 L 1610.5801 440.83984 L 1351.334 181.59375 C 1309.5761 139.83602 1252.8561 116.52148 1193.6992 116.52148 L 339.40234 116.52148 z M 339.40234 283.55273 L 395.08008 283.55273 L 395.08008 645.45312 C 395.08008 691.73461 432.31423 728.96875 478.5957 728.96875 L 1146.7207 728.96875 C 1193.0023 728.96875 1230.2363 691.73461 1230.2363 645.45312 L 1230.2363 297.12305 C 1231.2803 298.167 1231.9756 298.8623 1233.0195 299.90625 L 1492.6152 558.80469 L 1492.2676 559.1543 C 1502.707 569.59373 1508.6211 583.8594 1508.6211 598.47461 L 1508.6211 1452.7715 C 1508.6211 1483.3939 1483.5678 1508.4473 1452.9453 1508.4473 L 1395.6113 1508.4473 L 1395.6113 1059.8359 C 1395.6113 981.08539 1331.5826 917.05859 1252.832 917.05859 L 539.16797 917.05859 C 460.41738 917.05859 396.38867 981.08539 396.38867 1059.8359 L 396.38867 1508.4473 L 339.40234 1508.4473 C 308.78001 1508.4473 283.72656 1483.3939 283.72656 1452.7715 L 283.72656 339.22852 C 283.72656 308.60619 308.78001 283.55273 339.40234 283.55273 z M 562.11133 283.55273 L 1063.2051 283.55273 L 1063.2051 561.9375 L 562.11133 561.9375 L 562.11133 283.55273 z M 538.94531 1024.1426 L 1252.832 1024.1426 C 1272.4639 1024.1426 1288.5273 1040.2041 1288.5273 1059.8359 L 1288.5273 1508.4473 L 503.25 1508.4473 L 503.25 1059.8359 C 503.25 1040.2041 519.31334 1024.1426 538.94531 1024.1426 z " /></svg> </span>
+  </span> save the Visualisation.</li>
+<li>Open the Dashboard and click the <span class="stroom-icon inline-svg-button icon-button  " >
+    <span class="face" title="Play"><svg xmlns="http://www.w3.org/2000/svg" viewBox="-100 -25 598 562"><!-- Font Awesome Free 5.15.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) --><path style="fill:currentColor" d="M424.4 214.7L72.4 6.6C43.8-10.3 0 6.1 0 47.9V464c0 37.5 40.7 60.1 72.4 41.3l352-208c31.4-18.5 31.5-64.1 0-82.6z"/></svg></span>
+  </span> Play button.
+You will see the result of your change.</li>
+<li>Close the Dashboard</li>
+<li>Go back to step 1</li>
+</ol>
+<h3 id="links-between-assets">Links between assets</h3>
+<p>If the assets are owned by the same document then you only need the relative path you defined within the tree.
+For example, <code>theme-css.css</code> or <code>images/background.png</code>.</p>
+<p>If the assets are owned by different document then you&rsquo;ll need the document ID as well.
+For example, <code>../b565d110-508d-483c-95f7-69196479aee9/common-css.css</code>.</p>
+<p>Since visualisations may be moved between servers, it is probably a good idea to avoid absolute paths and only use relative paths.</p>
+<h2 id="configuration">Configuration</h2>
+<p>The mappings from extension to mimetype and editor mode are configured in your <code>local.yaml</code> file.</p>
+<pre><code class="language-yaml">appConfig:
+  visualisationAsset:
+    aceEditorModes:
+        htm: &quot;HTML&quot;
+        txt: &quot;TEXT&quot;
+        css: &quot;CSS&quot;
+        svg: &quot;XML&quot;
+        xml: &quot;XML&quot;
+        js: &quot;JAVASCRIPT&quot;
+        html: &quot;HTML&quot;
+    assetCacheDir: &quot;asset_cache&quot;
+    clearAssetCacheOnStartup: false
+    default: &quot;application/octet-stream&quot;
+    defaultAceEditorMode: &quot;TEXT&quot;
+    mimetypes:
+        htm: &quot;text/html&quot;
+        jpg: &quot;image/jpeg&quot;
+        css: &quot;text/css&quot;
+        tiff: &quot;image/tiff&quot;
+        bmp: &quot;image/bmp&quot;
+        apng: &quot;image/apng&quot;
+        gif: &quot;image/jpeg&quot;
+        svg: &quot;image/svg+xml&quot;
+        png: &quot;image/png&quot;
+        js: &quot;text/javascript&quot;
+        webp: &quot;image/webp&quot;
+        tif: &quot;image/tiff&quot;
+        txt: &quot;text/plain&quot;
+        xml: &quot;application/xml&quot;
+        jpeg: &quot;image/jpeg&quot;
+        html: &quot;text/html&quot;
+</code></pre>
+<dl>
+<dt><code>aceEditorModes</code></dt>
+<dd>You will normally want to leave these as the default values, but you may need to add a particular extension to suit your installation.</dd>
+<dt><code>assetCacheDir</code></dt>
+<dd>This is where the assets will be cached before serving them to the user interface.
+The master copy of the asset is kept in the database.
+There is a cache on each Stroom node to reduce database load.</dd>
+<dt><code>clearAssetCacheOnStartup</code></dt>
+<dd>If <code>true</code> then clear the asset cache each time Stroom starts up.</dd>
+</dl>
+
+<div class="alert alert-primary" role="alert">
+<h4 class="alert-heading">Note</h4>
+
+
+    Stroom does not clear assets from the cache by default.
+This could lead to a situation where the asset has been deleted within the UI, but is still available via HTTP/HTTPS.
+If this causes a problem you need to set this value to <code>true</code> and restart Stroom.
+The cache will then be recreated from valid content in the database.
+
+</div>
+
+
+<dl>
+<dt><code>default</code></dt>
+<dd>The mimetype to send to the browser for an asset where the asset&rsquo;s extension is not recognised.
+You probably don&rsquo;t need to change this.</dd>
+<dt><code>defaultAceEditorMode</code></dt>
+<dd>The ACE editor mode to use when the asset&rsquo;s extension is not recognised.
+You probably don&rsquo;t need to change this.</dd>
+<dt><code>mimetypes</code></dt>
+<dd>The MIME type to send to the browser for each filename extension.
+You may need to add something to support a particular filename extension you use.</dd>
+</dl>
+
+</div>
+
+
+
+
+    
+      
+  
+  
+  
+  
+
+  
+  
+
+  
+    
+    
+	
+    
+
+
+
+<div class="td-content" style="--base-section-num: '15.7.1.'; page-break-before: always">
+    
+  <h1 id="pg-90cbf69b23623ac6494edea7ef0b4e48">15.7.1 - Visualisation Assets Example</h1>
+    <div class="lead">Walk through of converting a Script document visualisation into an Asset visualisation</div>
+	<h2 id="introduction">Introduction</h2>
+<p>This document walks through the process of converting an existing Doughnut visualisation into an Asset-based visualisation.</p>
+<h2 id="document-the-source-visualisation">Document the source visualisation</h2>
+<p>We&rsquo;re converting <code>System/Visualisations/Visualisations/Version3/Doughnut</code>, so we&rsquo;ll open it up and see how it is configured.</p>
+
+
+
+
+
+
+
+  
+  
+  
+  
+  
+
+
+
+
+
+
+
+  
+
+
+
+<div class="card rounded shadow-stroom p-2 td-post-card mb-4 mt-4" style="width: fit-content;">
+
+  <a title="images/content/visualisation-document-doughnut.png" href="../../../images/content/visualisation-document-doughnut.png">
+    <figure style="margin-block-end: 0px" >
+      
+      <img class="card-img-top" src="../../../images/content/visualisation-document-doughnut.png" style="max-width: fit-content" alt="images/content/visualisation-document-doughnut.png">
+      
+
+      
+      <div class="card-body px-0 pt-2 pb-0">
+        <hr style="border-top: 1px solid #ddd; margin-top: 0px; margin-bottom:4px;">
+        <figcaption class="card-text" style="font-size: smaller; text-align: center;">
+The original Visualisation Document we're going to convert
+</figcaption>
+      </div>
+      
+    </figure>
+  </a>
+</div>
+
+<p><strong>Function Name</strong> - We&rsquo;re going to need to copy this to our new document.</p>
+<p><strong>Script</strong> - We&rsquo;re going to leave this bit blank - our new document won&rsquo;t reference a Script document.</p>
+<p><strong>Settings</strong> - We&rsquo;re going to need to copy this to our new document.</p>
+<h3 id="dependencies">Dependencies</h3>
+<p>Visualisation documents depend on a Script document.
+In turn, this depends on other Script documents.</p>
+<p>The Doughnut Script document looks like this:
+
+
+
+
+
+
+
+  
+  
+  
+  
+  
+
+
+
+
+
+
+
+  
+
+
+
+<div class="card rounded shadow-stroom p-2 td-post-card mb-4 mt-4" style="width: fit-content;">
+
+  <a title="images/content/visualisation-script-document-script-doughnut.png" href="../../../images/content/visualisation-script-document-script-doughnut.png">
+    <figure style="margin-block-end: 0px" >
+      
+      <img class="card-img-top" src="../../../images/content/visualisation-script-document-script-doughnut.png" style="max-width: fit-content" alt="images/content/visualisation-script-document-script-doughnut.png">
+      
+
+      
+      <div class="card-body px-0 pt-2 pb-0">
+        <hr style="border-top: 1px solid #ddd; margin-top: 0px; margin-bottom:4px;">
+        <figcaption class="card-text" style="font-size: smaller; text-align: center;">
+The original Script Document for the Doughnut visualisation
+</figcaption>
+      </div>
+      
+    </figure>
+  </a>
+</div>
+</p>
+<p>We&rsquo;re going to need the script file, so copy-and-paste it into a text editor and save it somewhere.</p>
+<p>We also need to look at the Settings tab which looks like this:
+
+
+
+
+
+
+
+  
+  
+  
+  
+  
+
+
+
+
+
+
+
+  
+
+
+
+<div class="card rounded shadow-stroom p-2 td-post-card mb-4 mt-4" style="width: fit-content;">
+
+  <a title="images/content/visualisation-script-document-settings-doughnut.png" href="../../../images/content/visualisation-script-document-settings-doughnut.png">
+    <figure style="margin-block-end: 0px" >
+      
+      <img class="card-img-top" src="../../../images/content/visualisation-script-document-settings-doughnut.png" style="max-width: fit-content" alt="images/content/visualisation-script-document-settings-doughnut.png">
+      
+
+      
+      <div class="card-body px-0 pt-2 pb-0">
+        <hr style="border-top: 1px solid #ddd; margin-top: 0px; margin-bottom:4px;">
+        <figcaption class="card-text" style="font-size: smaller; text-align: center;">
+The settings tab of the Doughnut Script document
+</figcaption>
+      </div>
+      
+    </figure>
+  </a>
+</div>
+</p>
+<p>This shows the Script documents that the Doughnut Script depends on.
+In turn, the dependencies can depend on other Script documents.
+We need to extract all these scripts so we can convert them into assets.</p>
+<p>All Script documents hold Javascript.
+However, sometimes CSS is needed instead of Javascript, so the CSS is held in a Javascript String.
+This needs to be converted into plain Javascript to create a plain CSS file.</p>
+<h4 id="convert-css-in-javascript-into-css">Convert CSS in Javascript into CSS</h4>
+<p>The Script will look something like this (cut down for this example):</p>
+<pre><code class="language-javascript">(function() {
+var cssStr = &quot;&quot; +
+&quot;/*&quot; +
+&quot; * Copyright 2016 Crown Copyright&quot; +
+&quot; *&quot; +
+&quot; * Licensed under the Apache License, Version 2.0 (the \&quot;License\&quot;);&quot; +
+&quot; * you may not use this file except in compliance with the License.&quot; +
+&quot; * You may obtain a copy of the License at&quot; +
+&quot; *&quot; +
+&quot; *     http://www.apache.org/licenses/LICENSE-2.0&quot; +
+&quot; *&quot; +
+&quot; * Unless required by applicable law or agreed to in writing, software&quot; +
+&quot; * distributed under the License is distributed on an \&quot;AS IS\&quot; BASIS,&quot; +
+&quot; * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.&quot; +
+&quot; * See the License for the specific language governing permissions and&quot; +
+&quot; * limitations under the License.&quot; +
+&quot; */&quot; +
+&quot;@CHARSET \&quot;UTF-8\&quot;;&quot; +
+&quot;&quot; +
+&quot;html, body {&quot; +
+&quot;  width: 100%;&quot; +
+&quot;  height: 100%;&quot; +
+&quot;  padding: 0px;&quot; +
+&quot;  margin: 0px;&quot; +
+&quot;  overflow: hidden;&quot; +
+&quot;  font-family: Roboto, arial, tahoma, verdana;&quot; +
+&quot;  font-size: 13px;&quot; +
+&quot;  font-weight: 400;&quot; +
+&quot;}&quot; +
+&quot;&quot; +
+&quot;text {&quot; +
+&quot;  fill: var(--vis-text-color);&quot; +
+&quot;}&quot; +
+&quot;&quot; +
+&quot;.vis {&quot; +
+&quot;  margin: 0px;&quot; +
+&quot;  padding: 0px;&quot; +
+&quot;}&quot; +
+&quot;&quot; +
+&quot;.vis-text {&quot; +
+&quot;  shape-rendering: crispEdges;&quot; +
+&quot;}&quot; +
+&quot;&quot; +
+&quot;.vis-line {&quot; +
+&quot;  stroke-width: 0.5px;&quot; +
+&quot;}&quot; +
+&quot;&quot; +
+&quot;.vis-area {&quot; +
+&quot;}&quot; +
+&quot;&quot; +
+&quot;.vis-axis {&quot; +
+&quot;}&quot; +
+&quot;&quot; +
+&quot;::-webkit-scrollbar-corner {&quot; +
+&quot;  background: transparent;&quot; +
+&quot;}&quot; +
+&quot;&quot;;
+d3.select(document).select(&quot;head&quot;).insert(&quot;style&quot;).text(cssStr);
+})();
+</code></pre>
+<p>You will need to remove the quotes, + signs, prefix and suffix Javascript to end up with this:</p>
+<pre><code class="language-css">/*
+ * Copyright 2016 Crown Copyright
+ *
+ * Licensed under the Apache License, Version 2.0 (the \&quot;License\&quot;);
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an \&quot;AS IS\&quot; BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+@CHARSET \&quot;UTF-8\&quot;;
+
+html, body {
+  width: 100%;
+  height: 100%;
+  padding: 0px;
+  margin: 0px;
+  overflow: hidden;
+  font-family: Roboto, arial, tahoma, verdana;
+  font-size: 13px;
+  font-weight: 400;
+}
+
+text {
+  fill: var(--vis-text-color);
+}
+
+.vis {
+  margin: 0px;
+  padding: 0px;
+}
+
+.vis-text {
+  shape-rendering: crispEdges;
+}
+
+.vis-line {
+  stroke-width: 0.5px;
+}
+
+.vis-area {
+}
+
+.vis-axis {
+}
+
+::-webkit-scrollbar-corner {
+  background: transparent;
+}
+</code></pre>
+<p>Regular expression search-and-replace is very useful for this, using the terms <code>^&quot;</code> and <code>&quot; \+$</code>.</p>
+<h3 id="resulting-assets">Resulting Assets</h3>
+<p>Once all this is done we end up with the following files stored in a folder on our local machine:</p>
+<ul>
+<li><code>common-css.css</code></li>
+<li><code>common.js</code></li>
+<li><code>d3-grid.js</code></li>
+<li><code>d3-tip.js</code></li>
+<li><code>d3.js</code></li>
+<li><code>doughnut.js</code></li>
+<li><code>generic-grid.js</code></li>
+<li><code>js-hashes.js</code></li>
+<li><code>stroom-theme.css</code></li>
+</ul>
+<p>The names are not important as long as they match up with the <code>index.html</code> file <a href="#indexhtml-asset">below</a>.</p>
+<h2 id="create-a-new-visualisation-document">Create a New Visualisation Document</h2>
+
+
+
+
+
+  <div class="stroom-theme-dark stroom-menu">
+    
+    
+
+      
+
+      
+      
+
+
+      
+
+  
+  
+  <div class="stroom-menu-item-background" style="margin-top: 0px;">
+    
+    <div class="stroom-menu-item " >
+        <div class="stroom-menu-item-icon">
+          <span class="stroom-icon inline-svg-button icon-button  " >
+    <span class="face" title="Add"><svg xmlns="http://www.w3.org/2000/svg" width="1792" height="1792" viewBox="0 0 1792 1792"><path style="fill:currentColor" d="m 1600,800 0,192 q 0,40 -28,68 -28,28 -68,28 l -416,0 0,416 q 0,40 -28,68 -28,28 -68,28 l -192,0 q -40,0 -68,-28 -28,-28 -28,-68 l 0,-416 -416,0 q -40,0 -68,-28 -28,-28 -28,-68 l 0,-192 q 0,-40 28,-68 28,-28 68,-28 l 416,0 0,-416 q 0,-40 28,-68 28,-28 68,-28 l 192,0 q 40,0 68,28 28,28 28,68 l 0,416 416,0 q 40,0 68,28 28,28 28,68 z"/></svg> </span>
+  </span>
+        </div>
+
+      <div class="stroom-menu-item-text">New
+      </div>
+        <div class="stroom-menu-item-arrow">
+          <span class="stroom-icon inline-svg-button icon-button  " >
+    <span class="face" title="Arrow right"><svg xmlns="http://www.w3.org/2000/svg" width="1427.7665" height="1427.7665" viewBox="0 0 1427.7665 1427.7665"><g style="stroke:currentColor;stroke-width:167.567"><path d="m 415.05387,83.70929 c -39.92654,0.4303 -75.41463,48.3887 -40.0468,81.9121 C 567.552,348.69899 760.75555,531.15431 953.73208,713.82391 760.75555,896.49341 567.552,1078.9486 375.00707,1262.0262 c -46.19471,43.7855 28.48812,112.1966 76.0571,67.1681 195.93558,-185.823 392.95261,-370.82479 587.98693,-557.52749 5.6117,-4.8034 10.4633,-10.2473 14.4855,-16.1231 9.643,-12.4844 13.9638,-27.0796 13.6909,-41.7198 0.2729,-14.6402 -4.0479,-29.2354 -13.6909,-41.7198 -4.0222,-5.8758 -8.8738,-11.3198 -14.4855,-16.1231 C 844.01678,469.27821 646.99975,284.27629 451.06417,98.45319 439.91519,87.89979 427.27628,83.57749 415.05387,83.70929 Z"/></g></svg> </span>
+  </span>
+        </div>
+    </div>
+  </div>
+
+      
+
+      
+      
+
+
+      
+
+  
+  
+  <div class="stroom-menu-item-background" style="margin-top: 7px;">
+    
+    <div class="stroom-menu-item " >
+
+      <div class="stroom-menu-item-text">Configuration
+      </div>
+        <div class="stroom-menu-item-arrow">
+          <span class="stroom-icon inline-svg-button icon-button  " >
+    <span class="face" title="Arrow right"><svg xmlns="http://www.w3.org/2000/svg" width="1427.7665" height="1427.7665" viewBox="0 0 1427.7665 1427.7665"><g style="stroke:currentColor;stroke-width:167.567"><path d="m 415.05387,83.70929 c -39.92654,0.4303 -75.41463,48.3887 -40.0468,81.9121 C 567.552,348.69899 760.75555,531.15431 953.73208,713.82391 760.75555,896.49341 567.552,1078.9486 375.00707,1262.0262 c -46.19471,43.7855 28.48812,112.1966 76.0571,67.1681 195.93558,-185.823 392.95261,-370.82479 587.98693,-557.52749 5.6117,-4.8034 10.4633,-10.2473 14.4855,-16.1231 9.643,-12.4844 13.9638,-27.0796 13.6909,-41.7198 0.2729,-14.6402 -4.0479,-29.2354 -13.6909,-41.7198 -4.0222,-5.8758 -8.8738,-11.3198 -14.4855,-16.1231 C 844.01678,469.27821 646.99975,284.27629 451.06417,98.45319 439.91519,87.89979 427.27628,83.57749 415.05387,83.70929 Z"/></g></svg> </span>
+  </span>
+        </div>
+    </div>
+  </div>
+
+      
+
+      
+      
+        
+      
+
+
+      
+
+  
+  
+  <div class="stroom-menu-item-background" style="margin-top: 14px;">
+    
+    <div class="stroom-menu-item stroom-menu-item-leaf" >
+        <div class="stroom-menu-item-icon">
+          <span class="stroom-icon inline-svg-button icon-button  " >
+    <span class="face" title="Visualisation"><svg xmlns="http://www.w3.org/2000/svg" width="1792" height="1792" viewBox="0 0 1792 1792"><path style="fill:var(--icon-colour__blue)" d="m 768,890 546,546 Q 1208,1544 1066.5,1604 925,1664 768,1664 559,1664 382.5,1561 206,1458 103,1281.5 0,1105 0,896 0,687 103,510.5 206,334 382.5,231 559,128 768,128 l 0,762 z"/><path style="fill:var(--icon-colour__orange)" d="m 955,896 773,0 q 0,157 -60,298.5 -60,141.5 -168,247.5 z"/><path style="fill:var(--icon-colour__green)" d="M 1664,768 896,768 896,0 Q 1105,0 1281.5,103 1458,206 1561,382.5 1664,559 1664,768 Z"/></svg></span>
+  </span>
+        </div>
+
+      <div class="stroom-menu-item-text">Visualisation
+      </div>
+    </div>
+  </div>
+  </div>
+
+
+
+<h2 id="add-the-assets">Add the Assets</h2>
+<p>Select the <code>Assets</code> tab within your new Visualisation document.</p>
+<p>Use the <span class="stroom-icon inline-svg-button icon-button  " >
+    <span class="face" title="Add file"><svg xmlns="http://www.w3.org/2000/svg" width="1792" height="1792" viewBox="0 0 1792 1792"><path style="fill:currentColor" d="m 1600,800 0,192 q 0,40 -28,68 -28,28 -68,28 l -416,0 0,416 q 0,40 -28,68 -28,28 -68,28 l -192,0 q -40,0 -68,-28 -28,-28 -28,-68 l 0,-416 -416,0 q -40,0 -68,-28 -28,-28 -28,-68 l 0,-192 q 0,-40 28,-68 28,-28 68,-28 l 416,0 0,-416 q 0,-40 28,-68 28,-28 68,-28 l 192,0 q 40,0 68,28 28,28 28,68 l 0,416 416,0 q 40,0 68,28 28,28 28,68 z"/></svg> </span>
+  </span> / <code>Upload File</code> menu items to upload all the CSS and Javascript files in turn.
+No folders are necessary - everything can go into the root directory.</p>
+<h2 id="settings">Settings</h2>
+<p>Select the <code>Settings</code> tab within your new Visualisation document.</p>
+<p><strong>Function Name</strong> - Copy from the old visualisation, or just set it to <code>visualisations.Doughnut</code>.</p>
+<p><strong>Script</strong> - Leave this blank</p>
+<p><strong>Settings</strong> - Copy from the old visualisation. Make sure you get the whole file.</p>
+<h2 id="indexhtml-asset"><code>index.html</code> asset</h2>
+<p>We need an HTML file which will form the core of our visualisation.
+This must be named <code>index.html</code> to be considered for loading by Stroom.</p>
+<p>It needs to look like this:</p>
+<pre><code class="language-html">&lt;html&gt;
+  &lt;head&gt;
+    &lt;meta charset=&quot;UTF-8&quot;&gt;
+    &lt;link rel=&quot;stylesheet&quot; href=&quot;theme-css.css&quot; type=&quot;text/css&quot; /&gt;
+    &lt;link rel=&quot;stylesheet&quot; href=&quot;/ui/css/vis.css&quot; type=&quot;text/css&quot; /&gt;
+    &lt;link rel=&quot;stylesheet&quot; href=&quot;common-css.css&quot; type=&quot;text/css&quot; /&gt;
+    &lt;script type=&quot;text/javascript&quot; charset=&quot;UTF-8&quot; src='../../../ui/vis.js'&gt;&lt;/script&gt;
+    &lt;script type=&quot;text/javascript&quot; charset=&quot;UTF-8&quot; src='common.js'&gt;&lt;/script&gt;
+    &lt;script type=&quot;text/javascript&quot; charset=&quot;UTF-8&quot; src='d3.js'&gt;&lt;/script&gt;
+    &lt;script type=&quot;text/javascript&quot; charset=&quot;UTF-8&quot; src='d3-grid.js'&gt;&lt;/script&gt;
+    &lt;script type=&quot;text/javascript&quot; charset=&quot;UTF-8&quot; src='d3-tip.js'&gt;&lt;/script&gt;
+    &lt;script type=&quot;text/javascript&quot; charset=&quot;UTF-8&quot; src='generic-grid.js'&gt;&lt;/script&gt;
+    &lt;script type=&quot;text/javascript&quot; charset=&quot;UTF-8&quot; src='js-hashes.js'&gt;&lt;/script&gt;
+    &lt;script type=&quot;text/javascript&quot; charset=&quot;UTF-8&quot; src='doughnut.js'&gt;&lt;/script&gt;
+  &lt;/head&gt;
+  &lt;body&gt;
+    &lt;!-- Empty --&gt;
+  &lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+<p>All the assets we&rsquo;ve uploaded need to be linked into the HTML file.</p>
+<p>Note that there are a couple of files that use the <code>/ui/</code> path:</p>
+<ul>
+<li><code>/ui/css/vis.css</code> Stroom visualisation CSS</li>
+<li><code>/ui/vis.js</code> Holds the code that Stroom uses to communicate with the visualisation.</li>
+</ul>
+<p>Both of these files must be included in your index.html for the visualisation to work.</p>
+<h2 id="add-to-dashboard">Add to Dashboard</h2>
+<p>This new visualisation can be added to a Dashboard and configured in the usual way.</p>
+
+</div>
+
+
+
+
+    
+	
+  
+
+    
+	
+  
+    
+    
+	
+    
+
+
+
+<div class="td-content" style="--base-section-num: '15.8.'; page-break-before: always">
+    
+  <h1 id="pg-7704d47a8cda58737fd97341e1181f9d">15.8 - Content Import and Export</h1>
     <div class="lead">Importing and exporting Stroom content.</div>
 	<p>All Stroom content can be exported to a file and conversely imported from a file.
 Multiple entities can be exported in the same file.</p>
