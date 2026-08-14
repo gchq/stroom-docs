@@ -129,6 +129,7 @@ Name: Joe Bloggs
 #### Conditional Blocks
 
 **Syntax**:
+
 ```text
 {% if <value, variable or expression> <condition> <value, variable or expression> %}
   < optional content, expressions or statements>
@@ -164,6 +165,7 @@ This detection has 10 values.
 #### Loops
 
 **Syntax**:
+
 ```text
 {% for <item name> in <variable or expression> %}
   <content, expressions or statements to repeat for each item>

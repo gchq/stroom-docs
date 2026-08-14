@@ -160,6 +160,7 @@ If the XML fragments are already in `event-logging` format then no _Normalise_ X
 **Configured Content**
 
 * {{< pipe-elm "XMLFragmentParser" "XMLFragParser">}} - Content similar to:
+
   ```xml
   <?xml version="1.1" encoding="utf-8"?>
   <!DOCTYPE Records [

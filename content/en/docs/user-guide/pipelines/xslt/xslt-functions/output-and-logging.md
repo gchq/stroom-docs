@@ -21,6 +21,7 @@ add-meta(String key, String value)
 ## link()
 
 Create a string that represents a hyperlink for display in a dashboard table.
+
 ```
 link(url)
 link(title, url)
@@ -28,6 +29,7 @@ link(title, url, type)
 ```
 
 Example
+
 ```
 link('https://www.somehost.com/somepath')
 > [https://www.somehost.com/somepath](https://www.somehost.com/somepath)

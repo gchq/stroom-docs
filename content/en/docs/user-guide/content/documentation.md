@@ -170,6 +170,7 @@ Only certain languages are supported in Stroom.
   "key1": "some text",
   "key2": 123
 }
+
 ```
 
 **XML**
@@ -178,6 +179,7 @@ Only certain languages are supported in Stroom.
     <data name="dateTime" value="2020-09-28T14:30:33.476" />
     <data name="machineIp" value="19.141.201.14" />
   </record>
+
 ```
 
 **bash**
@@ -187,6 +189,7 @@ now="$(date)"
 computer_name="$(hostname)"
 echo "Current date and time : $now"
 echo "Computer name : $computer_name"
+
 ```
 ````
 
@@ -205,6 +208,7 @@ This is an example of a fenced code block.
   <record>
     <data name="dateTime" value="2020-09-28T14:30:33.476" />
   </record>
+
 ```
 ````
 

@@ -198,6 +198,7 @@ The Resulting XML will conform to the http://www.w3.org/2013/XSL/json namespace.
 
 A parser to convert multiple XML fragments into an XML document.
 For example the data may contain:
+
 ```xml
 <Event>...</Event>
 <Event>...</Event>

@@ -144,6 +144,7 @@ In all cases the docker daemon should be stopped prior to making the changes, e.
     This has the advantage that anyone unaware that the data root has moved will be able to easily find it if they look in the default location.
 
 * **Configuration** - The location can be changed by adding this key to the file `/etc/docker/daemon.json` (or creating this file if it doesn't exist.
+
     ```json
     {
       "data-root": "/mnt/docker"

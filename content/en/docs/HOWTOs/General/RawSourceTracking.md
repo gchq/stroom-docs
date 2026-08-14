@@ -60,6 +60,7 @@ Using the positional information it is possible to tag Events with sufficient de
 1. Reprocess the Events through the modified pipeline, also ensure your Events are indexed.
 1. Amend the translation performed by the Extraction pipeline to include the new data items that represent the source position data.
    Add the following to the XSLT:
+
    ```xml
    <xsl:element name="data">
      <xsl:attribute name="name">
@@ -105,6 +106,7 @@ Using the positional information it is possible to tag Events with sufficient de
    </xsl:element>
    ```
 1. Open your dashboard, now add the following custom fields to your table:
+
    ```text
    ${src-id}, ${src-partNo}, ${src-recordNo}, ${src-lineFrom}, ${src-lineTo}, ${src-colFrom}, ${src-colTo}
    ```
@@ -112,6 +114,7 @@ Using the positional information it is possible to tag Events with sufficient de
    {{< screenshot "HOWTOs/HT-RawSourceTextWindow.png" "500x" >}}TextWindow Config{{< /screenshot >}}
 1. You can also add a column to the table that will open a data window showing the source.
    Add a custom column with the following expression:
+
    ```text
    data('Raw Log',${src-id},${src-partNo},'',${src-lineFrom},${src-colFrom},${src-lineTo},${src-colTo})
    ```

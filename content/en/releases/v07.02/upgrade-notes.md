@@ -124,6 +124,7 @@ For information purposes only, the following is a list of all the database migra
 The migration script files can be viewed at {{< external-link "github.com/gchq/stroom" "https://github.com/gchq/stroom" >}}.
 
 <!-- This list was produced by stroom.db.migration.TestListDbMigrations#listDbMigrationsByVersion -->
+
 ```text
 7.1.0
   stroom-config

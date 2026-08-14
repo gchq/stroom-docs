@@ -12,6 +12,7 @@ description: >
 Within Stroom, links can be created in dashboard tables or dashboard text panes that will direct Stroom to display an item in various ways.
 
 Links are inserted in the form:
+
 ```clike
 [Link Text](URL and parameters){Link Type}
 ```

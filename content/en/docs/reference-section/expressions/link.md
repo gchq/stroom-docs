@@ -71,6 +71,7 @@ createAnnotation(text, title, subject, status, assignedTo, comment, eventIdList)
 ```
 
 Example:
+
 ```
 createAnnotation('Create Annotation', 'My Annotation Title', ${SubjectField}, 'New', 'UserA', 'Look at this thing', '123:2,123444:3')
 ```

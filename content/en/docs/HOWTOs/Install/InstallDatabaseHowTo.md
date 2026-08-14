@@ -216,6 +216,7 @@ sudo semanage port -a -t mysqld_port_t -p tcp 3307
 sudo semanage port -a -t mysqld_port_t -p tcp 3308
 {{< /command-line >}}
 We next create the systemd service template as per
+
 ```bash
 sudo bash
 F=/etc/systemd/system/mysqld@.service

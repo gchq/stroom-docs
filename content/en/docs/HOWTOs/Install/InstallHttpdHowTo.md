@@ -154,6 +154,7 @@ ServerRoot "/etc/httpd"
 ```
 
 We now block access to the /var/www directory by commenting out
+
 ```
 <Directory "/var/www">
   AllowOverride None
@@ -162,6 +163,7 @@ We now block access to the /var/www directory by commenting out
 </Directory>
 ```
 that is
+
 ```
 ...
 #
@@ -546,22 +548,27 @@ In the example below, we are using the multi node scenario, in
 that the key file names are `stroomp.crt` and `stroomp.key`.
 For other scenarios, use the appropriate file names generated.
 We replace
+
 ```
 SSLCertificateFile /etc/pki/tls/certs/localhost.crt
 ```
 with
+
 ```
 SSLCertificateFile /home/stroomuser/stroom-jks/public/stroomp.crt
 ```
 and
+
 ```
 SSLCertificateKeyFile /etc/pki/tls/private/localhost.key
 ```
 with
+
 ```
 SSLCertificateKeyFile /home/stroomuser/stroom-jks/private/stroomp.key
 ```
 That is, change
+
 ```
 ...
 # pass phrase.  Note that a kill -HUP will prompt again.  A new
@@ -580,6 +587,7 @@ SSLCertificateKeyFile /etc/pki/tls/private/localhost.key
 ...
 ```
 to
+
 ```
 ...
 # pass phrase.  Note that a kill -HUP will prompt again.  A new
@@ -608,17 +616,20 @@ SSLCertificateKeyFile /home/stroomuser/stroom-jks/private/stroomp.key
 #### `ssl.conf`: Certificate Bundle/NO-CA Verification - All Scenarios
 
 If you have signed your Stroom server certificate with a Certificate Authority, then change
+
 ```
 SSLCACertificateFile /etc/pki/tls/certs/ca-bundle.crt
 ```
 to be your own certificate bundle which you should probably store as `~stroomuser/stroom-jks/public/stroomp-ca-bundle.crt`.
 
 Now if you are using a self signed certificate, you will need to set the Client Authentication to have a value of
+
 ```
 SSLVerifyClient optional_no_ca
 ```
 noting that this may change if you actually use a CA.
 That is, changing
+
 ```
 ...
 #   Client Authentication (Type):
@@ -634,6 +645,7 @@ That is, changing
 ...
 ```
 to
+
 ```
 ...
 #   Client Authentication (Type):
@@ -659,6 +671,7 @@ We now need to secure certain Stroom Application servlets, to ensure they are on
 
 This set of servlets will be accessible by all nodes in the subnet 192.168.2 (as well as localhost).
 We achieve this by adding after the example Location directives
+
 ```
 <Location ~ "stroom/(status|echo|sessionList|debug)" >
  Require all denied
@@ -668,6 +681,7 @@ We achieve this by adding after the example Location directives
 We further restrict the `clustercall` and `export` servlets to just the localhost.
 If we had multiple Stroom processing nodes, you would specify each node, or preferably, the subnet they are on.
 In our multi node case this is 192.168.2.
+
 ```
 <Location ~ "stroom/export/|stroom/remoting/clustercall.rpc" >
  Require all denied
@@ -675,6 +689,7 @@ In our multi node case this is 192.168.2.
 </Location>
 ```
 That is, the following
+
 ```
 ...
 #            and %{TIME_WDAY} >= 1 and %{TIME_WDAY} <= 5 \
@@ -688,6 +703,7 @@ That is, the following
 ...
 ```
 changes to
+
 ```
 ...
 #            and %{TIME_WDAY} >= 1 and %{TIME_WDAY} <= 5 \
@@ -717,15 +733,18 @@ changes to
 #### `ssl.conf`: Log Formats - All Scenarios
 
 Finally, as we make use of the Black Box Apache log format, we replace the standard format
+
 ```
 CustomLog logs/ssl_request_log \
         "%t %h %{SSL_PROTOCOL}x %{SSL_CIPHER}x \"%r\" %b"
 ```
 with
+
 ```
 CustomLog logs/ssl_request_log blackboxSSLUser
 ```
 That is, change
+
 ```
 ...
 #   Per-Server Logging:
@@ -737,6 +756,7 @@ CustomLog logs/ssl_request_log \
 </VirtualHost>
 ```
 to
+
 ```
 ...
 #   Per-Server Logging:

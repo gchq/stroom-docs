@@ -365,6 +365,7 @@ This is a markdown example of a fenced code block containing XML content.
 <root>
   <child attr="xxx">some val</child>
 </root>
+
 ```
 ````
   {{< /card >}}
@@ -679,6 +680,7 @@ tree -n -F -L 1 --charset=ascii
 |-- status.sh*
 |-- stop.sh*
 `-- volumes/
+
 ```
 ````
   {{< /card >}}
@@ -886,6 +888,7 @@ The markdown for this is:
 ---
 root:
   someKey: "value"
+
 ```
   {{</* /card */>}}
   {{</* card header="XML" */>}}
@@ -893,6 +896,7 @@ root:
 <root>
   <child attr="xxx">some val</child>
 </root>
+
 ```
   {{</* /card */>}}
 {{</* /cardpane */>}}

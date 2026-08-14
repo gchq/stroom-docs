@@ -23,6 +23,7 @@ Common JSON primitives and examples of their XML equivalents are outlined below.
 ### Arrays
 
 Array of maps
+
 ```xml
 <array key="users" xmlns="http://www.w3.org/2005/xpath-functions">
   <map>
@@ -32,6 +33,7 @@ Array of maps
 ```
 
 Array of strings
+
 ```xml
 <array key="userNames" xmlns="http://www.w3.org/2005/xpath-functions">
   <string>John Smith</string>

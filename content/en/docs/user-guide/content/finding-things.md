@@ -178,6 +178,7 @@ Boolean logic can be added using `and`, `or` and `not`, plus brackets to group t
 **User input**: `status:disabled or status:locked`
 
 **Will match**:
+
 ```text
 Locked
 ^^^^^^
@@ -336,6 +337,7 @@ For more details on the syntax of java regular expressions see this internet lin
 **User input**: `/(^|wo)man`
 
 **Will match**:
+
 ```text
 MAN
 ^^^

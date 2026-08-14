@@ -76,12 +76,14 @@ Nginx acts as a reverse proxy for the applications behind it so the lists of hos
 For example if you have a 10 node cluster and 2 of those nodes are dedicated for user interface use then the configuration would look like:
 
 **upstreams.stroom.ui.conf.template**
+
 ```conf
 server node1.stroomhosts:<<<STROOM_PORT>>>
 server node2.stroomhosts:<<<STROOM_PORT>>>
 ```
 
 **upstreams.stroom.processing.conf.template**
+
 ```conf
 server node3.stroomhosts:<<<STROOM_PORT>>>
 server node4.stroomhosts:<<<STROOM_PORT>>>
@@ -94,6 +96,7 @@ server node10.stroomhosts:<<<STROOM_PORT>>>
 ```
 
 **upstreams.proxy.conf.template**
+
 ```conf
 server node3.stroomhosts:<<<STROOM_PORT>>>
 server node4.stroomhosts:<<<STROOM_PORT>>>

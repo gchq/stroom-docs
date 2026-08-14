@@ -135,6 +135,7 @@ isString(arg1)
 ```
 
 Examples:
+
 ```
 isString(toString(1.2))
 > true

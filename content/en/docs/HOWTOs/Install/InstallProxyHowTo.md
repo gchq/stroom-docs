@@ -88,6 +88,7 @@ stroom-proxy/bin/setup.sh store
 {{< /command-line >}}
 during which one is prompted for a number of configuration settings.
 Use the following
+
 ```
 NODE to be the hostname (not FQDN) of your host (i.e. 'stroomp00' or 'stroomp01' depending on the node we are installing on)
 PORT_PREFIX should use the default, just press return
@@ -120,6 +121,7 @@ stroom-proxy/bin/setup.sh forward
 {{< /command-line >}}
 during which one is prompted for a number of configuration settings.
 Use the following
+
 ```
 NODE to be the hostname (not FQDN) of your host (i.e. 'stroomfp0' in our example)
 PORT_PREFIX should use the default, just press return
@@ -193,15 +195,18 @@ The context path and unknown version warnings in `catalina.out` can be ignored.
 Eventually (about 60 seconds) the log file `stroom-proxy/instance/logs/stroom.log` will appear.
 Again check it for errors.
 The proxy will have completely started when you see the messages
+
 ```
 INFO  [localhost-startStop-1] spring.StroomBeanLifeCycleReloadableContextBeanProcessor (StroomBeanLifeCycleReloadableContextBeanProcessor.java:109) - ** proxyContext 0 START COMPLETE **
 ```
 and
+
 ```
 INFO  [localhost-startStop-1] spring.StroomBeanLifeCycleReloadableContextBeanProcessor (StroomBeanLifeCycleReloadableContextBeanProcessor.java:109) - ** webContext 0 START COMPLETE **
 ```
 
 If you leave it for a while you will eventually see cyclic (10 minute cycle) messages of the form
+
 ```
 INFO  [Repository Reader Thread 1] repo.ProxyRepositoryReader (ProxyRepositoryReader.java:170) - run() - Cron Match at YYYY-MM-DD ...
 ```
@@ -224,6 +229,7 @@ The default template is `${pathId}/${id}` and this pattern will produce the foll
 | 100000 | 100/100000.zip |
 
 Since version v5.1-beta.4, this template can be specified during proxy setup via the entry to the `Stroom Proxy Repository Format` prompt
+
 ```
 ...
 @@REPO_FORMAT@@ : Stroom Proxy Repository Format [${pathId}/${id}] > 
@@ -328,6 +334,7 @@ find /stroomdata/stroom-working-sap0/proxy/
 
 {{< /command-line >}}
 and one would also see a warning for each post in the proxy's log file of the form
+
 ```
 WARN  [ajp-apr-9009-exec-4] repo.StroomFileNameUtil (StroomFileNameUtil.java:133) - Unused variables found: [badparam]
 ```

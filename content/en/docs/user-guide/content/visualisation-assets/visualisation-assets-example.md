@@ -122,6 +122,7 @@ d3.select(document).select("head").insert("style").text(cssStr);
 ```
 
 You will need to remove the quotes, + signs, prefix and suffix Javascript to end up with this:
+
 ```css 
 /*
  * Copyright 2016 Crown Copyright
@@ -230,6 +231,7 @@ We need an HTML file which will form the core of our visualisation.
 This must be named `index.html` to be considered for loading by Stroom.
 
 It needs to look like this:
+
 ```html
 <html>
   <head>

@@ -112,6 +112,7 @@ To do this you need to follow these steps:
 1. Stop the Docker engine.
 1. Move the directory to its new location.
 1. Edit the file `/etc/docker/daemon.json` and ensure this field is present with the new location as the value.
+
    ```json
    {
      "data-root": "/path/to/new/location"

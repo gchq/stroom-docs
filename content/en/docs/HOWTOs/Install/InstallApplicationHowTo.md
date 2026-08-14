@@ -179,6 +179,7 @@ stroom-app/bin/setup.sh
 
 During which one is prompted for a number of configuration settings.
 Use the following
+
 ```
 TEMP_DIR should be set to '/stroomdata/stroom-working-p00' or '/stroomdata/stroom-working-p01' etc depending on the node we are installing on
 NODE to be the hostname (not FQDN) of your host (i.e. 'stroomp00' or 'stroomp01' in our multi node scenario)
@@ -247,6 +248,7 @@ stroom-app/bin/start.sh
 and then monitor the files in its `stroom-app/instance/logs` for any errors.
 Note that in multi node configurations,
 you will see server.UpdateClusterStateTaskHandler messages in the log file of the form
+
 ```
 WARN  [Stroom P2 #9 - GenericServerTask] server.UpdateClusterStateTaskHandler (UpdateClusterStateTaskHandler.java:150) - discover() - unable to contact stroomp00 - No cluster call URL has been set for node: stroomp00
 ```

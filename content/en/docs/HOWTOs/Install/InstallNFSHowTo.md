@@ -28,6 +28,7 @@ We install NFS on each node, via
 sudo yum -y install nfs-utils
 {{< /command-line >}}
 and enable the relevant services, via
+
 ```base
 sudo systemctl enable rpcbind
 sudo systemctl enable nfs-server

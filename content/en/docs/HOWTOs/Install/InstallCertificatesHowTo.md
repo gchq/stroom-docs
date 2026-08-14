@@ -76,6 +76,7 @@ Create a server key for Stroom service (enter a password when prompted for both 
 openssl genrsa -des3 -out private/$H.key 2048
 {{< /command-line >}}
 as per
+
 ```
 Generating RSA private key, 2048 bit long modulus
 .................................................................+++
@@ -96,6 +97,7 @@ In the output below we will assume a multi node cluster certificate is being gen
 openssl req -sha256 -new -key private/$H.key -out $H.csr
 {{< /command-line >}}
 as per
+
 ```
 Enter pass phrase for private/stroomp.key: <__ENTER_SERVER_KEY_PASSWORD__>
 You are about to be asked to enter information that will be incorporated
@@ -125,6 +127,7 @@ We now self sign the certificate (again enter the server key password)
 openssl x509 -req -sha256 -days 720 -in $H.csr -signkey private/$H.key -out public/$H.crt
 {{< /command-line >}}
 as per
+
 ```
 Signature ok
 subject=/C=XX/L=Default City/O=Default Company Ltd/CN=stroomp.strmdev00.org
@@ -138,6 +141,7 @@ Create insecure version of private key for Apache auto-boot (you will again need
 openssl rsa -in private/$H.key -out private/$H.key.insecure
 {{< /command-line >}}
 as per
+
 ```
 Enter pass phrase for private/stroomp.key: <__ENTER_SERVER_KEY_PASSWORD__>
 writing RSA key

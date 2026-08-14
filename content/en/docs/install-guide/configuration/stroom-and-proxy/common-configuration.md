@@ -63,6 +63,7 @@ appConfig:
 ```
 
 The following is an example of the YAML configuration file for Stroom-Proxy:
+
 ```yaml
 # Dropwizard configuration section
 server:

@@ -27,6 +27,7 @@ case(input, test1, result1, testN, resultN, otherwise)
 ```
 
 This is equivalent to
+
 ```
 if (input == test1) {
     return result1
