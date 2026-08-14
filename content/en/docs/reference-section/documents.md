@@ -110,14 +110,6 @@ Contains a Javascript script that is used as the source for a [visualisation]({{
 Scripts can have dependencies on other Script Documents, e.g. to allow re-use of common code.
  
 
-### Scylla DB
- 
-* Icon: {{< stroom-icon "document/ScyllaDb.svg" >}}
-* Type: `ScyllaDB`
- 
-Defines the connection details for a ScyllaDB state store instance.
- 
-
 ### Visualisation
  
 * Icon: {{< stroom-icon "document/Visualisation.svg" >}}
@@ -200,7 +192,12 @@ The Lucene Index Document is used by the {{< pipe-elm \"IndexingFilter\" >}} and
 * Icon: {{< stroom-icon "document/Pathways.svg" >}}
 * Type: `Pathways`
  
-> TODO - Add description
+Analyses trace logs held in a Plan B store to learn the paths that traces take between services, e.g. A -> B -> C.
+Each distinct path is remembered, so that a new or changed path can be reported as soon as it appears.
+For each span on a path it also learns constraints on the span's duration, kind, flags and attributes, held as an exact value, a set, a range or a regular expression, and widens them as further traces are seen.
+Whether new paths and constraints may be added, and whether those already learnt may be widened, is controlled per document, so Pathways can be left learning or fixed so that anything deviating from what it has learnt is reported instead of absorbed.
+Findings are written to a nominated Feed for analytic rules to act on.
+Pathways makes no judgement about the changes it reports.
  
 
 ### Plan B
@@ -222,14 +219,6 @@ It is used by the {{< pipe-elm "SolrIndexingFilter" >}} pipeline element.
 {{% see-also %}}[Solr Integration]({{< relref "docs/user-guide/indexing/solr" >}}){{% /see-also %}}
  
 
-### State Store
- 
-* Icon: {{< stroom-icon "document/StateStore.svg" >}}
-* Type: `StateStore`
- 
-Defines a place to store state
- 
-
 ### Statistic Store
  
 * Icon: {{< stroom-icon "document/StatisticStore.svg" >}}
@@ -245,12 +234,13 @@ Tags can be things like `user`, `node`, `feed`, etc. and can be used to filter d
 It is used by the {{< pipe-elm "StatisticsFilter" >}} pipeline element.
  
 
-### Stroom-Stats Store
+### View
  
-* Icon: {{< stroom-icon "document/StroomStatsStore.svg" >}}
-* Type: `StroomStatsStore`
+* Icon: {{< stroom-icon "document/View.svg" >}}
+* Type: `View`
  
-The Stroom-Stats Store Document is deprecated and should not be used.
+A view is an abstraction over a data source (such as a [Lucene Index]({{< relref "#lucene-index" >}})) and optionally an [extraction pipeline]({{< relref "docs/user-guide/pipelines/recipies#search-extraction" >}}).
+Views provide a much simpler way for users to query data as the user can simply query against the View without any knowledge of the underlying data source or extraction of that data.
  
 
 
@@ -267,7 +257,6 @@ Documents relating to searching for data in Stroom.
 Defines an analytic rule which can be run to alert on events meeting a criteria.
 The criteria is defined using a StroomQL query.
 The analytic can be processed in different ways:
-
 * Streaming
 * Table Builder
 * Scheduled Query
@@ -278,7 +267,10 @@ The analytic can be processed in different ways:
 * Icon: {{< stroom-icon "edit.svg" >}}
 * Type: `Annotation`
  
-> TODO - Add description
+An annotation records notes and workflow state against one or more events, typically while investigating them.
+Annotations are created from a table of search results rather than from the explorer tree.
+Each one has a subject, a status, an optional assignee and a history of the changes made to it, and can be given comments, labels and collections to organise it.
+A retention period controls how long it is kept.
  
 
 ### Dashboard
@@ -293,6 +285,16 @@ Queried data can be displayed in tabular form, visualised using interactive char
 The Dashboard Doc can either be used for ad-hoc querying/visualising of data, to construct a dashboard for others to view or to just view an already constructed dashboard.
 Dashboards can be parameterised so that all queries on the dashboard are displaying data for the same user, for example.
 For ad-hoc querying of data from one data source, you are recommended to use a [Query]({{< relref "#query" >}}) instead.
+ 
+
+### Data Generator
+ 
+* Icon: {{< stroom-icon "document/Feed.svg" >}}
+* Type: `DataGen`
+ 
+Defines a data generator which can be used to send data into a Stroom Feed.
+The data is defined as a String.
+The schedule on which the data is sent into the feed can be customised.
  
 
 ### Query
@@ -311,15 +313,6 @@ A Query can query main types of data source including [Views]({{< relref "#view"
  
 Defines a report that can be run at scheduled intervals and sent to individuals via email.
 The criteria is defined using a StroomQL query.
- 
-
-### View
- 
-* Icon: {{< stroom-icon "document/View.svg" >}}
-* Type: `View`
- 
-A view is an abstraction over a data source (such as a [Lucene Index]({{< relref "#lucene-index" >}})) and optionally an [extraction pipeline]({{< relref "docs/user-guide/pipelines/recipies#search-extraction" >}}).
-Views provide a much simpler way for users to query data as the user can simply query against the View without any knowledge of the underlying data source or extraction of that data.
  
 
 
