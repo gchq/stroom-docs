@@ -126,7 +126,9 @@ wait_for_200_response() {
   fi
 
   local url=$1; shift
-  local maxWaitSecs=30
+  # Hugo has to build the whole site before it serves anything, which takes
+  # appreciably longer than the few seconds this used to allow.
+  local maxWaitSecs=120
 
   local n=0
   local were_dots_shown=false
@@ -155,8 +157,9 @@ wait_for_200_response() {
     fi
 
     n=$(( n + 1 ))
-    # Seconds
-    sleep 0.3
+    # One second per iteration, so n counts seconds and maxWaitSecs means what
+    # its name says.
+    sleep 1
   done
 
   if [ "${were_dots_shown}" = true ]; then
