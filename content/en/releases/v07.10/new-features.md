@@ -12,7 +12,7 @@ description: >
 
 ### `ceilingTime(..)` & `floorTime(...)` & `roundTime(...)`
 
-Three new functions similar to the existing [`ceilingXXX`]({{< relref "docs/reference-section/expressions/date#ceiling-yearmonthdayhourminutesecond" >}}) and [`floorXXX`]({{< relref "docs/reference-section/expressions/date#floor-yearmonthdayhourminutesecond" >}}) functions, except that an arbitrary duration can be used.
+Three new functions similar to the existing [`ceilingXXX`]({{< relref "docs/reference-section/expressions/date#ceiling-yearmonthweekdayhourminutesecond" >}}) and [`floorXXX`]({{< relref "docs/reference-section/expressions/date#floor-yearmonthweekdayhourminutesecond" >}}) functions, except that an arbitrary duration can be used.
 
 For example, `floorTime($time, 'PT5m')` will floor the time to the latest time that is divisible by 5 minutes.
 

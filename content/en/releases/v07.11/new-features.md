@@ -180,7 +180,7 @@ Example:
 createAnnotation('Create Annotation', 'My Annotation Title', ${SubjectField}, 'New', 'UserA', 'Look at this thing', '123:2,123444:3')
 ```
 
-See [createAnnotation]({{< relref "docs/reference-section/expressions/link#createAnnotation" >}}) for details.
+See [createAnnotation]({{< relref "docs/reference-section/expressions/link#create-annotation" >}}) for details.
 
 
 ### HostAddress
