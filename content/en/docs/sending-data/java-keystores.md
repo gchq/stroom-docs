@@ -16,7 +16,7 @@ There are many times when you may wish to create a Java keystore from certificat
 ## Import
 If you need to create a Java keystore from a .crt and .key then this is how to do it.
 
-### Convert Your Keys to Der Format
+### Convert Your Keys to DER Format
 
 {{< command-line >}}
 openssl x509 -in <YOUR KEY>.crt -inform PEM -out <YOUR KEY>.crt.der -outform DER

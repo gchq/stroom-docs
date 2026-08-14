@@ -45,7 +45,7 @@ A secret shared between systems for convenience is still not a credential to rel
 While it is enabled, Stroom logs a warning banner at startup, and logs again, at most every five minutes, whenever a request actually authenticates using it.
 
 
-## Configuring Stroom-Proxy to Use It
+## Configuring Stroom-Proxy to Use the Credential
 
 Set the secret as Stroom-Proxy's feed status API key, and give it the same value in Stroom's environment:
 

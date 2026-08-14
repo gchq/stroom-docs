@@ -348,7 +348,16 @@ See [Common Configuration]({{< relref "docs/install-guide/configuration/stroom-a
 
 ## Troubleshooting
 
-### Stroom Will Not Start
+<!--
+The headings below describe a symptom rather than naming a thing, so they read
+as sentences and are deliberately in sentence case. Each is opted out of the
+style check individually so that the rest of the section is still checked.
+-->
+
+
+<!-- style-check: disable -->
+### Stroom will not start
+<!-- style-check: enable -->
 
 > If `identityProviderType` is set to 'EXTERNAL', property `openIdConfigurationEndpoint` must be set.
 
@@ -371,14 +380,20 @@ Where the value is genuinely correct for your provider, add it to `validIssuers`
 You have set `issuer` or `validIssuers`, and what the provider advertised is not among them.
 Correct the configured value, or add the advertised one.
 
-### The Provider Refuses the Sign In
+
+<!-- style-check: disable -->
+### The provider refuses the sign in
+<!-- style-check: enable -->
 
 An error at the provider, before the user gets back to Stroom, is almost always the redirect URI.
 Check that `https://STROOM_FQDN/api/auth/flow/v1/signin-oidc` is registered exactly, using the same scheme, host, port and path prefix as `appConfig.publicUri`.
 
 This is the single most common problem when upgrading, because Stroom used to send a different redirect URI for every page.
 
-### Sign in Works but API Calls are Refused
+
+<!-- style-check: disable -->
+### Sign in works but API calls are refused
+<!-- style-check: enable -->
 
 Interactive sign in validates the `id_token`, whereas the API validates an access token, and providers treat the two differently.
 So sign in working tells you the client id, secret and endpoints are all correct, and points at the token validation settings.
@@ -391,7 +406,10 @@ In order of likelihood:
 
 Enable debug logging for `stroom.security.common.impl.StandardJwtContextFactory` to see the issuers, audiences and settings actually in use when a token is validated.
 
-### Users Sign in but Can See Nothing
+
+<!-- style-check: disable -->
+### Users sign in but can see nothing
+<!-- style-check: enable -->
 
 That is expected for a new user.
 Authentication is all the provider does; permissions are granted in Stroom, and a new user has none.
@@ -399,7 +417,10 @@ See [Users and permissions]({{< relref "docs/install-guide/setup/open-id/externa
 
 If an administrator you set up with `manage_users` cannot see anything either, remember that permissions are cached, so a restart may be needed if Stroom was running when the command was issued.
 
-### Signing Out Does Not Sign the User Out of the Provider
+
+<!-- style-check: disable -->
+### Signing out does not sign the user out of the provider
+<!-- style-check: enable -->
 
 Either `logoutEndpoint` is unset, or the provider has no OIDC sign out endpoint, as is the case for Google.
 The Stroom session ends either way, but the provider's session does not, so the user's next visit signs them straight back in.
