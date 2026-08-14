@@ -259,8 +259,15 @@ Don't use this style.
 ### Heading Capitalisation
 
 Headings should use _title case_, i.e. capitalise the first word, the last word and all the principal words in between.
-Leave articles (`a`, `an`, `the`), coordinating conjunctions (`and`, `but`, `or`, `nor`) and prepositions of three letters or fewer (`at`, `by`, `in`, `of`, `on`, `to`, `up`, etc.) in lower case, unless they are the first or last word of the heading.
-Longer prepositions, such as `With`, `From` and `Into`, are capitalised.
+
+The following are left in lower case, unless they are the first or last word of the heading:
+
+* Articles, i.e. `a`, `an`, `the`.
+* Coordinating conjunctions, i.e. `and`, `but`, `or`, `nor`, `for`, `yet`, `so`.
+* Prepositions, e.g. `at`, `by`, `in`, `of`, `on`, `to`, `up`, `with`, `from`, `into`, `over`, `between`, `through`, `without`, `about`, `after`, `before`.
+* Forms of the verb 'to be', i.e. `is`, `are`, `was`, `be`, and `it`, `its` and `vs`.
+
+Words that form part of a compound or a phrasal verb are capitalised even where the same word is a preposition elsewhere, e.g. `## Cloning the Off Heap Store` and `## Checking Out the Correct Branch`.
 
 The same applies to the `title` and `linkTitle` in a page's [front matter]({{< relref "front-matter#title-and-link-title" >}}).
 
@@ -272,11 +279,15 @@ Two things keep their own case regardless:
 ```markdown
 ## Create the Account                     <-- 'the' is not a principal word
 
-## Running Commands With the Zip Distribution
+## Running Commands with the Zip Distribution
 
 ## Finding the User's Identifier on an External IDP
 
 ## Accounts and Stroom Users
+
+## Verifying it Works                     <-- 'it' is not a principal word
+
+## Cloning the Off Heap Store             <-- 'Off Heap' is a compound
 
 ## `manage_users`                         <-- an identifier, so left as-is
 ```
