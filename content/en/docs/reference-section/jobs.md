@@ -198,7 +198,7 @@ This process takes the entries in `SQL_STAT_VAL_SRC` and merges them into the ma
 As this process is reliant on data flushed by the _SQL Stats In Memory Flush_ job it is advisable to schedule it to run after that, leaving some time for the in-memory flush to finish.
 
 
-## SQL Stats In Memory Flush
+## SQL Stats in Memory Flush
 
 SQL Statistics are initially held and aggregated in memory.
 This job controls the frequency that the in memory statistics are flushed from the in memory buffer to the staging table `SQL_STAT_VAL_SRC` in the database.

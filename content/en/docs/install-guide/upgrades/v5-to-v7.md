@@ -18,7 +18,7 @@ Before commencing an upgrade to v7 you must upgrade Stroom to the latest minor a
 At the time of writing the latest version of v5 is `v5.5.16`.
 {{% /page-warning %}}
 
-## Differences between v5 and v7
+## Differences Between v5 and v7
 
 Stroom v7 has significant differences to v6 which make the upgrade process a little more complicated.
 
@@ -32,19 +32,19 @@ Stroom v7 has significant differences to v6 which make the upgrade process a lit
   As the database will be holding two copies of most data you need to ensure you have space to accommodate it.
 
 
-## Pre-Upgrade tasks
+## Pre-Upgrade Tasks
 
 Stroom can be upgraded straight from v5 to v7 without going via v6.
 There are however a few pre-migration steps that need to be followed.
 
 
-### Upgrade Stroom to the latest v5 version
+### Upgrade Stroom to the Latest v5 Version
 
 Follow your standard process for performing a minor upgrade to bring your v5 Stroom instance up to the latest v5 version.
 This ensures all v5 migrations are applying all the v6 and v7 migrations.
 
 
-### Download migration scripts
+### Download Migration Scripts
 
 Download the migration SQL scripts from https://github.com/gchq/stroom/blob/STROOM_VERSION/scripts
 e.g. https://github.com/gchq/stroom/blob/v7.0-beta.198/scripts
@@ -53,7 +53,7 @@ Some of these scripts will be used in the steps below.
 The unused scripts are not applicable to a v5=>v7 upgrade.
 
 
-### Pre-migration database checks
+### Pre-migration Database Checks
 
 Run the pre-migration checks script on the running database.
 
@@ -67,7 +67,7 @@ mysql --force --table -u"stroomuser" -p"stroompassword1" stroom \
 This will produce a report of items that will not be migrated or need attention before migration.
 
 
-### Capture non-default Stroom properties
+### Capture Non-default Stroom Properties
 
 Run the following script to capture the non-default system properties that are held in the database.
 This is a precaution in case they are needed following migration.
@@ -80,7 +80,7 @@ mysql --force --table -u"stroomuser" -p"stroompassword1" stroom \
 {{</ command-line >}}
 
 
-### Stop processing
+### Stop Processing
 
 Before shutting stroom down it is wise to turn off stream processing and let all outstanding server tasks complete.
 
@@ -98,13 +98,13 @@ This ensures that stroom is not trying to access the database.
 {{</ command-line >}}
 
 
-### Backup the databases
+### Backup the Databases
 
 Backup all the databases for the different components.
 Typically these will be `stroom` and `stats` (or `statistics`).
 
 
-### Stop the database
+### Stop the Database
 
 Stop the database using the v6 stack.
 
@@ -120,7 +120,7 @@ Deploy the latest version of Stroom but don't start it.
 *TODO* - more detail
 
 
-### Migrate the v5 configuration into v7
+### Migrate the v5 Configuration Into v7
 
 The configuration properties held in the database and accessed for the _Properties_ UI screen will be migrated automatically by Stroom where possible.
 
@@ -165,7 +165,7 @@ If they are not then set them in the `config.yml` file.
 The defaults can be found in `config-defaults.yml`.
 
 
-### Upgrading the MySQL instance and database
+### Upgrading the MySQL Instance and Database
 
 Stroom v5 ran on MySQL v5.6.
 Stroom v7 runs on MySQL v8.
@@ -188,7 +188,7 @@ The exact steps will depend on how you have installed MySQL.
    On start up MySQL 8 will detect a v5.7 instance and upgrade it to 8.0 spec automatically without the need to run `mysql_upgrade`.
 
 
-## Performing the Stroom upgrade
+## Performing the Stroom Upgrade
 
 To perform the stroom schema upgrade to v7 run the _migrate_ command (on a single node) which will migrate the database then exit.
 For a large upgrade like this is it is preferable to run the _migrate_ command rather than just starting Stroom as Stroom will only migrate the parts of the schema as it needs to use them so some parts of the database may not be migrated initially.
@@ -199,6 +199,6 @@ Running the migrate command ensures all parts of the migration are completed whe
 {{</ command-line >}}
 
 
-## Post-Upgrade tasks
+## Post-Upgrade Tasks
 
 *TODO*

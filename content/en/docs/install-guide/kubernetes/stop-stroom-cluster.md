@@ -25,7 +25,7 @@ Ensure this is set to a reasonable value, otherwise long-running tasks may not h
 {{% /note %}}
 
 
-## Stopping the cluster
+## Stopping the Cluster
 
 {{< command-line "user" "localhost" >}}
 kubectl delete -f stroom-cluster.yaml
@@ -45,7 +45,7 @@ You will see a list of one or more node names, with the number of tasks outstand
 Once the `StroomCluster` is removed, it can be reconfigured (if required) and redeployed, using the same process as in [Configure a Stroom cluster]({{< relref "configure-stroom-cluster" >}}).
 
 
-## `PersistentVolumeClaim` deletion
+## `PersistentVolumeClaim` Deletion
 
 When a Stroom node is shut down, by default its `PersistentVolumeClaim` will remain.
 This ensures it gets re-assigned the same `PersistentVolume` when it starts up again.
@@ -57,6 +57,6 @@ However the operator may be configured to delete the PVC in certain situations, 
 1. `DeleteOnScaledownAndClusterDeletion` deletes the PVC if the node Pod is removed.
 
 
-## Next steps
+## Next Steps
 
 [Removing]({{< relref "remove-operator" >}}) the Stroom K8s Operator

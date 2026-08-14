@@ -11,11 +11,11 @@ description: >
 
 ## v7.0
 
-### Reference data storage
+### Reference Data Storage
 Reference data uses a memory-mapped disk-based store rather than direct memory to reduce the memory overhead associated with storing reference data.
 
 
-### Search result storage
+### Search Result Storage
 Search results are stored on disk rather than in memory during creation to reduce the memory overhead incurred by search.
 
 
@@ -23,7 +23,7 @@ Search results are stored on disk rather than in memory during creation to reduc
 Separation of Stroom components into discrete modules that have clear APIs and separate persistence where required to reduce coupling.
 
 
-### Modernisation of libraries
+### Modernisation of Libraries
 Changing Stroom libraries to replace Spring with Guice and Hibernate with JOOQ.
 
 
@@ -33,7 +33,7 @@ Search results in dashboards can be annotated to provide status and notes relati
 
 ## v7.1
 
-### Elastic search integration
+### Elastic Search Integration
 Elasticsearch can be used for indexing data. Data can be sent to an Elasticsearch index via a pipeline element and an Elasticsearch index can be queried from a Stroom dashboard.
 
 
@@ -61,34 +61,34 @@ Refactoring some elements of the UI to improve accessibility.
 ## v8+
 
 
-### Authorisation enhancements
+### Authorisation Enhancements
 The Stroom authorisation system is split out into a separate service and provides integration with external authorisation mechanisms.
 
 
-### Proxy processing
+### Proxy Processing
 Stroom proxy is capable of pipeline processing in the same way as a full Stroom application. Pipeline configuration content can be pushed to proxies so that they can perform local processing prior to sending data to Stroom. 
 
 
-### Multiple input sources
+### Multiple Input Sources
 Stroom is capable of processing data from a Kafka topic, HDFS, the local file system, HTTP POST in addition to the included stream store.
 
 
-### Multiple output destinations
+### Multiple Output Destinations
 Stroom has improved support for writing to various destinations such as Kafka, HDFS, etc. Improvements include compression and meta data wrapping for future import.
 
 
-### Improved field extraction
+### Improved Field Extraction
 Enhancements to data splitter and associated UI to make the process of extracting field data from raw content much easier.
 
 
-### Kafka analytics
+### Kafka Analytics
 Stroom exposes the use of Apache Kafka Streams for performing certain complex analytics.
 
 
-### Query fusion
+### Query Fusion
 Stroom allows multiple data sources to be queried at the same time and the results of the queries to be fused. This might be for fusing data from multiple search indexes, e.g. events and annotations, or to effectively decorate results with additional data at search time.
 
 
-### Reference data deltas
+### Reference Data Deltas
  Reference data is enhanced to cope with changes (additions and removals) of state information rather than always relying on complete snapshots.
 

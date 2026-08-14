@@ -87,7 +87,7 @@ The save icon becomes ghosted and our feed configuration has been saved.
 {{< screenshot "HOWTOs/v6/UI-CreateReferenceFeed-05.png" >}}New Feed Settings window configuration{{< /screenshot >}}
 
 
-### Load sample Reference data
+### Load Sample Reference Data
 
 At this point we want to load our sample reference data, in order to develop our reference feed.
 We can do this two ways - posting the file to our Stroom web server, or directly upload the data using the user interface.

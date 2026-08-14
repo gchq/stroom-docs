@@ -27,7 +27,7 @@ description: >
 
 ## Stroom Single or Multi Node Cluster Testing
 ### Data Post Tests
-#### Simple Post tests
+#### Simple Post Tests
 
 These tests are to ensure the Stroom _Store_ proxy and its connection to the database is working along with the Apache mod_jk loadbalancer.
 We will send a file to the load balanced `stroomp.strmdev00.org` node (really `stroomp00.strmdev00.org`) and each time we send the file,
@@ -246,7 +246,7 @@ total 24
 
 We have effectively tested the receipt of our data and the load balancing of the Apache mod_jk installation.
 
-#### Simple Direct Post tests
+#### Simple Direct Post Tests
 In this test we will use the direct feed interface of the Stroom application, rather than sending data via the proxy.
 One would normally use this interface for time sensitive data which shouldn't aggregate in a proxy waiting for
 the Stroom application to collect it. In this situation we use the command
@@ -303,7 +303,7 @@ These three entries correspond to the three posts we performed.
 
 We have successfully tested direct posting to a Stroom feed and that the Apache mod_jk loadbalancer also works for this posting method.
 
-#### Test Proxy Aggregation is Working
+#### Test Proxy Aggregation Is Working
 
 To test that the Proxy Aggregation is working,
 we need to [enable]({{< relref "../General/TasksHowTo.md#turn-on-proxy-aggregation" >}}) on each node.
@@ -335,7 +335,7 @@ This demonstrates that Proxy Aggregation is working.
 
 ## Stroom Forwarding Proxy Testing
 ### Data Post Tests
-#### Simple Post tests
+#### Simple Post Tests
 
 This test is to ensure the Stroom _Forwarding_ proxy and its connection to the central Stroom Processing system is working.
 
@@ -396,7 +396,7 @@ the _datafeed.DataFeedRequestHandler$1_ event in the _ajp-apr-9009-exec-3_ threa
 
 ## Stroom Standalone Proxy Testing
 ### Data Post Tests
-#### Simple Post tests
+#### Simple Post Tests
 
 This test is to ensure the Stroom _Store NO-DB_ or _Standalone_ proxy is working.
 

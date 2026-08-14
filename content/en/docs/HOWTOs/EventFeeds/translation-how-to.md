@@ -554,7 +554,7 @@ Whilst this code looks more complex, it's far more efficient to carry out a shor
 Where possible, the most commonly appearing choices in the source data should be dealt with first to avoid running through multiple `<xsl:when>` statements.
 
 
-### Stepping Works Fine But Errors Whilst Processing
+### Stepping Works Fine but Errors Whilst Processing
 
 When data is being stepped, it's only ever fed to the XSLT as a single event, whilst a pipeline is able to process multiple events within a single input stream.
 This apparently minor difference sometimes results in obscure errors if the translation has incorrect XPaths specified.

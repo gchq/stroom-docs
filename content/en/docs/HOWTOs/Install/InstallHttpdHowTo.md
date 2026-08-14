@@ -18,7 +18,7 @@ The following assumptions are used in this document.
 * The security of the HTTPD deployment should be reviewed for a production environment.
 
 
-## Installation of Apache httpd and Mod_JK Software
+## Installation of Apache Httpd and Mod_JK Software
 
 To deploy Stroom using Apache's httpd web service as a front end (https) and Apache's mod_jk as the interface between Apache and the Stroom tomcat applications, we also need
 
@@ -61,7 +61,7 @@ rm -rf tomcat-connectors-*-src
 Although you could remove the gcc compiler at this point, we leave it installed as one _should_ continue to upgrade the Tomcat Connectors to later releases.
 
 
-## Configure Apache httpd
+## Configure Apache Httpd
 
 We need to configure Apache as the `root` user.
 
@@ -69,7 +69,7 @@ If the Apache httpd service is 'fronting' a Stroom user interface, we should cre
 the root of the node will present the Stroom UI. This is not needed if you are deploying a Forwarding or Standalone Stroom proxy.
 
 
-### Forwarding file for Stroom User Interface deployments
+### Forwarding File for Stroom User Interface Deployments
 
 {{< command-line >}}
 F=/var/www/html/index.html
@@ -327,7 +327,7 @@ Becomes
 Remember, deploy this file on all nodes.
 
 
-### Configuration of `ssl.conf`
+### Configuration Of `ssl.conf`
 
 We modify `/etc/httpd/conf.d/ssl.conf` on all nodes, backing up first,
 
@@ -340,7 +340,7 @@ differences by tagged sub-headings. If the configuration applies irrespective of
 type of Stroom deployment.
 
 
-#### `ssl.conf`: HTTP to HTTPS Redirection - All scenarios
+#### `ssl.conf`: HTTP to HTTPS Redirection - All Scenarios
 
 Before the <VirtualHost _default_:443> context we add http to https redirection by adding the directives (noting we specify the actual server name)
 
@@ -380,7 +380,7 @@ To
 ```
 
 
-#### `ssl.conf`: VirtualHost directives - Multi Node 'Application and Proxy' deployment
+#### `ssl.conf`: VirtualHost Directives - Multi Node 'Application and Proxy' Deployment
 
 Within the <VirtualHost _default_:443> context we set the directives, in this case, we use the CNAME `stroomp.strmdev00.org`
 
@@ -434,7 +434,7 @@ JkOptions +ForwardKeySize +ForwardURICompat +ForwardSSLCertChain -ForwardDirecto
 ```
 
 
-#### `ssl.conf`: VirtualHost directives - Standalone or Forwarding Proxy deployment
+#### `ssl.conf`: VirtualHost Directives - Standalone or Forwarding Proxy Deployment
 
 Within the <VirtualHost _default_:443> context set the directives, in this case, for a node named say `stroomfp0.strmdev00.org`
 
@@ -480,7 +480,7 @@ JkOptions +ForwardKeySize +ForwardURICompat +ForwardSSLCertChain -ForwardDirecto
 ```
 
 
-#### `ssl.conf`: VirtualHost directives - Single Node 'Application and Proxy' deployment
+#### `ssl.conf`: VirtualHost Directives - Single Node 'Application and Proxy' Deployment
 
 Within the <VirtualHost _default_:443> context set the directives, in this case, for a node name `stroomp00.strmdev00.org`
 
@@ -533,7 +533,7 @@ JkOptions +ForwardKeySize +ForwardURICompat +ForwardSSLCertChain -ForwardDirecto
 ...
 ```
 
-#### `ssl.conf`: Certificate file changes - All scenarios
+#### `ssl.conf`: Certificate File Changes - All Scenarios
 We replace the standard certificate files with the generated certificates. In the example below, we are using the multi node scenario, in
 that the key file names are `stroomp.crt` and `stroomp.key`. For other scenarios, use the appropriate file names generated. We replace
 ```
@@ -593,7 +593,7 @@ SSLCertificateKeyFile /home/stroomuser/stroom-jks/private/stroomp.key
 #   Point SSLCertificateChainFile at a file containing the
 ...
 ```
-#### `ssl.conf`: Certificate Bundle/NO-CA Verification - All scenarios
+#### `ssl.conf`: Certificate Bundle/NO-CA Verification - All Scenarios
 If you have signed your Stroom server certificate with a Certificate Authority, then change
 ```
 SSLCACertificateFile /etc/pki/tls/certs/ca-bundle.crt
@@ -639,7 +639,7 @@ SSLVerifyClient optional_no_ca
 ...
 ```
 
-#### `ssl.conf`: Servlet Protection - Single or Multi Node scenarios (not for Standalone/Forwarding Proxy)
+#### `ssl.conf`: Servlet Protection - Single or Multi Node Scenarios (not for Standalone/Forwarding Proxy)
 We now need to secure certain Stroom Application servlets, to ensure they are only accessed under appropriate control.
 
 This set of servlets will be accessible by all nodes in the subnet 192.168.2 (as well as localhost). We achieve this by adding after the example Location directives
@@ -695,7 +695,7 @@ changes to
 ...
 ```
 
-#### `ssl.conf`: Log formats - All scenarios
+#### `ssl.conf`: Log Formats - All Scenarios
 Finally, as we make use of the Black Box Apache log format, we replace the standard format
 ```
 CustomLog logs/ssl_request_log \
@@ -732,7 +732,7 @@ CustomLog logs/ssl_request_log blackboxSSLUser
 ```
 Remember, in the case of Multi node stroom Application servers, deploy this file on all servers.
 
-### Apache Mod_JK configuration
+### Apache Mod_JK Configuration
 Apache Mod_JK has two configuration files
 - /etc/httpd/conf.d/mod_jk.conf - for the http server configuration
 - /etc/httpd/conf/workers.properties - to configure the Tomcat workers
@@ -960,7 +960,7 @@ printf 'worker.status.type=status\n' >> ${F}
 chmod 640 ${F}
 ```
 
-## Final host configuration and web service enablement
+## Final Host Configuration and Web Service Enablement
 
 Now tidy up the SELinux context for access on all nodes and files via the commands
 

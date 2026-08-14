@@ -9,9 +9,9 @@ description: >
   How to get data into Stroom. 
 ---
 
-## Getting data into Stroom
+## Getting Data Into Stroom
 
-### Create the feed
+### Create the Feed
 
 Stroom organises the data it ingests and stores by {{< glossary "Feed" >}}.
 A feed will typically be created for each client system and data format.

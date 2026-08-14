@@ -29,7 +29,7 @@ The detailed documentation for the request/responses is contained in the _Swagge
 If you simply want to run a _Stroom Query Language_ query and get the rows back as CSV, without building a _SearchRequest_ model, see the [CSV Search API]({{< relref "csv-search-api" >}}).
 
 
-## Common endpoints
+## Common Endpoints
 
 The standard query endpoints are
 
@@ -56,7 +56,7 @@ The SearchRequest model is fairly complicated and contains not only the query te
 A single SearchRequest can include multiple ResultRequest sections to return the queried data in multiple ways, e.g. as flat data and in an alternative aggregated form.
 
 
-#### _Stroom_ as a query builder
+#### _Stroom_ as a Query Builder
 
 _Stroom_ is able to export the json form of a SearchRequest model from its dashboards.
 This makes the dashboard a useful tool for building a query and the table settings to go with it.
@@ -69,7 +69,7 @@ Then, clicking the download icon on the query pane of the dashboard will generat
 This endpoint is used to kill an active query by supplying the _queryKey_ for query in question.
 
 
-### Keep alive
+### Keep Alive
 
 Stroom will only hold search results from completed queries for a certain length of time.
 It will also terminate running queries that are too old.

@@ -27,7 +27,7 @@ Cognito differs from a typical OIDC provider in two ways that directly affect th
 * Its authorization, token and sign out endpoints belong to the **hosted UI domain**, which is separate from the user pool's issuer host.
 
 
-## Creating the user pool and app client
+## Creating the User Pool and App Client
 
 In the AWS console, under Cognito:
 
@@ -51,7 +51,7 @@ It matches them exactly and does not accept wildcards, so register the single UR
 Cognito supports PKCE, and Stroom always sends an `S256` challenge, so there is nothing to configure for it.
 
 
-## The endpoints
+## The Endpoints
 
 Two different hosts are involved.
 
@@ -109,7 +109,7 @@ Where the two agree you can leave `authEndpoint` and `tokenEndpoint` unset and l
         userDisplayNameClaim: "cognito:username"
 ```
 
-### Audience validation
+### Audience Validation
 
 This is the setting most likely to catch you out.
 
@@ -142,7 +142,7 @@ Both can be changed or reassigned to another person, who would then inherit the 
 For `fullNameClaimTemplate` to resolve, the corresponding attributes must be populated on the user and included in the token.
 Add `profile` to `requestScopes` if you need `name`, `given_name` or `family_name`.
 
-### Signing out
+### Signing Out
 
 Cognito's sign out endpoint has historically expected the return address in a `logout_uri` parameter rather than the `post_logout_redirect_uri` that Stroom sends.
 
@@ -156,13 +156,13 @@ If it leaves them on an error page at Cognito, try:
 Those two values are the only ones Stroom accepts.
 If neither works with your pool, leave `logoutEndpoint` unset; signing out will then end the Stroom session without signing the user out of Cognito, which means their next visit will sign them straight back in without being asked for credentials.
 
-### Access token type
+### Access Token Type
 
 Leave `requiredAccessTokenType` unset unless you have decoded the header of a real Cognito access token and confirmed what it contains.
 It is a hardening measure, and setting it to a value your provider does not use will refuse every API call.
 
 
-## Setting up the admin user in Stroom
+## Setting up the Admin User in Stroom
 
 The bootstrap process is the same as for any provider.
 Find the `sub` of the user who is to be the administrator, which for Cognito is the user's UUID as shown in the console, then run the `manage_users` command **before** starting Stroom for the first time.
@@ -183,7 +183,7 @@ See [KeyCloak]({{< relref "keycloak#setting-up-the-admin-user-in-stroom" >}}) fo
 {{% /see-also %}}
 
 
-## Stroom-Proxy with Cognito
+## Stroom-Proxy With Cognito
 
 A Stroom-Proxy obtains a token for its own service user using the client credentials grant.
 

@@ -18,12 +18,12 @@ The editor provides various useful features:
 * [Code auto-completion]({{< relref "#auto-completion-and-snippets" >}})
 
 
-## Keyboard shortcuts
+## Keyboard Shortcuts
 
 See [Keyboard Shortcuts]({{< relref "docs/reference-section/keyboard-shortcuts#text-editor" >}}) for details of the keyboard shortcuts available when using the Ace editor.
 
 
-### Vim key bindings
+### Vim Key Bindings
 
 If you are familiar with the Vi/Vim text editors then it is possible to enable Vim key bindings in Stroom.
 This can be done in two ways.
@@ -58,14 +58,14 @@ Notable features not supported by the _Ace_ editor:
 For a list of useful Vim key bindings see this {{< external-link "cheat sheet" "https://vim.rtorr.com" >}}, though not all bindings will be available in Stroom's _Ace_ editor.
 
 
-#### Use of `Esc` key in Vim mode
+#### Use of `Esc` Key in Vim Mode
 
 The {{< key-bind "esc" >}} key is bound to the close action in Stroom, so pressing {{< key-bind "esc" >}} will typically close a popup, dialog, selection box, etc.
 Dialogs will not be closed if the Ace editor has focus but as {{< key-bind "esc" >}} is used so frequently with Vim bindings it may be advisable to use an alternative key to exit insert mode to avoid accidental closure.
 You can use the standard Vim binding of {{< key-bind "ctrl,[" >}} or the custom binding of {{< key-bind "k" "b" >}} as alternatives to {{< key-bind "esc" >}}.
 
 
-## Auto-Completion And Snippets
+## Auto-Completion and Snippets
 
 The editor supports a number of different types of auto-completion of text.
 Completion suggestions are triggered by the following mechanisms:
@@ -103,13 +103,13 @@ To do this using snippets you can do the following:
 
 Snippets can be disabled from the list of suggestions by selecting the option in the editor context menu.
 
-### Tab triggers
+### Tab Triggers
 
 Some snippets can be triggered by typing an abbreviation and then hitting {{< key-bind "tab" >}} to insert the snippet.
 This mechanism is faster than hitting {{< key-bind "ctrl,space" >}} and selecting the snippet, if you can remember the snippet tab trigger abbreviations.
 
 
-### Available snippets
+### Available Snippets
 
 For a list of the available completion snippets see the [Completion Snippet Reference]({{< relref "snippet-reference" >}}).
 

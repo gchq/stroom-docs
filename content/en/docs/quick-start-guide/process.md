@@ -18,7 +18,7 @@ You can actually create a template pipeline and inherit from it, tweaking what y
 We're not doing that now because we want to show how to create one from scratch.
 
 
-## Create a pipeline
+## Create a Pipeline
 
 1. Create a pipeline by right-clicking our {{< stroom-icon "folder.svg" >}} `Stroom 101` folder and selecting:
 
@@ -34,13 +34,13 @@ It's just there to show the starting point.
 Data gets into the pipeline via other means - we'll describe this in detail later.
 
 
-### Add a data splitter
+### Add a Data Splitter
 
 Data splitters are powerful, and there is [a lot we can say]({{< relref "../user-guide/data-splitter" >}}) about them.
 Here we're just going to make a basic one.
 
 
-#### Create a CSV splitter
+#### Create a CSV Splitter
 
 We have CSV data in the following form:
 
@@ -121,7 +121,7 @@ We need to tell the new _CSV parser_ to use the {{< stroom-icon "document/TextCo
 Now save the pipeline by clicking the add button {{< stroom-icon "add.svg" >}}.
 
 
-#### Test the CSV splitter
+#### Test the CSV Splitter
 
 So now we have CSV data in Stroom and a pipeline that is configured to process CSV data.
 We've done a fair few things so far and are we sure the pipeline is correctly configured?
@@ -166,13 +166,13 @@ In the example below, an invalid XML element has been added to the Data Splitter
 {{< image "quick-start-guide/process/stepping-error.png" "700" />}}
 
 
-### Add XSLT to transform records format XML into something else
+### Add XSLT to Transform Records Format XML Into Something Else
 
 {{< glossary "XSLT" >}} is the language used to transform record/event data from one form into another in Stroom pipelines.
 An {{< element "XSLTFilter" >}} pipeline element takes XML input and uses an XSLT to transform it into different XML or some other text format.
 
 
-#### Create the XSLT filter
+#### Create the XSLT Filter
 
 This process is very similar to creating the `CSV splitter`:
 
@@ -239,7 +239,7 @@ In the dialog make sure you select the `XSLT` filter in the _Stroom 101_ folder.
 Save the pipeline.
 
 
-#### Test the XSLT filter
+#### Test the XSLT Filter
 
 We're going to test this in the same way we tested the CSV splitter, by clicking the large stepping button {{< stroom-icon "stepping.svg" >}}on the feed data pane.
 Click the step forward button {{< stroom-icon "step-forward.svg" >}} a few times to make sure it's working then click on the XSLT element.
@@ -251,7 +251,7 @@ There's a few more things to get this pipeline ready for doing this [task]({{< r
 We need to get this data to a destination.
 
 
-### Outputting the transformed data
+### Outputting the Transformed Data
 
 The XSLT filter doesn't actually write XML but instead it just outputs XML events to the next element in the pipeline.
 In order to write these XML events out to a destination you need a writer.
@@ -260,7 +260,7 @@ If your transformation is producing XML then you need an {{< element "XMLWriter"
 Our _XSLT filter_ element is outputting XML so we will create an _XMLWriter_.
 
 
-#### Create the XML writer
+#### Create the XML Writer
 
 You don't need to create one outside the pipeline (in the way you did with the `CSV splitter` and the `XSLT` filter).
 Just do the following:
@@ -275,7 +275,7 @@ Just do the following:
 That's it, no other configuration necessary.
 
 
-#### Create the destination
+#### Create the Destination
 
 We need to do something with the serialised XML.
 We'll write it to a {{< glossary "Stream" >}}.
@@ -298,7 +298,7 @@ To set the {{< glossary "Stream Type" >}} do the following:
 1. Double click the `streamType` property and change `Value` to the _Events_ stream type.
 
 
-#### Test the destination
+#### Test the Destination
 
 We can test the XML writer and the streamAppender using the same stepping feature.
 Make sure you've saved the pipeline and set a **new** stepping session running.
@@ -307,7 +307,7 @@ If you click on the `stream appender` you'll see something like this:
 {{< image "quick-start-guide/process/stepping-05.png" >}}The final output from the pipeline{{< /image >}}
 
 
-## Set the pipeline running
+## Set the Pipeline Running
 
 Obviously you don't want to step through your data one by one.
 This all needs automation, and this is what {{< glossary "Processor" "Processors" >}} and {{< glossary "Processor Filter" "Processor Filters" >}} are for.
@@ -315,7 +315,7 @@ The processor works in the background to take any unprocessed streams (as determ
 So far everything on our _EXAMPLE_IN_ feed is unprocessed.
 
 
-### Create a processor and filter
+### Create a Processor and Filter
 
 Processors are created from the _Processors_ sub-tab of the pipeline.
 

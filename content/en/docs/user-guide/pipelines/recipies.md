@@ -178,7 +178,7 @@ If the XML fragments are already in `event-logging` format then no _Normalise_ X
 
 ## Handling Malformed Data
 
-### Cleaning Malformed XML data
+### Cleaning Malformed XML Data
 
 In some cases client systems may send XML containing characters that are not supported by the XML standard.
 These can be removed using the {{< pipe-elm "InvalidXMLCharFilterReader" >}}.

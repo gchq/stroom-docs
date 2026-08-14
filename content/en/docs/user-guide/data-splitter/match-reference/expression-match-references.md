@@ -74,7 +74,7 @@ The match groups are as follows:
 
 `This is some text, that we wish to match`
 
-## References to <regex> Match Groups
+## References to <Regex> Match Groups
 
 Like the `<split>` element various match groups can be referenced in a `<regex>` expression to retrieve portions of matched content. This content can be used as values for `<group>` and `<data>` elements.
 

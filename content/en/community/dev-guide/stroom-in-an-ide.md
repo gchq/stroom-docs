@@ -35,24 +35,24 @@ For running the various shell scripts in our repositories you are advised to ins
 * GNU sed
 
 
-## Stroom git repositories
+## Stroom Git Repositories
 
 To develop Stroom you will need to clone/fork multiple git repositories.
 To quickly clone all of the Stroom repositories you can use the helper script described in {{< external-link "stroom-resource" "https://github.com/gchq/stroom-resources/blob/master/README.md" >}}.
 
 
-## Database setup
+## Database Setup
 
 Stroom requires a MySQL database to run.
 You can either point stroom at a local MySQL server or use the MySQL Docker container from _stroom-resources_.
 
 
-### MySQL in a Docker container
+### MySQL in a Docker Container
 
 See the section below on [stroom-resources](#stroom-resources).
 
 
-### Host based MySQL server
+### Host Based MySQL Server
 
 With an instance of MySQL server 8.0 running on your local machine do the following to create the _stroom_ database:
 
@@ -71,7 +71,7 @@ quit;
 {{</ sql-shell >}}
 
 
-## Local configuration file
+## Local Configuration File
 
 When running stroom in an IDE you need to have a local configuration file to allow you to change settings locally without affecting the repository.
 The local configuration file lives in the root of the _Stroom_ repository `./local.yml`.
@@ -87,7 +87,7 @@ So that you can run a multi-node cluster it will also create `./local2.yml` and 
 These files are not source controlled so you can make any changes you like to them, e.g. setting log levels or altering [property values]({{< relref "configuring-stroom" >}}).
 
 
-## stroom-resources
+## Stroom-resources
 
 As a minimum to develop stroom you will need clones of the `stroom` and `stroom-resources` git repositories.
 `stroom-resources` provides the docker-compose configuration for running the many docker containers needed.
@@ -106,7 +106,7 @@ This is a bash array that sets the services to run.
 By default it is set to run `stroom-all-dbs` (MySQL + database init scripts) and `nginx` which are sufficient for running Stroom in an IDE.
 
 
-## Verify the Gradle build
+## Verify the Gradle Build
 
 Before trying to run Stroom in an IDE it is worth performing a Gradle build to verify the code compiles and all dependencies are present.
 This command will run all parts of the build except for the tests which can take 20+mins to run.
@@ -118,7 +118,7 @@ These layers will be cached which will speed up future builds.
 {{</ command-line >}}
 
 
-## Local or embedded MySQL
+## Local or Embedded MySQL
 
 The Junit integration tests that need a database can either be run against the local MySQL (i.e. `stroom-all-dbs`) or an embedded MySQL instance.
 
@@ -140,7 +140,7 @@ The pros/cons of using the embedded instance are:
 {{< /cardpane >}}
 
 
-## Clearing down your environment
+## Clearing Down Your Environment
 
 If you need to work from a clean slate and you are using the container based MySQL you can run the following:
 
@@ -181,7 +181,7 @@ You should now have a database and stream store populated with tables and data, 
 When Stroom is next started it will begin to process the data using the pre-defined pipelines.
 
 
-## Running Stroom from the IDE
+## Running Stroom From the IDE
 
 The user interface for Stroom is built using GWT (see [GWT Project](http://www.gwtproject.org/) for more information or GWT specific documentation).
 As a result Stroom needs to be started up with GWT _Super Dev Mode_.
@@ -209,7 +209,7 @@ NOTE: During development, it is helpful to skip running unit and integration tes
 {{</ command-line >}}
 
 
-### Start a single Stroom node
+### Start a Single Stroom Node
 
 1. Select the IDEA run configuration named `Stroom GWT SuperDevMode`
 1. Click `Debug`.
@@ -291,7 +291,7 @@ stroom:
 Alternatively you can run the IntelliJ Run Configuration _Stroom Reset Admin Password_, which will reset the password to `admin` and prevent further prompts to change it.
 
 
-### Right click behaviour
+### Right Click Behaviour
 
 Stroom overrides the default right click behaviour in the browser with its own context menu.
 For UI development it is often required to have access to the browser's context menu for example to inspect elements.
@@ -305,7 +305,7 @@ stroom:
 
 To return it to its default value, set it to `"return false;"`.
 
-### Hot loading GWT UI code changes
+### Hot Loading GWT UI Code Changes
 
 If you make any changes to the Java code in `-client` or `-shared` modules then in order for them to be hot loaded into the Javascript code you simply need to refresh the browser.
 This will trigger Super Dev Mode to recompile any changed code.
@@ -313,7 +313,7 @@ This will trigger Super Dev Mode to recompile any changed code.
 If you have made significant code changes, e.g. moving/renaming classes then GWT can get confused so you may need to run the _gwtDraftCompile_ and/or _gwtClean_ gradle tasks followed by _gwtSuperDevMode_.
 
 
-### Debugging GWT UI code
+### Debugging GWT UI Code
 
 To debug the GWT UI code you will need to use Chrome Dev Tools (`shift+ctrl+i`).
 Setting breakpoints in the UI code in IntelliJ will have no effect.

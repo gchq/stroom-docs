@@ -10,7 +10,7 @@ description: >
 ---
 
 
-## CSV search
+## CSV Search
 
 This endpoint runs a [Stroom Query Language]({{< relref "docs/user-guide/search/queries/stroom-query-language" >}}) query and returns the results as CSV.
 
@@ -47,7 +47,7 @@ Only visible columns are included, so a column hidden in the query is also absen
 A query that matches nothing returns an empty body, which is not an error.
 
 
-### Incremental and non incremental searches
+### Incremental and Non Incremental Searches
 
 Searches in _Stroom_ are asynchronous, so a response can be sent back before the query has finished.
 This means an empty or short CSV body on its own is ambiguous, as it could mean either that the query matched little, or that it had not got very far by the time the server replied.

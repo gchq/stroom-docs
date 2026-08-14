@@ -28,7 +28,7 @@ This model requires the `edgeAuthentication` configuration, available from Stroo
 {{% /note %}}
 
 
-## The one rule: exactly one Relying Party
+## The One Rule: Exactly One Relying Party
 
 For any given path, exactly one component runs the OIDC flow — the proxy, or Stroom, never both.
 
@@ -51,7 +51,7 @@ Direct machine access is unaffected: API keys and bearer tokens work as they alw
 {{% /warning %}}
 
 
-## Stroom configuration
+## Stroom Configuration
 
 ```yaml
   security:
@@ -103,7 +103,7 @@ Scripts, `curl` and other non browser automation are unaffected.
 {{% /note %}}
 
 
-## What the proxy must and must not authenticate
+## What the Proxy Must and Must Not Authenticate
 
 Stroom is not only a web application; it ingests data, serves health checks and its nodes talk to each other.
 None of that traffic can complete an interactive sign in, so the proxy's authenticate rule must cover the browser facing paths **only**.
@@ -122,7 +122,7 @@ Stroom still authenticates the bypassed paths itself — bypassing the proxy doe
 Node to node traffic inside a cluster does not go through the proxy and needs no special handling.
 
 
-## Trust prerequisites
+## Trust Prerequisites
 
 Stroom verifies the signature of whatever credential the proxy injects, so a forged header does not authenticate.
 Two things must still be true of the deployment, and Stroom cannot verify them from the inside:
@@ -132,7 +132,7 @@ Two things must still be true of the deployment, and Stroom cannot verify them f
    The ALB does this for its `x-amzn-oidc-*` headers; with NGINX make sure `proxy_set_header` is used for the `Authorization` header, which overwrites, and nothing upstream re-adds it.
 
 
-## Request header sizes
+## Request Header Sizes
 
 Authenticating proxies make requests big.
 An ALB's session cookie is sharded at 4KB per shard, and the injected token headers come on top, so an ordinary authenticated request can exceed the 8KB per request default that Jetty applies when nothing is configured.
@@ -150,7 +150,7 @@ server:
 ```
 
 
-## User accounts and permissions
+## User Accounts and Permissions
 
 Exactly as with any [external IDP]({{< relref "docs/install-guide/setup/open-id/external-idp" >}}), the proxy establishes *who the user is*; Stroom still decides *what they may do*.
 A Stroom user record is created automatically the first time a verified identity is seen, with no permissions.
@@ -161,7 +161,7 @@ Anyone the IDP will authenticate can therefore reach an empty Stroom UI, so if t
 {{% /see-also %}}
 
 
-## Worked examples
+## Worked Examples
 
 * [AWS ALB and Cognito]({{< relref "aws-alb-cognito" >}}) - the load balancer authenticates against a Cognito user pool and injects a signed `x-amzn-oidc-data` header.
 * [NGINX, oauth2-proxy and KeyCloak]({{< relref "nginx-oauth2-proxy" >}}) - the proxy authenticates against KeyCloak (or any OIDC provider) and relays the IDP's token as a bearer header.

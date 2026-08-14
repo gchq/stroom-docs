@@ -35,7 +35,7 @@ curl -k --data-binary @file.dat "https://<Stroom_HOST>/stroom/datafeed" \
 {{</ command-line >}}
 
 
-## gzip
+## Gzip
 
 Text data is {{< external-link "gzip" "https://en.wikipedia.org/wiki/Gzip" >}} compressed and the `Compression` flag is set to `GZIP` in the [Headers]({{< relref "header-arguments" >}}).
 This format is only suitable for sending event data, if you need to send additional context data you will need to use the [ZIP]({{< relref "#zip" >}}) format.

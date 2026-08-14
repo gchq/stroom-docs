@@ -20,7 +20,7 @@ By default a new Dashboard opens with two panes; a {{< glossary "Query" >}} pane
 Dashboards are highly configurable; panes can be added and resized; they can contain multiple queries; and a query pane can provide data for multiple output panes (such as {{< glossary "Visualisation" "Visualisations">}}).
 
 
-## Configuring the query data source
+## Configuring the Query Data Source
 
 On the query pane click the settings {{< stroom-icon name="settings.svg" title="Dashboard settings" colour="grey" >}} button on the top right of the panel.
 
@@ -36,7 +36,7 @@ This can be done in the Query settings dialog you used above.
 {{% /note %}}
 
 
-## Configuring the query expression
+## Configuring the Query Expression
 
 Now add a term to the query to filter the data.
 
@@ -50,7 +50,7 @@ Now add a term to the query to filter the data.
 This will find any records with `b` in the _Application_ field value.
 
 
-## Configuring the table
+## Configuring the Table
 
 All fields are [stored]({{< relref "/docs/user-guide/indexing/lucene#stored-fields" >}}) in our index so we do not need to worry about configuring {{< glossary "Search Extraction" >}}.
 
@@ -108,7 +108,7 @@ To rename the _Custom_ column:
 Now run the query again to see the results with the added column.
 
 
-## Add a visualisation
+## Add a Visualisation
 
 We will add a new pane to the dashboard to display a {{< glossary "Visualisation" >}}.
 

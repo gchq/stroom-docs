@@ -21,7 +21,7 @@ Entra ID has two generations of endpoint, v1.0 and v2.0, which issue tokens with
 Two of the three things most likely to go wrong here come from mixing them up, so it is worth being deliberate: **use the v2.0 endpoints throughout**.
 
 
-## Creating the app registration
+## Creating the App Registration
 
 In the {{< external-link "Microsoft Entra admin centre" "https://entra.microsoft.com/" >}}, or the Azure portal under _Microsoft Entra ID_:
 
@@ -56,7 +56,7 @@ Record the expiry date and plan the rotation, or use certificate credentials ins
 Entra ID supports PKCE, and Stroom always sends an `S256` challenge, so there is nothing to configure for it.
 
 
-## Exposing an API for access tokens
+## Exposing an API for Access Tokens
 
 This step is what makes API authentication work, and is the Entra ID equivalent of KeyCloak's audience mapper.
 
@@ -132,7 +132,7 @@ Do not use the `common` or `organizations` endpoints in place of a tenant id.
 Their discovery documents report an issuer containing a literal `{tenantid}` placeholder rather than a real value, and they allow sign in from any tenant, which is unlikely to be what you want.
 {{% /note %}}
 
-### Audience validation
+### Audience Validation
 
 An Entra ID **id_token** carries `aud` set to the Application (client) ID, so interactive sign in validates against `clientId` with no further configuration.
 
@@ -172,19 +172,19 @@ Changing it later means every existing Stroom user is orphaned, and their permis
 Do not use `preferred_username`, `email` or `upn`; all can be reassigned to a different person, who would then inherit the Stroom user.
 {{% /warning %}}
 
-### Group and role claims
+### Group and Role Claims
 
 Entra ID can be configured to emit `groups` and `roles` claims.
 Stroom does not consume them.
 All authorisation is done with Stroom's own users, groups and permissions, so directory group membership has no effect on what a user can do in Stroom.
 
-### Access token type
+### Access Token Type
 
 Leave `requiredAccessTokenType` unset until you have decoded the header of a real access token from your tenant and confirmed what it contains.
 Setting it to a value your tokens do not use will refuse every API call.
 
 
-## Setting up the admin user in Stroom
+## Setting up the Admin User in Stroom
 
 Find the identifier of the account that is to be the administrator, matching whatever you set `uniqueIdentityClaim` to.
 
@@ -212,7 +212,7 @@ See [KeyCloak]({{< relref "keycloak#setting-up-the-admin-user-in-stroom" >}}) fo
 {{% /see-also %}}
 
 
-## Stroom-Proxy with Entra ID
+## Stroom-Proxy With Entra ID
 
 A Stroom-Proxy obtains a token for its own service user using the client credentials grant.
 

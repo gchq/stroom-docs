@@ -116,7 +116,7 @@ E.g. Look up a SID given a PF
 ```
 
 
-### Range lookups
+### Range Lookups
 
 Reference data entries can either be stored with single string key or a key range that defines a numeric range, e.g. 1-100.
 When a lookup is preformed the passed key is looked up as if it were a normal string key.

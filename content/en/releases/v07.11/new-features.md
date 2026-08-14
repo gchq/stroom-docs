@@ -70,7 +70,7 @@ Multiple improvements to Plan B to store:
 * Session data, recording start and end periods for certain events, e.g. user uses application X between time A and B.
 
 
-## Trace Log Support In Plan B
+## Trace Log Support in Plan B
 
 Plan B can now store trace logs supplied via pipelines.
 There are new additions to the Plan B schema to capture trace log data so it can be supplied to a Plan B store. 
@@ -150,7 +150,7 @@ See [Credentials]({{< relref "docs/user-guide/security/credentials" >}}) for det
 * Table cells, rows, columns, selected rows and entire tables, now have numerous copy and export options.
 
 
-## New XSLT functions
+## New XSLT Functions
 
 A number of new XSLT functions have been added:
 

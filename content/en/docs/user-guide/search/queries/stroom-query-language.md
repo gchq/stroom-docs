@@ -135,7 +135,7 @@ Supported conditions are:
 Logical operators to add to where and filter clauses.
 
 
-#### Bracket groups
+#### Bracket Groups
 
 You can force evaluation of items in a specific order using bracketed groups.
 
@@ -325,7 +325,7 @@ show "My Visualisation" (x = EventTime, y = count)
 
 ## Comments
 
-### Single line
+### Single Line
 
 StroomQL supports single line comments using `//`.
 For example:
@@ -338,7 +338,7 @@ select StreamId as "Stream Id", EventTime as "Event Time"
 ```
 
 
-### Multi line
+### Multi Line
 
 Multiple lines can be commented by surrounding sections with `/*` and `*/`.
 For example:

@@ -28,7 +28,7 @@ Task processing is resumed once the node starts up again.
 {{% /note %}}
 
 
-## Force deletion
+## Force Deletion
 
 If waiting for the grace period to elapse is unacceptable and you are willing to risk shutting down the node without draining it first (or you are **sure** it has no active tasks), you can force delete the Pod using the procedure outline in the {{< external-link "Kubernetes documentation" "https://kubernetes.io/docs/tasks/run-application/force-delete-stateful-set-pod/" >}}:
 

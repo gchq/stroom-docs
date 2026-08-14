@@ -21,7 +21,7 @@ If you want to deploy a Stroom cluster using containers then you should use Kube
 {{% /note %}}
 
 
-## Stroom Docker stacks
+## Stroom Docker Stacks
 
 Stroom has a number of predefined _stacks_ that combine multiple docker containers into a fully functioning Stroom environment.
 The Docker stacks are aimed primarily at single node instances or for evaluation/test.
@@ -102,7 +102,7 @@ In order to run Stroom using Docker you will need the following installed on the
 {{% /note %}}
 
 
-## Install steps
+## Install Steps
 
 This will install the core stack (Stroom and the peripheral services required to run Stroom).
 
@@ -165,7 +165,7 @@ The stroom stack comes supplied with self-signed certificates so you may need to
 To configure your new instance see [Configuration]({{< relref "docs/install-guide/configuration" >}}).
 
 
-## Docker Hub links
+## Docker Hub Links
 
 * {{< external-link "The Stroom image" "https://hub.docker.com/r/gchq/stroom/" >}}
 * {{< external-link "The GCHQ organisation" "https://hub.docker.com/r/gchq/" >}}

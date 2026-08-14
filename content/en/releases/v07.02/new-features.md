@@ -125,7 +125,7 @@ The document and folder permissions screens have been re-designed with a better 
 {{< image "releases/07.02/folder-permissions.png" "300" />}}
 
 
-### Editor Completion snippets
+### Editor Completion Snippets
 
 The number of available [editor completion snippets]({{< relref "docs/user-guide/content/editing-text#auto-completion-and-snippets" >}}) has increased.
 For a list of the available completion snippets see the [Completion Snippet Reference]({{< relref "docs/reference-section/snippet-reference" >}}).
@@ -223,7 +223,7 @@ It can be useful to populate them initially to make it easier for the administra
 Once the user(s) are created, the appropriate permissions/groups can be assigned to them so that when they log in for the first time they will be able to see the required content and be able to use Stroom.
 
 
-## New Document types
+## New Document Types
 
 The following new types of document can be created and managed in the explorer tree.
 

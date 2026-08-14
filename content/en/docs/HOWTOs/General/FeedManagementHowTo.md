@@ -79,7 +79,7 @@ On pressing {{< stroom-btn "Ok" >}} we are presented with the {{< stroom-tab "Fo
 You will also note that the `Explorer` tab has displayed the **Event Sources** folder in its display.
 
 
-### Create Folder for specific Event Source
+### Create Folder for Specific Event Source
 
 In order to manage all artefacts of a given Event Source (aka `Feed`), one would create an appropriately named sub-folder within the **Event Sources** folder structure.
 

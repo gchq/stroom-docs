@@ -96,7 +96,7 @@ Because everything is running in Docker containers, the only requirement for the
 * `jq` - Used by the stack scripts.
 
 
-### Download and install docker
+### Download and Install Docker
 
 To install Docker Engine and the Docker Composer Plugin see:
 
@@ -216,7 +216,7 @@ Disable _selinux_ to avoid issues with access and file permissions.
 {{% /note %}}
 
 
-### Download and install Stroom v7 (app version)
+### Download and Install Stroom v7 (app version)
 
 Stroom-Proxy releases are available from {{< external-link "github.com/gchq/stroom/releases" "https://github.com/gchq/stroom/releases" >}}.
 Each release has a number of artefacts, the Stroom-Proxy application is `stroom-proxy-app-v*.zip`.

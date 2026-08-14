@@ -28,7 +28,7 @@ Components have further subdirectories (modules) that make up the various parts 
     * `stroom-activity-mock` - Mock implementation for the `stroom-activity` API
 
 
-## Dependencies between a module's components
+## Dependencies Between a Module's Components
 
 The diagram below shows the dependencies between the different modules that make up a component as well as the internal dependencies within the `impl` module.
 The actual implementations used at runtime are determined by Guice bindings in whichever Guice modules are loaded by the application.
@@ -37,7 +37,7 @@ Tests can bind mock implementations of a component's API just by using the Guice
 {{< image "dev-guide/module-dependencies.puml.svg">}}Internal Component Dependencies{{< /image >}}
 
 
-## Dependencies between components
+## Dependencies Between Components
 
 Typically a component will need to call out to other components to apply security constraints and to log user activity.
 These typical relationships are shown in the diagram below.
@@ -45,20 +45,20 @@ These typical relationships are shown in the diagram below.
 {{< image "dev-guide/external-dependencies.puml.svg">}}External Component Dependencies{{< /image >}}
 
 
-## Component API, e.g. modules ending in `-api`
+## Component API, e.g. Modules Ending In `-api`
 
 
-### API layer
+### API Layer
 
 All communication between components in stroom must be made via a component's API.
 The API provides the minimum surface area for communication between components and decouples dependencies between components to just the API code.
 For component testing purposes mock implementations of these APIs can be used to limit testing to just a single component.
 
 
-## Component API and service implementation, e.g. modules ending in `-impl`
+## Component API and Service Implementation, e.g. Modules Ending In `-impl`
 
 
-### Client interaction - REST services and GWT Action Handlers
+### Client Interaction - REST Services and GWT Action Handlers
 
 The uppermost layer of the server side code services requests from the client.
 The client may make restful calls as is the case for the new UI or will use Actions that are handled with ActionHandlers as is the case for the legacy GWT UI.
@@ -71,7 +71,7 @@ This allows multiple types of endpoint to use the same underlying service layer.
 If a request requires the use of multiple services to form a response, this must be handled within the service layer by the primary service which will be responsible for any such orchestration.
 
 
-### Service layer
+### Service Layer
 
 The service layer applies permission constraints to any requests being made so that only calls from identified and permitted users are allowed to proceed.
 The service layer performs all orchestration and business logic, and is responsible for all mutations of objects that will be persisted by the underlying persistence layer such as stamping objects to be updated with the current user and update time.
@@ -81,10 +81,10 @@ The service layer provides implementations for any API that the component may ha
 The service layer provides the DAO (Data Access Object) API for the persistence layer to implement but maintains no knowledge of underlying persistence implementation, e.g. database queries.
 
 
-## Persistence implementation, e.g. modules ending in `-impl-db`
+## Persistence Implementation, e.g. Modules Ending In `-impl-db`
 
 
-### Persistence layer - DAOs
+### Persistence Layer - DAOs
 
 The persistence layer is an implementation of one or more DAOs specified in the service layer.
 The persistence layer provides no logic, it just stores and retrieves objects in a database or other persistence technology.

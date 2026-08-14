@@ -35,10 +35,10 @@ The following sections provide links to how to configure each application.
 * [Stroom log sender Configuration]({{< relref "./configuring-stroom-log-sender.md" >}})
 
 
-## General configuration of docker stacks
+## General Configuration of Docker Stacks
 
 
-### Environment variables
+### Environment Variables
 
 The stroom docker stacks have a single env file `<stack name>.env` that acts as a single point to configure some aspects of the stack.
 Setting values in the env file can be useful when the value is shared between multiple containers.
@@ -91,7 +91,7 @@ Note that environment variables are only set into the container on start.
 Any changes to the env file will not take effect until the container is (re)started.
 
 
-### Configuration files
+### Configuration Files
 
 The following shows the basic structure of a stack with respect to the location of the configuration files:
 
@@ -107,7 +107,7 @@ Some aspects of configuration do not lend themselves to environment variable sub
 In these instances it may be necessary to have static configuration files that have no connection to the env file or only use environment variables for some values.
 
 
-### Bind mounts
+### Bind Mounts
 
 Everything in the stack `volumes` directory is bind-mounted into the named docker container but is mounted read-only to the container.
 This allows configuration files to be read by the container but not modified.
@@ -117,14 +117,14 @@ The mounts are done using the inode of the file/directory rather than the name, 
 If for instance the `stroom-all-dbs.cnf` file is renamed to `stroom-all-dbs.cnf.old` then copied to `stroom-all-dbs.cnf` and then the new version modified, the container would still see the old file.
 
 
-### Docker managed volumes
+### Docker Managed Volumes
 
 When stroom is running various forms of data are persisted, e.g. stroom's stream store, stroom-all-dbs database files, etc.
 All this data is stored in docker managed volumes.
 By default these will be located in `/var/lib/docker/volumes/<volume name>/_data` and root/sudo access will be needed to access these directories.
 
 
-#### Docker data root
+#### Docker Data Root
 
 > **IMPORTANT**
 
@@ -155,7 +155,7 @@ In all cases the docker daemon should be stopped prior to making the changes, e.
     The process for setting up this mount will be OS dependent and is outside the scope of this document.
 
 
-### Active services
+### Active Services
 
 Each stroom docker stack comes pre-built with a number of different services, e.g. the _stroom_core_ stack contains the following:
 

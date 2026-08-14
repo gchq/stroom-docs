@@ -17,7 +17,7 @@ Therefore this section will be updated with more detail in v7.6.
 {{% /todo %}}
 
 
-## Accounts vs Stroom Users
+## Accounts Vs Stroom Users
 
 See [Accounts vs Users]({{< relref "docs/install-guide/setup/open-id/accounts-users" >}}) for details on the difference between a Stroom User Account and a Stroom User.
 

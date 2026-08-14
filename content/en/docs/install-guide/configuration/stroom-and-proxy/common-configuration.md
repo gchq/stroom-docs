@@ -127,7 +127,7 @@ This will likely be improved in future versions.
 For details of how different types are represented in the YAML and the UI, see [Data Types](/docs/user-guide/properties#data-types).
 
 
-## Server configuration
+## Server Configuration
 
 The `server` section controls the configuration of the Jetty web server.
 

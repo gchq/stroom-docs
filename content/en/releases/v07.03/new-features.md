@@ -55,7 +55,7 @@ Accessed using {{< key-bind "shift,alt,f" >}} or
 {{< image "releases/07.03/find.png" "400x" >}}Find{{< /image >}}
 
 
-#### Find In Content
+#### Find in Content
 
 Improvements to the Find In Content screen so that it now shows the content of the document and highlights the matched terms.
 Now accessible using {{< key-bind "shift,ctrl-f" >}} or 

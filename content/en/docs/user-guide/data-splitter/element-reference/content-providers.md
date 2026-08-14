@@ -11,7 +11,7 @@ description: >
 Content providers take some content from the input source or elsewhere (see [fixed strings]({{< relref "use-of-fixed-strings.md" >}}) and provide it to one or more expressions.
 Both the root element `<dataSplitter>` and `<group>` elements are content providers.
 
-## Root element `<dataSplitter>`
+## Root Element `<dataSplitter>`
 
 The root element of a Data Splitter configuration is `<dataSplitter>`.
 It supplies content from the input source to one or more expressions defined within it.
@@ -103,7 +103,7 @@ The default size is 20000 characters and should be fine for most translations.
 The minimum value that this can be set to is 20000 characters and the maximum is 1000000000.
 The only reason to specify this attribute is when individual records are bigger than 10000 characters which is rarely the case.
 
-## Group element `<group>`
+## Group Element `<group>`
 
 Groups behave in a similar way to the root element in that they provide content for one or more inner expressions to deal with, e.g.
 

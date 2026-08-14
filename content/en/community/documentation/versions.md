@@ -213,7 +213,7 @@ The following shows how `params.versions` are set in each version branch, assumi
 {{< /cardpane >}}
 
 
-## Automated build process
+## Automated Build Process
 
 On every commit Github Actions will build the version of the site that the commit is on to ensure that Hugo can convert the content into a static site.
 It will also build all the other versioned branches to check that they work.
@@ -256,7 +256,7 @@ git commit --allow-empty -m "Empty commit to force [publish]" && git push
 {{</ command-line >}}
 
 
-## Merging changes
+## Merging Changes
 
 When you make changes to one of the version branches (`7.0`, `7.1`, etc.), either directly or with a pull request from a feature branch, you will need to merge the changes up through each of the versions until they reach `master`.
 Merging up through multiple branches is tedious when done manually so you can use the `merge_up.sh` script in the root of this repo.
@@ -281,12 +281,12 @@ You will then need to fix the conflicts and commit the merge.
 You can then run `merge_up.sh` again to do the rest of the merges.
 
 
-## Where to make changes
+## Where to Make Changes
 
 The nature of a change to the site/documentation will determine which git branch the change is made on.
 
 
-### Changes specific to a Stroom version
+### Changes Specific to a Stroom Version
 
 Any changes that are specific to a Stroom version, e.g. documenting a new feature in that version should be made on the oldest branch that contains that feature.
 If the change relates to an as yet unreleased version of Stroom then make the change on `master`.
@@ -298,7 +298,7 @@ Adding news items or release notes for new versions should be done on the latest
 The News/Releases section is not included in old versions when released.
 
 
-### Changing the site look
+### Changing the Site Look
 
 Ideally changes to the look of the site, e.g. upgrading the _Docsy_ theme sub-module to a new commit, adding shortcodes or tweaking the CSS should be done on all branches so when switching between branches the look doesn't change.
 This means this sort of change should be done on the oldest published version branch and then merged up the chain to the others, e.g. `legacy` => `7.0` => `7.1` => `master`.
@@ -308,20 +308,20 @@ In the event of this it may be necessary to only make the change on the latest r
 The decision on how best to tackle these situations will have to be on a case by case basis.
 
 
-### Changing the GitHub Actions build process
+### Changing the GitHub Actions Build Process
 
 If the change impacts the building of a single version then it needs to be done on the oldest version and merge up.
 
 If the change only impacts the preparation of release artefacts then it can be performed on the `master` branch.
 
 
-### Adding a new version branch
+### Adding a New Version Branch
 
 The change to `config.toml` needs to be done on all version branches.
 Unfortunately you cannot just add the new `[[params.versions]]` block into `legacy` and merge up as each version branch will need editing so the `url` values are applicable to version branch being edited, see [above]({{< relref "#paramsversions" >}}).
 
 
-## Building a mock multi-version site
+## Building a Mock Multi-version Site
 
 To make it easier to test how the combined site will look with multiple versions the following script can be run to mock up a multi-version site.
 It does the following:

@@ -17,7 +17,7 @@ description: >
  - a simple Forwarding or Standalone Proxy
  - adding a node to an existing Stroom cluster
 
-## Set up the Stroom processing user's environment
+## Set up the Stroom Processing User's Environment
 
 To automate the running of a Stroom Proxy or Application service under our Stroom processing user, `stroomuser`, there are a number of configuration files and scripts we need to deploy.
 
@@ -27,7 +27,7 @@ We first become the stroomuser
 sudo -i -u stroomuser
 {{< /command-line >}}
 
-### Environment Variable files
+### Environment Variable Files
 When either a Stroom Proxy or Application starts, it needs predefined environment variables. We set these up in the `stroomuser` home directory.
 We need two files for this. The first is for the Stroom processes themselves and the second is for the Stroom systemd service we deploy. The
 difference is that for the Stroom processes, we need to `export` the environment variables where as the Stroom systemd service file just needs to read them.
@@ -133,9 +133,9 @@ chmod 750 ${F}
 
 Although one can modify the above for Stroom Forwarding or Standalone Proxy deployments, there is no issue if you use the same scripts.
 
-## Establish and Deploy Systemd services
+## Establish and Deploy Systemd Services
 
-### Processing or Proxy node
+### Processing or Proxy Node
 
 For a standard Stroom Processing or Proxy nodes, we can use the following service script.
 (Noting this is done as root)
@@ -163,7 +163,7 @@ printf 'WantedBy=multi-user.target\n' >> ${F}
 chmod 640 ${F}
 ```
 
-### Single Node Scenario with local database
+### Single Node Scenario With Local Database
 
 Should you only have a deployment where the database is on a processing node, use the following service script. The only
 difference is the Stroom dependency on the database. The database dependency below is for the MariaDB database. If you had
@@ -193,7 +193,7 @@ printf 'WantedBy=multi-user.target\n' >> ${F}
 chmod 640 ${F}
 ```
 
-### Enable the service
+### Enable the Service
 
 Now we enable the Stroom service, but we **DO NOT** start it as we will manually start the Stroom services as part of
 the installation process.

@@ -16,7 +16,7 @@ It allows you to parse and extract parts of the JSON response.
 {{% /note %}}
 
 
-## Creating a user access token
+## Creating a User Access Token
 
 If a user wants to use the REST API they will need to create a token for authentication/authorisation in API calls.
 Any calls to the REST API will have the same permissions that the user has within Stroom.
@@ -78,12 +78,12 @@ Access tokens typically have a short life (of the order of minutes) while a refr
 Refreshing the token does not require re-authentication.
 
 
-## Creating a service account token
+## Creating a Service Account Token
 
 If you want another system to call one of Stroom's APIs then it is likely that you will do that using a non-human service account (or processing user account).
 
 
-### Creating a new Client ID
+### Creating a New Client ID
 
 The client system needs to be represented by a Client ID in KeyCloak.
 To create a new Client ID, assuming the client system is called _System X_, do the following in the KeyCloak admin UI.
@@ -129,7 +129,7 @@ Where `client_secret` is the _Client secret_ that you copied from KeyCloak earli
 This access token can be refreshed in the same way as for a user access token, as described above.
 
 
-## Using access tokens
+## Using Access Tokens
 
 Access tokens can be used in calls to Stroom's REST API or its datafeed API.
 The process of including the token in a HTTP request is described in [API Authentication]({{< relref "/docs/user-guide/api#authentication" >}})

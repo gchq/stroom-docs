@@ -16,14 +16,14 @@ Reusing other people's work is much easier.
 The Content Store allows you to import packages of tested, consistent content.
 
 
-## How to find it
+## How to Find It
 
 The Content Store can be accessed via the Stroom Menu:
 
 {{< stroom-menu "Tools" "Content Store" >}}
 
 
-## What is a Content Store?
+## What Is a Content Store?
 
 A Content Store is a {{< glossary "YAML" >}} text file that references a number of sources of content.
 The content needs to be available via Git.
@@ -92,7 +92,7 @@ To update click `Pull from Git`.
 Any updates will immediately be imported into Stroom.
 
 
-### The difference between a Content Pack and a Git Repo
+### The Difference Between a Content Pack and a Git Repo
 
 You will notice that the settings tab of {{< stroom-icon "document/GitRepo.svg" >}} Git Repo documents created manually looks slightly different to those created via the Content Store.
 This is because some of the fields should be controlled by the Content Store, otherwise upgrades might do unexpected things.
@@ -144,7 +144,7 @@ Each content pack has the following fields:
 `gitNeedsAuth` - `true`, if the user needs to enter credentials to access the Content Pack, or `false` if the content is freely downloadable.
 
 
-## Adding extra Content Stores
+## Adding Extra Content Stores
 
 The Content Stores that are available for a user to use are defined in the Stroom configuration file (see below) or via the System Property `stroom.contentStore.urls`.
 If nothing is specified in the configuration file then the {{< external-link "default Content Store URL" "https://raw.githubusercontent.com/gchq/stroom-content/refs/heads/master/source/content-store.yml" >}} is used.

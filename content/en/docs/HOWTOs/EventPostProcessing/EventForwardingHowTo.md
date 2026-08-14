@@ -23,7 +23,7 @@ This is achieved via a Pipeline with an appropriate XSLT translation that is use
 Once the Events have been chosen, the Pipeline would need to validate the Events (via a schemaFilter) and then the Events would be passed to an xmlWriter and then onto a file system writer (fileSystemOutputStreamProvider or RollingFileAppender).
 
 
-## Example Event Forwarding - Multiple destinations
+## Example Event Forwarding - Multiple Destinations
 
 In this example, we will create a pipeline that writes Events to the file system, but to multiple destinations based on the location of the Event Client element.
 
@@ -32,7 +32,7 @@ Specifically, we store events from clients in AUS in one location, and events fr
 All other client locations will be ignored.
 
 
-## Create translations
+## Create Translations
 
 First, we will create two translations - one for each country location Australia (AUS) and Great Britain (GBR).
 The AUS selection translation is

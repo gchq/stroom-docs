@@ -13,7 +13,7 @@ description: >
 A typical workflow is for a Stroom pipeline to convert XML `Event` elements into the XML equivalent of JSON, complying with the schema `http://www.w3.org/2005/xpath-functions`, using a format identical to the output of the XML function `xml-to-json()`.
 
 
-## Understanding JSON XML representation
+## Understanding JSON XML Representation
 
 In an Elasticsearch indexing pipeline translation, you model JSON documents in a compatible XML representation.
 
@@ -40,7 +40,7 @@ Array of strings
 ```
 
 
-### Maps and properties
+### Maps and Properties
 
 ```xml
 <map key="user" xmlns="http://www.w3.org/2005/xpath-functions">
@@ -62,7 +62,7 @@ It is recommended to insert a schema validation filter into your pipeline XML (w
 We will now explore how to create an Elasticsearch *index template*, which specifies field mappings and settings for one or more indices.
 
 
-## Create an Elasticsearch index template
+## Create an Elasticsearch Index Template
 
 For information on what index and component templates are, consult the Elastic {{< external-link "documentation" "https://www.elastic.co/guide/en/elasticsearch/reference/current/index-templates.html" >}}.
 
@@ -156,7 +156,7 @@ In Kibana Dev Tools, execute the following query:
 ```
 
 
-## Create an Elasticsearch indexing pipeline template
+## Create an Elasticsearch Indexing Pipeline Template
 
 An Elasticsearch indexing pipeline is similar in structure to the built-in packaged `Indexing` template pipeline.
 It typically consists of the following pipeline elements:
@@ -194,7 +194,7 @@ It is recommended to create a template Elasticsearch indexing pipeline, which ca
 Now you have created a template indexing pipeline, it's time to create a feed-specific pipeline that inherits this template.
 
 
-## Create an Elasticsearch indexing pipeline
+## Create an Elasticsearch Indexing Pipeline
 
 
 ### Procedure
@@ -209,7 +209,7 @@ Now you have created a template indexing pipeline, it's time to create a feed-sp
 1. If using dynamic index names, configure the translation to output named element(s) that will be interpolated into `indexName` for each document indexed.
 
 
-### Choosing between simple and dynamic index names
+### Choosing Between Simple and Dynamic Index Names
 
 Indexing data to a single, named data stream or index, is a simple and convenient way to manage data.
 There are cases however, where indices may contain significant volumes of data spanning long periods - and where a large portion of indexing will be performed up-front (such as when processing a feed with a lot of historical data).
@@ -222,7 +222,7 @@ This abstraction assists with the lifecycle management of time-series log data, 
 {{% /note %}}
 
 
-#### Single named index or data stream
+#### Single Named Index or Data Stream
 
 This is the simplest use case and is suitable where you want to write all data for a particular pipeline, to a single data stream or index.
 Whether data is written to an actual _index_ or _data stream_ depends on your index template, specifically whether you have declared `data_stream: {}`.
@@ -235,7 +235,7 @@ This is mandatory and indexing will fail if this field isn't a valid `date` valu
 {{% /note %}}
 
 
-#### Dynamic data stream names
+#### Dynamic Data Stream Names
 
 With a dynamic stream name, `indexName` contains the names of elements, for example: `stroom-events-v1-{year}`.
 For each document, the final index name is computed based on the values of the corresponding elements within the resulting JSON XML.
@@ -269,14 +269,14 @@ If an element name begins with `_` (underscore), its value is _only_ used for `i
 {{% /note %}}
 
 
-##### Other applications for dynamic data stream names
+##### Other Applications for Dynamic Data Stream Names
 
 Dynamic data stream names can also help in other scenarios, such as implementing fine-grained retention policies, such as deleting documents that aren't user-attributed after 12 months.
 While Stroom `ElasticIndex` supports data retention expressions, deleting documents in Elasticsearch by query is highly inefficient and doesn't cause disk space to be freed (this requires an index to be force-merged, an expensive operation).
 A better solution therefore, is to use dynamic data stream names to partition data and assign certain partitions to specific ILM policies and/or data tiers.
 
 
-##### Migrating older data streams to other data tiers
+##### Migrating Older Data Streams to Other Data Tiers
 
 Say a feed is indexed, spanning data from 2020 through 2023.
 Assuming most searches only need to query data from the current year, the data streams `stroom-events-v1-2020` and `stroom-events-v1-2021` can be moved to cold storage.
@@ -296,7 +296,7 @@ This example assumes a cold data tier has been defined for the cluster.
 If the command executes successfully, shards from the specified data streams are gradually migrated to the nodes comprising the destination data tier.
 
 
-## Create an indexing translation
+## Create an Indexing Translation
 
 In this example, let's assume you have event data that looks like the following:
 
@@ -379,7 +379,7 @@ The output from your XSLT should match the following:
 ```
 
 
-## Assign the translation to the indexing pipeline
+## Assign the Translation to the Indexing Pipeline
 
 Having created your translation, you need to reference it in your indexing pipeline.
 
@@ -391,12 +391,12 @@ Having created your translation, you need to reference it in your indexing pipel
 1. Click {{< stroom-icon "save.svg" "Save" >}}.
 
 
-## Step the pipeline
+## Step the Pipeline
 
 At this point, you will want to [step the pipeline]({{< relref "../../../quick-start-guide/process/" >}}) to ensure there are no errors and that output looks as expected.
 
 
-## Execute the pipeline
+## Execute the Pipeline
 
 Create a pipeline processor and filter to run the pipeline against one or more feeds.
 Stroom will distribute processing tasks to enabled nodes and send documents to Elasticsearch for indexing.
@@ -404,7 +404,7 @@ Stroom will distribute processing tasks to enabled nodes and send documents to E
 You can monitor indexing status via your Elasticsearch monitoring tool of choice.
 
 
-### Detecting and handling errors
+### Detecting and Handling Errors
 
 If any errors occur while a stream is being indexed, an `Error` stream is created, containing details of each failure.
 `Error` streams can be found under the `Data` tab of either the indexing pipeline or receiving `Feed`.
@@ -425,9 +425,9 @@ Stroom will re-send data from the selected `Event` streams to Elasticsearch for 
 Any existing documents matching the `StreamId` of the original `Event` stream are first deleted automatically to avoid duplication.
 
 
-## Tips and tricks
+## Tips and Tricks
 
-### Use a common schema for your indices
+### Use a Common Schema for Your Indices
 
 An example is {{< external-link "Elastic Common Schema (ECS)" "https://www.elastic.co/guide/en/ecs/current/ecs-reference.html" >}}.
 This helps users understand the purpose of each field and to build cross-index queries more simply by using a set of common fields (such as a user ID).
@@ -436,12 +436,12 @@ With this in mind, it is important that common fields also have the same data ty
 Component templates help make this easier and reduce the chance of error, by centralising the definition of common fields to a single *component*.
 
 
-### Use a version control system (such as git) to track index and component templates
+### Use a Version Control System (such as git) to Track Index and Component Templates
 
 This helps keep track of changes over time and can be an important resource for both administrators and users.
 
 
-### Rebuilding an index
+### Rebuilding an Index
 
 Sometimes it is necessary to rebuild an index.
 This could be due to a change in field mapping, shard count or responding to a user feature request.
@@ -455,7 +455,7 @@ To rebuild an index:
 1. Activate the new processor filter.
 
 
-### Use a versioned index naming convention
+### Use a Versioned Index Naming Convention
 
 As with the earlier example `stroom-events-v1`, a version number is appended to the name of the index or data stream.
 If a new field is added, or some other change occurred requiring the index to be rebuilt, users would experience downtime.

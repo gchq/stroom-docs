@@ -50,7 +50,7 @@ At this point, uncheck the `Enabled` check-boxes for both nodes and also the mai
 At this point, no new proxy aggregation will occur and any inbound files received by the Store Proxies will accumulate in the proxy storage area.
 
 
-### Turn On Proxy Aggregation
+### Turn on Proxy Aggregation
 
 We first select the `Monitoring` item of the __Main Menu__ to bring up the `Monitoring` sub-menu.
 
@@ -95,7 +95,7 @@ We enable nodes by selecting their check-boxes as well as the main `Stream Proce
 That is it. Stroom will automatically take note of these changes and internally start each node's Stroom Processor task.
 
 
-### Enable Stream Processors On New Node
+### Enable Stream Processors on New Node
 
 When one expands a Multi Node Stroom cluster deployment, after the installation of the Stroom Proxy and Application software and
 services on the new node, we need to enable its `Stream Processors` task.

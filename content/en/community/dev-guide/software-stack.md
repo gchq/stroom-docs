@@ -14,7 +14,7 @@ description: >
 Stroom and Stroom Proxy live in the same repository, share some common code and are built by the same Gradle build.
 
 
-### Languages and key frameworks
+### Languages and Key Frameworks
 
 * Java 15 - The language for the core application
   * {{< external-link "Dropwizard" "https://www.dropwizard.io/en/latest/#" >}} - A RESTful framework incorporating embedded Jetty.
@@ -28,7 +28,7 @@ Stroom and Stroom Proxy live in the same repository, share some common code and 
   * Typescript
 
 
-### Build and development tools
+### Build and Development Tools
 
 * Gradle - Building the java application and orchestrating related sub-builds, e.g. npm.
 * Github Actions - The CI build and release.

@@ -315,7 +315,7 @@ If non-ASCII characters are in the key then these will take up more than one byt
 This is a limitation inherent to LMDB.
 
 
-#### Commit intervals
+#### Commit Intervals
 
 The property `stroom.pipeline.referenceData.maxPutsBeforeCommit` controls the number of entries that are put into the store between each commit.
 As there can be only one transaction writing to the store at a time, committing periodically allows other process to jump in and make writes.
@@ -325,7 +325,7 @@ This however means all other processes wanting to write to the store will need t
 Low values (e.g. in the hundreds) mean very frequent commits so will hamper performance.
 
 
-#### Cloning The Off Heap Store
+#### Cloning the Off Heap Store
 
 If you are provisioning a new stroom node it is possible to copy the off heap store from another node.
 Stroom should not be running on the node being copied from.
@@ -527,7 +527,7 @@ For more detail on bitmap lookups see the XSLT function [`stroom:bitmap-lookup()
 Values can either be a simple string or an XML fragment.
 
 
-### Context data lookups
+### Context Data Lookups
 
 Some event streams have a Context stream associated with them.
 Context streams allow the system sending the events to Stroom to supply an additional stream of data that provides context to the raw event stream.

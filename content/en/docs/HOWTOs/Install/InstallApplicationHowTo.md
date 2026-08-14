@@ -39,7 +39,7 @@ or
 sudo yum -y install mysql-community-client
 {{< /command-line >}}
 
-## Test Database connectivity
+## Test Database Connectivity
 We need to test access to the Stroom databases on `stroomdb0.strmdev00.org`. We do this using the client `mysql` utility. We note that we
 must enter the `stroomuser` user's password set up in the creation of the database earlier (`Stroompassword1@`) when connecting to
 the `stroom` database and we must enter the `stroomstats` user's password (`Stroompassword2@`) when connecting to the `statistics` database.
@@ -194,7 +194,7 @@ You will note that `TEMP_DIR` is the same directory we used for our `STROOM_TMP`
 Note that if you are deploying a single node environment, where the database is also running on your Stroom node, then the `JDBC_URL` setting can be the default.
 
 
-## Start the Application service
+## Start the Application Service
 
 Now we start the application. In the case of multi node Stroom deployment, we start the Stroom application on the first node in the cluster,
 then __wait__ until it has initialised the database commenced its Lifecycle task. You will need to monitor the log file to see its

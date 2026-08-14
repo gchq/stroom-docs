@@ -10,7 +10,7 @@ description: >
 
 As with all other aspects of Data Splitter, output XML is determined by adding certain elements to the Data Splitter configuration.
 
-## The `<data>` element
+## The `<data>` Element
 
 Output is created by Data Splitter using one or more `<data>` elements in the configuration.
 The first `<data>` element that is encountered within a matched expression will result in parent `<record>` elements being produced in the output.
@@ -40,7 +40,7 @@ Both the name and value attributes of the `<data>` element can be specified usin
 Both the name and value attributes of the `<data>` element can be specified using [match references]({{< relref "../match-reference" >}}).
 
 
-### Single `<data>` element example
+### Single `<data>` Element Example
 
 The simplest example that can be provided uses a single `<data>` element within a `<split>` expression.
 
@@ -89,7 +89,7 @@ This is line 3
 ```
 
 
-### Multiple `<data>` element example
+### Multiple `<data>` Element Example
 
 You could also output multiple `<data>` elements for the same `<record>` by adding multiple elements within the same expression:
 
@@ -142,7 +142,7 @@ ip=3.3.3.3 user=user3
 ```
 
 
-### Multi level `<data>` elements
+### Multi Level `<data>` Elements
 
 As long as all data elements occur within the same parent/ancestor expression, all data elements will be output within the same record.
 
@@ -204,12 +204,12 @@ ip=3.3.3.3 user=user3
 ```
 
 
-### Nesting `<data>` elements
+### Nesting `<data>` Elements
 
 Rather than having `<data>` elements all appear as children of `<record>` it is possible to nest them either as direct children or within child groups.
 
 
-#### Direct children
+#### Direct Children
 
 Given the following input:
 
@@ -268,7 +268,7 @@ ip=3.3.3.3 user=user3
 ```
 
 
-#### Within child groups
+#### Within Child Groups
 
 Given the following input:
 

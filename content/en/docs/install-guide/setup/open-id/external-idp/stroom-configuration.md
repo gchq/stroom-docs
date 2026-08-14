@@ -21,7 +21,7 @@ The structure is identical for both.
 {{% /note %}}
 
 
-## A minimal configuration
+## A Minimal Configuration
 
 For most providers this is all that is needed:
 
@@ -51,7 +51,7 @@ If you also want data receipt to be authenticated:
 ```
 
 
-## Choosing the identity provider
+## Choosing the Identity Provider
 
 ### `identityProviderType`
 
@@ -102,9 +102,9 @@ The query parameter Stroom uses to tell the provider where to send the user afte
 The only permitted values are `post_logout_redirect_uri`, the default and what the current specification says, and `redirect_uri` for older providers.
 
 
-## Client credentials
+## Client Credentials
 
-### `clientId` and `clientSecret`
+### `clientId` And `clientSecret`
 
 The client, sometimes called an application, registered at the provider.
 
@@ -149,7 +149,7 @@ Some providers, Cognito among them, require this.
 It is on by default and rarely needs changing.
 
 
-## Audience validation
+## Audience Validation
 
 The `aud` claim of a token names the application the token was minted for.
 Checking it is what stops a token issued to some other application at the same provider being replayed against Stroom.
@@ -206,7 +206,7 @@ See the provider pages for which applies to you.
 {{% /warning %}}
 
 
-## Token validation
+## Token Validation
 
 ### `requiredAccessTokenType`
 
@@ -236,7 +236,7 @@ Additional issuers to accept beyond the one the provider advertises.
 Stroom checks that the issuer in the provider's configuration response is consistent with `openIdConfigurationEndpoint`.
 Where a provider legitimately reports an issuer that is not a parent path of that endpoint, list it here so the check passes.
 
-### Signature algorithms
+### Signature Algorithms
 
 Not configurable.
 Stroom accepts RS256/384/512, PS256/384/512 and ES256/384/512, and refuses unsigned tokens and tokens signed with an HMAC algorithm.
@@ -280,7 +280,7 @@ Use single quotes in the YAML file, otherwise the `${...}` variables are expande
 {{% /note %}}
 
 
-## AWS load balancer authentication
+## AWS Load Balancer Authentication
 
 These apply when an AWS Application Load Balancer in front of Stroom performs the authentication and passes the result on in an `x-amzn-oidc-data` header.
 
@@ -348,7 +348,7 @@ See [Common Configuration]({{< relref "docs/install-guide/configuration/stroom-a
 
 ## Troubleshooting
 
-### Stroom will not start
+### Stroom Will Not Start
 
 > If `identityProviderType` is set to 'EXTERNAL', property `openIdConfigurationEndpoint` must be set.
 
@@ -371,14 +371,14 @@ Where the value is genuinely correct for your provider, add it to `validIssuers`
 You have set `issuer` or `validIssuers`, and what the provider advertised is not among them.
 Correct the configured value, or add the advertised one.
 
-### The provider refuses the sign in
+### The Provider Refuses the Sign In
 
 An error at the provider, before the user gets back to Stroom, is almost always the redirect URI.
 Check that `https://STROOM_FQDN/api/auth/flow/v1/signin-oidc` is registered exactly, using the same scheme, host, port and path prefix as `appConfig.publicUri`.
 
 This is the single most common problem when upgrading, because Stroom used to send a different redirect URI for every page.
 
-### Sign in works but API calls are refused
+### Sign in Works but API Calls Are Refused
 
 Interactive sign in validates the `id_token`, whereas the API validates an access token, and providers treat the two differently.
 So sign in working tells you the client id, secret and endpoints are all correct, and points at the token validation settings.
@@ -391,7 +391,7 @@ In order of likelihood:
 
 Enable debug logging for `stroom.security.common.impl.StandardJwtContextFactory` to see the issuers, audiences and settings actually in use when a token is validated.
 
-### Users sign in but can see nothing
+### Users Sign in but Can See Nothing
 
 That is expected for a new user.
 Authentication is all the provider does; permissions are granted in Stroom, and a new user has none.
@@ -399,7 +399,7 @@ See [Users and permissions]({{< relref "docs/install-guide/setup/open-id/externa
 
 If an administrator you set up with `manage_users` cannot see anything either, remember that permissions are cached, so a restart may be needed if Stroom was running when the command was issued.
 
-### Signing out does not sign the user out of the provider
+### Signing Out Does Not Sign the User Out of the Provider
 
 Either `logoutEndpoint` is unset, or the provider has no OIDC sign out endpoint, as is the case for Google.
 The Stroom session ends either way, but the provider's session does not, so the user's next visit signs them straight back in.

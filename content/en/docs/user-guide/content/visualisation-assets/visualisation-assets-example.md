@@ -14,7 +14,7 @@ description: >
 This document walks through the process of converting an existing Doughnut visualisation into an Asset-based visualisation.
 
 
-## Document the source visualisation
+## Document the Source Visualisation
 
 We're converting `System/Visualisations/Visualisations/Version3/Doughnut`, so we'll open it up and see how it is configured.
 
@@ -55,7 +55,7 @@ However, sometimes CSS is needed instead of Javascript, so the CSS is held in a 
 This needs to be converted into plain Javascript to create a plain CSS file.
 
 
-#### Convert CSS in Javascript into CSS
+#### Convert CSS in Javascript Into CSS
 
 The Script will look something like this (cut down for this example):
 
@@ -223,7 +223,7 @@ Select the `Settings` tab within your new Visualisation document.
 **Settings** - Copy from the old visualisation. Make sure you get the whole file.
 
 
-## `index.html` asset
+## `index.html` Asset
 
 We need an HTML file which will form the core of our visualisation. 
 This must be named `index.html` to be considered for loading by Stroom.

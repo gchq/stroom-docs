@@ -93,7 +93,7 @@ and paste it below this message.
 <!-- #~#~#~#~#~# GENERATED CONTENT START #~#~#~#~#~#~# -->
 ## XML/XSLT Snippets 
  
-### Apply-templates with-param (`wapply`)
+### Apply-templates With-param (`wapply`)
  
 **Name**: `Apply-templates with-param`, **Tab Trigger**: `wapply`
  
@@ -105,7 +105,7 @@ and paste it below this message.
 ````
  
  
-### Apply-templates sort-by (`applysort`)
+### Apply-templates Sort-by (`applysort`)
  
 **Name**: `Apply-templates sort-by`, **Tab Trigger**: `applysort`
  
@@ -117,7 +117,7 @@ ${0}
 ````
  
  
-### Apply-templates plain (`apply`)
+### Apply-templates Plain (`apply`)
  
 **Name**: `Apply-templates plain`, **Tab Trigger**: `apply`
  
@@ -127,7 +127,7 @@ ${0}
 ````
  
  
-### Attribute blank (`attr`)
+### Attribute Blank (`attr`)
  
 **Name**: `Attribute blank`, **Tab Trigger**: `attr`
  
@@ -137,7 +137,7 @@ ${0}
 ````
  
  
-### Attribute value-of (`attrval`)
+### Attribute Value-of (`attrval`)
  
 **Name**: `Attribute value-of`, **Tab Trigger**: `attrval`
  
@@ -159,7 +159,7 @@ ${0}
 ````
  
  
-### Call-template with-param (`wcall`)
+### Call-template With-param (`wcall`)
  
 **Name**: `Call-template with-param`, **Tab Trigger**: `wcall`
  
@@ -195,7 +195,7 @@ ${0}
 ````
  
  
-### Element blank (`elem`)
+### Element Blank (`elem`)
  
 **Name**: `Element blank`, **Tab Trigger**: `elem`
  
@@ -302,7 +302,7 @@ $0
 ````
  
  
-### Template named (`ntemp`)
+### Template Named (`ntemp`)
  
 **Name**: `Template named`, **Tab Trigger**: `ntemp`
  
@@ -334,7 +334,7 @@ ${0}
 ````
  
  
-### Variable blank (`var`)
+### Variable Blank (`var`)
  
 **Name**: `Variable blank`, **Tab Trigger**: `var`
  
@@ -345,7 +345,7 @@ ${0}
 ````
  
  
-### Variable select (`varsel`)
+### Variable Select (`varsel`)
  
 **Name**: `Variable select`, **Tab Trigger**: `varsel`
  
@@ -376,7 +376,7 @@ ${0}
 ````
  
  
-### With-param select (`wparamsel`)
+### With-param Select (`wparamsel`)
  
 **Name**: `With-param select`, **Tab Trigger**: `wparamsel`
  
@@ -386,7 +386,7 @@ ${0}
 ````
  
  
-### Fatal message (`fatal`)
+### Fatal Message (`fatal`)
  
 **Name**: `Fatal message`, **Tab Trigger**: `fatal`
  
@@ -396,7 +396,7 @@ ${0}
 ````
  
  
-### Error message (`error`)
+### Error Message (`error`)
  
 **Name**: `Error message`, **Tab Trigger**: `error`
  
@@ -406,7 +406,7 @@ ${0}
 ````
  
  
-### Warning message (`warn`)
+### Warning Message (`warn`)
  
 **Name**: `Warning message`, **Tab Trigger**: `warn`
  
@@ -416,7 +416,7 @@ ${0}
 ````
  
  
-### Info message (`info`)
+### Info Message (`info`)
  
 **Name**: `Info message`, **Tab Trigger**: `info`
  
@@ -426,7 +426,7 @@ ${0}
 ````
  
  
-### Identity skeleton (`ident`)
+### Identity Skeleton (`ident`)
  
 **Name**: `Identity skeleton`, **Tab Trigger**: `ident`
  
@@ -449,7 +449,7 @@ ${0}
 ````
  
  
-### Records identity skeleton (`recident`)
+### Records Identity Skeleton (`recident`)
  
 **Name**: `Records identity skeleton`, **Tab Trigger**: `recident`
  
@@ -497,7 +497,7 @@ ${0}
 ````
  
  
-### Events identity skeleton (`evtident`)
+### Events Identity Skeleton (`evtident`)
  
 **Name**: `Events identity skeleton`, **Tab Trigger**: `evtident`
  
@@ -560,7 +560,7 @@ ${0}
 ````
  
  
-### CSV Splitter with heading (`csvh`)
+### CSV Splitter With Heading (`csvh`)
  
 **Name**: `CSV Splitter with heading`, **Tab Trigger**: `csvh`
  
@@ -620,7 +620,7 @@ ${0}
 ````
  
  
-### Data element with name attribute (`nval`)
+### Data Element With Name Attribute (`nval`)
  
 **Name**: `Data element with name attribute`, **Tab Trigger**: `nval`
  
@@ -630,7 +630,7 @@ ${0}
 ````
  
  
-### Data element without name attribute (`val`)
+### Data Element Without Name Attribute (`val`)
  
 **Name**: `Data element without name attribute`, **Tab Trigger**: `val`
  
@@ -640,7 +640,7 @@ ${0}
 ````
  
  
-### Var element (`var`)
+### Var Element (`var`)
  
 **Name**: `Var element`, **Tab Trigger**: `var`
  
@@ -650,7 +650,7 @@ ${0}
 ````
  
  
-### Split element (`spl`)
+### Split Element (`spl`)
  
 **Name**: `Split element`, **Tab Trigger**: `spl`
  
@@ -664,7 +664,7 @@ ${0}
 ````
  
  
-### Group element (`gr`)
+### Group Element (`gr`)
  
 **Name**: `Group element`, **Tab Trigger**: `gr`
  
@@ -676,7 +676,7 @@ ${0}
 ````
  
  
-### All element (`all`)
+### All Element (`all`)
  
 **Name**: `All element`, **Tab Trigger**: `all`
  
@@ -688,7 +688,7 @@ ${0}
 ````
  
  
-### Regex element (`reg`)
+### Regex Element (`reg`)
  
 **Name**: `Regex element`, **Tab Trigger**: `reg`
  
@@ -701,7 +701,7 @@ ${0}
 ````
 ## XMLFragmentParser Snippets 
  
-### Events fragment template (`evt`)
+### Events Fragment Template (`evt`)
  
 **Name**: `Events fragment template`, **Tab Trigger**: `evt`
  
@@ -720,7 +720,7 @@ ${0}
 ````
  
  
-### Records fragment template (`rec`)
+### Records Fragment Template (`rec`)
  
 **Name**: `Records fragment template`, **Tab Trigger**: `rec`
  
@@ -739,7 +739,7 @@ ${0}
 ````
 ## Documentation (Markdown) Snippets 
  
-### Heading level 1 (`h1`)
+### Heading Level 1 (`h1`)
  
 **Name**: `Heading level 1`, **Tab Trigger**: `h1`
  
@@ -750,7 +750,7 @@ ${0}
 ````
  
  
-### Heading level 2 (`h2`)
+### Heading Level 2 (`h2`)
  
 **Name**: `Heading level 2`, **Tab Trigger**: `h2`
  
@@ -761,7 +761,7 @@ ${0}
 ````
  
  
-### Heading level 3 (`h3`)
+### Heading Level 3 (`h3`)
  
 **Name**: `Heading level 3`, **Tab Trigger**: `h3`
  
@@ -772,7 +772,7 @@ ${0}
 ````
  
  
-### Heading level 4 (`h4`)
+### Heading Level 4 (`h4`)
  
 **Name**: `Heading level 4`, **Tab Trigger**: `h4`
  
@@ -783,7 +783,7 @@ ${0}
 ````
  
  
-### Heading level 5 (`h5`)
+### Heading Level 5 (`h5`)
  
 **Name**: `Heading level 5`, **Tab Trigger**: `h5`
  
@@ -794,7 +794,7 @@ ${0}
 ````
  
  
-### Heading level 6 (`h6`)
+### Heading Level 6 (`h6`)
  
 **Name**: `Heading level 6`, **Tab Trigger**: `h6`
  
@@ -817,7 +817,7 @@ ${0}
 `````
  
  
-### Fenced block of XML (`fxml`)
+### Fenced Block of XML (`fxml`)
  
 **Name**: `Fenced block of XML`, **Tab Trigger**: `fxml`
  
@@ -829,7 +829,7 @@ ${0}
 `````
  
  
-### Fenced block of plain text (`ftext`)
+### Fenced Block of Plain Text (`ftext`)
  
 **Name**: `Fenced block of plain text`, **Tab Trigger**: `ftext`
  
@@ -841,7 +841,7 @@ ${0}
 `````
  
  
-### Inline code (`inline`)
+### Inline Code (`inline`)
  
 **Name**: `Inline code`, **Tab Trigger**: `inline`
  
@@ -850,7 +850,7 @@ ${0}
 ````
  
  
-### Bold text (`b`)
+### Bold Text (`b`)
  
 **Name**: `Bold text`, **Tab Trigger**: `b`
  
@@ -859,7 +859,7 @@ ${0}
 ````
  
  
-### Italic text (`i`)
+### Italic Text (`i`)
  
 **Name**: `Italic text`, **Tab Trigger**: `i`
  
@@ -868,7 +868,7 @@ _${1:italic_text}_${0}
 ````
  
  
-### Strike-through text (`s`)
+### Strike-through Text (`s`)
  
 **Name**: `Strike-through text`, **Tab Trigger**: `s`
  
@@ -877,7 +877,7 @@ _${1:italic_text}_${0}
 ````
  
  
-### Bold italic text (`bi`)
+### Bold Italic Text (`bi`)
  
 **Name**: `Bold italic text`, **Tab Trigger**: `bi`
  
@@ -889,7 +889,7 @@ All [Expression Functions]({{< relref "docs/reference-section/expressions" >}}) 
 They do not currently have `tab` triggers.
  
  
-### Eval first StreamId (`str`)
+### Eval First StreamId (`str`)
  
 **Name**: `Eval first StreamId`, **Tab Trigger**: `str`
  
@@ -899,7 +899,7 @@ $0
 ````
  
  
-### Eval first EventId (`evt`)
+### Eval First EventId (`evt`)
  
 **Name**: `Eval first EventId`, **Tab Trigger**: `evt`
  
@@ -909,7 +909,7 @@ $0
 ````
  
  
-### Eval first Stream/EventIds (`ids`)
+### Eval First Stream/EventIds (`ids`)
  
 **Name**: `Eval first Stream/EventIds`, **Tab Trigger**: `ids`
  
@@ -920,7 +920,7 @@ $0
 ````
  
  
-### Eval first value (`first`)
+### Eval First Value (`first`)
  
 **Name**: `Eval first value`, **Tab Trigger**: `first`
  

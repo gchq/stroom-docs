@@ -20,7 +20,7 @@ To configure secure authentication see [Internal IDP]({{< relref "internal-idp" 
 {{% /warning %}}
 
 
-## Enabling the test credential
+## Enabling the Test Credential
 
 This is not part of the identity provider configuration.
 The identity provider, normally the internal one, handles all interactive sign in and token authentication as usual.
@@ -45,7 +45,7 @@ A secret shared between systems for convenience is still not a credential to rel
 While it is enabled, Stroom logs a warning banner at startup, and logs again, at most every five minutes, whenever a request actually authenticates using it.
 
 
-## Configuring Stroom-Proxy to use it
+## Configuring Stroom-Proxy to Use It
 
 Set the secret as Stroom-Proxy's feed status API key, and give it the same value in Stroom's environment:
 

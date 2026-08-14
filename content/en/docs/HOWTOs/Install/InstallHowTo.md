@@ -149,7 +149,7 @@ This is described in the [Web Service Integration](#web-service-integration "Web
 Note also, that Standalone or Forwarding Stroom Proxy deployments do __NOT__ need a database client deployed.
 
 
-### Entropy Issues in Virtual environments
+### Entropy Issues in Virtual Environments
 
 {{% todo %}}
 This section is likely out of date due to changes in the Linux kernel and how _SecureRandom_ is implemented.
@@ -225,7 +225,7 @@ sudo chown -R stroomuser:stroomuser /stroomdata
 sudo chmod -R 750 /stroomdata
 {{< /command-line >}}
 
-#### Deployment of NFS to share Stroom Storage
+#### Deployment of NFS to Share Stroom Storage
 
 We will use NFS to cross mount the _permanent data_ directories. That is
 - node `stroomp00.strmdev00.org` will mount `stroomp01.strmdev00.org:/stroomdata/stroom-data-p01` and,
@@ -235,7 +235,7 @@ The HOWTO guide to deploy and configure NFS for our Scenario is [here]({{< relre
 
 ## Stroom Installation
 
-### Pre-installation setup
+### Pre-installation Setup
 Before installing either the Stroom Proxy or Stroom Application, we need establish various files and scripts within
 the Stroom Processing user's home directory to support the Stroom services and their persistence. This is setup is described
 [here]({{< relref "InstallProcessingUserSetupHowTo.md" >}}).
@@ -262,7 +262,7 @@ Other Web service capability can be used, for example, {{< external-link "NGINX"
 ## Installation Validation
 We will now check that the installation and web services integration has worked.
 
-### Sanity firewall check
+### Sanity Firewall Check
 To ensure you have the firewall correctly set up, the following command
 
 {{< command-line >}}
@@ -288,7 +288,7 @@ public (active)
   rich rules: 
 ```
 
-### Test Posting of data to the Stroom service
+### Test Posting of Data to the Stroom Service
 You can test the data posting service with the command
 
 {{< command-line >}}
@@ -321,7 +321,7 @@ proxy log file, then second on `stroomp01.strmdev00.org`'s proxy log file, then 
 Although we have installed our multi node Stroom cluster, we now need to configure it.
 We do this via the user interface (UI).
 
-### Logging into the Stroom UI for the first time
+### Logging Into the Stroom UI for the First Time
 
 To log into the UI of your newly installed Stroom instance, present the base URL to your
 {{< external-link "Chrome" "https://www.google.com/chrome" >}} browser. In this deployment, you should enter the URLS
@@ -352,12 +352,12 @@ In the **About Stroom** panel we see an introductory description of Stroom in th
 - `Up Date:` - the install date
 - `Node Name:` - the node within the Stroom cluster you have connected to
 
-### Login with Stroom default Administrative User
+### Login With Stroom Default Administrative User
 Each new Stroom deployment automatically creates the administrative user `admin` and this user's password is initially set to `admin`.
 We will [login as this user]({{< relref "../Authentication/UserLoginHowTo.md" >}}) which also validates that the database and UI is working correctly in that you can login and the password is `admin`.
 
 
-### Create an Attributed User to perform configuration
+### Create an Attributed User to Perform Configuration
 
 We should configure Stroom using an _attributed user_ account.
 That is, we should [create]({{< relref "../Authentication/CreateUserHowTo.md" >}}) a user, in our case it will be `burn` (the author) and once created, we login with that account then perform the initial configuration activities.
@@ -366,13 +366,13 @@ You don't have to do this, but it is sound security practice.
 Once you have created the user you should [log out]({{< relref "../Authentication/UserLogoutHowTo.md" >}}) of the `admin` account and log back in as our user `burn`.
 
 
-### Configure the Volumes for our Stroom deployment
+### Configure the Volumes for Our Stroom Deployment
 
 Before we can store data within Stroom we need to configure the [volumes]({{< relref "../../user-guide/volumes.md" >}}) we have allocated in our Storage hierarchy.
 The [Volume Maintenance HOWTO]({{< relref "InstallVolumesHowTo.md" >}}) shows how to do this.
 
 
-### Configure the Nodes for our Stroom deployment
+### Configure the Nodes for Our Stroom Deployment
 
 In a Stroom cluster, nodes are expected to communicate with each other on port 8080 over http. Our
 installation in a multi node environment ensures the firewall will allow this but we also need to
@@ -385,7 +385,7 @@ To enable Stroom to process data, it's [Data Processors]({{< relref "/docs/refer
 The following [section]({{< relref "../General/TasksHowTo.md#enable-stream-processors" >}}) in our [Stroom Tasks HowTo]({{< relref "../General/TasksHowTo.md" >}}) shows how to do this.
 
 
-## Testing our Stroom Application and Proxy Installation
+## Testing Our Stroom Application and Proxy Installation
 
 To complete the installation process we will test that we can send and ingest data.
 
@@ -504,7 +504,7 @@ sudo chmod -R 750 /stroomdata
 
 ## Stroom Forwarding Proxy Installation
 
-### Pre-installation setup
+### Pre-installation Setup
 
 Before installing the Stroom Forwarding Proxy, we need establish various files and scripts within
 the Stroom Processing user's home directory to support the Stroom services and their persistence. This is setup is described
@@ -535,7 +535,7 @@ configuration item is different to that of a Stroom Application processing node.
 Other Web service capability can be used, for example, {{< external-link "NGINX" "https://nginx.org" >}}.
 
 
-## Testing our Forwarding Proxy Installation
+## Testing Our Forwarding Proxy Installation
 
 To complete the installation process we will test that we can send data to the forwarding proxy and that it forwards the files
 it receives to the central Stroom processing system.
@@ -616,7 +616,7 @@ sudo chmod -R 750 /stroomdata
 
 ## Stroom Standalone Proxy Installation
 
-### Pre-installation setup
+### Pre-installation Setup
 
 Before installing the Stroom Standalone Proxy, we need establish various files and scripts within
 the Stroom Processing user's home directory to support the Stroom services and their persistence. This is setup is described
@@ -643,7 +643,7 @@ configuration item is different to that of a Stroom Application processing node.
 Other Web service capability can be used, for example, {{< external-link "NGINX" "https://nginx.org" >}}.
 
 
-## Testing our Standalone Proxy Installation
+## Testing Our Standalone Proxy Installation
 
 To complete the installation process we will test that we can send data to the standalone proxy and it stores it.
 
@@ -671,7 +671,7 @@ service to run 'in-front' of our Stroom software, and then perform the initial c
 node we will add is `stroomp02.strmdev00.org`.
 
 
-## Grant access to the database for this node
+## Grant Access to the Database for This Node
 
 Connect to the Stroom database as the administrative (root) user, via the command
 
@@ -764,7 +764,7 @@ sudo chmod 750 /stroomdata/stroom-data-p02
 sudo chown stroomuser:stroomuser /stroomdata/stroom-data-p02
 {{< /command-line >}}
 
-#### Deployment of NFS to share Stroom Storage
+#### Deployment of NFS to Share Stroom Storage
 
 We will use NFS to cross mount the _permanent data_ directories. That is
 - node `stroomp00.strmdev00.org` will mount
@@ -782,7 +782,7 @@ The HOWTO guide to deploy and configure NFS for our Scenario is [here]({{< relre
 
 ## Stroom Installation
 
-### Pre-installation setup
+### Pre-installation Setup
 
 Before installing either the Stroom Proxy or Stroom Application, we need establish various files and scripts within
 the Stroom Processing user's home directory to support the Stroom services and their persistence. This is setup is described
@@ -857,7 +857,7 @@ We will now check that the installation and web services integration has worked.
 and [later](#testing-our-new-node-installation "Integration Tests") perform complete integration tests.
 
 
-### Sanity firewall check
+### Sanity Firewall Check
 
 To ensure you have the firewall correctly set up, the following command
 
@@ -892,7 +892,7 @@ We do this by logging into the Stroom User Interface (UI) with an account with A
 is recommended you use a attributed user for this activity. Once you have logged in you can configure this
 new node.
 
-### Configure the Volumes for our Stroom deployment
+### Configure the Volumes for Our Stroom Deployment
 
 Before we can store data on this new Stroom node we need to configure its
 [volumes]({{< relref "../../user-guide/volumes.md" >}})
@@ -900,7 +900,7 @@ we have allocated in our Storage hierarchy. The section on adding new [volumes](
 [Volume Maintenance HOWTO]({{< relref "InstallVolumesHowTo.md#adding-new-volumes" >}})
 shows how to do this.
 
-### Configure the Nodes for our Stroom deployment
+### Configure the Nodes for Our Stroom Deployment
 
 In a Stroom cluster, nodes are expected to communicate with each other on port 8080 over http. Our
 installation in a multi node environment ensures the firewall will allow this but we also need to
@@ -918,7 +918,7 @@ need to be enabled. They are NOT enabled by default on installation. The followi
 in our [Stroom Tasks HowTo]({{< relref "../General/TasksHowTo.md" >}}) shows how to do this.
 
 
-## Testing our New Node Installation
+## Testing Our New Node Installation
 
 To complete the installation process we will test that our new node has successfully integrated into our cluster.
 

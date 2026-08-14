@@ -19,7 +19,7 @@ For this Quick Start Guide we are going to use Stroom's internal Lucene indexing
 {{% /note %}}
 
 
-## Create the index
+## Create the Index
 
 We can create an index by adding an index entity {{< stroom-icon "document/Index.svg" "Index" >}}to the explorer tree.
 You do this in the same way you create any of the items.
@@ -34,7 +34,7 @@ You do this in the same way you create any of the items.
 This will open the new {{< stroom-icon "document/Index.svg" >}} _Stroom 101_ index as a new tab, {{< stroom-tab "Index.svg" "Stroom 101" >}}.
 
 
-## Assign a volume group
+## Assign a Volume Group
 
 In the settings tab we need to specify the {{< glossary "Volume" >}} where we will store our index shards.
 
@@ -43,7 +43,7 @@ In the settings tab we need to specify the {{< glossary "Volume" >}} where we wi
 1. Click the {{< stroom-icon "save.svg" "Save" >}} button.
 
 
-## Adding fields
+## Adding Fields
 
 Now you need to add fields to this index.
 
@@ -83,7 +83,7 @@ You should now have:
 When you've done that, save the new index by clicking the {{< stroom-icon "save.svg" "Save" >}} button.
 
 
-## Create empty index XSLT
+## Create Empty Index XSLT
 
 In order for Stroom to index the data, an {{< glossary "XSLT" >}} is required to convert the event XML into an Index record.
 This can be a simple 1:1 mapping from event field to index field or something more complex, e.g. combining multiple event fields into one index field.
@@ -100,7 +100,7 @@ To create the XSLT for the Index:
 We will add the XSLT content later on.
 
 
-## Index pipeline
+## Index Pipeline
 
 Now we are going to create a pipeline to send the processed data (_Events_) to the index we just created.
 Typically in Stroom all {{< glossary "Raw Events" >}} are first processed into normalised {{< glossary "Events" >}} conforming to the same XML schema to allow common onward processing of events from all sources.
@@ -151,7 +151,7 @@ Now we need to set the `xslt` property on the _xsltFilter_ to point at the XSLT 
 Once that's done you can save your new pipeline by clicking the {{< stroom-icon "save.svg" >}} button.
 
 
-## Develop index translation
+## Develop Index Translation
 
 Next we need to create an XSLT that the `indexingFilter` understands.
 The best place to develop a translation is in the {{< glossary "Stepper" >}} as it allows you to simulate running the data through the pipeline without producing any persistent output.
@@ -309,7 +309,7 @@ You can use the stepping controls ({{< stroom-icon name="fast-backward.svg" titl
 Once you are happy with your translation click the {{< stroom-icon "save.svg" >}} button to save the XSLT content to the _Stroom 101_ XSLT document.
 
 
-## Processing the indexing pipeline
+## Processing the Indexing Pipeline
 
 To get our indexing pipeline processing data we need to create a {{< glossary "Processor Filter" >}} to select the data to process through the pipeline.
 

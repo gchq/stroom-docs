@@ -33,7 +33,7 @@ The above options are not mutually exclusive and may be combined to better secur
 
 ## Application
 
-### Node to node communication
+### Node to Node Communication
 
 In a multi node Stroom deployment each node communicates with the master node. This can be configured securely in one of several ways:
 * Direct communication to Tomcat on port 8080 - Secured by being behind a firewall or using iptables
@@ -46,7 +46,7 @@ In a multi node Stroom deployment each node communicates with the master node. T
 The application can be configured to share some information with Stroom Proxy so that Stroom Proxy can decide whether or not to accept data for certain feeds based on the existence of the feed or its reject/accept status. The amount of information shared between the application and the proxy is minimal but could be used to discover what feeds are present within the system. Securing this communication is harder as both the application and the proxy will not typically reside behind the same firewall. Despite this communication can still be performed over SSL thus protecting this potential attack vector.
 
 
-### Admin port
+### Admin Port
 
 Stroom (v6 and above) and its associated family of stroom-* Dropwizard based services all expose an admin port (8081 in the case of stroom). This port serves up various health check and monitoring pages as well as a number of restful services for initiating admin tasks. There is currently no authentication on this admin port so it is assumed that access to this port will be tightly controlled using a firewall, iptables or similar.
 

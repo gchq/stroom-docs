@@ -22,7 +22,7 @@ This needs updating to MySQL 8. Stroom v7 requires MySQL 8.
 A single MySQL database is required for each Stroom instance.
 You do not need to setup a MySQL instance per node in your cluster.
 
-## Check Database installed and running
+## Check Database Installed and Running
 
 {{< command-line "root" "stroomdb" >}}
 /sbin/chkconfig --list mysqld

@@ -84,7 +84,7 @@ If you are using two-way SSL then you may need to set the protocol to `HTTP/1.1`
 ```
 
 
-### Example output
+### Example Output
 
 The following is an example of the XML returned from the `http-call` function:
 
@@ -144,7 +144,7 @@ The following is an example of the XML returned from the `http-call` function:
 ```
 
 
-### Example usage
+### Example Usage
 
 This is an example of how to use the function call in your XSLT.
 It is recommended to place the `clientConfig` JSON in a {{< glossary "Dictionary" >}} to make it easier to edit and to avoid having to escape all the quotes.

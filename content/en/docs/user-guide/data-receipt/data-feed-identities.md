@@ -54,7 +54,7 @@ Files added to this directory while Stroom-Proxy/Stroom is running will be read 
 Files deleted from this directory will result in all entries associated with the file path being removed from the in-memory store of hashed keys.
 
 
-## Common properties
+## Common Properties
 
 The following JSON properties are common to both types:
 

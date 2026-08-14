@@ -8,13 +8,13 @@ description: >
   How to install Stroom when there is no internet connection.
 ---
 
-## Docker images
+## Docker Images
 
 For those deployments of Stroom that use docker containers, by default docker will try to pull the docker images from DockerHub on the internet.
 If you do not have an internet connection then you will need to make these images available to the local docker binary in another way.
 
 
-### Downloading the images
+### Downloading the Images
 
 Firstly you need to determine which images and which tags you need.
 Look at {{< external-link "stroom-resources/releases" "https://github.com/gchq/stroom-resources/releases" >}} and for each release and variant of the Stroom stacks you will see a manifest of the docker images/tags in that release/variant.
@@ -29,7 +29,7 @@ stroom-proxy-local gchq/stroom-proxy:v7.0-beta.175
 ```
 
 
-#### With the _docker_ binary
+#### With the _docker_ Binary
 
 If you have access to an internet connected computer that has Docker installed on it then you can use Docker to pull the images.
 For each of the required images run a command like this:
@@ -40,7 +40,7 @@ docker save -o stroom-nginx.tar gchq/stroom-nginx:v7.0-beta.2
 {{</ command-line >}}
 
 
-#### Without the _docker_ binary
+#### Without the _docker_ Binary
 
 If you can't install Docker on the internet connected machine then this {{< external-link "shell script" "https://github.com/moby/moby/blob/master/contrib/download-frozen-image-v2.sh" >}} may help you to download and assemble the various layers of an image from DockerHub using only _bash_, _curl_ and _jq_.
 This is a third party script so we cannot vouch for it in any way.
@@ -48,7 +48,7 @@ As with all scripts you run that you find on the internet, look at and understan
 
 
 
-### Loading the images
+### Loading the Images
 
 Once you have downloaded the image tar files and transferred them over the air gap you will need to load them into your local docker repo.
 Either this will be the local repo on the machine where you will deploy Stroom (or one of its component containers) or you will have a central docker repository that many machines can access.

@@ -147,7 +147,7 @@ The current _workaround_ is to restart all the Stroom applications which will ca
 This **MUST** be done before sending any data to your multi-node Stroom cluster.
 
 
-## Adding new Volumes
+## Adding New Volumes
 When one expands a Multi Node Stroom cluster deployment, after the installation of the Stroom Proxy and Application software and services on the new node,
 one has to configure the new volumes that are on the new node. The following demonstrates this assuming we are adding
 * the new node is `stroomp02`

@@ -28,7 +28,7 @@ It applies whichever provider you use, so read it before following one of the pr
 * [Microsoft Entra ID (Azure AD)]({{< relref "azure-ad" >}})
 
 
-## What Stroom needs from the provider
+## What Stroom Needs From the Provider
 
 Stroom is a confidential OAuth 2.0 client using the authorization code flow.
 To register it with a provider you need the following.
@@ -46,7 +46,7 @@ To register it with a provider you need the following.
 If Stroom is behind a load balancer or Nginx, it is that address and not the address of an individual node.
 
 
-### The redirect URI
+### The Redirect URI
 
 The redirect URI, sometimes called the callback or reply URL, is where the provider sends the user's browser once they have authenticated.
 
@@ -69,7 +69,7 @@ If you are upgrading, replace any such wildcard with the single exact URI above,
 If Stroom is served under a path prefix, i.e. `appConfig.publicUri.pathPrefix` is set, that prefix comes before `/api`.
 
 
-### The post logout redirect URI
+### The Post Logout Redirect URI
 
 When a user signs out, Stroom sends them to the provider's logout endpoint and asks to be returned to Stroom's public root:
 
@@ -110,7 +110,7 @@ Both can be reassigned to a different person at the provider, and whoever holds 
 {{% /warning %}}
 
 
-## Token validation
+## Token Validation
 
 Stroom validates every token it is given, whether that is the `id_token` from an interactive sign in or a bearer access token presented to the API.
 
@@ -127,7 +127,7 @@ It is API authentication with access tokens where providers differ.
 {{% /note %}}
 
 
-## Users and permissions
+## Users and Permissions
 
 Authentication is handled by the provider.
 Authorisation, i.e. what a user may do once they are in, is always handled by Stroom.

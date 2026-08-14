@@ -51,9 +51,9 @@ This can be useful when creating nodes dedicated to data processing, which do no
 See [this guide]({{< relref "configure-stroomtaskautoscaler" >}}) on how to configure.
 
 
-## Creating a Stroom cluster
+## Creating a Stroom Cluster
 
-### Create a `StroomCluster` resource manifest
+### Create a `StroomCluster` Resource Manifest
 
 Use the example {{< external-link "stroom-cluster.yaml" "https://github.com/p-kimberley/stroom-k8s-operator/blob/master/samples/stroom-cluster.yaml" >}}.
 
@@ -64,7 +64,7 @@ See the `StroomCluster` Custom Resource Definition (CRD) {{< external-link "API 
 {{% /see-also %}}
 
 
-### Provision a `PersistentVolume` for each Stroom node
+### Provision a `PersistentVolume` for Each Stroom Node
 
 Each `PersistentVolume` provides persistent local storage for a Stroom node.
 The amount of storage doesn't generally need to be large, as stream data is stored on another volume.
@@ -73,7 +73,7 @@ When deciding on a storage quota, be sure to consider the needs of log and refer
 This volume should ideally be backed by fast, low-latency storage in order to maximise the performance of LMDB.
 
 
-### Deploy the `StroomCluster` resource
+### Deploy the `StroomCluster` Resource
 
 {{< command-line "user" "localhost" >}}
 kubectl apply -f stroom-cluster.yaml
@@ -87,7 +87,7 @@ If the `StatefulSet`s don't deploy, there is probably something wrong with your 
 {{% /note %}}
 
 
-### Log into Stroom
+### Log Into Stroom
 
 Access the Stroom UI at: `https://<ingress hostname>`.
 The initial credentials are:
@@ -96,32 +96,32 @@ The initial credentials are:
 * Password: `admin`
 
 
-## Further customisation (optional)
+## Further Customisation (optional)
 
 The configuration bundled with the Operator provides enough customisation for most use cases, via explicit properties and environment variables.
 
 If you need to further customise Stroom, you have the following methods available:
 
 
-### Override the Stroom configuration file
+### Override the Stroom Configuration File
 
 Deploy a `ConfigMap` separately.
 You can then specify the `ConfigMap` `name` and key (`itemName`) containing the configuration file to be mounted into each Stroom node container.
 
 
-### Provide additional environment variables
+### Provide Additional Environment Variables
 
 Specify custom environment variables in `StroomCluster.spec.extraEnv`.
 You can reference these in the Stroom configuration file.
 
 
-### Mount additional files
+### Mount Additional Files
 
 You can also define additional `Volume`s and `VolumeMount`s to be injected into each Stroom node.
 This can be useful when providing files like certificates for Kafka integration.
 
 
-## Reconfiguring the cluster
+## Reconfiguring the Cluster
 
 Some `StroomCluster` configuration properties can be reconfigured while the cluster is still running:
 
@@ -138,7 +138,7 @@ kubectl apply -f stroom-cluster.yaml
 If any other changes need to be made, [delete]({{< relref "stop-stroom-cluster" >}}) then [re-create]({{< relref "configure-stroom-cluster" >}}) the `StroomCluster`.
 
 
-## Next steps
+## Next Steps
 
 [Configure Stroom task autoscaling]({{< relref "configure-stroomtaskautoscaler" >}})  
 [Stop]({{< relref "stop-stroom-cluster" >}}) a Stroom cluster

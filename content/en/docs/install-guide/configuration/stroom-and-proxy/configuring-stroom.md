@@ -14,7 +14,7 @@ description: >
 {{% /see-also %}}
 
 
-## General configuration
+## General Configuration
 
 The Stroom application is essentially just an executable {{< external-link "JAR" "https://en.wikipedia.org/wiki/JAR_%28file_format%29" >}} file that can be run when provided with a configuration file, `config.yml`.
 This config file is common to all forms of deployment.
@@ -73,7 +73,7 @@ This is the address that users will use in their browser.
 ```
 
 
-## Deploying without Docker
+## Deploying Without Docker
 
 Stroom running without docker has two files to configure it.
 The following locations are relative to the stroom home directory, i.e. the root of the distribution zip.
@@ -101,7 +101,7 @@ JAVA_OPTS="-Xms512m -Xmx2048m"
 ```
 
 
-## As part of a docker stack
+## As Part of a Docker Stack
 
 When stroom is run as part of one of our docker stacks, e.g. _stroom_core_ there are some additional layers of configuration to take into account, but the configuration is still primarily done using the `config.yml` file.
 

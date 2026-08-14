@@ -27,7 +27,7 @@ The [Amazon Cognito]({{< relref "docs/install-guide/setup/open-id/external-idp/c
 {{% /see-also %}}
 
 
-## Cognito setup
+## Cognito Setup
 
 Create a user pool, hosted UI domain and app client as described on the [Cognito]({{< relref "docs/install-guide/setup/open-id/external-idp/cognito" >}}) page, with these differences:
 
@@ -41,7 +41,7 @@ No second app client for Stroom is needed.
 The ALB is the only OIDC client in this topology.
 
 
-## Load balancer setup
+## Load Balancer Setup
 
 Order the listener rules so machine traffic is forwarded *without* authentication, then authenticate everything else:
 
@@ -56,7 +56,7 @@ Points worth knowing:
 * Restrict the Stroom target's security group to accept traffic only from the ALB's security group; this is [trust prerequisite one]({{< relref "docs/install-guide/setup/open-id/edge-proxy#trust-prerequisites" >}}).
 
 
-## Stroom configuration
+## Stroom Configuration
 
 ```yaml
 server:
@@ -107,7 +107,7 @@ AWS GovCloud serves the keys from different, S3 hosted endpoints, so GovCloud de
 aws-elb-public-keys-prod-us-gov-west-1/${keyId}"
 ```
 
-### Identity claims
+### Identity Claims
 
 The claims in `x-amzn-oidc-data` come from Cognito's **user info** endpoint, not from an ID token.
 The default `uniqueIdentityClaim` of `sub` is correct and stable; set `userDisplayNameClaim` to taste (`username` and `email` are usually available).
@@ -124,7 +124,7 @@ Two registration details make it work:
 * The page it points at must be matched by a **forward** rule, not the authenticate rule, or the sign in flow simply restarts and the user never appears to sign out.
 
 
-## Verifying it works
+## Verifying It Works
 
 After deploying, load Stroom in a browser and check, in the developer tools network tab:
 

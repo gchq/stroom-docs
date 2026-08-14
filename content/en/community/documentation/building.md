@@ -45,7 +45,7 @@ It is assumed that you have a reasonable understanding of how to use Git and Git
   * Pulling from upstream remotes
 
 
-## Cloning the stroom-docs git repository
+## Cloning the Stroom-docs Git Repository
 
 The git repository for this site is [stroom-docs (external link)](https://github.com/gchq/stroom-docs).
 _stroom-docs_ uses the Docsy theme (`themes/docsy/`) via a Go module so the theme will be pulled in when Hugo is first run.
@@ -66,7 +66,7 @@ git clone https://github.com/jbloggs/stroom-docs.git
 {{</ command-line >}}
 
 
-### Configuring the fork
+### Configuring the Fork
 
 You now need to configure the clone of your fork with details of the `gchq/stroom-docs` upstream, which will allow you to pull changes from it.
 
@@ -75,7 +75,7 @@ git remote add upstream https://github.com/gchq/stroom-docs.git
 {{</ command-line >}}
 
 
-### Checking out the correct branch
+### Checking Out the Correct Branch
 
 There is a version of the documentation for each minor Stroom version (see [Stroom Versions]({{< relref "versions" >}}).
 
@@ -87,7 +87,7 @@ git checkout 7.0
 {{</ command-line >}}
 
 
-### Creating a feature branch
+### Creating a Feature Branch
 
 If you are making changes to the documentation then the recommended working practice is to always make changes on a _feature branch_.
 A feature branch would typically contain all commits/changes relating to a single feature, e.g. the addition of a new section, or updating the documentation for a specific change in Stroom.
@@ -103,7 +103,7 @@ git checkout -b add-properties-section
 This will create the named branch and check it out in one step.
 
 
-## Serving the site on a local server
+## Serving the Site on a Local Server
 
 To view the stroom-docs site in a browser you simply need to run:
 
@@ -155,9 +155,9 @@ It does not auto-refresh like it does when running `./serve-site.sh` on your loc
 {{% /warning %}}
 
 
-## Additional commands
+## Additional Commands
 
-### Converting the PlantUML files to SVG
+### Converting the PlantUML Files to SVG
 
 _stroom-docs_ makes use of {{< external-link "PlantUML" "https://plantuml.com" >}} for a lot of its diagrams.
 These are stored in the repository as `.puml` text files.
@@ -198,7 +198,7 @@ In the build docker containers your local _stroom-docs_ repository is mounted in
 {{% /note %}}
 
 
-### Running a local Hugo server
+### Running a Local Hugo Server
 
 The documentation can be built and served locally while developing it.
 To build and serve the site, run this from the repository root.
@@ -217,7 +217,7 @@ Sometimes changes made to the site source will not be re-loaded correctly so it 
 {{% /warning %}}
 
 
-### Building the site locally
+### Building the Site Locally
 
 To perform a full build of the static site, run this from the repository root:
 
@@ -277,7 +277,7 @@ To test the PDF generation, run this from the repository root:
 {{</ command-line >}}
 
 
-## Updating the Docsy theme
+## Updating the Docsy Theme
 
 The Docsy theme is a dependency of this Hugo site. See {{< external-link "Update the Hugo Docsy Module" "https://www.docsy.dev/docs/updating/updating-hugo-module/" >}} for details on how to update the version of the Docsy theme.
 

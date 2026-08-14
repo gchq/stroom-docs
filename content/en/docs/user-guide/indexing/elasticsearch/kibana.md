@@ -19,7 +19,7 @@ Once data has been indexed by Stroom into Elasticsearch, it can be explored in K
 You will first need to {{< external-link "create a data view" "https://www.elastic.co/guide/en/kibana/current/data-views.html" >}} in order to query your indices.
 
 
-## Why use Kibana?
+## Why Use Kibana?
 
 There are several use cases that benefit from Kibana:
 

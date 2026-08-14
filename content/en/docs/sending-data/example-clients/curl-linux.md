@@ -19,7 +19,7 @@ Notes:
 * The `--data-binary` argument must always be used even for text formats, in order to prevent data corruption by curl stripping out newlines.
 
 
-## Example HTTPS post without authentication:
+## Example HTTPS Post Without Authentication:
 
 {{< command-line "user" "localhost" >}}
 curl -k --data-binary @file.dat "https://<Stroom_HOST>/stroom/datafeed" \
@@ -32,7 +32,7 @@ In the above example -k is required to stop curl from authenticating the server.
 The next example must be used to supply the necessary CA to authenticate the server if this is required.
 
 
-## Example HTTPS With 1 way SSL authentication:
+## Example HTTPS With 1 Way SSL Authentication:
 
 {{< command-line "user" "localhost" >}}
 curl --cacert root_ca.crt --data-binary @file.dat "https://<Stroom_HOST>/stroom/datafeed" \
@@ -47,7 +47,7 @@ The CA is provided to curl using the '--cacert root_ca.crt' parameter.
 For step by step instructions for creating, configuring and testing the PKI authentication, see the [SSL Guide]({{< relref "ssl.md" >}})
 
 
-## Example HTTPS With 2 way SSL authentication:
+## Example HTTPS With 2 Way SSL Authentication:
 
 {{< command-line "user" "localhost" >}}
 curl --cert example.pem --cacert root_ca.crt --data-binary @file.dat "https://<Stroom_HOST>/stroom/datafeed" \

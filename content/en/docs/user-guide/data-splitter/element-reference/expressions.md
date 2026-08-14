@@ -14,7 +14,7 @@ The content matched by an expression depends on the type of expression and how i
 The `<split>`, `<regex>` and `<all>` elements are all expressions and match content as described below.
 
 
-## The `<split>` element
+## The `<split>` Element
 
 The `<split>` element directs Data Splitter to break up content using a specified character sequence as a delimiter.
 In addition to this it is possible to specify characters that are used to escape the delimiter as well as characters that contain or "quote" a value that may include the delimiter sequence but allow it to be ignored.
@@ -86,7 +86,7 @@ Optional attribute to use this expression only for specific instances of a match
 This is used when this expression should only be used to subdivide content from certain parent matches.
 
 
-## The `<regex>` element
+## The `<regex>` Element
 
 The `<regex>` element directs Data Splitter to match content using the specified regular expression pattern.
 In addition to this the same match control attributes that are available on the `<split>` element are also present as well as attributes to alter the way the pattern works.
@@ -193,7 +193,7 @@ Reluctant matches are discouraged for performance reasons so this feature should
 A better way to tackle the above example would be to present the content in [reverse]({{< relref "content-providers.md#reverse" >}}), however this is only possible if the expression is within a group, i.e. is not a root expression.
 There may also be more complex cases where reversal is not an option and the use of a reluctant match is the only option.
 
-## The `<all>` element
+## The `<all>` Element
 
 The `<all>` element matches the entire content of the parent group and makes it available to child groups or `<data>` elements.
 The purpose of `<all>` is to act as a catch all expression to deal with content that is not handled by a more specific expression, e.g. to output some other unknown, unrecognised or unexpected data.

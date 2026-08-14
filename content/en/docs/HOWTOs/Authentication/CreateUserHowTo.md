@@ -18,7 +18,7 @@ The following assumptions are used in this document.
 - We will make this user an `Administrator`
 
 
-## Add a new user
+## Add a New User
 
 To add a new user, move your cursor to the `Tools` item of the __Main Menu__ and select to bring up the `Tools` sub-menu.
 

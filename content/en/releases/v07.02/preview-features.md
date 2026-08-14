@@ -9,7 +9,7 @@ description: >
 ---
 
 
-## New Document types
+## New Document Types
 
 {{% warning %}}
 The following features are usable but should be considered experimental at this point.

@@ -142,7 +142,7 @@ JAVA_OPTS can use the defaults, but ensure you have sufficient memory, either ch
 At this point, the script will configure the proxy. There should be no errors, but review the output.
 
 
-## Apache/Mod_JK change
+## Apache/Mod_JK Change
 For all proxy deployments, if we are using Apache's mod_jk then we need to ensure the proxy's AJP connector specifies a 64K packetSize. View the file `stroom-proxy/instance/conf/server.xml` to ensure the Connector element for the AJP protocol has a packetSize attribute of `65536`. For example,
 
 {{< command-line >}}
@@ -227,7 +227,7 @@ Available time based parameters are based on the file's time of processing and a
 
 For each of the following templates applied to a Store NoDB Proxy, the resultant proxy directory tree is shown after three posts were sent to the test feed `TEST-FEED-V1_0` and two posts to the test feed `FEED-NOVALUE-V9_0`
 
-#### Example A - The default - `${pathId}/${id}`
+#### Example a - the Default - `${pathId}/${id}`
 
 {{< command-line "stroomuser" "stroomsap0" >}}
 find /stroomdata/stroom-working-sap0/proxy/
@@ -240,7 +240,7 @@ find /stroomdata/stroom-working-sap0/proxy/
 
 {{< /command-line >}}
 
-#### Example B - A feed orientated structure - `${feed}/${year}/${month}/${day}/${pathId}/${id}`
+#### Example B - a Feed Orientated Structure - `${feed}/${year}/${month}/${day}/${pathId}/${id}`
 
 {{< command-line "stroomuser" "stroomsap0" >}}
 find /stroomdata/stroom-working-sap0/proxy/
@@ -261,7 +261,7 @@ find /stroomdata/stroom-working-sap0/proxy/
 
 {{< /command-line >}}
 
-#### Example C - A date orientated structure - `${year}/${month}/${day}/${pathId}/${id}`
+#### Example C - a Date Orientated Structure - `${year}/${month}/${day}/${pathId}/${id}`
 
 {{< command-line "stroomuser" "stroomsap0" >}}
 find /stroomdata/stroom-working-sap0/proxy/
@@ -277,7 +277,7 @@ find /stroomdata/stroom-working-sap0/proxy/
 
 {{< /command-line >}}
 
-#### Example D - A feed orientated structure, but with a bad parameter - `${feed}/${badparam}/${day}/${pathId}/${id}`
+#### Example D - a Feed Orientated Structure, but With a Bad Parameter - `${feed}/${badparam}/${day}/${pathId}/${id}`
 
 {{< command-line "stroomuser" "stroomsap0" >}}
 find /stroomdata/stroom-working-sap0/proxy/

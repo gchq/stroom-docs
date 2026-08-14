@@ -116,7 +116,7 @@ sudo yum -y install policycoreutils-python mysql-community-server
 
 ### MariaDB Variant
 
-#### Create and instantiate both database instances
+#### Create and Instantiate Both Database Instances
 
 To set up two MariaDB database instances on the one node, we will use `mysql_multi` and systemd service templates. The `mysql_multi` utility is a capability that manages multiple MariaDB databases on the same node and systemd service templates manage multiple services from one configuration file. A systemd service template is unique in that it has an `@` character before the `.service` suffix.
 
@@ -233,7 +233,7 @@ sudo systemctl start mysqld@1
 {{< /command-line >}}
 At this point, we should have both instances running. One should check each instance's log file for any errors.
 
-#### Secure each database instance
+#### Secure Each Database Instance
 We secure each database engine by running the `mysql_secure_installation` script. One should accept all defaults, which means the
 only entry (aside from pressing returns) is the administrator (root) database password. Make a note of the password you use. In this case
 we will use `Stroom5User@`.
@@ -321,7 +321,7 @@ and process as before (for when running mysql_secure_installation). At this both
 
 ### MySQL Community Variant
 
-#### Create and instantiate both database instances
+#### Create and Instantiate Both Database Instances
 
 To set up two MySQL database instances on the one node, we will use `mysql_multi` and systemd service templates. The `mysql_multi` utility is a capability that manages multiple MySQL databases on the same node and systemd service templates manage multiple services from one configuration file. A systemd service template is unique in that it has an `@` character before the `.service` suffix.
 
@@ -448,7 +448,7 @@ sudo systemctl start mysqld@1
 
 At this point, we should have both instances running. One should check each instance's log file for any errors.
 
-#### Secure each database instance
+#### Secure Each Database Instance
 
 We secure each database engine by running the `mysql_secure_installation` script. One should accept all defaults, which means the
 only entry (aside from pressing returns) is the administrator (root) database password. Make a note of the password you use. In this case
@@ -541,7 +541,7 @@ sudo rm /var/lib/mysql/mysql.sock
 {{< /command-line >}}
 and process as before (for when running mysql_secure_installation). At this point, both database instances should be secure.
 
-## Create the Databases and Enable access by the Stroom processing users
+## Create the Databases and Enable Access by the Stroom Processing Users
 
 We now create the `stroom` database within the first instance, `mysqld0` and the `statistics` database within the second
 instance `mysqld1`. It does not matter which database variant used as all commands are the same for both.

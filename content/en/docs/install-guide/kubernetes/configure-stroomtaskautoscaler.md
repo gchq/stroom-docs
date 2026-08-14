@@ -21,14 +21,14 @@ In large deployments, it's not ideal to set static limits, as doing so risks ove
 Therefore an automated solution, factoring in system load, is called for.
 
 
-## Stroom task autoscaling
+## Stroom Task Autoscaling
 
 When a `StroomTaskAutoscaler` resource is deployed to a linked `StroomCluster`, the Operator will periodically compare each Stroom node's average Pod CPU usage against user-defined thresholds.
 
 
-## Enabling autoscaling
+## Enabling Autoscaling
 
-### Create an `StroomTaskAutoscaler` resource manifest
+### Create an `StroomTaskAutoscaler` Resource Manifest
 
 Use the example {{< external-link "autoscaler.yaml" "https://github.com/p-kimberley/stroom-k8s-operator/blob/master/samples/autoscaler.yaml" >}}.
 
@@ -53,14 +53,14 @@ If it can't, the autoscaler will continue adjusting upwards, potentially causing
 {{% /note %}}
 
 
-### Deploy the resource manifest
+### Deploy the Resource Manifest
 
 {{< command-line "user" "localhost" >}}
 kubectl apply -f autoscaler.yaml
 {{</ command-line >}}
 
 
-## Disable autoscaling
+## Disable Autoscaling
 
 Delete the `StroomTaskAutoscaler` resource
 

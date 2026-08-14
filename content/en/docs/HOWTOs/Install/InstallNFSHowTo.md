@@ -19,7 +19,7 @@ The following assumptions are used in this document.
  - the configuration of this NFS is NOT secure. It is highly recommended to improve its security in a production environment. This could include improved firewall configuration to limit NFS access, NFS4 with Kerberos etc.
 
 
-## Installation of NFS software
+## Installation of NFS Software
 
 We install NFS on each node, via
 {{< command-line >}}
@@ -37,7 +37,7 @@ sudo systemctl start nfs-lock
 sudo systemctl start nfs-idmap
 ```
 
-## Configuration of NFS exports
+## Configuration of NFS Exports
 
 We now export the node's `/stroomdata` directory (in case you want to share the working directories) by configuring /etc/exports. For simplicity sake, we will allow all nodes with the hostname nomenclature of `stroomp*.strmdev00.org` to mount the `/stroomdata` directory.
 This means the same configuration applies to all nodes.
@@ -111,7 +111,7 @@ sudo su -c "printf 'stroomp00.strmdev00.org:/stroomdata/stroom-data-p00 /stroomd
 At this point reboot all processing nodes to ensure the directories mount automatically. You may need to give the nodes a minute to do this.
 
 
-## Addition of another Node
+## Addition of Another Node
 
 If one needs to add another node to the cluster, lets say, `stroomp02.strmdev00.org`, on which `/stroomdata` follows the same storage hierarchy
 as the existing nodes and all nodes have added mount points (directories) for this new node, you would take the following steps _in order_.

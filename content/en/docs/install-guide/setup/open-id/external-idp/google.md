@@ -28,7 +28,7 @@ It is the machine to machine paths that Google does not serve.
 {{% /warning %}}
 
 
-## Creating the OAuth client
+## Creating the OAuth Client
 
 In the {{< external-link "Google Cloud Console" "https://console.cloud.google.com/" >}}:
 
@@ -78,7 +78,7 @@ The discovery document supplies the issuer, `https://accounts.google.com`, along
 
 Note that `logoutEndpoint` is deliberately absent; see [Signing out](#signing-out) below.
 
-### Audience validation
+### Audience Validation
 
 Nothing to do.
 Google's `id_token` carries `aud` set to your client id, so it validates against `clientId` with the default settings.
@@ -101,7 +101,7 @@ A Workspace administrator can reassign an address to a different person, who wou
 Google's own guidance is to key on `sub` for exactly this reason.
 {{% /warning %}}
 
-### Signing out
+### Signing Out
 
 Google offers no OIDC sign out endpoint, so leave `logoutEndpoint` unset.
 
@@ -110,13 +110,13 @@ Their next visit to Stroom will sign them straight back in without being asked f
 
 Do not point `logoutEndpoint` at a general Google sign out URL, as that would sign the user out of every Google service on that browser, which is unlikely to be what they expect from a Stroom logout.
 
-### Access token type
+### Access Token Type
 
 Leave `requiredAccessTokenType` unset.
 It applies to JWT bearer tokens on the API, and Google's access tokens are not JWTs.
 
 
-## Restricting who can sign in
+## Restricting Who Can Sign In
 
 Authentication and authorisation are separate.
 Anyone Google will authenticate can complete a sign in and have a Stroom user created for them, but that user starts with no permissions and no group memberships, so they can see nothing.
@@ -129,7 +129,7 @@ Even so, you should restrict who can reach the sign in at all:
 Stroom has no configuration to restrict sign in by `hd` or email domain, so this has to be done at Google.
 
 
-## Setting up the admin user in Stroom
+## Setting up the Admin User in Stroom
 
 Find the `sub` of the account that is to be the administrator.
 Unlike KeyCloak and Cognito, Google does not show this in an admin console; the reliable way to obtain it is to decode an `id_token` issued for that account, or read it from Stroom's logs after the person has signed in once.
@@ -159,7 +159,7 @@ See [KeyCloak]({{< relref "keycloak#setting-up-the-admin-user-in-stroom" >}}) fo
 {{% /see-also %}}
 
 
-## Data receipt and the API
+## Data Receipt and the API
 
 Because Google's access tokens are opaque rather than JWTs, Stroom cannot validate them, so this will not work:
 
@@ -176,7 +176,7 @@ See [Tokens for API use]({{< relref "docs/install-guide/setup/open-id/tokens-for
 {{% /see-also %}}
 
 
-## Stroom-Proxy with Google
+## Stroom-Proxy With Google
 
 Google has no OIDC client credentials grant, so a Stroom-Proxy cannot obtain a service user token from it, and `addOpenIdAccessToken` on a forward destination has nothing to add.
 

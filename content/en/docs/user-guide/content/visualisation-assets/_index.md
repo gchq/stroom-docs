@@ -54,7 +54,7 @@ However, you can create a directory structure if necessary.
    {{% /note %}}
 
 
-### Editing assets
+### Editing Assets
 
 Selecting (clicking on) an asset will display the asset in the editor, where possible.
 
@@ -136,7 +136,7 @@ Thus the development procedure will look like this:
 1. Go back to step 1
 
 
-### Links between assets
+### Links Between Assets
 
 If the assets are owned by the same document then you only need the relative path you defined within the tree.
 For example, `theme-css.css` or `images/background.png`.

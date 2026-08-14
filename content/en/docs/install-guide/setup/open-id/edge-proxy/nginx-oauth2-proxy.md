@@ -22,14 +22,14 @@ The [KeyCloak]({{< relref "docs/install-guide/setup/open-id/external-idp/keycloa
 {{% /see-also %}}
 
 
-## KeyCloak setup
+## KeyCloak Setup
 
 Create a realm and a confidential client as described on the [KeyCloak]({{< relref "docs/install-guide/setup/open-id/external-idp/keycloak" >}}) page, with one difference: the client's redirect URI is **oauth2-proxy's** callback, `https://STROOM_FQDN/oauth2/callback`, not Stroom's.
 
 No second client for Stroom is needed.
 
 
-## oauth2-proxy setup
+## Oauth2-proxy Setup
 
 ```ini
 provider = "keycloak-oidc"
@@ -53,7 +53,7 @@ Stroom verifies either happily, but this means the `requiredAccessTokenType` Str
 {{% /note %}}
 
 
-## NGINX setup
+## NGINX Setup
 
 The essential shape — authenticate the browser paths, forward the machine paths untouched, and **overwrite** the `Authorization` header on everything proxied:
 
@@ -103,7 +103,7 @@ server {
 ```
 
 
-## Stroom configuration
+## Stroom Configuration
 
 ```yaml
 server:
@@ -154,7 +154,7 @@ To also end the KeyCloak session, give oauth2-proxy's sign out a redirect to Key
 (The `rd` value must be URL encoded and allowed by oauth2-proxy's `whitelist_domains`.)
 
 
-## Verifying it works
+## Verifying It Works
 
 1. Loading Stroom redirects via oauth2-proxy to KeyCloak; after signing in, the UI loads.
 2. The request to `/api/auth/flow/v1/status` returns `200` with `"authenticated": true`, and there is no subsequent navigation to KeyCloak's `/auth` endpoint.

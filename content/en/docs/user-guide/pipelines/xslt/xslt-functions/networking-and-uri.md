@@ -27,7 +27,7 @@ When storing the result in a variable, ensure you indicate the type as a string 
 ```
 
 
-### Example output
+### Example Output
 
 ```xml
 <Range>
