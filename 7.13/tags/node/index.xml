@@ -4,7 +4,7 @@
     <link>/tags/node/</link>
     <description>Recent content in node on Stroom</description>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Tue, 27 Jul 2021 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Thu, 13 Aug 2026 00:00:00 +0000</lastBuildDate>
     
 	  <atom:link href="/tags/node/index.xml" rel="self" type="application/rss+xml" />
     
@@ -24,8 +24,9 @@
         
         
         &lt;p&gt;All nodes in a Stroom cluster must be configured correctly for them to communicate with each other.&lt;/p&gt;
-&lt;h2 id=&#34;configuring-nodes&#34;&gt;Configuring nodes&lt;/h2&gt;
-&lt;p&gt;Open Monitoring/Nodes from the top menu. The nodes screen looks like this:&lt;/p&gt;
+&lt;h2 id=&#34;configuring-nodes&#34;&gt;Configuring Nodes&lt;/h2&gt;
+&lt;p&gt;Open Monitoring/Nodes from the top menu.
+The nodes screen looks like this:&lt;/p&gt;
 
 &lt;div class=&#34;alert alert-warning&#34; role=&#34;alert&#34;&gt;
 &lt;h4 class=&#34;alert-heading&#34;&gt;TODO&lt;/h4&gt;
@@ -47,6 +48,213 @@ You also need to check all of the nodes are enabled that you want to take part i
 &lt;p&gt;Keep refreshing the table until all nodes show healthy pings as above.
 If you do not get ping results for each node then they are not configured correctly.&lt;/p&gt;
 &lt;p&gt;Once a cluster is configured correctly you will get proper distribution of processing tasks and search will be able to access all nodes to take part in a distributed query.&lt;/p&gt;
+
+      </description>
+    </item>
+    
+    <item>
+      <title>Docs: Node Groups and Processing Profiles</title>
+      <link>/docs/user-guide/processing-profiles/</link>
+      <pubDate>Thu, 13 Aug 2026 00:00:00 +0000</pubDate>
+      
+      <guid>/docs/user-guide/processing-profiles/</guid>
+      <description>
+        
+        
+        &lt;p&gt;By default a &lt;span class=&#34;glossary-link&#34;&gt;
+    &lt;a href=&#34;../../docs/glossary/p/glossary-processor-filter&#34;&gt;
+      &lt;span&gt;Processor filter&lt;/span&gt;
+      &lt;i class=&#34;glossary-link-icon fas fa-book fa-sm text-primary&#34;&gt;&lt;/i&gt;
+    &lt;/a&gt;&lt;span class=&#34;glossary-tooltip&#34;&gt;
+      &lt;span class=&#34;glossary-tooltip-title&#34;&gt;Processor filter&lt;/span&gt;
+      &lt;span class=&#34;glossary-tooltip-summary&#34;&gt;A Processor Filter is used to used to find Streams to process through the &lt;em&gt;Pipeline&lt;/em&gt; associated with the Processor Filter. A Processor Filter consists of an expression tree to select which &lt;em&gt;Streams&lt;/em&gt; to process and a tracker to track the what &lt;em&gt;Streams&lt;/em&gt; have been processed.&lt;/span&gt;&lt;span class=&#34;glossary-tooltip-truncated&#34;&gt;Click to see more details...&lt;/span&gt;&lt;/span&gt;&lt;/span&gt; may be processed by any node in the cluster, at any time, up to the limits set on the filter itself.
+&lt;em&gt;Node Groups&lt;/em&gt; and &lt;em&gt;Processing Profiles&lt;/em&gt; let you be more selective than that.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;A &lt;strong&gt;Node Group&lt;/strong&gt; is a named set of nodes.&lt;/li&gt;
+&lt;li&gt;A &lt;strong&gt;Processing Profile&lt;/strong&gt; names a node group and a set of periods, saying when processing may run and how many threads it may use in each period.&lt;/li&gt;
+&lt;li&gt;A processor filter can then be given a profile.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Together these let you keep heavy processing off the nodes that serve the user interface, hold it back until a quiet time of day, or give it more of the cluster at the weekend.&lt;/p&gt;
+&lt;h2 id=&#34;node-groups&#34;&gt;Node Groups&lt;/h2&gt;
+&lt;p&gt;Node groups are managed from&lt;/p&gt;
+
+
+
+
+
+  &lt;div class=&#34;stroom-theme-dark stroom-menu&#34;&gt;
+    
+    
+
+      
+
+      
+      
+
+
+      
+
+  
+  
+  &lt;div class=&#34;stroom-menu-item-background&#34; style=&#34;margin-top: 0px;&#34;&gt;
+    
+    &lt;div class=&#34;stroom-menu-item &#34; &gt;
+
+      &lt;div class=&#34;stroom-menu-item-text&#34;&gt;Monitoring
+      &lt;/div&gt;
+        &lt;div class=&#34;stroom-menu-item-arrow&#34;&gt;
+          &lt;span class=&#34;stroom-icon inline-svg-button icon-button  &#34; &gt;
+    &lt;span class=&#34;face&#34; title=&#34;Arrow right&#34;&gt;&lt;svg xmlns=&#34;http://www.w3.org/2000/svg&#34; width=&#34;1427.7665&#34; height=&#34;1427.7665&#34; viewBox=&#34;0 0 1427.7665 1427.7665&#34;&gt;&lt;g style=&#34;stroke:currentColor;stroke-width:167.567&#34;&gt;&lt;path d=&#34;m 415.05387,83.70929 c -39.92654,0.4303 -75.41463,48.3887 -40.0468,81.9121 C 567.552,348.69899 760.75555,531.15431 953.73208,713.82391 760.75555,896.49341 567.552,1078.9486 375.00707,1262.0262 c -46.19471,43.7855 28.48812,112.1966 76.0571,67.1681 195.93558,-185.823 392.95261,-370.82479 587.98693,-557.52749 5.6117,-4.8034 10.4633,-10.2473 14.4855,-16.1231 9.643,-12.4844 13.9638,-27.0796 13.6909,-41.7198 0.2729,-14.6402 -4.0479,-29.2354 -13.6909,-41.7198 -4.0222,-5.8758 -8.8738,-11.3198 -14.4855,-16.1231 C 844.01678,469.27821 646.99975,284.27629 451.06417,98.45319 439.91519,87.89979 427.27628,83.57749 415.05387,83.70929 Z&#34;/&gt;&lt;/g&gt;&lt;/svg&gt; &lt;/span&gt;
+  &lt;/span&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+
+      
+
+      
+      
+        
+      
+
+
+      
+
+  
+  
+  &lt;div class=&#34;stroom-menu-item-background&#34; style=&#34;margin-top: 7px;&#34;&gt;
+    
+    &lt;div class=&#34;stroom-menu-item stroom-menu-item-leaf&#34; &gt;
+
+      &lt;div class=&#34;stroom-menu-item-text&#34;&gt;Node Groups
+      &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+  &lt;/div&gt;
+
+
+
+&lt;p&gt;Each group has:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Node Group Name&lt;/strong&gt; - the name used to refer to the group from a processing profile.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Enabled&lt;/strong&gt; - whether the group is in use.
+A disabled group does no processing at all, whatever its profiles say.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Node Inclusion Behaviour&lt;/strong&gt; - whether the nodes you tick are included in the group or excluded from it.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Nodes&lt;/strong&gt; - the nodes to tick.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;The inclusion behaviour is worth understanding.
+Choosing &lt;em&gt;exclude&lt;/em&gt; means the group is everything except the nodes you tick, so nodes added to the cluster later join the group automatically.
+Choosing &lt;em&gt;include&lt;/em&gt; means only the ticked nodes are in the group, and a new node has to be added deliberately.&lt;/p&gt;
+&lt;h2 id=&#34;processing-profiles&#34;&gt;Processing Profiles&lt;/h2&gt;
+&lt;p&gt;Processing profiles are managed from&lt;/p&gt;
+
+
+
+
+
+  &lt;div class=&#34;stroom-theme-dark stroom-menu&#34;&gt;
+    
+    
+
+      
+
+      
+      
+
+
+      
+
+  
+  
+  &lt;div class=&#34;stroom-menu-item-background&#34; style=&#34;margin-top: 0px;&#34;&gt;
+    
+    &lt;div class=&#34;stroom-menu-item &#34; &gt;
+
+      &lt;div class=&#34;stroom-menu-item-text&#34;&gt;Monitoring
+      &lt;/div&gt;
+        &lt;div class=&#34;stroom-menu-item-arrow&#34;&gt;
+          &lt;span class=&#34;stroom-icon inline-svg-button icon-button  &#34; &gt;
+    &lt;span class=&#34;face&#34; title=&#34;Arrow right&#34;&gt;&lt;svg xmlns=&#34;http://www.w3.org/2000/svg&#34; width=&#34;1427.7665&#34; height=&#34;1427.7665&#34; viewBox=&#34;0 0 1427.7665 1427.7665&#34;&gt;&lt;g style=&#34;stroke:currentColor;stroke-width:167.567&#34;&gt;&lt;path d=&#34;m 415.05387,83.70929 c -39.92654,0.4303 -75.41463,48.3887 -40.0468,81.9121 C 567.552,348.69899 760.75555,531.15431 953.73208,713.82391 760.75555,896.49341 567.552,1078.9486 375.00707,1262.0262 c -46.19471,43.7855 28.48812,112.1966 76.0571,67.1681 195.93558,-185.823 392.95261,-370.82479 587.98693,-557.52749 5.6117,-4.8034 10.4633,-10.2473 14.4855,-16.1231 9.643,-12.4844 13.9638,-27.0796 13.6909,-41.7198 0.2729,-14.6402 -4.0479,-29.2354 -13.6909,-41.7198 -4.0222,-5.8758 -8.8738,-11.3198 -14.4855,-16.1231 C 844.01678,469.27821 646.99975,284.27629 451.06417,98.45319 439.91519,87.89979 427.27628,83.57749 415.05387,83.70929 Z&#34;/&gt;&lt;/g&gt;&lt;/svg&gt; &lt;/span&gt;
+  &lt;/span&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+
+      
+
+      
+      
+        
+      
+
+
+      
+
+  
+  
+  &lt;div class=&#34;stroom-menu-item-background&#34; style=&#34;margin-top: 7px;&#34;&gt;
+    
+    &lt;div class=&#34;stroom-menu-item stroom-menu-item-leaf&#34; &gt;
+
+      &lt;div class=&#34;stroom-menu-item-text&#34;&gt;Processor Profiles
+      &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+  &lt;/div&gt;
+
+
+
+&lt;p&gt;Each profile has:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Profile Name&lt;/strong&gt; - the name shown when choosing a profile on a processor filter.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Node Group&lt;/strong&gt; - the group of nodes that may process for this profile.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Processing Schedules&lt;/strong&gt; - one or more periods, described below.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Time Zone&lt;/strong&gt; - the time zone the periods are interpreted in.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Setting the time zone explicitly matters for a cluster whose nodes are not all in the same place, and for periods that should follow local working hours across daylight saving changes.&lt;/p&gt;
+&lt;h3 id=&#34;periods&#34;&gt;Periods&lt;/h3&gt;
+&lt;p&gt;Each period in the schedule has:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Active Days&lt;/strong&gt; - the days of the week the period applies to.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Start Time&lt;/strong&gt; and &lt;strong&gt;End Time&lt;/strong&gt; - the time of day the period runs between.
+An end time that is not after the start time is treated as running into the following day, so a period can span midnight.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Limit Single Node Threads&lt;/strong&gt; and &lt;strong&gt;Max Node Threads&lt;/strong&gt; - whether to cap the threads used on each node, and the cap.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Limit Total Cluster Threads&lt;/strong&gt; and &lt;strong&gt;Max Cluster Threads&lt;/strong&gt; - whether to cap the threads used across the whole cluster, and the cap.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Leaving a limit unticked means that limit is not applied, i.e. the number of threads is unbounded for that period.&lt;/p&gt;
+&lt;p&gt;Periods are evaluated in order and the first one that matches the current day and time is used.&lt;/p&gt;
+&lt;h3 id=&#34;when-no-period-matches&#34;&gt;When No Period Matches&lt;/h3&gt;
+
+&lt;div class=&#34;alert alert-warning&#34; role=&#34;alert&#34;&gt;
+&lt;h4 class=&#34;alert-heading&#34;&gt;Warning&lt;/h4&gt;
+
+    &lt;p&gt;A filter that has been given a profile is processed &lt;strong&gt;only&lt;/strong&gt; during the periods in that profile.&lt;/p&gt;
+&lt;p&gt;If no period matches the current day and time then no tasks are created for that filter.
+The same is true if the profile has no periods at all, if its node group is disabled, or if the node asking for work is not in the group.&lt;/p&gt;
+
+
+&lt;/div&gt;
+
+
+&lt;p&gt;This is the behaviour you want for confining processing to a window, but it does mean a profile with an incomplete schedule will quietly stop a filter from processing.
+A filter with no profile set is not restricted in this way.&lt;/p&gt;
+&lt;h2 id=&#34;using-a-profile-on-a-filter&#34;&gt;Using a Profile on a Filter&lt;/h2&gt;
+&lt;p&gt;A profile is chosen on the processor filter itself, using the &lt;em&gt;Processing Profile&lt;/em&gt; field alongside the other filter settings such as &lt;em&gt;Max Processing Tasks&lt;/em&gt;.&lt;/p&gt;
+&lt;p&gt;Task creation takes profiles into account, so tasks that no node is currently allowed to process are not added to the queue, and are released again if a profile stops allowing them.
+Each profile is given a share of the tasks that are created, so that one busy profile does not starve the others.&lt;/p&gt;
+
+&lt;div class=&#34;alert alert-primary&#34; role=&#34;alert&#34;&gt;
+&lt;h4 class=&#34;alert-heading&#34;&gt;See Also&lt;/h4&gt;
+&lt;div class=&#34;alert-content&#34;&gt;
+  
+  &lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;../../docs/user-guide/nodes/&#34;&gt;Nodes&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;../../docs/user-guide/jobs/&#34;&gt;Jobs&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+
 
       </description>
     </item>

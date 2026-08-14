@@ -64,7 +64,7 @@ This is mandatory and is enabled by default in Elasticsearch 8.x and above.&lt;/
 The Stroom node(s) connecting to Elasticsearch need to be able to verify the certificate, so for custom PKI, a Stroom truststore entry may be required.&lt;/li&gt;
 &lt;li&gt;You have a feed containing &lt;code&gt;Event&lt;/code&gt; streams to index.&lt;/li&gt;
 &lt;/ol&gt;
-&lt;h2 id=&#34;key-differences&#34;&gt;Key differences&lt;/h2&gt;
+&lt;h2 id=&#34;key-differences&#34;&gt;Key Differences&lt;/h2&gt;
 &lt;p&gt;Indexing data with Elasticsearch differs from Solr and built-in Lucene methods in a number of ways:&lt;/p&gt;
 &lt;ol&gt;
 &lt;li&gt;Unlike with &lt;a href=&#34;../../docs/user-guide/indexing/solr/&#34;&gt;Solr&lt;/a&gt; and built-in Lucene indexing, Elasticsearch field mappings are managed outside Stroom, through the use of &lt;span class=&#34;external-link&#34;&gt;
@@ -113,7 +113,7 @@ Explicitly defining mappings is recommended where consistency or greater control
       <description>
         
         
-        &lt;h2 id=&#34;establish-an-elasticsearch-cluster-connection-in-stroom&#34;&gt;Establish an Elasticsearch cluster connection in Stroom&lt;/h2&gt;
+        &lt;h2 id=&#34;establish-an-elasticsearch-cluster-connection-in-stroom&#34;&gt;Establish an Elasticsearch Cluster Connection in Stroom&lt;/h2&gt;
 &lt;p&gt;The first step is to configure Stroom to connect to an Elasticsearch cluster.
 You can configure multiple cluster connections if required, such as a separate one for production and another for development.
 Each cluster connection is defined by an &lt;code&gt;Elastic Cluster&lt;/code&gt; document within the Stroom UI.&lt;/p&gt;
@@ -229,7 +229,7 @@ Users authorised to search Elasticsearch indices via Stroom dashboards should on
 &lt;/div&gt;
 
 
-&lt;h2 id=&#34;elastic-cluster-document-fields&#34;&gt;Elastic Cluster document fields&lt;/h2&gt;
+&lt;h2 id=&#34;elastic-cluster-document-fields&#34;&gt;Elastic Cluster Document Fields&lt;/h2&gt;
 &lt;h3 id=&#34;description&#34;&gt;Description&lt;/h3&gt;
 &lt;p&gt;(Optional) You might choose to enter the Elasticsearch cluster name or purpose here.&lt;/p&gt;
 &lt;h3 id=&#34;connection-urls&#34;&gt;Connection URLs&lt;/h3&gt;
@@ -241,14 +241,14 @@ Only HTTPS is supported; attempts to use plain-text HTTP will fail.&lt;/p&gt;
 &lt;li&gt;FQDN: &lt;code&gt;https://elasticsearch.example.com:9200&lt;/code&gt;&lt;/li&gt;
 &lt;li&gt;Kubernetes service: &lt;code&gt;https://prod-es-http.elastic.svc:9200&lt;/code&gt;&lt;/li&gt;
 &lt;/ol&gt;
-&lt;h3 id=&#34;ca-certificate&#34;&gt;CA certificate&lt;/h3&gt;
+&lt;h3 id=&#34;ca-certificate&#34;&gt;CA Certificate&lt;/h3&gt;
 &lt;p&gt;PEM-format CA certificate chain used by Stroom to verify TLS connections to the Elasticsearch HTTPS REST interface.
 This is usually your organisation&amp;rsquo;s root enterprise CA certificate.
 For development, you can provide a self-signed certificate.&lt;/p&gt;
-&lt;h3 id=&#34;use-authentication&#34;&gt;Use authentication&lt;/h3&gt;
+&lt;h3 id=&#34;use-authentication&#34;&gt;Use Authentication&lt;/h3&gt;
 &lt;p&gt;(Optional) Tick this box if Elasticsearch requires authentication.
 This is enabled by default from Elasticsearch version 8.0.&lt;/p&gt;
-&lt;h3 id=&#34;api-key-id&#34;&gt;API key ID&lt;/h3&gt;
+&lt;h3 id=&#34;api-key-id&#34;&gt;API Key ID&lt;/h3&gt;
 &lt;p&gt;Required if &lt;code&gt;Use authentication&lt;/code&gt; is checked.
 Specifies the Elasticsearch API key ID for a valid Elasticsearch user account.
 This user requires at a minimum the following &lt;span class=&#34;external-link&#34;&gt;
@@ -258,18 +258,18 @@ This user requires at a minimum the following &lt;span class=&#34;external-link&
   &lt;/a&gt;
 &lt;/span&gt;
 :&lt;/p&gt;
-&lt;h4 id=&#34;cluster-privileges&#34;&gt;Cluster privileges&lt;/h4&gt;
+&lt;h4 id=&#34;cluster-privileges&#34;&gt;Cluster Privileges&lt;/h4&gt;
 &lt;ol&gt;
 &lt;li&gt;monitor&lt;/li&gt;
 &lt;li&gt;manage_own_api_key&lt;/li&gt;
 &lt;/ol&gt;
-&lt;h4 id=&#34;index-privileges&#34;&gt;Index privileges&lt;/h4&gt;
+&lt;h4 id=&#34;index-privileges&#34;&gt;Index Privileges&lt;/h4&gt;
 &lt;ol&gt;
 &lt;li&gt;all&lt;/li&gt;
 &lt;/ol&gt;
-&lt;h3 id=&#34;api-key-secret&#34;&gt;API key secret&lt;/h3&gt;
+&lt;h3 id=&#34;api-key-secret&#34;&gt;API Key Secret&lt;/h3&gt;
 &lt;p&gt;Required if &lt;code&gt;Use authentication&lt;/code&gt; is checked.&lt;/p&gt;
-&lt;h3 id=&#34;socket-timeout-ms&#34;&gt;Socket timeout (ms)&lt;/h3&gt;
+&lt;h3 id=&#34;socket-timeout-ms&#34;&gt;Socket Timeout (ms)&lt;/h3&gt;
 &lt;p&gt;Number of milliseconds to wait for an Elasticsearch indexing or search REST call to complete.
 Set to &lt;code&gt;-1&lt;/code&gt; (the default) to wait indefinitely, or until Elasticsearch closes the connection.&lt;/p&gt;
 &lt;hr&gt;
@@ -301,7 +301,7 @@ Set to &lt;code&gt;-1&lt;/code&gt; (the default) to wait indefinitely, or until 
         
         
         &lt;p&gt;A typical workflow is for a Stroom pipeline to convert XML &lt;code&gt;Event&lt;/code&gt; elements into the XML equivalent of JSON, complying with the schema &lt;code&gt;http://www.w3.org/2005/xpath-functions&lt;/code&gt;, using a format identical to the output of the XML function &lt;code&gt;xml-to-json()&lt;/code&gt;.&lt;/p&gt;
-&lt;h2 id=&#34;understanding-json-xml-representation&#34;&gt;Understanding JSON XML representation&lt;/h2&gt;
+&lt;h2 id=&#34;understanding-json-xml-representation&#34;&gt;Understanding JSON XML Representation&lt;/h2&gt;
 &lt;p&gt;In an Elasticsearch indexing pipeline translation, you model JSON documents in a compatible XML representation.&lt;/p&gt;
 &lt;p&gt;Common JSON primitives and examples of their XML equivalents are outlined below.&lt;/p&gt;
 &lt;h3 id=&#34;arrays&#34;&gt;Arrays&lt;/h3&gt;
@@ -318,7 +318,7 @@ Set to &lt;code&gt;-1&lt;/code&gt; (the default) to wait indefinitely, or until 
   &amp;lt;string&amp;gt;Jane Doe&amp;lt;/string&amp;gt;
 &amp;lt;/array&amp;gt;
 &lt;/code&gt;&lt;/pre&gt;
-&lt;h3 id=&#34;maps-and-properties&#34;&gt;Maps and properties&lt;/h3&gt;
+&lt;h3 id=&#34;maps-and-properties&#34;&gt;Maps and Properties&lt;/h3&gt;
 &lt;pre&gt;&lt;code class=&#34;language-xml&#34;&gt;&amp;lt;map key=&amp;quot;user&amp;quot; xmlns=&amp;quot;http://www.w3.org/2005/xpath-functions&amp;quot;&amp;gt;
   &amp;lt;string key=&amp;quot;name&amp;quot;&amp;gt;John Smith&amp;lt;/string&amp;gt;
   &amp;lt;boolean key=&amp;quot;active&amp;quot;&amp;gt;true&amp;lt;/boolean&amp;gt;
@@ -341,7 +341,7 @@ Set to &lt;code&gt;-1&lt;/code&gt; (the default) to wait indefinitely, or until 
 
 
 &lt;p&gt;We will now explore how to create an Elasticsearch &lt;em&gt;index template&lt;/em&gt;, which specifies field mappings and settings for one or more indices.&lt;/p&gt;
-&lt;h2 id=&#34;create-an-elasticsearch-index-template&#34;&gt;Create an Elasticsearch index template&lt;/h2&gt;
+&lt;h2 id=&#34;create-an-elasticsearch-index-template&#34;&gt;Create an Elasticsearch Index Template&lt;/h2&gt;
 &lt;p&gt;For information on what index and component templates are, consult the Elastic &lt;span class=&#34;external-link&#34;&gt;
   &lt;a href=&#34;https://www.elastic.co/guide/en/elasticsearch/reference/current/index-templates.html&#34; target=&#34;_blank&#34; class=&#34;external-link&#34; title=&#34;documentation (external link to https://www.elastic.co/guide/en/elasticsearch/reference/current/index-templates.html)&#34;&gt;
     &lt;span&gt;documentation&lt;/span&gt;
@@ -465,7 +465,7 @@ in the Elastic documentation.&lt;/p&gt;
   ]
 }
 &lt;/code&gt;&lt;/pre&gt;
-&lt;h2 id=&#34;create-an-elasticsearch-indexing-pipeline-template&#34;&gt;Create an Elasticsearch indexing pipeline template&lt;/h2&gt;
+&lt;h2 id=&#34;create-an-elasticsearch-indexing-pipeline-template&#34;&gt;Create an Elasticsearch Indexing Pipeline Template&lt;/h2&gt;
 &lt;p&gt;An Elasticsearch indexing pipeline is similar in structure to the built-in packaged &lt;code&gt;Indexing&lt;/code&gt; template pipeline.
 It typically consists of the following pipeline elements:&lt;/p&gt;
 
@@ -550,7 +550,6 @@ It typically consists of the following pipeline elements:&lt;/p&gt;
 
 
 
-
  
 
 
@@ -617,7 +616,6 @@ It typically consists of the following pipeline elements:&lt;/p&gt;
 
     
   
-
 
 
 
@@ -698,7 +696,6 @@ It typically consists of the following pipeline elements:&lt;/p&gt;
 
 
 
-
  
 
 
@@ -765,7 +762,6 @@ It typically consists of the following pipeline elements:&lt;/p&gt;
 
     
   
-
 
 
 
@@ -846,7 +842,6 @@ It typically consists of the following pipeline elements:&lt;/p&gt;
 
 
 
-
  
 
 
@@ -913,7 +908,6 @@ It typically consists of the following pipeline elements:&lt;/p&gt;
 
     
   
-
 
 
 
@@ -994,7 +988,6 @@ It typically consists of the following pipeline elements:&lt;/p&gt;
 
 
 
-
  
 
 
@@ -1061,7 +1054,6 @@ It typically consists of the following pipeline elements:&lt;/p&gt;
 
     
   
-
 
 
 
@@ -1191,7 +1183,6 @@ It typically consists of the following pipeline elements:&lt;/p&gt;
 
 
 
-
  contains the translation mapping &lt;code&gt;Events&lt;/code&gt; to JSON &lt;code&gt;array&lt;/code&gt;.&lt;/li&gt;
 &lt;li&gt;
 
@@ -1246,7 +1237,6 @@ It typically consists of the following pipeline elements:&lt;/p&gt;
 
     
   
-
 
 
 
@@ -1360,7 +1350,7 @@ It typically consists of the following pipeline elements:&lt;/p&gt;
 &lt;/li&gt;
 &lt;/ol&gt;
 &lt;p&gt;Now you have created a template indexing pipeline, it&amp;rsquo;s time to create a feed-specific pipeline that inherits this template.&lt;/p&gt;
-&lt;h2 id=&#34;create-an-elasticsearch-indexing-pipeline&#34;&gt;Create an Elasticsearch indexing pipeline&lt;/h2&gt;
+&lt;h2 id=&#34;create-an-elasticsearch-indexing-pipeline&#34;&gt;Create an Elasticsearch Indexing Pipeline&lt;/h2&gt;
 &lt;h3 id=&#34;procedure-1&#34;&gt;Procedure&lt;/h3&gt;
 &lt;ol&gt;
 &lt;li&gt;Right-click on a folder &lt;span class=&#34;stroom-icon inline-svg-button icon-button  &#34; &gt;
@@ -1477,10 +1467,11 @@ It typically consists of the following pipeline elements:&lt;/p&gt;
 &lt;/span&gt;
 .&lt;/li&gt;
 &lt;li&gt;Select the Elastic Indexing Filter pipeline element.&lt;/li&gt;
-&lt;li&gt;Set the &lt;code&gt;indexName&lt;/code&gt; property to the name of the destination index or data stream. &lt;code&gt;indexName&lt;/code&gt; may be a simple string (static) or dynamic.&lt;/li&gt;
+&lt;li&gt;Set the &lt;code&gt;indexName&lt;/code&gt; property to the name of the destination index or data stream.
+&lt;code&gt;indexName&lt;/code&gt; may be a simple string (static) or dynamic.&lt;/li&gt;
 &lt;li&gt;If using dynamic index names, configure the translation to output named element(s) that will be interpolated into &lt;code&gt;indexName&lt;/code&gt; for each document indexed.&lt;/li&gt;
 &lt;/ol&gt;
-&lt;h3 id=&#34;choosing-between-simple-and-dynamic-index-names&#34;&gt;Choosing between simple and dynamic index names&lt;/h3&gt;
+&lt;h3 id=&#34;choosing-between-simple-and-dynamic-index-names&#34;&gt;Choosing between Simple and Dynamic Index Names&lt;/h3&gt;
 &lt;p&gt;Indexing data to a single, named data stream or index, is a simple and convenient way to manage data.
 There are cases however, where indices may contain significant volumes of data spanning long periods - and where a large portion of indexing will be performed up-front (such as when processing a feed with a lot of historical data).
 As Elasticsearch data stream indices roll over based on the current time (not event time), it is helpful to be able to partition data streams by user-defined properties such as year.
@@ -1504,7 +1495,7 @@ This abstraction assists with the lifecycle management of time-series log data, 
 &lt;/div&gt;
 
 
-&lt;h4 id=&#34;single-named-index-or-data-stream&#34;&gt;Single named index or data stream&lt;/h4&gt;
+&lt;h4 id=&#34;single-named-index-or-data-stream&#34;&gt;Single Named Index or Data Stream&lt;/h4&gt;
 &lt;p&gt;This is the simplest use case and is suitable where you want to write all data for a particular pipeline, to a single data stream or index.
 Whether data is written to an actual &lt;em&gt;index&lt;/em&gt; or &lt;em&gt;data stream&lt;/em&gt; depends on your index template, specifically whether you have declared &lt;code&gt;data_stream: {}&lt;/code&gt;.
 If this property exists in the index template matching &lt;code&gt;indexName&lt;/code&gt;, a data stream is created when the first document is indexed.
@@ -1526,7 +1517,7 @@ This is mandatory and indexing will fail if this field isn&amp;rsquo;t a valid &
 &lt;/div&gt;
 
 
-&lt;h4 id=&#34;dynamic-data-stream-names&#34;&gt;Dynamic data stream names&lt;/h4&gt;
+&lt;h4 id=&#34;dynamic-data-stream-names&#34;&gt;Dynamic Data Stream Names&lt;/h4&gt;
 &lt;p&gt;With a dynamic stream name, &lt;code&gt;indexName&lt;/code&gt; contains the names of elements, for example: &lt;code&gt;stroom-events-v1-{year}&lt;/code&gt;.
 For each document, the final index name is computed based on the values of the corresponding elements within the resulting JSON XML.
 For example, if the JSON XML representation of an event consists of the following, the document will be indexed to the index or data stream named &lt;code&gt;stroom-events-v1-2022&lt;/code&gt;:&lt;/p&gt;
@@ -1565,11 +1556,11 @@ If a blank value is desired, output an empty &lt;code&gt;string&lt;/code&gt; ele
 &lt;/div&gt;
 
 
-&lt;h5 id=&#34;other-applications-for-dynamic-data-stream-names&#34;&gt;Other applications for dynamic data stream names&lt;/h5&gt;
+&lt;h5 id=&#34;other-applications-for-dynamic-data-stream-names&#34;&gt;Other Applications for Dynamic Data Stream Names&lt;/h5&gt;
 &lt;p&gt;Dynamic data stream names can also help in other scenarios, such as implementing fine-grained retention policies, such as deleting documents that aren&amp;rsquo;t user-attributed after 12 months.
 While Stroom &lt;code&gt;ElasticIndex&lt;/code&gt; supports data retention expressions, deleting documents in Elasticsearch by query is highly inefficient and doesn&amp;rsquo;t cause disk space to be freed (this requires an index to be force-merged, an expensive operation).
 A better solution therefore, is to use dynamic data stream names to partition data and assign certain partitions to specific ILM policies and/or data tiers.&lt;/p&gt;
-&lt;h5 id=&#34;migrating-older-data-streams-to-other-data-tiers&#34;&gt;Migrating older data streams to other data tiers&lt;/h5&gt;
+&lt;h5 id=&#34;migrating-older-data-streams-to-other-data-tiers&#34;&gt;Migrating Older Data Streams to Other Data Tiers&lt;/h5&gt;
 &lt;p&gt;Say a feed is indexed, spanning data from 2020 through 2023.
 Assuming most searches only need to query data from the current year, the data streams &lt;code&gt;stroom-events-v1-2020&lt;/code&gt; and &lt;code&gt;stroom-events-v1-2021&lt;/code&gt; can be moved to cold storage.
 To achieve this, use &lt;span class=&#34;external-link&#34;&gt;
@@ -1587,7 +1578,7 @@ To achieve this, use &lt;span class=&#34;external-link&#34;&gt;
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;This example assumes a cold data tier has been defined for the cluster.
 If the command executes successfully, shards from the specified data streams are gradually migrated to the nodes comprising the destination data tier.&lt;/p&gt;
-&lt;h2 id=&#34;create-an-indexing-translation&#34;&gt;Create an indexing translation&lt;/h2&gt;
+&lt;h2 id=&#34;create-an-indexing-translation&#34;&gt;Create an Indexing Translation&lt;/h2&gt;
 &lt;p&gt;In this example, let&amp;rsquo;s assume you have event data that looks like the following:&lt;/p&gt;
 &lt;pre&gt;&lt;code class=&#34;language-xml&#34;&gt;&amp;lt;?xml version=&amp;quot;1.1&amp;quot; encoding=&amp;quot;UTF-8&amp;quot;?&amp;gt;
 &amp;lt;Events
@@ -1660,7 +1651,7 @@ Each document must consist of an &lt;code&gt;array&lt;/code&gt; element one or m
   &amp;lt;/map&amp;gt;
 &amp;lt;/array&amp;gt;
 &lt;/code&gt;&lt;/pre&gt;
-&lt;h2 id=&#34;assign-the-translation-to-the-indexing-pipeline&#34;&gt;Assign the translation to the indexing pipeline&lt;/h2&gt;
+&lt;h2 id=&#34;assign-the-translation-to-the-indexing-pipeline&#34;&gt;Assign the Translation to the Indexing Pipeline&lt;/h2&gt;
 &lt;p&gt;Having created your translation, you need to reference it in your indexing pipeline.&lt;/p&gt;
 &lt;ol&gt;
 &lt;li&gt;Open the pipeline you created.&lt;/li&gt;
@@ -1724,7 +1715,6 @@ Each document must consist of an &lt;code&gt;array&lt;/code&gt; element one or m
 
 
 
-
  pipeline element.&lt;/li&gt;
 &lt;li&gt;Double-click the &lt;code&gt;xslt&lt;/code&gt; property value cell.&lt;/li&gt;
 &lt;li&gt;Select the XSLT you created and click 
@@ -1750,13 +1740,13 @@ Each document must consist of an &lt;code&gt;array&lt;/code&gt; element one or m
     &lt;span class=&#34;face&#34; title=&#34;Save&#34;&gt;&lt;svg xmlns=&#34;http://www.w3.org/2000/svg&#34; width=&#34;1792&#34; height=&#34;1792&#34; viewBox=&#34;0 0 1792 1792&#34;&gt;&lt;!--! Font Awesome Free 6.4.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --&gt;&lt;path style=&#34;fill:currentColor;stroke-width:0.570676;stroke-dasharray:none&#34; d=&#34;M 339.40234 116.52148 C 216.56504 116.52148 116.69531 216.3912 116.69531 339.22852 L 116.69531 1452.7715 C 116.69531 1575.6089 216.56504 1675.4785 339.40234 1675.4785 L 1452.5977 1675.4785 C 1575.4349 1675.4785 1675.3047 1575.6089 1675.3047 1452.7715 L 1675.3047 598.82422 C 1675.3047 539.66744 1651.9901 482.94523 1610.2324 441.1875 L 1610.5801 440.83984 L 1351.334 181.59375 C 1309.5761 139.83602 1252.8561 116.52148 1193.6992 116.52148 L 339.40234 116.52148 z M 339.40234 283.55273 L 395.08008 283.55273 L 395.08008 645.45312 C 395.08008 691.73461 432.31423 728.96875 478.5957 728.96875 L 1146.7207 728.96875 C 1193.0023 728.96875 1230.2363 691.73461 1230.2363 645.45312 L 1230.2363 297.12305 C 1231.2803 298.167 1231.9756 298.8623 1233.0195 299.90625 L 1492.6152 558.80469 L 1492.2676 559.1543 C 1502.707 569.59373 1508.6211 583.8594 1508.6211 598.47461 L 1508.6211 1452.7715 C 1508.6211 1483.3939 1483.5678 1508.4473 1452.9453 1508.4473 L 1395.6113 1508.4473 L 1395.6113 1059.8359 C 1395.6113 981.08539 1331.5826 917.05859 1252.832 917.05859 L 539.16797 917.05859 C 460.41738 917.05859 396.38867 981.08539 396.38867 1059.8359 L 396.38867 1508.4473 L 339.40234 1508.4473 C 308.78001 1508.4473 283.72656 1483.3939 283.72656 1452.7715 L 283.72656 339.22852 C 283.72656 308.60619 308.78001 283.55273 339.40234 283.55273 z M 562.11133 283.55273 L 1063.2051 283.55273 L 1063.2051 561.9375 L 562.11133 561.9375 L 562.11133 283.55273 z M 538.94531 1024.1426 L 1252.832 1024.1426 C 1272.4639 1024.1426 1288.5273 1040.2041 1288.5273 1059.8359 L 1288.5273 1508.4473 L 503.25 1508.4473 L 503.25 1059.8359 C 503.25 1040.2041 519.31334 1024.1426 538.94531 1024.1426 z &#34; /&gt;&lt;/svg&gt; &lt;/span&gt;
   &lt;/span&gt;.&lt;/li&gt;
 &lt;/ol&gt;
-&lt;h2 id=&#34;step-the-pipeline&#34;&gt;Step the pipeline&lt;/h2&gt;
+&lt;h2 id=&#34;step-the-pipeline&#34;&gt;Step the Pipeline&lt;/h2&gt;
 &lt;p&gt;At this point, you will want to &lt;a href=&#34;../../docs/quick-start-guide/process/&#34;&gt;step the pipeline&lt;/a&gt; to ensure there are no errors and that output looks as expected.&lt;/p&gt;
-&lt;h2 id=&#34;execute-the-pipeline&#34;&gt;Execute the pipeline&lt;/h2&gt;
+&lt;h2 id=&#34;execute-the-pipeline&#34;&gt;Execute the Pipeline&lt;/h2&gt;
 &lt;p&gt;Create a pipeline processor and filter to run the pipeline against one or more feeds.
 Stroom will distribute processing tasks to enabled nodes and send documents to Elasticsearch for indexing.&lt;/p&gt;
 &lt;p&gt;You can monitor indexing status via your Elasticsearch monitoring tool of choice.&lt;/p&gt;
-&lt;h3 id=&#34;detecting-and-handling-errors&#34;&gt;Detecting and handling errors&lt;/h3&gt;
+&lt;h3 id=&#34;detecting-and-handling-errors&#34;&gt;Detecting and Handling Errors&lt;/h3&gt;
 &lt;p&gt;If any errors occur while a stream is being indexed, an &lt;code&gt;Error&lt;/code&gt; stream is created, containing details of each failure.
 &lt;code&gt;Error&lt;/code&gt; streams can be found under the &lt;code&gt;Data&lt;/code&gt; tab of either the indexing pipeline or receiving &lt;code&gt;Feed&lt;/code&gt;.&lt;/p&gt;
 
@@ -1821,8 +1811,8 @@ Click &lt;span class=&#34;stroom-icon inline-svg-button icon-button  &#34; &gt;
 &lt;/ol&gt;
 &lt;p&gt;Stroom will re-send data from the selected &lt;code&gt;Event&lt;/code&gt; streams to Elasticsearch for indexing.
 Any existing documents matching the &lt;code&gt;StreamId&lt;/code&gt; of the original &lt;code&gt;Event&lt;/code&gt; stream are first deleted automatically to avoid duplication.&lt;/p&gt;
-&lt;h2 id=&#34;tips-and-tricks&#34;&gt;Tips and tricks&lt;/h2&gt;
-&lt;h3 id=&#34;use-a-common-schema-for-your-indices&#34;&gt;Use a common schema for your indices&lt;/h3&gt;
+&lt;h2 id=&#34;tips-and-tricks&#34;&gt;Tips and Tricks&lt;/h2&gt;
+&lt;h3 id=&#34;use-a-common-schema-for-your-indices&#34;&gt;Use a Common Schema for Your Indices&lt;/h3&gt;
 &lt;p&gt;An example is &lt;span class=&#34;external-link&#34;&gt;
   &lt;a href=&#34;https://www.elastic.co/guide/en/ecs/current/ecs-reference.html&#34; target=&#34;_blank&#34; class=&#34;external-link&#34; title=&#34;Elastic Common Schema (ECS) (external link to https://www.elastic.co/guide/en/ecs/current/ecs-reference.html)&#34;&gt;
     &lt;span&gt;Elastic Common Schema (ECS)&lt;/span&gt;
@@ -1833,9 +1823,9 @@ Any existing documents matching the &lt;code&gt;StreamId&lt;/code&gt; of the ori
 This helps users understand the purpose of each field and to build cross-index queries more simply by using a set of common fields (such as a user ID).&lt;/p&gt;
 &lt;p&gt;With this in mind, it is important that common fields also have the same data type in each index.
 Component templates help make this easier and reduce the chance of error, by centralising the definition of common fields to a single &lt;em&gt;component&lt;/em&gt;.&lt;/p&gt;
-&lt;h3 id=&#34;use-a-version-control-system-such-as-git-to-track-index-and-component-templates&#34;&gt;Use a version control system (such as git) to track index and component templates&lt;/h3&gt;
+&lt;h3 id=&#34;use-a-version-control-system-such-as-git-to-track-index-and-component-templates&#34;&gt;Use a Version Control System (such as git) to Track Index and Component Templates&lt;/h3&gt;
 &lt;p&gt;This helps keep track of changes over time and can be an important resource for both administrators and users.&lt;/p&gt;
-&lt;h3 id=&#34;rebuilding-an-index&#34;&gt;Rebuilding an index&lt;/h3&gt;
+&lt;h3 id=&#34;rebuilding-an-index&#34;&gt;Rebuilding an Index&lt;/h3&gt;
 &lt;p&gt;Sometimes it is necessary to rebuild an index.
 This could be due to a change in field mapping, shard count or responding to a user feature request.&lt;/p&gt;
 &lt;p&gt;To rebuild an index:&lt;/p&gt;
@@ -1848,7 +1838,7 @@ This could be due to a change in field mapping, shard count or responding to a u
   &lt;/span&gt; button.&lt;/li&gt;
 &lt;li&gt;Activate the new processor filter.&lt;/li&gt;
 &lt;/ol&gt;
-&lt;h3 id=&#34;use-a-versioned-index-naming-convention&#34;&gt;Use a versioned index naming convention&lt;/h3&gt;
+&lt;h3 id=&#34;use-a-versioned-index-naming-convention&#34;&gt;Use a Versioned Index Naming Convention&lt;/h3&gt;
 &lt;p&gt;As with the earlier example &lt;code&gt;stroom-events-v1&lt;/code&gt;, a version number is appended to the name of the index or data stream.
 If a new field is added, or some other change occurred requiring the index to be rebuilt, users would experience downtime.
 This can be avoided by incrementing the version and performing the rebuild against a new index: &lt;code&gt;stroom-events-v2&lt;/code&gt;.
@@ -1906,7 +1896,7 @@ You will first need to &lt;span class=&#34;external-link&#34;&gt;
   &lt;/a&gt;
 &lt;/span&gt;
  in order to query your indices.&lt;/p&gt;
-&lt;h2 id=&#34;why-use-kibana&#34;&gt;Why use Kibana?&lt;/h2&gt;
+&lt;h2 id=&#34;why-use-kibana&#34;&gt;Why Use Kibana?&lt;/h2&gt;
 &lt;p&gt;There are several use cases that benefit from Kibana:&lt;/p&gt;
 &lt;ol&gt;
 &lt;li&gt;Convenient and powerful drag-and-drop charts and other visualisation types using Kibana Lens.
@@ -1939,10 +1929,10 @@ Good for data exploration, at the cost of performance.&lt;/li&gt;
         
         &lt;p&gt;Stroom can integrate with external Elasticsearch indexes to allow querying using Stroom&amp;rsquo;s various mechanisms for querying data sources.
 These indexes may have been populated using a Stroom pipeline (See &lt;a href=&#34;../../docs/user-guide/indexing/elasticsearch/&#34;&gt;here&lt;/a&gt;).&lt;/p&gt;
-&lt;h2 id=&#34;searching-using-a-stroom-dashboard&#34;&gt;Searching using a Stroom dashboard&lt;/h2&gt;
+&lt;h2 id=&#34;searching-using-a-stroom-dashboard&#34;&gt;Searching Using a Stroom Dashboard&lt;/h2&gt;
 &lt;p&gt;Searching an Elasticsearch index (or data stream) using a Stroom dashboard is conceptually similar to the process described in &lt;a href=&#34;../../docs/quick-start-guide/dashboard/&#34;&gt;Dashboards&lt;/a&gt;.&lt;/p&gt;
 &lt;p&gt;Before you set the dashboard&amp;rsquo;s data source, you must first create an Elastic Index document to tell Stroom which index (or indices) you wish to query.&lt;/p&gt;
-&lt;h3 id=&#34;create-an-elastic-index-document&#34;&gt;Create an Elastic Index document&lt;/h3&gt;
+&lt;h3 id=&#34;create-an-elastic-index-document&#34;&gt;Create an Elastic Index Document&lt;/h3&gt;
 &lt;ol&gt;
 &lt;li&gt;Right-click a folder in the Stroom Explorer pane (&lt;span class=&#34;stroom-icon inline-svg-button icon-button  &#34; &gt;
     &lt;span class=&#34;face&#34; title=&#34;Explorer&#34;&gt;&lt;svg xmlns:rdf=&#34;http://www.w3.org/1999/02/22-rdf-syntax-ns#&#34; xmlns=&#34;http://www.w3.org/2000/svg&#34; height=&#34;1792&#34; width=&#34;1792&#34; version=&#34;1.1&#34; xmlns:cc=&#34;http://creativecommons.org/ns#&#34; xmlns:dc=&#34;http://purl.org/dc/elements/1.1/&#34; viewBox=&#34;0 0 1792 1792&#34;&gt;&lt;g fill=&#34;var(--icon-colour__blue)&#34;&gt;&lt;path d=&#34;m804.29 276.08v287.08q0 37.516-26.913 64.429t-64.429 26.913h-495.86q-37.516 0-64.429-26.913-26.91-26.92-26.91-64.43v-391.47q0-37.516 26.913-64.429t64.429-26.913h130.49q37.516 0 64.429 26.913t26.913 64.429v13.049h274.03q37.516 0 64.429 26.913t26.913 64.429z&#34;/&gt;&lt;path d=&#34;m1653.2 1336.4v287.08q0 37.516-26.913 64.429t-64.429 26.913h-495.86q-37.516 0-64.429-26.913t-26.913-64.429v-391.47q0-37.516 26.913-64.429t64.429-26.913h130.49q37.516 0 64.429 26.913t26.913 64.429v13.049h274.03q37.516 0 64.429 26.914 26.913 26.913 26.913 64.429z&#34;/&gt;&lt;path d=&#34;m1653.2 654.02v287.08q0 37.516-26.913 64.429t-64.429 26.913h-495.86q-37.516 0-64.429-26.913t-26.913-64.429v-391.47q0-37.516 26.913-64.429t64.429-26.913h130.49q37.516 0 64.429 26.913t26.913 64.429v13.049h274.03q37.516 0 64.429 26.913t26.913 64.429z&#34;/&gt;&lt;/g&gt;&lt;path stroke-linejoin=&#34;round&#34; d=&#34;m600.75 492.64v949.1h381.89&#34; stroke=&#34;var(--icon-colour__blue)&#34; stroke-width=&#34;71.125&#34; fill=&#34;none&#34;/&gt;&lt;path d=&#34;m597.94 807.14h539.13&#34; fill-rule=&#34;evenodd&#34; stroke=&#34;var(--icon-colour__blue)&#34; stroke-width=&#34;71.125&#34;/&gt;&lt;/svg&gt; &lt;/span&gt;
@@ -2076,7 +2066,7 @@ A dialog will appear with the result, which will state &lt;code&gt;Connection Su
     &lt;span class=&#34;face&#34; title=&#34;Save&#34;&gt;&lt;svg xmlns=&#34;http://www.w3.org/2000/svg&#34; width=&#34;1792&#34; height=&#34;1792&#34; viewBox=&#34;0 0 1792 1792&#34;&gt;&lt;!--! Font Awesome Free 6.4.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --&gt;&lt;path style=&#34;fill:currentColor;stroke-width:0.570676;stroke-dasharray:none&#34; d=&#34;M 339.40234 116.52148 C 216.56504 116.52148 116.69531 216.3912 116.69531 339.22852 L 116.69531 1452.7715 C 116.69531 1575.6089 216.56504 1675.4785 339.40234 1675.4785 L 1452.5977 1675.4785 C 1575.4349 1675.4785 1675.3047 1575.6089 1675.3047 1452.7715 L 1675.3047 598.82422 C 1675.3047 539.66744 1651.9901 482.94523 1610.2324 441.1875 L 1610.5801 440.83984 L 1351.334 181.59375 C 1309.5761 139.83602 1252.8561 116.52148 1193.6992 116.52148 L 339.40234 116.52148 z M 339.40234 283.55273 L 395.08008 283.55273 L 395.08008 645.45312 C 395.08008 691.73461 432.31423 728.96875 478.5957 728.96875 L 1146.7207 728.96875 C 1193.0023 728.96875 1230.2363 691.73461 1230.2363 645.45312 L 1230.2363 297.12305 C 1231.2803 298.167 1231.9756 298.8623 1233.0195 299.90625 L 1492.6152 558.80469 L 1492.2676 559.1543 C 1502.707 569.59373 1508.6211 583.8594 1508.6211 598.47461 L 1508.6211 1452.7715 C 1508.6211 1483.3939 1483.5678 1508.4473 1452.9453 1508.4473 L 1395.6113 1508.4473 L 1395.6113 1059.8359 C 1395.6113 981.08539 1331.5826 917.05859 1252.832 917.05859 L 539.16797 917.05859 C 460.41738 917.05859 396.38867 981.08539 396.38867 1059.8359 L 396.38867 1508.4473 L 339.40234 1508.4473 C 308.78001 1508.4473 283.72656 1483.3939 283.72656 1452.7715 L 283.72656 339.22852 C 283.72656 308.60619 308.78001 283.55273 339.40234 283.55273 z M 562.11133 283.55273 L 1063.2051 283.55273 L 1063.2051 561.9375 L 562.11133 561.9375 L 562.11133 283.55273 z M 538.94531 1024.1426 L 1252.832 1024.1426 C 1272.4639 1024.1426 1288.5273 1040.2041 1288.5273 1059.8359 L 1288.5273 1508.4473 L 503.25 1508.4473 L 503.25 1059.8359 C 503.25 1040.2041 519.31334 1024.1426 538.94531 1024.1426 z &#34; /&gt;&lt;/svg&gt; &lt;/span&gt;
   &lt;/span&gt;.&lt;/li&gt;
 &lt;/ol&gt;
-&lt;h3 id=&#34;set-the-elastic-index-document-as-the-dashboard-data-source&#34;&gt;Set the Elastic Index document as the dashboard data source&lt;/h3&gt;
+&lt;h3 id=&#34;set-the-elastic-index-document-as-the-dashboard-data-source&#34;&gt;Set the Elastic Index Document as the Dashboard Data Source&lt;/h3&gt;
 &lt;ol&gt;
 &lt;li&gt;Open or create a dashboard.&lt;/li&gt;
 &lt;li&gt;Click &lt;span class=&#34;stroom-icon inline-svg-button icon-button  &#34; &gt;
@@ -2108,7 +2098,7 @@ A dialog will appear with the result, which will state &lt;code&gt;Connection Su
 Note the &lt;a href=&#34;#query-expression-tips&#34;&gt;tips&lt;/a&gt; for particular Elasticsearch field mapping data types.&lt;/li&gt;
 &lt;li&gt;&lt;a href=&#34;../../docs/quick-start-guide/dashboard/#configuring-the-table&#34;&gt;Configure the table&lt;/a&gt;.&lt;/li&gt;
 &lt;/ol&gt;
-&lt;h2 id=&#34;query-expression-tips&#34;&gt;Query expression tips&lt;/h2&gt;
+&lt;h2 id=&#34;query-expression-tips&#34;&gt;Query Expression Tips&lt;/h2&gt;
 &lt;p&gt;Certain Elasticsearch field mapping types support special syntax when used in a Stroom dashboard query expression.&lt;/p&gt;
 &lt;p&gt;To identify the field mapping type for a particular field:&lt;/p&gt;
 &lt;ol&gt;
@@ -2121,7 +2111,7 @@ Common examples are: &lt;code&gt;keyword&lt;/code&gt;, &lt;code&gt;text&lt;/code
 &lt;/ol&gt;
 &lt;p&gt;After you identify the field mapping type, move the mouse cursor over the mapping type indicator.
 A tooltip appears, explaining various types of queries you can perform against that particular field&amp;rsquo;s type.&lt;/p&gt;
-&lt;h2 id=&#34;searching-multiple-indices&#34;&gt;Searching multiple indices&lt;/h2&gt;
+&lt;h2 id=&#34;searching-multiple-indices&#34;&gt;Searching Multiple Indices&lt;/h2&gt;
 &lt;p&gt;Using data view (index pattern) syntax, you can create powerful dashboards that query multiple indices at a time.
 An example of this is where you have multiple indices covering different types of email systems.
 Let&amp;rsquo;s assume these indices are named: &lt;code&gt;stroom-exchange-v1&lt;/code&gt;, &lt;code&gt;stroom-domino-v1&lt;/code&gt; and &lt;code&gt;stroom-mailu-v1&lt;/code&gt;.&lt;/p&gt;

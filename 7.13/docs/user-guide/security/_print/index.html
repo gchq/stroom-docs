@@ -151,7 +151,7 @@
     aria-label="Search this site…"
     autocomplete="off"
     
-    data-offline-search-index-json-src="../../../../offline-search-index.95b12371d9f23e70cddb1f62f4c00605.json"
+    data-offline-search-index-json-src="../../../../offline-search-index.95034a9311ba25828e37c5d04adb17e9.json"
     data-offline-search-base-href="../../../../"
     data-offline-search-max-results="50"
   >
@@ -298,10 +298,15 @@ This is the multi-page printable view of this section.
   <h1 id="pg-4c79cfc383761a49e0b4e0fad48d8479">1 - Deployment</h1>
     <div class="lead">There are many aspects of security that should be considered when installing and running Stroom.</div>
 	<h2 id="shared-storage">Shared Storage</h2>
-<p>For most large installations Stroom uses shared storage for its data store. This storage could be a CIFS, NFS or similar shared file system. It is recommended that access to this shared storage is protected so that only the application can access it. This could be achieved by placing the storage and application behind a firewall and by requiring appropriate authentication to the shared storage. It should be noted that NFS is unauthenticated so should be used with appropriate safeguards.</p>
+<p>For most large installations Stroom uses shared storage for its data store.
+This storage could be a CIFS, NFS or similar shared file system.
+It is recommended that access to this shared storage is protected so that only the application can access it.
+This could be achieved by placing the storage and application behind a firewall and by requiring appropriate authentication to the shared storage.
+It should be noted that NFS is unauthenticated so should be used with appropriate safeguards.</p>
 <h2 id="mysql">MySQL</h2>
 <h3 id="accounts">Accounts</h3>
-<p>It is beyond the scope of this article to discuss this in detail but all MySQL accounts should be secured on initial install. Official guidance for doing this can be found <span class="external-link">
+<p>It is beyond the scope of this article to discuss this in detail but all MySQL accounts should be secured on initial install.
+Official guidance for doing this can be found <span class="external-link">
   <a href="https://dev.mysql.com/doc/refman/5.6/en/security.html" target="_blank" class="external-link" title="here (external link to https://dev.mysql.com/doc/refman/5.6/en/security.html)">
     <span>here</span>
     <i class="external-link-icon fas fa-external-link-alt fa-sm text-secondary"></i>
@@ -309,7 +314,8 @@ This is the multi-page printable view of this section.
 </span>
 .</p>
 <h3 id="communication">Communication</h3>
-<p>Communication between MySQL and the application should be secured. This can be achieved in one of the following ways:</p>
+<p>Communication between MySQL and the application should be secured.
+This can be achieved in one of the following ways:</p>
 <ul>
 <li>Placing MySQL and the application behind a firewall</li>
 <li>Securing communication through the use of iptables</li>
@@ -323,19 +329,26 @@ This is the multi-page printable view of this section.
 </ul>
 <p>The above options are not mutually exclusive and may be combined to better secure communication.</p>
 <h2 id="application">Application</h2>
-<h3 id="node-to-node-communication">Node to node communication</h3>
-<p>In a multi node Stroom deployment each node communicates with the master node. This can be configured securely in one of several ways:</p>
+<h3 id="node-to-node-communication">Node to Node Communication</h3>
+<p>In a multi node Stroom deployment each node communicates with the master node.
+This can be configured securely in one of several ways:</p>
 <ul>
 <li>Direct communication to Tomcat on port 8080 - Secured by being behind a firewall or using iptables</li>
 <li>Direct communication to Tomcat on port 8443 - Secured using SSL and certificates</li>
 <li>Removal of Tomcat connectors other than AJP and configuration of Apache to communicate on port 443 using SSL and certificates</li>
 </ul>
 <h3 id="application-to-stroom-proxy-communication">Application to Stroom Proxy Communication</h3>
-<p>The application can be configured to share some information with Stroom Proxy so that Stroom Proxy can decide whether or not to accept data for certain feeds based on the existence of the feed or its reject/accept status. The amount of information shared between the application and the proxy is minimal but could be used to discover what feeds are present within the system. Securing this communication is harder as both the application and the proxy will not typically reside behind the same firewall. Despite this communication can still be performed over SSL thus protecting this potential attack vector.</p>
-<h3 id="admin-port">Admin port</h3>
-<p>Stroom (v6 and above) and its associated family of stroom-* Dropwizard based services all expose an admin port (8081 in the case of stroom). This port serves up various health check and monitoring pages as well as a number of restful services for initiating admin tasks. There is currently no authentication on this admin port so it is assumed that access to this port will be tightly controlled using a firewall, iptables or similar.</p>
+<p>The application can be configured to share some information with Stroom Proxy so that Stroom Proxy can decide whether or not to accept data for certain feeds based on the existence of the feed or its reject/accept status.
+The amount of information shared between the application and the proxy is minimal but could be used to discover what feeds are present within the system.
+Securing this communication is harder as both the application and the proxy will not typically reside behind the same firewall.
+Despite this communication can still be performed over SSL thus protecting this potential attack vector.</p>
+<h3 id="admin-port">Admin Port</h3>
+<p>Stroom (v6 and above) and its associated family of stroom-* Dropwizard based services all expose an admin port (8081 in the case of stroom).
+This port serves up various health check and monitoring pages as well as a number of restful services for initiating admin tasks.
+There is currently no authentication on this admin port so it is assumed that access to this port will be tightly controlled using a firewall, iptables or similar.</p>
 <h3 id="servlets">Servlets</h3>
-<p>There are several servlets in Stroom that are accessible by certain URLs. Considerations should be made about what URLs are made available via Apache and who can access them.
+<p>There are several servlets in Stroom that are accessible by certain URLs.
+Considerations should be made about what URLs are made available via Apache and who can access them.
 The servlets, path and function are described below:</p>
 <table>
 <thead>
@@ -428,10 +441,18 @@ The servlets, path and function are described below:</p>
 </tbody>
 </table>
 <h2 id="hdfs-kafka-hbase-zookeeper">HDFS, Kafka, HBase, Zookeeper</h2>
-<p>Stroom and stroom-stats can integrate with HDFS, Kafka, HBase and Zookeeper. It should be noted that communication with these external services is currently not secure. Until additional security measures (e.g. authentication) are put in place it is assumed that access to these services will be carefully controlled (using a firewall, iptables or similar) so that only stroom nodes can access the open ports.</p>
+<p>Stroom and stroom-stats can integrate with HDFS, Kafka, HBase and Zookeeper.
+It should be noted that communication with these external services is currently not secure.
+Until additional security measures (e.g. authentication) are put in place it is assumed that access to these services will be carefully controlled (using a firewall, iptables or similar) so that only stroom nodes can access the open ports.</p>
 <h2 id="content">Content</h2>
-<p>It may be possible for a user to write XSLT, Data Splitter or other content that may expose data that we do not wish to or to cause the application some harm. At present processing operations are not isolated processes and so it is easy to cripple processing performance with a badly written translation whether written accidentally or on purpose. To mitigate this risk it is recommended that users that are given permission to create XSLT, Data Splitter and Pipeline configurations are trusted to do so.</p>
-<p>Visualisations can be completely customised with javascript. The javascript that is added is executed in a clients browser potentially opening up the possibility of XSS attacks, an attack on the application to access data that a user shouldn&rsquo;t be able to access, an attack to destroy data or simply failure/incorrect operation of the user interface. To mitigate this risk all user defined javascript is executed within a separate browser IFrame. In addition all javascript should be examined before being added to a production system unless the author is trusted. This may necessitate the creation of a separate development and testing environment for user content.</p>
+<p>It may be possible for a user to write XSLT, Data Splitter or other content that may expose data that we do not wish to or to cause the application some harm.
+At present processing operations are not isolated processes and so it is easy to cripple processing performance with a badly written translation whether written accidentally or on purpose.
+To mitigate this risk it is recommended that users that are given permission to create XSLT, Data Splitter and Pipeline configurations are trusted to do so.</p>
+<p>Visualisations can be completely customised with javascript.
+The javascript that is added is executed in a clients browser potentially opening up the possibility of XSS attacks, an attack on the application to access data that a user shouldn&rsquo;t be able to access, an attack to destroy data or simply failure/incorrect operation of the user interface.
+To mitigate this risk all user defined javascript is executed within a separate browser IFrame.
+In addition all javascript should be examined before being added to a production system unless the author is trusted.
+This may necessitate the creation of a separate development and testing environment for user content.</p>
 
 </div>
 
@@ -973,7 +994,7 @@ See <a href="../../../../docs/install-guide/setup/open-id/">Open ID Connect</a>.
 </div>
 
 
-<h2 id="signing-in-with-a-password">Signing In With A Password</h2>
+<h2 id="signing-in-with-a-password">Signing in with a Password</h2>
 <p>The outcome of a sign in attempt depends on the state of the account as well as the password.</p>
 <table>
 <thead>
@@ -1009,7 +1030,7 @@ See <a href="../../../../docs/install-guide/setup/open-id/">Open ID Connect</a>.
 <p>For a disabled or locked account the password is not checked at all.
 Neither state can be talked out of with a correct password, so there is nothing to be gained by checking one, and refusing without checking means the sign in screen cannot be used to test whether a password is correct.</p>
 <p>Failed attempts against a disabled or locked account are not counted, because the account is already refused.</p>
-<h3 id="being-asked-to-change-your-password">Being Asked To Change Your Password</h3>
+<h3 id="being-asked-to-change-your-password">Being Asked to Change Your Password</h3>
 <p>A user may be signed in successfully and then be required to set a new password before they can do anything else.
 This happens in three cases:</p>
 <ul>
@@ -1051,7 +1072,7 @@ The previous password cannot be reused.</p>
 <p>An administrator is only named where an administrator really is the only way back.
 In a default configuration a locked user is told to wait, which avoids a support request for something that resolves itself.</p>
 <p>See <a href="../../../../docs/user-guide/security/user-accounts/">User Accounts</a> for the three ways an account becomes usable again.</p>
-<h2 id="resetting-a-forgotten-password">Resetting A Forgotten Password</h2>
+<h2 id="resetting-a-forgotten-password">Resetting a Forgotten Password</h2>
 <p>If the user has an email address recorded against their account, and <code>stroom.security.identity.passwordPolicy.allowPasswordResets</code> is enabled, they can use <em>Forgot password?</em> on the sign in screen to be emailed a link for setting a new password.</p>
 <p>The response shown on screen is the same whether or not the address belongs to an account, so this screen cannot be used to discover which email addresses have accounts.</p>
 <p>The link is valid for <code>stroom.security.identity.token.emailResetTokenExpiration</code>, ten minutes by default, and can be used only once.
@@ -1059,7 +1080,7 @@ Requesting another link invalidates any earlier one.
 Repeated requests are rate limited by <code>stroom.security.identity.passwordResetRequestCooldown</code>.</p>
 <p>Completing a reset ends all of that user&rsquo;s existing sessions everywhere in the cluster.
 They then sign in with their new password.</p>
-<h3 id="when-a-reset-cannot-be-completed">When A Reset Cannot Be Completed</h3>
+<h3 id="when-a-reset-cannot-be-completed">When a Reset Cannot be Completed</h3>
 <p>Some accounts cannot be recovered this way.
 Rather than sending a link that would not work, Stroom emails the account holder to say that the reset cannot currently be completed and that they should contact an administrator if it continues.</p>
 <p>This happens when:</p>
@@ -1074,7 +1095,7 @@ Without it, setting a new password would not be enough to sign in, so an adminis
 <p>The email is deliberately the same in all three cases and does not say which one applies.
 It goes to the address held against the account, so it tells the account holder something is wrong without telling whoever made the request anything at all.</p>
 <p>No email of any kind is sent when there is nobody to send it to, that is when the address matches no account, the account has no email address recorded, password resets are turned off, or an email was already sent within the cool-down period.</p>
-<h2 id="signing-in-with-a-certificate">Signing In With A Certificate</h2>
+<h2 id="signing-in-with-a-certificate">Signing in with a Certificate</h2>
 <p>If <code>stroom.security.identity.allowCertificateAuthentication</code> is enabled, a user presenting a valid certificate can be signed in without typing a password.
 The user id is taken from the certificate&rsquo;s common name using <code>stroom.security.identity.certificateCnPattern</code> and <code>stroom.security.identity.certificateCnCaptureGroupIndex</code>.</p>
 <p>A valid certificate is treated in exactly the same way as a correct password.
@@ -1254,7 +1275,7 @@ It does not withdraw their access: the account is untouched and they can sign in
 This is offered alongside revocation because the two are easily confused and do quite different things, as described below.</p>
 </li>
 </ul>
-<h2 id="revoking-disabling-and-the-difference-between-them">Revoking, Disabling, And The Difference Between Them</h2>
+<h2 id="revoking-disabling-and-the-difference-between-them">Revoking, Disabling, and the Difference between Them</h2>
 <p>Three actions are easy to confuse, and each does something different.
 To stop someone using Stroom completely and immediately, you need the last two together.</p>
 <table>
@@ -1490,7 +1511,7 @@ Withdrawing a signing key affects everybody using Stroom at once, so it is treat
 
 
 <p>from the main menu.</p>
-<h2 id="what-the-screen-shows">What The Screen Shows</h2>
+<h2 id="what-the-screen-shows">What the Screen Shows</h2>
 <p>Each key is listed with its status and the date it was issued, and nothing else.
 Nothing that identifies a key or describes its contents is shown, because the stored key includes the private half that produces signatures.</p>
 <table>
@@ -1526,7 +1547,7 @@ Rotation replaces the active key when it is old enough, and only at that point d
 <p>Stroom replaces the active signing key every <code>stroom.security.identity.token.jwkRotationInterval</code>, which is thirty days by default.</p>
 <p>Rotation is invisible to users.
 The key being replaced continues to be trusted for long enough that every token already signed with it expires naturally, so nobody is signed out and nothing needs to be restarted.</p>
-<h2 id="revoking-a-key">Revoking A Key</h2>
+<h2 id="revoking-a-key">Revoking a Key</h2>
 <p>Revoking withdraws a key immediately.
 Any token signed with it stops being accepted, and a replacement signing key is created at the same moment so that Stroom can carry on issuing tokens.</p>
 <p>There are two actions.</p>
@@ -1549,7 +1570,7 @@ A key revoked by mistake costs everybody a fresh sign in, but no data is lost.</
 </div>
 
 
-<h3 id="what-to-expect-after-revoking-the-active-key">What To Expect After Revoking The Active Key</h3>
+<h3 id="what-to-expect-after-revoking-the-active-key">What to Expect after Revoking the Active Key</h3>
 <p>Everybody using Stroom is signed out and must authenticate again.
 For people at a browser this is quick, and they will be signed back in as soon as they do so.</p>
 <p>Nodes and Stroom-Proxy hold their own tokens signed with the same key, and they replace those tokens as they expire rather than immediately.
@@ -2255,7 +2276,8 @@ You will be the owner of the moved document if not already.</li>
 Adds the permissions of the destination folder.
 You will be the owner of the moved document if not already.</li>
 <li><strong>Combined</strong> - Keep the current permissions and add the permissions
-of the destination folder. You will be the owner of the moved document if not already.</li>
+of the destination folder.
+You will be the owner of the moved document if not already.</li>
 </ul>
 
 <div class="alert alert-primary" role="alert">

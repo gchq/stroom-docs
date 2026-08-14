@@ -41,15 +41,17 @@
 &lt;/ul&gt;
 &lt;h2 id=&#34;stroom-single-or-multi-node-cluster-testing&#34;&gt;Stroom Single or Multi Node Cluster Testing&lt;/h2&gt;
 &lt;h3 id=&#34;data-post-tests&#34;&gt;Data Post Tests&lt;/h3&gt;
-&lt;h4 id=&#34;simple-post-tests&#34;&gt;Simple Post tests&lt;/h4&gt;
+&lt;h4 id=&#34;simple-post-tests&#34;&gt;Simple Post Tests&lt;/h4&gt;
 &lt;p&gt;These tests are to ensure the Stroom &lt;em&gt;Store&lt;/em&gt; proxy and its connection to the database is working along with the Apache mod_jk loadbalancer.
 We will send a file to the load balanced &lt;code&gt;stroomp.strmdev00.org&lt;/code&gt; node (really &lt;code&gt;stroomp00.strmdev00.org&lt;/code&gt;) and each time we send the file,
-its receipt should be managed by alternate proxy nodes. As a number of elements can effect load balancing, it is not always guaranteed
+its receipt should be managed by alternate proxy nodes.
+As a number of elements can effect load balancing, it is not always guaranteed
 to alternate every time but for the most part it will.&lt;/p&gt;
 &lt;p&gt;Perform the following&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;Log onto the Stroom database node (stroomdb0.strmdev00.org) as any user.&lt;/li&gt;
-&lt;li&gt;Log onto both Stroom nodes and become the &lt;code&gt;stroomuser&lt;/code&gt; and monitor each node&amp;rsquo;s Stroom proxy service using the &lt;code&gt;Tp&lt;/code&gt; bash macro. That is, on each node, run&lt;/li&gt;
+&lt;li&gt;Log onto both Stroom nodes and become the &lt;code&gt;stroomuser&lt;/code&gt; and monitor each node&amp;rsquo;s Stroom proxy service using the &lt;code&gt;Tp&lt;/code&gt; bash macro.
+That is, on each node, run&lt;/li&gt;
 &lt;/ul&gt;
 
   
@@ -126,8 +128,10 @@ Tp&lt;/code&gt;&lt;/pre&gt;
     data-filter-output=&#34;(out)&#34;&gt;&lt;code class=&#34;language-bash&#34;&gt;curl -k --data-binary @/etc/group &amp;#34;https://stroomp.strmdev00.org/stroom/datafeed&amp;#34; -H &amp;#34;Feed:TEST-FEED-V1_0&amp;#34; -H &amp;#34;System:EXAMPLE_SYSTEM&amp;#34; -H &amp;#34;Environment:EXAMPLE_ENVIRONMENT&amp;#34;&lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 
-&lt;p&gt;If you are monitoring the proxy log of &lt;code&gt;stroomp01.strmdev00.org&lt;/code&gt; you should see a new log. As foreshadowed, we didn&amp;rsquo;t as the time delay resulted
-in the first node getting the file. That is &lt;code&gt;stroomp00.strmdev00.org&lt;/code&gt; log file gained the two entries&lt;/p&gt;
+&lt;p&gt;If you are monitoring the proxy log of &lt;code&gt;stroomp01.strmdev00.org&lt;/code&gt; you should see a new log.
+As foreshadowed, we didn&amp;rsquo;t as the time delay resulted
+in the first node getting the file.
+That is &lt;code&gt;stroomp00.strmdev00.org&lt;/code&gt; log file gained the two entries&lt;/p&gt;
 &lt;pre&gt;&lt;code class=&#34;language-text&#34;&gt;2017-01-14T06:47:26.642Z INFO  [ajp-apr-9009-exec-2] handler.LogRequestHandler (LogRequestHandler.java:37) - log() - guid=941d2904-734f-4764-9ccf-4124b94a56f6,feed=TEST-FEED-V1_0,system=EXAMPLE_SYSTEM,environment=EXAMPLE_ENVIRONMENT,remotehost=192.168.2.144,remoteaddress=192.168.2.144
 2017-01-14T06:47:26.645Z INFO  [ajp-apr-9009-exec-2] datafeed.DataFeedRequestHandler$1 (DataFeedRequestHandler.java:104) - &amp;quot;doPost() - Took 174 ms to process (concurrentRequestCount=1) 200&amp;quot;,&amp;quot;Environment=EXAMPLE_ENVIRONMENT&amp;quot;,&amp;quot;Feed=TEST-FEED-V1_0&amp;quot;,&amp;quot;GUID=941d2904-734f-4764-9ccf-4124b94a56f6&amp;quot;,&amp;quot;ReceivedTime=2017-01-14T06:47:26.470Z&amp;quot;,&amp;quot;RemoteAddress=192.168.2.144&amp;quot;,&amp;quot;RemoteHost=192.168.2.144&amp;quot;,&amp;quot;System=EXAMPLE_SYSTEM&amp;quot;,&amp;quot;accept=*/*&amp;quot;,&amp;quot;content-length=527&amp;quot;,&amp;quot;content-type=application/x-www-form-urlencoded&amp;quot;,&amp;quot;host=stroomp.strmdev00.org&amp;quot;,&amp;quot;user-agent=curl/7.29.0&amp;quot;
 &lt;/code&gt;&lt;/pre&gt;
@@ -194,7 +198,8 @@ total 12
 -rw-rw-r--. 1 stroomuser stroomuser 784 Jan 14 17:52 003.zip
 [stroomuser@stroomp01 ~]$
 &lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;which corresponds to the seven posts of data and the associated events in the proxy logs. To see the contents of one of these files we execute on either node, the command&lt;/p&gt;
+&lt;p&gt;which corresponds to the seven posts of data and the associated events in the proxy logs.
+To see the contents of one of these files we execute on either node, the command&lt;/p&gt;
 
   
 
@@ -272,7 +277,8 @@ user-agent:curl/7.29.0
 
 [stroomuser@stroomp00 ~]$
 &lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;Checking the /etc/group file on &lt;code&gt;stroomdb0.strmdev00.org&lt;/code&gt; confirms the above contents. For the present, ignore
+&lt;p&gt;Checking the /etc/group file on &lt;code&gt;stroomdb0.strmdev00.org&lt;/code&gt; confirms the above contents.
+For the present, ignore
 the metadata file present in the zip archive.&lt;/p&gt;
 &lt;p&gt;If you execute the same command on the other files, all that changes is the value of the &lt;em&gt;ReceivedTime:&lt;/em&gt; attribute in the &lt;code&gt;.meta&lt;/code&gt; file.&lt;/p&gt;
 &lt;p&gt;For those curious about the file size differences, this is a function of the compression process within the proxy.
@@ -290,10 +296,11 @@ total 24
 [stroomuser@stroomp01 xx]$ 
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;We have effectively tested the receipt of our data and the load balancing of the Apache mod_jk installation.&lt;/p&gt;
-&lt;h4 id=&#34;simple-direct-post-tests&#34;&gt;Simple Direct Post tests&lt;/h4&gt;
+&lt;h4 id=&#34;simple-direct-post-tests&#34;&gt;Simple Direct Post Tests&lt;/h4&gt;
 &lt;p&gt;In this test we will use the direct feed interface of the Stroom application, rather than sending data via the proxy.
 One would normally use this interface for time sensitive data which shouldn&amp;rsquo;t aggregate in a proxy waiting for
-the Stroom application to collect it. In this situation we use the command
+the Stroom application to collect it.
+In this situation we use the command
 
   
 
@@ -311,7 +318,8 @@ the Stroom application to collect it. In this situation we use the command
     data-filter-output=&#34;(out)&#34;&gt;&lt;code class=&#34;language-bash&#34;&gt;curl -k --data-binary @/etc/group &amp;#34;https://stroomp.strmdev00.org/stroom/datafeeddirect&amp;#34; -H &amp;#34;Feed:TEST-FEED-V1_0&amp;#34; -H &amp;#34;System:EXAMPLE_SYSTEM&amp;#34; -H &amp;#34;Environment:EXAMPLE_ENVIRONMENT&amp;#34;&lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 &lt;/p&gt;
-&lt;p&gt;To prepare for this test, we monitor the Stroom application log using the &lt;code&gt;T&lt;/code&gt; bash alias on each node. So on each node run the command&lt;/p&gt;
+&lt;p&gt;To prepare for this test, we monitor the Stroom application log using the &lt;code&gt;T&lt;/code&gt; bash alias on each node.
+So on each node run the command&lt;/p&gt;
 
   
 
@@ -336,9 +344,12 @@ T&lt;/code&gt;&lt;/pre&gt;
 2017-01-14T07:42:18.284Z INFO  [Stroom P2 #10 - LifecycleTask] spring.StroomBeanMethodExecutable (StroomBeanMethodExecutable.java:47) - Executing activeQueriesManager.evictExpiredElements
 2017-01-14T07:42:18.285Z INFO  [Stroom P2 #7 - LifecycleTask] spring.StroomBeanMethodExecutable (StroomBeanMethodExecutable.java:47) - Executing distributedTaskFetcher.execute
 &lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;To perform the test, on the database node, run the posting command a number of times in rapid succession. This will result
-in &lt;em&gt;server.DataFeedServiceImpl&lt;/em&gt; events in both log files. The Stroom application log is quite busy, you may have to look for these logs.&lt;/p&gt;
-&lt;p&gt;In the following we needed to execute the posting command three times before seeing the data arrive on both nodes. Looking at the arrival
+&lt;p&gt;To perform the test, on the database node, run the posting command a number of times in rapid succession.
+This will result
+in &lt;em&gt;server.DataFeedServiceImpl&lt;/em&gt; events in both log files.
+The Stroom application log is quite busy, you may have to look for these logs.&lt;/p&gt;
+&lt;p&gt;In the following we needed to execute the posting command three times before seeing the data arrive on both nodes.
+Looking at the arrival
 times, the file turned up on the second node twice before appearing on the first node.
 &lt;code&gt;stroomp00:&lt;/code&gt;&lt;/p&gt;
 &lt;pre&gt;&lt;code class=&#34;language-text&#34;&gt;2017-01-14T07:43:09.394Z INFO  [ajp-apr-8009-exec-6] server.DataFeedServiceImpl (DataFeedServiceImpl.java:133) - handleRequest response 200 - 0 - OK
@@ -347,7 +358,8 @@ times, the file turned up on the second node twice before appearing on the first
 &lt;pre&gt;&lt;code class=&#34;language-text&#34;&gt;2017-01-14T07:43:05.614Z INFO  [ajp-apr-8009-exec-1] server.DataFeedServiceImpl (DataFeedServiceImpl.java:133) - handleRequest response 200 - 0 - OK
 2017-01-14T07:43:06.821Z INFO  [ajp-apr-8009-exec-2] server.DataFeedServiceImpl (DataFeedServiceImpl.java:133) - handleRequest response 200 - 0 - OK
 &lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;To confirm this data arrived, we need to view the &lt;strong&gt;Data&lt;/strong&gt; pane of our &lt;code&gt;TEST-FEED-V1_0&lt;/code&gt; tab. To do this, log onto the Stroom UI then
+&lt;p&gt;To confirm this data arrived, we need to view the &lt;strong&gt;Data&lt;/strong&gt; pane of our &lt;code&gt;TEST-FEED-V1_0&lt;/code&gt; tab.
+To do this, log onto the Stroom UI then
 move the cursor to the &lt;code&gt;TEST-FEED-V1_0&lt;/code&gt; entry in the &lt;code&gt;Explorer&lt;/code&gt; tab and select the item with a left click&lt;/p&gt;
 
 
@@ -538,17 +550,19 @@ we need to &lt;a href=&#34;../../docs/howtos/general/taskshowto/#turn-on-proxy-a
 &lt;p&gt;This demonstrates that Proxy Aggregation is working.&lt;/p&gt;
 &lt;h2 id=&#34;stroom-forwarding-proxy-testing&#34;&gt;Stroom Forwarding Proxy Testing&lt;/h2&gt;
 &lt;h3 id=&#34;data-post-tests-1&#34;&gt;Data Post Tests&lt;/h3&gt;
-&lt;h4 id=&#34;simple-post-tests-1&#34;&gt;Simple Post tests&lt;/h4&gt;
+&lt;h4 id=&#34;simple-post-tests-1&#34;&gt;Simple Post Tests&lt;/h4&gt;
 &lt;p&gt;This test is to ensure the Stroom &lt;em&gt;Forwarding&lt;/em&gt; proxy and its connection to the central Stroom Processing system is working.&lt;/p&gt;
 &lt;p&gt;We will send a file to our &lt;em&gt;Forwarding&lt;/em&gt; proxy (&lt;code&gt;stroomfp0.strmdev00.org&lt;/code&gt;) and monitor this nodes&amp;rsquo; proxy log files as well as all the
-destination nodes proxy log files. The reason for monitoring all the destination system&amp;rsquo;s proxy log files is that the destination system is
+destination nodes proxy log files.
+The reason for monitoring all the destination system&amp;rsquo;s proxy log files is that the destination system is
 probably load balancing and hence the forwarded file may turn up on any of the destination nodes.&lt;/p&gt;
 &lt;p&gt;Perform the following&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;Log onto any host where you will perform the &lt;code&gt;curl&lt;/code&gt; post&lt;/li&gt;
 &lt;li&gt;Monitor all proxy log files&lt;/li&gt;
 &lt;li&gt;Log onto the Forwarding Proxy node and become the &lt;code&gt;stroomuser&lt;/code&gt; and monitor the Stroom proxy service using the &lt;code&gt;Tp&lt;/code&gt; bash macro.&lt;/li&gt;
-&lt;li&gt;Log onto the destination Stroom nodes and become the &lt;code&gt;stroomuser&lt;/code&gt; and monitor each node&amp;rsquo;s Stroom proxy service using the &lt;code&gt;Tp&lt;/code&gt; bash macro. That is, on each node, run&lt;/li&gt;
+&lt;li&gt;Log onto the destination Stroom nodes and become the &lt;code&gt;stroomuser&lt;/code&gt; and monitor each node&amp;rsquo;s Stroom proxy service using the &lt;code&gt;Tp&lt;/code&gt; bash macro.
+That is, on each node, run&lt;/li&gt;
 &lt;/ul&gt;
 
   
@@ -616,14 +630,15 @@ the &lt;em&gt;datafeed.DataFeedRequestHandler$1&lt;/em&gt; event in the &lt;em&g
 &lt;/code&gt;&lt;/pre&gt;
 &lt;h2 id=&#34;stroom-standalone-proxy-testing&#34;&gt;Stroom Standalone Proxy Testing&lt;/h2&gt;
 &lt;h3 id=&#34;data-post-tests-2&#34;&gt;Data Post Tests&lt;/h3&gt;
-&lt;h4 id=&#34;simple-post-tests-2&#34;&gt;Simple Post tests&lt;/h4&gt;
+&lt;h4 id=&#34;simple-post-tests-2&#34;&gt;Simple Post Tests&lt;/h4&gt;
 &lt;p&gt;This test is to ensure the Stroom &lt;em&gt;Store NO-DB&lt;/em&gt; or &lt;em&gt;Standalone&lt;/em&gt; proxy is working.&lt;/p&gt;
 &lt;p&gt;We will send a file to our &lt;em&gt;Standalone&lt;/em&gt; proxy (&lt;code&gt;stroomsap0.strmdev00.org&lt;/code&gt;) and monitor this nodes&amp;rsquo; proxy log files as well the directory the
 received files are meant to be stored in.&lt;/p&gt;
 &lt;p&gt;Perform the following&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;Log onto any host where you will perform the &lt;code&gt;curl&lt;/code&gt; post&lt;/li&gt;
-&lt;li&gt;Log onto the Standalone Proxy node and become the &lt;code&gt;stroomuser&lt;/code&gt; and monitor the Stroom proxy service using the &lt;code&gt;Tp&lt;/code&gt; bash macro. That is run&lt;/li&gt;
+&lt;li&gt;Log onto the Standalone Proxy node and become the &lt;code&gt;stroomuser&lt;/code&gt; and monitor the Stroom proxy service using the &lt;code&gt;Tp&lt;/code&gt; bash macro.
+That is run&lt;/li&gt;
 &lt;/ul&gt;
 
   
@@ -670,7 +685,8 @@ Tp&lt;/code&gt;&lt;/pre&gt;
 2017-01-02T02:11:34.528Z INFO  [ajp-apr-9009-exec-1] datafeed.DataFeedRequestHandler$1 (DataFeedRequestHandler.java:104) - &amp;quot;doPost() - Took 33 ms to process (concurrentRequestCount=1) 200&amp;quot;,&amp;quot;Environment=EXAMPLE_ENVIRONMENT&amp;quot;,&amp;quot;Expect=100-continue&amp;quot;,&amp;quot;Feed=TEST-FEED-V1_0&amp;quot;,&amp;quot;GUID=ebd11215-7d4c-4be6-a524-358015e2ac38&amp;quot;,&amp;quot;ReceivedTime=2017-01-02T02:11:34.501Z&amp;quot;,&amp;quot;RemoteAddress=192.168.2.220&amp;quot;,&amp;quot;RemoteHost=192.168.2.220&amp;quot;,&amp;quot;System=EXAMPLE_SYSTEM&amp;quot;,&amp;quot;accept=*/*&amp;quot;,&amp;quot;content-length=1051&amp;quot;,&amp;quot;content-type=application/x-www-form-urlencoded&amp;quot;,&amp;quot;host=stroomsap0.strmdev00.org&amp;quot;,&amp;quot;user-agent=curl/7.19.7 (x86_64-redhat-linux-gnu) libcurl/7.19.7 NSS/3.21 Basic ECC zlib/1.2.3 libidn/1.18 libssh2/1.4.2&amp;quot;
 ...
 &lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;Further, if you check the proxy&amp;rsquo;s storage directory, you will see the file &lt;code&gt;001.zip&lt;/code&gt;. The file names number upwards from 001.
+&lt;p&gt;Further, if you check the proxy&amp;rsquo;s storage directory, you will see the file &lt;code&gt;001.zip&lt;/code&gt;.
+The file names number upwards from 001.
 
   
 

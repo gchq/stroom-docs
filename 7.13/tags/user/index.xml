@@ -330,7 +330,7 @@ See &lt;a href=&#34;../../docs/install-guide/setup/open-id/&#34;&gt;Open ID Conn
 &lt;/div&gt;
 
 
-&lt;h2 id=&#34;signing-in-with-a-password&#34;&gt;Signing In With A Password&lt;/h2&gt;
+&lt;h2 id=&#34;signing-in-with-a-password&#34;&gt;Signing in with a Password&lt;/h2&gt;
 &lt;p&gt;The outcome of a sign in attempt depends on the state of the account as well as the password.&lt;/p&gt;
 &lt;table&gt;
 &lt;thead&gt;
@@ -366,7 +366,7 @@ See &lt;a href=&#34;../../docs/install-guide/setup/open-id/&#34;&gt;Open ID Conn
 &lt;p&gt;For a disabled or locked account the password is not checked at all.
 Neither state can be talked out of with a correct password, so there is nothing to be gained by checking one, and refusing without checking means the sign in screen cannot be used to test whether a password is correct.&lt;/p&gt;
 &lt;p&gt;Failed attempts against a disabled or locked account are not counted, because the account is already refused.&lt;/p&gt;
-&lt;h3 id=&#34;being-asked-to-change-your-password&#34;&gt;Being Asked To Change Your Password&lt;/h3&gt;
+&lt;h3 id=&#34;being-asked-to-change-your-password&#34;&gt;Being Asked to Change Your Password&lt;/h3&gt;
 &lt;p&gt;A user may be signed in successfully and then be required to set a new password before they can do anything else.
 This happens in three cases:&lt;/p&gt;
 &lt;ul&gt;
@@ -408,7 +408,7 @@ The previous password cannot be reused.&lt;/p&gt;
 &lt;p&gt;An administrator is only named where an administrator really is the only way back.
 In a default configuration a locked user is told to wait, which avoids a support request for something that resolves itself.&lt;/p&gt;
 &lt;p&gt;See &lt;a href=&#34;../../docs/user-guide/security/user-accounts/&#34;&gt;User Accounts&lt;/a&gt; for the three ways an account becomes usable again.&lt;/p&gt;
-&lt;h2 id=&#34;resetting-a-forgotten-password&#34;&gt;Resetting A Forgotten Password&lt;/h2&gt;
+&lt;h2 id=&#34;resetting-a-forgotten-password&#34;&gt;Resetting a Forgotten Password&lt;/h2&gt;
 &lt;p&gt;If the user has an email address recorded against their account, and &lt;code&gt;stroom.security.identity.passwordPolicy.allowPasswordResets&lt;/code&gt; is enabled, they can use &lt;em&gt;Forgot password?&lt;/em&gt; on the sign in screen to be emailed a link for setting a new password.&lt;/p&gt;
 &lt;p&gt;The response shown on screen is the same whether or not the address belongs to an account, so this screen cannot be used to discover which email addresses have accounts.&lt;/p&gt;
 &lt;p&gt;The link is valid for &lt;code&gt;stroom.security.identity.token.emailResetTokenExpiration&lt;/code&gt;, ten minutes by default, and can be used only once.
@@ -416,7 +416,7 @@ Requesting another link invalidates any earlier one.
 Repeated requests are rate limited by &lt;code&gt;stroom.security.identity.passwordResetRequestCooldown&lt;/code&gt;.&lt;/p&gt;
 &lt;p&gt;Completing a reset ends all of that user&amp;rsquo;s existing sessions everywhere in the cluster.
 They then sign in with their new password.&lt;/p&gt;
-&lt;h3 id=&#34;when-a-reset-cannot-be-completed&#34;&gt;When A Reset Cannot Be Completed&lt;/h3&gt;
+&lt;h3 id=&#34;when-a-reset-cannot-be-completed&#34;&gt;When a Reset Cannot be Completed&lt;/h3&gt;
 &lt;p&gt;Some accounts cannot be recovered this way.
 Rather than sending a link that would not work, Stroom emails the account holder to say that the reset cannot currently be completed and that they should contact an administrator if it continues.&lt;/p&gt;
 &lt;p&gt;This happens when:&lt;/p&gt;
@@ -431,7 +431,7 @@ Without it, setting a new password would not be enough to sign in, so an adminis
 &lt;p&gt;The email is deliberately the same in all three cases and does not say which one applies.
 It goes to the address held against the account, so it tells the account holder something is wrong without telling whoever made the request anything at all.&lt;/p&gt;
 &lt;p&gt;No email of any kind is sent when there is nobody to send it to, that is when the address matches no account, the account has no email address recorded, password resets are turned off, or an email was already sent within the cool-down period.&lt;/p&gt;
-&lt;h2 id=&#34;signing-in-with-a-certificate&#34;&gt;Signing In With A Certificate&lt;/h2&gt;
+&lt;h2 id=&#34;signing-in-with-a-certificate&#34;&gt;Signing in with a Certificate&lt;/h2&gt;
 &lt;p&gt;If &lt;code&gt;stroom.security.identity.allowCertificateAuthentication&lt;/code&gt; is enabled, a user presenting a valid certificate can be signed in without typing a password.
 The user id is taken from the certificate&amp;rsquo;s common name using &lt;code&gt;stroom.security.identity.certificateCnPattern&lt;/code&gt; and &lt;code&gt;stroom.security.identity.certificateCnCaptureGroupIndex&lt;/code&gt;.&lt;/p&gt;
 &lt;p&gt;A valid certificate is treated in exactly the same way as a correct password.
@@ -604,7 +604,7 @@ It does not withdraw their access: the account is untouched and they can sign in
 This is offered alongside revocation because the two are easily confused and do quite different things, as described below.&lt;/p&gt;
 &lt;/li&gt;
 &lt;/ul&gt;
-&lt;h2 id=&#34;revoking-disabling-and-the-difference-between-them&#34;&gt;Revoking, Disabling, And The Difference Between Them&lt;/h2&gt;
+&lt;h2 id=&#34;revoking-disabling-and-the-difference-between-them&#34;&gt;Revoking, Disabling, and the Difference between Them&lt;/h2&gt;
 &lt;p&gt;Three actions are easy to confuse, and each does something different.
 To stop someone using Stroom completely and immediately, you need the last two together.&lt;/p&gt;
 &lt;table&gt;
@@ -934,7 +934,7 @@ When a user joins or leaves the team it is simply a case of editing the membersh
 &lt;li&gt;We will be adding the user &lt;code&gt;burn&lt;/code&gt;&lt;/li&gt;
 &lt;li&gt;We will make this user an &lt;code&gt;Administrator&lt;/code&gt;&lt;/li&gt;
 &lt;/ul&gt;
-&lt;h2 id=&#34;add-a-new-user&#34;&gt;Add a new user&lt;/h2&gt;
+&lt;h2 id=&#34;add-a-new-user&#34;&gt;Add a New User&lt;/h2&gt;
 &lt;p&gt;To add a new user, move your cursor to the &lt;code&gt;Tools&lt;/code&gt; item of the &lt;strong&gt;Main Menu&lt;/strong&gt; and select to bring up the &lt;code&gt;Tools&lt;/code&gt; sub-menu.&lt;/p&gt;
 
 
@@ -1022,7 +1022,9 @@ When a user joins or leaves the team it is simply a case of editing the membersh
 &lt;p&gt;To add the user, move the cursor to the &lt;em&gt;New&lt;/em&gt; icon &lt;span class=&#34;stroom-icon inline-svg-button icon-button  &#34; &gt;
     &lt;span class=&#34;face&#34; title=&#34;Add&#34;&gt;&lt;svg xmlns=&#34;http://www.w3.org/2000/svg&#34; width=&#34;1792&#34; height=&#34;1792&#34; viewBox=&#34;0 0 1792 1792&#34;&gt;&lt;path style=&#34;fill:currentColor&#34; d=&#34;m 1600,800 0,192 q 0,40 -28,68 -28,28 -68,28 l -416,0 0,416 q 0,40 -28,68 -28,28 -68,28 l -192,0 q -40,0 -68,-28 -28,-28 -28,-68 l 0,-416 -416,0 q -40,0 -68,-28 -28,-28 -28,-68 l 0,-192 q 0,-40 28,-68 28,-28 68,-28 l 416,0 0,-416 q 0,-40 28,-68 28,-28 68,-28 l 192,0 q 40,0 68,28 28,28 28,68 l 0,416 416,0 q 40,0 68,28 28,28 28,68 z&#34;/&gt;&lt;/svg&gt; &lt;/span&gt;
   &lt;/span&gt; in the top left and
-select it. On selection you will be prompted for a user name. In our case we will enter the user &lt;code&gt;burn&lt;/code&gt;.&lt;/p&gt;
+select it.
+On selection you will be prompted for a user name.
+In our case we will enter the user &lt;code&gt;burn&lt;/code&gt;.&lt;/p&gt;
 
 
 
@@ -1172,7 +1174,8 @@ for an explanation of the various Application Permissions a user can have.&lt;/p
 &lt;/div&gt;
 
 &lt;h4 id=&#34;set-users-password&#34;&gt;Set User&amp;rsquo;s Password&lt;/h4&gt;
-&lt;p&gt;We need to set &lt;code&gt;burn&#39;s&lt;/code&gt; password (which he will need to reset on first login). So, select the 
+&lt;p&gt;We need to set &lt;code&gt;burn&#39;s&lt;/code&gt; password (which he will need to reset on first login).
+So, select the 
 
 
 

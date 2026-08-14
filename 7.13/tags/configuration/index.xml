@@ -166,7 +166,7 @@ The database value will apply to all nodes in the cluster, overriding the defaul
 &lt;p&gt;Some properties are marked &lt;em&gt;Read Only&lt;/em&gt; which means they cannot have a database value set for them.
 These properties can only be altered via the YAML configuration file on each node.
 Such properties are typically used to configure values required for Stroom to be able to boot, so it does not make sense for them to be configurable from the User Interface.&lt;/p&gt;
-&lt;h3 id=&#34;yaml-configuration-file&#34;&gt;YAML Configuration file&lt;/h3&gt;
+&lt;h3 id=&#34;yaml-configuration-file&#34;&gt;YAML Configuration File&lt;/h3&gt;
 &lt;p&gt;Stroom is built on top of a framework called Dropwizard.
 Dropwizard uses a YAML configuration file on each node to configure the application.
 This is typically &lt;code&gt;config.yml&lt;/code&gt; and is located in the &lt;code&gt;config&lt;/code&gt; directory.&lt;/p&gt;
@@ -597,7 +597,7 @@ Some properties will be represented differently in the user interface to the YAM
 This is due to how values are stored in the database and how the current user interface works.
 This will likely be improved in future versions.
 For details of how different types are represented in the YAML and the UI, see &lt;a href=&#34;../../docs/user-guide/properties#data-types&#34;&gt;Data Types&lt;/a&gt;.&lt;/p&gt;
-&lt;h2 id=&#34;server-configuration&#34;&gt;Server configuration&lt;/h2&gt;
+&lt;h2 id=&#34;server-configuration&#34;&gt;Server Configuration&lt;/h2&gt;
 &lt;p&gt;The &lt;code&gt;server&lt;/code&gt; section controls the configuration of the Jetty web server.&lt;/p&gt;
 &lt;p&gt;For full details of how to configure the &lt;code&gt;server&lt;/code&gt; section see:&lt;/p&gt;
 &lt;ul&gt;
@@ -929,7 +929,8 @@ Thus the configuration of the connections to each of those destinations can be c
 &lt;ul&gt;
 &lt;li&gt;&lt;code&gt;DEFAULT&lt;/code&gt; - The default client configuration used if a named configuration is not present.&lt;/li&gt;
 &lt;li&gt;&lt;code&gt;AWS_PUBLIC_KEYS&lt;/code&gt; - Connections to fetch AWS public keys used in Open ID Connect authentication.&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;DOWNSTREAM&lt;/code&gt; - Connections to downstream proxy/stroom instances to check feed status. (&lt;strong&gt;Stroom Proxy only&lt;/strong&gt;).&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;DOWNSTREAM&lt;/code&gt; - Connections to downstream proxy/stroom instances to check feed status.
+(&lt;strong&gt;Stroom Proxy only&lt;/strong&gt;).&lt;/li&gt;
 &lt;li&gt;&lt;code&gt;OPEN_ID&lt;/code&gt; - Connections to an Open ID Connect identity provider, e.g. Cognito, Azure AD, KeyCloak, etc.&lt;/li&gt;
 &lt;li&gt;&lt;code&gt;STROOM&lt;/code&gt; - Inter-node communications within the Stroom cluster (&lt;strong&gt;Stroom only&lt;/strong&gt;).&lt;/li&gt;
 &lt;/ul&gt;
@@ -1221,7 +1222,8 @@ The following is an example of an appender that rolls based on the size of the l
 &lt;h4 class=&#34;alert-heading&#34;&gt;Warning&lt;/h4&gt;
 
     &lt;p&gt;Log file rolling is event based, so a file will only roll when a new message arrives that would require a roll to happen.
-This means that if the application is idle for a long period with no log output then the un-rolled file will remain active until a new message arrives to trigger it to roll. For example, if Stroom is unused overnight, then the last log message from the night before will not be rolled until a new messages arrive in the morning.&lt;/p&gt;
+This means that if the application is idle for a long period with no log output then the un-rolled file will remain active until a new message arrives to trigger it to roll.
+For example, if Stroom is unused overnight, then the last log message from the night before will not be rolled until a new messages arrive in the morning.&lt;/p&gt;
 &lt;p&gt;For this reason, &lt;code&gt;archivedFileCount&lt;/code&gt; should be set to a value that is greater than the maximum time the application may be idle, else rolled log files may be deleted as soon as they are rolled.&lt;/p&gt;
 
 

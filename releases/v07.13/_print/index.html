@@ -151,7 +151,7 @@
     aria-label="Search this site…"
     autocomplete="off"
     
-    data-offline-search-index-json-src="../../../offline-search-index.95b12371d9f23e70cddb1f62f4c00605.json"
+    data-offline-search-index-json-src="../../../offline-search-index.95034a9311ba25828e37c5d04adb17e9.json"
     data-offline-search-base-href="../../../"
     data-offline-search-max-results="50"
   >
@@ -265,14 +265,410 @@ This is the multi-page printable view of this section.
     
   <h1 id="pg-ce90060e96431c974e58581fd4da194e">1 - New Features</h1>
     <div class="lead">New features in Stroom version 7.13.</div>
-	
-<div class="alert alert-warning" role="alert">
-<h4 class="alert-heading">TODO</h4>
+	<h2 id="node-groups-and-processor-profiles">Node Groups and Processor Profiles</h2>
+<p>Nodes can now be placed into named <em>Node Groups</em>, and a <em>Processor Profile</em> says which node group does the processing, during which periods of the day and week, and how many threads it may use in each period.
+A processor filter can then be given a profile, so that processing can be confined to particular nodes, held back until quiet times of day, or given more of the cluster when it is free.</p>
+<p>Both are managed from</p>
 
-    Complete this section.
+
+
+
+
+  <div class="stroom-theme-dark stroom-menu">
+    
+    
+
+      
+
+      
+      
+
+
+      
+
+  
+  
+  <div class="stroom-menu-item-background" style="margin-top: 0px;">
+    
+    <div class="stroom-menu-item " >
+
+      <div class="stroom-menu-item-text">Monitoring
+      </div>
+        <div class="stroom-menu-item-arrow">
+          <span class="stroom-icon inline-svg-button icon-button  " >
+    <span class="face" title="Arrow right"><svg xmlns="http://www.w3.org/2000/svg" width="1427.7665" height="1427.7665" viewBox="0 0 1427.7665 1427.7665"><g style="stroke:currentColor;stroke-width:167.567"><path d="m 415.05387,83.70929 c -39.92654,0.4303 -75.41463,48.3887 -40.0468,81.9121 C 567.552,348.69899 760.75555,531.15431 953.73208,713.82391 760.75555,896.49341 567.552,1078.9486 375.00707,1262.0262 c -46.19471,43.7855 28.48812,112.1966 76.0571,67.1681 195.93558,-185.823 392.95261,-370.82479 587.98693,-557.52749 5.6117,-4.8034 10.4633,-10.2473 14.4855,-16.1231 9.643,-12.4844 13.9638,-27.0796 13.6909,-41.7198 0.2729,-14.6402 -4.0479,-29.2354 -13.6909,-41.7198 -4.0222,-5.8758 -8.8738,-11.3198 -14.4855,-16.1231 C 844.01678,469.27821 646.99975,284.27629 451.06417,98.45319 439.91519,87.89979 427.27628,83.57749 415.05387,83.70929 Z"/></g></svg> </span>
+  </span>
+        </div>
+    </div>
+  </div>
+
+      
+
+      
+      
+        
+      
+
+
+      
+
+  
+  
+  <div class="stroom-menu-item-background" style="margin-top: 7px;">
+    
+    <div class="stroom-menu-item stroom-menu-item-leaf" >
+
+      <div class="stroom-menu-item-text">Node Groups
+      </div>
+    </div>
+  </div>
+  </div>
+
+
+
+<p>and</p>
+
+
+
+
+
+  <div class="stroom-theme-dark stroom-menu">
+    
+    
+
+      
+
+      
+      
+
+
+      
+
+  
+  
+  <div class="stroom-menu-item-background" style="margin-top: 0px;">
+    
+    <div class="stroom-menu-item " >
+
+      <div class="stroom-menu-item-text">Monitoring
+      </div>
+        <div class="stroom-menu-item-arrow">
+          <span class="stroom-icon inline-svg-button icon-button  " >
+    <span class="face" title="Arrow right"><svg xmlns="http://www.w3.org/2000/svg" width="1427.7665" height="1427.7665" viewBox="0 0 1427.7665 1427.7665"><g style="stroke:currentColor;stroke-width:167.567"><path d="m 415.05387,83.70929 c -39.92654,0.4303 -75.41463,48.3887 -40.0468,81.9121 C 567.552,348.69899 760.75555,531.15431 953.73208,713.82391 760.75555,896.49341 567.552,1078.9486 375.00707,1262.0262 c -46.19471,43.7855 28.48812,112.1966 76.0571,67.1681 195.93558,-185.823 392.95261,-370.82479 587.98693,-557.52749 5.6117,-4.8034 10.4633,-10.2473 14.4855,-16.1231 9.643,-12.4844 13.9638,-27.0796 13.6909,-41.7198 0.2729,-14.6402 -4.0479,-29.2354 -13.6909,-41.7198 -4.0222,-5.8758 -8.8738,-11.3198 -14.4855,-16.1231 C 844.01678,469.27821 646.99975,284.27629 451.06417,98.45319 439.91519,87.89979 427.27628,83.57749 415.05387,83.70929 Z"/></g></svg> </span>
+  </span>
+        </div>
+    </div>
+  </div>
+
+      
+
+      
+      
+        
+      
+
+
+      
+
+  
+  
+  <div class="stroom-menu-item-background" style="margin-top: 7px;">
+    
+    <div class="stroom-menu-item stroom-menu-item-leaf" >
+
+      <div class="stroom-menu-item-text">Processor Profiles
+      </div>
+    </div>
+  </div>
+  </div>
+
+
+
+<p>Task creation now takes profiles into account, so tasks that no node is allowed to process are no longer queued, and each profile is given a share of the tasks that are created.</p>
+
+<div class="alert alert-primary" role="alert">
+<h4 class="alert-heading">See Also</h4>
+<div class="alert-content">
+  
+  <p><a href="../../../docs/user-guide/processing-profiles/">Node Groups and Processing Profiles</a></p>
 
 </div>
+</div>
 
+<h2 id="document-history-and-safe-delete">Document History and Safe Delete</h2>
+<p>Stroom now keeps a proper audit trail for every document, recording who changed it and when, along with a snapshot of the document data at each change.</p>
+<p>Document dependencies are also now held in the database, which makes it possible to ask what a document depends on and what depends on it.
+This powers the new <em>Safe Delete</em> feature, which tells you what would break before you delete something, and shows you what a folder contains before you delete it.</p>
+
+<div class="alert alert-primary" role="alert">
+<h4 class="alert-heading">See Also</h4>
+<div class="alert-content">
+  
+  <ul>
+<li><a href="../../../docs/user-guide/content/document-history/">Document History</a></li>
+<li><a href="../../../docs/user-guide/content/deleting-content/">Deleting Content</a></li>
+</ul>
+
+</div>
+</div>
+
+<h2 id="data-generator">Data Generator</h2>
+<p>A new <em>DataGen</em> document type sends a defined block of data into a <span class="glossary-link">
+    <a href="../../../docs/glossary/f/glossary-feed">
+      <span>Feed</span>
+      <i class="glossary-link-icon fas fa-book fa-sm text-primary"></i>
+    </a><span class="glossary-tooltip">
+      <span class="glossary-tooltip-title">Feed</span>
+      <span class="glossary-tooltip-summary">A Feed is a means of organising and categorising data in Stroom. A Feed contains multiple <em>Streams</em> of data that have been ingested into Stroom or output by a <em>Pipeline</em>. Typically a Feed will contain <em>Streams</em> of data that are all from one system and have a common data format.</span><span class="glossary-tooltip-truncated">Click to see more details...</span></span></span> on a schedule.
+It is intended for generating test data, for example to exercise an analytic rule.</p>
+
+<div class="alert alert-primary" role="alert">
+<h4 class="alert-heading">See Also</h4>
+<div class="alert-content">
+  
+  <p><a href="../../../docs/reference-section/documents/#data-generator">Data Generator</a></p>
+
+</div>
+</div>
+
+<h2 id="tab-sessions">Tab Sessions</h2>
+<p>A set of open document tabs can be saved under a name and reopened later, which is useful when you regularly work on the same group of documents, or want to put an investigation down and pick it up again.</p>
+<p>Tab sessions are held per user and managed from the <em>Navigation</em> menu, alongside <em>Find</em> and <em>Recent Items</em>, using</p>
+
+
+
+
+
+  <div class="stroom-theme-dark stroom-menu">
+    
+    
+
+      
+
+      
+      
+        
+      
+
+
+      
+
+  
+  
+  <div class="stroom-menu-item-background" style="margin-top: 0px;">
+    
+    <div class="stroom-menu-item stroom-menu-item-leaf" >
+
+      <div class="stroom-menu-item-text">Save Tab Session
+      </div>
+    </div>
+  </div>
+  </div>
+
+
+
+
+
+
+
+
+  <div class="stroom-theme-dark stroom-menu">
+    
+    
+
+      
+
+      
+      
+        
+      
+
+
+      
+
+  
+  
+  <div class="stroom-menu-item-background" style="margin-top: 0px;">
+    
+    <div class="stroom-menu-item stroom-menu-item-leaf" >
+
+      <div class="stroom-menu-item-text">Open Tab Session
+      </div>
+    </div>
+  </div>
+  </div>
+
+
+
+
+
+
+
+
+  <div class="stroom-theme-dark stroom-menu">
+    
+    
+
+      
+
+      
+      
+        
+      
+
+
+      
+
+  
+  
+  <div class="stroom-menu-item-background" style="margin-top: 0px;">
+    
+    <div class="stroom-menu-item stroom-menu-item-leaf" >
+
+      <div class="stroom-menu-item-text">Delete Tab Session
+      </div>
+    </div>
+  </div>
+  </div>
+
+
+
+<p>Opening a tab session closes the tabs you currently have open, then reopens the saved documents in the order they were saved in.</p>
+<h2 id="pipeline-editing-improvements">Pipeline Editing Improvements</h2>
+<ul>
+<li>Pipeline stepping can now step across multiple streams rather than stopping at the end of one.</li>
+<li>When saving a pipeline you can choose which of the changed documents it references are saved with it.</li>
+<li>XSLTs and text converters can be created as documents embedded in the pipeline that uses them, rather than as separate items in the explorer tree.</li>
+</ul>
+<h2 id="dashboard-and-query-functions">Dashboard and Query Functions</h2>
+<p>Two functions have been added for pulling structured values apart in dashboard and query tables:</p>
+<ul>
+<li><code>xpath</code> - extract a value from an XML string.</li>
+<li><code>jq</code> - extract a value from a JSON string.</li>
+</ul>
+<p>The <code>link</code> function now accepts a title, and a new XSLT function computes the similarity of two float vectors.</p>
+<h2 id="search-improvements">Search Improvements</h2>
+<ul>
+<li>Elasticsearch nested field types are now supported in search.</li>
+<li>Elasticsearch rerank search now supports multiple <code>dense_vector</code> fields, and numeric comparators work with <code>float</code> and <code>double</code> fields.</li>
+<li>The number of dimensions used for vector embedding is now configurable, and optional.</li>
+</ul>
+<h2 id="sessions-and-tokens">Sessions and Tokens</h2>
+<p>Administrators can now see the sessions a user holds and end them, and revoke the tokens issued to that user.
+Any user can end all of their own sessions other than the one they are using.</p>
+
+<div class="alert alert-primary" role="alert">
+<h4 class="alert-heading">See Also</h4>
+<div class="alert-content">
+  
+  <p><a href="../../../docs/user-guide/security/sessions-and-tokens/">Sessions and Tokens</a></p>
+
+</div>
+</div>
+
+<h2 id="account-self-service">Account Self Service</h2>
+<p>An account locked by repeated failed sign-ins now unlocks itself after a period rather than needing an administrator, and the &lsquo;Forgot password&rsquo; flow has been rebuilt so that a user can complete a reset from an emailed link.
+The three account states, <em>Enabled</em>, <em>Locked</em> and <em>Inactive</em>, are now independent of one another, each with a single owner.</p>
+
+<div class="alert alert-primary" role="alert">
+<h4 class="alert-heading">See Also</h4>
+<div class="alert-content">
+  
+  <ul>
+<li><a href="../../../docs/user-guide/security/user-accounts/">User Accounts</a></li>
+<li><a href="../../../docs/user-guide/security/signing-in/">Signing In</a></li>
+<li><a href="../../../releases/v07.13/breaking-changes/">Breaking Changes</a></li>
+</ul>
+
+</div>
+</div>
+
+<h2 id="authenticating-edge-proxies">Authenticating Edge Proxies</h2>
+<p>Stroom can now sit behind a proxy that has already authenticated the user, such as an AWS Application Load Balancer with Cognito, or NGINX with <code>oauth2-proxy</code>.
+In this arrangement the proxy is the OpenID Connect relying party and Stroom trusts the identity it passes on, rather than running a sign-in flow of its own.</p>
+
+<div class="alert alert-primary" role="alert">
+<h4 class="alert-heading">See Also</h4>
+<div class="alert-content">
+  
+  <p><a href="../../../docs/install-guide/setup/open-id/edge-proxy/">Authenticating Edge Proxy</a></p>
+
+</div>
+</div>
+
+<h2 id="other-authentication-changes">Other Authentication Changes</h2>
+<ul>
+<li>The signing keys used by the internal identity provider are now rotated automatically, controlled by <code>stroom.security.identity.token.jwkRotationInterval</code>.</li>
+<li>Provider specific parameters can be added to the OpenID authentication request using <code>authenticationRequestExtraParams</code>, which is how Google is asked for a refresh token.</li>
+<li>An optional <code>requiredAccessTokenType</code> setting refuses a token of the wrong type on the API, so that an <code>id_token</code> cannot be used in place of an access token.</li>
+<li>The Stroom user interface no longer needs redirects to authenticate, so it can be served from another location by a backend for frontend proxy.</li>
+</ul>
+
+<div class="alert alert-primary" role="alert">
+<h4 class="alert-heading">See Also</h4>
+<div class="alert-content">
+  
+  <ul>
+<li><a href="../../../docs/user-guide/security/signing-keys/">Signing Keys</a></li>
+<li><a href="../../../docs/install-guide/setup/open-id/external-idp/stroom-configuration/">Stroom Configuration</a></li>
+</ul>
+
+</div>
+</div>
+
+<h2 id="visualisation-assets">Visualisation Assets</h2>
+<p>A Visualisation now has an <em>Assets</em> tab holding the files it is built from, e.g. JavaScript, CSS, HTML and images, in a folder structure that can be edited and uploaded to through the user interface.</p>
+
+<div class="alert alert-primary" role="alert">
+<h4 class="alert-heading">See Also</h4>
+<div class="alert-content">
+  
+  <p><a href="../../../docs/user-guide/content/visualisation-assets/">Visualisation Assets</a></p>
+
+</div>
+</div>
+
+<h2 id="git-repositories">Git Repositories</h2>
+<p>Git repositories can now be given HTTP and TLS configuration, so that Stroom can reach a repository through a proxy or one that presents a private certificate.</p>
+
+<div class="alert alert-primary" role="alert">
+<h4 class="alert-heading">See Also</h4>
+<div class="alert-content">
+  
+  <p><a href="../../../docs/user-guide/content/git-repo/">Git Repo</a></p>
+
+</div>
+</div>
+
+<h2 id="content-index">Content Index</h2>
+<p>The content index is no longer rebuilt on first use after a node restarts.
+It can now be held locally on each node for performance, or on shared storage, controlled by <code>stroom.contentIndex.storageType</code>.</p>
+<h2 id="json-parsing-limits">JSON Parsing Limits</h2>
+<p>The <code>JSONParser</code> pipeline element now streams string values to the downstream elements rather than reading each one into memory, and has new properties to protect Stroom from very large or deeply nested documents.</p>
+
+<div class="alert alert-primary" role="alert">
+<h4 class="alert-heading">See Also</h4>
+<div class="alert-content">
+  
+  <ul>
+<li><a href="../../../docs/reference-section/pipeline-elements/#jsonparser">JSONParser</a></li>
+<li><a href="../../../releases/v07.13/breaking-changes/">Breaking Changes</a></li>
+</ul>
+
+</div>
+</div>
+
+<h2 id="smaller-changes">Smaller Changes</h2>
+<ul>
+<li>Multiple instances of the same dashboard can be opened at once.</li>
+<li>A new <em>System Info</em> admin servlet, and a menu of all admin servlets at <code>&lt;admin port&gt;/&lt;admin path&gt;/menu</code>.</li>
+<li>Standard annotation comments are now content rather than configuration.</li>
+<li>Annotation history entries are grouped and expandable, and annotation decoration of tables is faster.</li>
+<li>Additional properties on the <code>S3Appender</code>.</li>
+<li>Query table customisations can be reset.</li>
+<li>Node selection for node groups supports select all and inverting the selection.</li>
+<li>Editing a document only marks it as needing to be saved once something has actually changed.</li>
+</ul>
 
 </div>
 
@@ -293,14 +689,34 @@ This is the multi-page printable view of this section.
     
   <h1 id="pg-03bfef42f71e08e7ce2735ca3e8fa686">2 - Preview Features (experimental)</h1>
     <div class="lead">Preview features in Stroom version 7.13. Preview features are somewhat experimental in nature and are therefore subject to breaking changes in future releases.</div>
-	
-<div class="alert alert-warning" role="alert">
-<h4 class="alert-heading">TODO</h4>
+	<h2 id="ask-stroom-ai">Ask Stroom AI</h2>
+<p>Ask Stroom AI, introduced as a preview feature in v7.11, has been substantially improved and remains a preview feature.</p>
+<ul>
+<li>The chat can be docked as a panel rather than only opening as a dialog.</li>
+<li>Chat history is kept, and individual messages and attachments can be viewed, opened or deleted.</li>
+<li>Tables can be attached to a conversation, and are named so that the model can refer to them by source.</li>
+<li>Larger tables are analysed in batches and the results merged, rather than the request simply being too big.</li>
+<li>Answers can be copied and downloaded, and messages show when they were sent.</li>
+<li>Use of Ask Stroom AI is now recorded in the event log.</li>
+</ul>
+<p>The chat history is held in the database, which is why a new <code>ai</code> configuration branch appears in this release.</p>
 
-    Complete this section.
+<div class="alert alert-primary" role="alert">
+<h4 class="alert-heading">See Also</h4>
+<div class="alert-content">
+  
+  <p><a href="../../../releases/v07.13/upgrade-notes/">Upgrade Notes</a></p>
 
 </div>
+</div>
 
+<h2 id="dense-vector-search">Dense Vector Search</h2>
+<p>Dense vector fields, introduced as a preview feature in v7.11, remain experimental in both the Lucene and Elasticsearch implementations.</p>
+<ul>
+<li>Search results can be reranked using a model, including across multiple <code>dense_vector</code> fields in Elasticsearch.</li>
+<li>The number of dimensions used for embedding is configurable, and can be left unset.</li>
+<li>A new XSLT function computes the similarity of two float vectors.</li>
+</ul>
 
 </div>
 
@@ -330,38 +746,172 @@ This is the multi-page printable view of this section.
 </div>
 
 
+<p>Most of the breaking changes in this release relate to authentication.
+If you use an external identity provider, read <a href="#audience-validation-is-now-on-by-default">Audience Validation Is Now on by Default</a> and <a href="#external-identity-provider-redirect-uri">External Identity Provider Redirect URI</a> before upgrading.
+If you use Stroom&rsquo;s internal identity provider, read <a href="#duplicate-account-email-addresses">Duplicate Account Email Addresses</a> before upgrading, as the database migration will stop with an error if any are found.</p>
 <h2 id="stroom">Stroom</h2>
 <p>Breaking changes relating to Stroom.</p>
 <p>A number of configuration properties have been removed.
 If any of these properties have been set in the YAML configuration file, Stroom will no longer boot.
 Some properties have also had their default values changed.
 See <a href="../../../releases/v07.13/upgrade-notes/">Upgrade Notes</a> for details.</p>
+<h3 id="authentication-and-accounts">Authentication and Accounts</h3>
+<p>These changes affect Stroom&rsquo;s own sign-in and account handling.
+Further authentication changes that affect Stroom-Proxy as well are in <a href="#stroom--stroom-proxy">Stroom &amp; Stroom-Proxy</a> below.</p>
+<h4 id="duplicate-account-email-addresses">Duplicate Account Email Addresses</h4>
+<p>Account email addresses must now be unique, so that the &lsquo;Forgot password&rsquo; flow can identify an account from the email address it is given.
+An account may still have no email address at all, and any number of accounts may have none.</p>
+<p>If two or more accounts currently share an email address then the database migration will stop with an error and Stroom will not start.
+See <a href="../../../releases/v07.13/upgrade-notes/#duplicate-account-email-addresses">Upgrade Notes</a> for how to check for this before upgrading.</p>
+<h4 id="external-identity-provider-redirect-uri">External Identity Provider Redirect URI</h4>
+<p>If you use an external identity provider, the client registered at that provider must now list Stroom&rsquo;s sign-in callback as an allowed redirect URI.
+A provider that does not have it registered will reject the login.</p>
+<p>See <a href="../../../releases/v07.13/upgrade-notes/#external-identity-provider-redirect-uri">Upgrade Notes</a>.</p>
+<h4 id="password-complexity-regex-removed">Password Complexity Regex Removed</h4>
+<p>The internal identity provider no longer supports a character class complexity regex for passwords.
+Password strength is now checked on the server using the same estimator the sign-in screen already showed, governed by <code>minimumPasswordStrength</code>, a score of 0 to 4 that defaults to 3.</p>
+<p>If your configuration sets <code>passwordComplexityRegex</code> then remove it, as the property no longer exists and Stroom will not boot with it set.</p>
+<h4 id="account-lockout-now-expires">Account Lockout Now Expires</h4>
+<p>An account locked by repeated failed sign-ins is now unlocked automatically after <code>stroom.security.identity.failedLoginLockDuration</code>, which defaults to 30 minutes, rather than staying locked until an administrator intervenes.
+This removes a denial of service in which a few failed sign-ins could lock any named user out permanently.</p>
+<p>Set the duration to <code>&quot;PT0S&quot;</code> if you need locks to be permanent.
+Note that the duration governs locks that are already held rather than only new ones, so shortening it releases people who are already locked.</p>
 
-<div class="alert alert-warning" role="alert">
-<h4 class="alert-heading">TODO</h4>
-
-    Complete this section.
+<div class="alert alert-primary" role="alert">
+<h4 class="alert-heading">See Also</h4>
+<div class="alert-content">
+  
+  <p><a href="../../../docs/user-guide/security/user-accounts/">User Accounts</a></p>
 
 </div>
+</div>
 
+<h4 id="administrators-can-no-longer-lock-accounts">Administrators Can No Longer Lock Accounts</h4>
+<p>The three account states now have one owner each.
+An administrator decides whether an account is <em>Enabled</em>, the sign-in process <em>Locks</em> an account after repeated wrong passwords, and the account maintenance job marks an unused account <em>Inactive</em>.
+An administrator can still undo the latter two, but can no longer apply them.</p>
+<p>To prevent an account being used, disable it.</p>
+<p>Two kinds of account are converted to disabled on upgrade, so review the accounts list afterwards.
+See <a href="../../../releases/v07.13/upgrade-notes/#review-disabled-accounts">Upgrade Notes</a>.</p>
+<h4 id="account-fields-renamed">Account Fields Renamed</h4>
+<p>The account fields have been renamed in the REST API and in the accounts screen&rsquo;s quick filter.</p>
+<table>
+<thead>
+<tr>
+<th>Was</th>
+<th>Now</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>loginFailures</code></td>
+<td><code>failureCount</code></td>
+</tr>
+<tr>
+<td><code>failureLocked</code></td>
+<td><code>failureLockedMs</code>, the time the lock was applied</td>
+</tr>
+<tr>
+<td><code>status:Locked</code>, <code>status:Enabled</code>, <code>status:Inactive</code>, <code>status:Disabled</code></td>
+<td><code>locked:true</code>, <code>enabled:true</code>, <code>inactive:true</code></td>
+</tr>
+</tbody>
+</table>
+<p>The <code>status</code> term has been removed rather than renamed, as the three states are now independent of one another.
+Update any saved quick filters or scripts that use <code>status:</code> or <code>loginFailures</code>.</p>
+<h4 id="internal-identity-provider-request-validation">Internal Identity Provider Request Validation</h4>
+<p>The internal identity provider&rsquo;s authorization endpoint now requires <code>response_type=code</code>, a <code>nonce</code> and the <code>openid</code> scope, and rejects a request that omits any of them.
+Stroom&rsquo;s own sign-in sends all three, so no change is needed for a normal deployment.</p>
+<p>If you have set <code>requestScopes</code> to an empty list then sign-in will now fail, as Stroom omits the <code>scope</code> parameter entirely.
+Restore the default, or ensure the list contains <code>openid</code>.</p>
+<h4 id="removed-emailallowpasswordresets-property">Removed <code>email.allowPasswordResets</code> Property</h4>
+<p>This property has been removed, so Stroom will not boot if it is set.
+Nothing read it, so if you set it to <code>false</code> believing it switched password reset emails off, it did not.
+Password resets are governed by <code>allowPasswordResets</code> under the password policy section.</p>
+<h4 id="csrf-checks-on-browser-requests">CSRF Checks on Browser Requests</h4>
+<p>Cross site request forgery checks now apply to state-changing requests whose credential was injected by an authenticating edge proxy, where previously only session cookie identities were checked.</p>
+<p>An in-browser client that attaches its own bearer token must now send an <code>X-CSRF: 1</code> header on state-changing requests when <code>edgeAuthentication.enabled</code> is set.
+Automation outside a browser, and traffic between cluster nodes, are unaffected.</p>
+<h3 id="other-changes">Other Changes</h3>
+<h4 id="removal-of-hbase-statistics">Removal of HBase Statistics</h4>
+<p>The HBase backed statistics store, i.e. <code>StroomStatsStore</code>, has been removed along with all of its configuration.
+See <a href="../../../releases/v07.13/upgrade-notes/">Upgrade Notes</a> for the properties concerned.</p>
+<h4 id="removal-of-the-scylladb-state-store">Removal of the ScyllaDB State Store</h4>
+<p>The ScyllaDB backed state store has been removed, along with the whole <code>state</code> configuration branch.
+Use a Plan B store instead.</p>
+<h4 id="standard-annotation-comments">Standard Annotation Comments</h4>
+<p>Standard annotation comments are now content rather than configuration.
+Any comments previously configured in the <code>standardComments</code> property will need to be saved as annotation comments.</p>
+<h4 id="json-parser-limits">JSON Parser Limits</h4>
+<p>The <code>JSONParser</code> pipeline element now applies limits to protect Stroom from very large or deeply nested documents.</p>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Default</th>
+<th>Effect</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>stringTruncateLength</code></td>
+<td>10,000</td>
+<td>String values longer than this are truncated.</td>
+</tr>
+<tr>
+<td><code>maxStringLength</code></td>
+<td>100,000,000</td>
+<td>A string value longer than this is a fatal error.</td>
+</tr>
+<tr>
+<td><code>maxDepth</code></td>
+<td>500</td>
+<td>Nesting deeper than this is a fatal error.</td>
+</tr>
+</tbody>
+</table>
+<p>If you parse JSON containing string values longer than 10,000 characters then they will now be truncated unless you raise <code>stringTruncateLength</code>.</p>
+<p>The underlying JSON library has also been uplifted to a new major version, so the output of the <code>JSONParser</code> element should be checked to confirm it is still as expected.</p>
 <h2 id="stroom-proxy">Stroom-Proxy</h2>
-<p>Breaking changes relating to Stroom Proxy.</p>
-
-<div class="alert alert-warning" role="alert">
-<h4 class="alert-heading">TODO</h4>
-
-    Complete this section.
-
-</div>
-
+<p>There are no Stroom-Proxy specific breaking changes in v7.13.
+The authentication changes below apply to Stroom-Proxy as well as Stroom.</p>
 <h2 id="stroom--stroom-proxy">Stroom &amp; Stroom-Proxy</h2>
 <p>Breaking changes that are common to both Stroom and Stroom Proxy.</p>
+<h3 id="authentication">Authentication</h3>
+<p>These apply wherever an external identity provider is used, so to Stroom and to Stroom-Proxy.</p>
+<h4 id="audience-validation-is-now-on-by-default">Audience Validation is Now on by Default</h4>
+<p>The audience, i.e. <code>aud</code>, claim of a token from an external identity provider is now validated.
+Previously, if <code>allowedAudiences</code> was not configured then no audience validation was performed at all, so a token minted for a different application at the same provider could be replayed against Stroom.
+Where <code>allowedAudiences</code> is empty the audience is now validated against the configured <code>clientId</code> instead.</p>
+<p>If your provider issues tokens to Stroom whose audience is not the <code>clientId</code>, e.g. an API or resource identifier, then list the expected values under <code>allowedAudiences</code>.</p>
+<p>Stroom also now refuses to start with an external identity provider unless one of <code>allowedAudiences</code> or <code>clientId</code> is configured, so that validation cannot be silently skipped for lack of anything to validate against.</p>
 
-<div class="alert alert-warning" role="alert">
-<h4 class="alert-heading">TODO</h4>
+<div class="alert alert-primary" role="alert">
+<h4 class="alert-heading">See Also</h4>
+<div class="alert-content">
+  
+  <p><a href="../../../docs/install-guide/setup/open-id/external-idp/stroom-configuration/#audience-validation">Audience Validation</a></p>
 
-    Complete this section.
+</div>
+</div>
 
+<h4 id="an-audience-claim-is-now-required">An Audience Claim is Now Required</h4>
+<p><code>audienceClaimRequired</code> now defaults to <code>true</code>, so an access token from an external identity provider that carries no <code>aud</code> claim is rejected.</p>
+<p>Some Cognito and Okta access token shapes have no <code>aud</code> claim.
+If yours is one of them, set <code>audienceClaimRequired</code> to <code>false</code> to restore the previous behaviour.</p>
+<h4 id="removal-of-the-test_credentials-identity-provider-type">Removal of the <code>TEST_CREDENTIALS</code> Identity Provider Type</h4>
+<p>This identity provider type has been removed, along with the publicly known credentials it shipped with.
+Stroom and Stroom-Proxy will now fail validation on start if <code>identityProviderType</code> is set to it.
+Use <code>INTERNAL_IDP</code> for Stroom, and <code>NO_IDP</code> or <code>EXTERNAL_IDP</code> for Stroom-Proxy.</p>
+<p>A replacement is available for test and demonstration environments, but it is off unless deliberately enabled at runtime and must never be used in production.</p>
+
+<div class="alert alert-primary" role="alert">
+<h4 class="alert-heading">See Also</h4>
+<div class="alert-content">
+  
+  <p><a href="../../../docs/install-guide/setup/open-id/test-credentials/">Insecure Test Credential</a></p>
+
+</div>
 </div>
 
 
@@ -423,6 +973,72 @@ You must therefore upgrade to v7.0.x first to migrate this content, before upgra
 
 
 <p>Ensure the Stroom and Stroom-Proxy hosts are running the latest patch release of Java v25.</p>
+<h2 id="before-upgrading">Before Upgrading</h2>
+<h3 id="duplicate-account-email-addresses">Duplicate Account Email Addresses</h3>
+<p>This applies only if you use Stroom&rsquo;s internal identity provider.</p>
+<p>Account email addresses must now be unique, so that the &lsquo;Forgot password&rsquo; flow can identify an account from the email address it is given.
+The database migration will stop with an error listing the addresses concerned if any are shared, and Stroom will not start.</p>
+<p>Check for shared addresses before upgrading.</p>
+<pre><code class="language-sql">SELECT email, COUNT(1), GROUP_CONCAT(user_id)
+FROM account
+WHERE email IS NOT NULL
+GROUP BY email
+HAVING COUNT(1) &gt; 1;
+</code></pre>
+<p>If this returns any rows then give each of those accounts its own email address, or clear the address of all but one of them.
+An account with no email address is fine, and any number of accounts may have none, but such an account cannot reset its password by email.</p>
+<h3 id="external-identity-provider-redirect-uri">External Identity Provider Redirect URI</h3>
+<p>This applies only if you use an external identity provider, e.g. Keycloak, AWS Cognito or Google.</p>
+<p>The client registered at the provider must list Stroom&rsquo;s sign-in callback under its valid redirect URIs, substituting your Stroom public URL.</p>
+<pre><code class="language-text">https://&lt;stroom-host&gt;/api/auth/flow/v1/signin-oidc
+</code></pre>
+<p>This is the single <code>redirect_uri</code> that Stroom sends on the authorization request, so a provider that does not have this exact value registered will reject the login with an invalid redirect URI error.</p>
+<p>If you also use provider-side logout, add the post logout landing page to the client&rsquo;s valid post logout redirect URIs.</p>
+<pre><code class="language-text">https://&lt;stroom-host&gt;/
+</code></pre>
+<p>The internal identity provider needs no configuration for this.</p>
+
+<div class="alert alert-primary" role="alert">
+<h4 class="alert-heading">See Also</h4>
+<div class="alert-content">
+  
+  <p><a href="../../../docs/install-guide/setup/open-id/external-idp/">External Identity Provider</a></p>
+
+</div>
+</div>
+
+<h3 id="upgrading-from-a-713-beta-release">Upgrading from a 7.13 Beta Release</h3>
+<p>This applies only if you have deployed a 7.13 beta release up to and including <code>v7.13-beta.10</code>.</p>
+<p>The database migration scripts in those releases were named <code>V07_14...</code> rather than <code>V07_13...</code>, and have since been renamed to match the branch.
+The migration will fail on the next release unless the recorded script names are updated first.</p>
+<p>Run the following script against the Stroom database before starting the new version.</p>
+<span class="external-link">
+  <a href="https://raw.githubusercontent.com/gchq/stroom/refs/heads/7.13/scripts/v07_13_migration_script_rename.sql" target="_blank" class="external-link" title="v07_13_migration_script_rename.sql (external link to https://raw.githubusercontent.com/gchq/stroom/refs/heads/7.13/scripts/v07_13_migration_script_rename.sql)">
+    <span>v07_13_migration_script_rename.sql</span>
+    <i class="external-link-icon fas fa-external-link-alt fa-sm text-secondary"></i>
+  </a>
+</span>
+
+<h2 id="after-upgrading">After Upgrading</h2>
+<h3 id="review-disabled-accounts">Review Disabled Accounts</h3>
+<p>This applies only if you use Stroom&rsquo;s internal identity provider.</p>
+<p>An administrator can no longer lock an account, so two kinds of account are converted to disabled by the migration and will appear in the accounts list as such.</p>
+<ul>
+<li>Any account that was locked at the point of upgrade.
+Locking was how an administrator barred an account, and disabling is now the control for that.</li>
+<li>An account flagged as a processing account, a setting that has been removed.</li>
+</ul>
+<p>This fails closed, i.e. access stays barred until an administrator acts, so review the accounts list after upgrading and re-enable anything that was disabled in error.</p>
+
+<div class="alert alert-primary" role="alert">
+<h4 class="alert-heading">See Also</h4>
+<div class="alert-content">
+  
+  <p><a href="../../../docs/user-guide/security/user-accounts/">User Accounts</a></p>
+
+</div>
+</div>
+
 <h2 id="configuration-file-changes">Configuration File Changes</h2>
 <!--
 Check changes using something like this (run from an up-to-date stroom repo):
@@ -434,7 +1050,7 @@ echo
 git diff origin/${old_ver}..origin/${new_ver} stroom-proxy/stroom-proxy-app/src/test/resources/stroom/dist/proxy-expected.yaml | cat
 -->
 <h3 id="strooms-configyml">Stroom&rsquo;s <code>config.yml</code></h3>
-<!-- Comparison of 7.12.13 => 7.13-beta.10 -->
+<!-- Comparison of the latest v7.12 release => v7.13 -->
 <h4 id="new-ai-branch">New <code>ai</code> Branch</h4>
 <p>The following <code>ai</code> branch has been added for configuring the database connection details for the <em>ai</em> module.
 You should not need to configure any of this unless you want a dedicated database for this module.</p>
@@ -784,6 +1400,40 @@ required to use a sufficiently strong password. Password must be at least
       prepStmtCacheSize: 25
       prepStmtCacheSqlLimit: 256
 </code></pre>
+<h4 id="changes-to-the-ui-branch">Changes to the <code>ui</code> Branch</h4>
+<p>The values of the following properties have changed, so that the in-application help links point at the right pages of this documentation site.
+These are only relevant if you have overridden them, e.g. to point at a locally published copy of the documentation.</p>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Was</th>
+<th>Now</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>stroom.ui.helpUrl</code></td>
+<td><code>https://gchq.github.io/stroom-docs/7.5/docs</code></td>
+<td><code>https://gchq.github.io/stroom-docs/7.13/docs</code></td>
+</tr>
+<tr>
+<td><code>stroom.ui.helpSubPathExpressions</code></td>
+<td><code>/user-guide/dashboards/expressions/</code></td>
+<td><code>/reference-section/expressions/</code></td>
+</tr>
+<tr>
+<td><code>stroom.ui.helpSubPathQuickFilter</code></td>
+<td><code>/user-guide/finding-things/</code></td>
+<td><code>/user-guide/content/finding-things/</code></td>
+</tr>
+<tr>
+<td><code>stroom.ui.helpSubPathStroomQueryLanguage</code></td>
+<td><code>/user-guide/dashboards/stroom-query-language/</code></td>
+<td><code>/user-guide/search/queries/stroom-query-language/</code></td>
+</tr>
+</tbody>
+</table>
 <h3 id="stroom-proxys-configyml">Stroom-Proxy&rsquo;s <code>config.yml</code></h3>
 <h4 id="changes-to-the-security-branch-1">Changes to the <code>security</code> Branch.</h4>
 <p>The following new properties have been added.</p>
@@ -825,7 +1475,7 @@ See <a href="../../../docs/user-guide/tools/command-line/#migrate"><code>migrage
 Run stroom.db.migration.TestListDbMigrations.listDbMigrationsForLatestVersion() to generate the content for
 this section
 -->
-<!-- Run on v7.13-beta.10 @ commit 113a70ab9e -->
+<!-- Run on v7.13 -->
 <h3 id="migration-scripts">Migration Scripts</h3>
 <!--
 #############################################################################################
@@ -1906,9 +2556,63 @@ OR, if you use Vim use this command (changing the path to the stroom repo) to re
 (Hash '#' needs to be escaped with '\' to stop vim replacing it with the current file path)
 :r !./get_stroom_changelog_content.sh ../stroom_v7_12 7.12 7.13
 -->
-<!-- Changes between 'v7.12.12' and 'v7.13-beta.9' taken on Wed  5 Aug 15:57:03 BST 2026 -->
+<!-- Changes between the latest v7.12 release and v7.13 -->
 <h2 id="new-features-and-changes">New Features and Changes</h2>
 <ul>
+<li>
+<p>Feature <strong><span class="external-link">
+  <a href="https://github.com/gchq/stroom/issues/5582" target="_blank" class="external-link" title="#5582 (external link to https://github.com/gchq/stroom/issues/5582)">
+    <span>#5582</span>
+    <i class="external-link-icon fas fa-external-link-alt fa-sm text-secondary"></i>
+  </a>
+</span>
+</strong> : Add proper audit trail to doc history and store snapshots of data changes to allow future restore.</p>
+</li>
+<li>
+<p>Feature <strong><span class="external-link">
+  <a href="https://github.com/gchq/stroom/issues/2109" target="_blank" class="external-link" title="#2109 (external link to https://github.com/gchq/stroom/issues/2109)">
+    <span>#2109</span>
+    <i class="external-link-icon fas fa-external-link-alt fa-sm text-secondary"></i>
+  </a>
+</span>
+</strong> : Add doc dependencies to DB to improve capability.</p>
+</li>
+<li>
+<p>Feature <strong><span class="external-link">
+  <a href="https://github.com/gchq/stroom/issues/1556" target="_blank" class="external-link" title="#1556 (external link to https://github.com/gchq/stroom/issues/1556)">
+    <span>#1556</span>
+    <i class="external-link-icon fas fa-external-link-alt fa-sm text-secondary"></i>
+  </a>
+</span>
+</strong> : Add safe delete feature now we can depend on a reliable dependency discovery service.</p>
+</li>
+<li>
+<p>Feature <strong><span class="external-link">
+  <a href="https://github.com/gchq/stroom/issues/4111" target="_blank" class="external-link" title="#4111 (external link to https://github.com/gchq/stroom/issues/4111)">
+    <span>#4111</span>
+    <i class="external-link-icon fas fa-external-link-alt fa-sm text-secondary"></i>
+  </a>
+</span>
+</strong> : Add confirmation details when deleting a folder.</p>
+</li>
+<li>
+<p>Feature <strong><span class="external-link">
+  <a href="https://github.com/gchq/stroom/issues/5697" target="_blank" class="external-link" title="#5697 (external link to https://github.com/gchq/stroom/issues/5697)">
+    <span>#5697</span>
+    <i class="external-link-icon fas fa-external-link-alt fa-sm text-secondary"></i>
+  </a>
+</span>
+</strong> : Apply CSRF Origin/X-CSRF checks to state-changing requests whose credential was injected by an authenticating edge proxy (previously only session-cookie identities were checked), and reject cross-site browser requests carrying a request token unless they send <code>X-CSRF: 1</code>. In-browser clients that attach their own bearer token must now send <code>X-CSRF: 1</code> on state-changing requests when <code>edgeAuthentication.enabled</code> is set; non-browser automation and inter-node traffic are unaffected.</p>
+</li>
+<li>
+<p>Feature <strong><span class="external-link">
+  <a href="https://github.com/gchq/stroom/issues/5697" target="_blank" class="external-link" title="#5697 (external link to https://github.com/gchq/stroom/issues/5697)">
+    <span>#5697</span>
+    <i class="external-link-icon fas fa-external-link-alt fa-sm text-secondary"></i>
+  </a>
+</span>
+</strong> : Add <code>security.authentication.openId.authenticationRequestExtraParams</code> to append provider-specific parameters to the OIDC authentication request, e.g. Google&rsquo;s <code>access_type: offline</code> without which Google issues no refresh token and the session cannot outlive the first access token.</p>
+</li>
 <li>
 <p>Feature <strong><span class="external-link">
   <a href="https://github.com/gchq/stroom/issues/5656" target="_blank" class="external-link" title="#5656 (external link to https://github.com/gchq/stroom/issues/5656)">
@@ -2224,6 +2928,33 @@ OR, if you use Vim use this command (changing the path to the stroom repo) to re
 </ul>
 <h2 id="bug-fixes">Bug Fixes</h2>
 <ul>
+<li>
+<p>Bug <strong><span class="external-link">
+  <a href="https://github.com/gchq/stroom/issues/5553" target="_blank" class="external-link" title="#5553 (external link to https://github.com/gchq/stroom/issues/5553)">
+    <span>#5553</span>
+    <i class="external-link-icon fas fa-external-link-alt fa-sm text-secondary"></i>
+  </a>
+</span>
+</strong> : Fix DocRefInfo cache bug.</p>
+</li>
+<li>
+<p>Bug <strong><span class="external-link">
+  <a href="https://github.com/gchq/stroom/issues/4073" target="_blank" class="external-link" title="#4073 (external link to https://github.com/gchq/stroom/issues/4073)">
+    <span>#4073</span>
+    <i class="external-link-icon fas fa-external-link-alt fa-sm text-secondary"></i>
+  </a>
+</span>
+</strong> : Stop explorer scrolling to the top on deleting an item.</p>
+</li>
+<li>
+<p>Bug <strong><span class="external-link">
+  <a href="https://github.com/gchq/stroom/issues/5697" target="_blank" class="external-link" title="#5697 (external link to https://github.com/gchq/stroom/issues/5697)">
+    <span>#5697</span>
+    <i class="external-link-icon fas fa-external-link-alt fa-sm text-secondary"></i>
+  </a>
+</span>
+</strong> : Fix the UI bootstrap never recognising a user authenticated by an edge proxy (e.g. AWS ALB + Cognito, NGINX + oauth2-proxy): <code>/api/auth/flow/v1/status</code> now accepts a verified request token, and the new <code>security.authentication.edgeAuthentication</code> config block suppresses stroom&rsquo;s own OIDC flow and supports edge-aware logout when the proxy is the relying party.</p>
+</li>
 <li>
 <p>Bug <strong><span class="external-link">
   <a href="https://github.com/gchq/stroom/issues/5669" target="_blank" class="external-link" title="#5669 (external link to https://github.com/gchq/stroom/issues/5669)">

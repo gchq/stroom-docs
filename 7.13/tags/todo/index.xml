@@ -38,7 +38,7 @@ Using Docker means you don&amp;rsquo;t need to install the right versions of dep
 &lt;/div&gt;
 
 
-&lt;h2 id=&#34;stroom-docker-stacks&#34;&gt;Stroom Docker stacks&lt;/h2&gt;
+&lt;h2 id=&#34;stroom-docker-stacks&#34;&gt;Stroom Docker Stacks&lt;/h2&gt;
 &lt;p&gt;Stroom has a number of predefined &lt;em&gt;stacks&lt;/em&gt; that combine multiple docker containers into a fully functioning Stroom environment.
 The Docker stacks are aimed primarily at single node instances or for evaluation/test.
 The stack makes use of various shell scripts combined with Docker Compose to integrate the various Docker containers and make them easy to run.&lt;/p&gt;
@@ -217,7 +217,7 @@ If you don&amp;rsquo;t have one see &lt;a href=&#34;../../docs/install-guide/air
 &lt;/div&gt;
 
 
-&lt;h2 id=&#34;install-steps&#34;&gt;Install steps&lt;/h2&gt;
+&lt;h2 id=&#34;install-steps&#34;&gt;Install Steps&lt;/h2&gt;
 &lt;p&gt;This will install the core stack (Stroom and the peripheral services required to run Stroom).&lt;/p&gt;
 &lt;p&gt;Visit &lt;span class=&#34;external-link&#34;&gt;
   &lt;a href=&#34;https://github.com/gchq/stroom-resources/releases&#34; target=&#34;_blank&#34; class=&#34;external-link&#34; title=&#34;stroom-resources/releases (external link to https://github.com/gchq/stroom-resources/releases)&#34;&gt;
@@ -293,7 +293,7 @@ See &lt;a href=&#34;../../docs/install-guide/setup/create-first-admin/&#34;&gt;C
 &lt;p&gt;The stroom stack comes supplied with self-signed certificates so you may need to accept a prompt warning you about visiting an untrusted site.&lt;/p&gt;
 &lt;h2 id=&#34;configuration&#34;&gt;Configuration&lt;/h2&gt;
 &lt;p&gt;To configure your new instance see &lt;a href=&#34;../../docs/install-guide/configuration/&#34;&gt;Configuration&lt;/a&gt;.&lt;/p&gt;
-&lt;h2 id=&#34;docker-hub-links&#34;&gt;Docker Hub links&lt;/h2&gt;
+&lt;h2 id=&#34;docker-hub-links&#34;&gt;Docker Hub Links&lt;/h2&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;span class=&#34;external-link&#34;&gt;
   &lt;a href=&#34;https://hub.docker.com/r/gchq/stroom/&#34; target=&#34;_blank&#34; class=&#34;external-link&#34; title=&#34;The Stroom image (external link to https://hub.docker.com/r/gchq/stroom/)&#34;&gt;
@@ -338,7 +338,7 @@ See &lt;a href=&#34;../../docs/install-guide/setup/create-first-admin/&#34;&gt;C
 &lt;/ul&gt;
 &lt;p&gt;A single MySQL database is required for each Stroom instance.
 You do not need to setup a MySQL instance per node in your cluster.&lt;/p&gt;
-&lt;h2 id=&#34;check-database-installed-and-running&#34;&gt;Check Database installed and running&lt;/h2&gt;
+&lt;h2 id=&#34;check-database-installed-and-running&#34;&gt;Check Database Installed and Running&lt;/h2&gt;
 
   
 
@@ -450,7 +450,8 @@ flush privileges;
 &lt;h2 id=&#34;advanced-security&#34;&gt;Advanced Security&lt;/h2&gt;
 &lt;p&gt;It is recommended to run /usr/bin/mysql_secure_installation to remove test database and accounts.&lt;/p&gt;
 &lt;p&gt;./stroom-setup/mysql_grant.sh is a utility script that creates accounts for you to use within a
-cluster (or single node setup). Run to see the options:&lt;/p&gt;
+cluster (or single node setup).
+Run to see the options:&lt;/p&gt;
 
   
 
@@ -1006,7 +1007,7 @@ firewall-cmd --reload&lt;/code&gt;&lt;/pre&gt;
 &lt;li&gt;GNU &lt;code&gt;coreutils&lt;/code&gt; - Used by the stack scripts.&lt;/li&gt;
 &lt;li&gt;&lt;code&gt;jq&lt;/code&gt; - Used by the stack scripts.&lt;/li&gt;
 &lt;/ul&gt;
-&lt;h3 id=&#34;download-and-install-docker&#34;&gt;Download and install docker&lt;/h3&gt;
+&lt;h3 id=&#34;download-and-install-docker&#34;&gt;Download and Install Docker&lt;/h3&gt;
 &lt;p&gt;To install Docker Engine and the Docker Composer Plugin see:&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;span class=&#34;external-link&#34;&gt;
@@ -1029,15 +1030,22 @@ It is typical that this directory will be on small mount point for the OS.
 It is therefore recommended to relocate this directory to a mount with more space and sufficient resilience, i.e. RAID mirroring.&lt;/p&gt;
 &lt;p&gt;To do this you need to follow these steps:&lt;/p&gt;
 &lt;ol&gt;
-&lt;li&gt;Stop the Docker engine.&lt;/li&gt;
-&lt;li&gt;Move the directory to its new location.&lt;/li&gt;
-&lt;li&gt;Edit the file &lt;code&gt;/etc/docker/daemon.json&lt;/code&gt; and ensure this field is present with the new location as the value.
+&lt;li&gt;
+&lt;p&gt;Stop the Docker engine.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Move the directory to its new location.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Edit the file &lt;code&gt;/etc/docker/daemon.json&lt;/code&gt; and ensure this field is present with the new location as the value.&lt;/p&gt;
 &lt;pre&gt;&lt;code class=&#34;language-json&#34;&gt;{
   &amp;quot;data-root&amp;quot;: &amp;quot;/path/to/new/location&amp;quot;
 }
 &lt;/code&gt;&lt;/pre&gt;
 &lt;/li&gt;
-&lt;li&gt;Start the Docker engine.&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Start the Docker engine.&lt;/p&gt;
+&lt;/li&gt;
 &lt;/ol&gt;
 &lt;h3 id=&#34;download-and-install-docker-stack&#34;&gt;Download and Install Docker Stack&lt;/h3&gt;
 &lt;p&gt;The &lt;em&gt;stroom_proxy&lt;/em&gt; Docker stack is available from &lt;span class=&#34;external-link&#34;&gt;
@@ -1157,7 +1165,7 @@ If you are able to use Docker we recommend doing this as there are less things t
 &lt;/div&gt;
 
 
-&lt;h3 id=&#34;download-and-install-stroom-v7-app-version&#34;&gt;Download and install Stroom v7 (app version)&lt;/h3&gt;
+&lt;h3 id=&#34;download-and-install-stroom-v7-app-version&#34;&gt;Download and Install Stroom v7 (app version)&lt;/h3&gt;
 &lt;p&gt;Stroom-Proxy releases are available from &lt;span class=&#34;external-link&#34;&gt;
   &lt;a href=&#34;https://github.com/gchq/stroom/releases&#34; target=&#34;_blank&#34; class=&#34;external-link&#34; title=&#34;github.com/gchq/stroom/releases (external link to https://github.com/gchq/stroom/releases)&#34;&gt;
     &lt;span&gt;github.com/gchq/stroom/releases&lt;/span&gt;
@@ -1539,13 +1547,15 @@ Choose ‘New/Dictionary’ from the popup menu:&lt;/p&gt;
   &lt;/span&gt;.&lt;/p&gt;
 &lt;p&gt;You can add multiple terms.&lt;/p&gt;
 &lt;ul&gt;
-&lt;li&gt;Terms on separate lines act as if they are part of an &amp;lsquo;OR&amp;rsquo; expression when used in a search.
+&lt;li&gt;
+&lt;p&gt;Terms on separate lines act as if they are part of an &amp;lsquo;OR&amp;rsquo; expression when used in a search.&lt;/p&gt;
 &lt;pre&gt;&lt;code class=&#34;language-text&#34;&gt;apple
 banana
 orange
 &lt;/code&gt;&lt;/pre&gt;
 &lt;/li&gt;
-&lt;li&gt;Terms on a single line separated by spaces act as if they are part of an &amp;lsquo;AND&amp;rsquo; expression when used in a search.
+&lt;li&gt;
+&lt;p&gt;Terms on a single line separated by spaces act as if they are part of an &amp;lsquo;AND&amp;rsquo; expression when used in a search.&lt;/p&gt;
 &lt;pre&gt;&lt;code class=&#34;language-text&#34;&gt;apple,banana,orange
 &lt;/code&gt;&lt;/pre&gt;
 &lt;/li&gt;
@@ -1576,8 +1586,8 @@ orange
 
 &lt;/div&gt;
 
-&lt;h2 id=&#34;running-on-a-single-box&#34;&gt;Running on a single box&lt;/h2&gt;
-&lt;h3 id=&#34;running-a-release&#34;&gt;Running a release&lt;/h3&gt;
+&lt;h2 id=&#34;running-on-a-single-box&#34;&gt;Running on a Single Box&lt;/h2&gt;
+&lt;h3 id=&#34;running-a-release&#34;&gt;Running a Release&lt;/h3&gt;
 &lt;p&gt;Download a &lt;span class=&#34;external-link&#34;&gt;
   &lt;a href=&#34;https://github.com/gchq/stroom-resources/releases&#34; target=&#34;_blank&#34; class=&#34;external-link&#34; title=&#34;release (external link to https://github.com/gchq/stroom-resources/releases)&#34;&gt;
     &lt;span&gt;release&lt;/span&gt;
@@ -1590,8 +1600,10 @@ orange
     &lt;i class=&#34;external-link-icon fas fa-external-link-alt fa-sm text-secondary&#34;&gt;&lt;/i&gt;
   &lt;/a&gt;
 &lt;/span&gt;
-, unpack it, and run the &lt;code&gt;start.sh&lt;/code&gt; script. When you&amp;rsquo;ve given it some time to start up go to &lt;code&gt;http://localhost/stroom&lt;/code&gt;. There&amp;rsquo;s a &lt;code&gt;README.md&lt;/code&gt; file inside the tar.gz with more information.&lt;/p&gt;
-&lt;h2 id=&#34;admin-account-creation&#34;&gt;Admin Account creation&lt;/h2&gt;
+, unpack it, and run the &lt;code&gt;start.sh&lt;/code&gt; script.
+When you&amp;rsquo;ve given it some time to start up go to &lt;code&gt;http://localhost/stroom&lt;/code&gt;.
+There&amp;rsquo;s a &lt;code&gt;README.md&lt;/code&gt; file inside the tar.gz with more information.&lt;/p&gt;
+&lt;h2 id=&#34;admin-account-creation&#34;&gt;Admin Account Creation&lt;/h2&gt;
 &lt;p&gt;By default, Stroom does not come with an administrator account/user so one or more administrators will need to be setup in order to login and continue provisioning Stroom via the UI.&lt;/p&gt;
 &lt;p&gt;See &lt;a href=&#34;../../docs/user-guide/tools/command-line/#creating-an-internal-idp-administrator&#34;&gt;Creating an Internal IDP Administrator&lt;/a&gt; or &lt;a href=&#34;../../docs/user-guide/tools/command-line/#creating-an-external-idp-administrator&#34;&gt;Creating an External IDP Administrator&lt;/a&gt; depending on the type of &lt;span class=&#34;glossary-link&#34;&gt;
     &lt;a href=&#34;../../docs/glossary/i/glossary-idp&#34;&gt;
@@ -1600,11 +1612,12 @@ orange
     &lt;/a&gt;&lt;span class=&#34;glossary-tooltip&#34;&gt;
       &lt;span class=&#34;glossary-tooltip-title&#34;&gt;Identity Provider (IDP)&lt;/span&gt;
       &lt;span class=&#34;glossary-tooltip-summary&#34;&gt;An &lt;strong&gt;Id&lt;/strong&gt;entity &lt;strong&gt;P&lt;/strong&gt;rovider is a system or service that can authenticate a user and assert their identity. &lt;em&gt;Identity providers&lt;/em&gt; can support single sign on (SSO), which allows the user to sign in once to the &lt;em&gt;Identity Provider&lt;/em&gt; so they are then authenticated to all systems using that IDP.&lt;/span&gt;&lt;span class=&#34;glossary-tooltip-truncated&#34;&gt;Click to see more details...&lt;/span&gt;&lt;/span&gt;&lt;/span&gt; that is configured.&lt;/p&gt;
-&lt;h2 id=&#34;post-install-hardening&#34;&gt;Post-install hardening&lt;/h2&gt;
-&lt;h3 id=&#34;before-first-run&#34;&gt;Before first run&lt;/h3&gt;
-&lt;h4 id=&#34;change-database-passwords&#34;&gt;Change database passwords&lt;/h4&gt;
+&lt;h2 id=&#34;post-install-hardening&#34;&gt;Post-install Hardening&lt;/h2&gt;
+&lt;h3 id=&#34;before-first-run&#34;&gt;Before First Run&lt;/h3&gt;
+&lt;h4 id=&#34;change-database-passwords&#34;&gt;Change Database Passwords&lt;/h4&gt;
 &lt;p&gt;If you don&amp;rsquo;t do this before the first run of Stroom then the passwords will already be set and you&amp;rsquo;ll have to change them on the database manually, and then change the &lt;code&gt;.env&lt;/code&gt;.&lt;/p&gt;
-&lt;p&gt;This change should be made in the &lt;code&gt;.env&lt;/code&gt; configuration file. If the values are not there then this service is not included in your Stroom stack and there is nothing to change.&lt;/p&gt;
+&lt;p&gt;This change should be made in the &lt;code&gt;.env&lt;/code&gt; configuration file.
+If the values are not there then this service is not included in your Stroom stack and there is nothing to change.&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;
 &lt;p&gt;&lt;code&gt;STROOM_DB_PASSWORD&lt;/code&gt;&lt;/p&gt;
@@ -1631,11 +1644,14 @@ orange
 &lt;p&gt;&lt;code&gt;STROOM_ANNOTATIONS_DB_ROOT_PASSWORD&lt;/code&gt;&lt;/p&gt;
 &lt;/li&gt;
 &lt;/ul&gt;
-&lt;h3 id=&#34;on-first-run&#34;&gt;On first run&lt;/h3&gt;
-&lt;h4 id=&#34;create-yourself-an-account&#34;&gt;Create yourself an account&lt;/h4&gt;
-&lt;p&gt;After first logging in as &lt;code&gt;admin&lt;/code&gt; you should create yourself a normal account (using your email address) and add yourself to the &lt;code&gt;Administrators&lt;/code&gt; group. You should then log out of &lt;code&gt;admin&lt;/code&gt;, log in with your new administrator account and then disable the &lt;code&gt;admin&lt;/code&gt; account.&lt;/p&gt;
-&lt;p&gt;If you decide to use the &lt;code&gt;admin&lt;/code&gt; account as your normal account you might find yourself locked out. The &lt;code&gt;admin&lt;/code&gt; account has no associated email address, so the Reset Password feature will not work if your account is locked. It might become locked if you enter your password incorrectly too many times.&lt;/p&gt;
-&lt;h4 id=&#34;delete-un-used-users-and-api-keys&#34;&gt;Delete un-used users and API keys&lt;/h4&gt;
+&lt;h3 id=&#34;on-first-run&#34;&gt;On First Run&lt;/h3&gt;
+&lt;h4 id=&#34;create-yourself-an-account&#34;&gt;Create Yourself an Account&lt;/h4&gt;
+&lt;p&gt;After first logging in as &lt;code&gt;admin&lt;/code&gt; you should create yourself a normal account (using your email address) and add yourself to the &lt;code&gt;Administrators&lt;/code&gt; group.
+You should then log out of &lt;code&gt;admin&lt;/code&gt;, log in with your new administrator account and then disable the &lt;code&gt;admin&lt;/code&gt; account.&lt;/p&gt;
+&lt;p&gt;If you decide to use the &lt;code&gt;admin&lt;/code&gt; account as your normal account you might find yourself locked out.
+The &lt;code&gt;admin&lt;/code&gt; account has no associated email address, so the Reset Password feature will not work if your account is locked.
+It might become locked if you enter your password incorrectly too many times.&lt;/p&gt;
+&lt;h4 id=&#34;delete-un-used-users-and-api-keys&#34;&gt;Delete Un-used Users and API Keys&lt;/h4&gt;
 &lt;ul&gt;
 &lt;li&gt;If you&amp;rsquo;re not using stats you can delete or disable the following:
 &lt;ul&gt;
@@ -1644,8 +1660,10 @@ orange
 &lt;/ul&gt;
 &lt;/li&gt;
 &lt;/ul&gt;
-&lt;h4 id=&#34;change-the-api-keys&#34;&gt;Change the API keys&lt;/h4&gt;
-&lt;p&gt;First generate new API keys. You can generate a new API key using Stroom. From the top menu, select:&lt;/p&gt;
+&lt;h4 id=&#34;change-the-api-keys&#34;&gt;Change the API Keys&lt;/h4&gt;
+&lt;p&gt;First generate new API keys.
+You can generate a new API key using Stroom.
+From the top menu, select:&lt;/p&gt;
 
 
 
@@ -1714,11 +1732,17 @@ orange
 &lt;/ul&gt;
 &lt;p&gt;Then stop Stroom and update the API key in the &lt;code&gt;.env&lt;/code&gt; configuration file with the new value.&lt;/p&gt;
 &lt;h2 id=&#34;troubleshooting&#34;&gt;Troubleshooting&lt;/h2&gt;
-&lt;h3 id=&#34;im-trying-to-use-certificate-logins-pki-but-i-keep-being-prompted-for-the-username-and-password&#34;&gt;I&amp;rsquo;m trying to use certificate logins (PKI) but I keep being prompted for the username and password!&lt;/h3&gt;
+&lt;h3 id=&#34;im-trying-to-use-certificate-logins-pki-but-i-keep-being-prompted-for-the-username-and-password&#34;&gt;I&amp;rsquo;m Trying to Use Certificate Logins (PKI) but I Keep Being Prompted for the Username and Password!&lt;/h3&gt;
 &lt;p&gt;You need to be sure of several things:&lt;/p&gt;
 &lt;ul&gt;
-&lt;li&gt;When a user arrives at Stroom the first thing Stroom does is redirect the user to the authentication service. This is when the certificate is checked. If this redirect doesn&amp;rsquo;t use HTTPS then nginx will not get the cert and will not send it onwards to the authentication service. Remember that all of this stuff, apart from back-channel/service-to-service chatter, goes through nginx. The env var that needs to use HTTPS is STROOM_AUTHENTICATION_SERVICE_URL. Note that this is the var Stroom looks for, not the var as set in the stack, so you&amp;rsquo;ll find it in the stack YAML.&lt;/li&gt;
-&lt;li&gt;Are your certs configured properly? If nginx isn&amp;rsquo;t able to decode the incoming cert for some reason then it won&amp;rsquo;t pass anything on to the service.&lt;/li&gt;
+&lt;li&gt;When a user arrives at Stroom the first thing Stroom does is redirect the user to the authentication service.
+This is when the certificate is checked.
+If this redirect doesn&amp;rsquo;t use HTTPS then nginx will not get the cert and will not send it onwards to the authentication service.
+Remember that all of this stuff, apart from back-channel/service-to-service chatter, goes through nginx.
+The env var that needs to use HTTPS is STROOM_AUTHENTICATION_SERVICE_URL.
+Note that this is the var Stroom looks for, not the var as set in the stack, so you&amp;rsquo;ll find it in the stack YAML.&lt;/li&gt;
+&lt;li&gt;Are your certs configured properly?
+If nginx isn&amp;rsquo;t able to decode the incoming cert for some reason then it won&amp;rsquo;t pass anything on to the service.&lt;/li&gt;
 &lt;li&gt;Is your browser sending certificates?&lt;/li&gt;
 &lt;/ul&gt;
 
@@ -1735,8 +1759,9 @@ orange
         
         
         &lt;p&gt;All nodes in a Stroom cluster must be configured correctly for them to communicate with each other.&lt;/p&gt;
-&lt;h2 id=&#34;configuring-nodes&#34;&gt;Configuring nodes&lt;/h2&gt;
-&lt;p&gt;Open Monitoring/Nodes from the top menu. The nodes screen looks like this:&lt;/p&gt;
+&lt;h2 id=&#34;configuring-nodes&#34;&gt;Configuring Nodes&lt;/h2&gt;
+&lt;p&gt;Open Monitoring/Nodes from the top menu.
+The nodes screen looks like this:&lt;/p&gt;
 
 &lt;div class=&#34;alert alert-warning&#34; role=&#34;alert&#34;&gt;
 &lt;h4 class=&#34;alert-heading&#34;&gt;TODO&lt;/h4&gt;
@@ -1847,7 +1872,6 @@ Some of them will also transform the data at the character level before the data
 
 
 
-
  &lt;/p&gt;
 &lt;p&gt;Removes the Byte Order Mark (if present) from the stream.&lt;/p&gt;
 &lt;h3 id=&#34;badtextxmlfilterreader&#34;&gt;BadTextXMLFilterReader&lt;/h3&gt;
@@ -1904,7 +1928,6 @@ Some of them will also transform the data at the character level before the data
 
     
   
-
 
 
 
@@ -1987,7 +2010,6 @@ For example the element &lt;code&gt;&amp;lt;Expression&amp;gt;$time &amp;lt; now
 
     
   
-
 
 
 
@@ -2123,7 +2145,6 @@ For example the element &lt;code&gt;&amp;lt;Expression&amp;gt;$time &amp;lt; now
 
 
 
-
  &lt;/p&gt;
 &lt;p&gt;Removes any characters that are not in the standard XML character set.
 The version of XML (e.g. 1.0 or 1.1) can be set using the &amp;lsquo;xmlVersion&amp;rsquo; property.&lt;/p&gt;
@@ -2206,7 +2227,6 @@ The version of XML (e.g. 1.0 or 1.1) can be set using the &amp;lsquo;xmlVersion&
 
     
   
-
 
 
 
@@ -2301,7 +2321,6 @@ The version of XML (e.g. 1.0 or 1.1) can be set using the &amp;lsquo;xmlVersion&
 
 
 
-
  &lt;/p&gt;
 &lt;p&gt;A basic reader that simply decodes the raw bytes using the Feed&amp;rsquo;s configured character encoding.
 It does not transform the data in any other way.&lt;/p&gt;
@@ -2363,7 +2382,6 @@ If no Reader is used before the Parser, the Parser will also do the job of a sim
 
     
   
-
 
 
 
@@ -2486,7 +2504,6 @@ This will make the intent of the pipeline much clearer and allow for much greate
 
 
 
-
  &lt;/p&gt;
 &lt;p&gt;A parser for handling structured plain text data (e.g. CSV or fixed width fields) using the Data Splitter domain specific language.
 For more details see &lt;a href=&#34;../../docs/user-guide/data-splitter/&#34;&gt;Data Splitter&lt;/a&gt;.&lt;/p&gt;
@@ -2581,7 +2598,6 @@ For more details see &lt;a href=&#34;../../docs/user-guide/data-splitter/&#34;&g
 
 
 
-
  &lt;/p&gt;
 &lt;p&gt;A built-in parser for parsing JSON source data (in JSON fragment format) into an XML representation of the JSON.
 The Resulting XML will conform to the &lt;a href=&#34;http://www.w3.org/2013/XSL/json&#34;&gt;http://www.w3.org/2013/XSL/json&lt;/a&gt; namespace.&lt;/p&gt;
@@ -2662,6 +2678,24 @@ The Resulting XML will conform to the &lt;a href=&#34;http://www.w3.org/2013/XSL
 &lt;td&gt;false&lt;/td&gt;
 &lt;td&gt;Boolean&lt;/td&gt;
 &lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;maxDepth&lt;/td&gt;
+&lt;td&gt;Maximum number of levels in the JSON document. An Error will be logged if this is exceeded.&lt;/td&gt;
+&lt;td&gt;500&lt;/td&gt;
+&lt;td&gt;Integer&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;maxStringLength&lt;/td&gt;
+&lt;td&gt;String values longer than this length will result in an Error being logged, regardless of the value of stringTruncateLength. Setting this to a very large value effectively disables this.&lt;/td&gt;
+&lt;td&gt;100000000&lt;/td&gt;
+&lt;td&gt;Integer&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;stringTruncateLength&lt;/td&gt;
+&lt;td&gt;String values will be truncated to this length. This is to protect Stroom from running out of memory when there are very large string values in the JSON. When a value is truncated a Warning will be logged.Setting this to a very large value effectively disables this.&lt;/td&gt;
+&lt;td&gt;10000&lt;/td&gt;
+&lt;td&gt;Integer&lt;/td&gt;
+&lt;/tr&gt;
 &lt;/tbody&gt;
 &lt;/table&gt;
 &lt;h3 id=&#34;xmlfragmentparser&#34;&gt;XMLFragmentParser&lt;/h3&gt;
@@ -2718,7 +2752,6 @@ The Resulting XML will conform to the &lt;a href=&#34;http://www.w3.org/2013/XSL
 
     
   
-
 
 
 
@@ -2824,7 +2857,6 @@ The XMLFragmentParser will wrap the fragments with a root element as defined in 
 
 
 
-
  &lt;/p&gt;
 &lt;p&gt;A parser to parse data that is expected to be XML into a series of XML events that can be consumed by a Filter element.&lt;/p&gt;
 &lt;h2 id=&#34;filter&#34;&gt;Filter&lt;/h2&gt;
@@ -2885,7 +2917,6 @@ Multiple filters can be used one after another with each using the output from t
 
     
   
-
 
 
 
@@ -2973,7 +3004,6 @@ Multiple filters can be used one after another with each using the output from t
 
 
 
-
  &lt;/p&gt;
 &lt;p&gt;Used in a search extraction pipeline for extracting field values that have not been stored in the index and where the fields are dynamic and derived from the data rather than being defined in the Index settings.
 Consumes XML events in the &lt;code&gt;index-documents:1&lt;/code&gt; namespace to convert them into a form so that they can be used in a Dashboard/Query/Analytic.&lt;/p&gt;
@@ -3031,7 +3061,6 @@ Consumes XML events in the &lt;code&gt;index-documents:1&lt;/code&gt; namespace 
 
     
   
-
 
 
 
@@ -3150,7 +3179,6 @@ and their values in an Elasticsearch Index.&lt;/p&gt;
 
 
 
-
  &lt;/p&gt;
 &lt;p&gt;This element is deprecated, you should instead use the much more flexible 
 
@@ -3205,7 +3233,6 @@ and their values in an Elasticsearch Index.&lt;/p&gt;
 
     
   
-
 
 
 
@@ -3293,7 +3320,6 @@ This element will simply POST the output of the XML events to the configured URL
 
 
 
-
  &lt;/p&gt;
 &lt;p&gt;Adds the attributes &amp;lsquo;StreamId&amp;rsquo; and &amp;lsquo;EventId&amp;rsquo; to the &amp;rsquo;event&amp;rsquo; element to enrich the event with its ordinal number in the stream and the ID of the stream that it belongs to.
 ID enrichment is required to be able to index events as it provides them with an ID that is unique within Stroom.
@@ -3352,7 +3378,6 @@ It assumes that an record/event is an XML element at the first level below the r
 
     
   
-
 
 
 
@@ -3441,7 +3466,6 @@ and their values in a Lucene Index.&lt;/p&gt;
 
 
 
-
  &lt;/p&gt;
 &lt;p&gt;Merges XML that has been split into separate XML instances.&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;Element properties:&lt;/strong&gt;&lt;/p&gt;
@@ -3523,7 +3547,6 @@ and their values in a Lucene Index.&lt;/p&gt;
 
 
 
-
  &lt;/p&gt;
 &lt;p&gt;Takes XML input (conforming to the reference-data:2 schema) and loads the data into the Plan B State Store.
 Reference data values can be either simple strings or XML fragments.&lt;/p&gt;
@@ -3581,7 +3604,6 @@ Reference data values can be either simple strings or XML fragments.&lt;/p&gt;
 
     
   
-
 
 
 
@@ -3676,7 +3698,6 @@ An event/record is taken to be an XML element that is at the first level below t
 
 
 
-
  &lt;/p&gt;
 &lt;p&gt;Filters out records/events that have raised an Error or Fatal Error during processing.
 If all records/events have raised at least an Error then no XML events will be output.
@@ -3736,7 +3757,6 @@ for &amp;rsquo;event-logging:3&amp;rsquo; XML this means the &lt;code&gt;&amp;lt
 
     
   
-
 
 
 
@@ -3831,9 +3851,9 @@ Reference data values can be either simple strings or XML fragments.&lt;/p&gt;
 
 
 
-
  &lt;/p&gt;
-&lt;p&gt;Restricts the characters to a very simple set consisting of &lt;code&gt;[a-zA-Z0-9]&lt;/code&gt; and &lt;code&gt;[ .:-_/]&lt;/code&gt;. All other characters are replaced by &lt;code&gt;~NNN&lt;/code&gt;, where &lt;code&gt;NNN&lt;/code&gt; is a three digit codepoint for the replaced character.&lt;/p&gt;
+&lt;p&gt;Restricts the characters to a very simple set consisting of &lt;code&gt;[a-zA-Z0-9]&lt;/code&gt; and &lt;code&gt;[ .:-_/]&lt;/code&gt;.
+All other characters are replaced by &lt;code&gt;~NNN&lt;/code&gt;, where &lt;code&gt;NNN&lt;/code&gt; is a three digit codepoint for the replaced character.&lt;/p&gt;
 &lt;h3 id=&#34;schemafilter&#34;&gt;SchemaFilter&lt;/h3&gt;
 &lt;p&gt;
 
@@ -3888,7 +3908,6 @@ Reference data values can be either simple strings or XML fragments.&lt;/p&gt;
 
     
   
-
 
 
 
@@ -4001,7 +4020,6 @@ This ensures that if non-compliant data is generated, it will be flagged as in e
 
 
 
-
  &lt;/p&gt;
 &lt;p&gt;Used in a search extraction pipeline for extracting field values that have not been stored in the index and where the field definitions are defined in the Index settings.
 Consumes XML events in the &lt;code&gt;records:2&lt;/code&gt; namespace to convert them into a form so that they can be used in a Dashboard/Query/Analytic.&lt;/p&gt;
@@ -4059,7 +4077,6 @@ Consumes XML events in the &lt;code&gt;records:2&lt;/code&gt; namespace to conve
 
     
   
-
 
 
 
@@ -4165,7 +4182,6 @@ Consumes XML events in the &lt;code&gt;records:2&lt;/code&gt; namespace to conve
 
 
 
-
  &lt;/p&gt;
 &lt;p&gt;Splits multi-record source data into smaller groups of records prior to delivery to an XSLT.
 This allows the XSLT to process data more efficiently than loading a potentially huge input stream into memory.&lt;/p&gt;
@@ -4200,70 +4216,6 @@ This allows the XSLT to process data more efficiently than loading a potentially
 &lt;/tr&gt;
 &lt;/tbody&gt;
 &lt;/table&gt;
-&lt;h3 id=&#34;statefilter&#34;&gt;StateFilter&lt;/h3&gt;
-&lt;p&gt;
-
-
-
-
-
-
-
-  
-  
-
-  
-  
-
-  
-  
-  
-
-  
-  
-
-  
-  
-
-  
-
-    
-    
-
-    
-      
-      
-      
-
-      
-      &lt;a href=&#34;../../docs/reference-section/pipeline-elements#statefilter&#34; class=&#34;&#34; style=&#34;&#34; title=&#34;&#34;&gt;
-        &lt;span class=&#34;stroom-theme-dark pipeline-element&#34; title=&#34;StateFilter &amp;#34;StateFilter&amp;#34;&#34; &gt;
-          &lt;span class=&#34;pipeline-element-content&#34; &gt;
-            &lt;span class=&#34;pipeline-element-icon&#34;&gt;
-              &lt;span class=&#34;stroom-icon inline-svg-button icon-button  &#34; &gt;
-    &lt;span class=&#34;face&#34; title=&#34;State store&#34;&gt;&lt;svg xmlns=&#34;http://www.w3.org/2000/svg&#34; width=&#34;1792&#34; height=&#34;1792&#34; viewBox=&#34;0 0 1792 1792&#34;&gt;&lt;path style=&#34;fill:red&#34; d=&#34;M896 768q237 0 443-43t325-127v170q0 69-103 128t-280 93.5-385 34.5-385-34.5-280-93.5-103-128v-170q119 84 325 127t443 43zm0 768q237 0 443-43t325-127v170q0 69-103 128t-280 93.5-385 34.5-385-34.5-280-93.5-103-128v-170q119 84 325 127t443 43zm0-384q237 0 443-43t325-127v170q0 69-103 128t-280 93.5-385 34.5-385-34.5-280-93.5-103-128v-170q119 84 325 127t443 43zm0-1152q208 0 385 34.5t280 93.5 103 128v128q0 69-103 128t-280 93.5-385 34.5-385-34.5-280-93.5-103-128v-128q0-69 103-128t280-93.5 385-34.5z&#34;/&gt;&lt;/svg&gt;&lt;/span&gt;
-  &lt;/span&gt;
-            &lt;/span&gt;
-            &lt;span class=&#34;pipeline-element-text&#34;&gt;StateFilter&lt;/span&gt;
-          &lt;/span&gt;
-        &lt;/span&gt;
-      &lt;/a&gt;
-
-      
-      &lt;span style=&#34;display:none;&#34; class=&#34;USED FOR SPLITTING&#34; &gt;&lt;/span&gt;
-
-    
-  
-
-
-
-
-
-
-
- &lt;/p&gt;
-&lt;p&gt;Takes XML input (conforming to the reference-data:2 schema) and loads the data into the State Store.
-Reference data values can be either simple strings or XML fragments.&lt;/p&gt;
 &lt;h3 id=&#34;statisticsfilter&#34;&gt;StatisticsFilter&lt;/h3&gt;
 &lt;p&gt;
 
@@ -4324,7 +4276,6 @@ Reference data values can be either simple strings or XML fragments.&lt;/p&gt;
 
 
 
-
  &lt;/p&gt;
 &lt;p&gt;An element to allow the source data (conforming to the &lt;code&gt;statistics&lt;/code&gt; XML Schema) to be sent to the MySQL based statistics data store.&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;Element properties:&lt;/strong&gt;&lt;/p&gt;
@@ -4341,100 +4292,6 @@ Reference data values can be either simple strings or XML fragments.&lt;/p&gt;
 &lt;tr&gt;
 &lt;td&gt;statisticsDataSource&lt;/td&gt;
 &lt;td&gt;The statistics data source to record statistics against.&lt;/td&gt;
-&lt;td&gt;-&lt;/td&gt;
-&lt;td&gt;Document&lt;/td&gt;
-&lt;/tr&gt;
-&lt;/tbody&gt;
-&lt;/table&gt;
-&lt;h3 id=&#34;stroomstatsfilter&#34;&gt;StroomStatsFilter&lt;/h3&gt;
-&lt;p&gt;
-
-
-
-
-
-
-
-  
-  
-
-  
-  
-
-  
-  
-  
-
-  
-  
-
-  
-  
-
-  
-
-    
-    
-
-    
-      
-      
-      
-
-      
-      &lt;a href=&#34;../../docs/reference-section/pipeline-elements#stroomstatsfilter&#34; class=&#34;&#34; style=&#34;&#34; title=&#34;&#34;&gt;
-        &lt;span class=&#34;stroom-theme-dark pipeline-element&#34; title=&#34;StroomStatsFilter &amp;#34;StroomStatsFilter&amp;#34;&#34; &gt;
-          &lt;span class=&#34;pipeline-element-content&#34; &gt;
-            &lt;span class=&#34;pipeline-element-icon&#34;&gt;
-              &lt;span class=&#34;stroom-icon inline-svg-button icon-button  &#34; &gt;
-    &lt;span class=&#34;face&#34; title=&#34;Stroom stats&#34;&gt;&lt;svg xmlns=&#34;http://www.w3.org/2000/svg&#34; width=&#34;1792&#34; height=&#34;1792&#34; viewBox=&#34;0 0 1792 1792&#34;&gt;&lt;path style=&#34;fill:var(--icon-colour__purple)&#34; d=&#34;M896 768q237 0 443-43t325-127v170q0 69-103 128t-280 93.5-385 34.5-385-34.5-280-93.5-103-128v-170q119 84 325 127t443 43zm0 768q237 0 443-43t325-127v170q0 69-103 128t-280 93.5-385 34.5-385-34.5-280-93.5-103-128v-170q119 84 325 127t443 43zm0-384q237 0 443-43t325-127v170q0 69-103 128t-280 93.5-385 34.5-385-34.5-280-93.5-103-128v-170q119 84 325 127t443 43zm0-1152q208 0 385 34.5t280 93.5 103 128v128q0 69-103 128t-280 93.5-385 34.5-385-34.5-280-93.5-103-128v-128q0-69 103-128t280-93.5 385-34.5z&#34;/&gt;&lt;/svg&gt;&lt;/span&gt;
-  &lt;/span&gt;
-            &lt;/span&gt;
-            &lt;span class=&#34;pipeline-element-text&#34;&gt;StroomStatsFilter&lt;/span&gt;
-          &lt;/span&gt;
-        &lt;/span&gt;
-      &lt;/a&gt;
-
-      
-      &lt;span style=&#34;display:none;&#34; class=&#34;USED FOR SPLITTING&#34; &gt;&lt;/span&gt;
-
-    
-  
-
-
-
-
-
-
-
- &lt;/p&gt;
-&lt;p&gt;An element to allow the source data (conforming to the &lt;code&gt;statistics&lt;/code&gt; XML Schema) to be sent to an external stroom-stats service.&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;Element properties:&lt;/strong&gt;&lt;/p&gt;
-&lt;table&gt;
-&lt;thead&gt;
-&lt;tr&gt;
-&lt;th&gt;Name&lt;/th&gt;
-&lt;th&gt;Description&lt;/th&gt;
-&lt;th&gt;Default Value&lt;/th&gt;
-&lt;th&gt;Value Type&lt;/th&gt;
-&lt;/tr&gt;
-&lt;/thead&gt;
-&lt;tbody&gt;
-&lt;tr&gt;
-&lt;td&gt;flushOnSend&lt;/td&gt;
-&lt;td&gt;At the end of the stream, wait for acknowledgement from the Kafka broker for all the messages sent. This ensures errors are caught in the pipeline process.&lt;/td&gt;
-&lt;td&gt;true&lt;/td&gt;
-&lt;td&gt;Boolean&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;kafkaConfig&lt;/td&gt;
-&lt;td&gt;The Kafka config to use.&lt;/td&gt;
-&lt;td&gt;-&lt;/td&gt;
-&lt;td&gt;Document&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;statisticsDataSource&lt;/td&gt;
-&lt;td&gt;The stroom-stats data source to record statistics against.&lt;/td&gt;
 &lt;td&gt;-&lt;/td&gt;
 &lt;td&gt;Document&lt;/td&gt;
 &lt;/tr&gt;
@@ -4494,7 +4351,6 @@ Reference data values can be either simple strings or XML fragments.&lt;/p&gt;
 
     
   
-
 
 
 
@@ -4578,7 +4434,6 @@ Reference data values can be either simple strings or XML fragments.&lt;/p&gt;
 
     
   
-
 
 
 
@@ -4689,7 +4544,6 @@ The output data can then be fed to a Destination.&lt;/p&gt;
 
 
 
-
  &lt;/p&gt;
 &lt;p&gt;Writer to convert XML data conforming to the &lt;a href=&#34;http://www.w3.org/2013/XSL/json&#34;&gt;http://www.w3.org/2013/XSL/json&lt;/a&gt; XML Schema into JSON format.&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;Element properties:&lt;/strong&gt;&lt;/p&gt;
@@ -4771,7 +4625,6 @@ The output data can then be fed to a Destination.&lt;/p&gt;
 
     
   
-
 
 
 
@@ -4871,7 +4724,6 @@ The output data can then be fed to a Destination.&lt;/p&gt;
 
 
 
-
  &lt;/p&gt;
 &lt;p&gt;Writer to convert XML events data into XML output in the specified character encoding.&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;Element properties:&lt;/strong&gt;&lt;/p&gt;
@@ -4898,6 +4750,12 @@ The output data can then be fed to a Destination.&lt;/p&gt;
 &lt;td&gt;Boolean&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
+&lt;td&gt;preventEscapeSwitching&lt;/td&gt;
+&lt;td&gt;Some inputs might contain control character 0 which turns off output escaping. Set this to true to prevent that behaviour.&lt;/td&gt;
+&lt;td&gt;false&lt;/td&gt;
+&lt;td&gt;Boolean&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
 &lt;td&gt;suppressXSLTNotFoundWarnings&lt;/td&gt;
 &lt;td&gt;If XSLT cannot be found to match the name pattern suppress warnings.&lt;/td&gt;
 &lt;td&gt;false&lt;/td&gt;
@@ -4911,14 +4769,14 @@ The output data can then be fed to a Destination.&lt;/p&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
 &lt;td&gt;xsltNamePattern&lt;/td&gt;
-&lt;td&gt;A name pattern for dynamic loading of an XSLT, that will modify the output via xsl:output attributes.&lt;/td&gt;
+&lt;td&gt;A name pattern for dynamic loading of an XSLT, that will modfy the output via xsl:output attributes.&lt;/td&gt;
 &lt;td&gt;-&lt;/td&gt;
 &lt;td&gt;String&lt;/td&gt;
 &lt;/tr&gt;
 &lt;/tbody&gt;
 &lt;/table&gt;
 &lt;h2 id=&#34;destination&#34;&gt;Destination&lt;/h2&gt;
-&lt;p&gt;Destination elements consume a stream of bytes from a &lt;em&gt;Writer&lt;/em&gt; and persist them to a destination.
+&lt;p&gt;Destination elements consume a stream of bytes from a &lt;em&gt;Writer&lt;/em&gt; and persist then to a destination.
 This could be a file on a file system or to Stroom&amp;rsquo;s stream store.&lt;/p&gt;
 &lt;h3 id=&#34;annotationwriter&#34;&gt;AnnotationWriter&lt;/h3&gt;
 &lt;p&gt;
@@ -4980,10 +4838,90 @@ This could be a file on a file system or to Stroom&amp;rsquo;s stream store.&lt;
 
 
 
-
  &lt;/p&gt;
 &lt;p&gt;Consume XML documents in the &lt;code&gt;annotation:1&lt;/code&gt; namespace and writes them as Stroom Annotations.
 Allows for the annotating of events that meet some criteria.&lt;/p&gt;
+&lt;h3 id=&#34;dictionaryappender&#34;&gt;DictionaryAppender&lt;/h3&gt;
+&lt;p&gt;
+
+
+
+
+
+
+
+  
+  
+
+  
+  
+
+  
+  
+  
+
+  
+  
+
+  
+  
+
+  
+
+    
+    
+
+    
+      
+      
+      
+
+      
+      &lt;a href=&#34;../../docs/reference-section/pipeline-elements#dictionaryappender&#34; class=&#34;&#34; style=&#34;&#34; title=&#34;&#34;&gt;
+        &lt;span class=&#34;stroom-theme-dark pipeline-element&#34; title=&#34;DictionaryAppender &amp;#34;DictionaryAppender&amp;#34;&#34; &gt;
+          &lt;span class=&#34;pipeline-element-content&#34; &gt;
+            &lt;span class=&#34;pipeline-element-icon&#34;&gt;
+              &lt;span class=&#34;stroom-icon inline-svg-button icon-button  &#34; &gt;
+    &lt;span class=&#34;face&#34; title=&#34;Dictionary&#34;&gt;&lt;svg xmlns=&#34;http://www.w3.org/2000/svg&#34; width=&#34;1792&#34; height=&#34;1792&#34; viewBox=&#34;0 0 1792 1792&#34;&gt;&lt;path style=&#34;fill:var(--icon-colour__blue)&#34; d=&#34;M1703 478q40 57 18 129l-275 906q-19 64-76.5 107.5t-122.5 43.5h-923q-77 0-148.5-53.5t-99.5-131.5q-24-67-2-127 0-4 3-27t4-37q1-8-3-21.5t-3-19.5q2-11 8-21t16.5-23.5 16.5-23.5q23-38 45-91.5t30-91.5q3-10 .5-30t-.5-28q3-11 17-28t17-23q21-36 42-92t25-90q1-9-2.5-32t.5-28q4-13 22-30.5t22-22.5q19-26 42.5-84.5t27.5-96.5q1-8-3-25.5t-2-26.5q2-8 9-18t18-23 17-21q8-12 16.5-30.5t15-35 16-36 19.5-32 26.5-23.5 36-11.5 47.5 5.5l-1 3q38-9 51-9h761q74 0 114 56t18 130l-274 906q-36 119-71.5 153.5t-128.5 34.5h-869q-27 0-38 15-11 16-1 43 24 70 144 70h923q29 0 56-15.5t35-41.5l300-987q7-22 5-57 38 15 59 43zm-1064 2q-4 13 2 22.5t20 9.5h608q13 0 25.5-9.5t16.5-22.5l21-64q4-13-2-22.5t-20-9.5h-608q-13 0-25.5 9.5t-16.5 22.5zm-83 256q-4 13 2 22.5t20 9.5h608q13 0 25.5-9.5t16.5-22.5l21-64q4-13-2-22.5t-20-9.5h-608q-13 0-25.5 9.5t-16.5 22.5z&#34;/&gt;&lt;/svg&gt;&lt;/span&gt;
+  &lt;/span&gt;
+            &lt;/span&gt;
+            &lt;span class=&#34;pipeline-element-text&#34;&gt;DictionaryAppender&lt;/span&gt;
+          &lt;/span&gt;
+        &lt;/span&gt;
+      &lt;/a&gt;
+
+      
+      &lt;span style=&#34;display:none;&#34; class=&#34;USED FOR SPLITTING&#34; &gt;&lt;/span&gt;
+
+    
+  
+
+
+
+
+
+
+ &lt;/p&gt;
+&lt;p&gt;A destination used to write the output stream to a dictionary overwriting all previous data.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Element properties:&lt;/strong&gt;&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;Name&lt;/th&gt;
+&lt;th&gt;Description&lt;/th&gt;
+&lt;th&gt;Default Value&lt;/th&gt;
+&lt;th&gt;Value Type&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;dictionary&lt;/td&gt;
+&lt;td&gt;The dictionary that output text should be written to.&lt;/td&gt;
+&lt;td&gt;-&lt;/td&gt;
+&lt;td&gt;Document&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
 &lt;h3 id=&#34;fileappender&#34;&gt;FileAppender&lt;/h3&gt;
 &lt;p&gt;
 
@@ -5038,7 +4976,6 @@ Allows for the annotating of events that meet some criteria.&lt;/p&gt;
 
     
   
-
 
 
 
@@ -5163,7 +5100,6 @@ If multiple paths are specified in the &amp;lsquo;outputPaths&amp;rsquo; propert
 
 
 
-
  &lt;/p&gt;
 &lt;p&gt;A destination used to write an output stream to a file on a Hadoop Distributed File System.
 If multiple paths are specified in the &amp;lsquo;outputPaths&amp;rsquo; property it will pick one at random.&lt;/p&gt;
@@ -5276,7 +5212,6 @@ If multiple paths are specified in the &amp;lsquo;outputPaths&amp;rsquo; propert
 
 
 
-
  &lt;/p&gt;
 &lt;p&gt;A destination used to write an output stream to a remote HTTP(S) server.&lt;/p&gt;
 &lt;p&gt;This element should be preferred over the deprecated 
@@ -5332,7 +5267,6 @@ If multiple paths are specified in the &amp;lsquo;outputPaths&amp;rsquo; propert
 
     
   
-
 
 
 
@@ -5599,7 +5533,6 @@ If multiple paths are specified in the &amp;lsquo;outputPaths&amp;rsquo; propert
 
 
 
-
  &lt;/p&gt;
 &lt;p&gt;A destination used to write an output stream to a file on the file system.
 If multiple paths are specified in the &amp;lsquo;outputPaths&amp;rsquo; property it will pick one at random to write to.
@@ -5733,7 +5666,6 @@ On system shutdown all active files will be rolled.&lt;/p&gt;
 
 
 
-
  &lt;/p&gt;
 &lt;p&gt;A destination used to write one or more output streams to a new stream which is then rolled when it reaches a certain size or age.
 A new stream will be created after the size or age criteria has been met.
@@ -5853,7 +5785,6 @@ On system shutdown all active streams will be rolled.&lt;/p&gt;
 
 
 
-
  &lt;/p&gt;
 &lt;p&gt;A destination used to write an output stream to an S3 bucket.&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;Element properties:&lt;/strong&gt;&lt;/p&gt;
@@ -5874,9 +5805,33 @@ On system shutdown all active streams will be rolled.&lt;/p&gt;
 &lt;td&gt;String&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
+&lt;td&gt;cacheControl&lt;/td&gt;
+&lt;td&gt;A general header field used to specify caching policies.&lt;/td&gt;
+&lt;td&gt;-&lt;/td&gt;
+&lt;td&gt;String&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
 &lt;td&gt;compressionMethod&lt;/td&gt;
 &lt;td&gt;Compression method to apply, if compression is enabled. Supported values: bzip2, deflate, gz, lz4-block, lz4-framed, lzma, pack200, snappy-framed, xz, zip, zstd.&lt;/td&gt;
 &lt;td&gt;gz&lt;/td&gt;
+&lt;td&gt;String&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;contentDisposition&lt;/td&gt;
+&lt;td&gt;Object presentational information.&lt;/td&gt;
+&lt;td&gt;-&lt;/td&gt;
+&lt;td&gt;String&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;contentEncoding&lt;/td&gt;
+&lt;td&gt;The content encodings (like compression) that have been applied to the object&amp;rsquo;s data.&lt;/td&gt;
+&lt;td&gt;-&lt;/td&gt;
+&lt;td&gt;String&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;contentType&lt;/td&gt;
+&lt;td&gt;The object type.&lt;/td&gt;
+&lt;td&gt;-&lt;/td&gt;
 &lt;td&gt;String&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
@@ -5977,7 +5932,6 @@ On system shutdown all active streams will be rolled.&lt;/p&gt;
 
 
 
-
  &lt;/p&gt;
 &lt;p&gt;Consumes XML documents in the &lt;code&gt;kafka-records:2&lt;/code&gt; namespace.
 For each &lt;code&gt;&amp;lt;kafkaRecord&amp;gt;&lt;/code&gt; element converts it into a Kafka message that is passed to the Kafka producer defined by the &lt;code&gt;kafkaConfig&lt;/code&gt; property&lt;/p&gt;
@@ -6066,7 +6020,6 @@ For each &lt;code&gt;&amp;lt;kafkaRecord&amp;gt;&lt;/code&gt; element converts i
 
 
 
-
  &lt;/p&gt;
 &lt;p&gt;A destination used to write the output stream to a new stream in the stream store.
 The configuration allows for starting a new stream once a size threshold is reached.&lt;/p&gt;
@@ -6125,106 +6078,6 @@ The configuration allows for starting a new stream once a size threshold is reac
 &lt;/tr&gt;
 &lt;/tbody&gt;
 &lt;/table&gt;
-&lt;h3 id=&#34;stroomstatsappender&#34;&gt;StroomStatsAppender&lt;/h3&gt;
-&lt;p&gt;
-
-
-
-
-
-
-
-  
-  
-
-  
-  
-
-  
-  
-  
-
-  
-  
-
-  
-  
-
-  
-
-    
-    
-
-    
-      
-      
-      
-
-      
-      &lt;a href=&#34;../../docs/reference-section/pipeline-elements#stroomstatsappender&#34; class=&#34;&#34; style=&#34;&#34; title=&#34;&#34;&gt;
-        &lt;span class=&#34;stroom-theme-dark pipeline-element&#34; title=&#34;StroomStatsAppender &amp;#34;StroomStatsAppender&amp;#34;&#34; &gt;
-          &lt;span class=&#34;pipeline-element-content&#34; &gt;
-            &lt;span class=&#34;pipeline-element-icon&#34;&gt;
-              &lt;span class=&#34;stroom-icon inline-svg-button icon-button  &#34; &gt;
-    &lt;span class=&#34;face&#34; title=&#34;Stroom stats&#34;&gt;&lt;svg xmlns=&#34;http://www.w3.org/2000/svg&#34; width=&#34;1792&#34; height=&#34;1792&#34; viewBox=&#34;0 0 1792 1792&#34;&gt;&lt;path style=&#34;fill:var(--icon-colour__purple)&#34; d=&#34;M896 768q237 0 443-43t325-127v170q0 69-103 128t-280 93.5-385 34.5-385-34.5-280-93.5-103-128v-170q119 84 325 127t443 43zm0 768q237 0 443-43t325-127v170q0 69-103 128t-280 93.5-385 34.5-385-34.5-280-93.5-103-128v-170q119 84 325 127t443 43zm0-384q237 0 443-43t325-127v170q0 69-103 128t-280 93.5-385 34.5-385-34.5-280-93.5-103-128v-170q119 84 325 127t443 43zm0-1152q208 0 385 34.5t280 93.5 103 128v128q0 69-103 128t-280 93.5-385 34.5-385-34.5-280-93.5-103-128v-128q0-69 103-128t280-93.5 385-34.5z&#34;/&gt;&lt;/svg&gt;&lt;/span&gt;
-  &lt;/span&gt;
-            &lt;/span&gt;
-            &lt;span class=&#34;pipeline-element-text&#34;&gt;StroomStatsAppender&lt;/span&gt;
-          &lt;/span&gt;
-        &lt;/span&gt;
-      &lt;/a&gt;
-
-      
-      &lt;span style=&#34;display:none;&#34; class=&#34;USED FOR SPLITTING&#34; &gt;&lt;/span&gt;
-
-    
-  
-
-
-
-
-
-
-
- &lt;/p&gt;
-&lt;p&gt;This element is deprecated and should not be used.&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;Element properties:&lt;/strong&gt;&lt;/p&gt;
-&lt;table&gt;
-&lt;thead&gt;
-&lt;tr&gt;
-&lt;th&gt;Name&lt;/th&gt;
-&lt;th&gt;Description&lt;/th&gt;
-&lt;th&gt;Default Value&lt;/th&gt;
-&lt;th&gt;Value Type&lt;/th&gt;
-&lt;/tr&gt;
-&lt;/thead&gt;
-&lt;tbody&gt;
-&lt;tr&gt;
-&lt;td&gt;flushOnSend&lt;/td&gt;
-&lt;td&gt;At the end of the stream, wait for acknowledgement from the Kafka broker for all the messages sent. This ensures errors are caught in the pipeline process.&lt;/td&gt;
-&lt;td&gt;true&lt;/td&gt;
-&lt;td&gt;Boolean&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;kafkaConfig&lt;/td&gt;
-&lt;td&gt;The Kafka config to use.&lt;/td&gt;
-&lt;td&gt;-&lt;/td&gt;
-&lt;td&gt;Document&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;maxRecordCount&lt;/td&gt;
-&lt;td&gt;Choose the maximum number of records or events that a message will contain&lt;/td&gt;
-&lt;td&gt;1&lt;/td&gt;
-&lt;td&gt;String&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;statisticsDataSource&lt;/td&gt;
-&lt;td&gt;The stroom-stats data source to record statistics against.&lt;/td&gt;
-&lt;td&gt;-&lt;/td&gt;
-&lt;td&gt;Document&lt;/td&gt;
-&lt;/tr&gt;
-&lt;/tbody&gt;
-&lt;/table&gt;
 
       </description>
     </item>
@@ -6260,7 +6113,7 @@ Index documents are stored in a &lt;span class=&#34;glossary-link&#34;&gt;
 
 &lt;/div&gt;
 
-&lt;h2 id=&#34;field-configuration&#34;&gt;Field configuration&lt;/h2&gt;
+&lt;h2 id=&#34;field-configuration&#34;&gt;Field Configuration&lt;/h2&gt;
 &lt;h3 id=&#34;field-types&#34;&gt;Field Types&lt;/h3&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;code&gt;Id&lt;/code&gt; - Treated as a &lt;code&gt;Long&lt;/code&gt;.&lt;/li&gt;
@@ -6275,12 +6128,12 @@ Sufficient for storing 15 decimal digits.&lt;/li&gt;
 &lt;li&gt;&lt;code&gt;Text&lt;/code&gt; - Text data.&lt;/li&gt;
 &lt;li&gt;&lt;code&gt;Number&lt;/code&gt; - An alias for &lt;code&gt;Long&lt;/code&gt;.&lt;/li&gt;
 &lt;/ul&gt;
-&lt;h3 id=&#34;stored-fields&#34;&gt;Stored fields&lt;/h3&gt;
+&lt;h3 id=&#34;stored-fields&#34;&gt;Stored Fields&lt;/h3&gt;
 &lt;p&gt;If a field is &lt;em&gt;Stored&lt;/em&gt; then it means the complete field value will be stored in the index.
 This means the value can be retrieved from the index when building search results rather than using the slower &lt;a href=&#34;../../tags/extraction/&#34;&gt;Search Extraction&lt;/a&gt; process.
 Storing field values comes at the cost of high storage requirements for the index.
 If storage space is not an issue then storing all fields that you want to return in search results is the optimum.&lt;/p&gt;
-&lt;h3 id=&#34;indexed-fields&#34;&gt;Indexed fields&lt;/h3&gt;
+&lt;h3 id=&#34;indexed-fields&#34;&gt;Indexed Fields&lt;/h3&gt;
 &lt;p&gt;An &lt;em&gt;Indexed&lt;/em&gt; field is one that will be processed by Lucene so that the field can be queried.
 How the field is indexed will depend on the Field type and the Analyser used.&lt;/p&gt;
 &lt;p&gt;If you have fields that you do not want to be able to filter (i.e. that you won&amp;rsquo;t use as a query term) then you can include them as non-Indexed fields.
@@ -6294,7 +6147,7 @@ Including a non-indexed field means it will be available for the user to select 
 A non-indexed field would either need to be &lt;em&gt;Stored&lt;/em&gt; in the index or added via Search Extraction to be available in the search results.&lt;/p&gt;
 &lt;h3 id=&#34;positions&#34;&gt;Positions&lt;/h3&gt;
 &lt;p&gt;If &lt;em&gt;Positions&lt;/em&gt; is selected then Lucene will store the positions of all the field terms in the document.&lt;/p&gt;
-&lt;h3 id=&#34;analyser-types&#34;&gt;Analyser types&lt;/h3&gt;
+&lt;h3 id=&#34;analyser-types&#34;&gt;Analyser Types&lt;/h3&gt;
 &lt;p&gt;The Analyser determines how Lucene reads the fields value and extracts tokens from it.
 The choice of Analyser will depend on the data in the field and how you want to search it.&lt;/p&gt;
 &lt;ul&gt;
@@ -6319,11 +6172,11 @@ Not affected by the &lt;em&gt;Case Sensitivity setting&lt;/em&gt;.
 Case insensitive.
 e.g. &lt;code&gt;Find Stroom at github.com/stroom&lt;/code&gt; =&amp;gt; &lt;code&gt;Find&lt;/code&gt; &lt;code&gt;Stroom&lt;/code&gt; &lt;code&gt;at&lt;/code&gt; &lt;code&gt;github.com/stroom&lt;/code&gt;.&lt;/li&gt;
 &lt;/ul&gt;
-&lt;h4 id=&#34;stop-words&#34;&gt;Stop words&lt;/h4&gt;
+&lt;h4 id=&#34;stop-words&#34;&gt;Stop Words&lt;/h4&gt;
 &lt;p&gt;Some of the Analysers use a set of stop words for the tokenisers.
 This is the list of stop words that will not be indexed.&lt;/p&gt;
 &lt;p&gt;&lt;code&gt;a&lt;/code&gt;, &lt;code&gt;an&lt;/code&gt;, &lt;code&gt;and&lt;/code&gt;, &lt;code&gt;are&lt;/code&gt;, &lt;code&gt;as&lt;/code&gt;, &lt;code&gt;at&lt;/code&gt;, &lt;code&gt;be&lt;/code&gt;, &lt;code&gt;but&lt;/code&gt;, &lt;code&gt;by&lt;/code&gt;, &lt;code&gt;for&lt;/code&gt;, &lt;code&gt;if&lt;/code&gt;, &lt;code&gt;in&lt;/code&gt;, &lt;code&gt;into&lt;/code&gt;, &lt;code&gt;is&lt;/code&gt;, &lt;code&gt;it&lt;/code&gt;, &lt;code&gt;no&lt;/code&gt;, &lt;code&gt;not&lt;/code&gt;, &lt;code&gt;of&lt;/code&gt;, &lt;code&gt;on&lt;/code&gt;, &lt;code&gt;or&lt;/code&gt;, &lt;code&gt;such&lt;/code&gt;, &lt;code&gt;that&lt;/code&gt;, &lt;code&gt;the&lt;/code&gt;, &lt;code&gt;their&lt;/code&gt;, &lt;code&gt;then&lt;/code&gt;, &lt;code&gt;there&lt;/code&gt;, &lt;code&gt;these&lt;/code&gt;, &lt;code&gt;they&lt;/code&gt;, &lt;code&gt;this&lt;/code&gt;, &lt;code&gt;to&lt;/code&gt;, &lt;code&gt;was&lt;/code&gt;, &lt;code&gt;will&lt;/code&gt;, &lt;code&gt;with&lt;/code&gt;&lt;/p&gt;
-&lt;h3 id=&#34;case-sensitivity&#34;&gt;Case sensitivity&lt;/h3&gt;
+&lt;h3 id=&#34;case-sensitivity&#34;&gt;Case Sensitivity&lt;/h3&gt;
 &lt;p&gt;Some of the Analyser types support case (in)sensitivity.
 For example if the Analyser supports it the value &lt;code&gt;TWO two&lt;/code&gt; would either be tokenised as &lt;code&gt;TWO&lt;/code&gt; &lt;code&gt;two&lt;/code&gt; or &lt;code&gt;two&lt;/code&gt; &lt;code&gt;two&lt;/code&gt;.&lt;/p&gt;
 
@@ -6376,7 +6229,7 @@ For example if the Analyser supports it the value &lt;code&gt;TWO two&lt;/code&g
 &lt;/div&gt;
 &lt;/div&gt;
 
-&lt;h2 id=&#34;general-configuration&#34;&gt;General configuration&lt;/h2&gt;
+&lt;h2 id=&#34;general-configuration&#34;&gt;General Configuration&lt;/h2&gt;
 &lt;p&gt;MySQL is configured via the &lt;code&gt;.cnf&lt;/code&gt; file which is typically located in one of these locations:&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;code&gt;/etc/my.cnf&lt;/code&gt;&lt;/li&gt;
@@ -6385,7 +6238,7 @@ For example if the Analyser supports it the value &lt;code&gt;TWO two&lt;/code&g
 &lt;li&gt;&lt;code&gt;&amp;lt;data dir&amp;gt;/my.cnf&lt;/code&gt;&lt;/li&gt;
 &lt;li&gt;&lt;code&gt;~/.my.cnf&lt;/code&gt;&lt;/li&gt;
 &lt;/ul&gt;
-&lt;h3 id=&#34;key-configuration-properties&#34;&gt;Key configuration properties&lt;/h3&gt;
+&lt;h3 id=&#34;key-configuration-properties&#34;&gt;Key Configuration Properties&lt;/h3&gt;
 &lt;ul&gt;
 &lt;li&gt;
 &lt;p&gt;&lt;code&gt;lower_case_table_names&lt;/code&gt; - This property controls how the tables are stored on the filesystem and the case-sensitivity of table names in SQL.
@@ -6437,11 +6290,11 @@ See also &lt;span class=&#34;external-link&#34;&gt;
 &lt;h2 id=&#34;deploying-without-docker&#34;&gt;Deploying without Docker&lt;/h2&gt;
 &lt;p&gt;When MySQL is deployed without a docker stack then MySQL should be installed and configured according to the MySQL documentation.
 How MySQL is deployed and configured will depend on the requirements of the environment, e.g. clustered, primary/standby, etc.&lt;/p&gt;
-&lt;h2 id=&#34;as-part-of-a-docker-stack&#34;&gt;As part of a docker stack&lt;/h2&gt;
+&lt;h2 id=&#34;as-part-of-a-docker-stack&#34;&gt;As Part of a Docker Stack&lt;/h2&gt;
 &lt;p&gt;Where a stroom docker stack includes stroom-all-dbs (MySQL) the MySQL instance is configured via the &lt;code&gt;.cnf&lt;/code&gt; file.
 The &lt;code&gt;.cnf&lt;/code&gt; file is located in &lt;code&gt;volumes/stroom-all-dbs/conf/stroom-all-dbs.cnf&lt;/code&gt;.
 This file is read-only to the container and will be read on container start.&lt;/p&gt;
-&lt;h3 id=&#34;database-initialisation&#34;&gt;Database initialisation&lt;/h3&gt;
+&lt;h3 id=&#34;database-initialisation&#34;&gt;Database Initialisation&lt;/h3&gt;
 &lt;p&gt;When the container is started for the first time the database will be initialised with the root user account.
 It will also then run any scripts found in &lt;code&gt;volumes/stroom-all-dbs/init/stroom&lt;/code&gt;.
 The scripts in here will be run in alphabetical order.

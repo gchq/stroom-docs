@@ -45,12 +45,12 @@
 <meta property="og:type" content="article" />
 <meta property="og:url" content="/releases/v07.05/new-features/" /><meta property="article:section" content="releases" />
 <meta property="article:published_time" content="2024-02-29T00:00:00+00:00" />
-<meta property="article:modified_time" content="2026-08-13T15:21:24+01:00" /><meta property="og:site_name" content="Stroom" />
+<meta property="article:modified_time" content="2026-08-14T16:44:55+01:00" /><meta property="og:site_name" content="Stroom" />
 
 <meta itemprop="name" content="New Features">
 <meta itemprop="description" content="New features in Stroom version 7.5.
 "><meta itemprop="datePublished" content="2024-02-29T00:00:00+00:00" />
-<meta itemprop="dateModified" content="2026-08-13T15:21:24+01:00" />
+<meta itemprop="dateModified" content="2026-08-14T16:44:55+01:00" />
 <meta itemprop="wordCount" content="1537">
 <meta itemprop="keywords" content="" /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="New Features"/>
@@ -155,7 +155,7 @@
     aria-label="Search this site…"
     autocomplete="off"
     
-    data-offline-search-index-json-src="../../../offline-search-index.95b12371d9f23e70cddb1f62f4c00605.json"
+    data-offline-search-index-json-src="../../../offline-search-index.95034a9311ba25828e37c5d04adb17e9.json"
     data-offline-search-base-href="../../../"
     data-offline-search-max-results="50"
   >
@@ -180,7 +180,7 @@
     aria-label="Search this site…"
     autocomplete="off"
     
-    data-offline-search-index-json-src="../../../offline-search-index.95b12371d9f23e70cddb1f62f4c00605.json"
+    data-offline-search-index-json-src="../../../offline-search-index.95034a9311ba25828e37c5d04adb17e9.json"
     data-offline-search-base-href="../../../"
     data-offline-search-max-results="50"
   >
@@ -492,7 +492,7 @@
         
           <li><a class="taxonomy-term" href="../../../tags/configuration/" data-taxonomy-term="configuration"><span class="taxonomy-label">configuration</span><span class="taxonomy-count">4</span></a></li>
         
-          <li><a class="taxonomy-term" href="../../../tags/content/" data-taxonomy-term="content"><span class="taxonomy-label">content</span><span class="taxonomy-count">8</span></a></li>
+          <li><a class="taxonomy-term" href="../../../tags/content/" data-taxonomy-term="content"><span class="taxonomy-label">content</span><span class="taxonomy-count">10</span></a></li>
         
           <li><a class="taxonomy-term" href="../../../tags/context/" data-taxonomy-term="context"><span class="taxonomy-label">context</span><span class="taxonomy-count">1</span></a></li>
         
@@ -564,7 +564,7 @@
         
           <li><a class="taxonomy-term" href="../../../tags/nginx/" data-taxonomy-term="nginx"><span class="taxonomy-label">nginx</span><span class="taxonomy-count">1</span></a></li>
         
-          <li><a class="taxonomy-term" href="../../../tags/node/" data-taxonomy-term="node"><span class="taxonomy-label">node</span><span class="taxonomy-count">1</span></a></li>
+          <li><a class="taxonomy-term" href="../../../tags/node/" data-taxonomy-term="node"><span class="taxonomy-label">node</span><span class="taxonomy-count">2</span></a></li>
         
           <li><a class="taxonomy-term" href="../../../tags/open-id/" data-taxonomy-term="open-id"><span class="taxonomy-label">open-id</span><span class="taxonomy-count">10</span></a></li>
         
@@ -574,7 +574,7 @@
         
           <li><a class="taxonomy-term" href="../../../tags/pipeline/" data-taxonomy-term="pipeline"><span class="taxonomy-label">pipeline</span><span class="taxonomy-count">3</span></a></li>
         
-          <li><a class="taxonomy-term" href="../../../tags/processing/" data-taxonomy-term="processing"><span class="taxonomy-label">processing</span><span class="taxonomy-count">5</span></a></li>
+          <li><a class="taxonomy-term" href="../../../tags/processing/" data-taxonomy-term="processing"><span class="taxonomy-label">processing</span><span class="taxonomy-count">6</span></a></li>
         
           <li><a class="taxonomy-term" href="../../../tags/property/" data-taxonomy-term="property"><span class="taxonomy-label">property</span><span class="taxonomy-count">2</span></a></li>
         
@@ -622,7 +622,7 @@
         
           <li><a class="taxonomy-term" href="../../../tags/xml/" data-taxonomy-term="xml"><span class="taxonomy-label">xml</span><span class="taxonomy-count">1</span></a></li>
         
-          <li><a class="taxonomy-term" href="../../../tags/xslt/" data-taxonomy-term="xslt"><span class="taxonomy-label">xslt</span><span class="taxonomy-count">5</span></a></li>
+          <li><a class="taxonomy-term" href="../../../tags/xslt/" data-taxonomy-term="xslt"><span class="taxonomy-label">xslt</span><span class="taxonomy-count">14</span></a></li>
         
       </ul>
     </div>
@@ -1406,10 +1406,12 @@ The area for clicking and dragging to move a dialog has been increased to includ
 <li>
 <p>Document deletion will now also delete all associated document permissions granted to user/groups.
 This previously did not happen on document delete so orphaned document permissions would build up in the database.</p>
-<p>The DB migration <code>V07_04_00_005__Orphaned_Doc_Perms</code> which will delete all document permissions (in table <code>doc_permission</code>) for docs that are not a folder, not the System doc, are not a valid doc (i.e. in the <code>doc</code> table) and are not a pipeline filter. Deleted document permission records will first be copied to a backup table <code>doc_permission_backup_V07_04_00_005</code>.</p>
+<p>The DB migration <code>V07_04_00_005__Orphaned_Doc_Perms</code> which will delete all document permissions (in table <code>doc_permission</code>) for docs that are not a folder, not the System doc, are not a valid doc (i.e. in the <code>doc</code> table) and are not a pipeline filter.
+Deleted document permission records will first be copied to a backup table <code>doc_permission_backup_V07_04_00_005</code>.</p>
 </li>
 <li>
-<p>Document Copy and Move has been changed to check that the user has Owner permission (or admin) on the document being copied/moved if the permissions mode is None, Destination or Combined. This is because those modes will change the permissions which is something only an Owner/admin can do.</p>
+<p>Document Copy and Move has been changed to check that the user has Owner permission (or admin) on the document being copied/moved if the permissions mode is None, Destination or Combined.
+This is because those modes will change the permissions which is something only an Owner/admin can do.</p>
 </li>
 </ul>
 
@@ -1727,7 +1729,6 @@ This means the Pipeline picker screen can be pre-filtered on the appropriate tag
 
 
 
-
  has been added to enable the streaming of data to an S3 bucket.</p>
 <p>The S3 Appender requires the creation of an S3 Config <span class="stroom-icon inline-svg-button icon-button  " >
     <span class="face" title="S3 Config"><svg viewBox="0 0 70 70" xml:space="preserve" xmlns="http://www.w3.org/2000/svg"><path d="m63.95 15.786c0 4.006-12.963 7.238-28.949 7.238-15.988 0-28.951-3.232-28.951-7.238l9.65 43.839c0 2.672 8.637 4.826 19.301 4.826 10.662 0 19.299-2.154 19.299-4.826l9.65-43.839z" clip-rule="evenodd" fill="var(--icon-colour__green)" fill-rule="evenodd"/><path d="m63.95 12.786c0-4.004-12.963-7.237-28.949-7.237-15.988 0-28.951 3.233-28.951 7.237 0 4.006 12.963 7.238 28.951 7.238 15.986 0 28.949-3.232 28.949-7.238z" clip-rule="evenodd" fill="var(--icon-colour__green)" fill-rule="evenodd"/></svg> </span>
@@ -1833,7 +1834,7 @@ This is useful when stepping large streams or when using filtered steps.</p>
 	
 	
 	<div class="text-muted mt-5 pt-3 border-top">
-  Last modified August 13, 2026: <a href="https://github.com/gchq/stroom-docs/commit/603981ca4cf5d33fa2b753617ac36b904f9c639a">Merge pull request #132 from gchq/csv_search (603981c)</a>
+  Last modified August 14, 2026: <a href="https://github.com/gchq/stroom-docs/commit/307b3f02d7c0d289c1c0c1297047742e0bbbee22">fix build (307b3f0)</a>
 </div>
 
 </div>

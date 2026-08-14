@@ -151,7 +151,7 @@
     aria-label="Search this site…"
     autocomplete="off"
     
-    data-offline-search-index-json-src="../../../../../../offline-search-index.95b12371d9f23e70cddb1f62f4c00605.json"
+    data-offline-search-index-json-src="../../../../../../offline-search-index.95034a9311ba25828e37c5d04adb17e9.json"
     data-offline-search-base-href="../../../../../../"
     data-offline-search-max-results="50"
   >
@@ -276,7 +276,7 @@ It applies whichever provider you use, so read it before following one of the pr
 <li><a href="../../../../../../docs/install-guide/setup/open-id/external-idp/google/">Google</a></li>
 <li><a href="../../../../../../docs/install-guide/setup/open-id/external-idp/azure-ad/">Microsoft Entra ID (Azure AD)</a></li>
 </ul>
-<h2 id="what-stroom-needs-from-the-provider">What Stroom needs from the provider</h2>
+<h2 id="what-stroom-needs-from-the-provider">What Stroom Needs from the Provider</h2>
 <p>Stroom is a confidential OAuth 2.0 client using the authorization code flow.
 To register it with a provider you need the following.</p>
 <table>
@@ -315,7 +315,7 @@ To register it with a provider you need the following.</p>
 </table>
 <p><code>STROOM_FQDN</code> is the public facing address of Stroom, which is what you have configured as <code>appConfig.publicUri</code> and is the address users type into their browser.
 If Stroom is behind a load balancer or Nginx, it is that address and not the address of an individual node.</p>
-<h3 id="the-redirect-uri">The redirect URI</h3>
+<h3 id="the-redirect-uri">The Redirect URI</h3>
 <p>The redirect URI, sometimes called the callback or reply URL, is where the provider sends the user&rsquo;s browser once they have authenticated.</p>
 <p>Stroom uses a single fixed redirect URI:</p>
 <pre><code>https://STROOM_FQDN/api/auth/flow/v1/signin-oidc
@@ -335,7 +335,7 @@ If you are upgrading, replace any such wildcard with the single exact URI above,
 
 
 <p>If Stroom is served under a path prefix, i.e. <code>appConfig.publicUri.pathPrefix</code> is set, that prefix comes before <code>/api</code>.</p>
-<h3 id="the-post-logout-redirect-uri">The post logout redirect URI</h3>
+<h3 id="the-post-logout-redirect-uri">The Post Logout Redirect URI</h3>
 <p>When a user signs out, Stroom sends them to the provider&rsquo;s logout endpoint and asks to be returned to Stroom&rsquo;s public root:</p>
 <pre><code>https://STROOM_FQDN/
 </code></pre>
@@ -392,7 +392,7 @@ Both can be reassigned to a different person at the provider, and whoever holds 
 </div>
 
 
-<h2 id="token-validation">Token validation</h2>
+<h2 id="token-validation">Token Validation</h2>
 <p>Stroom validates every token it is given, whether that is the <code>id_token</code> from an interactive sign in or a bearer access token presented to the API.</p>
 <p>The signature must verify against a key from the provider&rsquo;s JWKS, and the algorithm must be one of the RSA, RSA-PSS or ECDSA families.
 Unsigned tokens and tokens signed with an HMAC algorithm are refused.</p>
@@ -410,7 +410,7 @@ It is API authentication with access tokens where providers differ.
 </div>
 
 
-<h2 id="users-and-permissions">Users and permissions</h2>
+<h2 id="users-and-permissions">Users and Permissions</h2>
 <p>Authentication is handled by the provider.
 Authorisation, i.e. what a user may do once they are in, is always handled by Stroom.</p>
 <p>Whenever a user successfully signs in via the provider, Stroom automatically creates an entry for them in its own user table.
@@ -473,7 +473,7 @@ The structure is identical for both.</p>
 </div>
 
 
-<h2 id="a-minimal-configuration">A minimal configuration</h2>
+<h2 id="a-minimal-configuration">A Minimal Configuration</h2>
 <p>For most providers this is all that is needed:</p>
 <pre><code class="language-yaml">  security:
     authentication:
@@ -494,7 +494,7 @@ The logout endpoint is not part of that document, so it is set separately.</p>
     # Allow authentication using an Open ID token
     tokenAuthenticationEnabled: true
 </code></pre>
-<h2 id="choosing-the-identity-provider">Choosing the identity provider</h2>
+<h2 id="choosing-the-identity-provider">Choosing the Identity Provider</h2>
 <h3 id="identityprovidertype"><code>identityProviderType</code></h3>
 <pre><code class="language-yaml">identityProviderType: EXTERNAL_IDP
 </code></pre>
@@ -550,7 +550,7 @@ This is not part of the discovery document, so it always has to be set by hand, 
 </code></pre>
 <p>The query parameter Stroom uses to tell the provider where to send the user after signing out.
 The only permitted values are <code>post_logout_redirect_uri</code>, the default and what the current specification says, and <code>redirect_uri</code> for older providers.</p>
-<h2 id="client-credentials">Client credentials</h2>
+<h2 id="client-credentials">Client Credentials</h2>
 <h3 id="clientid-and-clientsecret"><code>clientId</code> and <code>clientSecret</code></h3>
 <p>The client, sometimes called an application, registered at the provider.</p>
 <p><code>clientSecret</code> may be left unset when the provider authenticates Stroom by mutual TLS instead of a secret.</p>
@@ -585,7 +585,7 @@ For Azure AD you will likely need <code>openid</code> and <code>&lt;your-app-id-
 <p>Whether the token request is sent as an HTML form body.
 Some providers, Cognito among them, require this.
 It is on by default and rarely needs changing.</p>
-<h2 id="audience-validation">Audience validation</h2>
+<h2 id="audience-validation">Audience Validation</h2>
 <p>The <code>aud</code> claim of a token names the application the token was minted for.
 Checking it is what stops a token issued to some other application at the same provider being replayed against Stroom.</p>
 <p>Three settings control this.</p>
@@ -632,7 +632,7 @@ See the provider pages for which applies to you.</p>
 </div>
 
 
-<h2 id="token-validation">Token validation</h2>
+<h2 id="token-validation">Token Validation</h2>
 <h3 id="requiredaccesstokentype"><code>requiredAccessTokenType</code></h3>
 <pre><code class="language-yaml">requiredAccessTokenType: null
 </code></pre>
@@ -655,7 +655,7 @@ It has no effect on the interactive sign in flow or on an AWS load balancer data
 <p>Additional issuers to accept beyond the one the provider advertises.</p>
 <p>Stroom checks that the issuer in the provider&rsquo;s configuration response is consistent with <code>openIdConfigurationEndpoint</code>.
 Where a provider legitimately reports an issuer that is not a parent path of that endpoint, list it here so the check passes.</p>
-<h3 id="signature-algorithms">Signature algorithms</h3>
+<h3 id="signature-algorithms">Signature Algorithms</h3>
 <p>Not configurable.
 Stroom accepts RS256/384/512, PS256/384/512 and ES256/384/512, and refuses unsigned tokens and tokens signed with an HMAC algorithm.</p>
 <p>There is no reason to expect a mainstream provider to fall foul of this.</p>
@@ -686,7 +686,7 @@ Claim names are case sensitive.</p>
 </div>
 
 
-<h2 id="aws-load-balancer-authentication">AWS load balancer authentication</h2>
+<h2 id="aws-load-balancer-authentication">AWS Load Balancer Authentication</h2>
 <p>These apply when an AWS Application Load Balancer in front of Stroom performs the authentication and passes the result on in an <code>x-amzn-oidc-data</code> header.</p>
 <h3 id="expectedsignerprefixes"><code>expectedSignerPrefixes</code></h3>
 <pre><code class="language-yaml">expectedSignerPrefixes: []
@@ -738,7 +738,14 @@ Not every provider supports issuing an OIDC token for a client credentials grant
 </div>
 
 <h2 id="troubleshooting">Troubleshooting</h2>
+<!--
+The headings below describe a symptom rather than naming a thing, so they read
+as sentences and are deliberately in sentence case. Each is opted out of the
+style check individually so that the rest of the section is still checked.
+-->
+<!-- style-check: disable -->
 <h3 id="stroom-will-not-start">Stroom will not start</h3>
+<!-- style-check: enable -->
 <blockquote>
 <p>If <code>identityProviderType</code> is set to &lsquo;EXTERNAL&rsquo;, property <code>openIdConfigurationEndpoint</code> must be set.</p>
 </blockquote>
@@ -760,26 +767,40 @@ Where the value is genuinely correct for your provider, add it to <code>validIss
 </blockquote>
 <p>You have set <code>issuer</code> or <code>validIssuers</code>, and what the provider advertised is not among them.
 Correct the configured value, or add the advertised one.</p>
+<!-- style-check: disable -->
 <h3 id="the-provider-refuses-the-sign-in">The provider refuses the sign in</h3>
+<!-- style-check: enable -->
 <p>An error at the provider, before the user gets back to Stroom, is almost always the redirect URI.
 Check that <code>https://STROOM_FQDN/api/auth/flow/v1/signin-oidc</code> is registered exactly, using the same scheme, host, port and path prefix as <code>appConfig.publicUri</code>.</p>
 <p>This is the single most common problem when upgrading, because Stroom used to send a different redirect URI for every page.</p>
+<!-- style-check: disable -->
 <h3 id="sign-in-works-but-api-calls-are-refused">Sign in works but API calls are refused</h3>
+<!-- style-check: enable -->
 <p>Interactive sign in validates the <code>id_token</code>, whereas the API validates an access token, and providers treat the two differently.
 So sign in working tells you the client id, secret and endpoints are all correct, and points at the token validation settings.</p>
 <p>In order of likelihood:</p>
 <ol>
-<li><strong>Audience.</strong> The access token&rsquo;s <code>aud</code> claim does not match <code>clientId</code> or <code>allowedAudiences</code>, or the token has no <code>aud</code> claim and <code>audienceClaimRequired</code> is <code>true</code>. See <a href="#audience-validation">Audience validation</a>.</li>
-<li><strong>Token type.</strong> <code>requiredAccessTokenType</code> is set to something the provider does not put in the token&rsquo;s <code>typ</code> header. Unset it, or correct it to the value the provider actually uses.</li>
-<li><strong>Token type, the other way round.</strong> The caller is presenting an <code>id_token</code> rather than an access token. Setting <code>requiredAccessTokenType</code> is what catches this.</li>
+<li><strong>Audience.</strong>
+The access token&rsquo;s <code>aud</code> claim does not match <code>clientId</code> or <code>allowedAudiences</code>, or the token has no <code>aud</code> claim and <code>audienceClaimRequired</code> is <code>true</code>.
+See <a href="#audience-validation">Audience validation</a>.</li>
+<li><strong>Token type.</strong>
+<code>requiredAccessTokenType</code> is set to something the provider does not put in the token&rsquo;s <code>typ</code> header.
+Unset it, or correct it to the value the provider actually uses.</li>
+<li><strong>Token type, the other way round.</strong>
+The caller is presenting an <code>id_token</code> rather than an access token.
+Setting <code>requiredAccessTokenType</code> is what catches this.</li>
 </ol>
 <p>Enable debug logging for <code>stroom.security.common.impl.StandardJwtContextFactory</code> to see the issuers, audiences and settings actually in use when a token is validated.</p>
+<!-- style-check: disable -->
 <h3 id="users-sign-in-but-can-see-nothing">Users sign in but can see nothing</h3>
+<!-- style-check: enable -->
 <p>That is expected for a new user.
 Authentication is all the provider does; permissions are granted in Stroom, and a new user has none.
 See <a href="../../../../../../docs/install-guide/setup/open-id/external-idp/#users-and-permissions">Users and permissions</a>.</p>
 <p>If an administrator you set up with <code>manage_users</code> cannot see anything either, remember that permissions are cached, so a restart may be needed if Stroom was running when the command was issued.</p>
+<!-- style-check: disable -->
 <h3 id="signing-out-does-not-sign-the-user-out-of-the-provider">Signing out does not sign the user out of the provider</h3>
+<!-- style-check: enable -->
 <p>Either <code>logoutEndpoint</code> is unset, or the provider has no OIDC sign out endpoint, as is the case for Google.
 The Stroom session ends either way, but the provider&rsquo;s session does not, so the user&rsquo;s next visit signs them straight back in.</p>
 
@@ -913,7 +934,7 @@ On a newer version the same settings may sit under differently named tabs, and t
 </div>
 
 
-<h2 id="creating-a-realm">Creating a realm</h2>
+<h2 id="creating-a-realm">Creating a Realm</h2>
 <p>First you need to create a Realm.</p>
 <ol>
 <li>Click on the drop-down in the left pane that contains the word <code>master</code>.</li>
@@ -921,7 +942,7 @@ On a newer version the same settings may sit under differently named tabs, and t
 <li>Set the <em>Realm name</em> to <code>StroomRealm</code>.</li>
 <li>Click <em>Create</em>.</li>
 </ol>
-<h2 id="creating-a-client">Creating a client</h2>
+<h2 id="creating-a-client">Creating a Client</h2>
 <p>In the new realm click on <em>Clients</em> in the left pane, then <em>Create client</em>.</p>
 <ol>
 <li>Set the <em>Client ID</em> to <code>StroomClient</code>.</li>
@@ -958,7 +979,7 @@ If you are upgrading, replace it with the exact URI above.</p>
 <p>On the <em>Advanced</em> tab, under <em>Advanced settings</em>, set <em>Proof Key for Code Exchange Code Challenge Method</em> to <code>S256</code>.
 Stroom always sends a PKCE challenge, so KeyCloak can be told to insist on one.</p>
 <p>On the <em>Credentials</em> tab copy the <em>Client secret</em> for use later in Stroom config.</p>
-<h2 id="adding-an-audience-mapper">Adding an audience mapper</h2>
+<h2 id="adding-an-audience-mapper">Adding an Audience Mapper</h2>
 <p>This step matters, and is easy to miss.</p>
 <p>By default KeyCloak does not put the client id in the <code>aud</code> claim of the access tokens it issues; typically it puts <code>account</code> there instead.
 Stroom validates the audience of every token it is given, so without this step API calls made with a KeyCloak access token are refused.
@@ -977,7 +998,7 @@ Interactive sign in still works, because the <code>id_token</code> does carry th
 </code></pre>
 <p>That is weaker, since <code>account</code> is an audience every client in the realm can obtain, so a token minted for another application in the same realm would be accepted by Stroom.
 Prefer the mapper.</p>
-<h2 id="creating-users">Creating users</h2>
+<h2 id="creating-users">Creating Users</h2>
 <p>Click on <em>Users</em> in the left pane then <em>Add user</em>.
 Set the following:</p>
 <ul>
@@ -1050,7 +1071,7 @@ Leave it unset if in doubt; it is a hardening measure rather than a requirement.
 </div>
 
 
-<h2 id="setting-up-the-admin-user-in-stroom">Setting up the admin user in Stroom</h2>
+<h2 id="setting-up-the-admin-user-in-stroom">Setting up the Admin User in Stroom</h2>
 <p>Now that the <code>admin</code> user exists in the IDP we need to grant it <code>Administrator</code> rights in Stroom.</p>
 <p>In the <em>Users</em> section of KeyCloak click on user <code>admin</code>.
 On the <em>Details</em> tab copy the value of the <em>ID</em> field.
@@ -1121,7 +1142,7 @@ This does mean that new users will need to log in before the administrator can m
 
 
 <h2 id="logging-into-stroom">Logging into Stroom</h2>
-<h3 id="as-the-administrator">As the administrator</h3>
+<h3 id="as-the-administrator">As the Administrator</h3>
 <p>Now that the user and permissions have been set up in Stroom, the administrator can log in.</p>
 <p>First start the Stroom instance or cluster.</p>
 
@@ -1263,7 +1284,7 @@ Your user ID is shown in the bottom right corner of the Welcome tab.</p>
 
  to be re-directed to the IDP to log out.
 Once you log out of the IDP it should re-direct you back to Stroom, which will send you to the IDP login screen to log back in again.</p>
-<h3 id="as-an-ordinary-user">As an ordinary user</h3>
+<h3 id="as-an-ordinary-user">As an Ordinary User</h3>
 <p>On the IDP login screen, log in as user <code>jbloggs</code> with the password <code>password</code>.
 You will be re-directed to Stroom, however the explorer tree will be empty and most of the menu items will be disabled.
 In order to gain permissions to do anything in Stroom, a Stroom administrator will need to grant application and document permissions and/or group memberships to the user via the 
@@ -1416,17 +1437,19 @@ If Stroom sits behind an AWS Application Load Balancer whose listener rule does 
 
 <p>Cognito differs from a typical OIDC provider in two ways that directly affect the Stroom configuration, so they are worth knowing before you start.</p>
 <ul>
-<li>Its <strong>access tokens carry no <code>aud</code> claim</strong>, using <code>client_id</code> instead. Stroom requires an audience claim by default, so this has to be turned off.</li>
+<li>Its <strong>access tokens carry no <code>aud</code> claim</strong>, using <code>client_id</code> instead.
+Stroom requires an audience claim by default, so this has to be turned off.</li>
 <li>Its authorization, token and sign out endpoints belong to the <strong>hosted UI domain</strong>, which is separate from the user pool&rsquo;s issuer host.</li>
 </ul>
-<h2 id="creating-the-user-pool-and-app-client">Creating the user pool and app client</h2>
+<h2 id="creating-the-user-pool-and-app-client">Creating the User Pool and App Client</h2>
 <p>In the AWS console, under Cognito:</p>
 <ol>
 <li>Create a user pool, or use an existing one.</li>
 <li>Configure a <strong>domain</strong> for the pool, either a Cognito prefix domain giving <code>https://YOUR_PREFIX.auth.REGION.amazoncognito.com</code>, or your own custom domain.
 This provides the hosted UI and the OAuth endpoints, and is required.</li>
 <li>Create an <strong>app client</strong> of the confidential type, i.e. one with a client secret.</li>
-<li>Enable the <strong>Authorization code grant</strong> for the client. Do not enable the implicit grant.</li>
+<li>Enable the <strong>Authorization code grant</strong> for the client.
+Do not enable the implicit grant.</li>
 <li>Set the OpenID Connect scopes to at least <code>openid</code> and <code>email</code>.</li>
 <li>Set the <strong>Allowed callback URL</strong> to <code>https://STROOM_FQDN/api/auth/flow/v1/signin-oidc</code>.</li>
 <li>Set the <strong>Allowed sign out URL</strong> to <code>https://STROOM_FQDN/</code>.</li>
@@ -1445,7 +1468,7 @@ It matches them exactly and does not accept wildcards, so register the single UR
 
 
 <p>Cognito supports PKCE, and Stroom always sends an <code>S256</code> challenge, so there is nothing to configure for it.</p>
-<h2 id="the-endpoints">The endpoints</h2>
+<h2 id="the-endpoints">The Endpoints</h2>
 <p>Two different hosts are involved.</p>
 <table>
 <thead>
@@ -1512,7 +1535,7 @@ Where the two agree you can leave <code>authEndpoint</code> and <code>tokenEndpo
         # Cognito does not issue 'preferred_username'
         userDisplayNameClaim: &quot;cognito:username&quot;
 </code></pre>
-<h3 id="audience-validation">Audience validation</h3>
+<h3 id="audience-validation">Audience Validation</h3>
 <p>This is the setting most likely to catch you out.</p>
 <p>A Cognito <strong>id_token</strong>, used by interactive sign in, carries <code>aud</code> set to the app client id, so it validates against <code>clientId</code> with no further configuration.</p>
 <p>A Cognito <strong>access token</strong>, used for API calls, carries no <code>aud</code> claim at all; the equivalent information is in a <code>client_id</code> claim, which is not something Stroom validates against.
@@ -1546,7 +1569,7 @@ Both can be changed or reassigned to another person, who would then inherit the 
 
 <p>For <code>fullNameClaimTemplate</code> to resolve, the corresponding attributes must be populated on the user and included in the token.
 Add <code>profile</code> to <code>requestScopes</code> if you need <code>name</code>, <code>given_name</code> or <code>family_name</code>.</p>
-<h3 id="signing-out">Signing out</h3>
+<h3 id="signing-out">Signing Out</h3>
 <p>Cognito&rsquo;s sign out endpoint has historically expected the return address in a <code>logout_uri</code> parameter rather than the <code>post_logout_redirect_uri</code> that Stroom sends.</p>
 <p>Check whether sign out returns your users to Stroom.
 If it leaves them on an error page at Cognito, try:</p>
@@ -1554,10 +1577,10 @@ If it leaves them on an error page at Cognito, try:</p>
 </code></pre>
 <p>Those two values are the only ones Stroom accepts.
 If neither works with your pool, leave <code>logoutEndpoint</code> unset; signing out will then end the Stroom session without signing the user out of Cognito, which means their next visit will sign them straight back in without being asked for credentials.</p>
-<h3 id="access-token-type">Access token type</h3>
+<h3 id="access-token-type">Access Token Type</h3>
 <p>Leave <code>requiredAccessTokenType</code> unset unless you have decoded the header of a real Cognito access token and confirmed what it contains.
 It is a hardening measure, and setting it to a value your provider does not use will refuse every API call.</p>
-<h2 id="setting-up-the-admin-user-in-stroom">Setting up the admin user in Stroom</h2>
+<h2 id="setting-up-the-admin-user-in-stroom">Setting up the Admin User in Stroom</h2>
 <p>The bootstrap process is the same as for any provider.
 Find the <code>sub</code> of the user who is to be the administrator, which for Cognito is the user&rsquo;s UUID as shown in the console, then run the <code>manage_users</code> command <strong>before</strong> starting Stroom for the first time.</p>
 
@@ -1662,15 +1685,19 @@ Set <code>clientCredentialsScopes</code> to the custom scopes you have defined:<
 
     <p>Google is a more limited choice than KeyCloak or Cognito, in three respects.</p>
 <ul>
-<li><strong>Its access tokens are opaque, not JWTs.</strong> Stroom cannot validate them, so token authentication for the API and for data receipt does not work with Google. Use Stroom <span class="glossary-link">
+<li><strong>Its access tokens are opaque, not JWTs.</strong>
+Stroom cannot validate them, so token authentication for the API and for data receipt does not work with Google.
+Use Stroom <span class="glossary-link">
 <a href="../../../../../../docs/glossary/a/glossary-api-key">
 <span>API Keys</span>
 <i class="glossary-link-icon fas fa-book fa-sm text-primary"></i>
 </a><span class="glossary-tooltip">
 <span class="glossary-tooltip-title">API Key</span>
 <span class="glossary-tooltip-summary"><em>API Keys</em> are a form of authentication token that are created within Stroom for use by Stroom-Proxy instances or other clients that want to use Stroom’s <em>API</em>. It is an encrypted string that contains details of the user and the expiration date of the token. Possession of a valid API Key for a user account means that you can do anything that the user can do in the user interface via the API.</span><span class="glossary-tooltip-truncated">Click to see more details…</span></span></span> instead.</li>
-<li><strong>It has no OIDC sign out endpoint.</strong> Signing out of Stroom cannot sign the user out of Google.</li>
-<li><strong>It has no OIDC client credentials grant.</strong> A Stroom-Proxy cannot obtain a service user token from Google.</li>
+<li><strong>It has no OIDC sign out endpoint.</strong>
+Signing out of Stroom cannot sign the user out of Google.</li>
+<li><strong>It has no OIDC client credentials grant.</strong>
+A Stroom-Proxy cannot obtain a service user token from Google.</li>
 </ul>
 <p>Interactive sign in to the Stroom UI works perfectly well.
 It is the machine to machine paths that Google does not serve.</p>
@@ -1679,7 +1706,7 @@ It is the machine to machine paths that Google does not serve.</p>
 </div>
 
 
-<h2 id="creating-the-oauth-client">Creating the OAuth client</h2>
+<h2 id="creating-the-oauth-client">Creating the OAuth Client</h2>
 <p>In the <span class="external-link">
   <a href="https://console.cloud.google.com/" target="_blank" class="external-link" title="Google Cloud Console (external link to https://console.cloud.google.com/)">
     <span>Google Cloud Console</span>
@@ -1689,7 +1716,9 @@ It is the machine to machine paths that Google does not serve.</p>
 :</p>
 <ol>
 <li>Select or create a project.</li>
-<li>Configure the <strong>OAuth consent screen</strong>. For a Workspace domain choose the <em>Internal</em> user type, which restricts sign in to your own domain. For consumer accounts the only option is <em>External</em>.</li>
+<li>Configure the <strong>OAuth consent screen</strong>.
+For a Workspace domain choose the <em>Internal</em> user type, which restricts sign in to your own domain.
+For consumer accounts the only option is <em>External</em>.</li>
 <li>Go to <em>APIs &amp; Services</em> =&gt; <em>Credentials</em> =&gt; <em>Create Credentials</em> =&gt; <em>OAuth client ID</em>.</li>
 <li>Choose an application type of <strong>Web application</strong>.</li>
 <li>Under <em>Authorised redirect URIs</em>, add <code>https://STROOM_FQDN/api/auth/flow/v1/signin-oidc</code>.</li>
@@ -1730,7 +1759,7 @@ Stroom now uses the single fixed callback URI above, which Google accepts.</p>
 </code></pre>
 <p>The discovery document supplies the issuer, <code>https://accounts.google.com</code>, along with the authorization, token and JWKS endpoints, so none of those need setting by hand.</p>
 <p>Note that <code>logoutEndpoint</code> is deliberately absent; see <a href="#signing-out">Signing out</a> below.</p>
-<h3 id="audience-validation">Audience validation</h3>
+<h3 id="audience-validation">Audience Validation</h3>
 <p>Nothing to do.
 Google&rsquo;s <code>id_token</code> carries <code>aud</code> set to your client id, so it validates against <code>clientId</code> with the default settings.</p>
 <h3 id="claims">Claims</h3>
@@ -1752,30 +1781,32 @@ Google&rsquo;s own guidance is to key on <code>sub</code> for exactly this reaso
 </div>
 
 
-<h3 id="signing-out">Signing out</h3>
+<h3 id="signing-out">Signing Out</h3>
 <p>Google offers no OIDC sign out endpoint, so leave <code>logoutEndpoint</code> unset.</p>
 <p>Logging out of Stroom then ends the Stroom session but leaves the user signed in to Google.
 Their next visit to Stroom will sign them straight back in without being asked for credentials, which is worth being aware of on a shared machine.</p>
 <p>Do not point <code>logoutEndpoint</code> at a general Google sign out URL, as that would sign the user out of every Google service on that browser, which is unlikely to be what they expect from a Stroom logout.</p>
-<h3 id="access-token-type">Access token type</h3>
+<h3 id="access-token-type">Access Token Type</h3>
 <p>Leave <code>requiredAccessTokenType</code> unset.
 It applies to JWT bearer tokens on the API, and Google&rsquo;s access tokens are not JWTs.</p>
-<h2 id="restricting-who-can-sign-in">Restricting who can sign in</h2>
+<h2 id="restricting-who-can-sign-in">Restricting Who Can Sign In</h2>
 <p>Authentication and authorisation are separate.
 Anyone Google will authenticate can complete a sign in and have a Stroom user created for them, but that user starts with no permissions and no group memberships, so they can see nothing.</p>
 <p>Even so, you should restrict who can reach the sign in at all:</p>
 <ul>
 <li>For a Workspace domain, set the OAuth consent screen to <em>Internal</em>, so only accounts in your domain can authenticate.</li>
-<li>For consumer accounts there is no equivalent, so any Google account can reach the consent screen. Consider whether Google is the right provider in that case.</li>
+<li>For consumer accounts there is no equivalent, so any Google account can reach the consent screen.
+Consider whether Google is the right provider in that case.</li>
 </ul>
 <p>Stroom has no configuration to restrict sign in by <code>hd</code> or email domain, so this has to be done at Google.</p>
-<h2 id="setting-up-the-admin-user-in-stroom">Setting up the admin user in Stroom</h2>
+<h2 id="setting-up-the-admin-user-in-stroom">Setting up the Admin User in Stroom</h2>
 <p>Find the <code>sub</code> of the account that is to be the administrator.
 Unlike KeyCloak and Cognito, Google does not show this in an admin console; the reliable way to obtain it is to decode an <code>id_token</code> issued for that account, or read it from Stroom&rsquo;s logs after the person has signed in once.</p>
 <p>The simplest route is therefore:</p>
 <ol>
 <li>Configure Stroom as above and start it.</li>
-<li>Have the intended administrator sign in once. They will land in Stroom with no permissions.</li>
+<li>Have the intended administrator sign in once.
+They will land in Stroom with no permissions.</li>
 <li>Read their <code>sub</code> from the Stroom logs, or from the 
 
 
@@ -1875,7 +1906,7 @@ java -jar /absolute/path/to/stroom-app-all.jar \
 </div>
 </div>
 
-<h2 id="data-receipt-and-the-api">Data receipt and the API</h2>
+<h2 id="data-receipt-and-the-api">Data Receipt and the API</h2>
 <p>Because Google&rsquo;s access tokens are opaque rather than JWTs, Stroom cannot validate them, so this will not work:</p>
 <pre><code class="language-yaml">  receive:
     authenticationRequired: true
@@ -1954,7 +1985,7 @@ Entra ID is the current name for what was Azure Active Directory, and much of th
 
 <p>Entra ID has two generations of endpoint, v1.0 and v2.0, which issue tokens with different issuers and different formats.
 Two of the three things most likely to go wrong here come from mixing them up, so it is worth being deliberate: <strong>use the v2.0 endpoints throughout</strong>.</p>
-<h2 id="creating-the-app-registration">Creating the app registration</h2>
+<h2 id="creating-the-app-registration">Creating the App Registration</h2>
 <p>In the <span class="external-link">
   <a href="https://entra.microsoft.com/" target="_blank" class="external-link" title="Microsoft Entra admin centre (external link to https://entra.microsoft.com/)">
     <span>Microsoft Entra admin centre</span>
@@ -1965,7 +1996,8 @@ Two of the three things most likely to go wrong here come from mixing them up, s
 <ol>
 <li>Go to <em>App registrations</em> =&gt; <em>New registration</em>.</li>
 <li>Give it a name, e.g. <code>Stroom</code>.</li>
-<li>For <em>Supported account types</em> choose <strong>Accounts in this organizational directory only</strong>, i.e. single tenant, unless you have a specific reason not to. This restricts sign in to your own tenant.</li>
+<li>For <em>Supported account types</em> choose <strong>Accounts in this organizational directory only</strong>, i.e. single tenant, unless you have a specific reason not to.
+This restricts sign in to your own tenant.</li>
 <li>Under <em>Redirect URI</em> select a platform of <strong>Web</strong> and enter <code>https://STROOM_FQDN/api/auth/flow/v1/signin-oidc</code>.</li>
 <li>Click <em>Register</em>, then note the <strong>Application (client) ID</strong> and the <strong>Directory (tenant) ID</strong> from the overview page.</li>
 </ol>
@@ -2001,14 +2033,15 @@ When the secret expires Stroom will stop being able to exchange authorization co
 
 
 <p>Entra ID supports PKCE, and Stroom always sends an <code>S256</code> challenge, so there is nothing to configure for it.</p>
-<h2 id="exposing-an-api-for-access-tokens">Exposing an API for access tokens</h2>
+<h2 id="exposing-an-api-for-access-tokens">Exposing an API for Access Tokens</h2>
 <p>This step is what makes API authentication work, and is the Entra ID equivalent of KeyCloak&rsquo;s audience mapper.</p>
 <p>If Stroom only ever asks for the <code>openid</code>, <code>email</code> and <code>profile</code> scopes, Entra ID issues an access token for Microsoft Graph rather than for Stroom.
 Those tokens are intended only for Graph, are not in a format a third party can validate, and will fail validation at Stroom.
 Interactive sign in still works throughout, because it uses the <code>id_token</code>.</p>
 <p>To get an access token that Stroom can validate, the app registration has to expose an API of its own:</p>
 <ol>
-<li>Go to <em>Expose an API</em> =&gt; <em>Add</em> next to <em>Application ID URI</em>. Accept the default of <code>api://&lt;client-id&gt;</code>, or set your own.</li>
+<li>Go to <em>Expose an API</em> =&gt; <em>Add</em> next to <em>Application ID URI</em>.
+Accept the default of <code>api://&lt;client-id&gt;</code>, or set your own.</li>
 <li>Click <em>Add a scope</em>, name it something like <code>user_impersonation</code>, and choose who can consent.</li>
 <li>Under <em>Manifest</em>, set <code>accessTokenAcceptedVersion</code> to <code>2</code>.</li>
 </ol>
@@ -2075,7 +2108,7 @@ Their discovery documents report an issuer containing a literal <code>{tenantid}
 </div>
 
 
-<h3 id="audience-validation">Audience validation</h3>
+<h3 id="audience-validation">Audience Validation</h3>
 <p>An Entra ID <strong>id_token</strong> carries <code>aud</code> set to the Application (client) ID, so interactive sign in validates against <code>clientId</code> with no further configuration.</p>
 <p>An <strong>access token</strong> for your exposed API carries <code>aud</code> set to either the Application ID URI or the client id, depending on <code>accessTokenAcceptedVersion</code> and how the scope was requested.
 Listing both in <code>allowedAudiences</code>, as above, covers either.</p>
@@ -2128,14 +2161,14 @@ Changing it later means every existing Stroom user is orphaned, and their permis
 </div>
 
 
-<h3 id="group-and-role-claims">Group and role claims</h3>
+<h3 id="group-and-role-claims">Group and Role Claims</h3>
 <p>Entra ID can be configured to emit <code>groups</code> and <code>roles</code> claims.
 Stroom does not consume them.
 All authorisation is done with Stroom&rsquo;s own users, groups and permissions, so directory group membership has no effect on what a user can do in Stroom.</p>
-<h3 id="access-token-type">Access token type</h3>
+<h3 id="access-token-type">Access Token Type</h3>
 <p>Leave <code>requiredAccessTokenType</code> unset until you have decoded the header of a real access token from your tenant and confirmed what it contains.
 Setting it to a value your tokens do not use will refuse every API call.</p>
-<h2 id="setting-up-the-admin-user-in-stroom">Setting up the admin user in Stroom</h2>
+<h2 id="setting-up-the-admin-user-in-stroom">Setting up the Admin User in Stroom</h2>
 <p>Find the identifier of the account that is to be the administrator, matching whatever you set <code>uniqueIdentityClaim</code> to.</p>
 <p>If you are using <code>oid</code>, it is shown as the <strong>Object ID</strong> on the user&rsquo;s page under <em>Users</em> in the Entra admin centre.
 If you are using <code>sub</code>, it is pairwise and not shown anywhere in the portal, so you will need to decode an <code>id_token</code> issued for that user, or have them sign in once and read it from the Stroom logs.</p>

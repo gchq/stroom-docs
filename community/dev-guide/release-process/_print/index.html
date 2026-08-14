@@ -151,7 +151,7 @@
     aria-label="Search this site…"
     autocomplete="off"
     
-    data-offline-search-index-json-src="../../../../offline-search-index.95b12371d9f23e70cddb1f62f4c00605.json"
+    data-offline-search-index-json-src="../../../../offline-search-index.95034a9311ba25828e37c5d04adb17e9.json"
     data-offline-search-base-href="../../../../"
     data-offline-search-max-results="50"
   >
@@ -233,9 +233,9 @@ This is the multi-page printable view of this section.
     
   <h1 id="pg-ab04a4b5e3a8bf14e1879f1cf73e88bc">1 - Releasing Stroom</h1>
     <div class="lead">How to release a new version of Stroom</div>
-	<h2 id="pre-requisites-for-a-release">Pre-requisites for a release</h2>
+	<h2 id="pre-requisites-for-a-release">Pre-requisites for a Release</h2>
 <p>The following need to be completed before a release is made.</p>
-<h3 id="logging-changes">Logging changes</h3>
+<h3 id="logging-changes">Logging Changes</h3>
 <p>Stroom and its related repositories all have a <code>CHANGELOG.md</code> file for recording changes made between releases.
 Before making a release you should ensure that all changes have been recorded in the <em>CHANGELOG</em>.
 This is not done by directly editing the file but instead using the script <code>./log_change.sh</code>.</p>
@@ -284,7 +284,7 @@ This prevents merge conflicts that would happen with multiple people editing the
 ./log_change list</code></pre>
 </div>
 
-<h3 id="commit-and-push-all-changes">Commit and push all changes</h3>
+<h3 id="commit-and-push-all-changes">Commit and Push All Changes</h3>
 <p>Before releasing all local changes that you want in the release should be committed and pushed.
 Commits that you want in a release should be merged down to a release branch, e.g. <code>7.0</code> or <code>master</code>.
 Once pushed and merged ensure that the branch passes the <span class="external-link">
@@ -294,7 +294,7 @@ Once pushed and merged ensure that the branch passes the <span class="external-l
   </a>
 </span>
 .</p>
-<h3 id="decide-on-the-next-version-number">Decide on the next version number</h3>
+<h3 id="decide-on-the-next-version-number">Decide on the Next Version Number</h3>
 <p>Stroom versioning follows <span class="external-link">
   <a href="https://semver.org" target="_blank" class="external-link" title="Semantic Versioning (external link to https://semver.org)">
     <span>Semantic Versioning</span>
@@ -309,7 +309,7 @@ Once pushed and merged ensure that the branch passes the <span class="external-l
 <li><em>PATCH</em> is incremented when bugs are fixed.</li>
 </ul>
 <p>Based on the changes since the last release establish if it is a major, minor or patch release to determine the next version number.</p>
-<h2 id="performing-a-named-release-of-stroom">Performing a named release of Stroom</h2>
+<h2 id="performing-a-named-release-of-stroom">Performing a Named Release of Stroom</h2>
 <p>Once all the above pre-requisites have been met you can trigger the release by running this command:</p>
 
   
@@ -343,7 +343,7 @@ Once pushed and merged ensure that the branch passes the <span class="external-l
 <li>Creating a release for the git tag in GitHub with all the release artefacts.</li>
 <li>Publishing any libraries to Sonatype and Maven Central.</li>
 </ul>
-<h2 id="performing-a-named-release-of-the-docker-stacks">Performing a named release of the docker stacks</h2>
+<h2 id="performing-a-named-release-of-the-docker-stacks">Performing a Named Release of the Docker Stacks</h2>
 <p>Once the <em>Stroom</em> release build has finished and the artefacts are available on <span class="external-link">
   <a href="https://github.com/gchq/stroom/releases" target="_blank" class="external-link" title="GitHub Releases (external link to https://github.com/gchq/stroom/releases)">
     <span>GitHub Releases</span>
@@ -467,17 +467,18 @@ rm -rf ./bin/stack/build
 <p>This script will build all the stack variants locally to ensure they will build successfully, though it does not test them.
 If the local build is successful it will then create an annotated git tag which will trigger a release CI build.
 The release CI build will create an archive for each stack variant and add them as a release artefacts.</p>
-<h2 id="snapshot-releases">SNAPSHOT releases</h2>
+<h2 id="snapshot-releases">SNAPSHOT Releases</h2>
 <p>SNAPSHOT releases should not be released to Sonatype or Maven Central.
 If a development version of a library needs to be shared between projects then you can either use the Gradle task <code>publishToMavenLocal</code> to publish a <code>SNAPSHOT</code> version to your local Maven repository and change your dependency version to <code>SNAPSHOT</code>, or perform a named release along the lines of <code>vx.y.z-alpha.n</code>.</p>
-<h2 id="release-versioning-conventions">Release Versioning conventions</h2>
+<h2 id="release-versioning-conventions">Release Versioning Conventions</h2>
 <p>Semantic versioning is used, and this should be adhered to, see <span class="external-link">
   <a href="https://semver.org/" target="_blank" class="external-link" title="SemVer (external link to https://semver.org/)">
     <span>SemVer</span>
     <i class="external-link-icon fas fa-external-link-alt fa-sm text-secondary"></i>
   </a>
 </span>
-. The following are examples of valid version names</p>
+.
+The following are examples of valid version names</p>
 <ul>
 <li><code>SNAPSHOT</code> - Used only for local development, never to be published publicly.</li>
 <li><code>v3.3.0</code> - Initial release of v3.3, with an associated <code>3.3</code> branch.</li>

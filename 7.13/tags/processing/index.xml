@@ -4,7 +4,7 @@
     <link>/tags/processing/</link>
     <description>Recent content in processing on Stroom</description>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Tue, 07 Jun 2022 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Thu, 13 Aug 2026 00:00:00 +0000</lastBuildDate>
     
 	  <atom:link href="/tags/processing/index.xml" rel="self" type="application/rss+xml" />
     
@@ -27,7 +27,7 @@
 Typically you&amp;rsquo;re going to want to do a lot of the same stuff for every pipeline, i.e. similar transformations, indexing, writing out data.
 You can actually create a template pipeline and inherit from it, tweaking what you need to for this or that feed.
 We&amp;rsquo;re not doing that now because we want to show how to create one from scratch.&lt;/p&gt;
-&lt;h2 id=&#34;create-a-pipeline&#34;&gt;Create a pipeline&lt;/h2&gt;
+&lt;h2 id=&#34;create-a-pipeline&#34;&gt;Create a Pipeline&lt;/h2&gt;
 &lt;ol&gt;
 &lt;li&gt;
 &lt;p&gt;Create a pipeline by right-clicking our &lt;span class=&#34;stroom-icon inline-svg-button icon-button  &#34; &gt;
@@ -105,17 +105,18 @@ We&amp;rsquo;re not doing that now because we want to show how to create one fro
 &lt;p&gt;Call it something like &lt;code&gt;CSV to XML pipeline&lt;/code&gt;.&lt;/p&gt;
 &lt;/li&gt;
 &lt;li&gt;
-&lt;p&gt;Select &lt;em&gt;Structure&lt;/em&gt; from the top of the new tab. This is the most important view for the pipeline because it shows what will actually happen on the pipeline.&lt;/p&gt;
+&lt;p&gt;Select &lt;em&gt;Structure&lt;/em&gt; from the top of the new tab.
+This is the most important view for the pipeline because it shows what will actually happen on the pipeline.&lt;/p&gt;
 &lt;/li&gt;
 &lt;/ol&gt;
 &lt;p&gt;We already have a &lt;code&gt;Source&lt;/code&gt; element.
 Unlike most other pipeline elements this isn&amp;rsquo;t something we need to configure.
 It&amp;rsquo;s just there to show the starting point.
 Data gets into the pipeline via other means - we&amp;rsquo;ll describe this in detail later.&lt;/p&gt;
-&lt;h3 id=&#34;add-a-data-splitter&#34;&gt;Add a data splitter&lt;/h3&gt;
+&lt;h3 id=&#34;add-a-data-splitter&#34;&gt;Add a Data Splitter&lt;/h3&gt;
 &lt;p&gt;Data splitters are powerful, and there is &lt;a href=&#34;../../docs/user-guide/data-splitter/&#34;&gt;a lot we can say&lt;/a&gt; about them.
 Here we&amp;rsquo;re just going to make a basic one.&lt;/p&gt;
-&lt;h4 id=&#34;create-a-csv-splitter&#34;&gt;Create a CSV splitter&lt;/h4&gt;
+&lt;h4 id=&#34;create-a-csv-splitter&#34;&gt;Create a CSV Splitter&lt;/h4&gt;
 &lt;p&gt;We have CSV data in the following form:&lt;/p&gt;
 &lt;pre&gt;&lt;code class=&#34;language-csv&#34;&gt;id,guid,from_ip,to_ip,application
 1,10990cde-1084-4006-aaf3-7fe52b62ce06,159.161.108.105,217.151.32.69,Tres-Zap
@@ -343,7 +344,6 @@ We need to add this to our pipeline as a filter, so head back to the pipeline&am
 
 
 
-
  element and select:&lt;/p&gt;
 
 
@@ -504,7 +504,6 @@ We need to add this to our pipeline as a filter, so head back to the pipeline&am
 
 
 
-
  element and the pane below will show its properties.&lt;/li&gt;
 &lt;li&gt;Double click the &lt;code&gt;textConverter&lt;/code&gt; property and change &lt;code&gt;Value&lt;/code&gt; to our &lt;em&gt;CSV splitter&lt;/em&gt; entity.&lt;/li&gt;
 &lt;/ol&gt;
@@ -552,7 +551,7 @@ We need to add this to our pipeline as a filter, so head back to the pipeline&am
 &lt;p&gt;Now save the pipeline by clicking the add button &lt;span class=&#34;stroom-icon inline-svg-button icon-button  &#34; &gt;
     &lt;span class=&#34;face&#34; title=&#34;Add&#34;&gt;&lt;svg xmlns=&#34;http://www.w3.org/2000/svg&#34; width=&#34;1792&#34; height=&#34;1792&#34; viewBox=&#34;0 0 1792 1792&#34;&gt;&lt;path style=&#34;fill:currentColor&#34; d=&#34;m 1600,800 0,192 q 0,40 -28,68 -28,28 -68,28 l -416,0 0,416 q 0,40 -28,68 -28,28 -68,28 l -192,0 q -40,0 -68,-28 -28,-28 -28,-68 l 0,-416 -416,0 q -40,0 -68,-28 -28,-28 -28,-68 l 0,-192 q 0,-40 28,-68 28,-28 68,-28 l 416,0 0,-416 q 0,-40 28,-68 28,-28 68,-28 l 192,0 q 40,0 68,28 28,28 28,68 l 0,416 416,0 q 40,0 68,28 28,28 28,68 z&#34;/&gt;&lt;/svg&gt; &lt;/span&gt;
   &lt;/span&gt;.&lt;/p&gt;
-&lt;h4 id=&#34;test-the-csv-splitter&#34;&gt;Test the CSV splitter&lt;/h4&gt;
+&lt;h4 id=&#34;test-the-csv-splitter&#34;&gt;Test the CSV Splitter&lt;/h4&gt;
 &lt;p&gt;So now we have CSV data in Stroom and a pipeline that is configured to process CSV data.
 We&amp;rsquo;ve done a fair few things so far and are we sure the pipeline is correctly configured?
 We can do some debugging and find out.&lt;/p&gt;
@@ -791,7 +790,7 @@ In the example below, an invalid XML element has been added to the Data Splitter
   &lt;/a&gt;
 &lt;/div&gt;
 
-&lt;h3 id=&#34;add-xslt-to-transform-records-format-xml-into-something-else&#34;&gt;Add XSLT to transform records format XML into something else&lt;/h3&gt;
+&lt;h3 id=&#34;add-xslt-to-transform-records-format-xml-into-something-else&#34;&gt;Add XSLT to Transform Records Format XML into Something Else&lt;/h3&gt;
 &lt;p&gt;&lt;span class=&#34;glossary-link&#34;&gt;
     &lt;a href=&#34;../../docs/glossary/x/glossary-xslt&#34;&gt;
       &lt;span&gt;XSLT&lt;/span&gt;
@@ -807,7 +806,7 @@ An
 &lt;/a&gt;
 &lt;/span&gt;
  pipeline element takes XML input and uses an XSLT to transform it into different XML or some other text format.&lt;/p&gt;
-&lt;h4 id=&#34;create-the-xslt-filter&#34;&gt;Create the XSLT filter&lt;/h4&gt;
+&lt;h4 id=&#34;create-the-xslt-filter&#34;&gt;Create the XSLT Filter&lt;/h4&gt;
 &lt;p&gt;This process is very similar to creating the &lt;code&gt;CSV splitter&lt;/code&gt;:&lt;/p&gt;
 &lt;ol&gt;
 &lt;li&gt;Create the &lt;a href=&#34;../../docs/user-guide/pipelines/xslt/&#34;&gt;XSLT&lt;/a&gt; filter&lt;/li&gt;
@@ -951,7 +950,7 @@ Call it something like &lt;em&gt;XSLT filter&lt;/em&gt;.&lt;/p&gt;
 &lt;p&gt;Select the &lt;em&gt;XSLT filter&lt;/em&gt; element and configure it to use the actual XSLT you just created by double-clicking &lt;code&gt;xslt&lt;/code&gt; in the properties pane at the bottom:&lt;/p&gt;
 &lt;p&gt;In the dialog make sure you select the &lt;code&gt;XSLT&lt;/code&gt; filter in the &lt;em&gt;Stroom 101&lt;/em&gt; folder.
 Save the pipeline.&lt;/p&gt;
-&lt;h4 id=&#34;test-the-xslt-filter&#34;&gt;Test the XSLT filter&lt;/h4&gt;
+&lt;h4 id=&#34;test-the-xslt-filter&#34;&gt;Test the XSLT Filter&lt;/h4&gt;
 &lt;p&gt;We&amp;rsquo;re going to test this in the same way we tested the CSV splitter, by clicking the large stepping button &lt;span class=&#34;stroom-icon inline-svg-button icon-button  &#34; &gt;
     &lt;span class=&#34;face&#34; title=&#34;Stepping&#34;&gt;&lt;svg xmlns=&#34;http://www.w3.org/2000/svg&#34; viewBox=&#34;0 0 1792 1792&#34; height=&#34;1792&#34; width=&#34;1792&#34;&gt;&lt;path style=&#34;fill:#fff&#34; d=&#34;m 1303.3748,386.71917 0,1018.43693 c 0,18.6714 -15.2766,33.948 -33.948,33.948 l -113.1596,0 c -18.6713,0 -33.9479,-15.2766 -33.9479,-33.948 l 0,-429.72386 -485.17205,442.73726 c -58.27722,48.6587 -148.52205,7.9212 -148.52205,-69.5932 0,-571.78462 0,-247.4743 0,-905.2773 0,-77.51437 90.24483,-117.96894 148.52205,-69.59319 l 485.17205,439.62531 0,-426.61195 c 0,-18.67134 15.2766,-33.94789 33.9479,-33.94789 l 113.1596,0 c 18.6714,0 33.948,15.27655 33.948,33.94789 z&#34; /&gt;&lt;/svg&gt; &lt;/span&gt;
   &lt;/span&gt;on the feed data pane.
@@ -1003,7 +1002,7 @@ This time you should see the XSLT filter there too, as well as the basic XML bei
 
 &lt;p&gt;There&amp;rsquo;s a few more things to get this pipeline ready for doing this &lt;a href=&#34;../../docs/reference-section/jobs/&#34;&gt;task&lt;/a&gt; for real.
 We need to get this data to a destination.&lt;/p&gt;
-&lt;h3 id=&#34;outputting-the-transformed-data&#34;&gt;Outputting the transformed data&lt;/h3&gt;
+&lt;h3 id=&#34;outputting-the-transformed-data&#34;&gt;Outputting the Transformed Data&lt;/h3&gt;
 &lt;p&gt;The XSLT filter doesn&amp;rsquo;t actually write XML but instead it just outputs XML events to the next element in the pipeline.
 In order to write these XML events out to a destination you need a writer.
 If your transformation is producing XML then you need an 
@@ -1029,7 +1028,7 @@ If your transformation is producing XML then you need an
 &lt;/span&gt;
 .&lt;/p&gt;
 &lt;p&gt;Our &lt;em&gt;XSLT filter&lt;/em&gt; element is outputting XML so we will create an &lt;em&gt;XMLWriter&lt;/em&gt;.&lt;/p&gt;
-&lt;h4 id=&#34;create-the-xml-writer&#34;&gt;Create the XML writer&lt;/h4&gt;
+&lt;h4 id=&#34;create-the-xml-writer&#34;&gt;Create the XML Writer&lt;/h4&gt;
 &lt;p&gt;You don&amp;rsquo;t need to create one outside the pipeline (in the way you did with the &lt;code&gt;CSV splitter&lt;/code&gt; and the &lt;code&gt;XSLT&lt;/code&gt; filter).
 Just do the following:&lt;/p&gt;
 &lt;ol&gt;
@@ -1087,7 +1086,6 @@ Just do the following:&lt;/p&gt;
 
     
   
-
 
 
 
@@ -1195,7 +1193,7 @@ Just do the following:&lt;/p&gt;
 &lt;/li&gt;
 &lt;/ol&gt;
 &lt;p&gt;That&amp;rsquo;s it, no other configuration necessary.&lt;/p&gt;
-&lt;h4 id=&#34;create-the-destination&#34;&gt;Create the destination&lt;/h4&gt;
+&lt;h4 id=&#34;create-the-destination&#34;&gt;Create the Destination&lt;/h4&gt;
 &lt;p&gt;We need to do something with the serialised XML.
 We&amp;rsquo;ll write it to a &lt;span class=&#34;glossary-link&#34;&gt;
     &lt;a href=&#34;../../docs/glossary/s/glossary-stream&#34;&gt;
@@ -1267,7 +1265,6 @@ To do this we create a
 
     
   
-
 
 
 
@@ -1390,7 +1387,7 @@ We must however set the type of the &lt;em&gt;Stream&lt;/em&gt; to distinguish i
   &lt;/span&gt; &lt;em&gt;Stream appender&lt;/em&gt; pipeline element and the pane below will show its properties.&lt;/li&gt;
 &lt;li&gt;Double click the &lt;code&gt;streamType&lt;/code&gt; property and change &lt;code&gt;Value&lt;/code&gt; to the &lt;em&gt;Events&lt;/em&gt; stream type.&lt;/li&gt;
 &lt;/ol&gt;
-&lt;h4 id=&#34;test-the-destination&#34;&gt;Test the destination&lt;/h4&gt;
+&lt;h4 id=&#34;test-the-destination&#34;&gt;Test the Destination&lt;/h4&gt;
 &lt;p&gt;We can test the XML writer and the streamAppender using the same stepping feature.
 Make sure you&amp;rsquo;ve saved the pipeline and set a &lt;strong&gt;new&lt;/strong&gt; stepping session running.
 If you click on the &lt;code&gt;stream appender&lt;/code&gt; you&amp;rsquo;ll see something like this:&lt;/p&gt;
@@ -1435,7 +1432,7 @@ If you click on the &lt;code&gt;stream appender&lt;/code&gt; you&amp;rsquo;ll se
   &lt;/a&gt;
 &lt;/div&gt;
 
-&lt;h2 id=&#34;set-the-pipeline-running&#34;&gt;Set the pipeline running&lt;/h2&gt;
+&lt;h2 id=&#34;set-the-pipeline-running&#34;&gt;Set the Pipeline Running&lt;/h2&gt;
 &lt;p&gt;Obviously you don&amp;rsquo;t want to step through your data one by one.
 This all needs automation, and this is what &lt;span class=&#34;glossary-link&#34;&gt;
     &lt;a href=&#34;../../docs/glossary/p/glossary-processor&#34;&gt;
@@ -1458,7 +1455,7 @@ The processor works in the background to take any unprocessed streams (as determ
       &lt;span class=&#34;glossary-tooltip-title&#34;&gt;Tracker&lt;/span&gt;
       &lt;span class=&#34;glossary-tooltip-summary&#34;&gt;A Tracker is associated with a &lt;em&gt;Processor Filter&lt;/em&gt; and keeps track of the &lt;em&gt;Stream&lt;/em&gt; that the Processor Filter has already processed.&lt;/span&gt;&lt;span class=&#34;glossary-tooltip-truncated&#34;&gt;Click to see more details...&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;) and process them through the pipeline.
 So far everything on our &lt;em&gt;EXAMPLE_IN&lt;/em&gt; feed is unprocessed.&lt;/p&gt;
-&lt;h3 id=&#34;create-a-processor-and-filter&#34;&gt;Create a processor and filter&lt;/h3&gt;
+&lt;h3 id=&#34;create-a-processor-and-filter&#34;&gt;Create a Processor and Filter&lt;/h3&gt;
 &lt;p&gt;Processors are created from the &lt;em&gt;Processors&lt;/em&gt; sub-tab of the pipeline.&lt;/p&gt;
 &lt;p&gt;Click the add button &lt;span class=&#34;stroom-icon inline-svg-button icon-button  &#34; &gt;
     &lt;span class=&#34;face&#34; title=&#34;Add&#34;&gt;&lt;svg xmlns=&#34;http://www.w3.org/2000/svg&#34; width=&#34;1792&#34; height=&#34;1792&#34; viewBox=&#34;0 0 1792 1792&#34;&gt;&lt;path style=&#34;fill:currentColor&#34; d=&#34;m 1600,800 0,192 q 0,40 -28,68 -28,28 -68,28 l -416,0 0,416 q 0,40 -28,68 -28,28 -68,28 l -192,0 q -40,0 -68,-28 -28,-28 -28,-68 l 0,-416 -416,0 q -40,0 -68,-28 -28,-28 -28,-68 l 0,-192 q 0,-40 28,-68 28,-28 68,-28 l 416,0 0,-416 q 0,-40 28,-68 28,-28 68,-28 l 192,0 q 40,0 68,28 28,28 28,68 l 0,416 416,0 q 40,0 68,28 28,28 28,68 z&#34;/&gt;&lt;/svg&gt; &lt;/span&gt;
@@ -1644,6 +1641,213 @@ If you click on the &lt;code&gt;Events&lt;/code&gt; then you can see all the XML
     </item>
     
     <item>
+      <title>Docs: Node Groups and Processing Profiles</title>
+      <link>/docs/user-guide/processing-profiles/</link>
+      <pubDate>Thu, 13 Aug 2026 00:00:00 +0000</pubDate>
+      
+      <guid>/docs/user-guide/processing-profiles/</guid>
+      <description>
+        
+        
+        &lt;p&gt;By default a &lt;span class=&#34;glossary-link&#34;&gt;
+    &lt;a href=&#34;../../docs/glossary/p/glossary-processor-filter&#34;&gt;
+      &lt;span&gt;Processor filter&lt;/span&gt;
+      &lt;i class=&#34;glossary-link-icon fas fa-book fa-sm text-primary&#34;&gt;&lt;/i&gt;
+    &lt;/a&gt;&lt;span class=&#34;glossary-tooltip&#34;&gt;
+      &lt;span class=&#34;glossary-tooltip-title&#34;&gt;Processor filter&lt;/span&gt;
+      &lt;span class=&#34;glossary-tooltip-summary&#34;&gt;A Processor Filter is used to used to find Streams to process through the &lt;em&gt;Pipeline&lt;/em&gt; associated with the Processor Filter. A Processor Filter consists of an expression tree to select which &lt;em&gt;Streams&lt;/em&gt; to process and a tracker to track the what &lt;em&gt;Streams&lt;/em&gt; have been processed.&lt;/span&gt;&lt;span class=&#34;glossary-tooltip-truncated&#34;&gt;Click to see more details...&lt;/span&gt;&lt;/span&gt;&lt;/span&gt; may be processed by any node in the cluster, at any time, up to the limits set on the filter itself.
+&lt;em&gt;Node Groups&lt;/em&gt; and &lt;em&gt;Processing Profiles&lt;/em&gt; let you be more selective than that.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;A &lt;strong&gt;Node Group&lt;/strong&gt; is a named set of nodes.&lt;/li&gt;
+&lt;li&gt;A &lt;strong&gt;Processing Profile&lt;/strong&gt; names a node group and a set of periods, saying when processing may run and how many threads it may use in each period.&lt;/li&gt;
+&lt;li&gt;A processor filter can then be given a profile.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Together these let you keep heavy processing off the nodes that serve the user interface, hold it back until a quiet time of day, or give it more of the cluster at the weekend.&lt;/p&gt;
+&lt;h2 id=&#34;node-groups&#34;&gt;Node Groups&lt;/h2&gt;
+&lt;p&gt;Node groups are managed from&lt;/p&gt;
+
+
+
+
+
+  &lt;div class=&#34;stroom-theme-dark stroom-menu&#34;&gt;
+    
+    
+
+      
+
+      
+      
+
+
+      
+
+  
+  
+  &lt;div class=&#34;stroom-menu-item-background&#34; style=&#34;margin-top: 0px;&#34;&gt;
+    
+    &lt;div class=&#34;stroom-menu-item &#34; &gt;
+
+      &lt;div class=&#34;stroom-menu-item-text&#34;&gt;Monitoring
+      &lt;/div&gt;
+        &lt;div class=&#34;stroom-menu-item-arrow&#34;&gt;
+          &lt;span class=&#34;stroom-icon inline-svg-button icon-button  &#34; &gt;
+    &lt;span class=&#34;face&#34; title=&#34;Arrow right&#34;&gt;&lt;svg xmlns=&#34;http://www.w3.org/2000/svg&#34; width=&#34;1427.7665&#34; height=&#34;1427.7665&#34; viewBox=&#34;0 0 1427.7665 1427.7665&#34;&gt;&lt;g style=&#34;stroke:currentColor;stroke-width:167.567&#34;&gt;&lt;path d=&#34;m 415.05387,83.70929 c -39.92654,0.4303 -75.41463,48.3887 -40.0468,81.9121 C 567.552,348.69899 760.75555,531.15431 953.73208,713.82391 760.75555,896.49341 567.552,1078.9486 375.00707,1262.0262 c -46.19471,43.7855 28.48812,112.1966 76.0571,67.1681 195.93558,-185.823 392.95261,-370.82479 587.98693,-557.52749 5.6117,-4.8034 10.4633,-10.2473 14.4855,-16.1231 9.643,-12.4844 13.9638,-27.0796 13.6909,-41.7198 0.2729,-14.6402 -4.0479,-29.2354 -13.6909,-41.7198 -4.0222,-5.8758 -8.8738,-11.3198 -14.4855,-16.1231 C 844.01678,469.27821 646.99975,284.27629 451.06417,98.45319 439.91519,87.89979 427.27628,83.57749 415.05387,83.70929 Z&#34;/&gt;&lt;/g&gt;&lt;/svg&gt; &lt;/span&gt;
+  &lt;/span&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+
+      
+
+      
+      
+        
+      
+
+
+      
+
+  
+  
+  &lt;div class=&#34;stroom-menu-item-background&#34; style=&#34;margin-top: 7px;&#34;&gt;
+    
+    &lt;div class=&#34;stroom-menu-item stroom-menu-item-leaf&#34; &gt;
+
+      &lt;div class=&#34;stroom-menu-item-text&#34;&gt;Node Groups
+      &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+  &lt;/div&gt;
+
+
+
+&lt;p&gt;Each group has:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Node Group Name&lt;/strong&gt; - the name used to refer to the group from a processing profile.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Enabled&lt;/strong&gt; - whether the group is in use.
+A disabled group does no processing at all, whatever its profiles say.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Node Inclusion Behaviour&lt;/strong&gt; - whether the nodes you tick are included in the group or excluded from it.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Nodes&lt;/strong&gt; - the nodes to tick.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;The inclusion behaviour is worth understanding.
+Choosing &lt;em&gt;exclude&lt;/em&gt; means the group is everything except the nodes you tick, so nodes added to the cluster later join the group automatically.
+Choosing &lt;em&gt;include&lt;/em&gt; means only the ticked nodes are in the group, and a new node has to be added deliberately.&lt;/p&gt;
+&lt;h2 id=&#34;processing-profiles&#34;&gt;Processing Profiles&lt;/h2&gt;
+&lt;p&gt;Processing profiles are managed from&lt;/p&gt;
+
+
+
+
+
+  &lt;div class=&#34;stroom-theme-dark stroom-menu&#34;&gt;
+    
+    
+
+      
+
+      
+      
+
+
+      
+
+  
+  
+  &lt;div class=&#34;stroom-menu-item-background&#34; style=&#34;margin-top: 0px;&#34;&gt;
+    
+    &lt;div class=&#34;stroom-menu-item &#34; &gt;
+
+      &lt;div class=&#34;stroom-menu-item-text&#34;&gt;Monitoring
+      &lt;/div&gt;
+        &lt;div class=&#34;stroom-menu-item-arrow&#34;&gt;
+          &lt;span class=&#34;stroom-icon inline-svg-button icon-button  &#34; &gt;
+    &lt;span class=&#34;face&#34; title=&#34;Arrow right&#34;&gt;&lt;svg xmlns=&#34;http://www.w3.org/2000/svg&#34; width=&#34;1427.7665&#34; height=&#34;1427.7665&#34; viewBox=&#34;0 0 1427.7665 1427.7665&#34;&gt;&lt;g style=&#34;stroke:currentColor;stroke-width:167.567&#34;&gt;&lt;path d=&#34;m 415.05387,83.70929 c -39.92654,0.4303 -75.41463,48.3887 -40.0468,81.9121 C 567.552,348.69899 760.75555,531.15431 953.73208,713.82391 760.75555,896.49341 567.552,1078.9486 375.00707,1262.0262 c -46.19471,43.7855 28.48812,112.1966 76.0571,67.1681 195.93558,-185.823 392.95261,-370.82479 587.98693,-557.52749 5.6117,-4.8034 10.4633,-10.2473 14.4855,-16.1231 9.643,-12.4844 13.9638,-27.0796 13.6909,-41.7198 0.2729,-14.6402 -4.0479,-29.2354 -13.6909,-41.7198 -4.0222,-5.8758 -8.8738,-11.3198 -14.4855,-16.1231 C 844.01678,469.27821 646.99975,284.27629 451.06417,98.45319 439.91519,87.89979 427.27628,83.57749 415.05387,83.70929 Z&#34;/&gt;&lt;/g&gt;&lt;/svg&gt; &lt;/span&gt;
+  &lt;/span&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+
+      
+
+      
+      
+        
+      
+
+
+      
+
+  
+  
+  &lt;div class=&#34;stroom-menu-item-background&#34; style=&#34;margin-top: 7px;&#34;&gt;
+    
+    &lt;div class=&#34;stroom-menu-item stroom-menu-item-leaf&#34; &gt;
+
+      &lt;div class=&#34;stroom-menu-item-text&#34;&gt;Processor Profiles
+      &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+  &lt;/div&gt;
+
+
+
+&lt;p&gt;Each profile has:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Profile Name&lt;/strong&gt; - the name shown when choosing a profile on a processor filter.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Node Group&lt;/strong&gt; - the group of nodes that may process for this profile.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Processing Schedules&lt;/strong&gt; - one or more periods, described below.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Time Zone&lt;/strong&gt; - the time zone the periods are interpreted in.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Setting the time zone explicitly matters for a cluster whose nodes are not all in the same place, and for periods that should follow local working hours across daylight saving changes.&lt;/p&gt;
+&lt;h3 id=&#34;periods&#34;&gt;Periods&lt;/h3&gt;
+&lt;p&gt;Each period in the schedule has:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Active Days&lt;/strong&gt; - the days of the week the period applies to.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Start Time&lt;/strong&gt; and &lt;strong&gt;End Time&lt;/strong&gt; - the time of day the period runs between.
+An end time that is not after the start time is treated as running into the following day, so a period can span midnight.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Limit Single Node Threads&lt;/strong&gt; and &lt;strong&gt;Max Node Threads&lt;/strong&gt; - whether to cap the threads used on each node, and the cap.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Limit Total Cluster Threads&lt;/strong&gt; and &lt;strong&gt;Max Cluster Threads&lt;/strong&gt; - whether to cap the threads used across the whole cluster, and the cap.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Leaving a limit unticked means that limit is not applied, i.e. the number of threads is unbounded for that period.&lt;/p&gt;
+&lt;p&gt;Periods are evaluated in order and the first one that matches the current day and time is used.&lt;/p&gt;
+&lt;h3 id=&#34;when-no-period-matches&#34;&gt;When No Period Matches&lt;/h3&gt;
+
+&lt;div class=&#34;alert alert-warning&#34; role=&#34;alert&#34;&gt;
+&lt;h4 class=&#34;alert-heading&#34;&gt;Warning&lt;/h4&gt;
+
+    &lt;p&gt;A filter that has been given a profile is processed &lt;strong&gt;only&lt;/strong&gt; during the periods in that profile.&lt;/p&gt;
+&lt;p&gt;If no period matches the current day and time then no tasks are created for that filter.
+The same is true if the profile has no periods at all, if its node group is disabled, or if the node asking for work is not in the group.&lt;/p&gt;
+
+
+&lt;/div&gt;
+
+
+&lt;p&gt;This is the behaviour you want for confining processing to a window, but it does mean a profile with an incomplete schedule will quietly stop a filter from processing.
+A filter with no profile set is not restricted in this way.&lt;/p&gt;
+&lt;h2 id=&#34;using-a-profile-on-a-filter&#34;&gt;Using a Profile on a Filter&lt;/h2&gt;
+&lt;p&gt;A profile is chosen on the processor filter itself, using the &lt;em&gt;Processing Profile&lt;/em&gt; field alongside the other filter settings such as &lt;em&gt;Max Processing Tasks&lt;/em&gt;.&lt;/p&gt;
+&lt;p&gt;Task creation takes profiles into account, so tasks that no node is currently allowed to process are not added to the queue, and are released again if a profile stops allowing them.
+Each profile is given a share of the tasks that are created, so that one busy profile does not starve the others.&lt;/p&gt;
+
+&lt;div class=&#34;alert alert-primary&#34; role=&#34;alert&#34;&gt;
+&lt;h4 class=&#34;alert-heading&#34;&gt;See Also&lt;/h4&gt;
+&lt;div class=&#34;alert-content&#34;&gt;
+  
+  &lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;../../docs/user-guide/nodes/&#34;&gt;Nodes&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;../../docs/user-guide/jobs/&#34;&gt;Jobs&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+
+
+      </description>
+    </item>
+    
+    <item>
       <title>Docs: Pipelines</title>
       <link>/docs/user-guide/pipelines/</link>
       <pubDate>Tue, 27 Jul 2021 00:00:00 +0000</pubDate>
@@ -1739,7 +1943,6 @@ Pipelines are very powerful and flexible and allow the user to transform, index,
 
 
 
-
  
 
 
@@ -1806,7 +2009,6 @@ Pipelines are very powerful and flexible and allow the user to transform, index,
 
     
   
-
 
 
 
@@ -1887,7 +2089,6 @@ Pipelines are very powerful and flexible and allow the user to transform, index,
 
 
 
-
  
 
 
@@ -1954,7 +2155,6 @@ Pipelines are very powerful and flexible and allow the user to transform, index,
 
     
   
-
 
 
 
@@ -2035,7 +2235,6 @@ Pipelines are very powerful and flexible and allow the user to transform, index,
 
 
 
-
  
 
 
@@ -2102,7 +2301,6 @@ Pipelines are very powerful and flexible and allow the user to transform, index,
 
     
   
-
 
 
 
@@ -2183,7 +2381,6 @@ Pipelines are very powerful and flexible and allow the user to transform, index,
 
 
 
-
  
 
 
@@ -2257,7 +2454,6 @@ Pipelines are very powerful and flexible and allow the user to transform, index,
 
 
 
-
  
 
 
@@ -2324,7 +2520,6 @@ Pipelines are very powerful and flexible and allow the user to transform, index,
 
     
   
-
 
 
 
@@ -2462,7 +2657,6 @@ The input for the pipeline is a single Stream that exists within a Feed and this
 
 
 
-
 .
 Pipelines can accept streams from multiple Feeds assuming those feeds contain similar data.&lt;/p&gt;
 &lt;p&gt;The data in the Stream is always text data (XML, JSON, CSV, fixed-width, etc.) in a known &lt;span class=&#34;glossary-link&#34;&gt;
@@ -2547,7 +2741,6 @@ Input data is converted into XML &lt;span class=&#34;external-link&#34;&gt;
 
 
 
-
 ) or converted into a desired output format for storage/forwarding.&lt;/p&gt;
 &lt;h2 id=&#34;forks&#34;&gt;Forks&lt;/h2&gt;
 &lt;p&gt;Pipelines can also be forked at any point in the pipeline.
@@ -2620,7 +2813,6 @@ This allows for the creation of a standard abstract pipelines with a set structu
 
     
   
-
 
 
 
@@ -2708,7 +2900,6 @@ For example, the
 
 
 
-
  will use a JSON parser to read the character data as JSON and convert it into XML elements and attributes that represent the JSON structure, so that it can be transformed downstream using XSLT.&lt;/p&gt;
 &lt;p&gt;Parsers have a built in reader so if they are not preceded by a Reader they will decode the raw bytes into character data before parsing.&lt;/p&gt;
 &lt;h3 id=&#34;filter&#34;&gt;Filter&lt;/h3&gt;
@@ -2766,7 +2957,6 @@ An example of Filter is an
 
     
   
-
 
 
 
@@ -2836,7 +3026,6 @@ The preceding filter may have been an
 
 
 
-
  which transformed XML into plain text, in which case only character data events will be output and a 
 
 
@@ -2890,7 +3079,6 @@ The preceding filter may have been an
 
     
   
-
 
 
 
@@ -2957,7 +3145,6 @@ Other writers will handle the XML SAX events to convert them into another format
 
 
 
-
  before encoding them as character data.&lt;/p&gt;
 &lt;h3 id=&#34;destination&#34;&gt;Destination&lt;/h3&gt;
 &lt;p&gt;A destination element is a consumer of character data, as produced by a writer.
@@ -3014,7 +3201,6 @@ A typical destination is a
 
     
   
-
 
 
 
@@ -3125,7 +3311,6 @@ This can be set either by using the
 
 
 
-
  and setting the &lt;code&gt;type&lt;/code&gt; property to JSON or preferably by just using the 
 
 
@@ -3179,7 +3364,6 @@ This can be set either by using the
 
     
   
-
 
 
 
@@ -3502,7 +3686,8 @@ There may occasionally be times when this sort of thing is useful but care shoul
 If a feed will only ever contain e.g. successful logins then it may be easier to create the entire event within a single template, for example.
 But if there&amp;rsquo;s ever a possibility of e.g. logon failures, logoffs or anything else in the future then it&amp;rsquo;s safer to structure the XSLT into separate templates.&lt;/p&gt;
 &lt;h2 id=&#34;filtering-wantedunwanted-event-types&#34;&gt;Filtering Wanted/Unwanted Event Types&lt;/h2&gt;
-&lt;p&gt;It&amp;rsquo;s common that not all received events are required to be translated. Depending upon the data being received and the auditing requirements that have been set against the source system, there are several ways to filter the events.&lt;/p&gt;
+&lt;p&gt;It&amp;rsquo;s common that not all received events are required to be translated.
+Depending upon the data being received and the auditing requirements that have been set against the source system, there are several ways to filter the events.&lt;/p&gt;
 &lt;h3 id=&#34;remove-unwanted-events&#34;&gt;Remove Unwanted Events&lt;/h3&gt;
 &lt;p&gt;The first method is best to use when the majority of event types are to be translated and only a few types, such as debug messages are to be dropped.
 Consider the code fragment from earlier:&lt;/p&gt;
@@ -3641,7 +3826,7 @@ So rather than the above code, the following is likely to be more efficient:&lt;
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;Whilst this code looks more complex, it&amp;rsquo;s far more efficient to carry out a shorter sequence of checks, each based upon the result of the previous check, rather than a single consecutive list of checks where the data may only match the final check.&lt;/p&gt;
 &lt;p&gt;Where possible, the most commonly appearing choices in the source data should be dealt with first to avoid running through multiple &lt;code&gt;&amp;lt;xsl:when&amp;gt;&lt;/code&gt; statements.&lt;/p&gt;
-&lt;h3 id=&#34;stepping-works-fine-but-errors-whilst-processing&#34;&gt;Stepping Works Fine But Errors Whilst Processing&lt;/h3&gt;
+&lt;h3 id=&#34;stepping-works-fine-but-errors-whilst-processing&#34;&gt;Stepping Works Fine but Errors Whilst Processing&lt;/h3&gt;
 &lt;p&gt;When data is being stepped, it&amp;rsquo;s only ever fed to the XSLT as a single event, whilst a pipeline is able to process multiple events within a single input stream.
 This apparently minor difference sometimes results in obscure errors if the translation has incorrect XPaths specified.
 Taking the following input data example:&lt;/p&gt;
@@ -3775,7 +3960,6 @@ Opening this filter gives choices such as:&lt;/p&gt;
 
 
 
-
  will still be active even if viewing the 
 
 
@@ -3829,7 +4013,6 @@ Opening this filter gives choices such as:&lt;/p&gt;
 
     
   
-
 
 
 
@@ -5504,7 +5687,6 @@ At this point, we will see the Property &lt;em&gt;Value&lt;/em&gt; set&lt;/p&gt;
 
 
 
-
  element and then within translation Filter’s &lt;strong&gt;Property&lt;/strong&gt; pane we double click on the &lt;em&gt;xslt&lt;/em&gt; Property Name to bring up the &lt;strong&gt;Property Editor&lt;/strong&gt;.
 As before, bring up the &lt;strong&gt;Choose item&lt;/strong&gt; selection window, navigate to the &lt;code&gt;Apache HTTPD&lt;/code&gt; system group and select the
 Apache-SSLBlackBox-V2.0-EVENTS xslt Translation.&lt;/p&gt;
@@ -5596,7 +5778,7 @@ The result is the assignment of our translation to the &lt;em&gt;xslt&lt;/em&gt;
 &lt;p&gt;Save the pipeline by clicking on its &lt;span class=&#34;stroom-icon inline-svg-button icon-button  &#34; &gt;
     &lt;span class=&#34;face&#34; title=&#34;Save&#34;&gt;&lt;svg xmlns=&#34;http://www.w3.org/2000/svg&#34; width=&#34;1792&#34; height=&#34;1792&#34; viewBox=&#34;0 0 1792 1792&#34;&gt;&lt;!--! Font Awesome Free 6.4.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --&gt;&lt;path style=&#34;fill:currentColor;stroke-width:0.570676;stroke-dasharray:none&#34; d=&#34;M 339.40234 116.52148 C 216.56504 116.52148 116.69531 216.3912 116.69531 339.22852 L 116.69531 1452.7715 C 116.69531 1575.6089 216.56504 1675.4785 339.40234 1675.4785 L 1452.5977 1675.4785 C 1575.4349 1675.4785 1675.3047 1575.6089 1675.3047 1452.7715 L 1675.3047 598.82422 C 1675.3047 539.66744 1651.9901 482.94523 1610.2324 441.1875 L 1610.5801 440.83984 L 1351.334 181.59375 C 1309.5761 139.83602 1252.8561 116.52148 1193.6992 116.52148 L 339.40234 116.52148 z M 339.40234 283.55273 L 395.08008 283.55273 L 395.08008 645.45312 C 395.08008 691.73461 432.31423 728.96875 478.5957 728.96875 L 1146.7207 728.96875 C 1193.0023 728.96875 1230.2363 691.73461 1230.2363 645.45312 L 1230.2363 297.12305 C 1231.2803 298.167 1231.9756 298.8623 1233.0195 299.90625 L 1492.6152 558.80469 L 1492.2676 559.1543 C 1502.707 569.59373 1508.6211 583.8594 1508.6211 598.47461 L 1508.6211 1452.7715 C 1508.6211 1483.3939 1483.5678 1508.4473 1452.9453 1508.4473 L 1395.6113 1508.4473 L 1395.6113 1059.8359 C 1395.6113 981.08539 1331.5826 917.05859 1252.832 917.05859 L 539.16797 917.05859 C 460.41738 917.05859 396.38867 981.08539 396.38867 1059.8359 L 396.38867 1508.4473 L 339.40234 1508.4473 C 308.78001 1508.4473 283.72656 1483.3939 283.72656 1452.7715 L 283.72656 339.22852 C 283.72656 308.60619 308.78001 283.55273 339.40234 283.55273 z M 562.11133 283.55273 L 1063.2051 283.55273 L 1063.2051 561.9375 L 562.11133 561.9375 L 562.11133 283.55273 z M 538.94531 1024.1426 L 1252.832 1024.1426 C 1272.4639 1024.1426 1288.5273 1040.2041 1288.5273 1059.8359 L 1288.5273 1508.4473 L 503.25 1508.4473 L 503.25 1059.8359 C 503.25 1040.2041 519.31334 1024.1426 538.94531 1024.1426 z &#34; /&gt;&lt;/svg&gt; &lt;/span&gt;
   &lt;/span&gt; icon.&lt;/p&gt;
-&lt;h3 id=&#34;manually-load-raw-event-test-data&#34;&gt;Manually load Raw Event test data&lt;/h3&gt;
+&lt;h3 id=&#34;manually-load-raw-event-test-data&#34;&gt;Manually Load Raw Event Test Data&lt;/h3&gt;
 &lt;p&gt;Having established the pipeline, we can now start authoring our text converter and translation.
 The first step is to load some Raw Event test data.
 Previously in the &lt;strong&gt;Event Log Source&lt;/strong&gt; of this HOWTO you saved a copy of the file &lt;em&gt;sampleApacheBlackBox.log&lt;/em&gt; to your local environment.
@@ -6193,7 +6375,7 @@ If we were to click on the &lt;strong&gt;Meta&lt;/strong&gt; link at the top of 
 &lt;li&gt;user-agent - the user agent used to present the stream to Stroom - in this case, the Stroom user Interface&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;We now have data that will allow us to develop our text converter and translation.&lt;/p&gt;
-&lt;h3 id=&#34;step-data-through-pipeline---source&#34;&gt;Step data through Pipeline - Source&lt;/h3&gt;
+&lt;h3 id=&#34;step-data-through-pipeline---source&#34;&gt;Step Data through Pipeline - Source&lt;/h3&gt;
 &lt;p&gt;We now need to step our data through the pipeline.&lt;/p&gt;
 &lt;p&gt;To do this, set the check-box on the &lt;em&gt;Specific Stream&lt;/em&gt; pane and we note that the previously greyed out action icons (&lt;span class=&#34;stroom-icon inline-svg-button icon-button  &#34; &gt;
     &lt;span class=&#34;face&#34; title=&#34;Process&#34;&gt;&lt;svg xmlns=&#34;http://www.w3.org/2000/svg&#34; width=&#34;1792&#34; height=&#34;1792&#34; viewBox=&#34;0 0 1792 1792&#34;&gt;&lt;path style=&#34;fill:var(--icon-colour__blue)&#34; d=&#34;m 1440,95.339844 c -9.3333,0 -17,2.999997 -23,8.999996 -6,6 -9,13.66667 -9,23 l 0,192 -256,0 c -45.3333,0 -88,5.5 -128,16.5 -40.00001,11 -75.50001,25 -106.50001,42 -31,17 -61,39.83333 -90,68.5 -29,28.66667 -53.66667,56.33333 -74,83 -20.33333,26.66667 -41.66667,60 -64,100 -19.99699,35.8155 -36.49225,67.59036 -49.54102,95.38868 -0.27492,0.10932 -0.53471,0.21669 -0.81054,0.32617 -16,30.66667 -31,56.5 -45,77.5 -14,21 -31,41.5 -51,61.5 -20,20 -43,35 -69,45 -26,10 -55,15 -87,15 l -355.148435,0 c -9.333333,0 -17,3 -23.0000004,9 -6,6 -9.0000000375455,13.66667 -9.0000000375455,23 l 0,192.00001 c 0,9.3333 3.0000000375455,17 9.0000000375455,23 6.0000004,6 13.6666674,9 23.0000004,9 l 355.148435,0 c 45.33333,0 88,-5.5 128,-16.5 40,-11 75.5,-25 106.5,-42 31,-17 61,-39.8333 90,-68.5 29,-28.6667 53.66667,-56.33334 74,-83.00001 20.33333,-26.66667 41.66667,-60 64,-100 19.8569,-35.56461 36.26775,-67.15315 49.27344,-94.8125 0.36178,-0.305 0.71557,-0.5961 1.07812,-0.90235 16,-30.66667 31,-56.5 45,-77.5 14,-21 31,-41.5 51,-61.5 20.00001,-20 43.00001,-35 69.00001,-45 26,-10 55,-15 87,-15 l 256,0 0,192 c 0,8.66667 3.1667,16.16667 9.5,22.5 6.3333,6.33333 13.8333,9.5 22.5,9.5 9.3333,0 17,-3 23,-9 l 320,-320 c 6,-6 9,-13.66667 9,-23 0,-9.33333 -3,-17 -9,-23 l -319,-319 c -8,-6.666666 -16,-9.999996 -24,-9.999996 z&#34;/&gt;&lt;path style=&#34;fill:var(--icon-colour__green)&#34; d=&#34;M 32 608.88672 C 22.666667 608.88672 15 611.88672 9 617.88672 C 3.0000001 623.88672 0 631.55342 0 640.88672 L 0 832.88672 C -2.3684758e-15 842.22005 3.0000001 849.88672 9 855.88672 C 14.999999 861.88672 22.666667 864.88672 32 864.88672 L 387.14844 864.88672 C 389.01484 864.88672 390.86885 864.90739 392.71484 864.94141 C 424.84023 863.54598 455.12074 854.70213 477.65234 838.51562 C 513.22947 811.0071 542.31317 769.76507 567.46094 723.21289 A 59.082625 59.082625 0 0 1 567.88281 722.44336 C 577.24508 705.7116 585.95748 689.48787 593.56641 673.41992 A 59.082625 59.082625 0 0 1 594.40625 671.7168 C 596.87369 666.9118 599.36286 662.08644 601.86719 657.25195 C 575.79127 644.74345 546.89263 634.11637 515.14844 625.38672 C 475.14844 614.38672 432.48177 608.88672 387.14844 608.88672 L 32 608.88672 z M 870.56641 957.2793 C 853.49205 984.29535 834.72449 1010.8834 813.4375 1036.3711 A 59.082625 59.082625 0 0 1 813.08984 1036.7852 C 777.58172 1078.5162 737.58032 1121.5966 687.80664 1156.543 C 688.3781 1157.5702 688.9227 1158.5676 689.5 1159.6016 C 711.83333 1199.6016 733.16667 1232.9349 753.5 1259.6016 C 773.83333 1286.2683 798.5 1313.9349 827.5 1342.6016 C 856.5 1371.2683 886.5 1394.1016 917.5 1411.1016 C 948.5 1428.1016 983.99999 1442.1016 1024 1453.1016 C 1064 1464.1016 1106.6667 1469.6016 1152 1469.6016 L 1408 1469.6016 L 1408 1661.6016 C 1408 1670.9349 1411 1678.6016 1417 1684.6016 C 1423 1690.6016 1430.6667 1693.6016 1440 1693.6016 C 1448 1693.6016 1456 1690.2683 1464 1683.6016 L 1783 1364.6016 C 1789 1358.6016 1792 1350.9349 1792 1341.6016 C 1792 1332.2683 1789 1324.6016 1783 1318.6016 L 1463 998.60156 C 1457 992.60156 1449.3333 989.60156 1440 989.60156 C 1431.3333 989.60156 1423.8333 992.76823 1417.5 999.10156 C 1411.1667 1005.4348 1408 1012.9349 1408 1021.6016 L 1408 1213.6016 L 1152 1213.6016 C 1120 1213.6016 1091 1208.6016 1065 1198.6016 C 1039 1188.6016 1016 1173.6016 996 1153.6016 C 976 1133.6016 959 1113.1016 945 1092.1016 C 931 1071.1016 916 1045.2683 900 1014.6016 C 899.63745 1014.2954 899.28365 1014.0042 898.92188 1013.6992 C 890.80126 996.429 881.35206 977.6246 870.56641 957.2793 z &#34;/&gt;&lt;/svg&gt;&lt;/span&gt;
@@ -6352,7 +6534,7 @@ We enter Stepping Mode by pressing the stepping button &lt;span class=&#34;stroo
 
 &lt;p&gt;Which, initially displays the Raw Event data from our stream.
 This is the Source display for the Event Pipeline.&lt;/p&gt;
-&lt;h3 id=&#34;step-data-through-pipeline---text-converter&#34;&gt;Step data through Pipeline - Text Converter&lt;/h3&gt;
+&lt;h3 id=&#34;step-data-through-pipeline---text-converter&#34;&gt;Step Data through Pipeline - Text Converter&lt;/h3&gt;
 &lt;p&gt;We click on the 
 
 
@@ -6406,7 +6588,6 @@ This is the Source display for the Event Pipeline.&lt;/p&gt;
 
     
   
-
 
 
 
@@ -6954,7 +7135,8 @@ LogFormat &amp;quot;%a/%{REMOTE_PORT}e %X %t %l \&amp;quot;%{SSL_CLIENT_S_DN}x\&
   &lt;/a&gt;
 &lt;/div&gt;
 
-&lt;p&gt;You should take note of the stepping location that has been displayed in each stepping window. The stepping location is the numbers enclosed in square brackets e.g. [7556:1:16] found in the top right-hand side of the stepping window next to the stepping icons&lt;/p&gt;
+&lt;p&gt;You should take note of the stepping location that has been displayed in each stepping window.
+The stepping location is the numbers enclosed in square brackets e.g. [7556:1:16] found in the top right-hand side of the stepping window next to the stepping icons&lt;/p&gt;
 
 
 
@@ -7000,14 +7182,16 @@ LogFormat &amp;quot;%a/%{REMOTE_PORT}e %X %t %l \&amp;quot;%{SSL_CLIENT_S_DN}x\&
 &lt;p&gt;where&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;strong&gt;streamId&lt;/strong&gt; - is the stream ID and won’t change when stepping through the selected stream.&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;subStreamId&lt;/strong&gt; - is the sub stream ID. When Stroom processes event streams it aggregates multiple input files and this is the file number.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;subStreamId&lt;/strong&gt; - is the sub stream ID.
+When Stroom processes event streams it aggregates multiple input files and this is the file number.&lt;/li&gt;
 &lt;li&gt;&lt;strong&gt;recordNo&lt;/strong&gt; - is the record number within the sub stream.&lt;/li&gt;
 &lt;/ul&gt;
-&lt;p&gt;One can double click on either the &lt;strong&gt;subStreamId&lt;/strong&gt; or &lt;strong&gt;recordNo&lt;/strong&gt; numbers and enter a new number. This allows you to ‘step’ around a stream rather than just relying on first, previous, next and last movement.&lt;/p&gt;
+&lt;p&gt;One can double click on either the &lt;strong&gt;subStreamId&lt;/strong&gt; or &lt;strong&gt;recordNo&lt;/strong&gt; numbers and enter a new number.
+This allows you to ‘step’ around a stream rather than just relying on first, previous, next and last movement.&lt;/p&gt;
 &lt;p&gt;Note, you should now Save &lt;span class=&#34;stroom-icon inline-svg-button icon-button  &#34; &gt;
     &lt;span class=&#34;face&#34; title=&#34;Save&#34;&gt;&lt;svg xmlns=&#34;http://www.w3.org/2000/svg&#34; width=&#34;1792&#34; height=&#34;1792&#34; viewBox=&#34;0 0 1792 1792&#34;&gt;&lt;!--! Font Awesome Free 6.4.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --&gt;&lt;path style=&#34;fill:currentColor;stroke-width:0.570676;stroke-dasharray:none&#34; d=&#34;M 339.40234 116.52148 C 216.56504 116.52148 116.69531 216.3912 116.69531 339.22852 L 116.69531 1452.7715 C 116.69531 1575.6089 216.56504 1675.4785 339.40234 1675.4785 L 1452.5977 1675.4785 C 1575.4349 1675.4785 1675.3047 1575.6089 1675.3047 1452.7715 L 1675.3047 598.82422 C 1675.3047 539.66744 1651.9901 482.94523 1610.2324 441.1875 L 1610.5801 440.83984 L 1351.334 181.59375 C 1309.5761 139.83602 1252.8561 116.52148 1193.6992 116.52148 L 339.40234 116.52148 z M 339.40234 283.55273 L 395.08008 283.55273 L 395.08008 645.45312 C 395.08008 691.73461 432.31423 728.96875 478.5957 728.96875 L 1146.7207 728.96875 C 1193.0023 728.96875 1230.2363 691.73461 1230.2363 645.45312 L 1230.2363 297.12305 C 1231.2803 298.167 1231.9756 298.8623 1233.0195 299.90625 L 1492.6152 558.80469 L 1492.2676 559.1543 C 1502.707 569.59373 1508.6211 583.8594 1508.6211 598.47461 L 1508.6211 1452.7715 C 1508.6211 1483.3939 1483.5678 1508.4473 1452.9453 1508.4473 L 1395.6113 1508.4473 L 1395.6113 1059.8359 C 1395.6113 981.08539 1331.5826 917.05859 1252.832 917.05859 L 539.16797 917.05859 C 460.41738 917.05859 396.38867 981.08539 396.38867 1059.8359 L 396.38867 1508.4473 L 339.40234 1508.4473 C 308.78001 1508.4473 283.72656 1483.3939 283.72656 1452.7715 L 283.72656 339.22852 C 283.72656 308.60619 308.78001 283.55273 339.40234 283.55273 z M 562.11133 283.55273 L 1063.2051 283.55273 L 1063.2051 561.9375 L 562.11133 561.9375 L 562.11133 283.55273 z M 538.94531 1024.1426 L 1252.832 1024.1426 C 1272.4639 1024.1426 1288.5273 1040.2041 1288.5273 1059.8359 L 1288.5273 1508.4473 L 503.25 1508.4473 L 503.25 1059.8359 C 503.25 1040.2041 519.31334 1024.1426 538.94531 1024.1426 z &#34; /&gt;&lt;/svg&gt; &lt;/span&gt;
   &lt;/span&gt; your edited Text Converter.&lt;/p&gt;
-&lt;h3 id=&#34;step-data-through-pipeline---translation&#34;&gt;Step data through Pipeline - Translation&lt;/h3&gt;
+&lt;h3 id=&#34;step-data-through-pipeline---translation&#34;&gt;Step Data through Pipeline - Translation&lt;/h3&gt;
 &lt;p&gt;To start authoring the xslt Translation Filter, press the 
 
 
@@ -7067,7 +7251,6 @@ LogFormat &amp;quot;%a/%{REMOTE_PORT}e %X %t %l \&amp;quot;%{SSL_CLIENT_S_DN}x\&
 
 
 
-
  element which steps us to the xsl Translation Filter pane.&lt;/p&gt;
 
 
@@ -7110,11 +7293,17 @@ LogFormat &amp;quot;%a/%{REMOTE_PORT}e %X %t %l \&amp;quot;%{SSL_CLIENT_S_DN}x\&
   &lt;/a&gt;
 &lt;/div&gt;
 
-&lt;p&gt;As for the &lt;em&gt;Text Converter&lt;/em&gt; stepping tab, this tab is divided into three sub-panes. The top one is the xslt translation editor and it will allow you to edit the xslt translation. The bottom left window displays the &lt;em&gt;input&lt;/em&gt; to the xslt translation (which is the output from the &lt;em&gt;Text Converter&lt;/em&gt;). The bottom right window displays the &lt;em&gt;output&lt;/em&gt; from the xslt Translation filter for the given input.&lt;/p&gt;
+&lt;p&gt;As for the &lt;em&gt;Text Converter&lt;/em&gt; stepping tab, this tab is divided into three sub-panes.
+The top one is the xslt translation editor and it will allow you to edit the xslt translation.
+The bottom left window displays the &lt;em&gt;input&lt;/em&gt; to the xslt translation (which is the output from the &lt;em&gt;Text Converter&lt;/em&gt;).
+The bottom right window displays the &lt;em&gt;output&lt;/em&gt; from the xslt Translation filter for the given input.&lt;/p&gt;
 &lt;p&gt;We now click on the pipeline Step Forward button &lt;span class=&#34;stroom-icon inline-svg-button icon-button  icon-colour__green&#34; &gt;
     &lt;span class=&#34;face&#34; title=&#34;Step forward&#34;&gt;&lt;svg xmlns=&#34;http://www.w3.org/2000/svg&#34; viewBox=&#34;0 0 512 512&#34;&gt;&lt;!-- Font Awesome Free 5.15.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) --&gt;&lt;path style=&#34;fill:currentColor&#34; d=&#34;m 400,75.977968 0,360.000002 c 0,6.6 -5.4,12 -12,12 l -40,0 c -6.6,0 -12,-5.4 -12,-12 l 0,-151.9 -171.5,156.5 c -20.6,17.2 -52.5,2.8 -52.5,-24.6 0,-202.11605 0,-87.47785 0,-320.000002 0,-27.399997 31.9,-41.699997 52.5,-24.6 L 336,226.77797 336,75.977968 c 0,-6.599997 5.4,-11.999997 12,-11.999997 l 40,0 c 6.6,0 12,5.4 12,11.999997 z&#34; /&gt;&lt;/svg&gt; &lt;/span&gt;
-  &lt;/span&gt; to single step the Text Converter &lt;em&gt;records&lt;/em&gt; element data through our xslt Translation. We see no change as an empty translation will just perform a copy of the input data.&lt;/p&gt;
-&lt;p&gt;To correct this, we will author our xslt translation. Like the Data Splitter this is also authored incrementally. A minimum xslt translation might contain&lt;/p&gt;
+  &lt;/span&gt; to single step the Text Converter &lt;em&gt;records&lt;/em&gt; element data through our xslt Translation.
+We see no change as an empty translation will just perform a copy of the input data.&lt;/p&gt;
+&lt;p&gt;To correct this, we will author our xslt translation.
+Like the Data Splitter this is also authored incrementally.
+A minimum xslt translation might contain&lt;/p&gt;
 &lt;pre&gt;&lt;code class=&#34;language-xml&#34;&gt;&amp;lt;?xml version=&amp;quot;1.0&amp;quot; encoding=&amp;quot;UTF-8&amp;quot; ?&amp;gt;
 &amp;lt;xsl:stylesheet 
     xpath-default-namespace=&amp;quot;records:2&amp;quot; 
@@ -7214,7 +7403,9 @@ LogFormat &amp;quot;%a/%{REMOTE_PORT}e %X %t %l \&amp;quot;%{SSL_CLIENT_S_DN}x\&
   &lt;/a&gt;
 &lt;/div&gt;
 
-&lt;p&gt;Clearly this doesn’t generate useful events. Our first iterative change might be to generate the TimeCreated element value. The change would be&lt;/p&gt;
+&lt;p&gt;Clearly this doesn’t generate useful events.
+Our first iterative change might be to generate the TimeCreated element value.
+The change would be&lt;/p&gt;
 &lt;pre&gt;&lt;code class=&#34;language-xml&#34;&gt;    &amp;lt;xsl:template match=&amp;quot;node()&amp;quot; mode=&amp;quot;eventTime&amp;quot;&amp;gt;
         &amp;lt;EventTime&amp;gt;
           &amp;lt;TimeCreated&amp;gt;
@@ -7585,7 +7776,8 @@ LogFormat &amp;quot;%a/%{REMOTE_PORT}e %X %t %l \&amp;quot;%{SSL_CLIENT_S_DN}x\&
     &lt;span class=&#34;face&#34; title=&#34;Save&#34;&gt;&lt;svg xmlns=&#34;http://www.w3.org/2000/svg&#34; width=&#34;1792&#34; height=&#34;1792&#34; viewBox=&#34;0 0 1792 1792&#34;&gt;&lt;!--! Font Awesome Free 6.4.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --&gt;&lt;path style=&#34;fill:currentColor;stroke-width:0.570676;stroke-dasharray:none&#34; d=&#34;M 339.40234 116.52148 C 216.56504 116.52148 116.69531 216.3912 116.69531 339.22852 L 116.69531 1452.7715 C 116.69531 1575.6089 216.56504 1675.4785 339.40234 1675.4785 L 1452.5977 1675.4785 C 1575.4349 1675.4785 1675.3047 1575.6089 1675.3047 1452.7715 L 1675.3047 598.82422 C 1675.3047 539.66744 1651.9901 482.94523 1610.2324 441.1875 L 1610.5801 440.83984 L 1351.334 181.59375 C 1309.5761 139.83602 1252.8561 116.52148 1193.6992 116.52148 L 339.40234 116.52148 z M 339.40234 283.55273 L 395.08008 283.55273 L 395.08008 645.45312 C 395.08008 691.73461 432.31423 728.96875 478.5957 728.96875 L 1146.7207 728.96875 C 1193.0023 728.96875 1230.2363 691.73461 1230.2363 645.45312 L 1230.2363 297.12305 C 1231.2803 298.167 1231.9756 298.8623 1233.0195 299.90625 L 1492.6152 558.80469 L 1492.2676 559.1543 C 1502.707 569.59373 1508.6211 583.8594 1508.6211 598.47461 L 1508.6211 1452.7715 C 1508.6211 1483.3939 1483.5678 1508.4473 1452.9453 1508.4473 L 1395.6113 1508.4473 L 1395.6113 1059.8359 C 1395.6113 981.08539 1331.5826 917.05859 1252.832 917.05859 L 539.16797 917.05859 C 460.41738 917.05859 396.38867 981.08539 396.38867 1059.8359 L 396.38867 1508.4473 L 339.40234 1508.4473 C 308.78001 1508.4473 283.72656 1483.3939 283.72656 1452.7715 L 283.72656 339.22852 C 283.72656 308.60619 308.78001 283.55273 339.40234 283.55273 z M 562.11133 283.55273 L 1063.2051 283.55273 L 1063.2051 561.9375 L 562.11133 561.9375 L 562.11133 283.55273 z M 538.94531 1024.1426 L 1252.832 1024.1426 C 1272.4639 1024.1426 1288.5273 1040.2041 1288.5273 1059.8359 L 1288.5273 1508.4473 L 503.25 1508.4473 L 503.25 1059.8359 C 503.25 1040.2041 519.31334 1024.1426 538.94531 1024.1426 z &#34; /&gt;&lt;/svg&gt; &lt;/span&gt;
   &lt;/span&gt; your edited xslt Translation.&lt;/p&gt;
 &lt;p&gt;We have completed the translation and have completed developing our Apache-SSLBlackBox-V2.0-EVENTS event feed.&lt;/p&gt;
-&lt;p&gt;At this point, this event feed is set up to accept Raw Event data, but it will not automatically process the raw data and hence it will not place events into the Event Store. To have Stroom automatically process Raw Event streams, you will need to enable Processors for this pipeline.&lt;/p&gt;
+&lt;p&gt;At this point, this event feed is set up to accept Raw Event data, but it will not automatically process the raw data and hence it will not place events into the Event Store.
+To have Stroom automatically process Raw Event streams, you will need to enable Processors for this pipeline.&lt;/p&gt;
 
       </description>
     </item>
@@ -12067,7 +12259,8 @@ In our case, our filter selection has left the &lt;strong&gt;BlueCoat-Proxy-V1.0
     &lt;span class=&#34;face&#34; title=&#34;Filter&#34;&gt;&lt;svg xmlns=&#34;http://www.w3.org/2000/svg&#34; width=&#34;1792&#34; height=&#34;1792&#34; viewBox=&#34;0 0 1792 1792&#34;&gt;&lt;path style=&#34;fill:currentColor&#34; d=&#34;M1595 295q17 41-14 70l-493 493v742q0 42-39 59-13 5-25 5-27 0-45-19l-256-256q-19-19-19-45v-486l-493-493q-31-29-14-70 17-39 59-39h1280q42 0 59 39z&#34;/&gt;&lt;/svg&gt;&lt;/span&gt;
   &lt;/span&gt;)&lt;/li&gt;
 &lt;li&gt;Priority - the queue scheduling priority of task submission to available stream processors&lt;/li&gt;
-&lt;li&gt;Max Concurrent - The maximum number of tasks that can run concurrently. Zero means unlimited&lt;/li&gt;
+&lt;li&gt;Max Concurrent - The maximum number of tasks that can run concurrently.
+Zero means unlimited&lt;/li&gt;
 &lt;li&gt;Status - the status of the processor&lt;/li&gt;
 &lt;li&gt;Last Poll Age - the last time the processor found new streams to process&lt;/li&gt;
 &lt;li&gt;Task Count - the number of processor tasks currently running&lt;/li&gt;

@@ -43,7 +43,7 @@ The structure is identical for both.&lt;/p&gt;
 &lt;/div&gt;
 
 
-&lt;h2 id=&#34;a-minimal-configuration&#34;&gt;A minimal configuration&lt;/h2&gt;
+&lt;h2 id=&#34;a-minimal-configuration&#34;&gt;A Minimal Configuration&lt;/h2&gt;
 &lt;p&gt;For most providers this is all that is needed:&lt;/p&gt;
 &lt;pre&gt;&lt;code class=&#34;language-yaml&#34;&gt;  security:
     authentication:
@@ -64,7 +64,7 @@ The logout endpoint is not part of that document, so it is set separately.&lt;/p
     # Allow authentication using an Open ID token
     tokenAuthenticationEnabled: true
 &lt;/code&gt;&lt;/pre&gt;
-&lt;h2 id=&#34;choosing-the-identity-provider&#34;&gt;Choosing the identity provider&lt;/h2&gt;
+&lt;h2 id=&#34;choosing-the-identity-provider&#34;&gt;Choosing the Identity Provider&lt;/h2&gt;
 &lt;h3 id=&#34;identityprovidertype&#34;&gt;&lt;code&gt;identityProviderType&lt;/code&gt;&lt;/h3&gt;
 &lt;pre&gt;&lt;code class=&#34;language-yaml&#34;&gt;identityProviderType: EXTERNAL_IDP
 &lt;/code&gt;&lt;/pre&gt;
@@ -120,7 +120,7 @@ This is not part of the discovery document, so it always has to be set by hand, 
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;The query parameter Stroom uses to tell the provider where to send the user after signing out.
 The only permitted values are &lt;code&gt;post_logout_redirect_uri&lt;/code&gt;, the default and what the current specification says, and &lt;code&gt;redirect_uri&lt;/code&gt; for older providers.&lt;/p&gt;
-&lt;h2 id=&#34;client-credentials&#34;&gt;Client credentials&lt;/h2&gt;
+&lt;h2 id=&#34;client-credentials&#34;&gt;Client Credentials&lt;/h2&gt;
 &lt;h3 id=&#34;clientid-and-clientsecret&#34;&gt;&lt;code&gt;clientId&lt;/code&gt; and &lt;code&gt;clientSecret&lt;/code&gt;&lt;/h3&gt;
 &lt;p&gt;The client, sometimes called an application, registered at the provider.&lt;/p&gt;
 &lt;p&gt;&lt;code&gt;clientSecret&lt;/code&gt; may be left unset when the provider authenticates Stroom by mutual TLS instead of a secret.&lt;/p&gt;
@@ -155,7 +155,7 @@ For Azure AD you will likely need &lt;code&gt;openid&lt;/code&gt; and &lt;code&g
 &lt;p&gt;Whether the token request is sent as an HTML form body.
 Some providers, Cognito among them, require this.
 It is on by default and rarely needs changing.&lt;/p&gt;
-&lt;h2 id=&#34;audience-validation&#34;&gt;Audience validation&lt;/h2&gt;
+&lt;h2 id=&#34;audience-validation&#34;&gt;Audience Validation&lt;/h2&gt;
 &lt;p&gt;The &lt;code&gt;aud&lt;/code&gt; claim of a token names the application the token was minted for.
 Checking it is what stops a token issued to some other application at the same provider being replayed against Stroom.&lt;/p&gt;
 &lt;p&gt;Three settings control this.&lt;/p&gt;
@@ -202,7 +202,7 @@ See the provider pages for which applies to you.&lt;/p&gt;
 &lt;/div&gt;
 
 
-&lt;h2 id=&#34;token-validation&#34;&gt;Token validation&lt;/h2&gt;
+&lt;h2 id=&#34;token-validation&#34;&gt;Token Validation&lt;/h2&gt;
 &lt;h3 id=&#34;requiredaccesstokentype&#34;&gt;&lt;code&gt;requiredAccessTokenType&lt;/code&gt;&lt;/h3&gt;
 &lt;pre&gt;&lt;code class=&#34;language-yaml&#34;&gt;requiredAccessTokenType: null
 &lt;/code&gt;&lt;/pre&gt;
@@ -225,7 +225,7 @@ It has no effect on the interactive sign in flow or on an AWS load balancer data
 &lt;p&gt;Additional issuers to accept beyond the one the provider advertises.&lt;/p&gt;
 &lt;p&gt;Stroom checks that the issuer in the provider&amp;rsquo;s configuration response is consistent with &lt;code&gt;openIdConfigurationEndpoint&lt;/code&gt;.
 Where a provider legitimately reports an issuer that is not a parent path of that endpoint, list it here so the check passes.&lt;/p&gt;
-&lt;h3 id=&#34;signature-algorithms&#34;&gt;Signature algorithms&lt;/h3&gt;
+&lt;h3 id=&#34;signature-algorithms&#34;&gt;Signature Algorithms&lt;/h3&gt;
 &lt;p&gt;Not configurable.
 Stroom accepts RS256/384/512, PS256/384/512 and ES256/384/512, and refuses unsigned tokens and tokens signed with an HMAC algorithm.&lt;/p&gt;
 &lt;p&gt;There is no reason to expect a mainstream provider to fall foul of this.&lt;/p&gt;
@@ -256,7 +256,7 @@ Claim names are case sensitive.&lt;/p&gt;
 &lt;/div&gt;
 
 
-&lt;h2 id=&#34;aws-load-balancer-authentication&#34;&gt;AWS load balancer authentication&lt;/h2&gt;
+&lt;h2 id=&#34;aws-load-balancer-authentication&#34;&gt;AWS Load Balancer Authentication&lt;/h2&gt;
 &lt;p&gt;These apply when an AWS Application Load Balancer in front of Stroom performs the authentication and passes the result on in an &lt;code&gt;x-amzn-oidc-data&lt;/code&gt; header.&lt;/p&gt;
 &lt;h3 id=&#34;expectedsignerprefixes&#34;&gt;&lt;code&gt;expectedSignerPrefixes&lt;/code&gt;&lt;/h3&gt;
 &lt;pre&gt;&lt;code class=&#34;language-yaml&#34;&gt;expectedSignerPrefixes: []
@@ -308,7 +308,14 @@ Not every provider supports issuing an OIDC token for a client credentials grant
 &lt;/div&gt;
 
 &lt;h2 id=&#34;troubleshooting&#34;&gt;Troubleshooting&lt;/h2&gt;
+&lt;!--
+The headings below describe a symptom rather than naming a thing, so they read
+as sentences and are deliberately in sentence case. Each is opted out of the
+style check individually so that the rest of the section is still checked.
+--&gt;
+&lt;!-- style-check: disable --&gt;
 &lt;h3 id=&#34;stroom-will-not-start&#34;&gt;Stroom will not start&lt;/h3&gt;
+&lt;!-- style-check: enable --&gt;
 &lt;blockquote&gt;
 &lt;p&gt;If &lt;code&gt;identityProviderType&lt;/code&gt; is set to &amp;lsquo;EXTERNAL&amp;rsquo;, property &lt;code&gt;openIdConfigurationEndpoint&lt;/code&gt; must be set.&lt;/p&gt;
 &lt;/blockquote&gt;
@@ -330,26 +337,40 @@ Where the value is genuinely correct for your provider, add it to &lt;code&gt;va
 &lt;/blockquote&gt;
 &lt;p&gt;You have set &lt;code&gt;issuer&lt;/code&gt; or &lt;code&gt;validIssuers&lt;/code&gt;, and what the provider advertised is not among them.
 Correct the configured value, or add the advertised one.&lt;/p&gt;
+&lt;!-- style-check: disable --&gt;
 &lt;h3 id=&#34;the-provider-refuses-the-sign-in&#34;&gt;The provider refuses the sign in&lt;/h3&gt;
+&lt;!-- style-check: enable --&gt;
 &lt;p&gt;An error at the provider, before the user gets back to Stroom, is almost always the redirect URI.
 Check that &lt;code&gt;https://STROOM_FQDN/api/auth/flow/v1/signin-oidc&lt;/code&gt; is registered exactly, using the same scheme, host, port and path prefix as &lt;code&gt;appConfig.publicUri&lt;/code&gt;.&lt;/p&gt;
 &lt;p&gt;This is the single most common problem when upgrading, because Stroom used to send a different redirect URI for every page.&lt;/p&gt;
+&lt;!-- style-check: disable --&gt;
 &lt;h3 id=&#34;sign-in-works-but-api-calls-are-refused&#34;&gt;Sign in works but API calls are refused&lt;/h3&gt;
+&lt;!-- style-check: enable --&gt;
 &lt;p&gt;Interactive sign in validates the &lt;code&gt;id_token&lt;/code&gt;, whereas the API validates an access token, and providers treat the two differently.
 So sign in working tells you the client id, secret and endpoints are all correct, and points at the token validation settings.&lt;/p&gt;
 &lt;p&gt;In order of likelihood:&lt;/p&gt;
 &lt;ol&gt;
-&lt;li&gt;&lt;strong&gt;Audience.&lt;/strong&gt; The access token&amp;rsquo;s &lt;code&gt;aud&lt;/code&gt; claim does not match &lt;code&gt;clientId&lt;/code&gt; or &lt;code&gt;allowedAudiences&lt;/code&gt;, or the token has no &lt;code&gt;aud&lt;/code&gt; claim and &lt;code&gt;audienceClaimRequired&lt;/code&gt; is &lt;code&gt;true&lt;/code&gt;. See &lt;a href=&#34;#audience-validation&#34;&gt;Audience validation&lt;/a&gt;.&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;Token type.&lt;/strong&gt; &lt;code&gt;requiredAccessTokenType&lt;/code&gt; is set to something the provider does not put in the token&amp;rsquo;s &lt;code&gt;typ&lt;/code&gt; header. Unset it, or correct it to the value the provider actually uses.&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;Token type, the other way round.&lt;/strong&gt; The caller is presenting an &lt;code&gt;id_token&lt;/code&gt; rather than an access token. Setting &lt;code&gt;requiredAccessTokenType&lt;/code&gt; is what catches this.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Audience.&lt;/strong&gt;
+The access token&amp;rsquo;s &lt;code&gt;aud&lt;/code&gt; claim does not match &lt;code&gt;clientId&lt;/code&gt; or &lt;code&gt;allowedAudiences&lt;/code&gt;, or the token has no &lt;code&gt;aud&lt;/code&gt; claim and &lt;code&gt;audienceClaimRequired&lt;/code&gt; is &lt;code&gt;true&lt;/code&gt;.
+See &lt;a href=&#34;#audience-validation&#34;&gt;Audience validation&lt;/a&gt;.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Token type.&lt;/strong&gt;
+&lt;code&gt;requiredAccessTokenType&lt;/code&gt; is set to something the provider does not put in the token&amp;rsquo;s &lt;code&gt;typ&lt;/code&gt; header.
+Unset it, or correct it to the value the provider actually uses.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Token type, the other way round.&lt;/strong&gt;
+The caller is presenting an &lt;code&gt;id_token&lt;/code&gt; rather than an access token.
+Setting &lt;code&gt;requiredAccessTokenType&lt;/code&gt; is what catches this.&lt;/li&gt;
 &lt;/ol&gt;
 &lt;p&gt;Enable debug logging for &lt;code&gt;stroom.security.common.impl.StandardJwtContextFactory&lt;/code&gt; to see the issuers, audiences and settings actually in use when a token is validated.&lt;/p&gt;
+&lt;!-- style-check: disable --&gt;
 &lt;h3 id=&#34;users-sign-in-but-can-see-nothing&#34;&gt;Users sign in but can see nothing&lt;/h3&gt;
+&lt;!-- style-check: enable --&gt;
 &lt;p&gt;That is expected for a new user.
 Authentication is all the provider does; permissions are granted in Stroom, and a new user has none.
 See &lt;a href=&#34;../../docs/install-guide/setup/open-id/external-idp/#users-and-permissions&#34;&gt;Users and permissions&lt;/a&gt;.&lt;/p&gt;
 &lt;p&gt;If an administrator you set up with &lt;code&gt;manage_users&lt;/code&gt; cannot see anything either, remember that permissions are cached, so a restart may be needed if Stroom was running when the command was issued.&lt;/p&gt;
+&lt;!-- style-check: disable --&gt;
 &lt;h3 id=&#34;signing-out-does-not-sign-the-user-out-of-the-provider&#34;&gt;Signing out does not sign the user out of the provider&lt;/h3&gt;
+&lt;!-- style-check: enable --&gt;
 &lt;p&gt;Either &lt;code&gt;logoutEndpoint&lt;/code&gt; is unset, or the provider has no OIDC sign out endpoint, as is the case for Google.
 The Stroom session ends either way, but the provider&amp;rsquo;s session does not, so the user&amp;rsquo;s next visit signs them straight back in.&lt;/p&gt;
 
@@ -407,7 +428,7 @@ The &lt;a href=&#34;../../docs/install-guide/setup/open-id/external-idp/cognito/
 &lt;/div&gt;
 &lt;/div&gt;
 
-&lt;h2 id=&#34;cognito-setup&#34;&gt;Cognito setup&lt;/h2&gt;
+&lt;h2 id=&#34;cognito-setup&#34;&gt;Cognito Setup&lt;/h2&gt;
 &lt;p&gt;Create a user pool, hosted UI domain and app client as described on the &lt;a href=&#34;../../docs/install-guide/setup/open-id/external-idp/cognito/&#34;&gt;Cognito&lt;/a&gt; page, with these differences:&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;The app client belongs to the &lt;strong&gt;ALB&lt;/strong&gt;, not to Stroom, so its allowed callback URL is the ALB&amp;rsquo;s own:
@@ -418,7 +439,7 @@ The &lt;a href=&#34;../../docs/install-guide/setup/open-id/external-idp/cognito/
 &lt;/ul&gt;
 &lt;p&gt;No second app client for Stroom is needed.
 The ALB is the only OIDC client in this topology.&lt;/p&gt;
-&lt;h2 id=&#34;load-balancer-setup&#34;&gt;Load balancer setup&lt;/h2&gt;
+&lt;h2 id=&#34;load-balancer-setup&#34;&gt;Load Balancer Setup&lt;/h2&gt;
 &lt;p&gt;Order the listener rules so machine traffic is forwarded &lt;em&gt;without&lt;/em&gt; authentication, then authenticate everything else:&lt;/p&gt;
 &lt;ol&gt;
 &lt;li&gt;Paths &lt;code&gt;/datafeed*&lt;/code&gt;, &lt;code&gt;/stroom/datafeed*&lt;/code&gt;, &lt;code&gt;/remoting/*&lt;/code&gt;, &lt;code&gt;/status&lt;/code&gt; → &lt;strong&gt;forward&lt;/strong&gt; to the Stroom target group.&lt;/li&gt;
@@ -431,7 +452,7 @@ The ALB is the only OIDC client in this topology.&lt;/p&gt;
 &lt;li&gt;If the total claims and access token exceed 11KB the ALB itself returns HTTP 500 and increments its &lt;code&gt;ELBAuthUserClaimsSizeExceeded&lt;/code&gt; metric — trim what the IDP puts in the token if you hit this.&lt;/li&gt;
 &lt;li&gt;Restrict the Stroom target&amp;rsquo;s security group to accept traffic only from the ALB&amp;rsquo;s security group; this is &lt;a href=&#34;../../docs/install-guide/setup/open-id/edge-proxy/#trust-prerequisites&#34;&gt;trust prerequisite one&lt;/a&gt;.&lt;/li&gt;
 &lt;/ul&gt;
-&lt;h2 id=&#34;stroom-configuration&#34;&gt;Stroom configuration&lt;/h2&gt;
+&lt;h2 id=&#34;stroom-configuration&#34;&gt;Stroom Configuration&lt;/h2&gt;
 &lt;pre&gt;&lt;code class=&#34;language-yaml&#34;&gt;server:
   applicationConnectors:
     - type: http
@@ -472,7 +493,7 @@ AWS GovCloud serves the keys from different, S3 hosted endpoints, so GovCloud de
 &lt;pre&gt;&lt;code class=&#34;language-yaml&#34;&gt;        publicKeyUriPattern: &amp;quot;https://s3-us-gov-west-1.amazonaws.com/\
 aws-elb-public-keys-prod-us-gov-west-1/${keyId}&amp;quot;
 &lt;/code&gt;&lt;/pre&gt;
-&lt;h3 id=&#34;identity-claims&#34;&gt;Identity claims&lt;/h3&gt;
+&lt;h3 id=&#34;identity-claims&#34;&gt;Identity Claims&lt;/h3&gt;
 &lt;p&gt;The claims in &lt;code&gt;x-amzn-oidc-data&lt;/code&gt; come from Cognito&amp;rsquo;s &lt;strong&gt;user info&lt;/strong&gt; endpoint, not from an ID token.
 The default &lt;code&gt;uniqueIdentityClaim&lt;/code&gt; of &lt;code&gt;sub&lt;/code&gt; is correct and stable; set &lt;code&gt;userDisplayNameClaim&lt;/code&gt; to taste (&lt;code&gt;username&lt;/code&gt; and &lt;code&gt;email&lt;/code&gt; are usually available).&lt;/p&gt;
 &lt;h2 id=&#34;logout&#34;&gt;Logout&lt;/h2&gt;
@@ -483,7 +504,7 @@ The configuration above does exactly that — &lt;code&gt;cookiesToExpire&lt;/co
 &lt;li&gt;The &lt;code&gt;logout_uri&lt;/code&gt; value must be registered in the Cognito app client as an &lt;strong&gt;allowed sign out URL&lt;/strong&gt;.&lt;/li&gt;
 &lt;li&gt;The page it points at must be matched by a &lt;strong&gt;forward&lt;/strong&gt; rule, not the authenticate rule, or the sign in flow simply restarts and the user never appears to sign out.&lt;/li&gt;
 &lt;/ul&gt;
-&lt;h2 id=&#34;verifying-it-works&#34;&gt;Verifying it works&lt;/h2&gt;
+&lt;h2 id=&#34;verifying-it-works&#34;&gt;Verifying it Works&lt;/h2&gt;
 &lt;p&gt;After deploying, load Stroom in a browser and check, in the developer tools network tab:&lt;/p&gt;
 &lt;ol&gt;
 &lt;li&gt;You are redirected to the Cognito hosted UI, sign in, and land back at Stroom.&lt;/li&gt;
@@ -615,7 +636,7 @@ On a newer version the same settings may sit under differently named tabs, and t
 &lt;/div&gt;
 
 
-&lt;h2 id=&#34;creating-a-realm&#34;&gt;Creating a realm&lt;/h2&gt;
+&lt;h2 id=&#34;creating-a-realm&#34;&gt;Creating a Realm&lt;/h2&gt;
 &lt;p&gt;First you need to create a Realm.&lt;/p&gt;
 &lt;ol&gt;
 &lt;li&gt;Click on the drop-down in the left pane that contains the word &lt;code&gt;master&lt;/code&gt;.&lt;/li&gt;
@@ -623,7 +644,7 @@ On a newer version the same settings may sit under differently named tabs, and t
 &lt;li&gt;Set the &lt;em&gt;Realm name&lt;/em&gt; to &lt;code&gt;StroomRealm&lt;/code&gt;.&lt;/li&gt;
 &lt;li&gt;Click &lt;em&gt;Create&lt;/em&gt;.&lt;/li&gt;
 &lt;/ol&gt;
-&lt;h2 id=&#34;creating-a-client&#34;&gt;Creating a client&lt;/h2&gt;
+&lt;h2 id=&#34;creating-a-client&#34;&gt;Creating a Client&lt;/h2&gt;
 &lt;p&gt;In the new realm click on &lt;em&gt;Clients&lt;/em&gt; in the left pane, then &lt;em&gt;Create client&lt;/em&gt;.&lt;/p&gt;
 &lt;ol&gt;
 &lt;li&gt;Set the &lt;em&gt;Client ID&lt;/em&gt; to &lt;code&gt;StroomClient&lt;/code&gt;.&lt;/li&gt;
@@ -660,7 +681,7 @@ If you are upgrading, replace it with the exact URI above.&lt;/p&gt;
 &lt;p&gt;On the &lt;em&gt;Advanced&lt;/em&gt; tab, under &lt;em&gt;Advanced settings&lt;/em&gt;, set &lt;em&gt;Proof Key for Code Exchange Code Challenge Method&lt;/em&gt; to &lt;code&gt;S256&lt;/code&gt;.
 Stroom always sends a PKCE challenge, so KeyCloak can be told to insist on one.&lt;/p&gt;
 &lt;p&gt;On the &lt;em&gt;Credentials&lt;/em&gt; tab copy the &lt;em&gt;Client secret&lt;/em&gt; for use later in Stroom config.&lt;/p&gt;
-&lt;h2 id=&#34;adding-an-audience-mapper&#34;&gt;Adding an audience mapper&lt;/h2&gt;
+&lt;h2 id=&#34;adding-an-audience-mapper&#34;&gt;Adding an Audience Mapper&lt;/h2&gt;
 &lt;p&gt;This step matters, and is easy to miss.&lt;/p&gt;
 &lt;p&gt;By default KeyCloak does not put the client id in the &lt;code&gt;aud&lt;/code&gt; claim of the access tokens it issues; typically it puts &lt;code&gt;account&lt;/code&gt; there instead.
 Stroom validates the audience of every token it is given, so without this step API calls made with a KeyCloak access token are refused.
@@ -679,7 +700,7 @@ Interactive sign in still works, because the &lt;code&gt;id_token&lt;/code&gt; d
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;That is weaker, since &lt;code&gt;account&lt;/code&gt; is an audience every client in the realm can obtain, so a token minted for another application in the same realm would be accepted by Stroom.
 Prefer the mapper.&lt;/p&gt;
-&lt;h2 id=&#34;creating-users&#34;&gt;Creating users&lt;/h2&gt;
+&lt;h2 id=&#34;creating-users&#34;&gt;Creating Users&lt;/h2&gt;
 &lt;p&gt;Click on &lt;em&gt;Users&lt;/em&gt; in the left pane then &lt;em&gt;Add user&lt;/em&gt;.
 Set the following:&lt;/p&gt;
 &lt;ul&gt;
@@ -752,7 +773,7 @@ Leave it unset if in doubt; it is a hardening measure rather than a requirement.
 &lt;/div&gt;
 
 
-&lt;h2 id=&#34;setting-up-the-admin-user-in-stroom&#34;&gt;Setting up the admin user in Stroom&lt;/h2&gt;
+&lt;h2 id=&#34;setting-up-the-admin-user-in-stroom&#34;&gt;Setting up the Admin User in Stroom&lt;/h2&gt;
 &lt;p&gt;Now that the &lt;code&gt;admin&lt;/code&gt; user exists in the IDP we need to grant it &lt;code&gt;Administrator&lt;/code&gt; rights in Stroom.&lt;/p&gt;
 &lt;p&gt;In the &lt;em&gt;Users&lt;/em&gt; section of KeyCloak click on user &lt;code&gt;admin&lt;/code&gt;.
 On the &lt;em&gt;Details&lt;/em&gt; tab copy the value of the &lt;em&gt;ID&lt;/em&gt; field.
@@ -823,7 +844,7 @@ This does mean that new users will need to log in before the administrator can m
 
 
 &lt;h2 id=&#34;logging-into-stroom&#34;&gt;Logging into Stroom&lt;/h2&gt;
-&lt;h3 id=&#34;as-the-administrator&#34;&gt;As the administrator&lt;/h3&gt;
+&lt;h3 id=&#34;as-the-administrator&#34;&gt;As the Administrator&lt;/h3&gt;
 &lt;p&gt;Now that the user and permissions have been set up in Stroom, the administrator can log in.&lt;/p&gt;
 &lt;p&gt;First start the Stroom instance or cluster.&lt;/p&gt;
 
@@ -965,7 +986,7 @@ Your user ID is shown in the bottom right corner of the Welcome tab.&lt;/p&gt;
 
  to be re-directed to the IDP to log out.
 Once you log out of the IDP it should re-direct you back to Stroom, which will send you to the IDP login screen to log back in again.&lt;/p&gt;
-&lt;h3 id=&#34;as-an-ordinary-user&#34;&gt;As an ordinary user&lt;/h3&gt;
+&lt;h3 id=&#34;as-an-ordinary-user&#34;&gt;As an Ordinary User&lt;/h3&gt;
 &lt;p&gt;On the IDP login screen, log in as user &lt;code&gt;jbloggs&lt;/code&gt; with the password &lt;code&gt;password&lt;/code&gt;.
 You will be re-directed to Stroom, however the explorer tree will be empty and most of the menu items will be disabled.
 In order to gain permissions to do anything in Stroom, a Stroom administrator will need to grant application and document permissions and/or group memberships to the user via the 
@@ -1193,10 +1214,10 @@ Short expiry periods are more secure in case the key is compromised.&lt;/li&gt;
  to copy the key to the clipboard.&lt;/li&gt;
 &lt;/ol&gt;
 &lt;p&gt;To make an authenticated API call you need to provide a header of the form &lt;code&gt;Authorization:Bearer ${TOKEN}&lt;/code&gt;, where &lt;code&gt;${TOKEN}&lt;/code&gt; is your API Key as copied from Stroom.&lt;/p&gt;
-&lt;h2 id=&#34;calling-an-api-method-with-curl&#34;&gt;Calling an API method with &lt;code&gt;curl&lt;/code&gt;&lt;/h2&gt;
+&lt;h2 id=&#34;calling-an-api-method-with-curl&#34;&gt;Calling an API Method with &lt;code&gt;curl&lt;/code&gt;&lt;/h2&gt;
 &lt;p&gt;This section describes how to call an API method using the command line tool &lt;code&gt;curl&lt;/code&gt; as an example client.
 Other clients can be used, e.g. using python, but these examples should provide enough help to get started using another client.&lt;/p&gt;
-&lt;h3 id=&#34;http-requests-without-a-body&#34;&gt;HTTP Requests Without a Body&lt;/h3&gt;
+&lt;h3 id=&#34;http-requests-without-a-body&#34;&gt;HTTP Requests without a Body&lt;/h3&gt;
 &lt;p&gt;Typically HTTP &lt;code&gt;GET&lt;/code&gt; requests will have no body/payload
 Often &lt;code&gt;PUT&lt;/code&gt; and &lt;code&gt;DELETE&lt;/code&gt; requests will also have no body/payload.&lt;/p&gt;
 &lt;p&gt;The following is an example of how to call an HTTP GET method (i.e. a method that does not require a request body) on the API using &lt;code&gt;curl&lt;/code&gt;.&lt;/p&gt;
@@ -1251,8 +1272,9 @@ curl \
 &lt;/div&gt;
 
 
-&lt;p&gt;You can either call the API via Nginx (or similar reverse proxy) at &lt;code&gt;https://stroom-fqdn/api/some/path&lt;/code&gt; or if you are making the call from one of the stroom hosts you can go direct using &lt;code&gt;http://localhost:8080/api/some/path&lt;/code&gt;. The former is preferred as it is more secure.&lt;/p&gt;
-&lt;h3 id=&#34;requests-with-a-body&#34;&gt;Requests With a Body&lt;/h3&gt;
+&lt;p&gt;You can either call the API via Nginx (or similar reverse proxy) at &lt;code&gt;https://stroom-fqdn/api/some/path&lt;/code&gt; or if you are making the call from one of the stroom hosts you can go direct using &lt;code&gt;http://localhost:8080/api/some/path&lt;/code&gt;.
+The former is preferred as it is more secure.&lt;/p&gt;
+&lt;h3 id=&#34;requests-with-a-body&#34;&gt;Requests with a Body&lt;/h3&gt;
 &lt;p&gt;A lot of the API methods in Stroom require complex bodies/payloads for the request.
 The following example is an HTTP &lt;code&gt;POST&lt;/code&gt; to perform a reference data lookup on the local host.&lt;/p&gt;
 &lt;p&gt;Create a file &lt;code&gt;req.json&lt;/code&gt; containing:&lt;/p&gt;
@@ -1389,10 +1411,10 @@ The &lt;a href=&#34;../../docs/install-guide/setup/open-id/external-idp/keycloak
 &lt;/div&gt;
 &lt;/div&gt;
 
-&lt;h2 id=&#34;keycloak-setup&#34;&gt;KeyCloak setup&lt;/h2&gt;
+&lt;h2 id=&#34;keycloak-setup&#34;&gt;KeyCloak Setup&lt;/h2&gt;
 &lt;p&gt;Create a realm and a confidential client as described on the &lt;a href=&#34;../../docs/install-guide/setup/open-id/external-idp/keycloak/&#34;&gt;KeyCloak&lt;/a&gt; page, with one difference: the client&amp;rsquo;s redirect URI is &lt;strong&gt;oauth2-proxy&amp;rsquo;s&lt;/strong&gt; callback, &lt;code&gt;https://STROOM_FQDN/oauth2/callback&lt;/code&gt;, not Stroom&amp;rsquo;s.&lt;/p&gt;
 &lt;p&gt;No second client for Stroom is needed.&lt;/p&gt;
-&lt;h2 id=&#34;oauth2-proxy-setup&#34;&gt;oauth2-proxy setup&lt;/h2&gt;
+&lt;h2 id=&#34;oauth2-proxy-setup&#34;&gt;Oauth2-proxy Setup&lt;/h2&gt;
 &lt;pre&gt;&lt;code class=&#34;language-ini&#34;&gt;provider = &amp;quot;keycloak-oidc&amp;quot;
 oidc_issuer_url = &amp;quot;https://IDP_HOST/realms/REALM&amp;quot;
 client_id = &amp;quot;stroom-proxy-client&amp;quot;
@@ -1418,7 +1440,7 @@ Stroom verifies either happily, but this means the &lt;code&gt;requiredAccessTok
 &lt;/div&gt;
 
 
-&lt;h2 id=&#34;nginx-setup&#34;&gt;NGINX setup&lt;/h2&gt;
+&lt;h2 id=&#34;nginx-setup&#34;&gt;NGINX Setup&lt;/h2&gt;
 &lt;p&gt;The essential shape — authenticate the browser paths, forward the machine paths untouched, and &lt;strong&gt;overwrite&lt;/strong&gt; the &lt;code&gt;Authorization&lt;/code&gt; header on everything proxied:&lt;/p&gt;
 &lt;pre&gt;&lt;code class=&#34;language-nginx&#34;&gt;server {
     listen 443 ssl;
@@ -1463,7 +1485,7 @@ Stroom verifies either happily, but this means the &lt;code&gt;requiredAccessTok
     location /status    { proxy_pass https://stroom-backend:8080/status; }
 }
 &lt;/code&gt;&lt;/pre&gt;
-&lt;h2 id=&#34;stroom-configuration&#34;&gt;Stroom configuration&lt;/h2&gt;
+&lt;h2 id=&#34;stroom-configuration&#34;&gt;Stroom Configuration&lt;/h2&gt;
 &lt;pre&gt;&lt;code class=&#34;language-yaml&#34;&gt;server:
   applicationConnectors:
     - type: http
@@ -1509,7 +1531,7 @@ To also end the KeyCloak session, give oauth2-proxy&amp;rsquo;s sign out a redir
 &lt;pre&gt;&lt;code class=&#34;language-yaml&#34;&gt;          signOutUrl: &amp;quot;https://STROOM_FQDN/oauth2/sign_out?rd=https%3A%2F%2FIDP_HOST%2Frealms%2FREALM%2Fprotocol%2Fopenid-connect%2Flogout&amp;quot;
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;(The &lt;code&gt;rd&lt;/code&gt; value must be URL encoded and allowed by oauth2-proxy&amp;rsquo;s &lt;code&gt;whitelist_domains&lt;/code&gt;.)&lt;/p&gt;
-&lt;h2 id=&#34;verifying-it-works&#34;&gt;Verifying it works&lt;/h2&gt;
+&lt;h2 id=&#34;verifying-it-works&#34;&gt;Verifying it Works&lt;/h2&gt;
 &lt;ol&gt;
 &lt;li&gt;Loading Stroom redirects via oauth2-proxy to KeyCloak; after signing in, the UI loads.&lt;/li&gt;
 &lt;li&gt;The request to &lt;code&gt;/api/auth/flow/v1/status&lt;/code&gt; returns &lt;code&gt;200&lt;/code&gt; with &lt;code&gt;&amp;quot;authenticated&amp;quot;: true&lt;/code&gt;, and there is no subsequent navigation to KeyCloak&amp;rsquo;s &lt;code&gt;/auth&lt;/code&gt; endpoint.&lt;/li&gt;
@@ -1566,17 +1588,19 @@ If Stroom sits behind an AWS Application Load Balancer whose listener rule does 
 
 &lt;p&gt;Cognito differs from a typical OIDC provider in two ways that directly affect the Stroom configuration, so they are worth knowing before you start.&lt;/p&gt;
 &lt;ul&gt;
-&lt;li&gt;Its &lt;strong&gt;access tokens carry no &lt;code&gt;aud&lt;/code&gt; claim&lt;/strong&gt;, using &lt;code&gt;client_id&lt;/code&gt; instead. Stroom requires an audience claim by default, so this has to be turned off.&lt;/li&gt;
+&lt;li&gt;Its &lt;strong&gt;access tokens carry no &lt;code&gt;aud&lt;/code&gt; claim&lt;/strong&gt;, using &lt;code&gt;client_id&lt;/code&gt; instead.
+Stroom requires an audience claim by default, so this has to be turned off.&lt;/li&gt;
 &lt;li&gt;Its authorization, token and sign out endpoints belong to the &lt;strong&gt;hosted UI domain&lt;/strong&gt;, which is separate from the user pool&amp;rsquo;s issuer host.&lt;/li&gt;
 &lt;/ul&gt;
-&lt;h2 id=&#34;creating-the-user-pool-and-app-client&#34;&gt;Creating the user pool and app client&lt;/h2&gt;
+&lt;h2 id=&#34;creating-the-user-pool-and-app-client&#34;&gt;Creating the User Pool and App Client&lt;/h2&gt;
 &lt;p&gt;In the AWS console, under Cognito:&lt;/p&gt;
 &lt;ol&gt;
 &lt;li&gt;Create a user pool, or use an existing one.&lt;/li&gt;
 &lt;li&gt;Configure a &lt;strong&gt;domain&lt;/strong&gt; for the pool, either a Cognito prefix domain giving &lt;code&gt;https://YOUR_PREFIX.auth.REGION.amazoncognito.com&lt;/code&gt;, or your own custom domain.
 This provides the hosted UI and the OAuth endpoints, and is required.&lt;/li&gt;
 &lt;li&gt;Create an &lt;strong&gt;app client&lt;/strong&gt; of the confidential type, i.e. one with a client secret.&lt;/li&gt;
-&lt;li&gt;Enable the &lt;strong&gt;Authorization code grant&lt;/strong&gt; for the client. Do not enable the implicit grant.&lt;/li&gt;
+&lt;li&gt;Enable the &lt;strong&gt;Authorization code grant&lt;/strong&gt; for the client.
+Do not enable the implicit grant.&lt;/li&gt;
 &lt;li&gt;Set the OpenID Connect scopes to at least &lt;code&gt;openid&lt;/code&gt; and &lt;code&gt;email&lt;/code&gt;.&lt;/li&gt;
 &lt;li&gt;Set the &lt;strong&gt;Allowed callback URL&lt;/strong&gt; to &lt;code&gt;https://STROOM_FQDN/api/auth/flow/v1/signin-oidc&lt;/code&gt;.&lt;/li&gt;
 &lt;li&gt;Set the &lt;strong&gt;Allowed sign out URL&lt;/strong&gt; to &lt;code&gt;https://STROOM_FQDN/&lt;/code&gt;.&lt;/li&gt;
@@ -1595,7 +1619,7 @@ It matches them exactly and does not accept wildcards, so register the single UR
 
 
 &lt;p&gt;Cognito supports PKCE, and Stroom always sends an &lt;code&gt;S256&lt;/code&gt; challenge, so there is nothing to configure for it.&lt;/p&gt;
-&lt;h2 id=&#34;the-endpoints&#34;&gt;The endpoints&lt;/h2&gt;
+&lt;h2 id=&#34;the-endpoints&#34;&gt;The Endpoints&lt;/h2&gt;
 &lt;p&gt;Two different hosts are involved.&lt;/p&gt;
 &lt;table&gt;
 &lt;thead&gt;
@@ -1662,7 +1686,7 @@ Where the two agree you can leave &lt;code&gt;authEndpoint&lt;/code&gt; and &lt;
         # Cognito does not issue &#39;preferred_username&#39;
         userDisplayNameClaim: &amp;quot;cognito:username&amp;quot;
 &lt;/code&gt;&lt;/pre&gt;
-&lt;h3 id=&#34;audience-validation&#34;&gt;Audience validation&lt;/h3&gt;
+&lt;h3 id=&#34;audience-validation&#34;&gt;Audience Validation&lt;/h3&gt;
 &lt;p&gt;This is the setting most likely to catch you out.&lt;/p&gt;
 &lt;p&gt;A Cognito &lt;strong&gt;id_token&lt;/strong&gt;, used by interactive sign in, carries &lt;code&gt;aud&lt;/code&gt; set to the app client id, so it validates against &lt;code&gt;clientId&lt;/code&gt; with no further configuration.&lt;/p&gt;
 &lt;p&gt;A Cognito &lt;strong&gt;access token&lt;/strong&gt;, used for API calls, carries no &lt;code&gt;aud&lt;/code&gt; claim at all; the equivalent information is in a &lt;code&gt;client_id&lt;/code&gt; claim, which is not something Stroom validates against.
@@ -1696,7 +1720,7 @@ Both can be changed or reassigned to another person, who would then inherit the 
 
 &lt;p&gt;For &lt;code&gt;fullNameClaimTemplate&lt;/code&gt; to resolve, the corresponding attributes must be populated on the user and included in the token.
 Add &lt;code&gt;profile&lt;/code&gt; to &lt;code&gt;requestScopes&lt;/code&gt; if you need &lt;code&gt;name&lt;/code&gt;, &lt;code&gt;given_name&lt;/code&gt; or &lt;code&gt;family_name&lt;/code&gt;.&lt;/p&gt;
-&lt;h3 id=&#34;signing-out&#34;&gt;Signing out&lt;/h3&gt;
+&lt;h3 id=&#34;signing-out&#34;&gt;Signing Out&lt;/h3&gt;
 &lt;p&gt;Cognito&amp;rsquo;s sign out endpoint has historically expected the return address in a &lt;code&gt;logout_uri&lt;/code&gt; parameter rather than the &lt;code&gt;post_logout_redirect_uri&lt;/code&gt; that Stroom sends.&lt;/p&gt;
 &lt;p&gt;Check whether sign out returns your users to Stroom.
 If it leaves them on an error page at Cognito, try:&lt;/p&gt;
@@ -1704,10 +1728,10 @@ If it leaves them on an error page at Cognito, try:&lt;/p&gt;
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;Those two values are the only ones Stroom accepts.
 If neither works with your pool, leave &lt;code&gt;logoutEndpoint&lt;/code&gt; unset; signing out will then end the Stroom session without signing the user out of Cognito, which means their next visit will sign them straight back in without being asked for credentials.&lt;/p&gt;
-&lt;h3 id=&#34;access-token-type&#34;&gt;Access token type&lt;/h3&gt;
+&lt;h3 id=&#34;access-token-type&#34;&gt;Access Token Type&lt;/h3&gt;
 &lt;p&gt;Leave &lt;code&gt;requiredAccessTokenType&lt;/code&gt; unset unless you have decoded the header of a real Cognito access token and confirmed what it contains.
 It is a hardening measure, and setting it to a value your provider does not use will refuse every API call.&lt;/p&gt;
-&lt;h2 id=&#34;setting-up-the-admin-user-in-stroom&#34;&gt;Setting up the admin user in Stroom&lt;/h2&gt;
+&lt;h2 id=&#34;setting-up-the-admin-user-in-stroom&#34;&gt;Setting up the Admin User in Stroom&lt;/h2&gt;
 &lt;p&gt;The bootstrap process is the same as for any provider.
 Find the &lt;code&gt;sub&lt;/code&gt; of the user who is to be the administrator, which for Cognito is the user&amp;rsquo;s UUID as shown in the console, then run the &lt;code&gt;manage_users&lt;/code&gt; command &lt;strong&gt;before&lt;/strong&gt; starting Stroom for the first time.&lt;/p&gt;
 
@@ -1811,7 +1835,7 @@ It applies whichever provider you use, so read it before following one of the pr
 &lt;li&gt;&lt;a href=&#34;../../docs/install-guide/setup/open-id/external-idp/google/&#34;&gt;Google&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href=&#34;../../docs/install-guide/setup/open-id/external-idp/azure-ad/&#34;&gt;Microsoft Entra ID (Azure AD)&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
-&lt;h2 id=&#34;what-stroom-needs-from-the-provider&#34;&gt;What Stroom needs from the provider&lt;/h2&gt;
+&lt;h2 id=&#34;what-stroom-needs-from-the-provider&#34;&gt;What Stroom Needs from the Provider&lt;/h2&gt;
 &lt;p&gt;Stroom is a confidential OAuth 2.0 client using the authorization code flow.
 To register it with a provider you need the following.&lt;/p&gt;
 &lt;table&gt;
@@ -1850,7 +1874,7 @@ To register it with a provider you need the following.&lt;/p&gt;
 &lt;/table&gt;
 &lt;p&gt;&lt;code&gt;STROOM_FQDN&lt;/code&gt; is the public facing address of Stroom, which is what you have configured as &lt;code&gt;appConfig.publicUri&lt;/code&gt; and is the address users type into their browser.
 If Stroom is behind a load balancer or Nginx, it is that address and not the address of an individual node.&lt;/p&gt;
-&lt;h3 id=&#34;the-redirect-uri&#34;&gt;The redirect URI&lt;/h3&gt;
+&lt;h3 id=&#34;the-redirect-uri&#34;&gt;The Redirect URI&lt;/h3&gt;
 &lt;p&gt;The redirect URI, sometimes called the callback or reply URL, is where the provider sends the user&amp;rsquo;s browser once they have authenticated.&lt;/p&gt;
 &lt;p&gt;Stroom uses a single fixed redirect URI:&lt;/p&gt;
 &lt;pre&gt;&lt;code&gt;https://STROOM_FQDN/api/auth/flow/v1/signin-oidc
@@ -1870,7 +1894,7 @@ If you are upgrading, replace any such wildcard with the single exact URI above,
 
 
 &lt;p&gt;If Stroom is served under a path prefix, i.e. &lt;code&gt;appConfig.publicUri.pathPrefix&lt;/code&gt; is set, that prefix comes before &lt;code&gt;/api&lt;/code&gt;.&lt;/p&gt;
-&lt;h3 id=&#34;the-post-logout-redirect-uri&#34;&gt;The post logout redirect URI&lt;/h3&gt;
+&lt;h3 id=&#34;the-post-logout-redirect-uri&#34;&gt;The Post Logout Redirect URI&lt;/h3&gt;
 &lt;p&gt;When a user signs out, Stroom sends them to the provider&amp;rsquo;s logout endpoint and asks to be returned to Stroom&amp;rsquo;s public root:&lt;/p&gt;
 &lt;pre&gt;&lt;code&gt;https://STROOM_FQDN/
 &lt;/code&gt;&lt;/pre&gt;
@@ -1927,7 +1951,7 @@ Both can be reassigned to a different person at the provider, and whoever holds 
 &lt;/div&gt;
 
 
-&lt;h2 id=&#34;token-validation&#34;&gt;Token validation&lt;/h2&gt;
+&lt;h2 id=&#34;token-validation&#34;&gt;Token Validation&lt;/h2&gt;
 &lt;p&gt;Stroom validates every token it is given, whether that is the &lt;code&gt;id_token&lt;/code&gt; from an interactive sign in or a bearer access token presented to the API.&lt;/p&gt;
 &lt;p&gt;The signature must verify against a key from the provider&amp;rsquo;s JWKS, and the algorithm must be one of the RSA, RSA-PSS or ECDSA families.
 Unsigned tokens and tokens signed with an HMAC algorithm are refused.&lt;/p&gt;
@@ -1945,7 +1969,7 @@ It is API authentication with access tokens where providers differ.
 &lt;/div&gt;
 
 
-&lt;h2 id=&#34;users-and-permissions&#34;&gt;Users and permissions&lt;/h2&gt;
+&lt;h2 id=&#34;users-and-permissions&#34;&gt;Users and Permissions&lt;/h2&gt;
 &lt;p&gt;Authentication is handled by the provider.
 Authorisation, i.e. what a user may do once they are in, is always handled by Stroom.&lt;/p&gt;
 &lt;p&gt;Whenever a user successfully signs in via the provider, Stroom automatically creates an entry for them in its own user table.
@@ -2296,7 +2320,7 @@ See &lt;a href=&#34;../../docs/install-guide/setup/open-id/&#34;&gt;Open ID Conn
 &lt;/div&gt;
 
 
-&lt;h2 id=&#34;signing-in-with-a-password&#34;&gt;Signing In With A Password&lt;/h2&gt;
+&lt;h2 id=&#34;signing-in-with-a-password&#34;&gt;Signing in with a Password&lt;/h2&gt;
 &lt;p&gt;The outcome of a sign in attempt depends on the state of the account as well as the password.&lt;/p&gt;
 &lt;table&gt;
 &lt;thead&gt;
@@ -2332,7 +2356,7 @@ See &lt;a href=&#34;../../docs/install-guide/setup/open-id/&#34;&gt;Open ID Conn
 &lt;p&gt;For a disabled or locked account the password is not checked at all.
 Neither state can be talked out of with a correct password, so there is nothing to be gained by checking one, and refusing without checking means the sign in screen cannot be used to test whether a password is correct.&lt;/p&gt;
 &lt;p&gt;Failed attempts against a disabled or locked account are not counted, because the account is already refused.&lt;/p&gt;
-&lt;h3 id=&#34;being-asked-to-change-your-password&#34;&gt;Being Asked To Change Your Password&lt;/h3&gt;
+&lt;h3 id=&#34;being-asked-to-change-your-password&#34;&gt;Being Asked to Change Your Password&lt;/h3&gt;
 &lt;p&gt;A user may be signed in successfully and then be required to set a new password before they can do anything else.
 This happens in three cases:&lt;/p&gt;
 &lt;ul&gt;
@@ -2374,7 +2398,7 @@ The previous password cannot be reused.&lt;/p&gt;
 &lt;p&gt;An administrator is only named where an administrator really is the only way back.
 In a default configuration a locked user is told to wait, which avoids a support request for something that resolves itself.&lt;/p&gt;
 &lt;p&gt;See &lt;a href=&#34;../../docs/user-guide/security/user-accounts/&#34;&gt;User Accounts&lt;/a&gt; for the three ways an account becomes usable again.&lt;/p&gt;
-&lt;h2 id=&#34;resetting-a-forgotten-password&#34;&gt;Resetting A Forgotten Password&lt;/h2&gt;
+&lt;h2 id=&#34;resetting-a-forgotten-password&#34;&gt;Resetting a Forgotten Password&lt;/h2&gt;
 &lt;p&gt;If the user has an email address recorded against their account, and &lt;code&gt;stroom.security.identity.passwordPolicy.allowPasswordResets&lt;/code&gt; is enabled, they can use &lt;em&gt;Forgot password?&lt;/em&gt; on the sign in screen to be emailed a link for setting a new password.&lt;/p&gt;
 &lt;p&gt;The response shown on screen is the same whether or not the address belongs to an account, so this screen cannot be used to discover which email addresses have accounts.&lt;/p&gt;
 &lt;p&gt;The link is valid for &lt;code&gt;stroom.security.identity.token.emailResetTokenExpiration&lt;/code&gt;, ten minutes by default, and can be used only once.
@@ -2382,7 +2406,7 @@ Requesting another link invalidates any earlier one.
 Repeated requests are rate limited by &lt;code&gt;stroom.security.identity.passwordResetRequestCooldown&lt;/code&gt;.&lt;/p&gt;
 &lt;p&gt;Completing a reset ends all of that user&amp;rsquo;s existing sessions everywhere in the cluster.
 They then sign in with their new password.&lt;/p&gt;
-&lt;h3 id=&#34;when-a-reset-cannot-be-completed&#34;&gt;When A Reset Cannot Be Completed&lt;/h3&gt;
+&lt;h3 id=&#34;when-a-reset-cannot-be-completed&#34;&gt;When a Reset Cannot be Completed&lt;/h3&gt;
 &lt;p&gt;Some accounts cannot be recovered this way.
 Rather than sending a link that would not work, Stroom emails the account holder to say that the reset cannot currently be completed and that they should contact an administrator if it continues.&lt;/p&gt;
 &lt;p&gt;This happens when:&lt;/p&gt;
@@ -2397,7 +2421,7 @@ Without it, setting a new password would not be enough to sign in, so an adminis
 &lt;p&gt;The email is deliberately the same in all three cases and does not say which one applies.
 It goes to the address held against the account, so it tells the account holder something is wrong without telling whoever made the request anything at all.&lt;/p&gt;
 &lt;p&gt;No email of any kind is sent when there is nobody to send it to, that is when the address matches no account, the account has no email address recorded, password resets are turned off, or an email was already sent within the cool-down period.&lt;/p&gt;
-&lt;h2 id=&#34;signing-in-with-a-certificate&#34;&gt;Signing In With A Certificate&lt;/h2&gt;
+&lt;h2 id=&#34;signing-in-with-a-certificate&#34;&gt;Signing in with a Certificate&lt;/h2&gt;
 &lt;p&gt;If &lt;code&gt;stroom.security.identity.allowCertificateAuthentication&lt;/code&gt; is enabled, a user presenting a valid certificate can be signed in without typing a password.
 The user id is taken from the certificate&amp;rsquo;s common name using &lt;code&gt;stroom.security.identity.certificateCnPattern&lt;/code&gt; and &lt;code&gt;stroom.security.identity.certificateCnCaptureGroupIndex&lt;/code&gt;.&lt;/p&gt;
 &lt;p&gt;A valid certificate is treated in exactly the same way as a correct password.
@@ -2570,7 +2594,7 @@ It does not withdraw their access: the account is untouched and they can sign in
 This is offered alongside revocation because the two are easily confused and do quite different things, as described below.&lt;/p&gt;
 &lt;/li&gt;
 &lt;/ul&gt;
-&lt;h2 id=&#34;revoking-disabling-and-the-difference-between-them&#34;&gt;Revoking, Disabling, And The Difference Between Them&lt;/h2&gt;
+&lt;h2 id=&#34;revoking-disabling-and-the-difference-between-them&#34;&gt;Revoking, Disabling, and the Difference between Them&lt;/h2&gt;
 &lt;p&gt;Three actions are easy to confuse, and each does something different.
 To stop someone using Stroom completely and immediately, you need the last two together.&lt;/p&gt;
 &lt;table&gt;
@@ -2750,7 +2774,7 @@ Stroom supports it as a first class deployment model.&lt;/p&gt;
 &lt;/div&gt;
 
 
-&lt;h2 id=&#34;the-one-rule-exactly-one-relying-party&#34;&gt;The one rule: exactly one Relying Party&lt;/h2&gt;
+&lt;h2 id=&#34;the-one-rule-exactly-one-relying-party&#34;&gt;The One Rule: Exactly One Relying Party&lt;/h2&gt;
 &lt;p&gt;For any given path, exactly one component runs the OIDC flow — the proxy, or Stroom, never both.&lt;/p&gt;
 &lt;p&gt;If Stroom is left in its normal configuration behind an authenticating proxy, both try to be the Relying Party.
 The browser is driven through a second, redundant OIDC flow stacked on the one the proxy already completed, which needs a second client registration at the IDP, doubles the cookies on every request, and typically fails with &lt;code&gt;Stroom Loading, Authentication Error: Failed to Fetch&lt;/code&gt;.&lt;/p&gt;
@@ -2774,7 +2798,7 @@ Direct machine access is unaffected: API keys and bearer tokens work as they alw
 &lt;/div&gt;
 
 
-&lt;h2 id=&#34;stroom-configuration&#34;&gt;Stroom configuration&lt;/h2&gt;
+&lt;h2 id=&#34;stroom-configuration&#34;&gt;Stroom Configuration&lt;/h2&gt;
 &lt;pre&gt;&lt;code class=&#34;language-yaml&#34;&gt;  security:
     authentication:
       edgeAuthentication:
@@ -2822,7 +2846,7 @@ Scripts, &lt;code&gt;curl&lt;/code&gt; and other non browser automation are unaf
 &lt;/div&gt;
 
 
-&lt;h2 id=&#34;what-the-proxy-must-and-must-not-authenticate&#34;&gt;What the proxy must and must not authenticate&lt;/h2&gt;
+&lt;h2 id=&#34;what-the-proxy-must-and-must-not-authenticate&#34;&gt;What the Proxy Must and Must Not Authenticate&lt;/h2&gt;
 &lt;p&gt;Stroom is not only a web application; it ingests data, serves health checks and its nodes talk to each other.
 None of that traffic can complete an interactive sign in, so the proxy&amp;rsquo;s authenticate rule must cover the browser facing paths &lt;strong&gt;only&lt;/strong&gt;.&lt;/p&gt;
 &lt;table&gt;
@@ -2868,7 +2892,7 @@ None of that traffic can complete an interactive sign in, so the proxy&amp;rsquo
 &lt;/table&gt;
 &lt;p&gt;Stroom still authenticates the bypassed paths itself — bypassing the proxy does not bypass Stroom&amp;rsquo;s own checks.&lt;/p&gt;
 &lt;p&gt;Node to node traffic inside a cluster does not go through the proxy and needs no special handling.&lt;/p&gt;
-&lt;h2 id=&#34;trust-prerequisites&#34;&gt;Trust prerequisites&lt;/h2&gt;
+&lt;h2 id=&#34;trust-prerequisites&#34;&gt;Trust Prerequisites&lt;/h2&gt;
 &lt;p&gt;Stroom verifies the signature of whatever credential the proxy injects, so a forged header does not authenticate.
 Two things must still be true of the deployment, and Stroom cannot verify them from the inside:&lt;/p&gt;
 &lt;ol&gt;
@@ -2876,7 +2900,7 @@ Two things must still be true of the deployment, and Stroom cannot verify them f
 &lt;li&gt;&lt;strong&gt;The proxy overwrites the headers it injects&lt;/strong&gt;, so a client cannot supply its own.
 The ALB does this for its &lt;code&gt;x-amzn-oidc-*&lt;/code&gt; headers; with NGINX make sure &lt;code&gt;proxy_set_header&lt;/code&gt; is used for the &lt;code&gt;Authorization&lt;/code&gt; header, which overwrites, and nothing upstream re-adds it.&lt;/li&gt;
 &lt;/ol&gt;
-&lt;h2 id=&#34;request-header-sizes&#34;&gt;Request header sizes&lt;/h2&gt;
+&lt;h2 id=&#34;request-header-sizes&#34;&gt;Request Header Sizes&lt;/h2&gt;
 &lt;p&gt;Authenticating proxies make requests big.
 An ALB&amp;rsquo;s session cookie is sharded at 4KB per shard, and the injected token headers come on top, so an ordinary authenticated request can exceed the 8KB per request default that Jetty applies when nothing is configured.
 The failure looks like a network error, not an authentication error.&lt;/p&gt;
@@ -2888,7 +2912,7 @@ The failure looks like a network error, not an authentication error.&lt;/p&gt;
       useForwardedHeaders: true
       maxRequestHeaderSize: 32KiB
 &lt;/code&gt;&lt;/pre&gt;
-&lt;h2 id=&#34;user-accounts-and-permissions&#34;&gt;User accounts and permissions&lt;/h2&gt;
+&lt;h2 id=&#34;user-accounts-and-permissions&#34;&gt;User Accounts and Permissions&lt;/h2&gt;
 &lt;p&gt;Exactly as with any &lt;a href=&#34;../../docs/install-guide/setup/open-id/external-idp/&#34;&gt;external IDP&lt;/a&gt;, the proxy establishes &lt;em&gt;who the user is&lt;/em&gt;; Stroom still decides &lt;em&gt;what they may do&lt;/em&gt;.
 A Stroom user record is created automatically the first time a verified identity is seen, with no permissions.
 Anyone the IDP will authenticate can therefore reach an empty Stroom UI, so if that is not wanted, restrict who can authenticate at the IDP or proxy (for example, limit the Cognito app client or the ALB rule to a group).&lt;/p&gt;
@@ -2902,7 +2926,7 @@ Anyone the IDP will authenticate can therefore reach an empty Stroom UI, so if t
 &lt;/div&gt;
 &lt;/div&gt;
 
-&lt;h2 id=&#34;worked-examples&#34;&gt;Worked examples&lt;/h2&gt;
+&lt;h2 id=&#34;worked-examples&#34;&gt;Worked Examples&lt;/h2&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;a href=&#34;../../docs/install-guide/setup/open-id/edge-proxy/aws-alb-cognito/&#34;&gt;AWS ALB and Cognito&lt;/a&gt; - the load balancer authenticates against a Cognito user pool and injects a signed &lt;code&gt;x-amzn-oidc-data&lt;/code&gt; header.&lt;/li&gt;
 &lt;li&gt;&lt;a href=&#34;../../docs/install-guide/setup/open-id/edge-proxy/nginx-oauth2-proxy/&#34;&gt;NGINX, oauth2-proxy and KeyCloak&lt;/a&gt; - the proxy authenticates against KeyCloak (or any OIDC provider) and relays the IDP&amp;rsquo;s token as a bearer header.&lt;/li&gt;
@@ -3043,7 +3067,7 @@ Withdrawing a signing key affects everybody using Stroom at once, so it is treat
 
 
 &lt;p&gt;from the main menu.&lt;/p&gt;
-&lt;h2 id=&#34;what-the-screen-shows&#34;&gt;What The Screen Shows&lt;/h2&gt;
+&lt;h2 id=&#34;what-the-screen-shows&#34;&gt;What the Screen Shows&lt;/h2&gt;
 &lt;p&gt;Each key is listed with its status and the date it was issued, and nothing else.
 Nothing that identifies a key or describes its contents is shown, because the stored key includes the private half that produces signatures.&lt;/p&gt;
 &lt;table&gt;
@@ -3079,7 +3103,7 @@ Rotation replaces the active key when it is old enough, and only at that point d
 &lt;p&gt;Stroom replaces the active signing key every &lt;code&gt;stroom.security.identity.token.jwkRotationInterval&lt;/code&gt;, which is thirty days by default.&lt;/p&gt;
 &lt;p&gt;Rotation is invisible to users.
 The key being replaced continues to be trusted for long enough that every token already signed with it expires naturally, so nobody is signed out and nothing needs to be restarted.&lt;/p&gt;
-&lt;h2 id=&#34;revoking-a-key&#34;&gt;Revoking A Key&lt;/h2&gt;
+&lt;h2 id=&#34;revoking-a-key&#34;&gt;Revoking a Key&lt;/h2&gt;
 &lt;p&gt;Revoking withdraws a key immediately.
 Any token signed with it stops being accepted, and a replacement signing key is created at the same moment so that Stroom can carry on issuing tokens.&lt;/p&gt;
 &lt;p&gt;There are two actions.&lt;/p&gt;
@@ -3102,7 +3126,7 @@ A key revoked by mistake costs everybody a fresh sign in, but no data is lost.&l
 &lt;/div&gt;
 
 
-&lt;h3 id=&#34;what-to-expect-after-revoking-the-active-key&#34;&gt;What To Expect After Revoking The Active Key&lt;/h3&gt;
+&lt;h3 id=&#34;what-to-expect-after-revoking-the-active-key&#34;&gt;What to Expect after Revoking the Active Key&lt;/h3&gt;
 &lt;p&gt;Everybody using Stroom is signed out and must authenticate again.
 For people at a browser this is quick, and they will be signed back in as soon as they do so.&lt;/p&gt;
 &lt;p&gt;Nodes and Stroom-Proxy hold their own tokens signed with the same key, and they replace those tokens as they expire rather than immediately.
@@ -3163,15 +3187,19 @@ This resolves itself and needs no intervention, but it is worth expecting rather
 
     &lt;p&gt;Google is a more limited choice than KeyCloak or Cognito, in three respects.&lt;/p&gt;
 &lt;ul&gt;
-&lt;li&gt;&lt;strong&gt;Its access tokens are opaque, not JWTs.&lt;/strong&gt; Stroom cannot validate them, so token authentication for the API and for data receipt does not work with Google. Use Stroom &lt;span class=&#34;glossary-link&#34;&gt;
+&lt;li&gt;&lt;strong&gt;Its access tokens are opaque, not JWTs.&lt;/strong&gt;
+Stroom cannot validate them, so token authentication for the API and for data receipt does not work with Google.
+Use Stroom &lt;span class=&#34;glossary-link&#34;&gt;
 &lt;a href=&#34;../../docs/glossary/a/glossary-api-key&#34;&gt;
 &lt;span&gt;API Keys&lt;/span&gt;
 &lt;i class=&#34;glossary-link-icon fas fa-book fa-sm text-primary&#34;&gt;&lt;/i&gt;
 &lt;/a&gt;&lt;span class=&#34;glossary-tooltip&#34;&gt;
 &lt;span class=&#34;glossary-tooltip-title&#34;&gt;API Key&lt;/span&gt;
 &lt;span class=&#34;glossary-tooltip-summary&#34;&gt;&lt;em&gt;API Keys&lt;/em&gt; are a form of authentication token that are created within Stroom for use by Stroom-Proxy instances or other clients that want to use Stroom’s &lt;em&gt;API&lt;/em&gt;. It is an encrypted string that contains details of the user and the expiration date of the token. Possession of a valid API Key for a user account means that you can do anything that the user can do in the user interface via the API.&lt;/span&gt;&lt;span class=&#34;glossary-tooltip-truncated&#34;&gt;Click to see more details…&lt;/span&gt;&lt;/span&gt;&lt;/span&gt; instead.&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;It has no OIDC sign out endpoint.&lt;/strong&gt; Signing out of Stroom cannot sign the user out of Google.&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;It has no OIDC client credentials grant.&lt;/strong&gt; A Stroom-Proxy cannot obtain a service user token from Google.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;It has no OIDC sign out endpoint.&lt;/strong&gt;
+Signing out of Stroom cannot sign the user out of Google.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;It has no OIDC client credentials grant.&lt;/strong&gt;
+A Stroom-Proxy cannot obtain a service user token from Google.&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;Interactive sign in to the Stroom UI works perfectly well.
 It is the machine to machine paths that Google does not serve.&lt;/p&gt;
@@ -3180,7 +3208,7 @@ It is the machine to machine paths that Google does not serve.&lt;/p&gt;
 &lt;/div&gt;
 
 
-&lt;h2 id=&#34;creating-the-oauth-client&#34;&gt;Creating the OAuth client&lt;/h2&gt;
+&lt;h2 id=&#34;creating-the-oauth-client&#34;&gt;Creating the OAuth Client&lt;/h2&gt;
 &lt;p&gt;In the &lt;span class=&#34;external-link&#34;&gt;
   &lt;a href=&#34;https://console.cloud.google.com/&#34; target=&#34;_blank&#34; class=&#34;external-link&#34; title=&#34;Google Cloud Console (external link to https://console.cloud.google.com/)&#34;&gt;
     &lt;span&gt;Google Cloud Console&lt;/span&gt;
@@ -3190,7 +3218,9 @@ It is the machine to machine paths that Google does not serve.&lt;/p&gt;
 :&lt;/p&gt;
 &lt;ol&gt;
 &lt;li&gt;Select or create a project.&lt;/li&gt;
-&lt;li&gt;Configure the &lt;strong&gt;OAuth consent screen&lt;/strong&gt;. For a Workspace domain choose the &lt;em&gt;Internal&lt;/em&gt; user type, which restricts sign in to your own domain. For consumer accounts the only option is &lt;em&gt;External&lt;/em&gt;.&lt;/li&gt;
+&lt;li&gt;Configure the &lt;strong&gt;OAuth consent screen&lt;/strong&gt;.
+For a Workspace domain choose the &lt;em&gt;Internal&lt;/em&gt; user type, which restricts sign in to your own domain.
+For consumer accounts the only option is &lt;em&gt;External&lt;/em&gt;.&lt;/li&gt;
 &lt;li&gt;Go to &lt;em&gt;APIs &amp;amp; Services&lt;/em&gt; =&amp;gt; &lt;em&gt;Credentials&lt;/em&gt; =&amp;gt; &lt;em&gt;Create Credentials&lt;/em&gt; =&amp;gt; &lt;em&gt;OAuth client ID&lt;/em&gt;.&lt;/li&gt;
 &lt;li&gt;Choose an application type of &lt;strong&gt;Web application&lt;/strong&gt;.&lt;/li&gt;
 &lt;li&gt;Under &lt;em&gt;Authorised redirect URIs&lt;/em&gt;, add &lt;code&gt;https://STROOM_FQDN/api/auth/flow/v1/signin-oidc&lt;/code&gt;.&lt;/li&gt;
@@ -3231,7 +3261,7 @@ Stroom now uses the single fixed callback URI above, which Google accepts.&lt;/p
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;The discovery document supplies the issuer, &lt;code&gt;https://accounts.google.com&lt;/code&gt;, along with the authorization, token and JWKS endpoints, so none of those need setting by hand.&lt;/p&gt;
 &lt;p&gt;Note that &lt;code&gt;logoutEndpoint&lt;/code&gt; is deliberately absent; see &lt;a href=&#34;#signing-out&#34;&gt;Signing out&lt;/a&gt; below.&lt;/p&gt;
-&lt;h3 id=&#34;audience-validation&#34;&gt;Audience validation&lt;/h3&gt;
+&lt;h3 id=&#34;audience-validation&#34;&gt;Audience Validation&lt;/h3&gt;
 &lt;p&gt;Nothing to do.
 Google&amp;rsquo;s &lt;code&gt;id_token&lt;/code&gt; carries &lt;code&gt;aud&lt;/code&gt; set to your client id, so it validates against &lt;code&gt;clientId&lt;/code&gt; with the default settings.&lt;/p&gt;
 &lt;h3 id=&#34;claims&#34;&gt;Claims&lt;/h3&gt;
@@ -3253,30 +3283,32 @@ Google&amp;rsquo;s own guidance is to key on &lt;code&gt;sub&lt;/code&gt; for ex
 &lt;/div&gt;
 
 
-&lt;h3 id=&#34;signing-out&#34;&gt;Signing out&lt;/h3&gt;
+&lt;h3 id=&#34;signing-out&#34;&gt;Signing Out&lt;/h3&gt;
 &lt;p&gt;Google offers no OIDC sign out endpoint, so leave &lt;code&gt;logoutEndpoint&lt;/code&gt; unset.&lt;/p&gt;
 &lt;p&gt;Logging out of Stroom then ends the Stroom session but leaves the user signed in to Google.
 Their next visit to Stroom will sign them straight back in without being asked for credentials, which is worth being aware of on a shared machine.&lt;/p&gt;
 &lt;p&gt;Do not point &lt;code&gt;logoutEndpoint&lt;/code&gt; at a general Google sign out URL, as that would sign the user out of every Google service on that browser, which is unlikely to be what they expect from a Stroom logout.&lt;/p&gt;
-&lt;h3 id=&#34;access-token-type&#34;&gt;Access token type&lt;/h3&gt;
+&lt;h3 id=&#34;access-token-type&#34;&gt;Access Token Type&lt;/h3&gt;
 &lt;p&gt;Leave &lt;code&gt;requiredAccessTokenType&lt;/code&gt; unset.
 It applies to JWT bearer tokens on the API, and Google&amp;rsquo;s access tokens are not JWTs.&lt;/p&gt;
-&lt;h2 id=&#34;restricting-who-can-sign-in&#34;&gt;Restricting who can sign in&lt;/h2&gt;
+&lt;h2 id=&#34;restricting-who-can-sign-in&#34;&gt;Restricting Who Can Sign In&lt;/h2&gt;
 &lt;p&gt;Authentication and authorisation are separate.
 Anyone Google will authenticate can complete a sign in and have a Stroom user created for them, but that user starts with no permissions and no group memberships, so they can see nothing.&lt;/p&gt;
 &lt;p&gt;Even so, you should restrict who can reach the sign in at all:&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;For a Workspace domain, set the OAuth consent screen to &lt;em&gt;Internal&lt;/em&gt;, so only accounts in your domain can authenticate.&lt;/li&gt;
-&lt;li&gt;For consumer accounts there is no equivalent, so any Google account can reach the consent screen. Consider whether Google is the right provider in that case.&lt;/li&gt;
+&lt;li&gt;For consumer accounts there is no equivalent, so any Google account can reach the consent screen.
+Consider whether Google is the right provider in that case.&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;Stroom has no configuration to restrict sign in by &lt;code&gt;hd&lt;/code&gt; or email domain, so this has to be done at Google.&lt;/p&gt;
-&lt;h2 id=&#34;setting-up-the-admin-user-in-stroom&#34;&gt;Setting up the admin user in Stroom&lt;/h2&gt;
+&lt;h2 id=&#34;setting-up-the-admin-user-in-stroom&#34;&gt;Setting up the Admin User in Stroom&lt;/h2&gt;
 &lt;p&gt;Find the &lt;code&gt;sub&lt;/code&gt; of the account that is to be the administrator.
 Unlike KeyCloak and Cognito, Google does not show this in an admin console; the reliable way to obtain it is to decode an &lt;code&gt;id_token&lt;/code&gt; issued for that account, or read it from Stroom&amp;rsquo;s logs after the person has signed in once.&lt;/p&gt;
 &lt;p&gt;The simplest route is therefore:&lt;/p&gt;
 &lt;ol&gt;
 &lt;li&gt;Configure Stroom as above and start it.&lt;/li&gt;
-&lt;li&gt;Have the intended administrator sign in once. They will land in Stroom with no permissions.&lt;/li&gt;
+&lt;li&gt;Have the intended administrator sign in once.
+They will land in Stroom with no permissions.&lt;/li&gt;
 &lt;li&gt;Read their &lt;code&gt;sub&lt;/code&gt; from the Stroom logs, or from the 
 
 
@@ -3376,7 +3408,7 @@ java -jar /absolute/path/to/stroom-app-all.jar \
 &lt;/div&gt;
 &lt;/div&gt;
 
-&lt;h2 id=&#34;data-receipt-and-the-api&#34;&gt;Data receipt and the API&lt;/h2&gt;
+&lt;h2 id=&#34;data-receipt-and-the-api&#34;&gt;Data Receipt and the API&lt;/h2&gt;
 &lt;p&gt;Because Google&amp;rsquo;s access tokens are opaque rather than JWTs, Stroom cannot validate them, so this will not work:&lt;/p&gt;
 &lt;pre&gt;&lt;code class=&#34;language-yaml&#34;&gt;  receive:
     authenticationRequired: true
@@ -3448,7 +3480,7 @@ Entra ID is the current name for what was Azure Active Directory, and much of th
 
 &lt;p&gt;Entra ID has two generations of endpoint, v1.0 and v2.0, which issue tokens with different issuers and different formats.
 Two of the three things most likely to go wrong here come from mixing them up, so it is worth being deliberate: &lt;strong&gt;use the v2.0 endpoints throughout&lt;/strong&gt;.&lt;/p&gt;
-&lt;h2 id=&#34;creating-the-app-registration&#34;&gt;Creating the app registration&lt;/h2&gt;
+&lt;h2 id=&#34;creating-the-app-registration&#34;&gt;Creating the App Registration&lt;/h2&gt;
 &lt;p&gt;In the &lt;span class=&#34;external-link&#34;&gt;
   &lt;a href=&#34;https://entra.microsoft.com/&#34; target=&#34;_blank&#34; class=&#34;external-link&#34; title=&#34;Microsoft Entra admin centre (external link to https://entra.microsoft.com/)&#34;&gt;
     &lt;span&gt;Microsoft Entra admin centre&lt;/span&gt;
@@ -3459,7 +3491,8 @@ Two of the three things most likely to go wrong here come from mixing them up, s
 &lt;ol&gt;
 &lt;li&gt;Go to &lt;em&gt;App registrations&lt;/em&gt; =&amp;gt; &lt;em&gt;New registration&lt;/em&gt;.&lt;/li&gt;
 &lt;li&gt;Give it a name, e.g. &lt;code&gt;Stroom&lt;/code&gt;.&lt;/li&gt;
-&lt;li&gt;For &lt;em&gt;Supported account types&lt;/em&gt; choose &lt;strong&gt;Accounts in this organizational directory only&lt;/strong&gt;, i.e. single tenant, unless you have a specific reason not to. This restricts sign in to your own tenant.&lt;/li&gt;
+&lt;li&gt;For &lt;em&gt;Supported account types&lt;/em&gt; choose &lt;strong&gt;Accounts in this organizational directory only&lt;/strong&gt;, i.e. single tenant, unless you have a specific reason not to.
+This restricts sign in to your own tenant.&lt;/li&gt;
 &lt;li&gt;Under &lt;em&gt;Redirect URI&lt;/em&gt; select a platform of &lt;strong&gt;Web&lt;/strong&gt; and enter &lt;code&gt;https://STROOM_FQDN/api/auth/flow/v1/signin-oidc&lt;/code&gt;.&lt;/li&gt;
 &lt;li&gt;Click &lt;em&gt;Register&lt;/em&gt;, then note the &lt;strong&gt;Application (client) ID&lt;/strong&gt; and the &lt;strong&gt;Directory (tenant) ID&lt;/strong&gt; from the overview page.&lt;/li&gt;
 &lt;/ol&gt;
@@ -3495,14 +3528,15 @@ When the secret expires Stroom will stop being able to exchange authorization co
 
 
 &lt;p&gt;Entra ID supports PKCE, and Stroom always sends an &lt;code&gt;S256&lt;/code&gt; challenge, so there is nothing to configure for it.&lt;/p&gt;
-&lt;h2 id=&#34;exposing-an-api-for-access-tokens&#34;&gt;Exposing an API for access tokens&lt;/h2&gt;
+&lt;h2 id=&#34;exposing-an-api-for-access-tokens&#34;&gt;Exposing an API for Access Tokens&lt;/h2&gt;
 &lt;p&gt;This step is what makes API authentication work, and is the Entra ID equivalent of KeyCloak&amp;rsquo;s audience mapper.&lt;/p&gt;
 &lt;p&gt;If Stroom only ever asks for the &lt;code&gt;openid&lt;/code&gt;, &lt;code&gt;email&lt;/code&gt; and &lt;code&gt;profile&lt;/code&gt; scopes, Entra ID issues an access token for Microsoft Graph rather than for Stroom.
 Those tokens are intended only for Graph, are not in a format a third party can validate, and will fail validation at Stroom.
 Interactive sign in still works throughout, because it uses the &lt;code&gt;id_token&lt;/code&gt;.&lt;/p&gt;
 &lt;p&gt;To get an access token that Stroom can validate, the app registration has to expose an API of its own:&lt;/p&gt;
 &lt;ol&gt;
-&lt;li&gt;Go to &lt;em&gt;Expose an API&lt;/em&gt; =&amp;gt; &lt;em&gt;Add&lt;/em&gt; next to &lt;em&gt;Application ID URI&lt;/em&gt;. Accept the default of &lt;code&gt;api://&amp;lt;client-id&amp;gt;&lt;/code&gt;, or set your own.&lt;/li&gt;
+&lt;li&gt;Go to &lt;em&gt;Expose an API&lt;/em&gt; =&amp;gt; &lt;em&gt;Add&lt;/em&gt; next to &lt;em&gt;Application ID URI&lt;/em&gt;.
+Accept the default of &lt;code&gt;api://&amp;lt;client-id&amp;gt;&lt;/code&gt;, or set your own.&lt;/li&gt;
 &lt;li&gt;Click &lt;em&gt;Add a scope&lt;/em&gt;, name it something like &lt;code&gt;user_impersonation&lt;/code&gt;, and choose who can consent.&lt;/li&gt;
 &lt;li&gt;Under &lt;em&gt;Manifest&lt;/em&gt;, set &lt;code&gt;accessTokenAcceptedVersion&lt;/code&gt; to &lt;code&gt;2&lt;/code&gt;.&lt;/li&gt;
 &lt;/ol&gt;
@@ -3569,7 +3603,7 @@ Their discovery documents report an issuer containing a literal &lt;code&gt;{ten
 &lt;/div&gt;
 
 
-&lt;h3 id=&#34;audience-validation&#34;&gt;Audience validation&lt;/h3&gt;
+&lt;h3 id=&#34;audience-validation&#34;&gt;Audience Validation&lt;/h3&gt;
 &lt;p&gt;An Entra ID &lt;strong&gt;id_token&lt;/strong&gt; carries &lt;code&gt;aud&lt;/code&gt; set to the Application (client) ID, so interactive sign in validates against &lt;code&gt;clientId&lt;/code&gt; with no further configuration.&lt;/p&gt;
 &lt;p&gt;An &lt;strong&gt;access token&lt;/strong&gt; for your exposed API carries &lt;code&gt;aud&lt;/code&gt; set to either the Application ID URI or the client id, depending on &lt;code&gt;accessTokenAcceptedVersion&lt;/code&gt; and how the scope was requested.
 Listing both in &lt;code&gt;allowedAudiences&lt;/code&gt;, as above, covers either.&lt;/p&gt;
@@ -3622,14 +3656,14 @@ Changing it later means every existing Stroom user is orphaned, and their permis
 &lt;/div&gt;
 
 
-&lt;h3 id=&#34;group-and-role-claims&#34;&gt;Group and role claims&lt;/h3&gt;
+&lt;h3 id=&#34;group-and-role-claims&#34;&gt;Group and Role Claims&lt;/h3&gt;
 &lt;p&gt;Entra ID can be configured to emit &lt;code&gt;groups&lt;/code&gt; and &lt;code&gt;roles&lt;/code&gt; claims.
 Stroom does not consume them.
 All authorisation is done with Stroom&amp;rsquo;s own users, groups and permissions, so directory group membership has no effect on what a user can do in Stroom.&lt;/p&gt;
-&lt;h3 id=&#34;access-token-type&#34;&gt;Access token type&lt;/h3&gt;
+&lt;h3 id=&#34;access-token-type&#34;&gt;Access Token Type&lt;/h3&gt;
 &lt;p&gt;Leave &lt;code&gt;requiredAccessTokenType&lt;/code&gt; unset until you have decoded the header of a real access token from your tenant and confirmed what it contains.
 Setting it to a value your tokens do not use will refuse every API call.&lt;/p&gt;
-&lt;h2 id=&#34;setting-up-the-admin-user-in-stroom&#34;&gt;Setting up the admin user in Stroom&lt;/h2&gt;
+&lt;h2 id=&#34;setting-up-the-admin-user-in-stroom&#34;&gt;Setting up the Admin User in Stroom&lt;/h2&gt;
 &lt;p&gt;Find the identifier of the account that is to be the administrator, matching whatever you set &lt;code&gt;uniqueIdentityClaim&lt;/code&gt; to.&lt;/p&gt;
 &lt;p&gt;If you are using &lt;code&gt;oid&lt;/code&gt;, it is shown as the &lt;strong&gt;Object ID&lt;/strong&gt; on the user&amp;rsquo;s page under &lt;em&gt;Users&lt;/em&gt; in the Entra admin centre.
 If you are using &lt;code&gt;sub&lt;/code&gt;, it is pairwise and not shown anywhere in the portal, so you will need to decode an &lt;code&gt;id_token&lt;/code&gt; issued for that user, or have them sign in once and read it from the Stroom logs.&lt;/p&gt;
@@ -3753,7 +3787,8 @@ Using a token for authentication requires that Stroom or Stroom-Proxy have been 
 .
 There are three deployment models, distinguished by &lt;em&gt;where the user accounts live&lt;/em&gt; and &lt;em&gt;which component performs the sign in&lt;/em&gt;.&lt;/p&gt;
 &lt;ul&gt;
-&lt;li&gt;&lt;a href=&#34;../../docs/install-guide/setup/open-id/internal-idp/&#34;&gt;Internal IDP&lt;/a&gt; - Stroom acts as its own identity provider and manages the user accounts itself. This is the default.&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;../../docs/install-guide/setup/open-id/internal-idp/&#34;&gt;Internal IDP&lt;/a&gt; - Stroom acts as its own identity provider and manages the user accounts itself.
+This is the default.&lt;/li&gt;
 &lt;li&gt;&lt;a href=&#34;../../docs/install-guide/setup/open-id/external-idp/&#34;&gt;External IDP&lt;/a&gt; - A 3rd party identity provider, such as KeyCloak, Cognito or Google, holds the accounts; &lt;strong&gt;Stroom performs the sign in&lt;/strong&gt; by redirecting the browser to it.&lt;/li&gt;
 &lt;li&gt;&lt;a href=&#34;../../docs/install-guide/setup/open-id/edge-proxy/&#34;&gt;Edge Proxy RP&lt;/a&gt; - A 3rd party identity provider holds the accounts, but &lt;strong&gt;an authenticating reverse proxy in front of Stroom performs the sign in&lt;/strong&gt; (an AWS Application Load Balancer with Cognito, NGINX with oauth2-proxy, etc.) and passes Stroom a verified identity with each request.&lt;/li&gt;
 &lt;/ul&gt;
@@ -4135,7 +4170,7 @@ Provided you have an account, you are logged in without being asked for a passwo
 &lt;ul&gt;
 &lt;li&gt;the user &lt;code&gt;admin&lt;/code&gt; is currently logged in&lt;/li&gt;
 &lt;/ul&gt;
-&lt;h2 id=&#34;log-out-of-ui&#34;&gt;Log out of UI&lt;/h2&gt;
+&lt;h2 id=&#34;log-out-of-ui&#34;&gt;Log Out of UI&lt;/h2&gt;
 &lt;p&gt;To log out of the UI, select the &lt;code&gt;User&lt;/code&gt; item of the &lt;strong&gt;Main Menu&lt;/strong&gt; and to bring up the &lt;code&gt;User&lt;/code&gt; sub-menu.&lt;/p&gt;
 
 

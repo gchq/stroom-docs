@@ -151,7 +151,7 @@
     aria-label="Search this site…"
     autocomplete="off"
     
-    data-offline-search-index-json-src="../../../../../offline-search-index.95b12371d9f23e70cddb1f62f4c00605.json"
+    data-offline-search-index-json-src="../../../../../offline-search-index.95034a9311ba25828e37c5d04adb17e9.json"
     data-offline-search-base-href="../../../../../"
     data-offline-search-max-results="50"
   >
@@ -369,7 +369,7 @@ Some properties will be represented differently in the user interface to the YAM
 This is due to how values are stored in the database and how the current user interface works.
 This will likely be improved in future versions.
 For details of how different types are represented in the YAML and the UI, see <a href="../../../../../docs/user-guide/properties#data-types">Data Types</a>.</p>
-<h2 id="server-configuration">Server configuration</h2>
+<h2 id="server-configuration">Server Configuration</h2>
 <p>The <code>server</code> section controls the configuration of the Jetty web server.</p>
 <p>For full details of how to configure the <code>server</code> section see:</p>
 <ul>
@@ -701,7 +701,8 @@ Thus the configuration of the connections to each of those destinations can be c
 <ul>
 <li><code>DEFAULT</code> - The default client configuration used if a named configuration is not present.</li>
 <li><code>AWS_PUBLIC_KEYS</code> - Connections to fetch AWS public keys used in Open ID Connect authentication.</li>
-<li><code>DOWNSTREAM</code> - Connections to downstream proxy/stroom instances to check feed status. (<strong>Stroom Proxy only</strong>).</li>
+<li><code>DOWNSTREAM</code> - Connections to downstream proxy/stroom instances to check feed status.
+(<strong>Stroom Proxy only</strong>).</li>
 <li><code>OPEN_ID</code> - Connections to an Open ID Connect identity provider, e.g. Cognito, Azure AD, KeyCloak, etc.</li>
 <li><code>STROOM</code> - Inter-node communications within the Stroom cluster (<strong>Stroom only</strong>).</li>
 </ul>
@@ -993,7 +994,8 @@ The following is an example of an appender that rolls based on the size of the l
 <h4 class="alert-heading">Warning</h4>
 
     <p>Log file rolling is event based, so a file will only roll when a new message arrives that would require a roll to happen.
-This means that if the application is idle for a long period with no log output then the un-rolled file will remain active until a new message arrives to trigger it to roll. For example, if Stroom is unused overnight, then the last log message from the night before will not be rolled until a new messages arrive in the morning.</p>
+This means that if the application is idle for a long period with no log output then the un-rolled file will remain active until a new message arrives to trigger it to roll.
+For example, if Stroom is unused overnight, then the last log message from the night before will not be rolled until a new messages arrive in the morning.</p>
 <p>For this reason, <code>archivedFileCount</code> should be set to a value that is greater than the maximum time the application may be idle, else rolled log files may be deleted as soon as they are rolled.</p>
 
 
@@ -1031,7 +1033,7 @@ This means that if the application is idle for a long period with no log output 
 </div>
 </div>
 
-<h2 id="general-configuration">General configuration</h2>
+<h2 id="general-configuration">General Configuration</h2>
 <p>The Stroom application is essentially just an executable <span class="external-link">
   <a href="https://en.wikipedia.org/wiki/JAR_%28file_format%29" target="_blank" class="external-link" title="JAR (external link to https://en.wikipedia.org/wiki/JAR_%28file_format%29)">
     <span>JAR</span>
@@ -1098,7 +1100,7 @@ This file should not need to be changed unless you want to change the locations 
 The heap size settings and any other java command line options can be set by changing:</p>
 <pre><code class="language-sh">JAVA_OPTS=&quot;-Xms512m -Xmx2048m&quot;
 </code></pre>
-<h2 id="as-part-of-a-docker-stack">As part of a docker stack</h2>
+<h2 id="as-part-of-a-docker-stack">As Part of a Docker Stack</h2>
 <p>When stroom is run as part of one of our docker stacks, e.g. <em>stroom_core</em> there are some additional layers of configuration to take into account, but the configuration is still primarily done using the <code>config.yml</code> file.</p>
 <p>Stroom&rsquo;s <code>config.yml</code> file is found in the stack in <code>./volumes/stroom/config/</code> and this is the primary means of configuring Stroom.</p>
 <p>The stack also ships with a default <code>config.yml</code> file baked into the docker image.
@@ -2053,12 +2055,12 @@ See <a href="../../../../../docs/install-guide/configuration/stroom-and-proxy/co
     defaultApiKeyHashAlgorithm: &quot;SHA3_256&quot;
     defaultMaxResults: &quot;1000000,100,10,1&quot;
     helpSubPathDocumentation: &quot;/user-guide/content/documentation/&quot;
-    helpSubPathExpressions: &quot;/user-guide/dashboards/expressions/&quot;
+    helpSubPathExpressions: &quot;/reference-section/expressions/&quot;
     helpSubPathJobs: &quot;/reference-section/jobs/&quot;
     helpSubPathProperties: &quot;/user-guide/properties/&quot;
-    helpSubPathQuickFilter: &quot;/user-guide/finding-things/&quot;
-    helpSubPathStroomQueryLanguage: &quot;/user-guide/dashboards/stroom-query-language/&quot;
-    helpUrl: &quot;https://gchq.github.io/stroom-docs/7.5/docs&quot;
+    helpSubPathQuickFilter: &quot;/user-guide/content/finding-things/&quot;
+    helpSubPathStroomQueryLanguage: &quot;/user-guide/search/queries/stroom-query-language/&quot;
+    helpUrl: &quot;https://gchq.github.io/stroom-docs/7.13/docs&quot;
     htmlTitle: &quot;Stroom&quot;
     maxEditorCompletionEntries: 1000
     namePattern: &quot;^[a-zA-Z0-9_\\- \\.\\(\\)]{1,}$&quot;
@@ -2722,7 +2724,7 @@ This configuration allows you to increase the number of threads used for each op
 </code></pre>
 <h2 id="deploying-without-docker">Deploying without Docker</h2>
 <p>Apart from the structure of the <code>config.yml</code> file, the configuration in a non-docker environment is the same as for <a href="../../../../../docs/install-guide/configuration/stroom-and-proxy/configuring-stroom/#deploying-without-docker">stroom</a>.</p>
-<h2 id="as-part-of-a-docker-stack">As part of a docker stack</h2>
+<h2 id="as-part-of-a-docker-stack">As Part of a Docker Stack</h2>
 <p>The way Stroom-Proxy is configured is essentially the same as for <a href="../../../../../docs/install-guide/configuration/stroom-and-proxy/configuring-stroom/#as-part-of-a-docker-stack">stroom</a> with the only real difference being the structure of the <code>config.yml</code> file as note <a href="#config-file-structure">above</a> .
 As with stroom the docker stack comes with a <code>./volumes/stroom-proxy-*/config/config.yml</code> file that will be used in the absence of a provided one.
 Also as with stroom, the <code>config.yml</code> file supports environment variable substitution so can make use of environment variables set in the stack <code>.env</code> file and passed down via the docker-compose YAML files.</p>

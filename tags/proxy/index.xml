@@ -129,7 +129,7 @@ firewall-cmd --reload&lt;/code&gt;&lt;/pre&gt;
 &lt;li&gt;GNU &lt;code&gt;coreutils&lt;/code&gt; - Used by the stack scripts.&lt;/li&gt;
 &lt;li&gt;&lt;code&gt;jq&lt;/code&gt; - Used by the stack scripts.&lt;/li&gt;
 &lt;/ul&gt;
-&lt;h3 id=&#34;download-and-install-docker&#34;&gt;Download and install docker&lt;/h3&gt;
+&lt;h3 id=&#34;download-and-install-docker&#34;&gt;Download and Install Docker&lt;/h3&gt;
 &lt;p&gt;To install Docker Engine and the Docker Composer Plugin see:&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;span class=&#34;external-link&#34;&gt;
@@ -152,15 +152,22 @@ It is typical that this directory will be on small mount point for the OS.
 It is therefore recommended to relocate this directory to a mount with more space and sufficient resilience, i.e. RAID mirroring.&lt;/p&gt;
 &lt;p&gt;To do this you need to follow these steps:&lt;/p&gt;
 &lt;ol&gt;
-&lt;li&gt;Stop the Docker engine.&lt;/li&gt;
-&lt;li&gt;Move the directory to its new location.&lt;/li&gt;
-&lt;li&gt;Edit the file &lt;code&gt;/etc/docker/daemon.json&lt;/code&gt; and ensure this field is present with the new location as the value.
+&lt;li&gt;
+&lt;p&gt;Stop the Docker engine.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Move the directory to its new location.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Edit the file &lt;code&gt;/etc/docker/daemon.json&lt;/code&gt; and ensure this field is present with the new location as the value.&lt;/p&gt;
 &lt;pre&gt;&lt;code class=&#34;language-json&#34;&gt;{
   &amp;quot;data-root&amp;quot;: &amp;quot;/path/to/new/location&amp;quot;
 }
 &lt;/code&gt;&lt;/pre&gt;
 &lt;/li&gt;
-&lt;li&gt;Start the Docker engine.&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Start the Docker engine.&lt;/p&gt;
+&lt;/li&gt;
 &lt;/ol&gt;
 &lt;h3 id=&#34;download-and-install-docker-stack&#34;&gt;Download and Install Docker Stack&lt;/h3&gt;
 &lt;p&gt;The &lt;em&gt;stroom_proxy&lt;/em&gt; Docker stack is available from &lt;span class=&#34;external-link&#34;&gt;
@@ -280,7 +287,7 @@ If you are able to use Docker we recommend doing this as there are less things t
 &lt;/div&gt;
 
 
-&lt;h3 id=&#34;download-and-install-stroom-v7-app-version&#34;&gt;Download and install Stroom v7 (app version)&lt;/h3&gt;
+&lt;h3 id=&#34;download-and-install-stroom-v7-app-version&#34;&gt;Download and Install Stroom v7 (app version)&lt;/h3&gt;
 &lt;p&gt;Stroom-Proxy releases are available from &lt;span class=&#34;external-link&#34;&gt;
   &lt;a href=&#34;https://github.com/gchq/stroom/releases&#34; target=&#34;_blank&#34; class=&#34;external-link&#34; title=&#34;github.com/gchq/stroom/releases (external link to https://github.com/gchq/stroom/releases)&#34;&gt;
     &lt;span&gt;github.com/gchq/stroom/releases&lt;/span&gt;
@@ -876,7 +883,8 @@ sudo yum -y install mariadb&lt;/code&gt;&lt;/pre&gt;
 
 &lt;p&gt;Note that we do &lt;strong&gt;NOT&lt;/strong&gt; need the database client software for a Forwarding or Standalone proxy.&lt;/p&gt;
 &lt;h2 id=&#34;get-the-software&#34;&gt;Get the Software&lt;/h2&gt;
-&lt;p&gt;The following will gain the identified, in this case release &lt;code&gt;5.1-beta.10&lt;/code&gt;, Stroom Application software release from github, then deploy it. You should regularly monitor the site for newer releases.&lt;/p&gt;
+&lt;p&gt;The following will gain the identified, in this case release &lt;code&gt;5.1-beta.10&lt;/code&gt;, Stroom Application software release from github, then deploy it.
+You should regularly monitor the site for newer releases.&lt;/p&gt;
 
   
 
@@ -901,18 +909,22 @@ unzip stroom-proxy-distribution-${Prx}.zip&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;There are three different types of Stroom Proxy&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;
-&lt;p&gt;&lt;em&gt;Store&lt;/em&gt; - A &lt;em&gt;store&lt;/em&gt; proxy accepts batches of events, as files. It will validate the batch with the database then store the batches as files in a configured directory.&lt;/p&gt;
+&lt;p&gt;&lt;em&gt;Store&lt;/em&gt; - A &lt;em&gt;store&lt;/em&gt; proxy accepts batches of events, as files.
+It will validate the batch with the database then store the batches as files in a configured directory.&lt;/p&gt;
 &lt;/li&gt;
 &lt;li&gt;
-&lt;p&gt;&lt;em&gt;Store_No_DB&lt;/em&gt; - A &lt;em&gt;store_no_DB&lt;/em&gt; proxy accepts batches of events, as files. It has no connectivity to the database, so it assumes all batches are valid, so it stores the batches as files in a configured directory.&lt;/p&gt;
+&lt;p&gt;&lt;em&gt;Store_No_DB&lt;/em&gt; - A &lt;em&gt;store_no_DB&lt;/em&gt; proxy accepts batches of events, as files.
+It has no connectivity to the database, so it assumes all batches are valid, so it stores the batches as files in a configured directory.&lt;/p&gt;
 &lt;/li&gt;
 &lt;li&gt;
-&lt;p&gt;&lt;em&gt;Forwarding&lt;/em&gt; - A &lt;em&gt;forwarding&lt;/em&gt; proxy accepts batches of events, as files. It has indirect connectivity to the database via the destination proxy, so it validates the batches then stores the batches as files in a configured directory until they are periodically forwarded to the configured destination Stroom proxy.&lt;/p&gt;
+&lt;p&gt;&lt;em&gt;Forwarding&lt;/em&gt; - A &lt;em&gt;forwarding&lt;/em&gt; proxy accepts batches of events, as files.
+It has indirect connectivity to the database via the destination proxy, so it validates the batches then stores the batches as files in a configured directory until they are periodically forwarded to the configured destination Stroom proxy.&lt;/p&gt;
 &lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;We will demonstrate the installation of each.&lt;/p&gt;
 &lt;h3 id=&#34;store-proxy-configuration&#34;&gt;Store Proxy Configuration&lt;/h3&gt;
-&lt;p&gt;In our &lt;em&gt;Store&lt;/em&gt; Proxy description below, we will use the multi node deployment scenario. That is we are deploying the &lt;em&gt;Store&lt;/em&gt; proxy on multiple Stroom nodes (&lt;code&gt;stroomp00&lt;/code&gt;, &lt;code&gt;stroomp01&lt;/code&gt;) and we have configured our storage as per the &lt;a href=&#34;../../docs/howtos/install/installhowto/#storage-scenario&#34;&gt;Storage Scenario&lt;/a&gt; which means the directories to install the inbound batches of data are &lt;code&gt;/stroomdata/stroom-working-p00/proxy&lt;/code&gt; and &lt;code&gt;/stroomdata/stroom-working-p01/proxy&lt;/code&gt; depending on the node.&lt;/p&gt;
+&lt;p&gt;In our &lt;em&gt;Store&lt;/em&gt; Proxy description below, we will use the multi node deployment scenario.
+That is we are deploying the &lt;em&gt;Store&lt;/em&gt; proxy on multiple Stroom nodes (&lt;code&gt;stroomp00&lt;/code&gt;, &lt;code&gt;stroomp01&lt;/code&gt;) and we have configured our storage as per the &lt;a href=&#34;../../docs/howtos/install/installhowto/#storage-scenario&#34;&gt;Storage Scenario&lt;/a&gt; which means the directories to install the inbound batches of data are &lt;code&gt;/stroomdata/stroom-working-p00/proxy&lt;/code&gt; and &lt;code&gt;/stroomdata/stroom-working-p01/proxy&lt;/code&gt; depending on the node.&lt;/p&gt;
 &lt;p&gt;To install a &lt;em&gt;Store&lt;/em&gt; proxy, we run&lt;/p&gt;
 &lt;p&gt;
   
@@ -931,7 +943,8 @@ unzip stroom-proxy-distribution-${Prx}.zip&lt;/code&gt;&lt;/pre&gt;
     data-filter-output=&#34;(out)&#34;&gt;&lt;code class=&#34;language-bash&#34;&gt;stroom-proxy/bin/setup.sh store&lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 
-during which one is prompted for a number of configuration settings. Use the following&lt;/p&gt;
+during which one is prompted for a number of configuration settings.
+Use the following&lt;/p&gt;
 &lt;pre&gt;&lt;code&gt;NODE to be the hostname (not FQDN) of your host (i.e. &#39;stroomp00&#39; or &#39;stroomp01&#39; depending on the node we are installing on)
 PORT_PREFIX should use the default, just press return
 REPO_DIR should be set to &#39;/stroomdata/stroom-working-p00/proxy&#39; or &#39;/stroomdata/stroom-working-p01/proxy&#39; depending on the node we are installing on
@@ -942,11 +955,14 @@ DB_USERNAME should be our processing user, &#39;stroomuser&#39;
 DB_PASSWORD should be the one we set when creating the stroom database, that is &#39;Stroompassword1@&#39;
 JAVA_OPTS can use the defaults, but ensure you have sufficient memory, either change or accept the default
 &lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;At this point, the script will configure the proxy. There should be no errors, but review the output.
+&lt;p&gt;At this point, the script will configure the proxy.
+There should be no errors, but review the output.
 If you make a mistake in the above, just re-run the script.&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;NOTE:&lt;/strong&gt; The selection of the &lt;code&gt;REPO_DIR&lt;/code&gt; above and the setting of the &lt;code&gt;STROOM_TMP&lt;/code&gt; environment variable &lt;a href=&#34;../../docs/howtos/install/installprocessingusersetuphowto/&#34;&gt;earlier&lt;/a&gt; ensure that not only inbound files are placed in the &lt;code&gt;REPO_DIR&lt;/code&gt; location but the Stroom Application itself will access the same directory when it aggregates inbound data for ingest in its proxy aggregation threads.&lt;/p&gt;
 &lt;h3 id=&#34;forwarding-proxy-configuration&#34;&gt;Forwarding Proxy Configuration&lt;/h3&gt;
-&lt;p&gt;In our &lt;em&gt;Forwarding&lt;/em&gt; Proxy description below, we will deploy on a host named &lt;code&gt;stroomfp0&lt;/code&gt; and it will store the files in &lt;code&gt;/stroomdata/stroom-working-fp0/proxy&lt;/code&gt;. Remember, we are being consistent with our Storage hierarchy to make documentation and scripting simpler. Our destination host to periodically forward the files to will be &lt;code&gt;stroomp.strmdev00.org&lt;/code&gt; (the CNAME for &lt;code&gt;stroomp00.strmdev00.org&lt;/code&gt;).&lt;/p&gt;
+&lt;p&gt;In our &lt;em&gt;Forwarding&lt;/em&gt; Proxy description below, we will deploy on a host named &lt;code&gt;stroomfp0&lt;/code&gt; and it will store the files in &lt;code&gt;/stroomdata/stroom-working-fp0/proxy&lt;/code&gt;.
+Remember, we are being consistent with our Storage hierarchy to make documentation and scripting simpler.
+Our destination host to periodically forward the files to will be &lt;code&gt;stroomp.strmdev00.org&lt;/code&gt; (the CNAME for &lt;code&gt;stroomp00.strmdev00.org&lt;/code&gt;).&lt;/p&gt;
 &lt;p&gt;To install a &lt;em&gt;Forwarding&lt;/em&gt; proxy, we run&lt;/p&gt;
 &lt;p&gt;
   
@@ -965,7 +981,8 @@ If you make a mistake in the above, just re-run the script.&lt;/p&gt;
     data-filter-output=&#34;(out)&#34;&gt;&lt;code class=&#34;language-bash&#34;&gt;stroom-proxy/bin/setup.sh forward&lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 
-during which one is prompted for a number of configuration settings. Use the following&lt;/p&gt;
+during which one is prompted for a number of configuration settings.
+Use the following&lt;/p&gt;
 &lt;pre&gt;&lt;code&gt;NODE to be the hostname (not FQDN) of your host (i.e. &#39;stroomfp0&#39; in our example)
 PORT_PREFIX should use the default, just press return
 REPO_DIR should be set to &#39;/stroomdata/stroom-working-fp0/proxy&#39; which we created earlier.
@@ -973,9 +990,11 @@ REPO_FORMAT can be left as the default, just press return
 FORWARD_SERVER should be set to our stroom server. (i.e. &#39;stroomp.strmdev00.org&#39; in our example)
 JAVA_OPTS can use the defaults, but ensure you have sufficient memory, either change or accept the default
 &lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;At this point, the script will configure the proxy. There should be no errors, but review the output.&lt;/p&gt;
+&lt;p&gt;At this point, the script will configure the proxy.
+There should be no errors, but review the output.&lt;/p&gt;
 &lt;h3 id=&#34;store-no-database-proxy-configuration&#34;&gt;Store No Database Proxy Configuration&lt;/h3&gt;
-&lt;p&gt;In our &lt;em&gt;Store_No_DB&lt;/em&gt; Proxy description below, we will deploy on a host named &lt;code&gt;stroomsap0&lt;/code&gt; and it will store the files in &lt;code&gt;/stroomdata/stroom-working-sap0/proxy&lt;/code&gt;. Remember, we are being consistent with our Storage hierarchy to make documentation and scripting simpler.&lt;/p&gt;
+&lt;p&gt;In our &lt;em&gt;Store_No_DB&lt;/em&gt; Proxy description below, we will deploy on a host named &lt;code&gt;stroomsap0&lt;/code&gt; and it will store the files in &lt;code&gt;/stroomdata/stroom-working-sap0/proxy&lt;/code&gt;.
+Remember, we are being consistent with our Storage hierarchy to make documentation and scripting simpler.&lt;/p&gt;
 &lt;p&gt;To install a &lt;em&gt;Store_No_DB&lt;/em&gt; proxy, we run&lt;/p&gt;
 
   
@@ -994,16 +1013,20 @@ JAVA_OPTS can use the defaults, but ensure you have sufficient memory, either ch
     data-filter-output=&#34;(out)&#34;&gt;&lt;code class=&#34;language-bash&#34;&gt;stroom-proxy/bin/setup.sh store_nodb&lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 
-&lt;p&gt;During which one is prompted for a number of configuration settings. Use the following&lt;/p&gt;
+&lt;p&gt;During which one is prompted for a number of configuration settings.
+Use the following&lt;/p&gt;
 &lt;pre&gt;&lt;code&gt;NODE to be the hostname (not FQDN) of your host (i.e. &#39;stroomsap0&#39; in our example)
 PORT_PREFIX should use the default, just press return
 REPO_DIR should be set to &#39;/stroomdata/stroom-working-sap0/proxy&#39; which we created earlier.
 REPO_FORMAT can be left as the default, just press return
 JAVA_OPTS can use the defaults, but ensure you have sufficient memory, either change or accept the default
 &lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;At this point, the script will configure the proxy. There should be no errors, but review the output.&lt;/p&gt;
-&lt;h2 id=&#34;apachemod_jk-change&#34;&gt;Apache/Mod_JK change&lt;/h2&gt;
-&lt;p&gt;For all proxy deployments, if we are using Apache&amp;rsquo;s mod_jk then we need to ensure the proxy&amp;rsquo;s AJP connector specifies a 64K packetSize. View the file &lt;code&gt;stroom-proxy/instance/conf/server.xml&lt;/code&gt; to ensure the Connector element for the AJP protocol has a packetSize attribute of &lt;code&gt;65536&lt;/code&gt;. For example,&lt;/p&gt;
+&lt;p&gt;At this point, the script will configure the proxy.
+There should be no errors, but review the output.&lt;/p&gt;
+&lt;h2 id=&#34;apachemod_jk-change&#34;&gt;Apache/Mod_JK Change&lt;/h2&gt;
+&lt;p&gt;For all proxy deployments, if we are using Apache&amp;rsquo;s mod_jk then we need to ensure the proxy&amp;rsquo;s AJP connector specifies a 64K packetSize.
+View the file &lt;code&gt;stroom-proxy/instance/conf/server.xml&lt;/code&gt; to ensure the Connector element for the AJP protocol has a packetSize attribute of &lt;code&gt;65536&lt;/code&gt;.
+For example,&lt;/p&gt;
 
   
 
@@ -1024,9 +1047,11 @@ JAVA_OPTS can use the defaults, but ensure you have sufficient memory, either ch
 &lt;p&gt;shows&lt;/p&gt;
 &lt;pre&gt;&lt;code&gt;&amp;lt;Connector port=&amp;quot;9009&amp;quot; protocol=&amp;quot;AJP/1.3&amp;quot; connectionTimeout=&amp;quot;20000&amp;quot; redirectPort=&amp;quot;8443&amp;quot; maxThreads=&amp;quot;200&amp;quot; packetSize=&amp;quot;65536&amp;quot; /&amp;gt;
 &lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;This check is required for earlier releases of the Stroom Proxy. Releases since &lt;code&gt;v5.1-beta.4&lt;/code&gt; have set the AJP &lt;code&gt;packetSize&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;This check is required for earlier releases of the Stroom Proxy.
+Releases since &lt;code&gt;v5.1-beta.4&lt;/code&gt; have set the AJP &lt;code&gt;packetSize&lt;/code&gt;.&lt;/p&gt;
 &lt;h2 id=&#34;start-the-proxy-service&#34;&gt;Start the Proxy Service&lt;/h2&gt;
-&lt;p&gt;We can now manually start our proxy service. Do so as the &lt;code&gt;stroomuser&lt;/code&gt; with the command
+&lt;p&gt;We can now manually start our proxy service.
+Do so as the &lt;code&gt;stroomuser&lt;/code&gt; with the command
 
   
 
@@ -1044,9 +1069,12 @@ JAVA_OPTS can use the defaults, but ensure you have sufficient memory, either ch
     data-filter-output=&#34;(out)&#34;&gt;&lt;code class=&#34;language-bash&#34;&gt;stroom-proxy/bin/start.sh&lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 
-Now monitor the directory &lt;code&gt;stroom-proxy/instance/logs&lt;/code&gt; for any errors. Initially you will see the log files &lt;code&gt;localhost_access_log.YYYY-MM-DD.txt&lt;/code&gt; and &lt;code&gt;catalina.out&lt;/code&gt;. Check them for errors and correct (or pose a question to this arena).
+Now monitor the directory &lt;code&gt;stroom-proxy/instance/logs&lt;/code&gt; for any errors.
+Initially you will see the log files &lt;code&gt;localhost_access_log.YYYY-MM-DD.txt&lt;/code&gt; and &lt;code&gt;catalina.out&lt;/code&gt;.
+Check them for errors and correct (or pose a question to this arena).
 The context path and unknown version warnings in &lt;code&gt;catalina.out&lt;/code&gt; can be ignored.&lt;/p&gt;
-&lt;p&gt;Eventually (about 60 seconds) the log file &lt;code&gt;stroom-proxy/instance/logs/stroom.log&lt;/code&gt; will appear. Again check it for errors.
+&lt;p&gt;Eventually (about 60 seconds) the log file &lt;code&gt;stroom-proxy/instance/logs/stroom.log&lt;/code&gt; will appear.
+Again check it for errors.
 The proxy will have completely started when you see the messages&lt;/p&gt;
 &lt;pre&gt;&lt;code&gt;INFO  [localhost-startStop-1] spring.StroomBeanLifeCycleReloadableContextBeanProcessor (StroomBeanLifeCycleReloadableContextBeanProcessor.java:109) - ** proxyContext 0 START COMPLETE **
 &lt;/code&gt;&lt;/pre&gt;
@@ -1058,7 +1086,8 @@ The proxy will have completely started when you see the messages&lt;/p&gt;
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;If a proxy takes too long to start, you should read the section on &lt;a href=&#34;../../docs/howtos/install/installhowto/#entropy-issues-in-virtual-environments&#34;&gt;Entropy Issues&lt;/a&gt;.&lt;/p&gt;
 &lt;h2 id=&#34;proxy-repository-format&#34;&gt;Proxy Repository Format&lt;/h2&gt;
-&lt;p&gt;A Stroom Proxy stores inbound files in a hierarchical file system whose root is supplied during the proxy setup (&lt;code&gt;REPO_DIR&lt;/code&gt;) and as files arrive they are given a &lt;em&gt;repository id&lt;/em&gt; that is a one-up number starting at one (1). The files are stored in a specific &lt;em&gt;repository format&lt;/em&gt;.
+&lt;p&gt;A Stroom Proxy stores inbound files in a hierarchical file system whose root is supplied during the proxy setup (&lt;code&gt;REPO_DIR&lt;/code&gt;) and as files arrive they are given a &lt;em&gt;repository id&lt;/em&gt; that is a one-up number starting at one (1).
+The files are stored in a specific &lt;em&gt;repository format&lt;/em&gt;.
 The default template is &lt;code&gt;${pathId}/${id}&lt;/code&gt; and this pattern will produce the following output files under &lt;code&gt;REPO_DIR&lt;/code&gt; for the given repository id&lt;/p&gt;
 &lt;table&gt;
 &lt;thead&gt;
@@ -1095,8 +1124,11 @@ The default template is &lt;code&gt;${pathId}/${id}&lt;/code&gt; and this patter
 @@REPO_FORMAT@@ : Stroom Proxy Repository Format [${pathId}/${id}] &amp;gt; 
 ...
 &lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;The template uses replacement variables to form the file path. As indicated above, the default template is &lt;code&gt;${pathId}/${id}&lt;/code&gt; where &lt;code&gt;${pathId}&lt;/code&gt; is the automatically generated directory for a given &lt;em&gt;repository id&lt;/em&gt; and &lt;code&gt;${id}&lt;/code&gt; is the &lt;em&gt;repository id&lt;/em&gt;.&lt;/p&gt;
-&lt;p&gt;Other replacement variables can be used to in the template including http header meta data parameters (e.g. &amp;lsquo;${feed}&amp;rsquo;) and time based parameters (e.g. &amp;lsquo;${year}&amp;rsquo;). Replacement variables that cannot be resolved will be output as &amp;lsquo;_&amp;rsquo;. You must ensure that all templates include the &amp;lsquo;${id}&amp;rsquo; replacement variable at the start of the file name, failure to do this will result in an invalid repository.&lt;/p&gt;
+&lt;p&gt;The template uses replacement variables to form the file path.
+As indicated above, the default template is &lt;code&gt;${pathId}/${id}&lt;/code&gt; where &lt;code&gt;${pathId}&lt;/code&gt; is the automatically generated directory for a given &lt;em&gt;repository id&lt;/em&gt; and &lt;code&gt;${id}&lt;/code&gt; is the &lt;em&gt;repository id&lt;/em&gt;.&lt;/p&gt;
+&lt;p&gt;Other replacement variables can be used to in the template including http header meta data parameters (e.g. &amp;lsquo;${feed}&amp;rsquo;) and time based parameters (e.g. &amp;lsquo;${year}&amp;rsquo;).
+Replacement variables that cannot be resolved will be output as &amp;lsquo;_&amp;rsquo;.
+You must ensure that all templates include the &amp;lsquo;${id}&amp;rsquo; replacement variable at the start of the file name, failure to do this will result in an invalid repository.&lt;/p&gt;
 &lt;p&gt;Available time based parameters are based on the file&amp;rsquo;s time of processing and are zero filled (excluding &lt;code&gt;ms&lt;/code&gt;).&lt;/p&gt;
 &lt;table&gt;
 &lt;thead&gt;
@@ -1142,7 +1174,7 @@ The default template is &lt;code&gt;${pathId}/${id}&lt;/code&gt; and this patter
 &lt;/table&gt;
 &lt;h3 id=&#34;proxy-repository-template-examples&#34;&gt;Proxy Repository Template Examples&lt;/h3&gt;
 &lt;p&gt;For each of the following templates applied to a Store NoDB Proxy, the resultant proxy directory tree is shown after three posts were sent to the test feed &lt;code&gt;TEST-FEED-V1_0&lt;/code&gt; and two posts to the test feed &lt;code&gt;FEED-NOVALUE-V9_0&lt;/code&gt;&lt;/p&gt;
-&lt;h4 id=&#34;example-a---the-default---pathidid&#34;&gt;Example A - The default - &lt;code&gt;${pathId}/${id}&lt;/code&gt;&lt;/h4&gt;
+&lt;h4 id=&#34;example-a---the-default---pathidid&#34;&gt;Example a - the Default - &lt;code&gt;${pathId}/${id}&lt;/code&gt;&lt;/h4&gt;
 
   
 
@@ -1166,7 +1198,7 @@ The default template is &lt;code&gt;${pathId}/${id}&lt;/code&gt; and this patter
 (out)/stroomdata/stroom-working-sap0/proxy/005.zip&lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 
-&lt;h4 id=&#34;example-b---a-feed-orientated-structure---feedyearmonthdaypathidid&#34;&gt;Example B - A feed orientated structure - &lt;code&gt;${feed}/${year}/${month}/${day}/${pathId}/${id}&lt;/code&gt;&lt;/h4&gt;
+&lt;h4 id=&#34;example-b---a-feed-orientated-structure---feedyearmonthdaypathidid&#34;&gt;Example B - a Feed Orientated Structure - &lt;code&gt;${feed}/${year}/${month}/${day}/${pathId}/${id}&lt;/code&gt;&lt;/h4&gt;
 
   
 
@@ -1198,7 +1230,7 @@ The default template is &lt;code&gt;${pathId}/${id}&lt;/code&gt; and this patter
 (out)/stroomdata/stroom-working-sap0/proxy/FEED-NOVALUE-V9_0/2017/07/23/005.zip&lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 
-&lt;h4 id=&#34;example-c---a-date-orientated-structure---yearmonthdaypathidid&#34;&gt;Example C - A date orientated structure - &lt;code&gt;${year}/${month}/${day}/${pathId}/${id}&lt;/code&gt;&lt;/h4&gt;
+&lt;h4 id=&#34;example-c---a-date-orientated-structure---yearmonthdaypathidid&#34;&gt;Example C - a Date Orientated Structure - &lt;code&gt;${year}/${month}/${day}/${pathId}/${id}&lt;/code&gt;&lt;/h4&gt;
 
   
 
@@ -1225,7 +1257,7 @@ The default template is &lt;code&gt;${pathId}/${id}&lt;/code&gt; and this patter
 (out)/stroomdata/stroom-working-sap0/proxy/2017/07/23/005.zip&lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 
-&lt;h4 id=&#34;example-d---a-feed-orientated-structure-but-with-a-bad-parameter---feedbadparamdaypathidid&#34;&gt;Example D - A feed orientated structure, but with a bad parameter - &lt;code&gt;${feed}/${badparam}/${day}/${pathId}/${id}&lt;/code&gt;&lt;/h4&gt;
+&lt;h4 id=&#34;example-d---a-feed-orientated-structure-but-with-a-bad-parameter---feedbadparamdaypathidid&#34;&gt;Example D - a Feed Orientated Structure, but with a Bad Parameter - &lt;code&gt;${feed}/${badparam}/${day}/${pathId}/${id}&lt;/code&gt;&lt;/h4&gt;
 &lt;p&gt;
   
 
@@ -1811,7 +1843,7 @@ This configuration allows you to increase the number of threads used for each op
 &lt;/code&gt;&lt;/pre&gt;
 &lt;h2 id=&#34;deploying-without-docker&#34;&gt;Deploying without Docker&lt;/h2&gt;
 &lt;p&gt;Apart from the structure of the &lt;code&gt;config.yml&lt;/code&gt; file, the configuration in a non-docker environment is the same as for &lt;a href=&#34;../../docs/install-guide/configuration/stroom-and-proxy/configuring-stroom/#deploying-without-docker&#34;&gt;stroom&lt;/a&gt;.&lt;/p&gt;
-&lt;h2 id=&#34;as-part-of-a-docker-stack&#34;&gt;As part of a docker stack&lt;/h2&gt;
+&lt;h2 id=&#34;as-part-of-a-docker-stack&#34;&gt;As Part of a Docker Stack&lt;/h2&gt;
 &lt;p&gt;The way Stroom-Proxy is configured is essentially the same as for &lt;a href=&#34;../../docs/install-guide/configuration/stroom-and-proxy/configuring-stroom/#as-part-of-a-docker-stack&#34;&gt;stroom&lt;/a&gt; with the only real difference being the structure of the &lt;code&gt;config.yml&lt;/code&gt; file as note &lt;a href=&#34;#config-file-structure&#34;&gt;above&lt;/a&gt; .
 As with stroom the docker stack comes with a &lt;code&gt;./volumes/stroom-proxy-*/config/config.yml&lt;/code&gt; file that will be used in the absence of a provided one.
 Also as with stroom, the &lt;code&gt;config.yml&lt;/code&gt; file supports environment variable substitution so can make use of environment variables set in the stack &lt;code&gt;.env&lt;/code&gt; file and passed down via the docker-compose YAML files.&lt;/p&gt;

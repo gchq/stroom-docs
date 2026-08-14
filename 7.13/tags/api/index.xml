@@ -241,10 +241,10 @@ Short expiry periods are more secure in case the key is compromised.&lt;/li&gt;
  to copy the key to the clipboard.&lt;/li&gt;
 &lt;/ol&gt;
 &lt;p&gt;To make an authenticated API call you need to provide a header of the form &lt;code&gt;Authorization:Bearer ${TOKEN}&lt;/code&gt;, where &lt;code&gt;${TOKEN}&lt;/code&gt; is your API Key as copied from Stroom.&lt;/p&gt;
-&lt;h2 id=&#34;calling-an-api-method-with-curl&#34;&gt;Calling an API method with &lt;code&gt;curl&lt;/code&gt;&lt;/h2&gt;
+&lt;h2 id=&#34;calling-an-api-method-with-curl&#34;&gt;Calling an API Method with &lt;code&gt;curl&lt;/code&gt;&lt;/h2&gt;
 &lt;p&gt;This section describes how to call an API method using the command line tool &lt;code&gt;curl&lt;/code&gt; as an example client.
 Other clients can be used, e.g. using python, but these examples should provide enough help to get started using another client.&lt;/p&gt;
-&lt;h3 id=&#34;http-requests-without-a-body&#34;&gt;HTTP Requests Without a Body&lt;/h3&gt;
+&lt;h3 id=&#34;http-requests-without-a-body&#34;&gt;HTTP Requests without a Body&lt;/h3&gt;
 &lt;p&gt;Typically HTTP &lt;code&gt;GET&lt;/code&gt; requests will have no body/payload
 Often &lt;code&gt;PUT&lt;/code&gt; and &lt;code&gt;DELETE&lt;/code&gt; requests will also have no body/payload.&lt;/p&gt;
 &lt;p&gt;The following is an example of how to call an HTTP GET method (i.e. a method that does not require a request body) on the API using &lt;code&gt;curl&lt;/code&gt;.&lt;/p&gt;
@@ -299,8 +299,9 @@ curl \
 &lt;/div&gt;
 
 
-&lt;p&gt;You can either call the API via Nginx (or similar reverse proxy) at &lt;code&gt;https://stroom-fqdn/api/some/path&lt;/code&gt; or if you are making the call from one of the stroom hosts you can go direct using &lt;code&gt;http://localhost:8080/api/some/path&lt;/code&gt;. The former is preferred as it is more secure.&lt;/p&gt;
-&lt;h3 id=&#34;requests-with-a-body&#34;&gt;Requests With a Body&lt;/h3&gt;
+&lt;p&gt;You can either call the API via Nginx (or similar reverse proxy) at &lt;code&gt;https://stroom-fqdn/api/some/path&lt;/code&gt; or if you are making the call from one of the stroom hosts you can go direct using &lt;code&gt;http://localhost:8080/api/some/path&lt;/code&gt;.
+The former is preferred as it is more secure.&lt;/p&gt;
+&lt;h3 id=&#34;requests-with-a-body&#34;&gt;Requests with a Body&lt;/h3&gt;
 &lt;p&gt;A lot of the API methods in Stroom require complex bodies/payloads for the request.
 The following example is an HTTP &lt;code&gt;POST&lt;/code&gt; to perform a reference data lookup on the local host.&lt;/p&gt;
 &lt;p&gt;Create a file &lt;code&gt;req.json&lt;/code&gt; containing:&lt;/p&gt;
@@ -455,7 +456,7 @@ Searchables are various data sources that allow you to search the internals of S
 &lt;/ul&gt;
 &lt;p&gt;The detailed documentation for the request/responses is contained in the &lt;em&gt;Swagger&lt;/em&gt; definition linked to above.&lt;/p&gt;
 &lt;p&gt;If you simply want to run a &lt;em&gt;Stroom Query Language&lt;/em&gt; query and get the rows back as CSV, without building a &lt;em&gt;SearchRequest&lt;/em&gt; model, see the &lt;a href=&#34;../../docs/user-guide/api/csv-search-api/&#34;&gt;CSV Search API&lt;/a&gt;.&lt;/p&gt;
-&lt;h2 id=&#34;common-endpoints&#34;&gt;Common endpoints&lt;/h2&gt;
+&lt;h2 id=&#34;common-endpoints&#34;&gt;Common Endpoints&lt;/h2&gt;
 &lt;p&gt;The standard query endpoints are&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;/&lt;a href=&#34;#datasource&#34;&gt;datasource&lt;/a&gt;&lt;/li&gt;
@@ -485,14 +486,14 @@ Subsequent requests for the same &lt;em&gt;queryKey&lt;/em&gt; will also return 
 Requesting a search in non-iterative mode will result in the response being returned when the query has completed and all known results have been found.&lt;/p&gt;
 &lt;p&gt;The SearchRequest model is fairly complicated and contains not only the query terms but also a definition of how the data should be returned.
 A single SearchRequest can include multiple ResultRequest sections to return the queried data in multiple ways, e.g. as flat data and in an alternative aggregated form.&lt;/p&gt;
-&lt;h4 id=&#34;_stroom_-as-a-query-builder&#34;&gt;&lt;em&gt;Stroom&lt;/em&gt; as a query builder&lt;/h4&gt;
+&lt;h4 id=&#34;_stroom_-as-a-query-builder&#34;&gt;&lt;em&gt;Stroom&lt;/em&gt; as a Query Builder&lt;/h4&gt;
 &lt;p&gt;&lt;em&gt;Stroom&lt;/em&gt; is able to export the json form of a SearchRequest model from its dashboards.
 This makes the dashboard a useful tool for building a query and the table settings to go with it.
 You can use the dashboard to define the data source, define the query terms tree and build a table definition (or definitions) to describe how the data should be returned.
 Then, clicking the download icon on the query pane of the dashboard will generate the SearchRequest json which can be immediately used with the /search API or modified to suit.&lt;/p&gt;
 &lt;h3 id=&#34;destroy&#34;&gt;Destroy&lt;/h3&gt;
 &lt;p&gt;This endpoint is used to kill an active query by supplying the &lt;em&gt;queryKey&lt;/em&gt; for query in question.&lt;/p&gt;
-&lt;h3 id=&#34;keep-alive&#34;&gt;Keep alive&lt;/h3&gt;
+&lt;h3 id=&#34;keep-alive&#34;&gt;Keep Alive&lt;/h3&gt;
 &lt;p&gt;Stroom will only hold search results from completed queries for a certain length of time.
 It will also terminate running queries that are too old.
 In order to prevent queries being aged off you can hit this endpoint to indicate to Stroom that you still have an interest in a particular query by supplying the query key.&lt;/p&gt;
@@ -509,7 +510,7 @@ In order to prevent queries being aged off you can hit this endpoint to indicate
       <description>
         
         
-        &lt;h2 id=&#34;csv-search&#34;&gt;CSV search&lt;/h2&gt;
+        &lt;h2 id=&#34;csv-search&#34;&gt;CSV Search&lt;/h2&gt;
 &lt;p&gt;This endpoint runs a &lt;a href=&#34;../../docs/user-guide/search/queries/stroom-query-language/&#34;&gt;Stroom Query Language&lt;/a&gt; query and returns the results as CSV.&lt;/p&gt;
 &lt;p&gt;Unlike the &lt;a href=&#34;../../docs/user-guide/api/query-api/&#34;&gt;Query APIs&lt;/a&gt;, which need a JSON &lt;em&gt;SearchRequest&lt;/em&gt; describing both the query terms and how the results should be structured, this endpoint takes the query as a single string and always returns a table.
 It is intended for the common case of pulling a modest set of rows out of &lt;em&gt;Stroom&lt;/em&gt; from a script.&lt;/p&gt;
@@ -566,7 +567,7 @@ The examples below assume it is held in &lt;code&gt;${TOKEN}&lt;/code&gt;.&lt;/p
 The first line holds the column names and each subsequent line holds one row.
 Only visible columns are included, so a column hidden in the query is also absent from the CSV, as are &lt;em&gt;Stroom&lt;/em&gt;&amp;rsquo;s internal special columns.&lt;/p&gt;
 &lt;p&gt;A query that matches nothing returns an empty body, which is not an error.&lt;/p&gt;
-&lt;h3 id=&#34;incremental-and-non-incremental-searches&#34;&gt;Incremental and non incremental searches&lt;/h3&gt;
+&lt;h3 id=&#34;incremental-and-non-incremental-searches&#34;&gt;Incremental and Non Incremental Searches&lt;/h3&gt;
 &lt;p&gt;Searches in &lt;em&gt;Stroom&lt;/em&gt; are asynchronous, so a response can be sent back before the query has finished.
 This means an empty or short CSV body on its own is ambiguous, as it could mean either that the query matched little, or that it had not got very far by the time the server replied.&lt;/p&gt;
 &lt;p&gt;Every response therefore carries two headers to resolve that ambiguity.&lt;/p&gt;

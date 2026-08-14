@@ -151,7 +151,7 @@
     aria-label="Search this site…"
     autocomplete="off"
     
-    data-offline-search-index-json-src="../../../../../offline-search-index.95b12371d9f23e70cddb1f62f4c00605.json"
+    data-offline-search-index-json-src="../../../../../offline-search-index.95034a9311ba25828e37c5d04adb17e9.json"
     data-offline-search-base-href="../../../../../"
     data-offline-search-max-results="50"
   >
@@ -286,7 +286,8 @@ Supported expressions are as follows:</p>
 <p>Multiple durations can be combined in the expression, e.g.</p>
 <p><code>now() + 2d - 10h</code></p>
 <p><code>now() + 2w - 1d10h</code></p>
-<p>Durations consist of a number and duration unit. Supported duration units are:</p>
+<p>Durations consist of a number and duration unit.
+Supported duration units are:</p>
 <ul>
 <li><code>s</code> - Seconds</li>
 <li><code>m</code> - Minutes</li>
@@ -472,7 +473,7 @@ It can also be display in <code>preview</code> form (with formatting and syntax 
 
 
 
-    <p>To make full use of data links for viewing raw data, you need to use the <code>stroom:source()</code> <a href="../../../../../docs/user-guide/pipelines/xslt/xslt-functions/">XSLT Function</a> to decorate an event with the details of the source location it derived from.</p>
+    <p>To make full use of data links for viewing raw data, you need to use the <code>stroom:source()</code> <a href="../../../../../docs/user-guide/pipelines/xslt/xslt-functions/stream-and-source/#source">XSLT Function</a> to decorate an event with the details of the source location it derived from.</p>
 
 
 </div>
@@ -607,16 +608,16 @@ The format for an annotation link is as follows:</p>
     <div class="lead">Navigating directly to a specific <em>Stroom</em> dashboard using a direct URL.</div>
 	<p>It is possible to navigate directly to a specific <em>Stroom</em> dashboard using a direct URL.
 This can be useful when you have a dashboard that needs to be viewed by users that would otherwise not be using the <em>Stroom</em> user interface.</p>
-<h2 id="url-format">URL format</h2>
+<h2 id="url-format">URL Format</h2>
 <p>The format for the URL is as follows:</p>
 <p><code>https://&lt;HOST&gt;/stroom/dashboard?type=Dashboard&amp;uuid=&lt;DASHBOARD UUID&gt;[&amp;title=&lt;DASHBOARD TITLE&gt;][&amp;params=&lt;DASHBOARD PARAMETERS&gt;]</code></p>
 <p>Example:</p>
 <p><code>https://localhost/stroom/dashboard?type=Dashboard&amp;uuid=c7c6b03c-5d47-4b8b-b84e-e4dfc6c84a09&amp;title=My%20Dash&amp;params=userId%3DFred%20Bloggs</code></p>
-<h3 id="host-and-path">Host and path</h3>
+<h3 id="host-and-path">Host and Path</h3>
 <p>The host and path are typically <code>https://&lt;HOST&gt;/stroom/dashboard</code> where <code>&lt;HOST&gt;</code> is the hostname/IP for <em>Stroom</em>.</p>
-<h3 id="type">type</h3>
+<h3 id="type"><code>type</code></h3>
 <p><code>type</code> is a required parameter and must always be <code>Dashboard</code> since we are opening a dashboard.</p>
-<h3 id="uuid">uuid</h3>
+<h3 id="uuid"><code>uuid</code></h3>
 <p><code>uuid</code> is a required parameter where <code>&lt;DASHBOARD UUID&gt;</code> is the UUID for the dashboard you want a direct URL to, e.g. <code>uuid=c7c6b03c-5d47-4b8b-b84e-e4dfc6c84a09</code></p>
 <p>The UUID for the dashboard that you want to link to can be found by right clicking on the dashboard icon in the explorer tree and selecting Info.</p>
 <p>The Info dialog will display something like this and the UUID can be copied from it:</p>
@@ -629,10 +630,10 @@ Created On: 2018-12-10T06:33:03.275Z
 Updated By: admin
 Updated On: 2018-12-10T07:47:06.841Z
 </code></pre>
-<h3 id="title-optional">title (Optional)</h3>
+<h3 id="title-optional"><code>title</code> (Optional)</h3>
 <p><code>title</code> is an optional URL parameter where <code>&lt;DASHBOARD TITLE&gt;</code> allows the specification of a specific title for the opened dashboard instead of the default dashboard name.</p>
 <p>The inclusion of <code>${name}</code> in the title allows the default dashboard name to be used and appended with other values, e.g. <code>'title=${name}%20-%20' + param.name</code></p>
-<h3 id="params-optional">params (Optional)</h3>
+<h3 id="params-optional"><code>params</code> (Optional)</h3>
 <p><code>params</code> is an optional URL parameter where <code>&lt;DASHBOARD PARAMETERS&gt;</code> includes any parameters that have been defined for the dashboard in any of the expressions, e.g. <code>params=userId%3DFred%20Bloggs</code></p>
 <h2 id="permissions">Permissions</h2>
 <p>In order for a user to view a dashboard they will need the necessary permission on the various entities that make up the dashboard.</p>

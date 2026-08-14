@@ -151,7 +151,7 @@
     aria-label="Search this site…"
     autocomplete="off"
     
-    data-offline-search-index-json-src="../../../../../../offline-search-index.95b12371d9f23e70cddb1f62f4c00605.json"
+    data-offline-search-index-json-src="../../../../../../offline-search-index.95034a9311ba25828e37c5d04adb17e9.json"
     data-offline-search-base-href="../../../../../../"
     data-offline-search-max-results="50"
   >
@@ -255,7 +255,7 @@ Stroom supports it as a first class deployment model.</p>
 </div>
 
 
-<h2 id="the-one-rule-exactly-one-relying-party">The one rule: exactly one Relying Party</h2>
+<h2 id="the-one-rule-exactly-one-relying-party">The One Rule: Exactly One Relying Party</h2>
 <p>For any given path, exactly one component runs the OIDC flow — the proxy, or Stroom, never both.</p>
 <p>If Stroom is left in its normal configuration behind an authenticating proxy, both try to be the Relying Party.
 The browser is driven through a second, redundant OIDC flow stacked on the one the proxy already completed, which needs a second client registration at the IDP, doubles the cookies on every request, and typically fails with <code>Stroom Loading, Authentication Error: Failed to Fetch</code>.</p>
@@ -279,7 +279,7 @@ Direct machine access is unaffected: API keys and bearer tokens work as they alw
 </div>
 
 
-<h2 id="stroom-configuration">Stroom configuration</h2>
+<h2 id="stroom-configuration">Stroom Configuration</h2>
 <pre><code class="language-yaml">  security:
     authentication:
       edgeAuthentication:
@@ -327,7 +327,7 @@ Scripts, <code>curl</code> and other non browser automation are unaffected.
 </div>
 
 
-<h2 id="what-the-proxy-must-and-must-not-authenticate">What the proxy must and must not authenticate</h2>
+<h2 id="what-the-proxy-must-and-must-not-authenticate">What the Proxy Must and Must Not Authenticate</h2>
 <p>Stroom is not only a web application; it ingests data, serves health checks and its nodes talk to each other.
 None of that traffic can complete an interactive sign in, so the proxy&rsquo;s authenticate rule must cover the browser facing paths <strong>only</strong>.</p>
 <table>
@@ -373,7 +373,7 @@ None of that traffic can complete an interactive sign in, so the proxy&rsquo;s a
 </table>
 <p>Stroom still authenticates the bypassed paths itself — bypassing the proxy does not bypass Stroom&rsquo;s own checks.</p>
 <p>Node to node traffic inside a cluster does not go through the proxy and needs no special handling.</p>
-<h2 id="trust-prerequisites">Trust prerequisites</h2>
+<h2 id="trust-prerequisites">Trust Prerequisites</h2>
 <p>Stroom verifies the signature of whatever credential the proxy injects, so a forged header does not authenticate.
 Two things must still be true of the deployment, and Stroom cannot verify them from the inside:</p>
 <ol>
@@ -381,7 +381,7 @@ Two things must still be true of the deployment, and Stroom cannot verify them f
 <li><strong>The proxy overwrites the headers it injects</strong>, so a client cannot supply its own.
 The ALB does this for its <code>x-amzn-oidc-*</code> headers; with NGINX make sure <code>proxy_set_header</code> is used for the <code>Authorization</code> header, which overwrites, and nothing upstream re-adds it.</li>
 </ol>
-<h2 id="request-header-sizes">Request header sizes</h2>
+<h2 id="request-header-sizes">Request Header Sizes</h2>
 <p>Authenticating proxies make requests big.
 An ALB&rsquo;s session cookie is sharded at 4KB per shard, and the injected token headers come on top, so an ordinary authenticated request can exceed the 8KB per request default that Jetty applies when nothing is configured.
 The failure looks like a network error, not an authentication error.</p>
@@ -393,7 +393,7 @@ The failure looks like a network error, not an authentication error.</p>
       useForwardedHeaders: true
       maxRequestHeaderSize: 32KiB
 </code></pre>
-<h2 id="user-accounts-and-permissions">User accounts and permissions</h2>
+<h2 id="user-accounts-and-permissions">User Accounts and Permissions</h2>
 <p>Exactly as with any <a href="../../../../../../docs/install-guide/setup/open-id/external-idp/">external IDP</a>, the proxy establishes <em>who the user is</em>; Stroom still decides <em>what they may do</em>.
 A Stroom user record is created automatically the first time a verified identity is seen, with no permissions.
 Anyone the IDP will authenticate can therefore reach an empty Stroom UI, so if that is not wanted, restrict who can authenticate at the IDP or proxy (for example, limit the Cognito app client or the ALB rule to a group).</p>
@@ -407,7 +407,7 @@ Anyone the IDP will authenticate can therefore reach an empty Stroom UI, so if t
 </div>
 </div>
 
-<h2 id="worked-examples">Worked examples</h2>
+<h2 id="worked-examples">Worked Examples</h2>
 <ul>
 <li><a href="../../../../../../docs/install-guide/setup/open-id/edge-proxy/aws-alb-cognito/">AWS ALB and Cognito</a> - the load balancer authenticates against a Cognito user pool and injects a signed <code>x-amzn-oidc-data</code> header.</li>
 <li><a href="../../../../../../docs/install-guide/setup/open-id/edge-proxy/nginx-oauth2-proxy/">NGINX, oauth2-proxy and KeyCloak</a> - the proxy authenticates against KeyCloak (or any OIDC provider) and relays the IDP&rsquo;s token as a bearer header.</li>
@@ -514,7 +514,7 @@ The <a href="../../../../../../docs/install-guide/setup/open-id/external-idp/cog
 </div>
 </div>
 
-<h2 id="cognito-setup">Cognito setup</h2>
+<h2 id="cognito-setup">Cognito Setup</h2>
 <p>Create a user pool, hosted UI domain and app client as described on the <a href="../../../../../../docs/install-guide/setup/open-id/external-idp/cognito/">Cognito</a> page, with these differences:</p>
 <ul>
 <li>The app client belongs to the <strong>ALB</strong>, not to Stroom, so its allowed callback URL is the ALB&rsquo;s own:
@@ -525,7 +525,7 @@ The <a href="../../../../../../docs/install-guide/setup/open-id/external-idp/cog
 </ul>
 <p>No second app client for Stroom is needed.
 The ALB is the only OIDC client in this topology.</p>
-<h2 id="load-balancer-setup">Load balancer setup</h2>
+<h2 id="load-balancer-setup">Load Balancer Setup</h2>
 <p>Order the listener rules so machine traffic is forwarded <em>without</em> authentication, then authenticate everything else:</p>
 <ol>
 <li>Paths <code>/datafeed*</code>, <code>/stroom/datafeed*</code>, <code>/remoting/*</code>, <code>/status</code> → <strong>forward</strong> to the Stroom target group.</li>
@@ -538,7 +538,7 @@ The ALB is the only OIDC client in this topology.</p>
 <li>If the total claims and access token exceed 11KB the ALB itself returns HTTP 500 and increments its <code>ELBAuthUserClaimsSizeExceeded</code> metric — trim what the IDP puts in the token if you hit this.</li>
 <li>Restrict the Stroom target&rsquo;s security group to accept traffic only from the ALB&rsquo;s security group; this is <a href="../../../../../../docs/install-guide/setup/open-id/edge-proxy/#trust-prerequisites">trust prerequisite one</a>.</li>
 </ul>
-<h2 id="stroom-configuration">Stroom configuration</h2>
+<h2 id="stroom-configuration">Stroom Configuration</h2>
 <pre><code class="language-yaml">server:
   applicationConnectors:
     - type: http
@@ -579,7 +579,7 @@ AWS GovCloud serves the keys from different, S3 hosted endpoints, so GovCloud de
 <pre><code class="language-yaml">        publicKeyUriPattern: &quot;https://s3-us-gov-west-1.amazonaws.com/\
 aws-elb-public-keys-prod-us-gov-west-1/${keyId}&quot;
 </code></pre>
-<h3 id="identity-claims">Identity claims</h3>
+<h3 id="identity-claims">Identity Claims</h3>
 <p>The claims in <code>x-amzn-oidc-data</code> come from Cognito&rsquo;s <strong>user info</strong> endpoint, not from an ID token.
 The default <code>uniqueIdentityClaim</code> of <code>sub</code> is correct and stable; set <code>userDisplayNameClaim</code> to taste (<code>username</code> and <code>email</code> are usually available).</p>
 <h2 id="logout">Logout</h2>
@@ -590,7 +590,7 @@ The configuration above does exactly that — <code>cookiesToExpire</code> remov
 <li>The <code>logout_uri</code> value must be registered in the Cognito app client as an <strong>allowed sign out URL</strong>.</li>
 <li>The page it points at must be matched by a <strong>forward</strong> rule, not the authenticate rule, or the sign in flow simply restarts and the user never appears to sign out.</li>
 </ul>
-<h2 id="verifying-it-works">Verifying it works</h2>
+<h2 id="verifying-it-works">Verifying it Works</h2>
 <p>After deploying, load Stroom in a browser and check, in the developer tools network tab:</p>
 <ol>
 <li>You are redirected to the Cognito hosted UI, sign in, and land back at Stroom.</li>
@@ -645,10 +645,10 @@ The <a href="../../../../../../docs/install-guide/setup/open-id/external-idp/key
 </div>
 </div>
 
-<h2 id="keycloak-setup">KeyCloak setup</h2>
+<h2 id="keycloak-setup">KeyCloak Setup</h2>
 <p>Create a realm and a confidential client as described on the <a href="../../../../../../docs/install-guide/setup/open-id/external-idp/keycloak/">KeyCloak</a> page, with one difference: the client&rsquo;s redirect URI is <strong>oauth2-proxy&rsquo;s</strong> callback, <code>https://STROOM_FQDN/oauth2/callback</code>, not Stroom&rsquo;s.</p>
 <p>No second client for Stroom is needed.</p>
-<h2 id="oauth2-proxy-setup">oauth2-proxy setup</h2>
+<h2 id="oauth2-proxy-setup">Oauth2-proxy Setup</h2>
 <pre><code class="language-ini">provider = &quot;keycloak-oidc&quot;
 oidc_issuer_url = &quot;https://IDP_HOST/realms/REALM&quot;
 client_id = &quot;stroom-proxy-client&quot;
@@ -674,7 +674,7 @@ Stroom verifies either happily, but this means the <code>requiredAccessTokenType
 </div>
 
 
-<h2 id="nginx-setup">NGINX setup</h2>
+<h2 id="nginx-setup">NGINX Setup</h2>
 <p>The essential shape — authenticate the browser paths, forward the machine paths untouched, and <strong>overwrite</strong> the <code>Authorization</code> header on everything proxied:</p>
 <pre><code class="language-nginx">server {
     listen 443 ssl;
@@ -719,7 +719,7 @@ Stroom verifies either happily, but this means the <code>requiredAccessTokenType
     location /status    { proxy_pass https://stroom-backend:8080/status; }
 }
 </code></pre>
-<h2 id="stroom-configuration">Stroom configuration</h2>
+<h2 id="stroom-configuration">Stroom Configuration</h2>
 <pre><code class="language-yaml">server:
   applicationConnectors:
     - type: http
@@ -765,7 +765,7 @@ To also end the KeyCloak session, give oauth2-proxy&rsquo;s sign out a redirect 
 <pre><code class="language-yaml">          signOutUrl: &quot;https://STROOM_FQDN/oauth2/sign_out?rd=https%3A%2F%2FIDP_HOST%2Frealms%2FREALM%2Fprotocol%2Fopenid-connect%2Flogout&quot;
 </code></pre>
 <p>(The <code>rd</code> value must be URL encoded and allowed by oauth2-proxy&rsquo;s <code>whitelist_domains</code>.)</p>
-<h2 id="verifying-it-works">Verifying it works</h2>
+<h2 id="verifying-it-works">Verifying it Works</h2>
 <ol>
 <li>Loading Stroom redirects via oauth2-proxy to KeyCloak; after signing in, the UI loads.</li>
 <li>The request to <code>/api/auth/flow/v1/status</code> returns <code>200</code> with <code>&quot;authenticated&quot;: true</code>, and there is no subsequent navigation to KeyCloak&rsquo;s <code>/auth</code> endpoint.</li>

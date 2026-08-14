@@ -167,7 +167,7 @@ It does not withdraw their access: the account is untouched and they can sign in
 This is offered alongside revocation because the two are easily confused and do quite different things, as described below.&lt;/p&gt;
 &lt;/li&gt;
 &lt;/ul&gt;
-&lt;h2 id=&#34;revoking-disabling-and-the-difference-between-them&#34;&gt;Revoking, Disabling, And The Difference Between Them&lt;/h2&gt;
+&lt;h2 id=&#34;revoking-disabling-and-the-difference-between-them&#34;&gt;Revoking, Disabling, and the Difference between Them&lt;/h2&gt;
 &lt;p&gt;Three actions are easy to confuse, and each does something different.
 To stop someone using Stroom completely and immediately, you need the last two together.&lt;/p&gt;
 &lt;table&gt;
@@ -396,7 +396,7 @@ Withdrawing a signing key affects everybody using Stroom at once, so it is treat
 
 
 &lt;p&gt;from the main menu.&lt;/p&gt;
-&lt;h2 id=&#34;what-the-screen-shows&#34;&gt;What The Screen Shows&lt;/h2&gt;
+&lt;h2 id=&#34;what-the-screen-shows&#34;&gt;What the Screen Shows&lt;/h2&gt;
 &lt;p&gt;Each key is listed with its status and the date it was issued, and nothing else.
 Nothing that identifies a key or describes its contents is shown, because the stored key includes the private half that produces signatures.&lt;/p&gt;
 &lt;table&gt;
@@ -432,7 +432,7 @@ Rotation replaces the active key when it is old enough, and only at that point d
 &lt;p&gt;Stroom replaces the active signing key every &lt;code&gt;stroom.security.identity.token.jwkRotationInterval&lt;/code&gt;, which is thirty days by default.&lt;/p&gt;
 &lt;p&gt;Rotation is invisible to users.
 The key being replaced continues to be trusted for long enough that every token already signed with it expires naturally, so nobody is signed out and nothing needs to be restarted.&lt;/p&gt;
-&lt;h2 id=&#34;revoking-a-key&#34;&gt;Revoking A Key&lt;/h2&gt;
+&lt;h2 id=&#34;revoking-a-key&#34;&gt;Revoking a Key&lt;/h2&gt;
 &lt;p&gt;Revoking withdraws a key immediately.
 Any token signed with it stops being accepted, and a replacement signing key is created at the same moment so that Stroom can carry on issuing tokens.&lt;/p&gt;
 &lt;p&gt;There are two actions.&lt;/p&gt;
@@ -455,7 +455,7 @@ A key revoked by mistake costs everybody a fresh sign in, but no data is lost.&l
 &lt;/div&gt;
 
 
-&lt;h3 id=&#34;what-to-expect-after-revoking-the-active-key&#34;&gt;What To Expect After Revoking The Active Key&lt;/h3&gt;
+&lt;h3 id=&#34;what-to-expect-after-revoking-the-active-key&#34;&gt;What to Expect after Revoking the Active Key&lt;/h3&gt;
 &lt;p&gt;Everybody using Stroom is signed out and must authenticate again.
 For people at a browser this is quick, and they will be signed back in as soon as they do so.&lt;/p&gt;
 &lt;p&gt;Nodes and Stroom-Proxy hold their own tokens signed with the same key, and they replace those tokens as they expire rather than immediately.
@@ -505,7 +505,7 @@ It allows you to parse and extract parts of the JSON response.
 &lt;/div&gt;
 
 
-&lt;h2 id=&#34;creating-a-user-access-token&#34;&gt;Creating a user access token&lt;/h2&gt;
+&lt;h2 id=&#34;creating-a-user-access-token&#34;&gt;Creating a User Access Token&lt;/h2&gt;
 &lt;p&gt;If a user wants to use the REST API they will need to create a token for authentication/authorisation in API calls.
 Any calls to the REST API will have the same permissions that the user has within Stroom.&lt;/p&gt;
 &lt;p&gt;The following excerpt of shell commands shows how you can get an access/refresh token pair for a user and then later use the refresh token to obtain a new access token.
@@ -559,9 +559,9 @@ echo -e &amp;quot;\nNew refresh token (expiry $( get_jwt_expiry &amp;quot;${refr
 &lt;p&gt;The above example assumes that you have created a user called &lt;code&gt;jbloggs&lt;/code&gt; and a client ID &lt;code&gt;admin-cli&lt;/code&gt;.&lt;/p&gt;
 &lt;p&gt;Access tokens typically have a short life (of the order of minutes) while a refresh token will have a much longer life (maybe up to a year).
 Refreshing the token does not require re-authentication.&lt;/p&gt;
-&lt;h2 id=&#34;creating-a-service-account-token&#34;&gt;Creating a service account token&lt;/h2&gt;
+&lt;h2 id=&#34;creating-a-service-account-token&#34;&gt;Creating a Service Account Token&lt;/h2&gt;
 &lt;p&gt;If you want another system to call one of Stroom&amp;rsquo;s APIs then it is likely that you will do that using a non-human service account (or processing user account).&lt;/p&gt;
-&lt;h3 id=&#34;creating-a-new-client-id&#34;&gt;Creating a new Client ID&lt;/h3&gt;
+&lt;h3 id=&#34;creating-a-new-client-id&#34;&gt;Creating a New Client ID&lt;/h3&gt;
 &lt;p&gt;The client system needs to be represented by a Client ID in KeyCloak.
 To create a new Client ID, assuming the client system is called &lt;em&gt;System X&lt;/em&gt;, do the following in the KeyCloak admin UI.&lt;/p&gt;
 &lt;ol&gt;
@@ -605,7 +605,7 @@ echo -e &amp;quot;\nAccess token:\n${access_token}&amp;quot;
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;Where &lt;code&gt;client_secret&lt;/code&gt; is the &lt;em&gt;Client secret&lt;/em&gt; that you copied from KeyCloak earlier.&lt;/p&gt;
 &lt;p&gt;This access token can be refreshed in the same way as for a user access token, as described above.&lt;/p&gt;
-&lt;h2 id=&#34;using-access-tokens&#34;&gt;Using access tokens&lt;/h2&gt;
+&lt;h2 id=&#34;using-access-tokens&#34;&gt;Using Access Tokens&lt;/h2&gt;
 &lt;p&gt;Access tokens can be used in calls to Stroom&amp;rsquo;s REST API or its datafeed API.
 The process of including the token in a HTTP request is described in &lt;a href=&#34;../../docs/user-guide/api/#authentication&#34;&gt;API Authentication&lt;/a&gt;&lt;/p&gt;
 

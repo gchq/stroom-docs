@@ -44,14 +44,14 @@
 " />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="/releases/v07.13/preview-features/" /><meta property="article:section" content="releases" />
-<meta property="article:published_time" content="2026-03-18T00:00:00+00:00" />
-<meta property="article:modified_time" content="2026-08-13T15:21:24+01:00" /><meta property="og:site_name" content="Stroom" />
+<meta property="article:published_time" content="2026-08-13T00:00:00+00:00" />
+<meta property="article:modified_time" content="2026-08-14T16:44:55+01:00" /><meta property="og:site_name" content="Stroom" />
 
 <meta itemprop="name" content="Preview Features (experimental)">
 <meta itemprop="description" content="Preview features in Stroom version 7.13. Preview features are somewhat experimental in nature and are therefore subject to breaking changes in future releases.
-"><meta itemprop="datePublished" content="2026-03-18T00:00:00+00:00" />
-<meta itemprop="dateModified" content="2026-08-13T15:21:24+01:00" />
-<meta itemprop="wordCount" content="4">
+"><meta itemprop="datePublished" content="2026-08-13T00:00:00+00:00" />
+<meta itemprop="dateModified" content="2026-08-14T16:44:55+01:00" />
+<meta itemprop="wordCount" content="201">
 <meta itemprop="keywords" content="" /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Preview Features (experimental)"/>
 <meta name="twitter:description" content="Preview features in Stroom version 7.13. Preview features are somewhat experimental in nature and are therefore subject to breaking changes in future releases.
@@ -155,7 +155,7 @@
     aria-label="Search this site…"
     autocomplete="off"
     
-    data-offline-search-index-json-src="../../../offline-search-index.95b12371d9f23e70cddb1f62f4c00605.json"
+    data-offline-search-index-json-src="../../../offline-search-index.95034a9311ba25828e37c5d04adb17e9.json"
     data-offline-search-base-href="../../../"
     data-offline-search-max-results="50"
   >
@@ -180,7 +180,7 @@
     aria-label="Search this site…"
     autocomplete="off"
     
-    data-offline-search-index-json-src="../../../offline-search-index.95b12371d9f23e70cddb1f62f4c00605.json"
+    data-offline-search-index-json-src="../../../offline-search-index.95034a9311ba25828e37c5d04adb17e9.json"
     data-offline-search-base-href="../../../"
     data-offline-search-max-results="50"
   >
@@ -404,7 +404,15 @@
 
 </div>
 
-            
+            <div class="td-toc">
+        <nav id="TableOfContents">
+  <ul>
+    <li><a href="#ask-stroom-ai">Ask Stroom AI</a></li>
+    <li><a href="#dense-vector-search">Dense Vector Search</a></li>
+  </ul>
+</nav>
+      </div>
+    
             
 
 	
@@ -446,7 +454,7 @@
         
           <li><a class="taxonomy-term" href="../../../tags/configuration/" data-taxonomy-term="configuration"><span class="taxonomy-label">configuration</span><span class="taxonomy-count">4</span></a></li>
         
-          <li><a class="taxonomy-term" href="../../../tags/content/" data-taxonomy-term="content"><span class="taxonomy-label">content</span><span class="taxonomy-count">8</span></a></li>
+          <li><a class="taxonomy-term" href="../../../tags/content/" data-taxonomy-term="content"><span class="taxonomy-label">content</span><span class="taxonomy-count">10</span></a></li>
         
           <li><a class="taxonomy-term" href="../../../tags/context/" data-taxonomy-term="context"><span class="taxonomy-label">context</span><span class="taxonomy-count">1</span></a></li>
         
@@ -518,7 +526,7 @@
         
           <li><a class="taxonomy-term" href="../../../tags/nginx/" data-taxonomy-term="nginx"><span class="taxonomy-label">nginx</span><span class="taxonomy-count">1</span></a></li>
         
-          <li><a class="taxonomy-term" href="../../../tags/node/" data-taxonomy-term="node"><span class="taxonomy-label">node</span><span class="taxonomy-count">1</span></a></li>
+          <li><a class="taxonomy-term" href="../../../tags/node/" data-taxonomy-term="node"><span class="taxonomy-label">node</span><span class="taxonomy-count">2</span></a></li>
         
           <li><a class="taxonomy-term" href="../../../tags/open-id/" data-taxonomy-term="open-id"><span class="taxonomy-label">open-id</span><span class="taxonomy-count">10</span></a></li>
         
@@ -528,7 +536,7 @@
         
           <li><a class="taxonomy-term" href="../../../tags/pipeline/" data-taxonomy-term="pipeline"><span class="taxonomy-label">pipeline</span><span class="taxonomy-count">3</span></a></li>
         
-          <li><a class="taxonomy-term" href="../../../tags/processing/" data-taxonomy-term="processing"><span class="taxonomy-label">processing</span><span class="taxonomy-count">5</span></a></li>
+          <li><a class="taxonomy-term" href="../../../tags/processing/" data-taxonomy-term="processing"><span class="taxonomy-label">processing</span><span class="taxonomy-count">6</span></a></li>
         
           <li><a class="taxonomy-term" href="../../../tags/property/" data-taxonomy-term="property"><span class="taxonomy-label">property</span><span class="taxonomy-count">2</span></a></li>
         
@@ -576,7 +584,7 @@
         
           <li><a class="taxonomy-term" href="../../../tags/xml/" data-taxonomy-term="xml"><span class="taxonomy-label">xml</span><span class="taxonomy-count">1</span></a></li>
         
-          <li><a class="taxonomy-term" href="../../../tags/xslt/" data-taxonomy-term="xslt"><span class="taxonomy-label">xslt</span><span class="taxonomy-count">5</span></a></li>
+          <li><a class="taxonomy-term" href="../../../tags/xslt/" data-taxonomy-term="xslt"><span class="taxonomy-label">xslt</span><span class="taxonomy-count">14</span></a></li>
         
       </ul>
     </div>
@@ -623,19 +631,39 @@
 
 		
 	</header>    
-	
-<div class="alert alert-warning" role="alert">
-<h4 class="alert-heading">TODO</h4>
+	<h2 id="ask-stroom-ai">Ask Stroom AI</h2>
+<p>Ask Stroom AI, introduced as a preview feature in v7.11, has been substantially improved and remains a preview feature.</p>
+<ul>
+<li>The chat can be docked as a panel rather than only opening as a dialog.</li>
+<li>Chat history is kept, and individual messages and attachments can be viewed, opened or deleted.</li>
+<li>Tables can be attached to a conversation, and are named so that the model can refer to them by source.</li>
+<li>Larger tables are analysed in batches and the results merged, rather than the request simply being too big.</li>
+<li>Answers can be copied and downloaded, and messages show when they were sent.</li>
+<li>Use of Ask Stroom AI is now recorded in the event log.</li>
+</ul>
+<p>The chat history is held in the database, which is why a new <code>ai</code> configuration branch appears in this release.</p>
 
-    Complete this section.
+<div class="alert alert-primary" role="alert">
+<h4 class="alert-heading">See Also</h4>
+<div class="alert-content">
+  
+  <p><a href="../../../releases/v07.13/upgrade-notes/">Upgrade Notes</a></p>
 
 </div>
+</div>
 
+<h2 id="dense-vector-search">Dense Vector Search</h2>
+<p>Dense vector fields, introduced as a preview feature in v7.11, remain experimental in both the Lucene and Elasticsearch implementations.</p>
+<ul>
+<li>Search results can be reranked using a model, including across multiple <code>dense_vector</code> fields in Elasticsearch.</li>
+<li>The number of dimensions used for embedding is configurable, and can be left unset.</li>
+<li>A new XSLT function computes the similarity of two float vectors.</li>
+</ul>
 
 	
 	
 	<div class="text-muted mt-5 pt-3 border-top">
-  Last modified August 13, 2026: <a href="https://github.com/gchq/stroom-docs/commit/603981ca4cf5d33fa2b753617ac36b904f9c639a">Merge pull request #132 from gchq/csv_search (603981c)</a>
+  Last modified August 14, 2026: <a href="https://github.com/gchq/stroom-docs/commit/307b3f02d7c0d289c1c0c1297047742e0bbbee22">fix build (307b3f0)</a>
 </div>
 
 </div>

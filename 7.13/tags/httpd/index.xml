@@ -30,7 +30,7 @@
 &lt;li&gt;Installations are on Centos 7.3 minimal systems (fully patched)&lt;/li&gt;
 &lt;li&gt;The security of the HTTPD deployment should be reviewed for a production environment.&lt;/li&gt;
 &lt;/ul&gt;
-&lt;h2 id=&#34;installation-of-apache-httpd-and-mod_jk-software&#34;&gt;Installation of Apache httpd and Mod_JK Software&lt;/h2&gt;
+&lt;h2 id=&#34;installation-of-apache-httpd-and-mod_jk-software&#34;&gt;Installation of Apache Httpd and Mod_JK Software&lt;/h2&gt;
 &lt;p&gt;To deploy Stroom using Apache&amp;rsquo;s httpd web service as a front end (https) and Apache&amp;rsquo;s mod_jk as the interface between Apache and the Stroom tomcat applications, we also need&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;code&gt;apr&lt;/code&gt;&lt;/li&gt;
@@ -105,11 +105,12 @@ rm -rf tomcat-connectors-*-src&lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 
 &lt;p&gt;Although you could remove the gcc compiler at this point, we leave it installed as one &lt;em&gt;should&lt;/em&gt; continue to upgrade the Tomcat Connectors to later releases.&lt;/p&gt;
-&lt;h2 id=&#34;configure-apache-httpd&#34;&gt;Configure Apache httpd&lt;/h2&gt;
+&lt;h2 id=&#34;configure-apache-httpd&#34;&gt;Configure Apache Httpd&lt;/h2&gt;
 &lt;p&gt;We need to configure Apache as the &lt;code&gt;root&lt;/code&gt; user.&lt;/p&gt;
 &lt;p&gt;If the Apache httpd service is &amp;lsquo;fronting&amp;rsquo; a Stroom user interface, we should create an index file (/var/www/html/index.html) on all nodes so browsing to
-the root of the node will present the Stroom UI. This is not needed if you are deploying a Forwarding or Standalone Stroom proxy.&lt;/p&gt;
-&lt;h3 id=&#34;forwarding-file-for-stroom-user-interface-deployments&#34;&gt;Forwarding file for Stroom User Interface deployments&lt;/h3&gt;
+the root of the node will present the Stroom UI.
+This is not needed if you are deploying a Forwarding or Standalone Stroom proxy.&lt;/p&gt;
+&lt;h3 id=&#34;forwarding-file-for-stroom-user-interface-deployments&#34;&gt;Forwarding File for Stroom User Interface Deployments&lt;/h3&gt;
 
   
 
@@ -271,7 +272,8 @@ ServerRoot &amp;quot;/etc/httpd&amp;quot;
     # It can be &amp;quot;All&amp;quot;, &amp;quot;None&amp;quot;, or any combination of the keywords:
 ...
 &lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;Then finally we add two new log formats and configure the access log to use the new format. This is done within the &lt;code&gt;&amp;lt;IfModule logio_module&amp;gt;&lt;/code&gt; by adding the two new LogFormat directives&lt;/p&gt;
+&lt;p&gt;Then finally we add two new log formats and configure the access log to use the new format.
+This is done within the &lt;code&gt;&amp;lt;IfModule logio_module&amp;gt;&lt;/code&gt; by adding the two new LogFormat directives&lt;/p&gt;
 &lt;pre&gt;&lt;code class=&#34;language-text&#34;&gt;LogFormat &amp;quot;%a/%{REMOTE_PORT}e %X %t %l \&amp;quot;%u\&amp;quot; \&amp;quot;%r\&amp;quot; %s/%&amp;gt;s %D %I/%O/%B \&amp;quot;%{Referer}i\&amp;quot; \&amp;quot;%{User-Agent}i\&amp;quot; %V/%p&amp;quot; blackboxUser
 LogFormat &amp;quot;%a/%{REMOTE_PORT}e %X %t %l \&amp;quot;%{SSL_CLIENT_S_DN}x\&amp;quot; \&amp;quot;%r\&amp;quot; %s/%&amp;gt;s %D %I/%O/%B \&amp;quot;%{Referer}i\&amp;quot; \&amp;quot;%{User-Agent}i\&amp;quot; %V/%p&amp;quot; blackboxSSLUser
 &lt;/code&gt;&lt;/pre&gt;
@@ -366,10 +368,12 @@ LogFormat &amp;quot;%a/%{REMOTE_PORT}e %X %t %l \&amp;quot;%{SSL_CLIENT_S_DN}x\&
     data-filter-output=&#34;(out)&#34;&gt;&lt;code class=&#34;language-bash&#34;&gt;cp /etc/httpd/conf.d/ssl.conf /etc/httpd/conf.d/ssl.conf.ORIG&lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 
-&lt;p&gt;The configuration of the &lt;code&gt;/etc/httpd/conf.d/ssl.conf&lt;/code&gt; &lt;strong&gt;does&lt;/strong&gt; change depending on the Stroom scenario deployed. In the following we will indicate
-differences by tagged sub-headings. If the configuration applies irrespective of scenario, then &lt;strong&gt;All scenarios&lt;/strong&gt; is the tag, else the tag indicated the
+&lt;p&gt;The configuration of the &lt;code&gt;/etc/httpd/conf.d/ssl.conf&lt;/code&gt; &lt;strong&gt;does&lt;/strong&gt; change depending on the Stroom scenario deployed.
+In the following we will indicate
+differences by tagged sub-headings.
+If the configuration applies irrespective of scenario, then &lt;strong&gt;All scenarios&lt;/strong&gt; is the tag, else the tag indicated the
 type of Stroom deployment.&lt;/p&gt;
-&lt;h4 id=&#34;sslconf-http-to-https-redirection---all-scenarios&#34;&gt;&lt;code&gt;ssl.conf&lt;/code&gt;: HTTP to HTTPS Redirection - All scenarios&lt;/h4&gt;
+&lt;h4 id=&#34;sslconf-http-to-https-redirection---all-scenarios&#34;&gt;&lt;code&gt;ssl.conf&lt;/code&gt;: HTTP to HTTPS Redirection - All Scenarios&lt;/h4&gt;
 &lt;p&gt;Before the &lt;VirtualHost _default_:443&gt; context we add http to https redirection by adding the directives (noting we specify the actual server name)&lt;/p&gt;
 &lt;pre&gt;&lt;code class=&#34;language-text&#34;&gt;&amp;lt;VirtualHost *:80&amp;gt;
   ServerName stroomp00.strmdev00.org
@@ -398,7 +402,7 @@ type of Stroom deployment.&lt;/p&gt;
 
 &amp;lt;VirtualHost _default_:443&amp;gt;
 &lt;/code&gt;&lt;/pre&gt;
-&lt;h4 id=&#34;sslconf-virtualhost-directives---multi-node-application-and-proxy-deployment&#34;&gt;&lt;code&gt;ssl.conf&lt;/code&gt;: VirtualHost directives - Multi Node &amp;lsquo;Application and Proxy&amp;rsquo; deployment&lt;/h4&gt;
+&lt;h4 id=&#34;sslconf-virtualhost-directives---multi-node-application-and-proxy-deployment&#34;&gt;&lt;code&gt;ssl.conf&lt;/code&gt;: VirtualHost Directives - Multi Node &amp;lsquo;Application and Proxy&amp;rsquo; Deployment&lt;/h4&gt;
 &lt;p&gt;Within the &lt;VirtualHost _default_:443&gt; context we set the directives, in this case, we use the CNAME &lt;code&gt;stroomp.strmdev00.org&lt;/code&gt;&lt;/p&gt;
 &lt;pre&gt;&lt;code class=&#34;language-text&#34;&gt;ServerName stroomp.strmdev00.org
 JkMount /stroom* loadbalancer
@@ -441,7 +445,7 @@ JkOptions +ForwardKeySize +ForwardURICompat +ForwardSSLCertChain -ForwardDirecto
 # is not inherited from httpd.conf.
 ...
 &lt;/code&gt;&lt;/pre&gt;
-&lt;h4 id=&#34;sslconf-virtualhost-directives---standalone-or-forwarding-proxy-deployment&#34;&gt;&lt;code&gt;ssl.conf&lt;/code&gt;: VirtualHost directives - Standalone or Forwarding Proxy deployment&lt;/h4&gt;
+&lt;h4 id=&#34;sslconf-virtualhost-directives---standalone-or-forwarding-proxy-deployment&#34;&gt;&lt;code&gt;ssl.conf&lt;/code&gt;: VirtualHost Directives - Standalone or Forwarding Proxy Deployment&lt;/h4&gt;
 &lt;p&gt;Within the &lt;VirtualHost _default_:443&gt; context set the directives, in this case, for a node named say &lt;code&gt;stroomfp0.strmdev00.org&lt;/code&gt;&lt;/p&gt;
 &lt;pre&gt;&lt;code class=&#34;language-text&#34;&gt;ServerName stroomfp0.strmdev00.org
 JkMount /stroom/datafeed* local_proxy
@@ -476,7 +480,7 @@ JkOptions +ForwardKeySize +ForwardURICompat +ForwardSSLCertChain -ForwardDirecto
 # is not inherited from httpd.conf.
 ...
 &lt;/code&gt;&lt;/pre&gt;
-&lt;h4 id=&#34;sslconf-virtualhost-directives---single-node-application-and-proxy-deployment&#34;&gt;&lt;code&gt;ssl.conf&lt;/code&gt;: VirtualHost directives - Single Node &amp;lsquo;Application and Proxy&amp;rsquo; deployment&lt;/h4&gt;
+&lt;h4 id=&#34;sslconf-virtualhost-directives---single-node-application-and-proxy-deployment&#34;&gt;&lt;code&gt;ssl.conf&lt;/code&gt;: VirtualHost Directives - Single Node &amp;lsquo;Application and Proxy&amp;rsquo; Deployment&lt;/h4&gt;
 &lt;p&gt;Within the &lt;VirtualHost _default_:443&gt; context set the directives, in this case, for a node name &lt;code&gt;stroomp00.strmdev00.org&lt;/code&gt;&lt;/p&gt;
 &lt;pre&gt;&lt;code class=&#34;language-text&#34;&gt;ServerName stroomp00.strmdev00.org
 JkMount /stroom* local
@@ -519,9 +523,12 @@ JkOptions +ForwardKeySize +ForwardURICompat +ForwardSSLCertChain -ForwardDirecto
 # is not inherited from httpd.conf.
 ...
 &lt;/code&gt;&lt;/pre&gt;
-&lt;h4 id=&#34;sslconf-certificate-file-changes---all-scenarios&#34;&gt;&lt;code&gt;ssl.conf&lt;/code&gt;: Certificate file changes - All scenarios&lt;/h4&gt;
-&lt;p&gt;We replace the standard certificate files with the generated certificates. In the example below, we are using the multi node scenario, in
-that the key file names are &lt;code&gt;stroomp.crt&lt;/code&gt; and &lt;code&gt;stroomp.key&lt;/code&gt;. For other scenarios, use the appropriate file names generated. We replace&lt;/p&gt;
+&lt;h4 id=&#34;sslconf-certificate-file-changes---all-scenarios&#34;&gt;&lt;code&gt;ssl.conf&lt;/code&gt;: Certificate File Changes - All Scenarios&lt;/h4&gt;
+&lt;p&gt;We replace the standard certificate files with the generated certificates.
+In the example below, we are using the multi node scenario, in
+that the key file names are &lt;code&gt;stroomp.crt&lt;/code&gt; and &lt;code&gt;stroomp.key&lt;/code&gt;.
+For other scenarios, use the appropriate file names generated.
+We replace&lt;/p&gt;
 &lt;pre&gt;&lt;code&gt;SSLCertificateFile /etc/pki/tls/certs/localhost.crt
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;with&lt;/p&gt;
@@ -573,7 +580,7 @@ SSLCertificateKeyFile /home/stroomuser/stroom-jks/private/stroomp.key
 #   Point SSLCertificateChainFile at a file containing the
 ...
 &lt;/code&gt;&lt;/pre&gt;
-&lt;h4 id=&#34;sslconf-certificate-bundleno-ca-verification---all-scenarios&#34;&gt;&lt;code&gt;ssl.conf&lt;/code&gt;: Certificate Bundle/NO-CA Verification - All scenarios&lt;/h4&gt;
+&lt;h4 id=&#34;sslconf-certificate-bundleno-ca-verification---all-scenarios&#34;&gt;&lt;code&gt;ssl.conf&lt;/code&gt;: Certificate Bundle/NO-CA Verification - All Scenarios&lt;/h4&gt;
 &lt;p&gt;If you have signed your Stroom server certificate with a Certificate Authority, then change&lt;/p&gt;
 &lt;pre&gt;&lt;code&gt;SSLCACertificateFile /etc/pki/tls/certs/ca-bundle.crt
 &lt;/code&gt;&lt;/pre&gt;
@@ -613,15 +620,18 @@ SSLVerifyClient optional_no_ca
 #   With SSLRequire you can do per-directory access control based
 ...
 &lt;/code&gt;&lt;/pre&gt;
-&lt;h4 id=&#34;sslconf-servlet-protection---single-or-multi-node-scenarios-not-for-standaloneforwarding-proxy&#34;&gt;&lt;code&gt;ssl.conf&lt;/code&gt;: Servlet Protection - Single or Multi Node scenarios (not for Standalone/Forwarding Proxy)&lt;/h4&gt;
+&lt;h4 id=&#34;sslconf-servlet-protection---single-or-multi-node-scenarios-not-for-standaloneforwarding-proxy&#34;&gt;&lt;code&gt;ssl.conf&lt;/code&gt;: Servlet Protection - Single or Multi Node Scenarios (not for Standalone/Forwarding Proxy)&lt;/h4&gt;
 &lt;p&gt;We now need to secure certain Stroom Application servlets, to ensure they are only accessed under appropriate control.&lt;/p&gt;
-&lt;p&gt;This set of servlets will be accessible by all nodes in the subnet 192.168.2 (as well as localhost). We achieve this by adding after the example Location directives&lt;/p&gt;
+&lt;p&gt;This set of servlets will be accessible by all nodes in the subnet 192.168.2 (as well as localhost).
+We achieve this by adding after the example Location directives&lt;/p&gt;
 &lt;pre&gt;&lt;code&gt;&amp;lt;Location ~ &amp;quot;stroom/(status|echo|sessionList|debug)&amp;quot; &amp;gt;
  Require all denied
  Require ip 127.0.0.1 192.168.2
 &amp;lt;/Location&amp;gt;
 &lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;We further restrict the &lt;code&gt;clustercall&lt;/code&gt; and &lt;code&gt;export&lt;/code&gt; servlets to just the localhost. If we had multiple Stroom processing nodes, you would specify each node, or preferably, the subnet they are on. In our multi node case this is 192.168.2.&lt;/p&gt;
+&lt;p&gt;We further restrict the &lt;code&gt;clustercall&lt;/code&gt; and &lt;code&gt;export&lt;/code&gt; servlets to just the localhost.
+If we had multiple Stroom processing nodes, you would specify each node, or preferably, the subnet they are on.
+In our multi node case this is 192.168.2.&lt;/p&gt;
 &lt;pre&gt;&lt;code&gt;&amp;lt;Location ~ &amp;quot;stroom/export/|stroom/remoting/clustercall.rpc&amp;quot; &amp;gt;
  Require all denied
  Require ip 127.0.0.1 192.168.2
@@ -663,7 +673,7 @@ SSLVerifyClient optional_no_ca
 #   o FakeBasicAuth:
 ...
 &lt;/code&gt;&lt;/pre&gt;
-&lt;h4 id=&#34;sslconf-log-formats---all-scenarios&#34;&gt;&lt;code&gt;ssl.conf&lt;/code&gt;: Log formats - All scenarios&lt;/h4&gt;
+&lt;h4 id=&#34;sslconf-log-formats---all-scenarios&#34;&gt;&lt;code&gt;ssl.conf&lt;/code&gt;: Log Formats - All Scenarios&lt;/h4&gt;
 &lt;p&gt;Finally, as we make use of the Black Box Apache log format, we replace the standard format&lt;/p&gt;
 &lt;pre&gt;&lt;code&gt;CustomLog logs/ssl_request_log \
         &amp;quot;%t %h %{SSL_PROTOCOL}x %{SSL_CIPHER}x \&amp;quot;%r\&amp;quot; %b&amp;quot;
@@ -695,14 +705,15 @@ CustomLog logs/ssl_request_log blackboxSSLUser
 &amp;lt;/VirtualHost&amp;gt;
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;Remember, in the case of Multi node stroom Application servers, deploy this file on all servers.&lt;/p&gt;
-&lt;h3 id=&#34;apache-mod_jk-configuration&#34;&gt;Apache Mod_JK configuration&lt;/h3&gt;
+&lt;h3 id=&#34;apache-mod_jk-configuration&#34;&gt;Apache Mod_JK Configuration&lt;/h3&gt;
 &lt;p&gt;Apache Mod_JK has two configuration files&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;/etc/httpd/conf.d/mod_jk.conf - for the http server configuration&lt;/li&gt;
 &lt;li&gt;/etc/httpd/conf/workers.properties - to configure the Tomcat workers&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;In multi node scenarios, &lt;code&gt;/etc/httpd/conf.d/mod_jk.conf&lt;/code&gt; is the same on all servers, but the &lt;code&gt;/etc/httpd/conf/workers.properties&lt;/code&gt; file is different.
-The contents of these two configuration files differ depending on the Stroom deployment. The following provide the various deployment scenarios.&lt;/p&gt;
+The contents of these two configuration files differ depending on the Stroom deployment.
+The following provide the various deployment scenarios.&lt;/p&gt;
 &lt;h4 id=&#34;mod_jk-multi-node-application-and-proxy-deployment&#34;&gt;Mod_JK Multi Node Application and Proxy Deployment&lt;/h4&gt;
 &lt;p&gt;For a Stroom Multi node Application and Proxy server,&lt;/p&gt;
 &lt;p&gt;We configure &lt;code&gt;/etc/httpd/conf.d/mod_jk.conf&lt;/code&gt; as per&lt;/p&gt;
@@ -732,7 +743,8 @@ printf &#39;&amp;lt;/Location&amp;gt;\n&#39; &amp;gt;&amp;gt; ${F}
 chmod 640 ${F}
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;We configure &lt;code&gt;/etc/httpd/conf/workers.properties&lt;/code&gt; as per&lt;/p&gt;
-&lt;p&gt;Since we are deploying for a cluster with load balancing, we need a &lt;code&gt;workers.properties&lt;/code&gt; file per node. Executing the following will result in two files (&lt;code&gt;workers.properties.stroomp00&lt;/code&gt; and &lt;code&gt;workers.properties.stroomp01&lt;/code&gt;) which should be deployed to their respective servers.&lt;/p&gt;
+&lt;p&gt;Since we are deploying for a cluster with load balancing, we need a &lt;code&gt;workers.properties&lt;/code&gt; file per node.
+Executing the following will result in two files (&lt;code&gt;workers.properties.stroomp00&lt;/code&gt; and &lt;code&gt;workers.properties.stroomp01&lt;/code&gt;) which should be deployed to their respective servers.&lt;/p&gt;
 &lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;cd /tmp
 # Set the list of nodes
 Nodes=&amp;quot;stroomp00.strmdev00.org stroomp01.strmdev00.org&amp;quot;
@@ -799,10 +811,12 @@ The following command makes this simple.&lt;/p&gt;
 &lt;p&gt;If you were to add an additional node to a multi node cluster, say the node &lt;code&gt;stroomp02.strmdev00.org&lt;/code&gt;, then you would re-run the above script with&lt;/p&gt;
 &lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;Nodes=&amp;quot;stroomp00.strmdev00.org stroomp01.strmdev00.org stroomp02.strmdev00.org&amp;quot;
 &lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;then redeploy all three files to the respective servers. Also note, that for the newly created workers.properties files for the existing nodes to
+&lt;p&gt;then redeploy all three files to the respective servers.
+Also note, that for the newly created workers.properties files for the existing nodes to
 take effect you will need to restart the Apache Httpd service on both nodes.&lt;/p&gt;
 &lt;p&gt;Remember, in multi node cluster deployments, the following files are the same and hence can be created on one node, but copied to the
-others not forgetting to backup the other node&amp;rsquo;s original files. That is, the files&lt;/p&gt;
+others not forgetting to backup the other node&amp;rsquo;s original files.
+That is, the files&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;code&gt;/var/www/html/index.html&lt;/code&gt;&lt;/li&gt;
 &lt;li&gt;&lt;code&gt;/etc/httpd/conf.d/mod_jk.conf&lt;/code&gt;&lt;/li&gt;
@@ -903,7 +917,7 @@ printf &#39;worker.local_proxy.sticky_session=1\n&#39; &amp;gt;&amp;gt; ${F}
 printf &#39;worker.status.type=status\n&#39; &amp;gt;&amp;gt; ${F}
 chmod 640 ${F}
 &lt;/code&gt;&lt;/pre&gt;
-&lt;h2 id=&#34;final-host-configuration-and-web-service-enablement&#34;&gt;Final host configuration and web service enablement&lt;/h2&gt;
+&lt;h2 id=&#34;final-host-configuration-and-web-service-enablement&#34;&gt;Final Host Configuration and Web Service Enablement&lt;/h2&gt;
 &lt;p&gt;Now tidy up the SELinux context for access on all nodes and files via the commands&lt;/p&gt;
 
   
@@ -925,8 +939,10 @@ chcon --reference /etc/httpd/conf.d/README /etc/httpd/conf.d/mod_jk.conf
 chcon --reference /etc/httpd/conf/magic /etc/httpd/conf/workers.properties&lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 
-&lt;p&gt;We also enable both http and https services via the firewall on all nodes. If you don&amp;rsquo;t want to present a http access point,
-then don&amp;rsquo;t enable it in the firewall setting. This is done with&lt;/p&gt;
+&lt;p&gt;We also enable both http and https services via the firewall on all nodes.
+If you don&amp;rsquo;t want to present a http access point,
+then don&amp;rsquo;t enable it in the firewall setting.
+This is done with&lt;/p&gt;
 
   
 
@@ -947,7 +963,8 @@ firewall-cmd --reload
 firewall-cmd --zone=public --list-all&lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 
-&lt;p&gt;Finally enable then start the httpd service, correcting any errors. It should be noted that on any errors,
+&lt;p&gt;Finally enable then start the httpd service, correcting any errors.
+It should be noted that on any errors,
 the suggestion of a systemctl status or viewing the journal are good, but also review information in the httpd error logs found in &lt;code&gt;/var/log/httpd/&lt;/code&gt;.&lt;/p&gt;
 
   
@@ -2628,7 +2645,6 @@ At this point, we will see the Property &lt;em&gt;Value&lt;/em&gt; set&lt;/p&gt;
 
 
 
-
  element and then within translation Filter’s &lt;strong&gt;Property&lt;/strong&gt; pane we double click on the &lt;em&gt;xslt&lt;/em&gt; Property Name to bring up the &lt;strong&gt;Property Editor&lt;/strong&gt;.
 As before, bring up the &lt;strong&gt;Choose item&lt;/strong&gt; selection window, navigate to the &lt;code&gt;Apache HTTPD&lt;/code&gt; system group and select the
 Apache-SSLBlackBox-V2.0-EVENTS xslt Translation.&lt;/p&gt;
@@ -2720,7 +2736,7 @@ The result is the assignment of our translation to the &lt;em&gt;xslt&lt;/em&gt;
 &lt;p&gt;Save the pipeline by clicking on its &lt;span class=&#34;stroom-icon inline-svg-button icon-button  &#34; &gt;
     &lt;span class=&#34;face&#34; title=&#34;Save&#34;&gt;&lt;svg xmlns=&#34;http://www.w3.org/2000/svg&#34; width=&#34;1792&#34; height=&#34;1792&#34; viewBox=&#34;0 0 1792 1792&#34;&gt;&lt;!--! Font Awesome Free 6.4.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --&gt;&lt;path style=&#34;fill:currentColor;stroke-width:0.570676;stroke-dasharray:none&#34; d=&#34;M 339.40234 116.52148 C 216.56504 116.52148 116.69531 216.3912 116.69531 339.22852 L 116.69531 1452.7715 C 116.69531 1575.6089 216.56504 1675.4785 339.40234 1675.4785 L 1452.5977 1675.4785 C 1575.4349 1675.4785 1675.3047 1575.6089 1675.3047 1452.7715 L 1675.3047 598.82422 C 1675.3047 539.66744 1651.9901 482.94523 1610.2324 441.1875 L 1610.5801 440.83984 L 1351.334 181.59375 C 1309.5761 139.83602 1252.8561 116.52148 1193.6992 116.52148 L 339.40234 116.52148 z M 339.40234 283.55273 L 395.08008 283.55273 L 395.08008 645.45312 C 395.08008 691.73461 432.31423 728.96875 478.5957 728.96875 L 1146.7207 728.96875 C 1193.0023 728.96875 1230.2363 691.73461 1230.2363 645.45312 L 1230.2363 297.12305 C 1231.2803 298.167 1231.9756 298.8623 1233.0195 299.90625 L 1492.6152 558.80469 L 1492.2676 559.1543 C 1502.707 569.59373 1508.6211 583.8594 1508.6211 598.47461 L 1508.6211 1452.7715 C 1508.6211 1483.3939 1483.5678 1508.4473 1452.9453 1508.4473 L 1395.6113 1508.4473 L 1395.6113 1059.8359 C 1395.6113 981.08539 1331.5826 917.05859 1252.832 917.05859 L 539.16797 917.05859 C 460.41738 917.05859 396.38867 981.08539 396.38867 1059.8359 L 396.38867 1508.4473 L 339.40234 1508.4473 C 308.78001 1508.4473 283.72656 1483.3939 283.72656 1452.7715 L 283.72656 339.22852 C 283.72656 308.60619 308.78001 283.55273 339.40234 283.55273 z M 562.11133 283.55273 L 1063.2051 283.55273 L 1063.2051 561.9375 L 562.11133 561.9375 L 562.11133 283.55273 z M 538.94531 1024.1426 L 1252.832 1024.1426 C 1272.4639 1024.1426 1288.5273 1040.2041 1288.5273 1059.8359 L 1288.5273 1508.4473 L 503.25 1508.4473 L 503.25 1059.8359 C 503.25 1040.2041 519.31334 1024.1426 538.94531 1024.1426 z &#34; /&gt;&lt;/svg&gt; &lt;/span&gt;
   &lt;/span&gt; icon.&lt;/p&gt;
-&lt;h3 id=&#34;manually-load-raw-event-test-data&#34;&gt;Manually load Raw Event test data&lt;/h3&gt;
+&lt;h3 id=&#34;manually-load-raw-event-test-data&#34;&gt;Manually Load Raw Event Test Data&lt;/h3&gt;
 &lt;p&gt;Having established the pipeline, we can now start authoring our text converter and translation.
 The first step is to load some Raw Event test data.
 Previously in the &lt;strong&gt;Event Log Source&lt;/strong&gt; of this HOWTO you saved a copy of the file &lt;em&gt;sampleApacheBlackBox.log&lt;/em&gt; to your local environment.
@@ -3317,7 +3333,7 @@ If we were to click on the &lt;strong&gt;Meta&lt;/strong&gt; link at the top of 
 &lt;li&gt;user-agent - the user agent used to present the stream to Stroom - in this case, the Stroom user Interface&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;We now have data that will allow us to develop our text converter and translation.&lt;/p&gt;
-&lt;h3 id=&#34;step-data-through-pipeline---source&#34;&gt;Step data through Pipeline - Source&lt;/h3&gt;
+&lt;h3 id=&#34;step-data-through-pipeline---source&#34;&gt;Step Data through Pipeline - Source&lt;/h3&gt;
 &lt;p&gt;We now need to step our data through the pipeline.&lt;/p&gt;
 &lt;p&gt;To do this, set the check-box on the &lt;em&gt;Specific Stream&lt;/em&gt; pane and we note that the previously greyed out action icons (&lt;span class=&#34;stroom-icon inline-svg-button icon-button  &#34; &gt;
     &lt;span class=&#34;face&#34; title=&#34;Process&#34;&gt;&lt;svg xmlns=&#34;http://www.w3.org/2000/svg&#34; width=&#34;1792&#34; height=&#34;1792&#34; viewBox=&#34;0 0 1792 1792&#34;&gt;&lt;path style=&#34;fill:var(--icon-colour__blue)&#34; d=&#34;m 1440,95.339844 c -9.3333,0 -17,2.999997 -23,8.999996 -6,6 -9,13.66667 -9,23 l 0,192 -256,0 c -45.3333,0 -88,5.5 -128,16.5 -40.00001,11 -75.50001,25 -106.50001,42 -31,17 -61,39.83333 -90,68.5 -29,28.66667 -53.66667,56.33333 -74,83 -20.33333,26.66667 -41.66667,60 -64,100 -19.99699,35.8155 -36.49225,67.59036 -49.54102,95.38868 -0.27492,0.10932 -0.53471,0.21669 -0.81054,0.32617 -16,30.66667 -31,56.5 -45,77.5 -14,21 -31,41.5 -51,61.5 -20,20 -43,35 -69,45 -26,10 -55,15 -87,15 l -355.148435,0 c -9.333333,0 -17,3 -23.0000004,9 -6,6 -9.0000000375455,13.66667 -9.0000000375455,23 l 0,192.00001 c 0,9.3333 3.0000000375455,17 9.0000000375455,23 6.0000004,6 13.6666674,9 23.0000004,9 l 355.148435,0 c 45.33333,0 88,-5.5 128,-16.5 40,-11 75.5,-25 106.5,-42 31,-17 61,-39.8333 90,-68.5 29,-28.6667 53.66667,-56.33334 74,-83.00001 20.33333,-26.66667 41.66667,-60 64,-100 19.8569,-35.56461 36.26775,-67.15315 49.27344,-94.8125 0.36178,-0.305 0.71557,-0.5961 1.07812,-0.90235 16,-30.66667 31,-56.5 45,-77.5 14,-21 31,-41.5 51,-61.5 20.00001,-20 43.00001,-35 69.00001,-45 26,-10 55,-15 87,-15 l 256,0 0,192 c 0,8.66667 3.1667,16.16667 9.5,22.5 6.3333,6.33333 13.8333,9.5 22.5,9.5 9.3333,0 17,-3 23,-9 l 320,-320 c 6,-6 9,-13.66667 9,-23 0,-9.33333 -3,-17 -9,-23 l -319,-319 c -8,-6.666666 -16,-9.999996 -24,-9.999996 z&#34;/&gt;&lt;path style=&#34;fill:var(--icon-colour__green)&#34; d=&#34;M 32 608.88672 C 22.666667 608.88672 15 611.88672 9 617.88672 C 3.0000001 623.88672 0 631.55342 0 640.88672 L 0 832.88672 C -2.3684758e-15 842.22005 3.0000001 849.88672 9 855.88672 C 14.999999 861.88672 22.666667 864.88672 32 864.88672 L 387.14844 864.88672 C 389.01484 864.88672 390.86885 864.90739 392.71484 864.94141 C 424.84023 863.54598 455.12074 854.70213 477.65234 838.51562 C 513.22947 811.0071 542.31317 769.76507 567.46094 723.21289 A 59.082625 59.082625 0 0 1 567.88281 722.44336 C 577.24508 705.7116 585.95748 689.48787 593.56641 673.41992 A 59.082625 59.082625 0 0 1 594.40625 671.7168 C 596.87369 666.9118 599.36286 662.08644 601.86719 657.25195 C 575.79127 644.74345 546.89263 634.11637 515.14844 625.38672 C 475.14844 614.38672 432.48177 608.88672 387.14844 608.88672 L 32 608.88672 z M 870.56641 957.2793 C 853.49205 984.29535 834.72449 1010.8834 813.4375 1036.3711 A 59.082625 59.082625 0 0 1 813.08984 1036.7852 C 777.58172 1078.5162 737.58032 1121.5966 687.80664 1156.543 C 688.3781 1157.5702 688.9227 1158.5676 689.5 1159.6016 C 711.83333 1199.6016 733.16667 1232.9349 753.5 1259.6016 C 773.83333 1286.2683 798.5 1313.9349 827.5 1342.6016 C 856.5 1371.2683 886.5 1394.1016 917.5 1411.1016 C 948.5 1428.1016 983.99999 1442.1016 1024 1453.1016 C 1064 1464.1016 1106.6667 1469.6016 1152 1469.6016 L 1408 1469.6016 L 1408 1661.6016 C 1408 1670.9349 1411 1678.6016 1417 1684.6016 C 1423 1690.6016 1430.6667 1693.6016 1440 1693.6016 C 1448 1693.6016 1456 1690.2683 1464 1683.6016 L 1783 1364.6016 C 1789 1358.6016 1792 1350.9349 1792 1341.6016 C 1792 1332.2683 1789 1324.6016 1783 1318.6016 L 1463 998.60156 C 1457 992.60156 1449.3333 989.60156 1440 989.60156 C 1431.3333 989.60156 1423.8333 992.76823 1417.5 999.10156 C 1411.1667 1005.4348 1408 1012.9349 1408 1021.6016 L 1408 1213.6016 L 1152 1213.6016 C 1120 1213.6016 1091 1208.6016 1065 1198.6016 C 1039 1188.6016 1016 1173.6016 996 1153.6016 C 976 1133.6016 959 1113.1016 945 1092.1016 C 931 1071.1016 916 1045.2683 900 1014.6016 C 899.63745 1014.2954 899.28365 1014.0042 898.92188 1013.6992 C 890.80126 996.429 881.35206 977.6246 870.56641 957.2793 z &#34;/&gt;&lt;/svg&gt;&lt;/span&gt;
@@ -3476,7 +3492,7 @@ We enter Stepping Mode by pressing the stepping button &lt;span class=&#34;stroo
 
 &lt;p&gt;Which, initially displays the Raw Event data from our stream.
 This is the Source display for the Event Pipeline.&lt;/p&gt;
-&lt;h3 id=&#34;step-data-through-pipeline---text-converter&#34;&gt;Step data through Pipeline - Text Converter&lt;/h3&gt;
+&lt;h3 id=&#34;step-data-through-pipeline---text-converter&#34;&gt;Step Data through Pipeline - Text Converter&lt;/h3&gt;
 &lt;p&gt;We click on the 
 
 
@@ -3530,7 +3546,6 @@ This is the Source display for the Event Pipeline.&lt;/p&gt;
 
     
   
-
 
 
 
@@ -4078,7 +4093,8 @@ LogFormat &amp;quot;%a/%{REMOTE_PORT}e %X %t %l \&amp;quot;%{SSL_CLIENT_S_DN}x\&
   &lt;/a&gt;
 &lt;/div&gt;
 
-&lt;p&gt;You should take note of the stepping location that has been displayed in each stepping window. The stepping location is the numbers enclosed in square brackets e.g. [7556:1:16] found in the top right-hand side of the stepping window next to the stepping icons&lt;/p&gt;
+&lt;p&gt;You should take note of the stepping location that has been displayed in each stepping window.
+The stepping location is the numbers enclosed in square brackets e.g. [7556:1:16] found in the top right-hand side of the stepping window next to the stepping icons&lt;/p&gt;
 
 
 
@@ -4124,14 +4140,16 @@ LogFormat &amp;quot;%a/%{REMOTE_PORT}e %X %t %l \&amp;quot;%{SSL_CLIENT_S_DN}x\&
 &lt;p&gt;where&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;strong&gt;streamId&lt;/strong&gt; - is the stream ID and won’t change when stepping through the selected stream.&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;subStreamId&lt;/strong&gt; - is the sub stream ID. When Stroom processes event streams it aggregates multiple input files and this is the file number.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;subStreamId&lt;/strong&gt; - is the sub stream ID.
+When Stroom processes event streams it aggregates multiple input files and this is the file number.&lt;/li&gt;
 &lt;li&gt;&lt;strong&gt;recordNo&lt;/strong&gt; - is the record number within the sub stream.&lt;/li&gt;
 &lt;/ul&gt;
-&lt;p&gt;One can double click on either the &lt;strong&gt;subStreamId&lt;/strong&gt; or &lt;strong&gt;recordNo&lt;/strong&gt; numbers and enter a new number. This allows you to ‘step’ around a stream rather than just relying on first, previous, next and last movement.&lt;/p&gt;
+&lt;p&gt;One can double click on either the &lt;strong&gt;subStreamId&lt;/strong&gt; or &lt;strong&gt;recordNo&lt;/strong&gt; numbers and enter a new number.
+This allows you to ‘step’ around a stream rather than just relying on first, previous, next and last movement.&lt;/p&gt;
 &lt;p&gt;Note, you should now Save &lt;span class=&#34;stroom-icon inline-svg-button icon-button  &#34; &gt;
     &lt;span class=&#34;face&#34; title=&#34;Save&#34;&gt;&lt;svg xmlns=&#34;http://www.w3.org/2000/svg&#34; width=&#34;1792&#34; height=&#34;1792&#34; viewBox=&#34;0 0 1792 1792&#34;&gt;&lt;!--! Font Awesome Free 6.4.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --&gt;&lt;path style=&#34;fill:currentColor;stroke-width:0.570676;stroke-dasharray:none&#34; d=&#34;M 339.40234 116.52148 C 216.56504 116.52148 116.69531 216.3912 116.69531 339.22852 L 116.69531 1452.7715 C 116.69531 1575.6089 216.56504 1675.4785 339.40234 1675.4785 L 1452.5977 1675.4785 C 1575.4349 1675.4785 1675.3047 1575.6089 1675.3047 1452.7715 L 1675.3047 598.82422 C 1675.3047 539.66744 1651.9901 482.94523 1610.2324 441.1875 L 1610.5801 440.83984 L 1351.334 181.59375 C 1309.5761 139.83602 1252.8561 116.52148 1193.6992 116.52148 L 339.40234 116.52148 z M 339.40234 283.55273 L 395.08008 283.55273 L 395.08008 645.45312 C 395.08008 691.73461 432.31423 728.96875 478.5957 728.96875 L 1146.7207 728.96875 C 1193.0023 728.96875 1230.2363 691.73461 1230.2363 645.45312 L 1230.2363 297.12305 C 1231.2803 298.167 1231.9756 298.8623 1233.0195 299.90625 L 1492.6152 558.80469 L 1492.2676 559.1543 C 1502.707 569.59373 1508.6211 583.8594 1508.6211 598.47461 L 1508.6211 1452.7715 C 1508.6211 1483.3939 1483.5678 1508.4473 1452.9453 1508.4473 L 1395.6113 1508.4473 L 1395.6113 1059.8359 C 1395.6113 981.08539 1331.5826 917.05859 1252.832 917.05859 L 539.16797 917.05859 C 460.41738 917.05859 396.38867 981.08539 396.38867 1059.8359 L 396.38867 1508.4473 L 339.40234 1508.4473 C 308.78001 1508.4473 283.72656 1483.3939 283.72656 1452.7715 L 283.72656 339.22852 C 283.72656 308.60619 308.78001 283.55273 339.40234 283.55273 z M 562.11133 283.55273 L 1063.2051 283.55273 L 1063.2051 561.9375 L 562.11133 561.9375 L 562.11133 283.55273 z M 538.94531 1024.1426 L 1252.832 1024.1426 C 1272.4639 1024.1426 1288.5273 1040.2041 1288.5273 1059.8359 L 1288.5273 1508.4473 L 503.25 1508.4473 L 503.25 1059.8359 C 503.25 1040.2041 519.31334 1024.1426 538.94531 1024.1426 z &#34; /&gt;&lt;/svg&gt; &lt;/span&gt;
   &lt;/span&gt; your edited Text Converter.&lt;/p&gt;
-&lt;h3 id=&#34;step-data-through-pipeline---translation&#34;&gt;Step data through Pipeline - Translation&lt;/h3&gt;
+&lt;h3 id=&#34;step-data-through-pipeline---translation&#34;&gt;Step Data through Pipeline - Translation&lt;/h3&gt;
 &lt;p&gt;To start authoring the xslt Translation Filter, press the 
 
 
@@ -4191,7 +4209,6 @@ LogFormat &amp;quot;%a/%{REMOTE_PORT}e %X %t %l \&amp;quot;%{SSL_CLIENT_S_DN}x\&
 
 
 
-
  element which steps us to the xsl Translation Filter pane.&lt;/p&gt;
 
 
@@ -4234,11 +4251,17 @@ LogFormat &amp;quot;%a/%{REMOTE_PORT}e %X %t %l \&amp;quot;%{SSL_CLIENT_S_DN}x\&
   &lt;/a&gt;
 &lt;/div&gt;
 
-&lt;p&gt;As for the &lt;em&gt;Text Converter&lt;/em&gt; stepping tab, this tab is divided into three sub-panes. The top one is the xslt translation editor and it will allow you to edit the xslt translation. The bottom left window displays the &lt;em&gt;input&lt;/em&gt; to the xslt translation (which is the output from the &lt;em&gt;Text Converter&lt;/em&gt;). The bottom right window displays the &lt;em&gt;output&lt;/em&gt; from the xslt Translation filter for the given input.&lt;/p&gt;
+&lt;p&gt;As for the &lt;em&gt;Text Converter&lt;/em&gt; stepping tab, this tab is divided into three sub-panes.
+The top one is the xslt translation editor and it will allow you to edit the xslt translation.
+The bottom left window displays the &lt;em&gt;input&lt;/em&gt; to the xslt translation (which is the output from the &lt;em&gt;Text Converter&lt;/em&gt;).
+The bottom right window displays the &lt;em&gt;output&lt;/em&gt; from the xslt Translation filter for the given input.&lt;/p&gt;
 &lt;p&gt;We now click on the pipeline Step Forward button &lt;span class=&#34;stroom-icon inline-svg-button icon-button  icon-colour__green&#34; &gt;
     &lt;span class=&#34;face&#34; title=&#34;Step forward&#34;&gt;&lt;svg xmlns=&#34;http://www.w3.org/2000/svg&#34; viewBox=&#34;0 0 512 512&#34;&gt;&lt;!-- Font Awesome Free 5.15.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) --&gt;&lt;path style=&#34;fill:currentColor&#34; d=&#34;m 400,75.977968 0,360.000002 c 0,6.6 -5.4,12 -12,12 l -40,0 c -6.6,0 -12,-5.4 -12,-12 l 0,-151.9 -171.5,156.5 c -20.6,17.2 -52.5,2.8 -52.5,-24.6 0,-202.11605 0,-87.47785 0,-320.000002 0,-27.399997 31.9,-41.699997 52.5,-24.6 L 336,226.77797 336,75.977968 c 0,-6.599997 5.4,-11.999997 12,-11.999997 l 40,0 c 6.6,0 12,5.4 12,11.999997 z&#34; /&gt;&lt;/svg&gt; &lt;/span&gt;
-  &lt;/span&gt; to single step the Text Converter &lt;em&gt;records&lt;/em&gt; element data through our xslt Translation. We see no change as an empty translation will just perform a copy of the input data.&lt;/p&gt;
-&lt;p&gt;To correct this, we will author our xslt translation. Like the Data Splitter this is also authored incrementally. A minimum xslt translation might contain&lt;/p&gt;
+  &lt;/span&gt; to single step the Text Converter &lt;em&gt;records&lt;/em&gt; element data through our xslt Translation.
+We see no change as an empty translation will just perform a copy of the input data.&lt;/p&gt;
+&lt;p&gt;To correct this, we will author our xslt translation.
+Like the Data Splitter this is also authored incrementally.
+A minimum xslt translation might contain&lt;/p&gt;
 &lt;pre&gt;&lt;code class=&#34;language-xml&#34;&gt;&amp;lt;?xml version=&amp;quot;1.0&amp;quot; encoding=&amp;quot;UTF-8&amp;quot; ?&amp;gt;
 &amp;lt;xsl:stylesheet 
     xpath-default-namespace=&amp;quot;records:2&amp;quot; 
@@ -4338,7 +4361,9 @@ LogFormat &amp;quot;%a/%{REMOTE_PORT}e %X %t %l \&amp;quot;%{SSL_CLIENT_S_DN}x\&
   &lt;/a&gt;
 &lt;/div&gt;
 
-&lt;p&gt;Clearly this doesn’t generate useful events. Our first iterative change might be to generate the TimeCreated element value. The change would be&lt;/p&gt;
+&lt;p&gt;Clearly this doesn’t generate useful events.
+Our first iterative change might be to generate the TimeCreated element value.
+The change would be&lt;/p&gt;
 &lt;pre&gt;&lt;code class=&#34;language-xml&#34;&gt;    &amp;lt;xsl:template match=&amp;quot;node()&amp;quot; mode=&amp;quot;eventTime&amp;quot;&amp;gt;
         &amp;lt;EventTime&amp;gt;
           &amp;lt;TimeCreated&amp;gt;
@@ -4709,7 +4734,8 @@ LogFormat &amp;quot;%a/%{REMOTE_PORT}e %X %t %l \&amp;quot;%{SSL_CLIENT_S_DN}x\&
     &lt;span class=&#34;face&#34; title=&#34;Save&#34;&gt;&lt;svg xmlns=&#34;http://www.w3.org/2000/svg&#34; width=&#34;1792&#34; height=&#34;1792&#34; viewBox=&#34;0 0 1792 1792&#34;&gt;&lt;!--! Font Awesome Free 6.4.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --&gt;&lt;path style=&#34;fill:currentColor;stroke-width:0.570676;stroke-dasharray:none&#34; d=&#34;M 339.40234 116.52148 C 216.56504 116.52148 116.69531 216.3912 116.69531 339.22852 L 116.69531 1452.7715 C 116.69531 1575.6089 216.56504 1675.4785 339.40234 1675.4785 L 1452.5977 1675.4785 C 1575.4349 1675.4785 1675.3047 1575.6089 1675.3047 1452.7715 L 1675.3047 598.82422 C 1675.3047 539.66744 1651.9901 482.94523 1610.2324 441.1875 L 1610.5801 440.83984 L 1351.334 181.59375 C 1309.5761 139.83602 1252.8561 116.52148 1193.6992 116.52148 L 339.40234 116.52148 z M 339.40234 283.55273 L 395.08008 283.55273 L 395.08008 645.45312 C 395.08008 691.73461 432.31423 728.96875 478.5957 728.96875 L 1146.7207 728.96875 C 1193.0023 728.96875 1230.2363 691.73461 1230.2363 645.45312 L 1230.2363 297.12305 C 1231.2803 298.167 1231.9756 298.8623 1233.0195 299.90625 L 1492.6152 558.80469 L 1492.2676 559.1543 C 1502.707 569.59373 1508.6211 583.8594 1508.6211 598.47461 L 1508.6211 1452.7715 C 1508.6211 1483.3939 1483.5678 1508.4473 1452.9453 1508.4473 L 1395.6113 1508.4473 L 1395.6113 1059.8359 C 1395.6113 981.08539 1331.5826 917.05859 1252.832 917.05859 L 539.16797 917.05859 C 460.41738 917.05859 396.38867 981.08539 396.38867 1059.8359 L 396.38867 1508.4473 L 339.40234 1508.4473 C 308.78001 1508.4473 283.72656 1483.3939 283.72656 1452.7715 L 283.72656 339.22852 C 283.72656 308.60619 308.78001 283.55273 339.40234 283.55273 z M 562.11133 283.55273 L 1063.2051 283.55273 L 1063.2051 561.9375 L 562.11133 561.9375 L 562.11133 283.55273 z M 538.94531 1024.1426 L 1252.832 1024.1426 C 1272.4639 1024.1426 1288.5273 1040.2041 1288.5273 1059.8359 L 1288.5273 1508.4473 L 503.25 1508.4473 L 503.25 1059.8359 C 503.25 1040.2041 519.31334 1024.1426 538.94531 1024.1426 z &#34; /&gt;&lt;/svg&gt; &lt;/span&gt;
   &lt;/span&gt; your edited xslt Translation.&lt;/p&gt;
 &lt;p&gt;We have completed the translation and have completed developing our Apache-SSLBlackBox-V2.0-EVENTS event feed.&lt;/p&gt;
-&lt;p&gt;At this point, this event feed is set up to accept Raw Event data, but it will not automatically process the raw data and hence it will not place events into the Event Store. To have Stroom automatically process Raw Event streams, you will need to enable Processors for this pipeline.&lt;/p&gt;
+&lt;p&gt;At this point, this event feed is set up to accept Raw Event data, but it will not automatically process the raw data and hence it will not place events into the Event Store.
+To have Stroom automatically process Raw Event streams, you will need to enable Processors for this pipeline.&lt;/p&gt;
 
       </description>
     </item>

@@ -151,7 +151,7 @@
     aria-label="Search this site…"
     autocomplete="off"
     
-    data-offline-search-index-json-src="../../../offline-search-index.95b12371d9f23e70cddb1f62f4c00605.json"
+    data-offline-search-index-json-src="../../../offline-search-index.95034a9311ba25828e37c5d04adb17e9.json"
     data-offline-search-base-href="../../../"
     data-offline-search-max-results="50"
   >
@@ -416,7 +416,7 @@ The following is a non-exhaustive list of formats supported by Stroom:</p>
 <li>Fixed width text data</li>
 <li>Multi line data (where each line can be a different format), e.g. Auditd.</li>
 </ul>
-<h2 id="preferred-format">Preferred format</h2>
+<h2 id="preferred-format">Preferred Format</h2>
 <p>Where the system/application generating the logs is developed by you and the log format is under your control, the preferred format is Events XML or Event XML fragments.
 The reason for this is that all data in Stroom will be normalised into a standard form.
 This standard form is controlled by the <span class="external-link">
@@ -567,7 +567,8 @@ This is the output format used by the <a href="../../../docs/sending-data/exampl
     
   <h1 id="pg-ea050b499963f2ad2cc8153ae264aabe">2 - Header Arguments</h1>
     <div class="lead">The various HTTP headers that can be sent with data.</div>
-	<p>The following data must be passed in as HTTP header arguments when sending files to Stroom via HTTP POST. These arguments are case insensitive.</p>
+	<p>The following data must be passed in as HTTP header arguments when sending files to Stroom via HTTP POST.
+These arguments are case insensitive.</p>
 <ul>
 <li>
 <p><code>System</code> - The name by which the system is known within the organisation, e.g. <code>PAYROLL_SYSTEM</code>.
@@ -584,7 +585,10 @@ This is mandatory and must match a feed defined within Stroom in order for Stroo
 </li>
 <li>
 <p><code>Compression</code> - This token is optionally used when the POST payload is compressed with either gzip or zip compression.
-Value of <code>ZIP</code> and <code>GZIP</code> are valid. <strong>Note</strong>: The <code>Compression</code> token MUST not be used in conjunction with the standard HTTP header token <code>Content-Encoding</code> otherwise stroom will be unable to un-compress the data. Use either <code>Compression:GZIP</code> or <code>Content-Encoding:gzip</code>, not both. Using <code>Compression</code> is preferred.</p>
+Value of <code>ZIP</code> and <code>GZIP</code> are valid.
+<strong>Note</strong>: The <code>Compression</code> token MUST not be used in conjunction with the standard HTTP header token <code>Content-Encoding</code> otherwise stroom will be unable to un-compress the data.
+Use either <code>Compression:GZIP</code> or <code>Content-Encoding:gzip</code>, not both.
+Using <code>Compression</code> is preferred.</p>
 </li>
 <li>
 <p><code>EffectiveTime</code> - This is only applicable to reference data.
@@ -600,7 +604,9 @@ It is used to indicate the point in time that the reference data is applicable t
 Environment:OPS
 Feed:MY_SYSTEM-EVENTS
 </code></pre>
-<p>The post payload must contain the events file. If the compression format is ZIP the payload must contain ZIP entries with the events files and optional context files ending in .ctx. Further details of supported payload formats can be found <a href="../../../docs/sending-data/payloads/">here</a>.</p>
+<p>The post payload must contain the events file.
+If the compression format is ZIP the payload must contain ZIP entries with the events files and optional context files ending in .ctx.
+Further details of supported payload formats can be found <a href="../../../docs/sending-data/payloads/">here</a>.</p>
 
 </div>
 
@@ -753,7 +759,7 @@ This is not recommended for large volumes of data due to the amount of data that
 -H &#34;Environment:EXAMPLE_ENVIRONMENT&#34;</code></pre>
 </div>
 
-<h2 id="gzip">gzip</h2>
+<h2 id="gzip">Gzip</h2>
 <p>Text data is <span class="external-link">
   <a href="https://en.wikipedia.org/wiki/Gzip" target="_blank" class="external-link" title="gzip (external link to https://en.wikipedia.org/wiki/Gzip)">
     <span>gzip</span>
@@ -1163,7 +1169,8 @@ zip -d 001.mf &#34;StroomData (20)&#34;.zip</code></pre>
 <h2 id="final-tidy-up">Final Tidy Up</h2>
 <p>The files <code>ca.crt</code> and <code>hostname.pem</code> are the only files required for two-way authentication and should be stored permanently on the server; all other remaining files may be deleted or backed up if required.</p>
 <h2 id="certificate-expiry">Certificate Expiry</h2>
-<p>PKI certificates expire after 2 years. To check the expiry date of a certificate, run the following command:</p>
+<p>PKI certificates expire after 2 years.
+To check the expiry date of a certificate, run the following command:</p>
 
   
 
@@ -1263,7 +1270,7 @@ In the following examples -H is used to specify the header arguments required by
 If it is not then curl will post the file name instead of its contents.</li>
 <li>The <code>--data-binary</code> argument must always be used even for text formats, in order to prevent data corruption by curl stripping out newlines.</li>
 </ul>
-<h2 id="example-https-post-without-authentication">Example HTTPS post without authentication:</h2>
+<h2 id="example-https-post-without-authentication">Example HTTPS Post without Authentication:</h2>
 
   
 
@@ -1286,7 +1293,7 @@ If it is not then curl will post the file name instead of its contents.</li>
 
 <p>In the above example -k is required to stop curl from authenticating the server.
 The next example must be used to supply the necessary CA to authenticate the server if this is required.</p>
-<h2 id="example-https-with-1-way-ssl-authentication">Example HTTPS With 1 way SSL authentication:</h2>
+<h2 id="example-https-with-1-way-ssl-authentication">Example HTTPS with 1 Way SSL Authentication:</h2>
 
   
 
@@ -1310,7 +1317,7 @@ The next example must be used to supply the necessary CA to authenticate the ser
 <p>The above example verifies that the certificate presented by Stroom is signed by the CA.
 The CA is provided to curl using the &lsquo;&ndash;cacert root_ca.crt&rsquo; parameter.</p>
 <p>For step by step instructions for creating, configuring and testing the PKI authentication, see the <a href="../../../docs/sending-data/ssl/">SSL Guide</a></p>
-<h2 id="example-https-with-2-way-ssl-authentication">Example HTTPS With 2 way SSL authentication:</h2>
+<h2 id="example-https-with-2-way-ssl-authentication">Example HTTPS with 2 Way SSL Authentication:</h2>
 
   
 
@@ -1423,7 +1430,8 @@ The certificates will need to be added to the script as above.</p>
 	<p>There is a version of curl for Windows</p>
 <p>Windows 10 is the latest desktop OS offering from Microsoft.
 From Windows 10 build 17063 and later, curl is now natively included - you can execute it directly from Cmd.exe or PowerShell.exe.
-Curl.exe is located at c:\windows\system32 (which is included in the standard PATH environment variable) - all you need to do is run Command Prompt with administrative rights and you can use Curl. You can execute it directly from Cmd.exe or PowerShell.exe.
+Curl.exe is located at c:\windows\system32 (which is included in the standard PATH environment variable) - all you need to do is run Command Prompt with administrative rights and you can use Curl.
+You can execute it directly from Cmd.exe or PowerShell.exe.
 For older versions of Windows, the cURL project has Windows binaries.</p>
 <p>
   
@@ -1609,7 +1617,8 @@ To use it download the following files using wget or similar, replacing <code>SE
     
   <h1 id="pg-12691c821995ef3fad858d48ad731b0c">6.5 - Simple C# Client</h1>
     <div class="lead">A simple C# client for sending data files to Stroom.</div>
-	<p>The <code>StroomCSharpClient</code> is a C# port of the Java client and behaves in the same way. Note that this is just an example, not a fully functional client.
+	<p>The <code>StroomCSharpClient</code> is a C# port of the Java client and behaves in the same way.
+Note that this is just an example, not a fully functional client.
 See <span class="external-link">
   <a href="https://github.com/gchq/stroom-clients/tree/master/StroomCSharpClient" target="_blank" class="external-link" title="StroomCSharpClient (external link to https://github.com/gchq/stroom-clients/tree/master/StroomCSharpClient)">
     <span>StroomCSharpClient</span>
@@ -1688,7 +1697,7 @@ environment=DEV \
 feed=EXAMPLE-FEED</code></pre>
 </div>
 
-<h2 id="example-https-with-1-way-ssl-authentication">Example HTTPS With 1 way SSL authentication:</h2>
+<h2 id="example-https-with-1-way-ssl-authentication">Example HTTPS with 1 Way SSL Authentication:</h2>
 
   
 
@@ -1715,7 +1724,7 @@ environment=DEV \
 feed=EXAMPLE-FEED</code></pre>
 </div>
 
-<h2 id="example-https-with-2-way-ssl-authentication">Example HTTPS With 2 way SSL authentication:</h2>
+<h2 id="example-https-with-2-way-ssl-authentication">Example HTTPS with 2 Way SSL Authentication:</h2>
 
   
 
@@ -1802,8 +1811,10 @@ Subsequent calls then extract event information from the last run time to the ne
 The events are stored in a zip file with the period dates embedded.</p>
 <p>The script requires a working directory used as a buffer for the zip files.
 This can be set at the start of the script otherwise it will default to the working directory.</p>
-<p>The <code>send-data.vbs</code> script is designed to run periodically (say every 10 minutes). The script will scan for zip files and send them to Stroom.</p>
-<p>The script details several parameters that require setting per environment. Among these are the working directory that the zip files are stored in, the feed name and the URL of Stroom.</p>
+<p>The <code>send-data.vbs</code> script is designed to run periodically (say every 10 minutes).
+The script will scan for zip files and send them to Stroom.</p>
+<p>The script details several parameters that require setting per environment.
+Among these are the working directory that the zip files are stored in, the feed name and the URL of Stroom.</p>
 <h2 id="ssl">SSL</h2>
 <p>To send data over SSL (https) you must import a client certificate in p12 format into windows.
 To convert a certificate (.crt) and private key (.key) into a p12 format use the following command:</p>
@@ -1892,10 +1903,11 @@ Using a token for authentication requires that Stroom or Stroom-Proxy have been 
     
   <h1 id="pg-175e47591d90f91548b80141b6d7c4d2">8 - Java Keystores</h1>
     <div class="lead">How to create java key/trust stores for use with Java client applications.</div>
-	<p>There are many times when you may wish to create a Java keystore from certificates and keys and vice versa. This guide aims to explain how this can be done.</p>
+	<p>There are many times when you may wish to create a Java keystore from certificates and keys and vice versa.
+This guide aims to explain how this can be done.</p>
 <h2 id="import">Import</h2>
 <p>If you need to create a Java keystore from a .crt and .key then this is how to do it.</p>
-<h3 id="convert-your-keys-to-der-format">Convert your keys to der format</h3>
+<h3 id="convert-your-keys-to-der-format">Convert Your Keys to DER Format</h3>
 
   
 
@@ -1937,7 +1949,8 @@ keytool -import -noprompt -alias CA -file &lt;CA CERT&gt;.crt -keystore ca.jks -
 
 <h2 id="export">Export</h2>
 <h3 id="exportkey">ExportKey</h3>
-<p>Use the <code>ExportKey</code> class in the <code>stroom-java-client</code> library to export keys. If you would like to use curl or similar application but only have keys contained within a Java keystore then they can be exported.</p>
+<p>Use the <code>ExportKey</code> class in the <code>stroom-java-client</code> library to export keys.
+If you would like to use curl or similar application but only have keys contained within a Java keystore then they can be exported.</p>
 <p>For example:</p>
 
   
@@ -1956,7 +1969,8 @@ keytool -import -noprompt -alias CA -file &lt;CA CERT&gt;.crt -keystore ca.jks -
     data-filter-output="(out)"><code class="language-bash">java ExportKey keystore=&lt;YOUR KEY&gt;.jks keypass=&lt;YOUR PASSWORD&gt; alias=&lt;YOUR KEY&gt;</code></pre>
 </div>
 
-<p>This will print both the key and certificate to standard out. This can then be copied into a PEM file for use with cURL or other similar application.</p>
+<p>This will print both the key and certificate to standard out.
+This can then be copied into a PEM file for use with cURL or other similar application.</p>
 
 </div>
 

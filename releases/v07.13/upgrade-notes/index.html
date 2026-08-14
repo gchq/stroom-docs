@@ -45,13 +45,13 @@
 <meta property="og:type" content="article" />
 <meta property="og:url" content="/releases/v07.13/upgrade-notes/" /><meta property="article:section" content="releases" />
 <meta property="article:published_time" content="2026-03-18T00:00:00+00:00" />
-<meta property="article:modified_time" content="2026-08-13T15:21:24+01:00" /><meta property="og:site_name" content="Stroom" />
+<meta property="article:modified_time" content="2026-08-14T16:44:55+01:00" /><meta property="og:site_name" content="Stroom" />
 
 <meta itemprop="name" content="Upgrade Notes">
 <meta itemprop="description" content="Required actions and information relating to upgrading to Stroom version 7.13.
 "><meta itemprop="datePublished" content="2026-03-18T00:00:00+00:00" />
-<meta itemprop="dateModified" content="2026-08-13T15:21:24+01:00" />
-<meta itemprop="wordCount" content="6901">
+<meta itemprop="dateModified" content="2026-08-14T16:44:55+01:00" />
+<meta itemprop="wordCount" content="7398">
 <meta itemprop="keywords" content="" /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Upgrade Notes"/>
 <meta name="twitter:description" content="Required actions and information relating to upgrading to Stroom version 7.13.
@@ -155,7 +155,7 @@
     aria-label="Search this site…"
     autocomplete="off"
     
-    data-offline-search-index-json-src="../../../offline-search-index.95b12371d9f23e70cddb1f62f4c00605.json"
+    data-offline-search-index-json-src="../../../offline-search-index.95034a9311ba25828e37c5d04adb17e9.json"
     data-offline-search-base-href="../../../"
     data-offline-search-max-results="50"
   >
@@ -180,7 +180,7 @@
     aria-label="Search this site…"
     autocomplete="off"
     
-    data-offline-search-index-json-src="../../../offline-search-index.95b12371d9f23e70cddb1f62f4c00605.json"
+    data-offline-search-index-json-src="../../../offline-search-index.95034a9311ba25828e37c5d04adb17e9.json"
     data-offline-search-base-href="../../../"
     data-offline-search-max-results="50"
   >
@@ -409,6 +409,18 @@
   <ul>
     <li><a href="#upgrade-path">Upgrade Path</a></li>
     <li><a href="#java-version">Java Version</a></li>
+    <li><a href="#before-upgrading">Before Upgrading</a>
+      <ul>
+        <li><a href="#duplicate-account-email-addresses">Duplicate Account Email Addresses</a></li>
+        <li><a href="#external-identity-provider-redirect-uri">External Identity Provider Redirect URI</a></li>
+        <li><a href="#upgrading-from-a-713-beta-release">Upgrading from a 7.13 Beta Release</a></li>
+      </ul>
+    </li>
+    <li><a href="#after-upgrading">After Upgrading</a>
+      <ul>
+        <li><a href="#review-disabled-accounts">Review Disabled Accounts</a></li>
+      </ul>
+    </li>
     <li><a href="#configuration-file-changes">Configuration File Changes</a>
       <ul>
         <li><a href="#strooms-configyml">Stroom&rsquo;s <code>config.yml</code></a>
@@ -425,6 +437,7 @@
             <li><a href="#removed-state-branch">Removed <code>state</code> Branch</a></li>
             <li><a href="#changes-to-the-statistics-branch">Changes to the <code>statistics</code> Branch</a></li>
             <li><a href="#new-visualisationasset-properties">New <code>visualisationAsset</code> Properties</a></li>
+            <li><a href="#changes-to-the-ui-branch">Changes to the <code>ui</code> Branch</a></li>
           </ul>
         </li>
         <li><a href="#stroom-proxys-configyml">Stroom-Proxy&rsquo;s <code>config.yml</code></a>
@@ -492,7 +505,7 @@
         
           <li><a class="taxonomy-term" href="../../../tags/configuration/" data-taxonomy-term="configuration"><span class="taxonomy-label">configuration</span><span class="taxonomy-count">4</span></a></li>
         
-          <li><a class="taxonomy-term" href="../../../tags/content/" data-taxonomy-term="content"><span class="taxonomy-label">content</span><span class="taxonomy-count">8</span></a></li>
+          <li><a class="taxonomy-term" href="../../../tags/content/" data-taxonomy-term="content"><span class="taxonomy-label">content</span><span class="taxonomy-count">10</span></a></li>
         
           <li><a class="taxonomy-term" href="../../../tags/context/" data-taxonomy-term="context"><span class="taxonomy-label">context</span><span class="taxonomy-count">1</span></a></li>
         
@@ -564,7 +577,7 @@
         
           <li><a class="taxonomy-term" href="../../../tags/nginx/" data-taxonomy-term="nginx"><span class="taxonomy-label">nginx</span><span class="taxonomy-count">1</span></a></li>
         
-          <li><a class="taxonomy-term" href="../../../tags/node/" data-taxonomy-term="node"><span class="taxonomy-label">node</span><span class="taxonomy-count">1</span></a></li>
+          <li><a class="taxonomy-term" href="../../../tags/node/" data-taxonomy-term="node"><span class="taxonomy-label">node</span><span class="taxonomy-count">2</span></a></li>
         
           <li><a class="taxonomy-term" href="../../../tags/open-id/" data-taxonomy-term="open-id"><span class="taxonomy-label">open-id</span><span class="taxonomy-count">10</span></a></li>
         
@@ -574,7 +587,7 @@
         
           <li><a class="taxonomy-term" href="../../../tags/pipeline/" data-taxonomy-term="pipeline"><span class="taxonomy-label">pipeline</span><span class="taxonomy-count">3</span></a></li>
         
-          <li><a class="taxonomy-term" href="../../../tags/processing/" data-taxonomy-term="processing"><span class="taxonomy-label">processing</span><span class="taxonomy-count">5</span></a></li>
+          <li><a class="taxonomy-term" href="../../../tags/processing/" data-taxonomy-term="processing"><span class="taxonomy-label">processing</span><span class="taxonomy-count">6</span></a></li>
         
           <li><a class="taxonomy-term" href="../../../tags/property/" data-taxonomy-term="property"><span class="taxonomy-label">property</span><span class="taxonomy-count">2</span></a></li>
         
@@ -622,7 +635,7 @@
         
           <li><a class="taxonomy-term" href="../../../tags/xml/" data-taxonomy-term="xml"><span class="taxonomy-label">xml</span><span class="taxonomy-count">1</span></a></li>
         
-          <li><a class="taxonomy-term" href="../../../tags/xslt/" data-taxonomy-term="xslt"><span class="taxonomy-label">xslt</span><span class="taxonomy-count">5</span></a></li>
+          <li><a class="taxonomy-term" href="../../../tags/xslt/" data-taxonomy-term="xslt"><span class="taxonomy-label">xslt</span><span class="taxonomy-count">14</span></a></li>
         
       </ul>
     </div>
@@ -708,6 +721,72 @@ You must therefore upgrade to v7.0.x first to migrate this content, before upgra
 
 
 <p>Ensure the Stroom and Stroom-Proxy hosts are running the latest patch release of Java v25.</p>
+<h2 id="before-upgrading">Before Upgrading</h2>
+<h3 id="duplicate-account-email-addresses">Duplicate Account Email Addresses</h3>
+<p>This applies only if you use Stroom&rsquo;s internal identity provider.</p>
+<p>Account email addresses must now be unique, so that the &lsquo;Forgot password&rsquo; flow can identify an account from the email address it is given.
+The database migration will stop with an error listing the addresses concerned if any are shared, and Stroom will not start.</p>
+<p>Check for shared addresses before upgrading.</p>
+<pre><code class="language-sql">SELECT email, COUNT(1), GROUP_CONCAT(user_id)
+FROM account
+WHERE email IS NOT NULL
+GROUP BY email
+HAVING COUNT(1) &gt; 1;
+</code></pre>
+<p>If this returns any rows then give each of those accounts its own email address, or clear the address of all but one of them.
+An account with no email address is fine, and any number of accounts may have none, but such an account cannot reset its password by email.</p>
+<h3 id="external-identity-provider-redirect-uri">External Identity Provider Redirect URI</h3>
+<p>This applies only if you use an external identity provider, e.g. Keycloak, AWS Cognito or Google.</p>
+<p>The client registered at the provider must list Stroom&rsquo;s sign-in callback under its valid redirect URIs, substituting your Stroom public URL.</p>
+<pre><code class="language-text">https://&lt;stroom-host&gt;/api/auth/flow/v1/signin-oidc
+</code></pre>
+<p>This is the single <code>redirect_uri</code> that Stroom sends on the authorization request, so a provider that does not have this exact value registered will reject the login with an invalid redirect URI error.</p>
+<p>If you also use provider-side logout, add the post logout landing page to the client&rsquo;s valid post logout redirect URIs.</p>
+<pre><code class="language-text">https://&lt;stroom-host&gt;/
+</code></pre>
+<p>The internal identity provider needs no configuration for this.</p>
+
+<div class="alert alert-primary" role="alert">
+<h4 class="alert-heading">See Also</h4>
+<div class="alert-content">
+  
+  <p><a href="../../../docs/install-guide/setup/open-id/external-idp/">External Identity Provider</a></p>
+
+</div>
+</div>
+
+<h3 id="upgrading-from-a-713-beta-release">Upgrading from a 7.13 Beta Release</h3>
+<p>This applies only if you have deployed a 7.13 beta release up to and including <code>v7.13-beta.10</code>.</p>
+<p>The database migration scripts in those releases were named <code>V07_14...</code> rather than <code>V07_13...</code>, and have since been renamed to match the branch.
+The migration will fail on the next release unless the recorded script names are updated first.</p>
+<p>Run the following script against the Stroom database before starting the new version.</p>
+<span class="external-link">
+  <a href="https://raw.githubusercontent.com/gchq/stroom/refs/heads/7.13/scripts/v07_13_migration_script_rename.sql" target="_blank" class="external-link" title="v07_13_migration_script_rename.sql (external link to https://raw.githubusercontent.com/gchq/stroom/refs/heads/7.13/scripts/v07_13_migration_script_rename.sql)">
+    <span>v07_13_migration_script_rename.sql</span>
+    <i class="external-link-icon fas fa-external-link-alt fa-sm text-secondary"></i>
+  </a>
+</span>
+
+<h2 id="after-upgrading">After Upgrading</h2>
+<h3 id="review-disabled-accounts">Review Disabled Accounts</h3>
+<p>This applies only if you use Stroom&rsquo;s internal identity provider.</p>
+<p>An administrator can no longer lock an account, so two kinds of account are converted to disabled by the migration and will appear in the accounts list as such.</p>
+<ul>
+<li>Any account that was locked at the point of upgrade.
+Locking was how an administrator barred an account, and disabling is now the control for that.</li>
+<li>An account flagged as a processing account, a setting that has been removed.</li>
+</ul>
+<p>This fails closed, i.e. access stays barred until an administrator acts, so review the accounts list after upgrading and re-enable anything that was disabled in error.</p>
+
+<div class="alert alert-primary" role="alert">
+<h4 class="alert-heading">See Also</h4>
+<div class="alert-content">
+  
+  <p><a href="../../../docs/user-guide/security/user-accounts/">User Accounts</a></p>
+
+</div>
+</div>
+
 <h2 id="configuration-file-changes">Configuration File Changes</h2>
 <!--
 Check changes using something like this (run from an up-to-date stroom repo):
@@ -719,7 +798,7 @@ echo
 git diff origin/${old_ver}..origin/${new_ver} stroom-proxy/stroom-proxy-app/src/test/resources/stroom/dist/proxy-expected.yaml | cat
 -->
 <h3 id="strooms-configyml">Stroom&rsquo;s <code>config.yml</code></h3>
-<!-- Comparison of 7.12.13 => 7.13-beta.10 -->
+<!-- Comparison of the latest v7.12 release => v7.13 -->
 <h4 id="new-ai-branch">New <code>ai</code> Branch</h4>
 <p>The following <code>ai</code> branch has been added for configuring the database connection details for the <em>ai</em> module.
 You should not need to configure any of this unless you want a dedicated database for this module.</p>
@@ -1069,6 +1148,40 @@ required to use a sufficiently strong password. Password must be at least
       prepStmtCacheSize: 25
       prepStmtCacheSqlLimit: 256
 </code></pre>
+<h4 id="changes-to-the-ui-branch">Changes to the <code>ui</code> Branch</h4>
+<p>The values of the following properties have changed, so that the in-application help links point at the right pages of this documentation site.
+These are only relevant if you have overridden them, e.g. to point at a locally published copy of the documentation.</p>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Was</th>
+<th>Now</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>stroom.ui.helpUrl</code></td>
+<td><code>https://gchq.github.io/stroom-docs/7.5/docs</code></td>
+<td><code>https://gchq.github.io/stroom-docs/7.13/docs</code></td>
+</tr>
+<tr>
+<td><code>stroom.ui.helpSubPathExpressions</code></td>
+<td><code>/user-guide/dashboards/expressions/</code></td>
+<td><code>/reference-section/expressions/</code></td>
+</tr>
+<tr>
+<td><code>stroom.ui.helpSubPathQuickFilter</code></td>
+<td><code>/user-guide/finding-things/</code></td>
+<td><code>/user-guide/content/finding-things/</code></td>
+</tr>
+<tr>
+<td><code>stroom.ui.helpSubPathStroomQueryLanguage</code></td>
+<td><code>/user-guide/dashboards/stroom-query-language/</code></td>
+<td><code>/user-guide/search/queries/stroom-query-language/</code></td>
+</tr>
+</tbody>
+</table>
 <h3 id="stroom-proxys-configyml">Stroom-Proxy&rsquo;s <code>config.yml</code></h3>
 <h4 id="changes-to-the-security-branch-1">Changes to the <code>security</code> Branch.</h4>
 <p>The following new properties have been added.</p>
@@ -1110,7 +1223,7 @@ See <a href="../../../docs/user-guide/tools/command-line/#migrate"><code>migrage
 Run stroom.db.migration.TestListDbMigrations.listDbMigrationsForLatestVersion() to generate the content for
 this section
 -->
-<!-- Run on v7.13-beta.10 @ commit 113a70ab9e -->
+<!-- Run on v7.13 -->
 <h3 id="migration-scripts">Migration Scripts</h3>
 <!--
 #############################################################################################
@@ -2163,7 +2276,7 @@ SET SQL_NOTES=@OLD_SQL_NOTES;
 	
 	
 	<div class="text-muted mt-5 pt-3 border-top">
-  Last modified August 13, 2026: <a href="https://github.com/gchq/stroom-docs/commit/603981ca4cf5d33fa2b753617ac36b904f9c639a">Merge pull request #132 from gchq/csv_search (603981c)</a>
+  Last modified August 14, 2026: <a href="https://github.com/gchq/stroom-docs/commit/307b3f02d7c0d289c1c0c1297047742e0bbbee22">fix build (307b3f0)</a>
 </div>
 
 </div>

@@ -44,14 +44,14 @@
 " />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="/releases/v07.13/breaking-changes/" /><meta property="article:section" content="releases" />
-<meta property="article:published_time" content="2026-03-18T00:00:00+00:00" />
-<meta property="article:modified_time" content="2026-08-13T15:21:24+01:00" /><meta property="og:site_name" content="Stroom" />
+<meta property="article:published_time" content="2026-08-13T00:00:00+00:00" />
+<meta property="article:modified_time" content="2026-08-14T16:44:55+01:00" /><meta property="og:site_name" content="Stroom" />
 
 <meta itemprop="name" content="Breaking Changes">
 <meta itemprop="description" content="Changes in Stroom version 7.13 that may break existing processing or ways of working.
-"><meta itemprop="datePublished" content="2026-03-18T00:00:00+00:00" />
-<meta itemprop="dateModified" content="2026-08-13T15:21:24+01:00" />
-<meta itemprop="wordCount" content="93">
+"><meta itemprop="datePublished" content="2026-08-13T00:00:00+00:00" />
+<meta itemprop="dateModified" content="2026-08-14T16:44:55+01:00" />
+<meta itemprop="wordCount" content="1275">
 <meta itemprop="keywords" content="" /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Breaking Changes"/>
 <meta name="twitter:description" content="Changes in Stroom version 7.13 that may break existing processing or ways of working.
@@ -155,7 +155,7 @@
     aria-label="Search this site…"
     autocomplete="off"
     
-    data-offline-search-index-json-src="../../../offline-search-index.95b12371d9f23e70cddb1f62f4c00605.json"
+    data-offline-search-index-json-src="../../../offline-search-index.95034a9311ba25828e37c5d04adb17e9.json"
     data-offline-search-base-href="../../../"
     data-offline-search-max-results="50"
   >
@@ -180,7 +180,7 @@
     aria-label="Search this site…"
     autocomplete="off"
     
-    data-offline-search-index-json-src="../../../offline-search-index.95b12371d9f23e70cddb1f62f4c00605.json"
+    data-offline-search-index-json-src="../../../offline-search-index.95034a9311ba25828e37c5d04adb17e9.json"
     data-offline-search-base-href="../../../"
     data-offline-search-max-results="50"
   >
@@ -407,9 +407,43 @@
             <div class="td-toc">
         <nav id="TableOfContents">
   <ul>
-    <li><a href="#stroom">Stroom</a></li>
+    <li><a href="#stroom">Stroom</a>
+      <ul>
+        <li><a href="#authentication-and-accounts">Authentication and Accounts</a>
+          <ul>
+            <li><a href="#duplicate-account-email-addresses">Duplicate Account Email Addresses</a></li>
+            <li><a href="#external-identity-provider-redirect-uri">External Identity Provider Redirect URI</a></li>
+            <li><a href="#password-complexity-regex-removed">Password Complexity Regex Removed</a></li>
+            <li><a href="#account-lockout-now-expires">Account Lockout Now Expires</a></li>
+            <li><a href="#administrators-can-no-longer-lock-accounts">Administrators Can No Longer Lock Accounts</a></li>
+            <li><a href="#account-fields-renamed">Account Fields Renamed</a></li>
+            <li><a href="#internal-identity-provider-request-validation">Internal Identity Provider Request Validation</a></li>
+            <li><a href="#removed-emailallowpasswordresets-property">Removed <code>email.allowPasswordResets</code> Property</a></li>
+            <li><a href="#csrf-checks-on-browser-requests">CSRF Checks on Browser Requests</a></li>
+          </ul>
+        </li>
+        <li><a href="#other-changes">Other Changes</a>
+          <ul>
+            <li><a href="#removal-of-hbase-statistics">Removal of HBase Statistics</a></li>
+            <li><a href="#removal-of-the-scylladb-state-store">Removal of the ScyllaDB State Store</a></li>
+            <li><a href="#standard-annotation-comments">Standard Annotation Comments</a></li>
+            <li><a href="#json-parser-limits">JSON Parser Limits</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
     <li><a href="#stroom-proxy">Stroom-Proxy</a></li>
-    <li><a href="#stroom--stroom-proxy">Stroom &amp; Stroom-Proxy</a></li>
+    <li><a href="#stroom--stroom-proxy">Stroom &amp; Stroom-Proxy</a>
+      <ul>
+        <li><a href="#authentication">Authentication</a>
+          <ul>
+            <li><a href="#audience-validation-is-now-on-by-default">Audience Validation is Now on by Default</a></li>
+            <li><a href="#an-audience-claim-is-now-required">An Audience Claim is Now Required</a></li>
+            <li><a href="#removal-of-the-test_credentials-identity-provider-type">Removal of the <code>TEST_CREDENTIALS</code> Identity Provider Type</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
   </ul>
 </nav>
       </div>
@@ -455,7 +489,7 @@
         
           <li><a class="taxonomy-term" href="../../../tags/configuration/" data-taxonomy-term="configuration"><span class="taxonomy-label">configuration</span><span class="taxonomy-count">4</span></a></li>
         
-          <li><a class="taxonomy-term" href="../../../tags/content/" data-taxonomy-term="content"><span class="taxonomy-label">content</span><span class="taxonomy-count">8</span></a></li>
+          <li><a class="taxonomy-term" href="../../../tags/content/" data-taxonomy-term="content"><span class="taxonomy-label">content</span><span class="taxonomy-count">10</span></a></li>
         
           <li><a class="taxonomy-term" href="../../../tags/context/" data-taxonomy-term="context"><span class="taxonomy-label">context</span><span class="taxonomy-count">1</span></a></li>
         
@@ -527,7 +561,7 @@
         
           <li><a class="taxonomy-term" href="../../../tags/nginx/" data-taxonomy-term="nginx"><span class="taxonomy-label">nginx</span><span class="taxonomy-count">1</span></a></li>
         
-          <li><a class="taxonomy-term" href="../../../tags/node/" data-taxonomy-term="node"><span class="taxonomy-label">node</span><span class="taxonomy-count">1</span></a></li>
+          <li><a class="taxonomy-term" href="../../../tags/node/" data-taxonomy-term="node"><span class="taxonomy-label">node</span><span class="taxonomy-count">2</span></a></li>
         
           <li><a class="taxonomy-term" href="../../../tags/open-id/" data-taxonomy-term="open-id"><span class="taxonomy-label">open-id</span><span class="taxonomy-count">10</span></a></li>
         
@@ -537,7 +571,7 @@
         
           <li><a class="taxonomy-term" href="../../../tags/pipeline/" data-taxonomy-term="pipeline"><span class="taxonomy-label">pipeline</span><span class="taxonomy-count">3</span></a></li>
         
-          <li><a class="taxonomy-term" href="../../../tags/processing/" data-taxonomy-term="processing"><span class="taxonomy-label">processing</span><span class="taxonomy-count">5</span></a></li>
+          <li><a class="taxonomy-term" href="../../../tags/processing/" data-taxonomy-term="processing"><span class="taxonomy-label">processing</span><span class="taxonomy-count">6</span></a></li>
         
           <li><a class="taxonomy-term" href="../../../tags/property/" data-taxonomy-term="property"><span class="taxonomy-label">property</span><span class="taxonomy-count">2</span></a></li>
         
@@ -585,7 +619,7 @@
         
           <li><a class="taxonomy-term" href="../../../tags/xml/" data-taxonomy-term="xml"><span class="taxonomy-label">xml</span><span class="taxonomy-count">1</span></a></li>
         
-          <li><a class="taxonomy-term" href="../../../tags/xslt/" data-taxonomy-term="xslt"><span class="taxonomy-label">xslt</span><span class="taxonomy-count">5</span></a></li>
+          <li><a class="taxonomy-term" href="../../../tags/xslt/" data-taxonomy-term="xslt"><span class="taxonomy-label">xslt</span><span class="taxonomy-count">14</span></a></li>
         
       </ul>
     </div>
@@ -641,45 +675,179 @@
 </div>
 
 
+<p>Most of the breaking changes in this release relate to authentication.
+If you use an external identity provider, read <a href="#audience-validation-is-now-on-by-default">Audience Validation Is Now on by Default</a> and <a href="#external-identity-provider-redirect-uri">External Identity Provider Redirect URI</a> before upgrading.
+If you use Stroom&rsquo;s internal identity provider, read <a href="#duplicate-account-email-addresses">Duplicate Account Email Addresses</a> before upgrading, as the database migration will stop with an error if any are found.</p>
 <h2 id="stroom">Stroom</h2>
 <p>Breaking changes relating to Stroom.</p>
 <p>A number of configuration properties have been removed.
 If any of these properties have been set in the YAML configuration file, Stroom will no longer boot.
 Some properties have also had their default values changed.
 See <a href="../../../releases/v07.13/upgrade-notes/">Upgrade Notes</a> for details.</p>
+<h3 id="authentication-and-accounts">Authentication and Accounts</h3>
+<p>These changes affect Stroom&rsquo;s own sign-in and account handling.
+Further authentication changes that affect Stroom-Proxy as well are in <a href="#stroom--stroom-proxy">Stroom &amp; Stroom-Proxy</a> below.</p>
+<h4 id="duplicate-account-email-addresses">Duplicate Account Email Addresses</h4>
+<p>Account email addresses must now be unique, so that the &lsquo;Forgot password&rsquo; flow can identify an account from the email address it is given.
+An account may still have no email address at all, and any number of accounts may have none.</p>
+<p>If two or more accounts currently share an email address then the database migration will stop with an error and Stroom will not start.
+See <a href="../../../releases/v07.13/upgrade-notes/#duplicate-account-email-addresses">Upgrade Notes</a> for how to check for this before upgrading.</p>
+<h4 id="external-identity-provider-redirect-uri">External Identity Provider Redirect URI</h4>
+<p>If you use an external identity provider, the client registered at that provider must now list Stroom&rsquo;s sign-in callback as an allowed redirect URI.
+A provider that does not have it registered will reject the login.</p>
+<p>See <a href="../../../releases/v07.13/upgrade-notes/#external-identity-provider-redirect-uri">Upgrade Notes</a>.</p>
+<h4 id="password-complexity-regex-removed">Password Complexity Regex Removed</h4>
+<p>The internal identity provider no longer supports a character class complexity regex for passwords.
+Password strength is now checked on the server using the same estimator the sign-in screen already showed, governed by <code>minimumPasswordStrength</code>, a score of 0 to 4 that defaults to 3.</p>
+<p>If your configuration sets <code>passwordComplexityRegex</code> then remove it, as the property no longer exists and Stroom will not boot with it set.</p>
+<h4 id="account-lockout-now-expires">Account Lockout Now Expires</h4>
+<p>An account locked by repeated failed sign-ins is now unlocked automatically after <code>stroom.security.identity.failedLoginLockDuration</code>, which defaults to 30 minutes, rather than staying locked until an administrator intervenes.
+This removes a denial of service in which a few failed sign-ins could lock any named user out permanently.</p>
+<p>Set the duration to <code>&quot;PT0S&quot;</code> if you need locks to be permanent.
+Note that the duration governs locks that are already held rather than only new ones, so shortening it releases people who are already locked.</p>
 
-<div class="alert alert-warning" role="alert">
-<h4 class="alert-heading">TODO</h4>
-
-    Complete this section.
+<div class="alert alert-primary" role="alert">
+<h4 class="alert-heading">See Also</h4>
+<div class="alert-content">
+  
+  <p><a href="../../../docs/user-guide/security/user-accounts/">User Accounts</a></p>
 
 </div>
+</div>
 
+<h4 id="administrators-can-no-longer-lock-accounts">Administrators Can No Longer Lock Accounts</h4>
+<p>The three account states now have one owner each.
+An administrator decides whether an account is <em>Enabled</em>, the sign-in process <em>Locks</em> an account after repeated wrong passwords, and the account maintenance job marks an unused account <em>Inactive</em>.
+An administrator can still undo the latter two, but can no longer apply them.</p>
+<p>To prevent an account being used, disable it.</p>
+<p>Two kinds of account are converted to disabled on upgrade, so review the accounts list afterwards.
+See <a href="../../../releases/v07.13/upgrade-notes/#review-disabled-accounts">Upgrade Notes</a>.</p>
+<h4 id="account-fields-renamed">Account Fields Renamed</h4>
+<p>The account fields have been renamed in the REST API and in the accounts screen&rsquo;s quick filter.</p>
+<table>
+<thead>
+<tr>
+<th>Was</th>
+<th>Now</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>loginFailures</code></td>
+<td><code>failureCount</code></td>
+</tr>
+<tr>
+<td><code>failureLocked</code></td>
+<td><code>failureLockedMs</code>, the time the lock was applied</td>
+</tr>
+<tr>
+<td><code>status:Locked</code>, <code>status:Enabled</code>, <code>status:Inactive</code>, <code>status:Disabled</code></td>
+<td><code>locked:true</code>, <code>enabled:true</code>, <code>inactive:true</code></td>
+</tr>
+</tbody>
+</table>
+<p>The <code>status</code> term has been removed rather than renamed, as the three states are now independent of one another.
+Update any saved quick filters or scripts that use <code>status:</code> or <code>loginFailures</code>.</p>
+<h4 id="internal-identity-provider-request-validation">Internal Identity Provider Request Validation</h4>
+<p>The internal identity provider&rsquo;s authorization endpoint now requires <code>response_type=code</code>, a <code>nonce</code> and the <code>openid</code> scope, and rejects a request that omits any of them.
+Stroom&rsquo;s own sign-in sends all three, so no change is needed for a normal deployment.</p>
+<p>If you have set <code>requestScopes</code> to an empty list then sign-in will now fail, as Stroom omits the <code>scope</code> parameter entirely.
+Restore the default, or ensure the list contains <code>openid</code>.</p>
+<h4 id="removed-emailallowpasswordresets-property">Removed <code>email.allowPasswordResets</code> Property</h4>
+<p>This property has been removed, so Stroom will not boot if it is set.
+Nothing read it, so if you set it to <code>false</code> believing it switched password reset emails off, it did not.
+Password resets are governed by <code>allowPasswordResets</code> under the password policy section.</p>
+<h4 id="csrf-checks-on-browser-requests">CSRF Checks on Browser Requests</h4>
+<p>Cross site request forgery checks now apply to state-changing requests whose credential was injected by an authenticating edge proxy, where previously only session cookie identities were checked.</p>
+<p>An in-browser client that attaches its own bearer token must now send an <code>X-CSRF: 1</code> header on state-changing requests when <code>edgeAuthentication.enabled</code> is set.
+Automation outside a browser, and traffic between cluster nodes, are unaffected.</p>
+<h3 id="other-changes">Other Changes</h3>
+<h4 id="removal-of-hbase-statistics">Removal of HBase Statistics</h4>
+<p>The HBase backed statistics store, i.e. <code>StroomStatsStore</code>, has been removed along with all of its configuration.
+See <a href="../../../releases/v07.13/upgrade-notes/">Upgrade Notes</a> for the properties concerned.</p>
+<h4 id="removal-of-the-scylladb-state-store">Removal of the ScyllaDB State Store</h4>
+<p>The ScyllaDB backed state store has been removed, along with the whole <code>state</code> configuration branch.
+Use a Plan B store instead.</p>
+<h4 id="standard-annotation-comments">Standard Annotation Comments</h4>
+<p>Standard annotation comments are now content rather than configuration.
+Any comments previously configured in the <code>standardComments</code> property will need to be saved as annotation comments.</p>
+<h4 id="json-parser-limits">JSON Parser Limits</h4>
+<p>The <code>JSONParser</code> pipeline element now applies limits to protect Stroom from very large or deeply nested documents.</p>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Default</th>
+<th>Effect</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>stringTruncateLength</code></td>
+<td>10,000</td>
+<td>String values longer than this are truncated.</td>
+</tr>
+<tr>
+<td><code>maxStringLength</code></td>
+<td>100,000,000</td>
+<td>A string value longer than this is a fatal error.</td>
+</tr>
+<tr>
+<td><code>maxDepth</code></td>
+<td>500</td>
+<td>Nesting deeper than this is a fatal error.</td>
+</tr>
+</tbody>
+</table>
+<p>If you parse JSON containing string values longer than 10,000 characters then they will now be truncated unless you raise <code>stringTruncateLength</code>.</p>
+<p>The underlying JSON library has also been uplifted to a new major version, so the output of the <code>JSONParser</code> element should be checked to confirm it is still as expected.</p>
 <h2 id="stroom-proxy">Stroom-Proxy</h2>
-<p>Breaking changes relating to Stroom Proxy.</p>
-
-<div class="alert alert-warning" role="alert">
-<h4 class="alert-heading">TODO</h4>
-
-    Complete this section.
-
-</div>
-
+<p>There are no Stroom-Proxy specific breaking changes in v7.13.
+The authentication changes below apply to Stroom-Proxy as well as Stroom.</p>
 <h2 id="stroom--stroom-proxy">Stroom &amp; Stroom-Proxy</h2>
 <p>Breaking changes that are common to both Stroom and Stroom Proxy.</p>
+<h3 id="authentication">Authentication</h3>
+<p>These apply wherever an external identity provider is used, so to Stroom and to Stroom-Proxy.</p>
+<h4 id="audience-validation-is-now-on-by-default">Audience Validation is Now on by Default</h4>
+<p>The audience, i.e. <code>aud</code>, claim of a token from an external identity provider is now validated.
+Previously, if <code>allowedAudiences</code> was not configured then no audience validation was performed at all, so a token minted for a different application at the same provider could be replayed against Stroom.
+Where <code>allowedAudiences</code> is empty the audience is now validated against the configured <code>clientId</code> instead.</p>
+<p>If your provider issues tokens to Stroom whose audience is not the <code>clientId</code>, e.g. an API or resource identifier, then list the expected values under <code>allowedAudiences</code>.</p>
+<p>Stroom also now refuses to start with an external identity provider unless one of <code>allowedAudiences</code> or <code>clientId</code> is configured, so that validation cannot be silently skipped for lack of anything to validate against.</p>
 
-<div class="alert alert-warning" role="alert">
-<h4 class="alert-heading">TODO</h4>
+<div class="alert alert-primary" role="alert">
+<h4 class="alert-heading">See Also</h4>
+<div class="alert-content">
+  
+  <p><a href="../../../docs/install-guide/setup/open-id/external-idp/stroom-configuration/#audience-validation">Audience Validation</a></p>
 
-    Complete this section.
+</div>
+</div>
 
+<h4 id="an-audience-claim-is-now-required">An Audience Claim is Now Required</h4>
+<p><code>audienceClaimRequired</code> now defaults to <code>true</code>, so an access token from an external identity provider that carries no <code>aud</code> claim is rejected.</p>
+<p>Some Cognito and Okta access token shapes have no <code>aud</code> claim.
+If yours is one of them, set <code>audienceClaimRequired</code> to <code>false</code> to restore the previous behaviour.</p>
+<h4 id="removal-of-the-test_credentials-identity-provider-type">Removal of the <code>TEST_CREDENTIALS</code> Identity Provider Type</h4>
+<p>This identity provider type has been removed, along with the publicly known credentials it shipped with.
+Stroom and Stroom-Proxy will now fail validation on start if <code>identityProviderType</code> is set to it.
+Use <code>INTERNAL_IDP</code> for Stroom, and <code>NO_IDP</code> or <code>EXTERNAL_IDP</code> for Stroom-Proxy.</p>
+<p>A replacement is available for test and demonstration environments, but it is off unless deliberately enabled at runtime and must never be used in production.</p>
+
+<div class="alert alert-primary" role="alert">
+<h4 class="alert-heading">See Also</h4>
+<div class="alert-content">
+  
+  <p><a href="../../../docs/install-guide/setup/open-id/test-credentials/">Insecure Test Credential</a></p>
+
+</div>
 </div>
 
 
 	
 	
 	<div class="text-muted mt-5 pt-3 border-top">
-  Last modified August 13, 2026: <a href="https://github.com/gchq/stroom-docs/commit/603981ca4cf5d33fa2b753617ac36b904f9c639a">Merge pull request #132 from gchq/csv_search (603981c)</a>
+  Last modified August 14, 2026: <a href="https://github.com/gchq/stroom-docs/commit/307b3f02d7c0d289c1c0c1297047742e0bbbee22">fix build (307b3f0)</a>
 </div>
 
 </div>

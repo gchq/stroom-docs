@@ -64,7 +64,7 @@ This is mandatory and is enabled by default in Elasticsearch 8.x and above.&lt;/
 The Stroom node(s) connecting to Elasticsearch need to be able to verify the certificate, so for custom PKI, a Stroom truststore entry may be required.&lt;/li&gt;
 &lt;li&gt;You have a feed containing &lt;code&gt;Event&lt;/code&gt; streams to index.&lt;/li&gt;
 &lt;/ol&gt;
-&lt;h2 id=&#34;key-differences&#34;&gt;Key differences&lt;/h2&gt;
+&lt;h2 id=&#34;key-differences&#34;&gt;Key Differences&lt;/h2&gt;
 &lt;p&gt;Indexing data with Elasticsearch differs from Solr and built-in Lucene methods in a number of ways:&lt;/p&gt;
 &lt;ol&gt;
 &lt;li&gt;Unlike with &lt;a href=&#34;../../docs/user-guide/indexing/solr/&#34;&gt;Solr&lt;/a&gt; and built-in Lucene indexing, Elasticsearch field mappings are managed outside Stroom, through the use of &lt;span class=&#34;external-link&#34;&gt;
@@ -113,7 +113,7 @@ Explicitly defining mappings is recommended where consistency or greater control
       <description>
         
         
-        &lt;h2 id=&#34;establish-an-elasticsearch-cluster-connection-in-stroom&#34;&gt;Establish an Elasticsearch cluster connection in Stroom&lt;/h2&gt;
+        &lt;h2 id=&#34;establish-an-elasticsearch-cluster-connection-in-stroom&#34;&gt;Establish an Elasticsearch Cluster Connection in Stroom&lt;/h2&gt;
 &lt;p&gt;The first step is to configure Stroom to connect to an Elasticsearch cluster.
 You can configure multiple cluster connections if required, such as a separate one for production and another for development.
 Each cluster connection is defined by an &lt;code&gt;Elastic Cluster&lt;/code&gt; document within the Stroom UI.&lt;/p&gt;
@@ -229,7 +229,7 @@ Users authorised to search Elasticsearch indices via Stroom dashboards should on
 &lt;/div&gt;
 
 
-&lt;h2 id=&#34;elastic-cluster-document-fields&#34;&gt;Elastic Cluster document fields&lt;/h2&gt;
+&lt;h2 id=&#34;elastic-cluster-document-fields&#34;&gt;Elastic Cluster Document Fields&lt;/h2&gt;
 &lt;h3 id=&#34;description&#34;&gt;Description&lt;/h3&gt;
 &lt;p&gt;(Optional) You might choose to enter the Elasticsearch cluster name or purpose here.&lt;/p&gt;
 &lt;h3 id=&#34;connection-urls&#34;&gt;Connection URLs&lt;/h3&gt;
@@ -241,14 +241,14 @@ Only HTTPS is supported; attempts to use plain-text HTTP will fail.&lt;/p&gt;
 &lt;li&gt;FQDN: &lt;code&gt;https://elasticsearch.example.com:9200&lt;/code&gt;&lt;/li&gt;
 &lt;li&gt;Kubernetes service: &lt;code&gt;https://prod-es-http.elastic.svc:9200&lt;/code&gt;&lt;/li&gt;
 &lt;/ol&gt;
-&lt;h3 id=&#34;ca-certificate&#34;&gt;CA certificate&lt;/h3&gt;
+&lt;h3 id=&#34;ca-certificate&#34;&gt;CA Certificate&lt;/h3&gt;
 &lt;p&gt;PEM-format CA certificate chain used by Stroom to verify TLS connections to the Elasticsearch HTTPS REST interface.
 This is usually your organisation&amp;rsquo;s root enterprise CA certificate.
 For development, you can provide a self-signed certificate.&lt;/p&gt;
-&lt;h3 id=&#34;use-authentication&#34;&gt;Use authentication&lt;/h3&gt;
+&lt;h3 id=&#34;use-authentication&#34;&gt;Use Authentication&lt;/h3&gt;
 &lt;p&gt;(Optional) Tick this box if Elasticsearch requires authentication.
 This is enabled by default from Elasticsearch version 8.0.&lt;/p&gt;
-&lt;h3 id=&#34;api-key-id&#34;&gt;API key ID&lt;/h3&gt;
+&lt;h3 id=&#34;api-key-id&#34;&gt;API Key ID&lt;/h3&gt;
 &lt;p&gt;Required if &lt;code&gt;Use authentication&lt;/code&gt; is checked.
 Specifies the Elasticsearch API key ID for a valid Elasticsearch user account.
 This user requires at a minimum the following &lt;span class=&#34;external-link&#34;&gt;
@@ -258,18 +258,18 @@ This user requires at a minimum the following &lt;span class=&#34;external-link&
   &lt;/a&gt;
 &lt;/span&gt;
 :&lt;/p&gt;
-&lt;h4 id=&#34;cluster-privileges&#34;&gt;Cluster privileges&lt;/h4&gt;
+&lt;h4 id=&#34;cluster-privileges&#34;&gt;Cluster Privileges&lt;/h4&gt;
 &lt;ol&gt;
 &lt;li&gt;monitor&lt;/li&gt;
 &lt;li&gt;manage_own_api_key&lt;/li&gt;
 &lt;/ol&gt;
-&lt;h4 id=&#34;index-privileges&#34;&gt;Index privileges&lt;/h4&gt;
+&lt;h4 id=&#34;index-privileges&#34;&gt;Index Privileges&lt;/h4&gt;
 &lt;ol&gt;
 &lt;li&gt;all&lt;/li&gt;
 &lt;/ol&gt;
-&lt;h3 id=&#34;api-key-secret&#34;&gt;API key secret&lt;/h3&gt;
+&lt;h3 id=&#34;api-key-secret&#34;&gt;API Key Secret&lt;/h3&gt;
 &lt;p&gt;Required if &lt;code&gt;Use authentication&lt;/code&gt; is checked.&lt;/p&gt;
-&lt;h3 id=&#34;socket-timeout-ms&#34;&gt;Socket timeout (ms)&lt;/h3&gt;
+&lt;h3 id=&#34;socket-timeout-ms&#34;&gt;Socket Timeout (ms)&lt;/h3&gt;
 &lt;p&gt;Number of milliseconds to wait for an Elasticsearch indexing or search REST call to complete.
 Set to &lt;code&gt;-1&lt;/code&gt; (the default) to wait indefinitely, or until Elasticsearch closes the connection.&lt;/p&gt;
 &lt;hr&gt;
@@ -316,7 +316,7 @@ You will first need to &lt;span class=&#34;external-link&#34;&gt;
   &lt;/a&gt;
 &lt;/span&gt;
  in order to query your indices.&lt;/p&gt;
-&lt;h2 id=&#34;why-use-kibana&#34;&gt;Why use Kibana?&lt;/h2&gt;
+&lt;h2 id=&#34;why-use-kibana&#34;&gt;Why Use Kibana?&lt;/h2&gt;
 &lt;p&gt;There are several use cases that benefit from Kibana:&lt;/p&gt;
 &lt;ol&gt;
 &lt;li&gt;Convenient and powerful drag-and-drop charts and other visualisation types using Kibana Lens.

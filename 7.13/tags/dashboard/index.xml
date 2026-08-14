@@ -38,16 +38,16 @@
         
         &lt;p&gt;It is possible to navigate directly to a specific &lt;em&gt;Stroom&lt;/em&gt; dashboard using a direct URL.
 This can be useful when you have a dashboard that needs to be viewed by users that would otherwise not be using the &lt;em&gt;Stroom&lt;/em&gt; user interface.&lt;/p&gt;
-&lt;h2 id=&#34;url-format&#34;&gt;URL format&lt;/h2&gt;
+&lt;h2 id=&#34;url-format&#34;&gt;URL Format&lt;/h2&gt;
 &lt;p&gt;The format for the URL is as follows:&lt;/p&gt;
 &lt;p&gt;&lt;code&gt;https://&amp;lt;HOST&amp;gt;/stroom/dashboard?type=Dashboard&amp;amp;uuid=&amp;lt;DASHBOARD UUID&amp;gt;[&amp;amp;title=&amp;lt;DASHBOARD TITLE&amp;gt;][&amp;amp;params=&amp;lt;DASHBOARD PARAMETERS&amp;gt;]&lt;/code&gt;&lt;/p&gt;
 &lt;p&gt;Example:&lt;/p&gt;
 &lt;p&gt;&lt;code&gt;https://localhost/stroom/dashboard?type=Dashboard&amp;amp;uuid=c7c6b03c-5d47-4b8b-b84e-e4dfc6c84a09&amp;amp;title=My%20Dash&amp;amp;params=userId%3DFred%20Bloggs&lt;/code&gt;&lt;/p&gt;
-&lt;h3 id=&#34;host-and-path&#34;&gt;Host and path&lt;/h3&gt;
+&lt;h3 id=&#34;host-and-path&#34;&gt;Host and Path&lt;/h3&gt;
 &lt;p&gt;The host and path are typically &lt;code&gt;https://&amp;lt;HOST&amp;gt;/stroom/dashboard&lt;/code&gt; where &lt;code&gt;&amp;lt;HOST&amp;gt;&lt;/code&gt; is the hostname/IP for &lt;em&gt;Stroom&lt;/em&gt;.&lt;/p&gt;
-&lt;h3 id=&#34;type&#34;&gt;type&lt;/h3&gt;
+&lt;h3 id=&#34;type&#34;&gt;&lt;code&gt;type&lt;/code&gt;&lt;/h3&gt;
 &lt;p&gt;&lt;code&gt;type&lt;/code&gt; is a required parameter and must always be &lt;code&gt;Dashboard&lt;/code&gt; since we are opening a dashboard.&lt;/p&gt;
-&lt;h3 id=&#34;uuid&#34;&gt;uuid&lt;/h3&gt;
+&lt;h3 id=&#34;uuid&#34;&gt;&lt;code&gt;uuid&lt;/code&gt;&lt;/h3&gt;
 &lt;p&gt;&lt;code&gt;uuid&lt;/code&gt; is a required parameter where &lt;code&gt;&amp;lt;DASHBOARD UUID&amp;gt;&lt;/code&gt; is the UUID for the dashboard you want a direct URL to, e.g. &lt;code&gt;uuid=c7c6b03c-5d47-4b8b-b84e-e4dfc6c84a09&lt;/code&gt;&lt;/p&gt;
 &lt;p&gt;The UUID for the dashboard that you want to link to can be found by right clicking on the dashboard icon in the explorer tree and selecting Info.&lt;/p&gt;
 &lt;p&gt;The Info dialog will display something like this and the UUID can be copied from it:&lt;/p&gt;
@@ -60,10 +60,10 @@ Created On: 2018-12-10T06:33:03.275Z
 Updated By: admin
 Updated On: 2018-12-10T07:47:06.841Z
 &lt;/code&gt;&lt;/pre&gt;
-&lt;h3 id=&#34;title-optional&#34;&gt;title (Optional)&lt;/h3&gt;
+&lt;h3 id=&#34;title-optional&#34;&gt;&lt;code&gt;title&lt;/code&gt; (Optional)&lt;/h3&gt;
 &lt;p&gt;&lt;code&gt;title&lt;/code&gt; is an optional URL parameter where &lt;code&gt;&amp;lt;DASHBOARD TITLE&amp;gt;&lt;/code&gt; allows the specification of a specific title for the opened dashboard instead of the default dashboard name.&lt;/p&gt;
 &lt;p&gt;The inclusion of &lt;code&gt;${name}&lt;/code&gt; in the title allows the default dashboard name to be used and appended with other values, e.g. &lt;code&gt;&#39;title=${name}%20-%20&#39; + param.name&lt;/code&gt;&lt;/p&gt;
-&lt;h3 id=&#34;params-optional&#34;&gt;params (Optional)&lt;/h3&gt;
+&lt;h3 id=&#34;params-optional&#34;&gt;&lt;code&gt;params&lt;/code&gt; (Optional)&lt;/h3&gt;
 &lt;p&gt;&lt;code&gt;params&lt;/code&gt; is an optional URL parameter where &lt;code&gt;&amp;lt;DASHBOARD PARAMETERS&amp;gt;&lt;/code&gt; includes any parameters that have been defined for the dashboard in any of the expressions, e.g. &lt;code&gt;params=userId%3DFred%20Bloggs&lt;/code&gt;&lt;/p&gt;
 &lt;h2 id=&#34;permissions&#34;&gt;Permissions&lt;/h2&gt;
 &lt;p&gt;In order for a user to view a dashboard they will need the necessary permission on the various entities that make up the dashboard.&lt;/p&gt;
@@ -131,7 +131,8 @@ as the arguments for other functions.&lt;/p&gt;
 &lt;li&gt;&lt;a href=&#34;aggregate#joining&#34;&gt;Joining&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href=&#34;aggregate#max&#34;&gt;Max&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href=&#34;aggregate#min&#34;&gt;Min&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;aggregate#standard-deviation&#34;&gt;Standard Deviation&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;aggregate#period&#34;&gt;Period&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;aggregate#stdev-standard-deviation&#34;&gt;Standard Deviation&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href=&#34;aggregate#sum&#34;&gt;Sum&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href=&#34;aggregate#variance&#34;&gt;Variance&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
@@ -160,7 +161,6 @@ as the arguments for other functions.&lt;/p&gt;
         
           &lt;ul&gt;
 &lt;li&gt;&lt;a href=&#34;string#concat&#34;&gt;Concat&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;string#current-user&#34;&gt;Current User&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href=&#34;string#decode&#34;&gt;Decode&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href=&#34;string#decodeurl&#34;&gt;DecodeUrl&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href=&#34;string#encodeurl&#34;&gt;EncodeUrl&lt;/a&gt;&lt;/li&gt;
@@ -168,17 +168,19 @@ as the arguments for other functions.&lt;/p&gt;
 &lt;li&gt;&lt;a href=&#34;string#hash&#34;&gt;Hash&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href=&#34;string#include&#34;&gt;Include&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href=&#34;string#index-of&#34;&gt;Index Of&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;string#jq&#34;&gt;Jq&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href=&#34;string#last-index-of&#34;&gt;Last Index Of&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href=&#34;string#lower-case&#34;&gt;Lower Case&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href=&#34;string#match&#34;&gt;Match&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;string#query-param&#34;&gt;Query Param&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;string#query-params&#34;&gt;Query Params&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;string#param&#34;&gt;Param&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;string#params&#34;&gt;Params&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href=&#34;string#replace&#34;&gt;Replace&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href=&#34;string#string-length&#34;&gt;String Length&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href=&#34;string#substring&#34;&gt;Substring&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href=&#34;string#substring-after&#34;&gt;Substring After&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href=&#34;string#substring-before&#34;&gt;Substring Before&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href=&#34;string#upper-case&#34;&gt;Upper Case&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;string#xpath&#34;&gt;XPath&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
         
@@ -279,6 +281,7 @@ as the arguments for other functions.&lt;/p&gt;
         
           &lt;ul&gt;
 &lt;li&gt;&lt;a href=&#34;link#annotation&#34;&gt;Annotation&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;link#create-annotation&#34;&gt;Create Annotation&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href=&#34;link#dashboard&#34;&gt;Dashboard&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href=&#34;link#data&#34;&gt;Data&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href=&#34;link#link&#34;&gt;Link&lt;/a&gt;&lt;/li&gt;
@@ -310,6 +313,7 @@ as the arguments for other functions.&lt;/p&gt;
           &lt;ul&gt;
 &lt;li&gt;&lt;a href=&#34;cast#to-boolean&#34;&gt;To Boolean&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href=&#34;cast#to-double&#34;&gt;To Double&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;cast#to-float&#34;&gt;To Float&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href=&#34;cast#to-integer&#34;&gt;To Integer&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href=&#34;cast#to-long&#34;&gt;To Long&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href=&#34;cast#to-string&#34;&gt;To String&lt;/a&gt;&lt;/li&gt;
@@ -340,9 +344,16 @@ as the arguments for other functions.&lt;/p&gt;
           &lt;ul&gt;
 &lt;li&gt;&lt;a href=&#34;date#format-date&#34;&gt;Format Date&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href=&#34;date#parse-date&#34;&gt;Parse Date&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;date#ceiling-yearmonthdayhourminutesecond&#34;&gt;Ceiling Functions&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;date#floor-yearmonthdayhourminutesecond&#34;&gt;Floor Functions&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;date#round-yearmonthdayhourminutesecond&#34;&gt;Round Functions&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;date#ceiling-yearmonthweekdayhourminutesecond&#34;&gt;Ceiling Functions&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;date#floor-yearmonthweekdayhourminutesecond&#34;&gt;Floor Functions&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;date#round-yearmonthweekdayhourminutesecond&#34;&gt;Round Functions&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;date#is-weekend&#34;&gt;Is Weekend&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;date#now&#34;&gt;Now&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;date#current-period-functions&#34;&gt;Current Period Functions&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;date#parse-duration&#34;&gt;Parse Duration&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;date#format-duration&#34;&gt;Format Duration&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;date#parse-iso-duration&#34;&gt;Parse ISO Duration&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;date#format-iso-duration&#34;&gt;Format ISO Duration&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
         
@@ -376,6 +387,8 @@ as the arguments for other functions.&lt;/p&gt;
 &lt;li&gt;&lt;a href=&#34;logic#less-than-or-equal-to&#34;&gt;Less Than or Equal To&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href=&#34;logic#not&#34;&gt;Not&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href=&#34;logic#case&#34;&gt;Case&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;logic#inrange&#34;&gt;InRange&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;logic#not-equals&#34;&gt;Not Equals&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
         
@@ -404,9 +417,9 @@ as the arguments for other functions.&lt;/p&gt;
       &lt;p class=&#34;card-text&#34;&gt;
         
           &lt;ul&gt;
-&lt;li&gt;&lt;a href=&#34;rounding#ceiling&#34;&gt;Ceiling&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;rounding#floor&#34;&gt;Floor&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;rounding#round&#34;&gt;Round&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;mathematics#rounding-functions&#34;&gt;Ceiling&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;mathematics#rounding-functions&#34;&gt;Floor&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;mathematics#rounding-functions&#34;&gt;Round&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
         
@@ -486,6 +499,62 @@ as the arguments for other functions.&lt;/p&gt;
   
     &lt;div class=&#34;card-header&#34;&gt;
       
+        Param Functions
+      
+    &lt;/div&gt;
+  
+  &lt;div class=&#34;card-body&#34;&gt;
+    
+    
+    
+      &lt;p class=&#34;card-text&#34;&gt;
+        
+          &lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;param#current-user&#34;&gt;Current User&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;param#current-user-display-name&#34;&gt;Current User Display Name&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;param#current-user-full-name&#34;&gt;Current User Full Name&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;param#current-user-subject-id&#34;&gt;Current User Subject Id&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;param#current-user-uuid&#34;&gt;Current User Uuid&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+        
+      &lt;/p&gt;
+    
+  &lt;/div&gt;
+  
+&lt;/div&gt;
+
+
+  &lt;div class=&#34;td-card card mb-4&#34;&gt;
+  
+    &lt;div class=&#34;card-header&#34;&gt;
+      
+        Lookup Functions
+      
+    &lt;/div&gt;
+  
+  &lt;div class=&#34;card-body&#34;&gt;
+    
+    
+    
+      &lt;p class=&#34;card-text&#34;&gt;
+        
+          &lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;lookup#get-state&#34;&gt;Get State&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+        
+      &lt;/p&gt;
+    
+  &lt;/div&gt;
+  
+&lt;/div&gt;
+
+
+  &lt;div class=&#34;td-card card mb-4&#34;&gt;
+  
+    &lt;div class=&#34;card-header&#34;&gt;
+      
         Value Functions
       
     &lt;/div&gt;
@@ -499,6 +568,8 @@ as the arguments for other functions.&lt;/p&gt;
           &lt;ul&gt;
 &lt;li&gt;&lt;a href=&#34;value#err&#34;&gt;Err&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href=&#34;value#false&#34;&gt;False&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;value#format-iec-byte-size&#34;&gt;Format IEC Byte Size&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;value#format-metric-byte-size&#34;&gt;Format Metric Byte Size&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href=&#34;value#null&#34;&gt;Null&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href=&#34;value#true&#34;&gt;True&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
@@ -596,7 +667,7 @@ Dashboards are highly configurable; panes can be added and resized; they can con
     &lt;/a&gt;&lt;span class=&#34;glossary-tooltip&#34;&gt;
       &lt;span class=&#34;glossary-tooltip-title&#34;&gt;Visualisation&lt;/span&gt;
       &lt;span class=&#34;glossary-tooltip-summary&#34;&gt;A document comprising some Javascript code for visualising data, e.g. pie charts, heat maps, line graphs etc. Visualisations are not baked into Stroom, they are content, so can be created/modified/shared by Stroom users.&lt;/span&gt;&lt;span class=&#34;glossary-tooltip-truncated&#34;&gt;Click to see more details...&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;).&lt;/p&gt;
-&lt;h2 id=&#34;configuring-the-query-data-source&#34;&gt;Configuring the query data source&lt;/h2&gt;
+&lt;h2 id=&#34;configuring-the-query-data-source&#34;&gt;Configuring the Query Data Source&lt;/h2&gt;
 &lt;p&gt;On the query pane click the settings &lt;span class=&#34;stroom-icon inline-svg-button icon-button  icon-colour__grey&#34; &gt;
     &lt;span class=&#34;face&#34; title=&#34;Dashboard settings&#34;&gt;&lt;svg xmlns=&#34;http://www.w3.org/2000/svg&#34; width=&#34;1792&#34; height=&#34;1792&#34; viewBox=&#34;0 0 1792 1792&#34;&gt;&lt;path style=&#34;fill:currentColor&#34; d=&#34;M1152 896q0-106-75-181t-181-75-181 75-75 181 75 181 181 75 181-75 75-181zm512-109v222q0 12-8 23t-20 13l-185 28q-19 54-39 91 35 50 107 138 10 12 10 25t-9 23q-27 37-99 108t-94 71q-12 0-26-9l-138-108q-44 23-91 38-16 136-29 186-7 28-36 28h-222q-14 0-24.5-8.5t-11.5-21.5l-28-184q-49-16-90-37l-141 107q-10 9-25 9-14 0-25-11-126-114-165-168-7-10-7-23 0-12 8-23 15-21 51-66.5t54-70.5q-27-50-41-99l-183-27q-13-2-21-12.5t-8-23.5v-222q0-12 8-23t19-13l186-28q14-46 39-92-40-57-107-138-10-12-10-24 0-10 9-23 26-36 98.5-107.5t94.5-71.5q13 0 26 10l138 107q44-23 91-38 16-136 29-186 7-28 36-28h222q14 0 24.5 8.5t11.5 21.5l28 184q49 16 90 37l142-107q9-9 24-9 13 0 25 10 129 119 165 170 7 8 7 22 0 12-8 23-15 21-51 66.5t-54 70.5q26 50 41 98l183 28q13 2 21 12.5t8 23.5z&#34;/&gt;&lt;/svg&gt;&lt;/span&gt;
   &lt;/span&gt; button on the top right of the panel.&lt;/p&gt;
@@ -662,7 +733,7 @@ This can be done in the Query settings dialog you used above.
 &lt;/div&gt;
 
 
-&lt;h2 id=&#34;configuring-the-query-expression&#34;&gt;Configuring the query expression&lt;/h2&gt;
+&lt;h2 id=&#34;configuring-the-query-expression&#34;&gt;Configuring the Query Expression&lt;/h2&gt;
 &lt;p&gt;Now add a term to the query to filter the data.&lt;/p&gt;
 &lt;ol&gt;
 &lt;li&gt;Right click on the root AND operator and click &lt;span class=&#34;stroom-icon inline-svg-button icon-button  &#34; &gt;
@@ -690,7 +761,7 @@ A new expression is added to the tree as a child of the operator and it has thre
 &lt;/li&gt;
 &lt;/ol&gt;
 &lt;p&gt;This will find any records with &lt;code&gt;b&lt;/code&gt; in the &lt;em&gt;Application&lt;/em&gt; field value.&lt;/p&gt;
-&lt;h2 id=&#34;configuring-the-table&#34;&gt;Configuring the table&lt;/h2&gt;
+&lt;h2 id=&#34;configuring-the-table&#34;&gt;Configuring the Table&lt;/h2&gt;
 &lt;p&gt;All fields are &lt;a href=&#34;../../docs/user-guide/indexing/lucene/#stored-fields&#34;&gt;stored&lt;/a&gt; in our index so we do not need to worry about configuring &lt;span class=&#34;glossary-link&#34;&gt;
     &lt;a href=&#34;../../docs/glossary/s/glossary-search-extraction&#34;&gt;
       &lt;span&gt;Search extraction&lt;/span&gt;
@@ -831,7 +902,7 @@ You can also use
 &lt;li&gt;Click &lt;em&gt;OK&lt;/em&gt;.&lt;/li&gt;
 &lt;/ol&gt;
 &lt;p&gt;Now run the query again to see the results with the added column.&lt;/p&gt;
-&lt;h2 id=&#34;add-a-visualisation&#34;&gt;Add a visualisation&lt;/h2&gt;
+&lt;h2 id=&#34;add-a-visualisation&#34;&gt;Add a Visualisation&lt;/h2&gt;
 &lt;p&gt;We will add a new pane to the dashboard to display a &lt;span class=&#34;glossary-link&#34;&gt;
     &lt;a href=&#34;../../docs/glossary/v/glossary-visualisation&#34;&gt;
       &lt;span&gt;Visualisation&lt;/span&gt;

@@ -38,7 +38,8 @@
 <link rel="icon" type="image/png" href="../../../../../favicons/android-192x192.png" sizes="192x192">
 
 <title>Element Reference | Stroom</title>
-<meta name="description" content="There are various elements used in a Data Splitter configuration to control behaviour. Each of these elements can be categorised as one of the …">
+<meta name="description" content="There are various elements used in a Data Splitter configuration to control behaviour.
+Each of these elements can be categorised as one of the …">
 <meta property="og:title" content="Element Reference" />
 <meta property="og:description" content="Stroom documentation, release notes, news and open source community information" />
 <meta property="og:type" content="website" />
@@ -147,7 +148,7 @@
     aria-label="Search this site…"
     autocomplete="off"
     
-    data-offline-search-index-json-src="../../../../../offline-search-index.95b12371d9f23e70cddb1f62f4c00605.json"
+    data-offline-search-index-json-src="../../../../../offline-search-index.95034a9311ba25828e37c5d04adb17e9.json"
     data-offline-search-base-href="../../../../../"
     data-offline-search-max-results="50"
   >
@@ -228,7 +229,8 @@ This is the multi-page printable view of this section.
 
 
 <div class="content">
-      <p>There are various elements used in a Data Splitter configuration to control behaviour. Each of these elements can be categorised as one of the following:</p>
+      <p>There are various elements used in a Data Splitter configuration to control behaviour.
+Each of these elements can be categorised as one of the following:</p>
 
 </div>
 </div>
@@ -256,7 +258,7 @@ This is the multi-page printable view of this section.
     
 	<p>Content providers take some content from the input source or elsewhere (see <a href="../../../../../docs/user-guide/data-splitter/match-reference/use-of-fixed-strings/">fixed strings</a> and provide it to one or more expressions.
 Both the root element <code>&lt;dataSplitter&gt;</code> and <code>&lt;group&gt;</code> elements are content providers.</p>
-<h2 id="root-element-datasplitter">Root element <code>&lt;dataSplitter&gt;</code></h2>
+<h2 id="root-element-datasplitter">Root Element <code>&lt;dataSplitter&gt;</code></h2>
 <p>The root element of a Data Splitter configuration is <code>&lt;dataSplitter&gt;</code>.
 It supplies content from the input source to one or more expressions defined within it.
 The way that content is buffered is controlled by the root element and the way that errors are handled as a result of child expressions not matching all of the content it supplies.</p>
@@ -326,7 +328,7 @@ In these cases <code>ignoreErrors</code> can be used to suppress errors caused b
 The default size is 20000 characters and should be fine for most translations.
 The minimum value that this can be set to is 20000 characters and the maximum is 1000000000.
 The only reason to specify this attribute is when individual records are bigger than 10000 characters which is rarely the case.</p>
-<h2 id="group-element-group">Group element <code>&lt;group&gt;</code></h2>
+<h2 id="group-element-group">Group Element <code>&lt;group&gt;</code></h2>
 <p>Groups behave in a similar way to the root element in that they provide content for one or more inner expressions to deal with, e.g.</p>
 <pre><code class="language-xml">&lt;group value=&quot;$1&quot;&gt;
   &lt;regex pattern=&quot;([^\t]*)\t([^\t]*)[\t]*([^=:]*)[=:]*(.*)&quot; maxMatch=&quot;1&quot;&gt;
@@ -401,7 +403,8 @@ In the following example the first expression would match and remove <code>Value
 This is the default behaviour as tokens are most often in sequence and consuming content in this way is more efficient as content does not need to be copied by the parser to chop out sections as is required for matching in any order.
 It is only necessary to use this feature when fields that are identifiable with a specific match can occur in any order.</p>
 <h4 id="reverse"><code>reverse</code></h4>
-<p>Occasionally it is desirable to reverse the content presented by a group to child expressions. This is because it is sometimes easier to form a pattern by matching content in reverse.</p>
+<p>Occasionally it is desirable to reverse the content presented by a group to child expressions.
+This is because it is sometimes easier to form a pattern by matching content in reverse.</p>
 <p>Take the following example content of name, value pairs delimited by <code>=</code> but with no spaces between names, multiple spaces between values and only a space between subsequent pairs:</p>
 <pre><code class="language-text">ipAddress=123.123.123.123 zones=Zone 1, Zone 2, Zone 3 location=loc1 A user=An end user serverName=bigserver
 </code></pre>
@@ -411,8 +414,10 @@ It is only necessary to use this feature when fields that are identifiable with 
 <p>This would match the following:</p>
 <pre><code class="language-text">ipAddress=123.123.123.123 zones=
 </code></pre>
-<p>Here we are capturing the name and value for each pair in separate groups but the pattern has to also match the name from the next name value pair to find the end of the value. By default Data Splitter will move the content buffer to the end of the match ready for subsequent matches so the next name will not be available for matching.</p>
-<p>In addition to matching too much content the above example also uses a reluctant qualifier <code>.+?</code>. Use of reluctant qualifiers almost always impacts performance so they are to be avoided if at all possible.</p>
+<p>Here we are capturing the name and value for each pair in separate groups but the pattern has to also match the name from the next name value pair to find the end of the value.
+By default Data Splitter will move the content buffer to the end of the match ready for subsequent matches so the next name will not be available for matching.</p>
+<p>In addition to matching too much content the above example also uses a reluctant qualifier <code>.+?</code>.
+Use of reluctant qualifiers almost always impacts performance so they are to be avoided if at all possible.</p>
 <p>A better way to match the example content is to match the input in reverse, reading characters from right to left.</p>
 <p>The following example demonstrates this:</p>
 <pre><code class="language-xml">&lt;group reverse=&quot;true&quot;&gt;
@@ -421,8 +426,10 @@ It is only necessary to use this feature when fields that are identifiable with 
   &lt;/regex&gt;
 &lt;/group&gt;
 </code></pre>
-<p>Using the reverse attribute on the parent group causes content to be supplied to all child expressions in reverse order. In the above example this allows the pattern to match values followed by names which enables us to cope with the fact that values have multiple spaces but names have no spaces.</p>
-<p>Content is only presented to child regular expressions in reverse. When referencing values from match groups the content is returned in the correct order, e.g. the above example would return:</p>
+<p>Using the reverse attribute on the parent group causes content to be supplied to all child expressions in reverse order.
+In the above example this allows the pattern to match values followed by names which enables us to cope with the fact that values have multiple spaces but names have no spaces.</p>
+<p>Content is only presented to child regular expressions in reverse.
+When referencing values from match groups the content is returned in the correct order, e.g. the above example would return:</p>
 <pre><code class="language-xml">&lt;data name=&quot;ipAddress&quot; value=&quot;123.123.123.123&quot; /&gt;
 &lt;data name=&quot;zones&quot; value=&quot;Zone 1, Zone 2, Zone 3&quot; /&gt;
 &lt;data name=&quot;location&quot; value=&quot;loc1&quot; /&gt;
@@ -430,7 +437,9 @@ It is only necessary to use this feature when fields that are identifiable with 
 &lt;data name=&quot;serverName&quot; value=&quot;bigserver&quot; /&gt;
 </code></pre>
 <p>The reverse feature isn&rsquo;t needed very often but there are a few cases where it really helps produce the desired output without the complexity and performance overhead of a reluctant match.</p>
-<p>An alternative to using the reverse attribute is to use the original reluctant expression example but tell Data Splitter to make the subsequent name available for the next match by not advancing the content beyond the end of the previous value. This is done by using the <a href="../../../../../docs/user-guide/data-splitter/element-reference/expressions/#regex-advance">advance attribute</a> on the <code>&lt;regex&gt;</code>. However, the reverse attribute represents a better way to solve this particular problem and allows a simpler and more efficient regular expression to be used.</p>
+<p>An alternative to using the reverse attribute is to use the original reluctant expression example but tell Data Splitter to make the subsequent name available for the next match by not advancing the content beyond the end of the previous value.
+This is done by using the <a href="../../../../../docs/user-guide/data-splitter/element-reference/expressions/#regex-advance">advance attribute</a> on the <code>&lt;regex&gt;</code>.
+However, the reverse attribute represents a better way to solve this particular problem and allows a simpler and more efficient regular expression to be used.</p>
 
 </div>
 
@@ -454,7 +463,7 @@ It is only necessary to use this feature when fields that are identifiable with 
 	<p>Expressions match some data supplied by a parent content provider.
 The content matched by an expression depends on the type of expression and how it is configured.</p>
 <p>The <code>&lt;split&gt;</code>, <code>&lt;regex&gt;</code> and <code>&lt;all&gt;</code> elements are all expressions and match content as described below.</p>
-<h2 id="the-split-element">The <code>&lt;split&gt;</code> element</h2>
+<h2 id="the-split-element">The <code>&lt;split&gt;</code> Element</h2>
 <p>The <code>&lt;split&gt;</code> element directs Data Splitter to break up content using a specified character sequence as a delimiter.
 In addition to this it is possible to specify characters that are used to escape the delimiter as well as characters that contain or &ldquo;quote&rdquo; a value that may include the delimiter sequence but allow it to be ignored.</p>
 <h3 id="attributes">Attributes</h3>
@@ -501,7 +510,7 @@ If specified Data Splitter will generate an error if the expression does not mat
 <h4 id="split-onlymatch"><code>onlyMatch</code></h4>
 <p>Optional attribute to use this expression only for specific instances of a match of the parent expression, e.g. on the 4th, 5th and 8th matches of the parent expression specified by &lsquo;4,5,8&rsquo;.
 This is used when this expression should only be used to subdivide content from certain parent matches.</p>
-<h2 id="the-regex-element">The <code>&lt;regex&gt;</code> element</h2>
+<h2 id="the-regex-element">The <code>&lt;regex&gt;</code> Element</h2>
 <p>The <code>&lt;regex&gt;</code> element directs Data Splitter to match content using the specified regular expression pattern.
 In addition to this the same match control attributes that are available on the <code>&lt;split&gt;</code> element are also present as well as attributes to alter the way the pattern works.</p>
 <h3 id="attributes-1">Attributes</h3>
@@ -567,7 +576,7 @@ This is done with the advance attribute and is used to specify the match group w
 Reluctant matches are discouraged for performance reasons so this feature should rarely be used.
 A better way to tackle the above example would be to present the content in <a href="../../../../../docs/user-guide/data-splitter/element-reference/content-providers/#reverse">reverse</a>, however this is only possible if the expression is within a group, i.e. is not a root expression.
 There may also be more complex cases where reversal is not an option and the use of a reluctant match is the only option.</p>
-<h2 id="the-all-element">The <code>&lt;all&gt;</code> element</h2>
+<h2 id="the-all-element">The <code>&lt;all&gt;</code> Element</h2>
 <p>The <code>&lt;all&gt;</code> element matches the entire content of the parent group and makes it available to child groups or <code>&lt;data&gt;</code> elements.
 The purpose of <code>&lt;all&gt;</code> is to act as a catch all expression to deal with content that is not handled by a more specific expression, e.g. to output some other unknown, unrecognised or unexpected data.</p>
 <pre><code class="language-xml">&lt;group&gt;
@@ -610,9 +619,12 @@ However it performs much faster as it doesn&rsquo;t require pattern matching log
     
   <h1 id="pg-62988f31b8e48fba7fc903c016fd2cf5">3 - Variables</h1>
     
-	<p>A variable is added to Data Splitter using the <code>&lt;var&gt;</code> element. A variable is used to store matches from a parent expression for use in a reference elsewhere in the configuration, see <a href="../../../../../docs/user-guide/data-splitter/match-reference/variable-reference/">variable reference</a>.</p>
-<p>The most recent matches are stored for use in local references, i.e. references that are in the same match scope as the variable. Multiple matches are stored for use in references that are in a separate match scope. The concept of different variable scopes is described in <a href="../../../../../docs/user-guide/data-splitter/match-reference/variable-reference/#scopes">scopes</a>.</p>
-<h2 id="the-var-element">The <code>&lt;var&gt;</code> element</h2>
+	<p>A variable is added to Data Splitter using the <code>&lt;var&gt;</code> element.
+A variable is used to store matches from a parent expression for use in a reference elsewhere in the configuration, see <a href="../../../../../docs/user-guide/data-splitter/match-reference/variable-reference/">variable reference</a>.</p>
+<p>The most recent matches are stored for use in local references, i.e. references that are in the same match scope as the variable.
+Multiple matches are stored for use in references that are in a separate match scope.
+The concept of different variable scopes is described in <a href="../../../../../docs/user-guide/data-splitter/match-reference/variable-reference/#scopes">scopes</a>.</p>
+<h2 id="the-var-element">The <code>&lt;var&gt;</code> Element</h2>
 <p>The <code>&lt;var&gt;</code> element is used to tell Data Splitter to store matches from a parent expression for use in a reference.</p>
 <h3 id="attributes">Attributes</h3>
 <p>The <code>&lt;var&gt;</code> element has the following attributes:</p>
@@ -642,7 +654,7 @@ However it performs much faster as it doesn&rsquo;t require pattern matching log
   <h1 id="pg-88ce4c68f62c723b57c420be2c5cdb8e">4 - Output</h1>
     
 	<p>As with all other aspects of Data Splitter, output XML is determined by adding certain elements to the Data Splitter configuration.</p>
-<h2 id="the-data-element">The <code>&lt;data&gt;</code> element</h2>
+<h2 id="the-data-element">The <code>&lt;data&gt;</code> Element</h2>
 <p>Output is created by Data Splitter using one or more <code>&lt;data&gt;</code> elements in the configuration.
 The first <code>&lt;data&gt;</code> element that is encountered within a matched expression will result in parent <code>&lt;record&gt;</code> elements being produced in the output.</p>
 <h3 id="attributes">Attributes</h3>
@@ -658,7 +670,7 @@ The first <code>&lt;data&gt;</code> element that is encountered within a matched
 <p>Both the name and value attributes of the <code>&lt;data&gt;</code> element can be specified using <a href="../../../../../docs/user-guide/data-splitter/match-reference/">match references</a>.</p>
 <h4 id="value"><code>value</code></h4>
 <p>Both the name and value attributes of the <code>&lt;data&gt;</code> element can be specified using <a href="../../../../../docs/user-guide/data-splitter/match-reference/">match references</a>.</p>
-<h3 id="single-data-element-example">Single <code>&lt;data&gt;</code> element example</h3>
+<h3 id="single-data-element-example">Single <code>&lt;data&gt;</code> Element Example</h3>
 <p>The simplest example that can be provided uses a single <code>&lt;data&gt;</code> element within a <code>&lt;split&gt;</code> expression.</p>
 <p>Given the following input:</p>
 <pre><code class="language-text">This is line 1
@@ -695,7 +707,7 @@ This is line 3
   &lt;/record&gt;
 &lt;/records&gt;
 </code></pre>
-<h3 id="multiple-data-element-example">Multiple <code>&lt;data&gt;</code> element example</h3>
+<h3 id="multiple-data-element-example">Multiple <code>&lt;data&gt;</code> Element Example</h3>
 <p>You could also output multiple <code>&lt;data&gt;</code> elements for the same <code>&lt;record&gt;</code> by adding multiple elements within the same expression:</p>
 <p>Given the following input:</p>
 <pre><code class="language-text">ip=1.1.1.1 user=user1
@@ -736,7 +748,7 @@ ip=3.3.3.3 user=user3
   &lt;/record&gt;
 &lt;/records&gt;
 </code></pre>
-<h3 id="multi-level-data-elements">Multi level <code>&lt;data&gt;</code> elements</h3>
+<h3 id="multi-level-data-elements">Multi Level <code>&lt;data&gt;</code> Elements</h3>
 <p>As long as all data elements occur within the same parent/ancestor expression, all data elements will be output within the same record.</p>
 <p>Given the following input:</p>
 <pre><code class="language-text">ip=1.1.1.1 user=user1
@@ -786,9 +798,9 @@ ip=3.3.3.3 user=user3
   &lt;/record&gt;
 &lt;/records&gt;
 </code></pre>
-<h3 id="nesting-data-elements">Nesting <code>&lt;data&gt;</code> elements</h3>
+<h3 id="nesting-data-elements">Nesting <code>&lt;data&gt;</code> Elements</h3>
 <p>Rather than having <code>&lt;data&gt;</code> elements all appear as children of <code>&lt;record&gt;</code> it is possible to nest them either as direct children or within child groups.</p>
-<h4 id="direct-children">Direct children</h4>
+<h4 id="direct-children">Direct Children</h4>
 <p>Given the following input:</p>
 <pre><code class="language-text">ip=1.1.1.1 user=user1
 ip=2.2.2.2 user=user2
@@ -836,7 +848,7 @@ ip=3.3.3.3 user=user3
   &lt;/record&gt;
 &lt;/records&gt;
 </code></pre>
-<h4 id="within-child-groups">Within child groups</h4>
+<h4 id="within-child-groups">Within Child Groups</h4>
 <p>Given the following input:</p>
 <pre><code class="language-text">ip=1.1.1.1 user=user1
 ip=2.2.2.2 user=user2
