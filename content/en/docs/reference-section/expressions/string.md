@@ -228,13 +228,16 @@ Extracts values from a JSON string using a JQ expression.
 
 ```clike
 jq(json, jq)
+jq(json, jq, delimiter)
 ```
 
 * `json` - The JSON string to evaluate.
 * `jq` - The JQ expression to use for extraction.
+* `delimiter` - The delimiter to insert between the values of each matched element.
+  Defaults to no delimiter.
 
-Returns the string value of the matched JSON element(s).
-Where the expression matches a single value node that value is returned, and where it matches an object or array the JSON form of it is returned.
+Where the expression matches more than one element, the string values of all the matched elements are concatenated.
+A value node contributes its raw value, and an object or array contributes its JSON form.
 If nothing is matched then `null` is returned.
 
 Example
@@ -242,6 +245,10 @@ Example
 ```clike
 jq('{"user":{"id":"jbloggs"}}', '.user.id')
 > 'jbloggs'
+jq('{"ids":["a","b","c"]}', '.ids[]')
+> 'abc'
+jq('{"ids":["a","b","c"]}', '.ids[]', ', ')
+> 'a, b, c'
 ```
 
 
@@ -428,26 +435,35 @@ upperCase('Hello DeVeLoPER')
 
 ## XPath
 
-Extracts a value from an XML string using an XPath 1.0 expression.
+Extracts values from an XML string using an XPath 3.1 expression.
 
 ```clike
 xpath(xml, xpath)
-xpath(xml, xpath, prefix, uri...)
+xpath(xml, xpath, namespaces)
+xpath(xml, xpath, namespaces, delimiter)
 ```
 
 * `xml` - The XML string to evaluate.
 * `xpath` - The XPath expression to use for extraction.
-* `prefix` - A namespace prefix used in the expression.
-* `uri` - The namespace URI that the preceding prefix is bound to.
+* `namespaces` - A space delimited list of namespace prefix to URI mappings, in the form `prefix:uri prefix2:uri2`.
+  A mapping with no prefix, e.g. `:uri`, sets the default element namespace.
+  If this argument is omitted or empty then namespaces in the XML are ignored.
+* `delimiter` - The delimiter to insert between the values of each matched item.
+  Defaults to no delimiter.
 
-Returns the string value of the matched node.
+The string values of all the items matched by the expression are concatenated in document order.
+If nothing is matched then an empty string is returned.
 
-Namespace prefixes and URIs are supplied in pairs, and as many pairs as are needed can be supplied.
-A prefix must be declared for each namespace used in the expression, including the default namespace of the document.
+If no namespace mappings are supplied then the XML is treated as being namespace unaware, i.e. element and attribute names are matched on their local name only.
+This means a document with a default namespace can be queried without having to declare it.
 
 Example
 
 ```clike
 xpath('<user><id>jbloggs</id></user>', '/user/id')
+> 'jbloggs'
+xpath('<users><id>jbloggs</id><id>jdoe</id></users>', '/users/id', '', ', ')
+> 'jbloggs, jdoe'
+xpath('<u:user xmlns:u="users:1"><u:id>jbloggs</u:id></u:user>', '/u:user/u:id', 'u:users:1')
 > 'jbloggs'
 ```
