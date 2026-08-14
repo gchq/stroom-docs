@@ -15,6 +15,7 @@ description: >
 [HOWTO - Creating a Simple Reference Feed]({{< relref "../ReferenceFeeds/CreateSimpleReferenceFeed" >}})
 {{% /see-also %}}
 
+
 ## Introduction
 
 Reference feeds are temporal stores of reference data that a translation can look up to enhance an Event with additional data.
@@ -85,7 +86,7 @@ In practice, one would also pass the time element as well as setting ignoreWarni
 ```
 
 
-## Modifying an Event Feed to use a Reference Feed
+## Modifying an Event Feed to Use a Reference Feed
 
 We will now modify an Event feed to have it lookup our `GeoHost-V1.0-REFERENCE` reference maps to add additional information to the event.
 The feed for this exercise is the `Apache-SSL-BlackBox-V2.0-EVENTS` event feed which processes Apache HTTPD SSL logs which make use of a variation on the BlackBox log format.
@@ -332,7 +333,8 @@ and the fragment from the output pane for our last event of this stream shows
 This is the XSLT Translation.
 {{< textfile "HOWTOs/ReferenceFeeds/ApacheHPPTDwithLookups-TranslationXSLT.xslt" "xml" >}}Apache BlackBox with Lookups Translation XSLT{{< /textfile >}}
 
-## Troubleshooting lookup issues
+
+## Troubleshooting Lookup Issues
 
 If your lookup is not working as expected you can use the 5th argument of the lookup function to help investigate the issue.
 

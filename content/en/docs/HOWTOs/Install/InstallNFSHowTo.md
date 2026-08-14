@@ -16,16 +16,19 @@ The following assumptions are used in this document.
  - the user has reasonable RHEL/Centos System administration skills
  - installations are on Centos 7.3 minimal systems (fully patched)
  - the user is or has deployed the example two node Stroom cluster storage hierarchy described [here]({{< relref "InstallHowTo.md#storage-scenario" >}})
- - the configuration of this NFS is NOT secure. It is highly recommended to improve its security in a production environment. This could include improved firewall configuration to limit NFS access, NFS4 with Kerberos etc.
+ - the configuration of this NFS is NOT secure.
+   It is highly recommended to improve its security in a production environment.
+   This could include improved firewall configuration to limit NFS access, NFS4 with Kerberos etc.
 
 
-## Installation of NFS software
+## Installation of NFS Software
 
 We install NFS on each node, via
 {{< command-line >}}
 sudo yum -y install nfs-utils
 {{< /command-line >}}
 and enable the relevant services, via
+
 ```base
 sudo systemctl enable rpcbind
 sudo systemctl enable nfs-server
@@ -37,9 +40,11 @@ sudo systemctl start nfs-lock
 sudo systemctl start nfs-idmap
 ```
 
-## Configuration of NFS exports
 
-We now export the node's `/stroomdata` directory (in case you want to share the working directories) by configuring /etc/exports. For simplicity sake, we will allow all nodes with the hostname nomenclature of `stroomp*.strmdev00.org` to mount the `/stroomdata` directory.
+## Configuration of NFS Exports
+
+We now export the node's `/stroomdata` directory (in case you want to share the working directories) by configuring /etc/exports.
+For simplicity sake, we will allow all nodes with the hostname nomenclature of `stroomp*.strmdev00.org` to mount the `/stroomdata` directory.
 This means the same configuration applies to all nodes.
 
 ```text
@@ -86,12 +91,14 @@ sudo mount -t nfs4 stroomp01.strmdev00.org:/stroomdata/stroom-data-p01 /stroomda
 sudo mount -t nfs4 stroomp00.strmdev00.org:/stroomdata/stroom-data-p00 /stroomdata/stroom-data-p00
 {{< /command-line >}}
 
-If you are concerned you can't see the mount with a `df` try a `df --type=nfs4 -a` or a `sudo df`. Irrespective, once the mounting works, make the mounts permanent by adding the following to each node's /etc/fstab file.
+If you are concerned you can't see the mount with a `df` try a `df --type=nfs4 -a` or a `sudo df`.
+Irrespective, once the mounting works, make the mounts permanent by adding the following to each node's /etc/fstab file.
 - Node: `stroomp00.strmdev00.org`
 
 ```text
 stroomp01.strmdev00.org:/stroomdata/stroom-data-p01 /stroomdata/stroom-data-p01 nfs4 soft,bg
 ```
+
 achieved with
 
 {{< command-line >}}
@@ -103,15 +110,17 @@ sudo su -c "printf 'stroomp01.strmdev00.org:/stroomdata/stroom-data-p01 /stroomd
 ```text
 stroomp00.strmdev00.org:/stroomdata/stroom-data-p00 /stroomdata/stroom-data-p00 nfs4 soft,bg
 ```
+
 achieved with
 
 {{< command-line >}}
 sudo su -c "printf 'stroomp00.strmdev00.org:/stroomdata/stroom-data-p00 /stroomdata/stroom-data-p00 nfs4 soft,bg\n' >> /etc/fstab"
 {{< /command-line >}}
-At this point reboot all processing nodes to ensure the directories mount automatically. You may need to give the nodes a minute to do this.
+At this point reboot all processing nodes to ensure the directories mount automatically.
+You may need to give the nodes a minute to do this.
 
 
-## Addition of another Node
+## Addition of Another Node
 
 If one needs to add another node to the cluster, lets say, `stroomp02.strmdev00.org`, on which `/stroomdata` follows the same storage hierarchy
 as the existing nodes and all nodes have added mount points (directories) for this new node, you would take the following steps _in order_.
@@ -148,6 +157,7 @@ sudo mount -t nfs4 stroomp01.strmdev00.org:/stroomdata/stroom-data-p01 /stroomda
 stroomp00.strmdev00.org:/home/stroomdata/stroom-data-p00 /home/stroomdata/stroom-data-p00 nfs4 soft,bg
 stroomp01.strmdev00.org:/home/stroomdata/stroom-data-p01 /home/stroomdata/stroom-data-p01 nfs4 soft,bg
 ```
+
 achieved with
 
 {{< command-line >}}
@@ -168,6 +178,7 @@ sudo mount -t nfs4 stroomp02.strmdev00.org:/stroomdata/stroom-data-p02 /stroomda
 ```text
 stroomp02.strmdev00.org:/stroomdata/stroom-data-p02 /stroomdata/stroom-data-p02 nfs4 soft,bg
 ```
+
 achieved with
 
 {{< command-line >}}

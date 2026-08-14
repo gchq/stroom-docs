@@ -50,7 +50,7 @@ Two actions are available.
   This is offered alongside revocation because the two are easily confused and do quite different things, as described below.
 
 
-## Revoking, Disabling, And The Difference Between Them
+## Revoking, Disabling, and the Difference between Them
 
 Three actions are easy to confuse, and each does something different.
 To stop someone using Stroom completely and immediately, you need the last two together.

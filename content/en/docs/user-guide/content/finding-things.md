@@ -1,7 +1,7 @@
 ---
 title: "Finding Things"
 linkTitle: "Finding Things"
-weight: 60
+weight: 50
 date: 2021-07-27
 tags: 
 description: >
@@ -103,6 +103,7 @@ E.g:
 ```text
 name:^xml name:$events type:feed
 ```
+
 In the above example the filter will match on items with a name beginning `xml`, a name ending `events` and a type partially matching `feed`.
 
 All the match terms are combined with an AND operator.
@@ -132,6 +133,7 @@ E.g:
 ```text
 name:xml source:!/default
 ```
+
 In the above example it would match on items where the Name field matched `xml` and the Source field does NOT match the regex pattern `default`.
 
 
@@ -178,6 +180,7 @@ Boolean logic can be added using `and`, `or` and `not`, plus brackets to group t
 **User input**: `status:disabled or status:locked`
 
 **Will match**:
+
 ```text
 Locked
 ^^^^^^
@@ -214,6 +217,7 @@ NOTE: In the following examples the `^` character is used to indicate which char
 ### No Input
 
 If no input is provided all items will match.
+
 
 ### Contains (Default)
 
@@ -335,6 +339,7 @@ For more details on the syntax of java regular expressions see this internet lin
 **User input**: `/(^|wo)man`
 
 **Will match**:
+
 ```text
 MAN
 ^^^
@@ -464,4 +469,5 @@ E.g:
 ```text
 !/(error|warn)
 ```
+
 In the above example it will match everything except those matched by the regex pattern `(error|warn)`.

@@ -235,6 +235,16 @@ build_version_from_source() {
     echo "::endgroup::"
   fi
 
+  # Older branches don't have the style check set up, so only check if present.
+  # Reporting only for now. Change this to '--ratchet' to fail the build when a
+  # change adds style-guide findings above those in style-baseline.tsv.
+  if [[ -f ./check_style.sh ]]; then
+    echo "::group::Checking style"
+    echo -e "${GREEN}Checking all .md files against the style guide${NC}"
+    ./check_style.sh
+    echo "::endgroup::"
+  fi
+
   echo "::group::PUML conversion"
   echo -e "${GREEN}Converting all .puml files to .puml.svg${NC}"
   ./container_build/runInPumlDocker.sh SVG

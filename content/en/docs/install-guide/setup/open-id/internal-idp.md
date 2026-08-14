@@ -21,8 +21,14 @@ A fresh install can create a user account called `admin` with the password `admi
 This admin user can then be used to set up the other users on the system.
 
 This bootstrap account is **only created when `stroom.security.identity.autoCreateAdminAccountOnBoot` is set to `true`**, which is not the default.
-Without it, no account is created and the deployment must be given an administrator by other means.
 The password is deliberately weak, and by default Stroom requires it to be changed at the first login, governed by `stroom.security.identity.passwordPolicy.forcePasswordChangeOnFirstLogin`.
+
+Without that property, no account is created and nobody will be able to log in to a new installation.
+You must instead create the first administrator from the command line.
+
+{{% see-also %}}
+See [Creating the First Administrator]({{< relref "docs/install-guide/setup/create-first-admin" >}}).
+{{% /see-also %}}
 
 Additional user accounts are created and maintained using
 
@@ -30,7 +36,8 @@ Additional user accounts are created and maintained using
 
 See [User Accounts]({{< relref "docs/user-guide/security/user-accounts" >}}) for managing those accounts, and [Signing In]({{< relref "docs/user-guide/security/signing-in" >}}) for what users experience.
 
-## Configuration for the internal IDP
+
+## Configuration for the Internal IDP
 
 While Stroom is pre-configured to use its internal IDP, this section describes the configuration required.
 

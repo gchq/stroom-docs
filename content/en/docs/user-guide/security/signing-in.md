@@ -21,7 +21,7 @@ See [Open ID Connect]({{< relref "docs/install-guide/setup/open-id" >}}).
 {{% /note %}}
 
 
-## Signing In With A Password
+## Signing in with a Password
 
 The outcome of a sign in attempt depends on the state of the account as well as the password.
 
@@ -41,7 +41,7 @@ Neither state can be talked out of with a correct password, so there is nothing 
 Failed attempts against a disabled or locked account are not counted, because the account is already refused.
 
 
-### Being Asked To Change Your Password
+### Being Asked to Change Your Password
 
 A user may be signed in successfully and then be required to set a new password before they can do anything else.
 This happens in three cases:
@@ -73,7 +73,7 @@ In a default configuration a locked user is told to wait, which avoids a support
 See [User Accounts]({{< relref "user-accounts" >}}) for the three ways an account becomes usable again.
 
 
-## Resetting A Forgotten Password
+## Resetting a Forgotten Password
 
 If the user has an email address recorded against their account, and `stroom.security.identity.passwordPolicy.allowPasswordResets` is enabled, they can use _Forgot password?_ on the sign in screen to be emailed a link for setting a new password.
 
@@ -86,7 +86,8 @@ Repeated requests are rate limited by `stroom.security.identity.passwordResetReq
 Completing a reset ends all of that user's existing sessions everywhere in the cluster.
 They then sign in with their new password.
 
-### When A Reset Cannot Be Completed
+
+### When a Reset Cannot be Completed
 
 Some accounts cannot be recovered this way.
 Rather than sending a link that would not work, Stroom emails the account holder to say that the reset cannot currently be completed and that they should contact an administrator if it continues.
@@ -106,7 +107,7 @@ It goes to the address held against the account, so it tells the account holder 
 No email of any kind is sent when there is nobody to send it to, that is when the address matches no account, the account has no email address recorded, password resets are turned off, or an email was already sent within the cool-down period.
 
 
-## Signing In With A Certificate
+## Signing in with a Certificate
 
 If `stroom.security.identity.allowCertificateAuthentication` is enabled, a user presenting a valid certificate can be signed in without typing a password.
 The user id is taken from the certificate's common name using `stroom.security.identity.certificateCnPattern` and `stroom.security.identity.certificateCnCaptureGroupIndex`.

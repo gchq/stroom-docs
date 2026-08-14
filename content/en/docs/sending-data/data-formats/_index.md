@@ -19,7 +19,7 @@ The following is a non-exhaustive list of formats supported by Stroom:
 * Multi line data (where each line can be a different format), e.g. Auditd.
 
 
-## Preferred format
+## Preferred Format
 
 Where the system/application generating the logs is developed by you and the log format is under your control, the preferred format is Events XML or Event XML fragments.
 The reason for this is that all data in Stroom will be normalised into a standard form.

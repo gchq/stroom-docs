@@ -22,7 +22,8 @@ This needs updating to MySQL 8. Stroom v7 requires MySQL 8.
 A single MySQL database is required for each Stroom instance.
 You do not need to setup a MySQL instance per node in your cluster.
 
-## Check Database installed and running
+
+## Check Database Installed and Running
 
 {{< command-line "root" "stroomdb" >}}
 /sbin/chkconfig --list mysqld
@@ -59,6 +60,7 @@ Things get more complicated when considering:
 -	Running Stroom Stats in a different database to Stroom
 -	Performance Monitoring
 
+
 ## Simple Install
 
 Ensure the database is running, then create the database and grant access to it:
@@ -86,12 +88,14 @@ flush privileges;
 (out)Query OK, 0 rows affected (0.00 sec)
 {{< /sql-shell >}}
 
+
 ## Advanced Security
 
 It is recommended to run /usr/bin/mysql_secure_installation to remove test database and accounts.
 
 ./stroom-setup/mysql_grant.sh is a utility script that creates accounts for you to use within a
- cluster (or single node setup). Run to see the options:
+ cluster (or single node setup).
+ Run to see the options:
 
 {{< command-line "stroomuser" "host" >}}
 ./mysql_grant.sh

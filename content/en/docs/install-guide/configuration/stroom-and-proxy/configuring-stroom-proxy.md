@@ -360,6 +360,7 @@ proxyConfig:
     queue:
 ```
 
+
 #### Queue Configuration
 
 Each forward destination (whether file or HTTP) has a `queue` configuration property that controls various aspects of forwarding, e.g. failure handling, delays, concurrency, etc.
@@ -645,7 +646,7 @@ proxyConfig:
 Apart from the structure of the `config.yml` file, the configuration in a non-docker environment is the same as for [stroom]({{< relref "./configuring-stroom.md#deploying-without-docker" >}}).
 
 
-## As part of a docker stack
+## As Part of a Docker Stack
 
 The way Stroom-Proxy is configured is essentially the same as for [stroom]({{< relref "./configuring-stroom.md#as-part-of-a-docker-stack" >}}) with the only real difference being the structure of the `config.yml` file as note [above](#config-file-structure) .
 As with stroom the docker stack comes with a `./volumes/stroom-proxy-*/config/config.yml` file that will be used in the absence of a provided one.

@@ -11,7 +11,8 @@ description: >
 
 <!-- Created with Stroom v6.1-beta.16 -->
 
-## Moving a set of Objects
+
+## Moving a Set of Objects
 
 The following shows how to create a System Folder(s) within the Explorer tree and move a set of objects into the new structure.
 We will create the system group GeoHost Reference and move all the GeoHost reference feed objects into this system group.

@@ -166,27 +166,33 @@ Only certain languages are supported in Stroom.
 
 **JSON**
 ```json
+
 {
   "key1": "some text",
   "key2": 123
 }
+
 ```
 
 **XML**
 ```xml
+
   <record>
     <data name="dateTime" value="2020-09-28T14:30:33.476" />
     <data name="machineIp" value="19.141.201.14" />
   </record>
+
 ```
 
 **bash**
 ```bash
+
 #!/bin/bash
 now="$(date)"
 computer_name="$(hostname)"
 echo "Current date and time : $now"
 echo "Computer name : $computer_name"
+
 ```
 ````
 
@@ -196,23 +202,25 @@ echo "Computer name : $computer_name"
 Long paragraphs will be wrapped
 
 
-
 ## Code Syntax Highlighting
 
 This is an example of a fenced code block.
 
 ````markdown
 ```xml
+
   <record>
     <data name="dateTime" value="2020-09-28T14:30:33.476" />
   </record>
+
 ```
 ````
 
 In this example, `xml` defines the language used within the fenced block.
 
 Stroom supports the following languages for fenced code blocks.
-If you require additional languages then please raised a ticket {{< external-link "here" "https://github.com/gchq/stroom/issues" >}}. If your language is not currently supported or is just plain text then use `text`.
+If you require additional languages then please raised a ticket {{< external-link "here" "https://github.com/gchq/stroom/issues" >}}.
+If your language is not currently supported or is just plain text then use `text`.
 
 * text
 * sh
@@ -235,7 +243,8 @@ Fenced blocks with content that is wider than the pane will result in the fenced
 ## Escaping Characters
 
 It is common to use `_` characters in {{< glossary "Feed" >}} names, however if there are two of these in a word then the markdown processor will interpret them as _italic_ markup.
-To prevent this, either surround the word with back ticks to be rendered as code or escape each underscore with a `\`, i.e. `THIS\_IS\_MY\_FEED`. THIS_IS_MY_FEED.
+To prevent this, either surround the word with back ticks to be rendered as code or escape each underscore with a `\`, i.e. `THIS\_IS\_MY\_FEED`.
+THIS_IS_MY_FEED.
 
 
 ## HTML

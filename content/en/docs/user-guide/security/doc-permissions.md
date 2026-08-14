@@ -64,8 +64,6 @@ The following is the list of different permissions that can be granted to users/
 | **Use**    | Only allow use of a folder, e.g. allow use of an index as part of a search process but do not allow viewing of the folder itself.                                      |
 
 
-
-
 ### Implied Permissions
 
 Note that each permission in the two tables above also includes all the permissions below it in the table, e.g. a user with `Edit` permission on a document will also have the implied permissions `View` and `Use`.
@@ -165,7 +163,8 @@ The move/copy dialog offers the following choices:
     Adds the permissions of the destination folder.
     You will be the owner of the moved document if not already.
 * **Combined** - Keep the current permissions and add the permissions
-    of the destination folder. You will be the owner of the moved document if not already.
+    of the destination folder.
+    You will be the owner of the moved document if not already.
 
 {{% note %}}
 You must have `Owner` permission on the source document/folder (or `Administrator` {{< glossary "Application Permission" >}}) if you wish to use _None_, _Destination_ or _Combined_ as these all involve a change of permissions.

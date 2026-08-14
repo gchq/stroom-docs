@@ -66,7 +66,7 @@ On a newer version the same settings may sit under differently named tabs, and t
 {{% /note %}}
 
 
-## Creating a realm
+## Creating a Realm
 
 First you need to create a Realm.
 
@@ -76,7 +76,7 @@ First you need to create a Realm.
 1. Click _Create_.
 
 
-## Creating a client
+## Creating a Client
 
 In the new realm click on _Clients_ in the left pane, then _Create client_.
 
@@ -111,7 +111,7 @@ Stroom always sends a PKCE challenge, so KeyCloak can be told to insist on one.
 On the _Credentials_ tab copy the _Client secret_ for use later in Stroom config.
 
 
-## Adding an audience mapper
+## Adding an Audience Mapper
 
 This step matters, and is easy to miss.
 
@@ -138,7 +138,7 @@ That is weaker, since `account` is an audience every client in the realm can obt
 Prefer the mapper.
 
 
-## Creating users
+## Creating Users
 
 Click on _Users_ in the left pane then _Add user_.
 Set the following:
@@ -212,7 +212,7 @@ Leave it unset if in doubt; it is a hardening measure rather than a requirement.
 {{% /note %}}
 
 
-## Setting up the admin user in Stroom
+## Setting up the Admin User in Stroom
 
 Now that the `admin` user exists in the IDP we need to grant it `Administrator` rights in Stroom.
 
@@ -227,11 +227,11 @@ To set up Stroom with this admin user run the following (**before** Stroom has b
 subject_id="XXX"; \
 java -jar /absolute/path/to/stroom-app-all.jar \
   manage_users \
-  ../local.yml \
   --createUser "${subject_id}" \
   --createGroup Administrators \
   --addToGroup "${subject_id}" Administrators \
-  --grantPermission Administrators "Administrator"
+  --grantPermission Administrators "Administrator" \
+  ../local.yml
 {{</ command-line >}}
 
 Where `XXX` is the user ID copied from the IDP as described above.
@@ -259,7 +259,7 @@ This does mean that new users will need to log in before the administrator can m
 
 ## Logging into Stroom
 
-### As the administrator
+### As the Administrator
 
 Now that the user and permissions have been set up in Stroom, the administrator can log in.
 
@@ -281,7 +281,7 @@ Now select {{< stroom-menu "User" "Logout" >}} to be re-directed to the IDP to l
 Once you log out of the IDP it should re-direct you back to Stroom, which will send you to the IDP login screen to log back in again.
 
 
-### As an ordinary user
+### As an Ordinary User
 
 On the IDP login screen, log in as user `jbloggs` with the password `password`.
 You will be re-directed to Stroom, however the explorer tree will be empty and most of the menu items will be disabled.

@@ -3,12 +3,12 @@
 # See https://gohugo.io/content-management/front-matter/
 
 # The top of page title.
-# Each word capitalised.
+# Title case, i.e. each principal word capitalised.
 title: "Documentation Style Guide"
 
 # The link title in the left menu. Often the same as the title but if the title
 # is long then it is better to shorten/abbreviate the link title
-# Each word capitalised.
+# Title case, i.e. each principal word capitalised.
 linkTitle: "Style Guide"
 
 # Optional priority in the left menu bar, lower number = higher position
@@ -93,7 +93,7 @@ Click the {{</* stroom-icon name="settings.svg" colour="red" */>}} icon.
 Check the documentation for specific shortcode to see how to call it.
 
 
-### Editor snippets and shortcodes
+### Editor Snippets and Shortcodes
 
 To make your life much easier when editing the documentation it is highly recommended to use a text editor that supports text snippets.
 Snippets make it very quick to add shortcodes into the documentation.

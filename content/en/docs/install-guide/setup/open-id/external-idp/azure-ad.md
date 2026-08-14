@@ -21,13 +21,14 @@ Entra ID has two generations of endpoint, v1.0 and v2.0, which issue tokens with
 Two of the three things most likely to go wrong here come from mixing them up, so it is worth being deliberate: **use the v2.0 endpoints throughout**.
 
 
-## Creating the app registration
+## Creating the App Registration
 
 In the {{< external-link "Microsoft Entra admin centre" "https://entra.microsoft.com/" >}}, or the Azure portal under _Microsoft Entra ID_:
 
 1. Go to _App registrations_ => _New registration_.
 1. Give it a name, e.g. `Stroom`.
-1. For _Supported account types_ choose **Accounts in this organizational directory only**, i.e. single tenant, unless you have a specific reason not to. This restricts sign in to your own tenant.
+1. For _Supported account types_ choose **Accounts in this organizational directory only**, i.e. single tenant, unless you have a specific reason not to.
+   This restricts sign in to your own tenant.
 1. Under _Redirect URI_ select a platform of **Web** and enter `https://STROOM_FQDN/api/auth/flow/v1/signin-oidc`.
 1. Click _Register_, then note the **Application (client) ID** and the **Directory (tenant) ID** from the overview page.
 
@@ -56,7 +57,7 @@ Record the expiry date and plan the rotation, or use certificate credentials ins
 Entra ID supports PKCE, and Stroom always sends an `S256` challenge, so there is nothing to configure for it.
 
 
-## Exposing an API for access tokens
+## Exposing an API for Access Tokens
 
 This step is what makes API authentication work, and is the Entra ID equivalent of KeyCloak's audience mapper.
 
@@ -66,7 +67,8 @@ Interactive sign in still works throughout, because it uses the `id_token`.
 
 To get an access token that Stroom can validate, the app registration has to expose an API of its own:
 
-1. Go to _Expose an API_ => _Add_ next to _Application ID URI_. Accept the default of `api://<client-id>`, or set your own.
+1. Go to _Expose an API_ => _Add_ next to _Application ID URI_.
+   Accept the default of `api://<client-id>`, or set your own.
 1. Click _Add a scope_, name it something like `user_impersonation`, and choose who can consent.
 1. Under _Manifest_, set `accessTokenAcceptedVersion` to `2`.
 
@@ -109,6 +111,7 @@ Callers then request that scope, e.g. `api://<client-id>/user_impersonation`, an
 
 Replace `TENANT_ID` with the Directory (tenant) ID.
 
+
 ### Issuers
 
 The v2.0 discovery endpoint advertises an issuer of `https://login.microsoftonline.com/TENANT_ID/v2.0`, which is a parent path of the discovery endpoint itself, so Stroom's issuer check is satisfied with no extra configuration.
@@ -132,7 +135,8 @@ Do not use the `common` or `organizations` endpoints in place of a tenant id.
 Their discovery documents report an issuer containing a literal `{tenantid}` placeholder rather than a real value, and they allow sign in from any tenant, which is unlikely to be what you want.
 {{% /note %}}
 
-### Audience validation
+
+### Audience Validation
 
 An Entra ID **id_token** carries `aud` set to the Application (client) ID, so interactive sign in validates against `clientId` with no further configuration.
 
@@ -145,6 +149,7 @@ Entra ID does populate the audience claim, so an absent one means the token is n
 {{% /warning %}}
 
 Leave `validateAudience` at its default of `true`.
+
 
 ### Claims
 
@@ -172,19 +177,21 @@ Changing it later means every existing Stroom user is orphaned, and their permis
 Do not use `preferred_username`, `email` or `upn`; all can be reassigned to a different person, who would then inherit the Stroom user.
 {{% /warning %}}
 
-### Group and role claims
+
+### Group and Role Claims
 
 Entra ID can be configured to emit `groups` and `roles` claims.
 Stroom does not consume them.
 All authorisation is done with Stroom's own users, groups and permissions, so directory group membership has no effect on what a user can do in Stroom.
 
-### Access token type
+
+### Access Token Type
 
 Leave `requiredAccessTokenType` unset until you have decoded the header of a real access token from your tenant and confirmed what it contains.
 Setting it to a value your tokens do not use will refuse every API call.
 
 
-## Setting up the admin user in Stroom
+## Setting up the Admin User in Stroom
 
 Find the identifier of the account that is to be the administrator, matching whatever you set `uniqueIdentityClaim` to.
 
@@ -197,11 +204,11 @@ Then run the following, ideally **before** Stroom has been started for the first
 subject_id="XXX"; \
 java -jar /absolute/path/to/stroom-app-all.jar \
   manage_users \
-  ../local.yml \
   --createUser "${subject_id}" \
   --createGroup Administrators \
   --addToGroup "${subject_id}" Administrators \
-  --grantPermission Administrators "Administrator"
+  --grantPermission Administrators "Administrator" \
+  ../local.yml
 {{</ command-line >}}
 
 The command is repeatable and will skip anything that already exists, so running it against a user who has already signed in is fine.

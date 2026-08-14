@@ -13,11 +13,13 @@ description: >
 Stroom v6.1 introduced a new feature (_stroom:source()_) to allow a translation developer to obtain positional details of the source file that is currently being processed.
 Using the positional information it is possible to tag Events with sufficient details to link back to the Raw source.
 
+
 ## Assumptions
 
 1. You have a working pipeline that processes logs into Events.
 1. Events are indexed
 1. You have a Dashboard that uses a Search Extraction pipeline.
+
 
 ## Steps
 
@@ -52,11 +54,14 @@ Using the positional information it is possible to tag Events with sufficient de
      </xsl:template>
    </xsl:stylesheet>
    ```
+
    This XSLT will add or augment the Meta section of the Event with the source details.
 
 1. Insert a new XSLT filter into your translation pipeline after your translation filter and set it to the XSLT created above.
 1. Reprocess the Events through the modified pipeline, also ensure your Events are indexed.
-1. Amend the translation performed by the Extraction pipeline to include the new data items that represent the source position data. Add the following to the XSLT:
+1. Amend the translation performed by the Extraction pipeline to include the new data items that represent the source position data.
+   Add the following to the XSLT:
+
    ```xml
    <xsl:element name="data">
      <xsl:attribute name="name">
@@ -101,14 +106,18 @@ Using the positional information it is possible to tag Events with sufficient de
      <xsl:attribute name="value" select="Meta/sm:source/sm:colTo" />
    </xsl:element>
    ```
+
 1. Open your dashboard, now add the following custom fields to your table:
+
    ```text
    ${src-id}, ${src-partNo}, ${src-recordNo}, ${src-lineFrom}, ${src-lineTo}, ${src-colFrom}, ${src-colTo}
    ```
+
 1. Now add a New Text Window to your Dashboard, and configure it as below:
    {{< screenshot "HOWTOs/HT-RawSourceTextWindow.png" "500x" >}}TextWindow Config{{< /screenshot >}}
 1. You can also add a column to the table that will open a data window showing the source.
    Add a custom column with the following expression:
+
    ```text
    data('Raw Log',${src-id},${src-partNo},'',${src-lineFrom},${src-colFrom},${src-lineTo},${src-colTo})
    ```

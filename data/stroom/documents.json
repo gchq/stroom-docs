@@ -1,7 +1,7 @@
 {
   "analyticrule" : {
     "type" : "AnalyticRule",
-    "description" : "Defines an analytic rule which can be run to alert on events meeting a criteria.\nThe criteria is defined using a StroomQL query.\nThe analytic can be processed in different ways:\n\n* Streaming\n* Table Builder\n* Scheduled Query",
+    "description" : "Defines an analytic rule which can be run to alert on events meeting a criteria.\nThe criteria is defined using a StroomQL query.\nThe analytic can be processed in different ways:\n* Streaming\n* Table Builder\n* Scheduled Query\n",
     "typeDisplayName" : "Analytic Rule",
     "icon" : "DOCUMENT_ANALYTIC_RULE",
     "iconRelativePathStr" : "document/AnalyticRule.svg",
@@ -13,6 +13,7 @@
   },
   "annotation" : {
     "type" : "Annotation",
+    "description" : "An annotation records notes and workflow state against one or more events, typically while investigating them.\nAnnotations are created from a table of search results rather than from the explorer tree.\nEach one has a subject, a status, an optional assignee and a history of the changes made to it, and can be given comments, labels and collections to organise it.\nA retention period controls how long it is kept.\n",
     "typeDisplayName" : "Annotation",
     "icon" : "EDIT",
     "iconRelativePathStr" : "edit.svg",
@@ -29,6 +30,18 @@
     "icon" : "DOCUMENT_DASHBOARD",
     "iconRelativePathStr" : "document/Dashboard.svg",
     "iconClassName" : "svg-image__document-dashboard",
+    "group" : "SEARCH",
+    "groupPriority" : 4,
+    "groupDisplayName" : "Search",
+    "groupDescription" : "Documents relating to searching for data in Stroom."
+  },
+  "datagen" : {
+    "type" : "DataGen",
+    "description" : "Defines a data generator which can be used to send data into a Stroom Feed.\nThe data is defined as a String.\nThe schedule on which the data is sent into the feed can be customised.\n",
+    "typeDisplayName" : "Data Generator",
+    "icon" : "DOCUMENT_DATA_GEN",
+    "iconRelativePathStr" : "document/Feed.svg",
+    "iconClassName" : "svg-image__document-data-gen",
     "group" : "SEARCH",
     "groupPriority" : 4,
     "groupDisplayName" : "Search",
@@ -144,6 +157,7 @@
   },
   "pathways" : {
     "type" : "Pathways",
+    "description" : "Analyses trace logs held in a Plan B store to learn the paths that traces take between services, e.g. A -> B -> C.\nEach distinct path is remembered, so that a new or changed path can be reported as soon as it appears.\nFor each span on a path it also learns constraints on the span's duration, kind, flags and attributes, held as an exact value, a set, a range or a regular expression, and widens them as further traces are seen.\nWhether new paths and constraints may be added, and whether those already learnt may be widened, is controlled per document, so Pathways can be left learning or fixed so that anything deviating from what it has learnt is reported instead of absorbed.\nFindings are written to a nominated Feed for analytic rules to act on.\nPathways makes no judgement about the changes it reports.\n",
     "typeDisplayName" : "Pathways",
     "icon" : "DOCUMENT_PATHWAYS",
     "iconRelativePathStr" : "document/Pathways.svg",
@@ -225,18 +239,6 @@
     "groupDisplayName" : "Configuration",
     "groupDescription" : "Documents that are used as configuration for other documents."
   },
-  "scylladb" : {
-    "type" : "ScyllaDB",
-    "description" : "Defines the connection details for a ScyllaDB state store instance.",
-    "typeDisplayName" : "Scylla DB",
-    "icon" : "DOCUMENT_SCYLLA_DB",
-    "iconRelativePathStr" : "document/ScyllaDb.svg",
-    "iconClassName" : "svg-image__document-scylla-db",
-    "group" : "CONFIGURATION",
-    "groupPriority" : 6,
-    "groupDisplayName" : "Configuration",
-    "groupDescription" : "Documents that are used as configuration for other documents."
-  },
   "solrindex" : {
     "type" : "SolrIndex",
     "description" : "Solr Index represents an index on a Solr cluster.\nIt defines the connection details for connecting to that cluster and the structure of the index.\nIt is used by the {{< pipe-elm \"SolrIndexingFilter\" >}} pipeline element.\n{{% see-also %}}[Solr Integration]({{< relref \"docs/user-guide/indexing/solr\" >}}){{% /see-also %}}",
@@ -249,18 +251,6 @@
     "groupDisplayName" : "Indexing",
     "groupDescription" : "Documents relating to the process of adding data into an index, such as Lucene or Elasticsearch."
   },
-  "statestore" : {
-    "type" : "StateStore",
-    "description" : "Defines a place to store state",
-    "typeDisplayName" : "State Store",
-    "icon" : "DOCUMENT_STATE_STORE",
-    "iconRelativePathStr" : "document/StateStore.svg",
-    "iconClassName" : "svg-image__document-state-store",
-    "group" : "INDEXING",
-    "groupPriority" : 5,
-    "groupDisplayName" : "Indexing",
-    "groupDescription" : "Documents relating to the process of adding data into an index, such as Lucene or Elasticsearch."
-  },
   "statisticstore" : {
     "type" : "StatisticStore",
     "description" : "Defines a logical statistic store used to hold statistical data of a particular type and aggregation window.\nStatistics in Stroom is a way to capture counts or values from events and record how they change over time, with the counts/values aggregated (sum/mean) across time windows.\n\nThe Statistic Store Document configures the type of the statistic (Count or Value), the tags that are used to qualify a statistic event and the size of the aggregation windows.\nIt also supports the definition of roll-ups that allow for aggregation over all values of a tag.\nTags can be things like `user`, `node`, `feed`, etc. and can be used to filter data when querying the statistic store in a Dashboard/Query.\n\nIt is used by the {{< pipe-elm \"StatisticsFilter\" >}} pipeline element.",
@@ -268,18 +258,6 @@
     "icon" : "DOCUMENT_STATISTIC_STORE",
     "iconRelativePathStr" : "document/StatisticStore.svg",
     "iconClassName" : "svg-image__document-statistic-store",
-    "group" : "INDEXING",
-    "groupPriority" : 5,
-    "groupDisplayName" : "Indexing",
-    "groupDescription" : "Documents relating to the process of adding data into an index, such as Lucene or Elasticsearch."
-  },
-  "stroomstatsstore" : {
-    "type" : "StroomStatsStore",
-    "description" : "The Stroom-Stats Store Document is deprecated and should not be used.",
-    "typeDisplayName" : "Stroom-Stats Store",
-    "icon" : "DOCUMENT_STROOM_STATS_STORE",
-    "iconRelativePathStr" : "document/StroomStatsStore.svg",
-    "iconClassName" : "svg-image__document-stroom-stats-store",
     "group" : "INDEXING",
     "groupPriority" : 5,
     "groupDisplayName" : "Indexing",
@@ -304,10 +282,10 @@
     "icon" : "DOCUMENT_VIEW",
     "iconRelativePathStr" : "document/View.svg",
     "iconClassName" : "svg-image__document-view",
-    "group" : "SEARCH",
-    "groupPriority" : 4,
-    "groupDisplayName" : "Search",
-    "groupDescription" : "Documents relating to searching for data in Stroom."
+    "group" : "INDEXING",
+    "groupPriority" : 5,
+    "groupDisplayName" : "Indexing",
+    "groupDescription" : "Documents relating to the process of adding data into an index, such as Lucene or Elasticsearch."
   },
   "visualisation" : {
     "type" : "Visualisation",

@@ -40,6 +40,85 @@ This is different to the java version required for Stroom v7.9 (Java 21).
 Ensure the Stroom and Stroom-Proxy hosts are running the latest patch release of Java v25.
 
 
+## Before Upgrading
+
+### Duplicate Account Email Addresses
+
+This applies only if you use Stroom's internal identity provider.
+
+Account email addresses must now be unique, so that the 'Forgot password' flow can identify an account from the email address it is given.
+The database migration will stop with an error listing the addresses concerned if any are shared, and Stroom will not start.
+
+Check for shared addresses before upgrading.
+
+```sql
+SELECT email, COUNT(1), GROUP_CONCAT(user_id)
+FROM account
+WHERE email IS NOT NULL
+GROUP BY email
+HAVING COUNT(1) > 1;
+```
+
+If this returns any rows then give each of those accounts its own email address, or clear the address of all but one of them.
+An account with no email address is fine, and any number of accounts may have none, but such an account cannot reset its password by email.
+
+
+### External Identity Provider Redirect URI
+
+This applies only if you use an external identity provider, e.g. Keycloak, AWS Cognito or Google.
+
+The client registered at the provider must list Stroom's sign-in callback under its valid redirect URIs, substituting your Stroom public URL.
+
+```text
+https://<stroom-host>/api/auth/flow/v1/signin-oidc
+```
+
+This is the single `redirect_uri` that Stroom sends on the authorization request, so a provider that does not have this exact value registered will reject the login with an invalid redirect URI error.
+
+If you also use provider-side logout, add the post logout landing page to the client's valid post logout redirect URIs.
+
+```text
+https://<stroom-host>/
+```
+
+The internal identity provider needs no configuration for this.
+
+{{% see-also %}}
+[External Identity Provider]({{< relref "docs/install-guide/setup/open-id/external-idp" >}})
+{{% /see-also %}}
+
+
+### Upgrading from a 7.13 Beta Release
+
+This applies only if you have deployed a 7.13 beta release up to and including `v7.13-beta.10`.
+
+The database migration scripts in those releases were named `V07_14...` rather than `V07_13...`, and have since been renamed to match the branch.
+The migration will fail on the next release unless the recorded script names are updated first.
+
+Run the following script against the Stroom database before starting the new version.
+
+{{< external-link "v07_13_migration_script_rename.sql" "https://raw.githubusercontent.com/gchq/stroom/refs/heads/7.13/scripts/v07_13_migration_script_rename.sql" >}}
+
+
+## After Upgrading
+
+### Review Disabled Accounts
+
+This applies only if you use Stroom's internal identity provider.
+
+An administrator can no longer lock an account, so two kinds of account are converted to disabled by the migration and will appear in the accounts list as such.
+
+* Any account that was locked at the point of upgrade.
+  Locking was how an administrator barred an account, and disabling is now the control for that.
+* An account flagged as a processing account, a setting that has been removed.
+
+This fails closed, i.e. access stays barred until an administrator acts, so review the accounts list after upgrading and re-enable anything that was disabled in error.
+
+{{% see-also %}}
+[User Accounts]({{< relref "docs/user-guide/security/user-accounts" >}})
+{{% /see-also %}}
+
+
 ## Configuration File Changes
 
 <!--
@@ -55,7 +134,8 @@ git diff origin/${old_ver}..origin/${new_ver} stroom-proxy/stroom-proxy-app/src/
 
 ### Stroom's `config.yml`
 
-<!-- Comparison of 7.12.13 => 7.13-beta.10 -->
+<!-- Comparison of the latest v7.12 release => v7.13 -->
+
 
 #### New `ai` Branch
 
@@ -202,6 +282,7 @@ appConfig:
       refreshAfterWrite: "PT10S"
       statisticsMode: "INTERNAL"
 ```
+
 
 #### Changes to `pipeline` Branch
 
@@ -429,6 +510,7 @@ appConfig:
         name: "Volumes"
 ```
 
+
 #### New `visualisationAsset` Properties
 
 ```yaml
@@ -482,6 +564,19 @@ appConfig:
 ```
 
 
+#### Changes to the `ui` Branch
+
+The values of the following properties have changed, so that the in-application help links point at the right pages of this documentation site.
+These are only relevant if you have overridden them, e.g. to point at a locally published copy of the documentation.
+
+| Property | Was | Now |
+| --- | --- | --- |
+| `stroom.ui.helpUrl` | `https://gchq.github.io/stroom-docs/7.5/docs` | `https://gchq.github.io/stroom-docs/7.13/docs` |
+| `stroom.ui.helpSubPathExpressions` | `/user-guide/dashboards/expressions/` | `/reference-section/expressions/` |
+| `stroom.ui.helpSubPathQuickFilter` | `/user-guide/finding-things/` | `/user-guide/content/finding-things/` |
+| `stroom.ui.helpSubPathStroomQueryLanguage` | `/user-guide/dashboards/stroom-query-language/` | `/user-guide/search/queries/stroom-query-language/` |
+
+
 ### Stroom-Proxy's `config.yml`
 
 #### Changes to the `security` Branch.
@@ -509,7 +604,6 @@ appConfig:
 ```
 
 
-
 ## Database Migrations
 
 When Stroom boots for the first time with a new version it will run any required database migrations to bring the database schema up to the correct version.
@@ -535,7 +629,8 @@ this section
 -->
 
 
-<!-- Run on v7.13-beta.10 @ commit 113a70ab9e -->
+<!-- Run on v7.13 -->
+
 
 ### Migration Scripts
  
@@ -550,7 +645,8 @@ this section
 For information purposes only, the following are the database migrations that will be run when upgrading to 7.13.0 from the previous minor version.
  
 Note, the `legacy` module will run first (if present) then the other module will run in no particular order. 
- 
+
+
 #### Module `stroom-ai` 
  
 ##### Script `V07_13_00_001__ai.sql`
@@ -739,7 +835,8 @@ SET SQL_NOTES=@OLD_SQL_NOTES;
  
 It is not possible to display the content here.
 The file can be viewed on : {{< external-link "GitHub" "https://github.com/gchq/stroom/tree/7.13/stroom-app/src/main/java/stroom/app/db/migration/V07_13_00_005__populate_doc_dependency_processor_filters.java" >}} 
- 
+
+
 #### Module `stroom-docstore` 
  
 ##### Script `V07_13_00_001__split_doc_table.sql`
@@ -1074,7 +1171,8 @@ SET sql_notes=@old_sql_notes;
  
 It is not possible to display the content here.
 The file can be viewed on : {{< external-link "GitHub" "https://github.com/gchq/stroom/tree/7.13/stroom-docstore/stroom-docstore-impl-db/src/main/java/stroom/docstore/impl/db/migration/V07_13_00_004__populate_doc_dependency.java" >}} 
- 
+
+
 #### Module `stroom-security` 
  
 ##### Script `V07_13_00_005__json_web_key.sql`

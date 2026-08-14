@@ -8,13 +8,13 @@ description: >
   This is a rough guide to what was done to set it up.  Some bits may be missing.
 ---
 
-## Create a Sonatype account
+## Create a Sonatype Account
 
 You need to create an account on Sonatype and you will need to raise a jira ticket on Sonatype's jira to get approved on the uk.gov.gchq group.
 This will require an existing user approved for the group to approve you on the ticket.
 
 
-## Setting up a GPG key
+## Setting up a GPG Key
 
 You can use the following commands for setting up a GPG2 key for signing.
 
@@ -42,7 +42,8 @@ echo -e "-------\n$key\n-------"; \
 key=""
 ```
 
-## Setting up the gradle build
+
+## Setting up the Gradle Build
 
 The signing and release to Sonatype is done by various gradle plugins.
 

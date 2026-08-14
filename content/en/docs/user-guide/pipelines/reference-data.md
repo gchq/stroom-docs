@@ -10,7 +10,7 @@ description: >
 
 {{% see-also %}}
 * [HOWTO - Creating a Simple Reference Feed]({{< relref "/docs/HOWTOs/ReferenceFeeds/CreateSimpleReferenceFeed" >}})  
-* [XSLT Functions]({{< relref "./xslt/xslt-functions.md" >}})
+* [XSLT Functions]({{< relref "./xslt/xslt-functions" >}})
 {{% /see-also %}}
 
 In Stroom reference data is primarily used to decorate events using `stroom:lookup()` calls in XSLTs.
@@ -23,7 +23,8 @@ You can then perform a `stroom:lookup()` in the XSLT to decorate an event with t
 Reference data can come from two different sources:
 
 * Reference stream - A separate Feed containing _Raw Reference_ streams that have been translated into _Reference_ streams conforming to `reference-data:2` XML.
-* [Context sub-stream]({{< relref "/docs/user-guide/concepts/streams#context" >}}) - A _Context_ stream that is a sub-stream of the _Events_ stream. This sub-stream contains contextual data relevant to the events in the _Events_ stream.
+* [Context sub-stream]({{< relref "/docs/user-guide/concepts/streams#context" >}}) - A _Context_ stream that is a sub-stream of the _Events_ stream.
+  This sub-stream contains contextual data relevant to the events in the _Events_ stream.
 
 
 ### Reference Stream
@@ -315,7 +316,7 @@ If non-ASCII characters are in the key then these will take up more than one byt
 This is a limitation inherent to LMDB.
 
 
-#### Commit intervals
+#### Commit Intervals
 
 The property `stroom.pipeline.referenceData.maxPutsBeforeCommit` controls the number of entries that are put into the store between each commit.
 As there can be only one transaction writing to the store at a time, committing periodically allows other process to jump in and make writes.
@@ -325,7 +326,7 @@ This however means all other processes wanting to write to the store will need t
 Low values (e.g. in the hundreds) mean very frequent commits so will hamper performance.
 
 
-#### Cloning The Off Heap Store
+#### Cloning the Off Heap Store
 
 If you are provisioning a new stroom node it is possible to copy the off heap store from another node.
 Stroom should not be running on the node being copied from.
@@ -493,7 +494,7 @@ To rectify this you can clear the cache `Reference Data - Effective Stream Cache
 ### Standard Key/Value Lookups
 
 Standard key/value lookups consist of a simple string key and a value that is either a simple string or an XML fragment.
-Standard lookups are performed using the various forms of the [`stroom:lookup()`]({{< relref "./xslt/xslt-functions.md#lookup" >}}) XSLT function.
+Standard lookups are performed using the various forms of the [`stroom:lookup()`]({{< relref "./xslt/xslt-functions/reference-data.md#lookup" >}}) XSLT function.
 
 {{% note %}}
 If the key is not found and the key is an integer then it will attempt a range lookup using the same key.
@@ -504,7 +505,7 @@ This is to allow for maps that contain a mixture of key/value pairs and range/va
 ### Range Lookups
 
 Range lookups consist of a key that is an integer and a value that is either a simple string or an XML fragment.
-For more detail on range lookups see the XSLT function [`stroom:lookup()`]({{< relref "./xslt/xslt-functions.md#range-lookups" >}}).
+For more detail on range lookups see the XSLT function [`stroom:lookup()`]({{< relref "./xslt/xslt-functions/reference-data.md#range-lookups" >}}).
 
 {{% note %}}
 The lookup will initially look for a single key that matches the lookup key.
@@ -516,18 +517,18 @@ This is to allow for maps that contain a mixture of key/value pairs and range/va
 ### Nested Map Lookups
 
 Nested map lookups involve chaining a number of lookups with the value of each map being used as the key for the next.
-For more detail on nested lookups see the XSLT function [`stroom:lookup()`]({{< relref "./xslt/xslt-functions.md#nested-maps" >}}).
+For more detail on nested lookups see the XSLT function [`stroom:lookup()`]({{< relref "./xslt/xslt-functions/reference-data.md#nested-maps" >}}).
 
 
 ### Bitmap Lookups
 
 A bitmap lookup is a special kind of lookup that actually performs a lookup for each enabled bit position of the passed bitmap value.
-For more detail on bitmap lookups see the XSLT function [`stroom:bitmap-lookup()`]({{< relref "./xslt/xslt-functions.md#bitmap-lookup" >}}).
+For more detail on bitmap lookups see the XSLT function [`stroom:bitmap-lookup()`]({{< relref "./xslt/xslt-functions/reference-data.md#bitmap-lookup" >}}).
 
 Values can either be a simple string or an XML fragment.
 
 
-### Context data lookups
+### Context Data Lookups
 
 Some event streams have a Context stream associated with them.
 Context streams allow the system sending the events to Stroom to supply an additional stream of data that provides context to the raw event stream.

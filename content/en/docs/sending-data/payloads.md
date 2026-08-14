@@ -35,7 +35,7 @@ curl -k --data-binary @file.dat "https://<Stroom_HOST>/stroom/datafeed" \
 {{</ command-line >}}
 
 
-## gzip
+## Gzip
 
 Text data is {{< external-link "gzip" "https://en.wikipedia.org/wiki/Gzip" >}} compressed and the `Compression` flag is set to `GZIP` in the [Headers]({{< relref "header-arguments" >}}).
 This format is only suitable for sending event data, if you need to send additional context data you will need to use the [ZIP]({{< relref "#zip" >}}) format.
@@ -133,11 +133,13 @@ While it is very much preferred for all files to be given the appropriate reserv
 
 {{% warning %}}
 If you had the following files:
+
 ```treeview
 |-- 01.data1
 |-- 01.data2
 `-- 01.ctx
 ```
+
 Then `001.data1` and `001.data2` would both be considered event data files for the base name `001` and Stroom does not allow multiple files of the same type for the same base name.
 Therefore the ZIP would be rejected with a _duplicate file_ error.
 

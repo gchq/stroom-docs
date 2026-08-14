@@ -14,7 +14,7 @@ description: >
 {{% /see-also %}}
 
 
-## General configuration
+## General Configuration
 
 The Stroom application is essentially just an executable {{< external-link "JAR" "https://en.wikipedia.org/wiki/JAR_%28file_format%29" >}} file that can be run when provided with a configuration file, `config.yml`.
 This config file is common to all forms of deployment.
@@ -101,7 +101,7 @@ JAVA_OPTS="-Xms512m -Xmx2048m"
 ```
 
 
-## As part of a docker stack
+## As Part of a Docker Stack
 
 When stroom is run as part of one of our docker stacks, e.g. _stroom_core_ there are some additional layers of configuration to take into account, but the configuration is still primarily done using the `config.yml` file.
 
@@ -365,7 +365,6 @@ appConfig:
 
 `commonDbDetails` has the same structure as all the `db` branches.
 It is used for defining a database connection configuration that will be used for all stroom functional areas/modules unless the module has explicitly configured its `db` configuration branch.
-
 
 
 ### `contentPackImport`
@@ -1271,12 +1270,12 @@ appConfig:
     defaultApiKeyHashAlgorithm: "SHA3_256"
     defaultMaxResults: "1000000,100,10,1"
     helpSubPathDocumentation: "/user-guide/content/documentation/"
-    helpSubPathExpressions: "/user-guide/dashboards/expressions/"
+    helpSubPathExpressions: "/reference-section/expressions/"
     helpSubPathJobs: "/reference-section/jobs/"
     helpSubPathProperties: "/user-guide/properties/"
-    helpSubPathQuickFilter: "/user-guide/finding-things/"
-    helpSubPathStroomQueryLanguage: "/user-guide/dashboards/stroom-query-language/"
-    helpUrl: "https://gchq.github.io/stroom-docs/7.5/docs"
+    helpSubPathQuickFilter: "/user-guide/content/finding-things/"
+    helpSubPathStroomQueryLanguage: "/user-guide/search/queries/stroom-query-language/"
+    helpUrl: "https://gchq.github.io/stroom-docs/7.13/docs"
     htmlTitle: "Stroom"
     maxEditorCompletionEntries: 1000
     namePattern: "^[a-zA-Z0-9_\\- \\.\\(\\)]{1,}$"

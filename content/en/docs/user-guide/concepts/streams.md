@@ -35,6 +35,7 @@ Although all streams conform to the above hierarchy there are three main types o
 
 Segmented means that the data has been demarcated into segments or records.
 
+
 ### Child Stream Types
 
 #### Data

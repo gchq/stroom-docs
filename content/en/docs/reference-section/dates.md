@@ -54,7 +54,7 @@ Input String                    | Standard Form
 
 Parsing and formatting with an explicit date time format is done in a few places in Stroom.
 
-* The XSLT function [`format-date()`]({{< relref "docs/user-guide/pipelines/xslt/xslt-functions#format-date" >}}).
+* The XSLT function [`format-date()`]({{< relref "docs/user-guide/pipelines/xslt/xslt-functions/date-and-time#format-date" >}}).
   This function is a bit of a misnomer as it is doing both parsing and formatting.
 
 * The Dashboard/Query expression [`parseDate()`]({{< relref "docs/reference-section/expressions/date#parse-date" >}}).
@@ -110,6 +110,7 @@ Symbol   | Meaning                    | Presentation | Examples
 `}`      | reserved for future use    |              |
 
 The count of pattern letters determines the format.
+
 
 ### Presentation Types
 
@@ -194,14 +195,14 @@ Despite this, it is recommended to use single quotes around all characters that 
 
 For further details, see the {{< external-link "DateTimeFormatter" "https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/time/format/DateTimeFormatter.html" >}} documentation.
 
-For examples of the parsing/formatting patterns in use, see [`format-date()`]({{< relref "docs/user-guide/pipelines/xslt/xslt-functions#format-date" >}}).
+For examples of the parsing/formatting patterns in use, see [`format-date()`]({{< relref "docs/user-guide/pipelines/xslt/xslt-functions/date-and-time#format-date" >}}).
 
 
 ## Formatting
 
 Stroom can format dates with an explicit format in a few places:
 
-* The XSLT function [`format-date()`]({{< relref "docs/user-guide/pipelines/xslt/xslt-functions#format-date" >}}).
+* The XSLT function [`format-date()`]({{< relref "docs/user-guide/pipelines/xslt/xslt-functions/date-and-time#format-date" >}}).
   This function is a bit of a misnomer as it is both parsing and formatting.
 
 * The Dashboard/Query expression [`formatDate()`]({{< relref "docs/reference-section/expressions/date#format-date" >}}).

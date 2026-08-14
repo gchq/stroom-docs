@@ -12,7 +12,7 @@ description: >
 ---
 
 
-## Establish an Elasticsearch cluster connection in Stroom
+## Establish an Elasticsearch Cluster Connection in Stroom
 
 The first step is to configure Stroom to connect to an Elasticsearch cluster.
 You can configure multiple cluster connections if required, such as a separate one for production and another for development.
@@ -37,7 +37,7 @@ Users authorised to search Elasticsearch indices via Stroom dashboards should on
 {{% /warning %}}
 
 
-## Elastic Cluster document fields
+## Elastic Cluster Document Fields
 
 ### Description
 
@@ -57,43 +57,43 @@ Only HTTPS is supported; attempts to use plain-text HTTP will fail.
 1. Kubernetes service: `https://prod-es-http.elastic.svc:9200`
 
 
-### CA certificate
+### CA Certificate
 
 PEM-format CA certificate chain used by Stroom to verify TLS connections to the Elasticsearch HTTPS REST interface.
 This is usually your organisation's root enterprise CA certificate.
 For development, you can provide a self-signed certificate.
 
 
-### Use authentication
+### Use Authentication
 
 (Optional) Tick this box if Elasticsearch requires authentication.
 This is enabled by default from Elasticsearch version 8.0.
 
 
-### API key ID
+### API Key ID
 
 Required if `Use authentication` is checked.
 Specifies the Elasticsearch API key ID for a valid Elasticsearch user account.
 This user requires at a minimum the following {{< external-link "privileges" "https://www.elastic.co/guide/en/kibana/current/kibana-role-management.html" >}}:
 
 
-#### Cluster privileges
+#### Cluster Privileges
 
 1. monitor
 1. manage_own_api_key
 
 
-#### Index privileges
+#### Index Privileges
 
 1. all
 
 
-### API key secret
+### API Key Secret
 
 Required if `Use authentication` is checked.
 
 
-### Socket timeout (ms)
+### Socket Timeout (ms)
 
 Number of milliseconds to wait for an Elasticsearch indexing or search REST call to complete.
 Set to `-1` (the default) to wait indefinitely, or until Elasticsearch closes the connection.

@@ -22,9 +22,22 @@ OR, if you use Vim use this command (changing the path to the stroom repo) to re
 -->
 
 
-<!-- Changes between 'v7.12.12' and 'v7.13-beta.9' taken on Wed  5 Aug 15:57:03 BST 2026 -->
+<!-- Changes between the latest v7.12 release and v7.13 -->
+
 
 ## New Features and Changes
+
+* Feature **{{< external-link "#5582" "https://github.com/gchq/stroom/issues/5582" >}}** : Add proper audit trail to doc history and store snapshots of data changes to allow future restore.
+
+* Feature **{{< external-link "#2109" "https://github.com/gchq/stroom/issues/2109" >}}** : Add doc dependencies to DB to improve capability.
+
+* Feature **{{< external-link "#1556" "https://github.com/gchq/stroom/issues/1556" >}}** : Add safe delete feature now we can depend on a reliable dependency discovery service.
+
+* Feature **{{< external-link "#4111" "https://github.com/gchq/stroom/issues/4111" >}}** : Add confirmation details when deleting a folder.
+
+* Feature **{{< external-link "#5697" "https://github.com/gchq/stroom/issues/5697" >}}** : Apply CSRF Origin/X-CSRF checks to state-changing requests whose credential was injected by an authenticating edge proxy (previously only session-cookie identities were checked), and reject cross-site browser requests carrying a request token unless they send `X-CSRF: 1`. In-browser clients that attach their own bearer token must now send `X-CSRF: 1` on state-changing requests when `edgeAuthentication.enabled` is set; non-browser automation and inter-node traffic are unaffected.
+
+* Feature **{{< external-link "#5697" "https://github.com/gchq/stroom/issues/5697" >}}** : Add `security.authentication.openId.authenticationRequestExtraParams` to append provider-specific parameters to the OIDC authentication request, e.g. Google's `access_type: offline` without which Google issues no refresh token and the session cannot outlive the first access token.
 
 * Feature **{{< external-link "#5656" "https://github.com/gchq/stroom/issues/5656" >}}** : Add feature to view sessions and revoke them and associated user tokens.
 
@@ -100,6 +113,12 @@ OR, if you use Vim use this command (changing the path to the stroom repo) to re
 
 
 ## Bug Fixes
+
+* Bug **{{< external-link "#5553" "https://github.com/gchq/stroom/issues/5553" >}}** : Fix DocRefInfo cache bug.
+
+* Bug **{{< external-link "#4073" "https://github.com/gchq/stroom/issues/4073" >}}** : Stop explorer scrolling to the top on deleting an item.
+
+* Bug **{{< external-link "#5697" "https://github.com/gchq/stroom/issues/5697" >}}** : Fix the UI bootstrap never recognising a user authenticated by an edge proxy (e.g. AWS ALB + Cognito, NGINX + oauth2-proxy): `/api/auth/flow/v1/status` now accepts a verified request token, and the new `security.authentication.edgeAuthentication` config block suppresses stroom's own OIDC flow and supports edge-aware logout when the proxy is the relying party.
 
 * Bug **{{< external-link "#5669" "https://github.com/gchq/stroom/issues/5669" >}}** : Fix `HttpClientConfigConverter` not mapping `verifyHostname`, which prevented TLS hostname verification being disabled on HTTP clients.
 

@@ -25,7 +25,7 @@ This represents a reference architecture and deployment for stroom but it is pos
 {{< image "architecture/architecture.puml.svg" >}}Architecture Diagram{{< /image >}}
 
 
-## Changes from previous versions
+## Changes from Previous Versions
 
 Stroom v7 features a number of key changes to architecture compared to v5 and v6.
 They are:
@@ -88,7 +88,6 @@ Any client certificate details will be passed on to the service that is being re
 
 
 ## Physical Deployment
-
 
 ### Single Node Docker Deployment
 

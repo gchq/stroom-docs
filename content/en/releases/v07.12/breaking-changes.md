@@ -27,6 +27,7 @@ No Stroom-Proxy specific breaking changes.
 
 The following breaking changes are common to both Stroom and Stroom Proxy.
 
+
 ### Data Feed Keys
 
 The property `.receive.dataFeedKeysDir` has been renamed to `.receive.dataFeedIdentitiesDir`.

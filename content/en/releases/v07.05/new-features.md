@@ -11,6 +11,7 @@ description: >
 This section contains the significant new features or changes in Stroom.
 For a full list of changes see [Change Log]({{< relref "./change-log" >}}).
 
+
 ## User Interface
 
 ### Jobs Screen
@@ -170,9 +171,11 @@ When using a List Input pane on a Dashboard {{< stroom-icon "document/Dashboard.
 * Document deletion will now also delete all associated document permissions granted to user/groups.
   This previously did not happen on document delete so orphaned document permissions would build up in the database.
 
-  The DB migration `V07_04_00_005__Orphaned_Doc_Perms` which will delete all document permissions (in table `doc_permission`) for docs that are not a folder, not the System doc, are not a valid doc (i.e. in the `doc` table) and are not a pipeline filter. Deleted document permission records will first be copied to a backup table `doc_permission_backup_V07_04_00_005`.
+  The DB migration `V07_04_00_005__Orphaned_Doc_Perms` which will delete all document permissions (in table `doc_permission`) for docs that are not a folder, not the System doc, are not a valid doc (i.e. in the `doc` table) and are not a pipeline filter.
+  Deleted document permission records will first be copied to a backup table `doc_permission_backup_V07_04_00_005`.
 
-* Document Copy and Move has been changed to check that the user has Owner permission (or admin) on the document being copied/moved if the permissions mode is None, Destination or Combined. This is because those modes will change the permissions which is something only an Owner/admin can do.
+* Document Copy and Move has been changed to check that the user has Owner permission (or admin) on the document being copied/moved if the permissions mode is None, Destination or Combined.
+  This is because those modes will change the permissions which is something only an Owner/admin can do.
 
 {{% note %}}
 Significant changes to document permissions are coming in v7.6.

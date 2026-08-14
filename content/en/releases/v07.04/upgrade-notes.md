@@ -49,7 +49,6 @@ delete from job_schema_history where version = '07.03.00.001';
 {{< /sql-shell >}}
 
 
-
 ### Migration Scripts
 
 <!--
@@ -63,6 +62,7 @@ delete from job_schema_history where version = '07.03.00.001';
 For information purposes only, the following are the database migrations that will be run when upgrading to 7.4.0 from the previous minor version.
 
 Note, the `legacy` module will run first (if present) then the other module will run in no particular order.
+
 
 #### Module `stroom-analytics`
 

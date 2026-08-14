@@ -11,7 +11,7 @@ exclude_search: true
 
 ---
 
-## Image assets
+## Image Assets
 
 All Images should be placed in `/assets/images/` or within a descendent directory of it.
 Images should be added to the markdown using the `image` shortcode.
@@ -86,7 +86,8 @@ The image can be defined with a maximum width (e.g. `"300x"`) or a maximum heigh
 {{</* image "style-guide/svg-logo.svg" "120x" /*/>}}
 ```
 
-### .png files
+
+### .png Files
 
 `.png` files can be rendered in their original size by omitting the size argument.
 
@@ -111,7 +112,7 @@ Or they can be rendered with a set size.
 ```
 
 
-## Using global `/assets/` resources
+## Using Global `/assets/` Resources
 
 For images that are shared by multiple page bundles, e.g. stroom icons, place them in `/assets/images/`.
 The image path is relative to `/assets/images/`, e.g. file  `/assets/images/style-guide/svg-example.svg` becomes `style-guide/svg-example.svg`.
@@ -175,7 +176,7 @@ You should embed a PlantUML image like this, using the `.puml.svg` file (that ma
 ```
 
 
-## Using page resources
+## Using Page Resources
 
 Images can be located in a {{< external-link "page bundle" "https://gohugo.io/content-management/page-bundles/" >}}.
 This is where the page is defined as a named directory (rather than a `.md` file) with an associated `index.md` file for the markdown content.
@@ -218,14 +219,14 @@ In the above example, the shortcode would look like:
 {{< image "style-guide/stroom-oo.svg" "200x" />}}
 
 
-## Stroom user interface Components
+## Stroom User Interface Components
 
 Sometimes it is useful to display an image of certain user interface elements to explain something.
 Rather than use screenshots which are very difficult to keep up to date, you can instead use some simple shortcodes to display some UI elements, e.g. buttons, pipeline elements, etc.
 By using shortcodes, any change to the look of the Stroom UI means only the shortcode content and their styling need to change, without having to recreate tens or hundreds of screenshots.
 
 
-### Stroom icons
+### Stroom Icons
 
 Stroom UI icons such as {{< stroom-icon "add.svg" >}} or {{< stroom-icon "explorer.svg" "Explorer Tree" >}} can be added in line using the shortcode `stroom-icon`.
 
@@ -359,7 +360,7 @@ This is one without an icon {{</* stroom-doc type="Pipeline" show_icon="false" *
 ```
 
 
-### Pipeline elements
+### Pipeline Elements
 
 To display a pipeline element (as seen on the _Structure_ sub-tab on the Pipeline screen), like {{< pipe-elm "SplitFilter" >}}, you can use the shortcode `pipe-elm`.
 
@@ -450,14 +451,15 @@ For details on how to use `pipe-elm` see [pipeline elements]({{< relref "#pipeli
 The list of available pipeline elements can be found in this [gallery]({{< relref "icon-gallery#pipeline-elements" >}}).
 
 
-### Stroom document tabs
+### Stroom Document Tabs
 
 To display a top level Stroom document tab, like {{< stroom-tab "Index.svg" "Big Index" >}}, you can use the shortcode `stroom-tab`.
 
 **Arguments**:
 * `icon_filename` - The filename of the icon to use (relative to `assets/images/stroom-ui/document/`) (case sensitive), e.g. `Pipeline.svg`.
 * `title` - The text to display in the tab, e.g. `Indexing Pipeline`.
-* `state` (optional) - Whether the tab is active or not (`active` or `inactive`). Defaults to `inactive`.
+* `state` (optional) - Whether the tab is active or not (`active` or `inactive`).
+  Defaults to `inactive`.
 
 For a full list of all available icons see the [Icon Gallery]({{< ref "icon-gallery/#document-type-icons" >}})
 
@@ -483,7 +485,7 @@ Unsaved: {{</* stroom-tab "XSLT.svg" "My Translation" "active" "unsaved" */>}}
 ```
 
 
-### Stroom selected menu items
+### Stroom Selected Menu Items
 
 To display the selection of a menu item you can use the `stroom-menu` shortcode.
 

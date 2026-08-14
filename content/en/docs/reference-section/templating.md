@@ -15,7 +15,7 @@ Templating is currently used in Stroom for creating email templates for Analytic
 
 Stroom's templating uses a sub-set of the template syntax called _jinja_ and specifically the JinJava library.
 The templating syntax includes support for variables, filters, condition blocks, loops, etc.
-Full details of the syntax can be found {{< external-link "here" "https://developers.hubspot.com/docs/cms/hubl" >}}.
+Full details of the syntax can be found {{< external-link "here" "https://developers.hubspot.com/docs/reference/cms/hubl/overview" >}}.
 
 When a template is rendered, Stroom will populate the [template context]({{< relref "#template-context" >}}) with data that can be used by the template.
 
@@ -23,7 +23,7 @@ When a template is rendered, Stroom will populate the [template context]({{< rel
 ## Basic Templating Syntax
 
 Jinja templating is very powerful and has a rich language so this is a quick guide to the very basic features.
-See the full syntax {{< external-link "here" "https://developers.hubspot.com/docs/cms/hubl" >}}.
+See the full syntax {{< external-link "here" "https://developers.hubspot.com/docs/reference/cms/hubl/overview" >}}.
 
 
 ### Data Types
@@ -129,6 +129,7 @@ Name: Joe Bloggs
 #### Conditional Blocks
 
 **Syntax**:
+
 ```text
 {% if <value, variable or expression> <condition> <value, variable or expression> %}
   < optional content, expressions or statements>
@@ -164,6 +165,7 @@ This detection has 10 values.
 #### Loops
 
 **Syntax**:
+
 ```text
 {% for <item name> in <variable or expression> %}
   <content, expressions or statements to repeat for each item>
@@ -214,7 +216,7 @@ Filter    | Description                                                      | E
 `escape`  | Escapes any HTML special characters                              | `<p>{{ "10 > 3" \| escape }}</p>` =>  `<p>10 &gt; 3</p>`
 `default` | Return the first argument if the input is undefined or empty     | `{{ None \| default("foo", true) }}` => `foo`
 
-For a full list of filters see {{< external-link "here" "https://developers.hubspot.com/docs/cms/hubl/filters" >}} or {{< external-link "here" "https://hub.synerise.com/developers/inserts/filter/" >}}.
+For a full list of filters see {{< external-link "here" "https://developers.hubspot.com/docs/reference/cms/hubl/filters" >}} or {{< external-link "here" "https://hub.synerise.com/developers/inserts/filter/" >}}.
 
 
 ### Comments
@@ -314,6 +316,7 @@ eventId                 | String                       | The ID of the {{< gloss
 
 
 {{% warning %}}
-When choosing the names of the columns in your rule it may be beneficial to use `snake_case` or `UpperCamelCase` to make it easier to reference those columns in the detection template (see [Accessing Collection Items]({{< relref "#accessing-collection-items" >}}) above). E.g. `myDict.some_key` vs `myDict['some key']`.
+When choosing the names of the columns in your rule it may be beneficial to use `snake_case` or `UpperCamelCase` to make it easier to reference those columns in the detection template (see [Accessing Collection Items]({{< relref "#accessing-collection-items" >}}) above).
+E.g. `myDict.some_key` vs `myDict['some key']`.
 {{% /warning %}}
 

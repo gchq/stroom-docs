@@ -11,15 +11,22 @@ description: >
 
 Stroom provides a number of powerful capabilities:
 
-* **Data ingest.** Receive and store large volumes of data such as native format logs.
+* **Data ingest.**
+  Receive and store large volumes of data such as native format logs.
   Ingested data is always available in its raw form.
-* **Data transformation pipelines.** Create sequences of XSL and text operations, in order to normalise or export data in any format.
+* **Data transformation pipelines.**
+  Create sequences of XSL and text operations, in order to normalise or export data in any format.
   It is possible to enrich data using lookups and reference data.
-* **Integrated transformation development.** Easily add new data formats and debug the transformations if they don't work as expected.
-* **Scalable Search.** Create multiple indexes with different retention periods.
+* **Integrated transformation development.**
+  Easily add new data formats and debug the transformations if they don't work as expected.
+* **Scalable Search.**
+  Create multiple indexes with different retention periods.
   These can be sharded across your cluster.
-* **Statistics.** Record counts or values of items over time, providing answers to questions such as "how many times has a specific machine provided data in the last hour/day/month?"
-* **Dashboards.** Run queries against your indexes or statistics and view the results within custom visualisations.
+* **Statistics.**
+  Record counts or values of items over time, providing answers to questions such as "how many times has a specific machine provided data in the last hour/day/month?"
+* **Dashboards.**
+  Run queries against your indexes or statistics and view the results within custom visualisations.
+
 
 ## Benefits
 
@@ -33,11 +40,13 @@ The person who introduces a new log format is probably best placed to describe i
 Stroom provides these experts with tools that make it easy to normalise data, essentially crowdsourcing the problem.
 An organisation can ask their employees to configure Stroom whenever they introduce a new technology, and have confidence that it will be able to be properly audited.
 
+
 ## System Overview
 
 The following is a high level overview of how Stroom and its proxies ingest data.
 
 {{<image "about/overview.puml.svg" >}}System Overview Diagram{{</image>}}
+
 
 ### Processing Overview
 
@@ -50,11 +59,13 @@ Cooked data can be further processed to transform/index/aggregate/analyse it, e.
 
 The main processing stages are:
 
+
 #### Parsing
 
 Data is received in many forms, CSV, JSON, XML, etc. so it is first parsed into a simple XML form that mirrors the raw data.
 _Data Splitter_ is a powerful parser within Stroom for parsing all kinds of text based logs, be they delimited, fixed width, or have complex multi-line records.
 XML and JSON data can be handled by their respective parsers.
+
 
 #### Translation
 
@@ -63,14 +74,17 @@ The first step is to translate the simple XML into the common _event-logging_ XM
 For bespoke log formats this translation step can be authored by the owners of the system sending the log.
 The translation stage typically also involves the decoration of the event using reference data lookups, e.g. looking up a user ID in richer user reference data provided by a human resources system or looking up a hostname to provide location data for the device.
 
+
 #### Writers, Filters & Appenders
 
 Once the events are in a common decorated form they can be further transformed into other formats for indexing, statistic aggregation or for sending on to external systems.
 Typically cooked events will be stored in their cooked form and transformed into an abstraction suitable for indexing.
 
+
 #### Re-Processing
 
 All processed data in stroom can be re-processed at any time, e.g. following improvements to a translation step.
+
 
 ## Architecture
 
@@ -99,6 +113,7 @@ There are several optional components for different use cases:
 * **Event Logging JAXB Library** - A Java library to help client systems send events to Stroom.
 * **Content Packs** - Transformation packages for standard log formats (e.g. Windows, Linux) into Logging Events XML.
 
+
 ## User Interface
 
 Stroom has a rich and powerful web based user interface that allows users to:
@@ -115,6 +130,7 @@ Stroom has a rich and powerful web based user interface that allows users to:
 
 Some screenshots of the application can be seen [here](screenshots.md).
 
+
 ## State of the Project
 
 Stroom v5 was the first open source release of Stroom and v5.5 is still being supported.
@@ -122,6 +138,7 @@ Stroom v5 was the first open source release of Stroom and v5.5 is still being su
 Stroom v6.1 is the current latest stable release of Stroom and this is in use in production environments.
 
 Stroom v7.0 is currently in active development with regular beta releases available for testing.
+
 
 ## Future
 
@@ -135,11 +152,13 @@ Work is underway to evolve the existing architecture and add new features:
 * A modularised, micro-service-based architecture.
 * Further integration with the Hadoop ecosystem.
 
+
 ## Developers and Contributors
 
 If you want to contribute to the development of Stroom or its related repositories please see [here]({{< ref "community" >}}).
 
 For details of how get started setting up a Stroom development environment see [here](dev-guide/stroom-in-an-ide.md).
+
 
 ### Stroom Content
 
@@ -151,6 +170,7 @@ The content can be packaged into convenient content pack zip files.
 Generic Stroom content is available [here](https://github.com/gchq/stroom-content/releases)
 
 Stroom visualisations (for use in dashboards) are available [here](https://github.com/gchq/stroom-visualisations-dev/releases)
+
 
 ## Screenshots
 

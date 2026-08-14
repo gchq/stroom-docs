@@ -13,6 +13,7 @@ description: >
 Before commencing an upgrade to v7 you should upgrade Stroom to the latest minor and patch version of v6.
 {{% /page-warning %}}
 
+
 ## Differences between v6 and v7
 
 Stroom v7 has significant differences to v6 which make the upgrade process a little more complicated.
@@ -27,12 +28,12 @@ Stroom v7 has significant differences to v6 which make the upgrade process a lit
   As the database will be holding two copies of most data you need to ensure you have space to accommodate it.
 
 
-## Pre-Upgrade tasks
+## Pre-Upgrade Tasks
 
 The following steps are required to be performed before migrating from v6 to v7.
 
 
-### Download migration scripts
+### Download Migration Scripts
 
 Download the migration SQL scripts from https://github.com/gchq/stroom/blob/STROOM_VERSION/scripts
 e.g. https://github.com/gchq/stroom/blob/v7.0-beta.133/scripts
@@ -40,7 +41,7 @@ e.g. https://github.com/gchq/stroom/blob/v7.0-beta.133/scripts
 These scripts will be used in the steps below.
 
 
-### Pre-migration database checks
+### Pre-migration Database Checks
 
 Run the pre-migration checks script on the running database.
 
@@ -55,14 +56,14 @@ mysql --table -u"stroomuser" -p"stroompassword1" stroom \
 This will produce a report of items that will not be migrated or need attention before migration.
 
 
-### Stop processing
+### Stop Processing
 
 Before shutting stroom down it is wise to turn off stream processing and let all outstanding server tasks complete.
 
 *TODO* clarify steps for this.
 
 
-### Stop the stack
+### Stop the Stack
 
 Stop the stack (stroom and the database) then start up the database.
 Do this using the v6 stack.
@@ -74,7 +75,7 @@ This ensures that stroom is not trying to access the database.
 {{</ command-line >}}
 
 
-### Backup the databases
+### Backup the Databases
 
 Backup all the databases for the different components.
 Typically these will be `stroom`, `stats` and `auth`.
@@ -82,7 +83,7 @@ Typically these will be `stroom`, `stats` and `auth`.
 If you are running in a docker stack then you can run the `./backup_databases.sh` script.
 
 
-### Stop the database
+### Stop the Database
 
 Stop the database using the v6 stack.
 
@@ -91,7 +92,7 @@ Stop the database using the v6 stack.
 {{</ command-line >}}
 
 
-### Deploy and configure v7
+### Deploy and Configure v7
 
 Deploy the v7 stack.
 *TODO* - more detail
@@ -108,7 +109,8 @@ The upgrade path for MySQL is 5.6 => 5.7.33 => 8.x
 
 To ensure the database is up to date `mysql_upgrade` needs to be run using the 5.7.33 binaries, see the {{< external-link "MySQL documentation" "https://dev.mysql.com/doc/refman/8.0/en/mysql-upgrade.html" >}}.
 
-This is the process for upgrading the database. All of these commands are using the v7 stack.
+This is the process for upgrading the database.
+All of these commands are using the v7 stack.
 
 {{< command-line "stroomuser" "localhost" >}}
 # Set the version of the MySQL docker image to use
@@ -133,7 +135,7 @@ unset MYSQL_TAG
 {{</ command-line >}}
 
 
-### Rename legacy stroom-auth tables
+### Rename Legacy Stroom-auth Tables
 
 Run this command to connect to the `auth` database and run the pre-migration SQL script.
 
@@ -148,7 +150,7 @@ mysql --table -u"authuser" -p"stroompassword1" auth \
 This will rename all but one of the tables in the `auth` database.
 
 
-### Copy the `auth` database content to `stroom`
+### Copy the `auth` Database Content to `stroom`
 
 Having run the table rename perform another backup of just the `auth` database.
 
@@ -181,7 +183,7 @@ echo 'select table_name from information_schema.tables where table_name like "OL
 {{</ command-line >}}
 
 
-### Drop unused databases
+### Drop Unused Databases
 
 There may be a number of databases that are no longer used that can be dropped prior to the upgrade.
 Note the use of the `--force` argument so it copes with users that are not there.
@@ -201,7 +203,7 @@ echo 'show databases;' | docker exec -i stroom-all-dbs mysql -u"root" -p"my-secr
 {{</ command-line >}}
 
 
-## Performing the upgrade
+## Performing the Upgrade
 
 To perform the stroom schema upgrade to v7 run the migrate command which will migrate the database then exit.
 For a large upgrade like this it is preferable to run the migrate command rather than just starting stroom as stroom will only migrate the parts of the schema as it needs to use them.
@@ -212,6 +214,6 @@ Running migrate ensures all parts of the migration are completed when the comman
 {{</ command-line >}}
 
 
-## Post-Upgrade tasks
+## Post-Upgrade Tasks
 
 *TODO* remove auth* containers,images,volumes

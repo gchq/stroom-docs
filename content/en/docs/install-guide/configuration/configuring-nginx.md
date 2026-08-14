@@ -27,7 +27,7 @@ See below for details of how to configure it.
 If you want to deploy Nginx without docker then you can but that is outside the scope of this documentation.
 
 
-## As part of a docker stack
+## As Part of a Docker Stack
 
 Nginx is included in all the stroom docker stacks.
 Nginx is configured using multiple configuration files to aid clarity and allow reuse of sections of configuration.
@@ -76,12 +76,14 @@ Nginx acts as a reverse proxy for the applications behind it so the lists of hos
 For example if you have a 10 node cluster and 2 of those nodes are dedicated for user interface use then the configuration would look like:
 
 **upstreams.stroom.ui.conf.template**
+
 ```conf
 server node1.stroomhosts:<<<STROOM_PORT>>>
 server node2.stroomhosts:<<<STROOM_PORT>>>
 ```
 
 **upstreams.stroom.processing.conf.template**
+
 ```conf
 server node3.stroomhosts:<<<STROOM_PORT>>>
 server node4.stroomhosts:<<<STROOM_PORT>>>
@@ -94,6 +96,7 @@ server node10.stroomhosts:<<<STROOM_PORT>>>
 ```
 
 **upstreams.proxy.conf.template**
+
 ```conf
 server node3.stroomhosts:<<<STROOM_PORT>>>
 server node4.stroomhosts:<<<STROOM_PORT>>>
@@ -117,7 +120,7 @@ The files are located in `volumes/nginx/certs/`.
 For a production deployment these will need to be changed, see [Certificates]({{< relref "./#certificates" >}})
 
 
-### Log rotation
+### Log Rotation
 
 The Nginx container makes use of _logrotate_ to rotate Nginx's log files after a period of time so that rotated logs can be sent to stroom.
 _Logrotate_ is configured using the file `volumes/stroom-log-sender/logrotate.conf.template`.

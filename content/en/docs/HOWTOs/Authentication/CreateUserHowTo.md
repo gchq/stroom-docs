@@ -18,7 +18,7 @@ The following assumptions are used in this document.
 - We will make this user an `Administrator`
 
 
-## Add a new user
+## Add a New User
 
 To add a new user, move your cursor to the `Tools` item of the __Main Menu__ and select to bring up the `Tools` sub-menu.
 
@@ -29,7 +29,9 @@ Then move down and select the `Users and Groups` sub-item to be presented with t
 {{< screenshot "HOWTOs/UI-AddUser-00.png" >}}Stroom UI New User - Users and Groups configuration{{< /screenshot >}}
 
 To add the user, move the cursor to the _New_ icon {{< stroom-icon "add.svg" "Add" >}} in the top left and
-select it. On selection you will be prompted for a user name. In our case we will enter the user `burn`.
+select it.
+On selection you will be prompted for a user name.
+In our case we will enter the user `burn`.
 
 {{< screenshot "HOWTOs/UI-AddUser-01.png" >}}Stroom UI New User - Add User{{< /screenshot >}}
 
@@ -44,6 +46,7 @@ See
 [Permissions](../../../user-guide/roles "Stroom Application Permissions")
 for an explanation of the various Application Permissions a user can have.
 
+
 #### Assign an Administrator Permission
 
 As we want the user to be an administrator, select the __Administrator__ Permission check-box
@@ -53,7 +56,8 @@ As we want the user to be an administrator, select the __Administrator__ Permiss
 
 #### Set User's Password
 
-We need to set `burn's` password (which he will need to reset on first login). So, select the {{< stroom-btn "Reset Password" >}} button to gain the Reset Password window
+We need to set `burn's` password (which he will need to reset on first login).
+So, select the {{< stroom-btn "Reset Password" >}} button to gain the Reset Password window
 
 {{< screenshot "HOWTOs/UI-AddUser-04.png" >}}Stroom UI New User - User configuration - reset password{{< /screenshot >}}
 

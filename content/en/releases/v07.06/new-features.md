@@ -16,6 +16,7 @@ Both the user interface and underlying data model has changed.
 The legacy screens for managing users, groups and their permissions were often very confusing to use.
 The new screens attempt to make it much more intuitive.
 
+
 ### Terminology
 
 * _Explicit_ / _Direct_ - This means a permission is specifically granted to the User/Group in question.
@@ -301,7 +302,7 @@ It is not possible to delete a User/Group where dependencies exist on that User/
 The Dependencies sub-tab of the User Profile screen can be used to track down these dependencies prior to deletion.
 
 
-### Pipeline _Run As User_
+### Pipeline _Run as User_
 
 The permissions that a Pipeline {{< stroom-icon "document/Pipeline.svg" >}} runs with are now controlled by setting a _Run As_ User/Group on the processor filter.
 It is advised to use a Group for this as it mitigates against having to change processor filters when a User leaves the organisation.

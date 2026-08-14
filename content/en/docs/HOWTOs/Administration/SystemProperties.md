@@ -11,6 +11,7 @@ description: >
 ---
 
 ## Assumptions
+
 The following assumptions are used in this document.
 
 - the user successfully logged into Stroom with the appropriate administrative privilege (**Manage Properties**).

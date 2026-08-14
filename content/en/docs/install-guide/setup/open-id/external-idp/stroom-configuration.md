@@ -21,7 +21,7 @@ The structure is identical for both.
 {{% /note %}}
 
 
-## A minimal configuration
+## A Minimal Configuration
 
 For most providers this is all that is needed:
 
@@ -51,7 +51,7 @@ If you also want data receipt to be authenticated:
 ```
 
 
-## Choosing the identity provider
+## Choosing the Identity Provider
 
 ### `identityProviderType`
 
@@ -80,10 +80,12 @@ The replacement is described in [Insecure Test Credential]({{< relref "docs/inst
 The provider's OIDC discovery document, conventionally at `https://IDP_HOST/.well-known/openid-configuration`.
 Setting this is much the easiest approach, as Stroom reads the other endpoints from it.
 
+
 ### `issuer`, `authEndpoint`, `tokenEndpoint`, `jwksUri`
 
 Set these only if you are not using a configuration endpoint, or to override a value the provider advertises incorrectly.
 Anything set here takes precedence over the discovery document.
+
 
 ### `logoutEndpoint`
 
@@ -91,6 +93,7 @@ Where Stroom sends the user to sign out at the provider.
 This is not part of the discovery document, so it always has to be set by hand, and some providers do not offer one at all.
 
 If it is not set, signing out ends the Stroom session but leaves the user signed in at the provider, so their next visit signs them straight back in without being asked for credentials.
+
 
 ### `logoutRedirectParamName`
 
@@ -102,7 +105,7 @@ The query parameter Stroom uses to tell the provider where to send the user afte
 The only permitted values are `post_logout_redirect_uri`, the default and what the current specification says, and `redirect_uri` for older providers.
 
 
-## Client credentials
+## Client Credentials
 
 ### `clientId` and `clientSecret`
 
@@ -114,6 +117,7 @@ The client, sometimes called an application, registered at the provider.
 The client secret is a credential.
 Supply it through an environment variable or your secret management system rather than committing it to `config.yml`, and rotate it if it is ever exposed.
 {{% /warning %}}
+
 
 ### `requestScopes`
 
@@ -127,6 +131,7 @@ The scopes Stroom asks for during an interactive sign in.
 Setting this replaces the defaults rather than adding to them, so include `openid` in whatever you set.
 Add `profile` if you need the `name`, `given_name` or `family_name` claims for `fullNameClaimTemplate`.
 
+
 ### `clientCredentialsScopes`
 
 ```yaml
@@ -137,6 +142,7 @@ clientCredentialsScopes:
 The scopes used when Stroom or Stroom-Proxy requests a token for its own service user, rather than for a person.
 Again, this replaces the default.
 For Azure AD you will likely need `openid` and `<your-app-id-uri>/.default`.
+
 
 ### `formTokenRequest`
 
@@ -149,12 +155,13 @@ Some providers, Cognito among them, require this.
 It is on by default and rarely needs changing.
 
 
-## Audience validation
+## Audience Validation
 
 The `aud` claim of a token names the application the token was minted for.
 Checking it is what stops a token issued to some other application at the same provider being replayed against Stroom.
 
 Three settings control this.
+
 
 ### `validateAudience`
 
@@ -173,6 +180,7 @@ Any token that any application at the same provider can obtain would then be acc
 With `identityProviderType: EXTERNAL_IDP` and `validateAudience` left on, at least one of `allowedAudiences` or `clientId` must be set.
 Stroom refuses to start otherwise, rather than letting mandatory validation quietly become a no-op.
 
+
 ### `allowedAudiences`
 
 ```yaml
@@ -183,6 +191,7 @@ A set of acceptable audience values, of which a token must carry at least one.
 When empty, Stroom validates against `clientId` instead.
 
 Set this when the provider puts something other than the client id in the `aud` claim of its access tokens, which is common.
+
 
 ### `audienceClaimRequired`
 
@@ -206,7 +215,7 @@ See the provider pages for which applies to you.
 {{% /warning %}}
 
 
-## Token validation
+## Token Validation
 
 ### `requiredAccessTokenType`
 
@@ -225,6 +234,7 @@ Set it once you have confirmed what your provider actually puts in that header; 
 This applies only to bearer tokens on the API.
 It has no effect on the interactive sign in flow or on an AWS load balancer data token.
 
+
 ### `validIssuers`
 
 ```yaml
@@ -236,7 +246,8 @@ Additional issuers to accept beyond the one the provider advertises.
 Stroom checks that the issuer in the provider's configuration response is consistent with `openIdConfigurationEndpoint`.
 Where a provider legitimately reports an issuer that is not a parent path of that endpoint, list it here so the check passes.
 
-### Signature algorithms
+
+### Signature Algorithms
 
 Not configurable.
 Stroom accepts RS256/384/512, PS256/384/512 and ES256/384/512, and refuses unsigned tokens and tokens signed with an HMAC algorithm.
@@ -255,6 +266,7 @@ uniqueIdentityClaim: "sub"
 The claim used to link an identity at the provider to a Stroom user.
 It must be unique at the provider and must never change for a given person, which is why `sub` is the default and normally the right answer.
 
+
 ### `userDisplayNameClaim`
 
 ```yaml
@@ -265,6 +277,7 @@ A friendlier name for the user in the Stroom UI.
 Not used for identity, so it need not be unique and may change.
 
 Change it if your provider does not issue `preferred_username`; `email` is the usual alternative.
+
 
 ### `fullNameClaimTemplate`
 
@@ -280,9 +293,10 @@ Use single quotes in the YAML file, otherwise the `${...}` variables are expande
 {{% /note %}}
 
 
-## AWS load balancer authentication
+## AWS Load Balancer Authentication
 
 These apply when an AWS Application Load Balancer in front of Stroom performs the authentication and passes the result on in an `x-amzn-oidc-data` header.
+
 
 ### `expectedSignerPrefixes`
 
@@ -292,6 +306,7 @@ expectedSignerPrefixes: []
 
 The Amazon Resource Names of the load balancer(s) fronting Stroom, used to verify the `signer` in the JWT header.
 Each value is the first N characters of an ARN and must include at least everything up to the colon after the account id, i.e. `arn:aws:elasticloadbalancing:region-code:account-id:`.
+
 
 ### `publicKeyUriPattern`
 
@@ -348,7 +363,16 @@ See [Common Configuration]({{< relref "docs/install-guide/configuration/stroom-a
 
 ## Troubleshooting
 
+<!--
+The headings below describe a symptom rather than naming a thing, so they read
+as sentences and are deliberately in sentence case. Each is opted out of the
+style check individually so that the rest of the section is still checked.
+-->
+
+
+<!-- style-check: disable -->
 ### Stroom will not start
+<!-- style-check: enable -->
 
 > If `identityProviderType` is set to 'EXTERNAL', property `openIdConfigurationEndpoint` must be set.
 
@@ -371,27 +395,42 @@ Where the value is genuinely correct for your provider, add it to `validIssuers`
 You have set `issuer` or `validIssuers`, and what the provider advertised is not among them.
 Correct the configured value, or add the advertised one.
 
+
+<!-- style-check: disable -->
 ### The provider refuses the sign in
+<!-- style-check: enable -->
 
 An error at the provider, before the user gets back to Stroom, is almost always the redirect URI.
 Check that `https://STROOM_FQDN/api/auth/flow/v1/signin-oidc` is registered exactly, using the same scheme, host, port and path prefix as `appConfig.publicUri`.
 
 This is the single most common problem when upgrading, because Stroom used to send a different redirect URI for every page.
 
+
+<!-- style-check: disable -->
 ### Sign in works but API calls are refused
+<!-- style-check: enable -->
 
 Interactive sign in validates the `id_token`, whereas the API validates an access token, and providers treat the two differently.
 So sign in working tells you the client id, secret and endpoints are all correct, and points at the token validation settings.
 
 In order of likelihood:
 
-1. **Audience.** The access token's `aud` claim does not match `clientId` or `allowedAudiences`, or the token has no `aud` claim and `audienceClaimRequired` is `true`. See [Audience validation](#audience-validation).
-1. **Token type.** `requiredAccessTokenType` is set to something the provider does not put in the token's `typ` header. Unset it, or correct it to the value the provider actually uses.
-1. **Token type, the other way round.** The caller is presenting an `id_token` rather than an access token. Setting `requiredAccessTokenType` is what catches this.
+1. **Audience.**
+   The access token's `aud` claim does not match `clientId` or `allowedAudiences`, or the token has no `aud` claim and `audienceClaimRequired` is `true`.
+   See [Audience validation](#audience-validation).
+1. **Token type.**
+   `requiredAccessTokenType` is set to something the provider does not put in the token's `typ` header.
+   Unset it, or correct it to the value the provider actually uses.
+1. **Token type, the other way round.**
+   The caller is presenting an `id_token` rather than an access token.
+   Setting `requiredAccessTokenType` is what catches this.
 
 Enable debug logging for `stroom.security.common.impl.StandardJwtContextFactory` to see the issuers, audiences and settings actually in use when a token is validated.
 
+
+<!-- style-check: disable -->
 ### Users sign in but can see nothing
+<!-- style-check: enable -->
 
 That is expected for a new user.
 Authentication is all the provider does; permissions are granted in Stroom, and a new user has none.
@@ -399,7 +438,10 @@ See [Users and permissions]({{< relref "docs/install-guide/setup/open-id/externa
 
 If an administrator you set up with `manage_users` cannot see anything either, remember that permissions are cached, so a restart may be needed if Stroom was running when the command was issued.
 
+
+<!-- style-check: disable -->
 ### Signing out does not sign the user out of the provider
+<!-- style-check: enable -->
 
 Either `logoutEndpoint` is unset, or the provider has no OIDC sign out endpoint, as is the case for Google.
 The Stroom session ends either way, but the provider's session does not, so the user's next visit signs them straight back in.

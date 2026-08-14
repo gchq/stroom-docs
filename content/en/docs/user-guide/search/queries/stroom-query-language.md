@@ -19,6 +19,7 @@ change the headings without changing the anchors in Stroom.
 !!! IMPORTANT !!!
 -->
 
+
 ## Query Format
 
 Stroom Query Language (StroomQL) is a text based replacement for the existing {{< glossary "Dashboard" >}} query builder and allows you to express the same queries in text form as well as providing additional functionality.
@@ -135,7 +136,7 @@ Supported conditions are:
 Logical operators to add to where and filter clauses.
 
 
-#### Bracket groups
+#### Bracket Groups
 
 You can force evaluation of items in a specific order using bracketed groups.
 
@@ -189,6 +190,7 @@ eval my_count = count()
 
 Here the result of the `count()` function is being stored in a variable called `my_count`.
 Functions can be nested and applied to variables, e.g.
+
 ```stroomql
 eval new_name = concat(
   substring(name, 3, 5),
@@ -198,6 +200,7 @@ eval new_name = concat(
 Note that all fields in the data source selected using `from` will be available as variables by default.
 
 Multiple `eval` statements can also be used to breakup complex function expressions and make it easier to comment out individual evaluations, e.g.
+
 ```stroomql
 eval name_prefix = substring(name, 3, 5)
 eval name_suffix = substring(name, 8, 9)
@@ -226,6 +229,7 @@ where feed = "my feed" or feed = "other feed"
 ```
 
 Use brackets to group logical sub expressions, e.g.
+
 ```stroomql
 where user = "bob" and (feed = "my feed" or feed = "other feed")
 ```
@@ -243,16 +247,19 @@ having count > 3
 ### Group By
 
 Use to group by columns, e.g.
+
 ```stroomql
 group by feed
 ```
 
 You can group across multiple columns, e.g.
+
 ```stroomql
 group by feed, name
 ```
 
 You can create nested groups, e.g.
+
 ```stroomql
 group by feed
 group by name
@@ -285,12 +292,15 @@ Or
 sort by feed desc
 ```
 
+
 ### Limit
 
 Limit the number of results, e.g.
+
 ```stroomql
 limit 10
 ```
+
 
 ### Select
 
@@ -306,6 +316,7 @@ You can optionally rename the fields so that they appear in the table with more 
 select feed as 'my feed column',
   name as 'my name column'
 ```
+
 
 ### Show
 
@@ -323,9 +334,10 @@ For visualisations that contain spaces in their names it is necessary to use quo
 show "My Visualisation" (x = EventTime, y = count)
 ```
 
+
 ## Comments
 
-### Single line
+### Single Line
 
 StroomQL supports single line comments using `//`.
 For example:
@@ -338,7 +350,7 @@ select StreamId as "Stream Id", EventTime as "Event Time"
 ```
 
 
-### Multi line
+### Multi Line
 
 Multiple lines can be commented by surrounding sections with `/*` and `*/`.
 For example:

@@ -9,12 +9,12 @@ description: >
 
 ---
 
-## Pre-requisites for a release
+## Pre-requisites for a Release
 
 The following need to be completed before a release is made.
 
 
-### Logging changes
+### Logging Changes
 
 Stroom and its related repositories all have a `CHANGELOG.md` file for recording changes made between releases.
 Before making a release you should ensure that all changes have been recorded in the _CHANGELOG_.
@@ -55,14 +55,14 @@ The following examples show you how to use the _log_change_ script.
 {{</ command-line >}}
 
 
-### Commit and push all changes
+### Commit and Push All Changes
 
 Before releasing all local changes that you want in the release should be committed and pushed.
 Commits that you want in a release should be merged down to a release branch, e.g. `7.0` or `master`.
 Once pushed and merged ensure that the branch passes the {{< external-link "CI build" "https://github.com/gchq/stroom/actions" >}}.
 
 
-### Decide on the next version number
+### Decide on the Next Version Number
 
 Stroom versioning follows {{< external-link "Semantic Versioning" "https://semver.org" >}}.
 
@@ -75,7 +75,7 @@ Given a version number _MAJOR_._MINOR_._PATCH_:
 Based on the changes since the last release establish if it is a major, minor or patch release to determine the next version number.
 
 
-## Performing a named release of Stroom
+## Performing a Named Release of Stroom
 
 Once all the above pre-requisites have been met you can trigger the release by running this command:
 
@@ -99,7 +99,7 @@ The tagged git commit will trigger a CI build that includes additional release e
 * Publishing any libraries to Sonatype and Maven Central.
 
 
-## Performing a named release of the docker stacks
+## Performing a Named Release of the Docker Stacks
 
 Once the _Stroom_ release build has finished and the artefacts are available on {{< external-link "GitHub Releases" "https://github.com/gchq/stroom/releases" >}} and {{< external-link "DockerHub" "https://hub.docker.com/r/gchq/stroom/tags" >}} you can create an associated release of the Stroom docker stacks.
 
@@ -152,15 +152,16 @@ If the local build is successful it will then create an annotated git tag which 
 The release CI build will create an archive for each stack variant and add them as a release artefacts.
 
 
-## SNAPSHOT releases
+## SNAPSHOT Releases
 
 SNAPSHOT releases should not be released to Sonatype or Maven Central.
 If a development version of a library needs to be shared between projects then you can either use the Gradle task `publishToMavenLocal` to publish a `SNAPSHOT` version to your local Maven repository and change your dependency version to `SNAPSHOT`, or perform a named release along the lines of `vx.y.z-alpha.n`.
 
 
-## Release Versioning conventions
+## Release Versioning Conventions
 
-Semantic versioning is used, and this should be adhered to, see {{< external-link "SemVer" "https://semver.org/" >}}. The following are examples of valid version names
+Semantic versioning is used, and this should be adhered to, see {{< external-link "SemVer" "https://semver.org/" >}}.
+The following are examples of valid version names
 
 * `SNAPSHOT` - Used only for local development, never to be published publicly.
 * `v3.3.0` - Initial release of v3.3, with an associated `3.3` branch.

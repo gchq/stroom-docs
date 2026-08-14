@@ -228,6 +228,7 @@ This XSLT will generate the following output data which is identical to the prev
   ...
 <Events>
 ```
+
 Once the initial XSLT is correct, it's a fairly simple matter to populate the correct nodes using standard XSLT functions and a knowledge of XPaths.
 
 
@@ -373,7 +374,8 @@ But if there's ever a possibility of e.g. logon failures, logoffs or anything el
 
 ## Filtering Wanted/Unwanted Event Types
 
-It's common that not all received events are required to be translated. Depending upon the data being received and the auditing requirements that have been set against the source system, there are several ways to filter the events.
+It's common that not all received events are required to be translated.
+Depending upon the data being received and the auditing requirements that have been set against the source system, there are several ways to filter the events.
 
 
 ### Remove Unwanted Events
@@ -489,7 +491,6 @@ Looking through these error streams will allow the developer to see which unexpe
 
 ## Common Mistakes
 
-
 ### Performance Issues
 
 The way that the code is written can affect its overall performance.
@@ -554,7 +555,7 @@ Whilst this code looks more complex, it's far more efficient to carry out a shor
 Where possible, the most commonly appearing choices in the source data should be dealt with first to avoid running through multiple `<xsl:when>` statements.
 
 
-### Stepping Works Fine But Errors Whilst Processing
+### Stepping Works Fine but Errors Whilst Processing
 
 When data is being stepped, it's only ever fed to the XSLT as a single event, whilst a pipeline is able to process multiple events within a single input stream.
 This apparently minor difference sometimes results in obscure errors if the translation has incorrect XPaths specified.

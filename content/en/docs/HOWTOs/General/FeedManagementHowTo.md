@@ -12,7 +12,9 @@ description: >
 This HOWTO demonstrates how to manage
 [Feeds]({{< relref "../../user-guide/feeds.md" >}})
 
+
 ## Assumptions
+
 - All Sections
   - an account with the `Administrator` [Application Permission]({{< relref "docs/user-guide/security/app-permissions.md" >}}) is currently logged in.
 
@@ -25,7 +27,8 @@ Once you have logged in, move the cursor to the **System** folder within the `Ex
 
 {{< screenshot "HOWTOs/UI-CreateFeed-00.png" >}}Stroom UI Create Feed - System selected{{< /screenshot >}}
 
-Once selected, _right click_ to bring up the `New Item` selection sub-menu. By selecting the **System** folder we are
+Once selected, _right click_ to bring up the `New Item` selection sub-menu.
+By selecting the **System** folder we are
 requesting any _new_ item created to be placed within it.
 
 Select {{< stroom-menu "New" "Feed" >}}
@@ -38,19 +41,23 @@ You will note that the **System** folder has already been selected as the _paren
 
 {{< screenshot "HOWTOs/UI-CreateFeed-03.png" >}}Stroom UI Create Feed - New feed configuration window enter name{{< /screenshot >}}
 
-On pressing {{< stroom-btn "Ok" >}} we are presented with the `Feed` tab for our new feed. The tab is labelled with the feed name `TEST-FEED-V1_0`.
+On pressing {{< stroom-btn "Ok" >}} we are presented with the `Feed` tab for our new feed.
+The tab is labelled with the feed name `TEST-FEED-V1_0`.
 
 {{< screenshot "HOWTOs/UI-CreateFeed-04.png" >}}Stroom UI Create Feed - New feed tab{{< /screenshot >}}
 
 We will leave the definitions of the Feed attributes for the present, but we _will_ enter a **Description:** for our feed
-as we should _ALWAYS_ do this fundamental tenet of data management - document the data. We will use
-the description of '_Feed for installation validation only. No data value_'.
+as we should _ALWAYS_ do this fundamental tenet of data management - document the data.
+We will use
+the description of '_Feed for installation validation only.
+No data value_'.
 
 {{< screenshot "HOWTOs/UI-CreateFeed-05.png" >}}Stroom UI Create Feed - New feed tab with Description{{< /screenshot >}}
 
 One should note that the {{< stroom-tab "Feed.svg" "TEST-FEED-V1_0" "active" "unsaved" >}} tab has been marked as having unsaved changes.
 This is indicated by the asterisk character `*` between the _Feed_ icon {{< stroom-icon "document/Feed.svg">}} and the name of the feed `TEST-FEED-V1_0`.
-We can save the changes to our feed by pressing the _Save_ icon {{< stroom-icon "save.svg" >}} in the top left of the `TEST-FEED-V1_0` tab. At this point one should notice two things, the first is that the asterisk
+We can save the changes to our feed by pressing the _Save_ icon {{< stroom-icon "save.svg" >}} in the top left of the `TEST-FEED-V1_0` tab.
+At this point one should notice two things, the first is that the asterisk
 has disappeared from the `Feed` tab and the _Save_ icon {{< stroom-icon "save.svg" "Save" "disabled" >}} is _ghosted_.
 
 {{< screenshot "HOWTOs/UI-CreateFeed-06.png" >}}Stroom UI Create Feed - New feed tab with description saved{{< /screenshot >}}
@@ -79,7 +86,7 @@ On pressing {{< stroom-btn "Ok" >}} we are presented with the {{< stroom-tab "Fo
 You will also note that the `Explorer` tab has displayed the **Event Sources** folder in its display.
 
 
-### Create Folder for specific Event Source
+### Create Folder for Specific Event Source
 
 In order to manage all artefacts of a given Event Source (aka `Feed`), one would create an appropriately named sub-folder within the **Event Sources** folder structure.
 

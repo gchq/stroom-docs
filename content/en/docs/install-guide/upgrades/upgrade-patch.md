@@ -24,21 +24,21 @@ This means you can jump from say 7.0.0 => 7.2.0 or from 7.0.0 to 7.0.5.
 This document covers minor and patch upgrades only.
 
 
-## Docker stack deployments
+## Docker Stack Deployments
 
 {{% todo %}}
 Complete this
 {{% /todo %}}
 
 
-## Non-docker deployments
+## Non-docker Deployments
 
 {{% todo %}}
 Complete this
 {{% /todo %}}
 
 
-## Major version upgrades
+## Major Version Upgrades
 
 The following notes are specific for these major version upgrades
 

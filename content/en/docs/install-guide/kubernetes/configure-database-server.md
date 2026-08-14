@@ -22,7 +22,7 @@ A Database server can be created and managed by the Operator.
 This is the recommended option, as the Operator will take care of the creation and storage of database credentials, which are shared securely with the Pod via the use of a `Secret` cluster resource.
 
 
-### Create a `DatabaseServer` resource manifest
+### Create a `DatabaseServer` Resource Manifest
 
 Use the example at {{< external-link "database-server.yaml" "https://github.com/p-kimberley/stroom-k8s-operator/blob/master/samples/database-server.yaml" >}}.
 
@@ -46,6 +46,7 @@ spec:
 ...
 ```
 
+
 ### Provision a `PersistentVolume` for the `DatabaseServer`
 
 General instructions on creating a Kubernetes Persistent Volume (PV) are explained {{< external-link "here" "https://kubernetes.io/docs/concepts/storage/persistent-volumes/" >}}.
@@ -55,7 +56,7 @@ The Operator will create `StatefulSet` when the `DatabaseServer` is deployed, wh
 Fast, low-latency storage should be used for the Stroom database
 
 
-### Deploy the `DatabaseServer` to the cluster
+### Deploy the `DatabaseServer` to the Cluster
 
 {{< command-line "user" "localhost" >}}
 kubectl apply -f database-server.yaml
@@ -65,7 +66,7 @@ Observe the Pod `stroom-<database server name>-db` start up.
 Once it's reached `Ready` state, the server has started, and the databases you specified have been created.
 
 
-### Backup the created credentials
+### Backup the Created Credentials
 
 The Operator generates a `Secret` containing the passwords of the users `root` and `stroomuser` when it initially creates the `DatabaseServer` resource.
 These credentials should be backed up to a secure location, in the event the `Secret` is inadvertently deleted.
@@ -79,14 +80,14 @@ You may alternatively provide the connection details of an existing MySQL (or co
 This may be desirable if you have for instance, a replication-enabled MySQL InnoDB cluster.
 
 
-### Provision the server and Stroom databases
+### Provision the Server and Stroom Databases
 
 {{% todo %}}
 Complete this section.
 {{% /todo %}}
 
 
-### Store credentials in a `Secret`
+### Store Credentials in a `Secret`
 
 Create a `Secret` in the same namespace as the `StroomCluster`, containing the key `stroomuser`, with the value set to the password of that user.
 
@@ -95,7 +96,8 @@ If at any time the MySQL password is updated, the value of the `Secret` must als
 Otherwise, Stroom will stop functioning.
 {{% /warning %}}
 
-## Upgrading or removing a `DatabaseServer`
+
+## Upgrading or Removing a `DatabaseServer`
 
 A `DatabaseServer` cannot shut down while its dependent `StroomCluster` is running.
 This is a necessary safeguard to prevent database connectivity from being lost.
@@ -103,6 +105,6 @@ This is a necessary safeguard to prevent database connectivity from being lost.
 Upgrading or removing a `DatabaseServer` requires the `StroomCluster` be [removed]({{< relref "stop-stroom-cluster" >}}) first.
 
 
-## Next steps
+## Next Steps
 
 [Configure](configure-stroom-cluster.md) a Stroom cluster

@@ -14,7 +14,8 @@ Any `<group>` value or `<data>` name and value can use references to matched con
 <data name="somename" value="$" />
 ```
 
-The above example would output `somename` as the `<data>` name attribute. This can often be useful where there are no headings specified in the input data but we want to associate certain names with certain values.
+The above example would output `somename` as the `<data>` name attribute.
+This can often be useful where there are no headings specified in the input data but we want to associate certain names with certain values.
 
 Given the following data:
 

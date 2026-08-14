@@ -31,11 +31,15 @@ description: >
 
 Hugo supports front matter in YAML, JSON and TOML, however for consistency all front matter in stroom-docs should be in YAML format.
 
-## Title and link title
+
+## Title and Link Title
 
 This is the section/page title and will become the `h1` heading (in HTML/Markdown terms) on the section/page.
 The `linkTitle` is the text that is displayed in the left hand navigation sidebar.
 It should be the same as `title` unless the title is quite long, in which case a shorter version should be used so it fits in the sidebar.
+
+Both should use title case, in the same way as [headings]({{< relref "markdown-style#heading-capitalisation" >}}).
+
 
 ## Weight
 
@@ -72,7 +76,8 @@ When setting a tag on a document consult the list of existing tags to ensure con
 Add the `TODO` tag to a page when the page is incomplete.
 This makes it easy to find areas of the documentation that are in need of attention.
 
-### Cascading tags
+
+### Cascading Tags
 
 If you want to apply a tag to all descendant pages of a section you can add this to the front matter of the section:
 

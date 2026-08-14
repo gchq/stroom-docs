@@ -87,7 +87,7 @@ The save icon becomes ghosted and our feed configuration has been saved.
 {{< screenshot "HOWTOs/v6/UI-CreateReferenceFeed-05.png" >}}New Feed Settings window configuration{{< /screenshot >}}
 
 
-### Load sample Reference data
+### Load Sample Reference Data
 
 At this point we want to load our sample reference data, in order to develop our reference feed.
 We can do this two ways - posting the file to our Stroom web server, or directly upload the data using the user interface.
@@ -215,7 +215,8 @@ We need to author the feed's translation.
 ### Create Text Converter
 
 To turn our tab delimited data in Stroom reference data, we first need to convert the text into simple XML.
-We do this using a _Text Converter_. _Test Converters_ use a _Stroom Data Splitter_ to convert text into simple XML.
+We do this using a _Text Converter_.
+_Test Converters_ use a _Stroom Data Splitter_ to convert text into simple XML.
 
 Within the Explorer pane, and having selected the `Event Sources` system group, right click to bring up the object context menu.
 Navigate to the {{< stroom-icon "pipeline/text.svg" "Text converter">}} item and left click to select.
@@ -698,6 +699,7 @@ version="2.0">
 </xsl:template>
 </xsl:stylesheet>
 ```
+
 and our second ReferenceData element would now look like
 
 {{< screenshot "HOWTOs/v6/UI-CreateReferenceFeed-57.png" >}}xslt Translation - complete translation 2nd record{{< /screenshot >}}
@@ -915,6 +917,7 @@ The complete ReferenceData for this stream is
   </reference>
 </referenceData>
 ```
+
 If we go back to the reference feed itself (and click on the {{< stroom-icon "refresh.svg" >}} button on the far right of the top and middle panes), we now see both the _Reference_ and _Raw Reference_ streams in the _Streams Table_ pane.
 
 {{< screenshot "HOWTOs/v6/UI-CreateReferenceFeed-68.png" >}}reference feed - Data tab{{< /screenshot >}}

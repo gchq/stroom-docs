@@ -71,6 +71,7 @@ The directory then becomes the responsibility of the queue directory it was move
 The following is a list of the directories used by Stroom-Proxy in its data directory (as configured by `proxyConfig.path.data`).
 
 <!-- Use `tree -F --charset=ascii` to generate this -->
+
 ```treeview
 |-- 01_receiving_simple/
 |-- 01_receiving_zip/

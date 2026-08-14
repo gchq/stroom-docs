@@ -8,5 +8,5 @@ description: >
 
 {{% see-also %}}
 * {{< glossary "XSLT">}}
-* [dictionary()]({{< relref "docs/user-guide/pipelines/xslt/xslt-functions#dictionary" >}})
+* [dictionary()]({{< relref "docs/user-guide/pipelines/xslt/xslt-functions/reference-data#dictionary" >}})
 {{% /see-also %}}

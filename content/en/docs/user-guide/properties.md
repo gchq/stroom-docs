@@ -47,7 +47,7 @@ These properties can only be altered via the YAML configuration file on each nod
 Such properties are typically used to configure values required for Stroom to be able to boot, so it does not make sense for them to be configurable from the User Interface.
 
 
-### YAML Configuration file
+### YAML Configuration File
 
 Stroom is built on top of a framework called Dropwizard.
 Dropwizard uses a YAML configuration file on each node to configure the application.

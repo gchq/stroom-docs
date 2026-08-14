@@ -12,6 +12,7 @@ description: >
 Stroom log sender is a docker image used for sending application logs to stroom.
 It is essentially just a combination of the {{< external-link "send_to_stroom.sh" "https://github.com/gchq/stroom-clients/tree/master/bash" >}} script and a set of crontab entries to call the script at intervals.
 
+
 ## Deploying without Docker
 
 When deploying without docker stroom and stroom-proxy nodes will need to be configured to send their logs to stroom.
@@ -51,13 +52,14 @@ If your implementation of cron supports environment variables then you can defin
 The above crontab entries assume that stroom and stroom-proxy are running on the same host.
 If they are not then the entries can be split across the hosts accordingly.
 
+
 ### Service host(s)
 
 When deploying stroom/stroom-proxy without stroom you may still be deploying the service stack (nginx and stroom-log-sender) to a host.
 In this case see [As part of a docker stack](#as-part-of-a-docker-stack) below for details of how to configure stroom-log-sender to send the nginx logs.
 
 
-## As part of a docker stack
+## As Part of a Docker Stack
 
 ### Crontab
 
@@ -68,6 +70,7 @@ Any variables in it will be substituted with the values from the corresponding e
 These common values can be set in the `config/<stack name>.env` file.
 
 As the variables are substituted on container start you will need to restart the container following any configuration change.
+
 
 ### Certificates
 

@@ -65,6 +65,7 @@ appConfig:
       refreshAfterWrite: null
 ```
 
+
 ### Changed Property Values
 
 #### `stroom.ui.helpSubPathJobs`
@@ -94,7 +95,8 @@ While the old paths still work, they will be removed in a future version of Stro
 * `/stroom/sessionList` => `/sessionList` 
 
 {{% note %}}
-These servlet paths are those presented by the stroom application itself. Stroom may be fronted by nginx in which case that may already be doing path mapping to abstract the end client from Stroom's servlet paths.
+These servlet paths are those presented by the stroom application itself.
+Stroom may be fronted by nginx in which case that may already be doing path mapping to abstract the end client from Stroom's servlet paths.
 {{% /note %}}
 
 
@@ -135,7 +137,6 @@ and script = 'stroom.app.db.migration.V07_04_00_005__Orphaned_Doc_Perms';
 {{% /warning %}}
 
 
-
 ### Migration Scripts
 
 <!--
@@ -150,6 +151,7 @@ For information purposes only, the following are the database migrations that wi
 
 Note, the `legacy` module will run first (if present) then the other module will run in no particular order.
 
+
 #### Module `stroom-app`
 
 ##### Script `V07_05_00_005__Orphaned_Doc_Perms.java`
@@ -158,6 +160,7 @@ Note, the `legacy` module will run first (if present) then the other module will
 
 It is not possible to display the content here.
 The file can be viewed on : {{< external-link "GitHub" "https://github.com/gchq/stroom/tree/7.5/stroom-app/src/main/java/stroom/app/db/migration/V07_05_00_005__Orphaned_Doc_Perms.java" >}}
+
 
 #### Module `stroom-docstore`
 

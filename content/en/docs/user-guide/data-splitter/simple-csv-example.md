@@ -16,7 +16,9 @@ The following CSV data will be split up into separate fields using Data Splitter
 01/01/2010,00:02:00,192.168.1.100,SOMEHOST.SOMEWHERE.COM,user1,logoff,
 ```
 
-The first thing we need to do is match each record. Each record in a CSV file is delimited by a new line character. The following configuration will split the data into records using ‘\n’ as a delimiter:
+The first thing we need to do is match each record.
+Each record in a CSV file is delimited by a new line character.
+The following configuration will split the data into records using ‘\n’ as a delimiter:
 
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>

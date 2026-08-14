@@ -35,7 +35,6 @@ Its authentication is performed in the same way as `/datafeed` and is configured
 {{% /note %}}
 
 
-
 ### `/ui`
 
 This returns HTML and is intended to be used in a browser.

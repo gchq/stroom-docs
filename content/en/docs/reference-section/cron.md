@@ -76,7 +76,8 @@ Year         | NO        | empty, 1970-2099 | , - * /
   Note that if you specify `#5` and there is not 5 of the given day-of-week in the month, then no firing will occur that month.
 
   {{% note %}}
-  The legal characters and the names of months and days of the week are not case sensitive. MON is the same as mon.
+  The legal characters and the names of months and days of the week are not case sensitive.
+  MON is the same as mon.
   {{% /note %}}
 
 

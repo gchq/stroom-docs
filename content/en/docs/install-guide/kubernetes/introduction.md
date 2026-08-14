@@ -21,7 +21,7 @@ A purpose-built Kubernetes Operator ({{< external-link "stroom-k8s-operator" "ht
 The concept of Kubernetes operators is discussed {{< external-link "here" "https://kubernetes.io/docs/concepts/extend-kubernetes/operator/" >}}.
 
 
-## Key features
+## Key Features
 
 The Stroom K8s Operator provides the following key features:
 
@@ -42,6 +42,6 @@ The Stroom K8s Operator provides the following key features:
 1. Rolling Stroom version upgrades
 
 
-## Next steps
+## Next Steps
 
 Install the [Stroom K8s Operator]({{< relref "install-operator" >}})

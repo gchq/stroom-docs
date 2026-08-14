@@ -10,23 +10,30 @@ description: >
   This HOWTO describes the installation of the Stroom databases.
 ---
 
-Following this HOWTO will produce a simple, minimally secured database deployment. In a production environment consideration needs to be made for redundancy, better security, data-store location, increased memory usage, and the like.
+Following this HOWTO will produce a simple, minimally secured database deployment.
+In a production environment consideration needs to be made for redundancy, better security, data-store location, increased memory usage, and the like.
 
-Stroom has two databases. The first, `stroom`, is used for management of Stroom itself and the second, `statistics` is used for the Stroom Statistics capability. There are many ways to deploy these two databases. One could
+Stroom has two databases.
+The first, `stroom`, is used for management of Stroom itself and the second, `statistics` is used for the Stroom Statistics capability.
+There are many ways to deploy these two databases.
+One could
 
 - have a single database instance and serve both databases from it
 - have two database instances on the same server and serve one database per instance
 - have two separate nodes, each with its own database instance
 - the list goes on.
 
-In this HOWTO, we describe the deployment of two database instances on the one node, each serving a single database. We provide example deployments using either the {{< external-link "MariaDB" "https://mariadb.com" >}} or {{< external-link "MySQL Community" "https://www.mysql.com/products/community/" >}} versions of MySQL.
+In this HOWTO, we describe the deployment of two database instances on the one node, each serving a single database.
+We provide example deployments using either the {{< external-link "MariaDB" "https://mariadb.com" >}} or {{< external-link "MySQL Community" "https://www.mysql.com/products/community/" >}} versions of MySQL.
+
 
 ## Assumptions
 
 - we are installing the MariaDB or MySQL Community RDBMS software.
 - the primary database node is `stroomdb0.strmdev00.org`.
 - installation is on a fully patched minimal Centos 7.3 instance.
-- we are installing BOTH databases (`stroom` and `statistics`) on the same node - `stroomdb0.stroomdev00.org` but with two distinct database engines. The first database will communicate on port `3307` and the second on `3308`.
+- we are installing BOTH databases (`stroom` and `statistics`) on the same node - `stroomdb0.stroomdev00.org` but with two distinct database engines.
+  The first database will communicate on port `3307` and the second on `3308`.
 - we are deploying with SELinux in enforcing mode.
 - any scripts or commands that should run are in code blocks and are designed to allow the user to cut then paste the commands onto their systems.
 - in this document, when a textual screen capture is documented, data entry is identified by the data surrounded by '<__' '__>' . This excludes enter/return presses.
@@ -41,6 +48,7 @@ As MariaDB is directly supported by Centos 7, we simply install the database ser
 {{< command-line >}}
 sudo yum -y install policycoreutils-python mariadb-server
 {{< /command-line >}}
+
 
 ### MySQL Community Server Installation
 
@@ -60,7 +68,8 @@ sudo yum -y localinstall mysql57-community-release-el7.rpm
 **NOTE:** Stroom currently does not support the latest production MySQL version - 5.7. You will need to install MySQL Version 5.6.
 
 Now since we must use MySQL Version 5.6 you will need to edit the MySQL repo file `/etc/yum.repos.d/mysql-community.repo` to
-disable the `mysql57-community` channel and enable the `mysql56-community` channel. We start by, backing up the repo file with
+disable the `mysql57-community` channel and enable the `mysql56-community` channel.
+We start by, backing up the repo file with
 {{< command-line >}}
 sudo cp /etc/yum.repos.d/mysql-community.repo /etc/yum.repos.d/mysql-community.repo.ORIG
 {{< /command-line >}}
@@ -112,17 +121,24 @@ Next we install server software and SELinux policy files, as per
 sudo yum -y install policycoreutils-python mysql-community-server
 {{< /command-line >}}
 
+
 ## Preparing the Database Deployment
 
 ### MariaDB Variant
 
-#### Create and instantiate both database instances
+#### Create and Instantiate Both Database Instances
 
-To set up two MariaDB database instances on the one node, we will use `mysql_multi` and systemd service templates. The `mysql_multi` utility is a capability that manages multiple MariaDB databases on the same node and systemd service templates manage multiple services from one configuration file. A systemd service template is unique in that it has an `@` character before the `.service` suffix.
+To set up two MariaDB database instances on the one node, we will use `mysql_multi` and systemd service templates.
+The `mysql_multi` utility is a capability that manages multiple MariaDB databases on the same node and systemd service templates manage multiple services from one configuration file.
+A systemd service template is unique in that it has an `@` character before the `.service` suffix.
 
-To use this multiple-instance capability, we need to create two data directories for each database instance and also replace the main MariaDB configuration file, `/etc/my.cnf`, with one that includes configuration of key options for each instance. We will name our instances, `mysqld0` and `mysqld1`. We will also create specific log files for each instance.
+To use this multiple-instance capability, we need to create two data directories for each database instance and also replace the main MariaDB configuration file, `/etc/my.cnf`, with one that includes configuration of key options for each instance.
+We will name our instances, `mysqld0` and `mysqld1`.
+We will also create specific log files for each instance.
 
-We will use the directories, `/var/lib/mysql-mysqld0` and `/var/lib/mysql-mysqld1` for the data directories and `/var/log/mariadb/mysql-mysqld0.log` and `/var/log/mariadb/mysql-mysqld1.log` for the log files. Note you should modify /etc/logrotate.d/mariadb to manage these log files. Note also, we need to set the appropriate SELinux file contexts on the created directories and any files.
+We will use the directories, `/var/lib/mysql-mysqld0` and `/var/lib/mysql-mysqld1` for the data directories and `/var/log/mariadb/mysql-mysqld0.log` and `/var/log/mariadb/mysql-mysqld1.log` for the log files.
+Note you should modify /etc/logrotate.d/mariadb to manage these log files.
+Note also, we need to set the appropriate SELinux file contexts on the created directories and any files.
 
 We create the data directories and log files and set their respective SELinux contexts via
 
@@ -153,7 +169,9 @@ sudo mysql_install_db --user=mysql --datadir=/var/lib/mysql-mysqld0
 sudo mysql_install_db --user=mysql --datadir=/var/lib/mysql-mysqld1
 {{< /command-line >}}
 
-We now replace the MySQL configuration file to set the options for each instance. Note that we will serve `mysqld0` and `mysqld1` via TCP ports `3307` and `3308` respectively. First backup the existing configuration file with
+We now replace the MySQL configuration file to set the options for each instance.
+Note that we will serve `mysqld0` and `mysqld1` via TCP ports `3307` and `3308` respectively.
+First backup the existing configuration file with
 
 {{< command-line >}}
 sudo cp /etc/my.cnf /etc/my.cnf.ORIG
@@ -192,12 +210,14 @@ printf '# Disabling symbolic-links is recommended to prevent assorted security r
 printf 'symbolic-links=0\n' >> ${F}
 exit # To exit the root shell
 ```
+
 We also need to associate the ports with the `mysqld_port_t` SELinux context as per
 {{< command-line >}}
 sudo semanage port -a -t mysqld_port_t -p tcp 3307
 sudo semanage port -a -t mysqld_port_t -p tcp 3308
 {{< /command-line >}}
 We next create the systemd service template as per
+
 ```bash
 sudo bash
 F=/etc/systemd/system/mysqld@.service
@@ -231,15 +251,22 @@ sudo systemctl enable mysqld@1
 sudo systemctl start mysqld@0
 sudo systemctl start mysqld@1
 {{< /command-line >}}
-At this point, we should have both instances running. One should check each instance's log file for any errors.
+At this point, we should have both instances running.
+One should check each instance's log file for any errors.
 
-#### Secure each database instance
-We secure each database engine by running the `mysql_secure_installation` script. One should accept all defaults, which means the
-only entry (aside from pressing returns) is the administrator (root) database password. Make a note of the password you use. In this case
+
+#### Secure Each Database Instance
+
+We secure each database engine by running the `mysql_secure_installation` script.
+One should accept all defaults, which means the
+only entry (aside from pressing returns) is the administrator (root) database password.
+Make a note of the password you use.
+In this case
 we will use `Stroom5User@`.
 The utility `mysql_secure_installation` expects to find the Linux socket file to access the database it's securing at `/var/lib/mysql/mysql.sock`.
 Since we have used other locations, we temporarily link the real socket file to `/var/lib/mysql/mysql.sock` for each invocation of the
-utility. Thus we execute
+utility.
+Thus we execute
 
 {{< command-line >}}
 sudo ln /var/lib/mysql-mysqld0/mysql.sock /var/lib/mysql/mysql.sock
@@ -317,17 +344,25 @@ sudo ln /var/lib/mysql-mysqld1/mysql.sock /var/lib/mysql/mysql.sock
 sudo mysql_secure_installation
 sudo rm /var/lib/mysql/mysql.sock
 {{< /command-line >}}
-and process as before (for when running mysql_secure_installation). At this both database instances should be secure.
+and process as before (for when running mysql_secure_installation).
+At this both database instances should be secure.
+
 
 ### MySQL Community Variant
 
-#### Create and instantiate both database instances
+#### Create and Instantiate Both Database Instances
 
-To set up two MySQL database instances on the one node, we will use `mysql_multi` and systemd service templates. The `mysql_multi` utility is a capability that manages multiple MySQL databases on the same node and systemd service templates manage multiple services from one configuration file. A systemd service template is unique in that it has an `@` character before the `.service` suffix.
+To set up two MySQL database instances on the one node, we will use `mysql_multi` and systemd service templates.
+The `mysql_multi` utility is a capability that manages multiple MySQL databases on the same node and systemd service templates manage multiple services from one configuration file.
+A systemd service template is unique in that it has an `@` character before the `.service` suffix.
 
-To use this multiple-instance capability, we need to create two data directories for each database instance and also replace the main MySQL configuration file, `/etc/my.cnf`, with one that includes configuration of key options for each instance. We will name our instances, `mysqld0` and `mysqld1`. We will also create specific log files for each instance.
+To use this multiple-instance capability, we need to create two data directories for each database instance and also replace the main MySQL configuration file, `/etc/my.cnf`, with one that includes configuration of key options for each instance.
+We will name our instances, `mysqld0` and `mysqld1`.
+We will also create specific log files for each instance.
 
-We will use the directories, `/var/lib/mysql-mysqld0` and `/var/lib/mysql-mysqld1` for the data directories and `/var/log/mysql-mysqld0.log` and `/var/log/mysql-mysqld1.log` for the log directories. Note you should modify /etc/logrotate.d/mysql to manage these log files. Note also, we need to set the appropriate SELinux file context on the created directories and files.
+We will use the directories, `/var/lib/mysql-mysqld0` and `/var/lib/mysql-mysqld1` for the data directories and `/var/log/mysql-mysqld0.log` and `/var/log/mysql-mysqld1.log` for the log directories.
+Note you should modify /etc/logrotate.d/mysql to manage these log files.
+Note also, we need to set the appropriate SELinux file context on the created directories and files.
 
 {{< command-line >}}
 sudo mkdir /var/lib/mysql-mysqld0
@@ -362,7 +397,9 @@ Disable the default database via
 sudo systemctl disable mysqld
 {{< /command-line >}}
 
-We now modify the MySQL configuration file to set the options for each instance. Note that we will serve `mysqld0` and `mysqld1` via TCP ports `3307` and `3308` respectively. First backup the existing configuration file with
+We now modify the MySQL configuration file to set the options for each instance.
+Note that we will serve `mysqld0` and `mysqld1` via TCP ports `3307` and `3308` respectively.
+First backup the existing configuration file with
 
 {{< command-line >}}
 sudo cp /etc/my.cnf /etc/my.cnf.ORIG
@@ -446,16 +483,22 @@ sudo systemctl start mysqld@0
 sudo systemctl start mysqld@1
 {{< /command-line >}}
 
-At this point, we should have both instances running. One should check each instance's log file for any errors.
+At this point, we should have both instances running.
+One should check each instance's log file for any errors.
 
-#### Secure each database instance
 
-We secure each database engine by running the `mysql_secure_installation` script. One should accept all defaults, which means the
-only entry (aside from pressing returns) is the administrator (root) database password. Make a note of the password you use. In this case
+#### Secure Each Database Instance
+
+We secure each database engine by running the `mysql_secure_installation` script.
+One should accept all defaults, which means the
+only entry (aside from pressing returns) is the administrator (root) database password.
+Make a note of the password you use.
+In this case
 we will use `Stroom5User@`.
 The utility `mysql_secure_installation` expects to find the Linux socket file to access the database it's securing at `/var/lib/mysql/mysql.sock`.
 Since we have used other locations, we temporarily link the real socket file to `/var/lib/mysql/mysql.sock` for each invocation of the
-utility. Thus we execute
+utility.
+Thus we execute
 
 {{< command-line >}}
 sudo ln /var/lib/mysql-mysqld0/mysql.sock /var/lib/mysql/mysql.sock
@@ -539,16 +582,20 @@ sudo ln /var/lib/mysql-mysqld1/mysql.sock /var/lib/mysql/mysql.sock
 sudo mysql_secure_installation
 sudo rm /var/lib/mysql/mysql.sock
 {{< /command-line >}}
-and process as before (for when running mysql_secure_installation). At this point, both database instances should be secure.
+and process as before (for when running mysql_secure_installation).
+At this point, both database instances should be secure.
 
-## Create the Databases and Enable access by the Stroom processing users
+
+## Create the Databases and Enable Access by the Stroom Processing Users
 
 We now create the `stroom` database within the first instance, `mysqld0` and the `statistics` database within the second
-instance `mysqld1`. It does not matter which database variant used as all commands are the same for both.
+instance `mysqld1`.
+It does not matter which database variant used as all commands are the same for both.
 
 As well as creating the databases, we also need to establish the Stroom processing users
 that the Stroom processing nodes will use to access each database.
-For the `stroom` database, we will use the database user `stroomuser` with a password of `Stroompassword1@` and for the `statistics` database, we will use the database user `stroomstats` with a password of `Stroompassword2@`. One identifies a processing user as `<user>@<host>` on a `grant` SQL command.
+For the `stroom` database, we will use the database user `stroomuser` with a password of `Stroompassword1@` and for the `statistics` database, we will use the database user `stroomstats` with a password of `Stroompassword2@`.
+One identifies a processing user as `<user>@<host>` on a `grant` SQL command.
 
 In the `stroom` database instance, we will grant access for
 
@@ -567,7 +614,8 @@ Thus for the `stroom` database we execute
 {{< command-line >}}
 mysql --user=root --port=3307 --socket=/var/lib/mysql-mysqld0/mysql.sock --password
 {{< /command-line >}}
-and on entering the administrator's password, we arrive at the `MariaDB [(none)]>` or `mysql>` prompt. At this point we create the database with
+and on entering the administrator's password, we arrive at the `MariaDB [(none)]>` or `mysql>` prompt.
+At this point we create the database with
 
 {{< sql-shell >}}
 create database stroom;
@@ -615,7 +663,9 @@ quit;
 
 to exit.
 
-Clearly if we need to add more processing nodes, additional `grant` commands would be used. Further, if we were installing the databases in a single node Stroom environment, we would just have the first two pairs of `grants`.
+Clearly if we need to add more processing nodes, additional `grant` commands would be used.
+Further, if we were installing the databases in a single node Stroom environment, we would just have the first two pairs of `grants`.
+
 
 ## Configure Firewall
 
@@ -630,8 +680,10 @@ sudo firewall-cmd --zone=public --list-all
 {{< /command-line >}}
 
 {{% note %}}
-That this allows ANY node to connect to your databases. You should give consideration to restricting this to only allowing processing node access.
+That this allows ANY node to connect to your databases.
+You should give consideration to restricting this to only allowing processing node access.
 {{% /note %}}
+
 
 ### Debugging of Mariadb for Stroom
 
@@ -669,8 +721,11 @@ quit;
 
 The above will generate two log files,
 
-- `/var/log/mariadb/mysqld-mysqld0_server_audit.log` or `/var/log/mariadb/mysqld-mysqld1_server_audit.log` which records all commands the respective databases run. We have configured the log file will rotate at 10MB in size.
-- `/var/lib/mysql-mysqld0/sql_errors.log` or `/var/lib/mysql-mysqld1/sql_errors.log` which records all erroneous SQL commands. This log file will rotate at 10MB in size. Note we cannot set this filename via the UI, but it will be appear in the data directory.
+- `/var/log/mariadb/mysqld-mysqld0_server_audit.log` or `/var/log/mariadb/mysqld-mysqld1_server_audit.log` which records all commands the respective databases run.
+  We have configured the log file will rotate at 10MB in size.
+- `/var/lib/mysql-mysqld0/sql_errors.log` or `/var/lib/mysql-mysqld1/sql_errors.log` which records all erroneous SQL commands.
+  This log file will rotate at 10MB in size.
+  Note we cannot set this filename via the UI, but it will be appear in the data directory.
 
 All files will, by default, generate up to 9 rotated files.
 

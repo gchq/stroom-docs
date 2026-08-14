@@ -12,7 +12,8 @@ description: >
 
 Various
 [Tasks]({{< relref "/docs/reference-section/jobs" >}})
-run in the background within Stroom. This HOWTO demonstrates how to manage these tasks
+run in the background within Stroom.
+This HOWTO demonstrates how to manage these tasks
 
 
 ## Assumptions
@@ -27,6 +28,7 @@ run in the background within Stroom. This HOWTO demonstrates how to manage these
 
 
 ## Proxy Aggregation
+
 
 ## Turn Off Proxy Aggregation
 
@@ -50,7 +52,7 @@ At this point, uncheck the `Enabled` check-boxes for both nodes and also the mai
 At this point, no new proxy aggregation will occur and any inbound files received by the Store Proxies will accumulate in the proxy storage area.
 
 
-### Turn On Proxy Aggregation
+### Turn on Proxy Aggregation
 
 We first select the `Monitoring` item of the __Main Menu__ to bring up the `Monitoring` sub-menu.
 
@@ -64,7 +66,8 @@ Now, re-enable each node's `Proxy Aggregation` check-box and the main `Proxy Agg
 
 After checking the check-boxes, perform a refresh of the display by pressing the _Refresh_ icon {{< stroom-icon "refresh.svg" >}}.
 
-on the top right of the lower (node display) pane. You should note the `Last Executed` date/time change to see
+on the top right of the lower (node display) pane.
+You should note the `Last Executed` date/time change to see
 
 {{< screenshot "HOWTOs/UI-TestProxyAggregation-00.png" >}}Stroom UI Test Feed - Re-enable Proxy Aggregation{{< /screenshot >}}
 
@@ -88,14 +91,16 @@ nodes in the Stroom deployment.
 
 Clearly, if it was a single node Stroom deployment, you would only see the one node at the bottom of the `Jobs` configuration tab.
 
-We enable nodes by selecting their check-boxes as well as the main `Stream Processors` check-box. Do so.
+We enable nodes by selecting their check-boxes as well as the main `Stream Processors` check-box.
+Do so.
 
 {{< screenshot "HOWTOs/UI-NodeProcessors-02.png" >}}Stroom UI Jobs Management - Stream Processor enabled{{< /screenshot >}}
 
-That is it. Stroom will automatically take note of these changes and internally start each node's Stroom Processor task.
+That is it.
+Stroom will automatically take note of these changes and internally start each node's Stroom Processor task.
 
 
-### Enable Stream Processors On New Node
+### Enable Stream Processors on New Node
 
 When one expands a Multi Node Stroom cluster deployment, after the installation of the Stroom Proxy and Application software and
 services on the new node, we need to enable its `Stream Processors` task.

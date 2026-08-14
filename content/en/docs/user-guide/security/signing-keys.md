@@ -29,7 +29,7 @@ Reach the screen by selecting
 from the main menu.
 
 
-## What The Screen Shows
+## What the Screen Shows
 
 Each key is listed with its status and the date it was issued, and nothing else.
 Nothing that identifies a key or describes its contents is shown, because the stored key includes the private half that produces signatures.
@@ -54,7 +54,7 @@ Rotation is invisible to users.
 The key being replaced continues to be trusted for long enough that every token already signed with it expires naturally, so nobody is signed out and nothing needs to be restarted.
 
 
-## Revoking A Key
+## Revoking a Key
 
 Revoking withdraws a key immediately.
 Any token signed with it stops being accepted, and a replacement signing key is created at the same moment so that Stroom can carry on issuing tokens.
@@ -76,7 +76,7 @@ A key revoked by mistake costs everybody a fresh sign in, but no data is lost.
 {{% /warning %}}
 
 
-### What To Expect After Revoking The Active Key
+### What to Expect after Revoking the Active Key
 
 Everybody using Stroom is signed out and must authenticate again.
 For people at a browser this is quick, and they will be signed back in as soon as they do so.

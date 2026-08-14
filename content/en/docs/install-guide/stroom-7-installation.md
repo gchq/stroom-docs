@@ -12,6 +12,7 @@ description: >
 This section is not yet complete.
 {{% /todo %}}
 
+
 ## Typical Deployments
 
 Stroom can be deployed in a number of ways:
@@ -119,4 +120,14 @@ unzip stroom-app-v7.10.20.zip
 
 The configuration file – `stroom/config/config.yml` – is the principal file that controls the configuration of Stroom, although once Stroom is running, the configuration can be managed via [System Properties]({{< relref "docs/user-guide/properties" >}}).
 See [Stroom Configuration]({{< relref "docs/install-guide/configuration/stroom-and-proxy/configuring-stroom" >}}).
+
+
+## Create the First Administrator
+
+A newly installed Stroom has no administrator, so nobody will be able to log in and set it up until you create one.
+This is done from the command line and must be done for every new installation, whether it uses Stroom's own identity provider or an external one.
+
+{{% see-also %}}
+See [Creating the First Administrator]({{< relref "docs/install-guide/setup/create-first-admin" >}}).
+{{% /see-also %}}
 

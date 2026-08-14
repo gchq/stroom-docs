@@ -10,8 +10,26 @@ description: >
 
 Stroom has a number of tools that are available from the command line in addition to starting the main application.
 
+This page is the reference for those commands.
+If you are setting up a new installation and need to give it an administrator, follow [Creating the First Administrator]({{< relref "docs/install-guide/setup/create-first-admin" >}}) instead, which walks through the whole task.
 
-## Running commands
+
+## Which Command Do I Need?
+
+| Goal | Command |
+| ---- | ------- |
+| Start the application | [`server`](#server) |
+| Migrate the database without starting the application | [`migrate`](#migrate) |
+| Create an account so somebody can log in (internal {{< glossary "idp" >}} only) | [`create_account`](#create_account) |
+| Change the password of an existing account (internal {{< glossary "idp" >}} only) | [`reset_password`](#reset_password) |
+| Create Stroom users and groups, or grant/revoke permissions | [`manage_users`](#manage_users) |
+| Create an {{< glossary "API Key" >}} for a user | [`create_api_key`](#create_api_key) |
+
+Note that creating an administrator on a fresh installation using the internal {{< glossary "idp" >}} needs **both** `create_account` and `manage_users`.
+See [Accounts and Stroom Users](#accounts-and-stroom-users) below for why.
+
+
+## Running Commands
 
 The basic structure of the shell command for starting one of stroom's commands depends on whether you are running the zip distribution of stroom or a docker stack.
 
@@ -25,7 +43,7 @@ Also, each command will run in its own JVM so are not really intended to be run 
 {{% /note %}}
 
 
-### Running commands with the zip distribution
+### Running Commands with the Zip Distribution
 
 The commands are run by passing the command and any of its arguments to the `java` command.
 The jar file is in the `bin` directory of the zip distribution.
@@ -48,7 +66,7 @@ reset_password \
 {{</ command-line >}}
 
 
-### Running commands in a stroom Docker stack
+### Running Commands in a Stroom Docker Stack
 
 Commands are run in a Docker stack using the `command.sh` script found in the root of the stack directory structure.
 
@@ -70,7 +88,25 @@ reset_password \
 {{</ command-line >}}
 
 
-## Command reference
+## Accounts and Stroom Users
+
+Several of the commands below only make sense once you understand that Stroom keeps *authentication* and *authorisation* separate.
+
+* An {{< glossary "Account" >}} is an identity used to log in.
+  Accounts only exist within Stroom when the internal {{< glossary "idp" >}} is used.
+  With an external IDP the accounts live in that provider and the mechanism for creating them is specific to it.
+* A Stroom {{< glossary "user" >}} is the entity that holds group memberships and permissions.
+  One is always needed, whichever IDP is in use.
+
+So when using the internal IDP, a person needs **both** an account (to authenticate) and a Stroom user with the same identifier (to be authorised).
+When using an external IDP they need only a Stroom user.
+
+{{% see-also %}}
+See [Accounts vs Users]({{< relref "docs/install-guide/setup/open-id/accounts-users" >}}) for a fuller description.
+{{% /see-also %}}
+
+
+## Command Reference
 
 {{% note %}}
 All the examples below assume you are running stroom as part of the zip distribution.
@@ -127,20 +163,20 @@ Where the named arguments are:
 * `--noPasswordChange` - If set do not require a password change on first login.
 * `--neverExpires` - If set, the account will never expire.
 
-This command will create an account in the internal identity provider within Stroom.
-Stroom is able to use an external OpenID identity providers such as Google or AWS Cognito but by default will use its own.
-When configured to use its own (the default) it will auto create an admin account when starting up a fresh instance.
-There are times when you may wish to create this account manually which this command allows.
+This command creates an {{< glossary "Account" >}} in the internal identity provider within Stroom.
+Stroom is able to use an external OpenID identity provider such as Google or AWS Cognito but by default will use its own.
 
+{{% warning %}}
+A fresh installation using the internal IDP does **not** create an `admin` account unless `stroom.security.identity.autoCreateAdminAccountOnBoot` is set to `true` before first boot, and that property defaults to `false`.
+Most new installations therefore need this command.
 
-#### Authentication Accounts and Stroom Users
+See [Creating the First Administrator]({{< relref "docs/install-guide/setup/create-first-admin" >}}).
+{{% /warning %}}
 
-The user account used for authentication is distinct to the Stroom _user_ entity that is used for authorisation within Stroom.
-If an external IDP is used then the mechanism for creating the authentication account will be specific to that IDP.
-If using the default internal Stroom IDP then an account must be created in order to authenticate, either from within the UI if you are already authenticated as a privileged user or using this command.
-In either case a Stroom user will need to exist with the same username as the authentication account.
+This command creates an account for authentication only.
+A Stroom user with the same username is also needed before that person has any permissions, see [Accounts and Stroom Users](#accounts-and-stroom-users) and [`manage_users`](#manage_users).
 
-The command will fail if the user already exists.
+The command will fail if the account already exists.
 This command should NOT be run if you are using an external identity provider.
 
 This command will also run any necessary database migrations to ensure it is working with the correct version of the database schema.
@@ -151,8 +187,8 @@ This command will also run any necessary database migrations to ensure it is wor
 {{< command-line "stroomuser" "localhost" >}}
 java -jar /absolute/path/to/stroom-app-all.jar \
 reset_password \
---u USER \
---p PASSWORD \
+--user USER \
+--password PASSWORD \
 path/to/config.yml
 {{</ command-line >}}
 
@@ -183,7 +219,7 @@ path/to/config.yml
 Where the named arguments are:
 
 * `--createUser` `USER_IDENTIFIER` - Creates a Stroom user with the supplied user identifier.
-  See [below]({{< relref "#user-identifier" >}}) for the format of this argument.
+  See [below](#user_identifier) for the format of this argument.
 * `--createGroup` `GROUP_IDENTIFIER` - Creates a Stroom user group with the supplied group name.
 * `--addToGroup` `USER_OR_GROUP_IDENTIFIER` `TARGET_GROUP` - Adds a user/group to an existing group.
 * `--removeFromGroup` `USER_OR_GROUP_IDENTIFIER` `TARGET_GROUP` - Removes a user/group from an existing group.
@@ -191,20 +227,18 @@ Where the named arguments are:
 * `--revokePermission` `USER_OR_GROUP_IDENTIFIER` `PERMISSION_IDENTIFIER` - Revokes the named application permission from the user/group.
 * `--listPermissions` - Lists all the valid permission names.
 
-This command allows you to manage the user permissions within Stroom regardless of whether the internal identity provider or an external party is used.
-A typical use case for this is when using an external identity provider.
-In this instance Stroom has no way of auto creating an admin user when first started so the association between the account on the 3rd party IDP and the stroom user needs to be made manually.
-
-This command is not intended for automation of user management tasks on a running Stroom instance that you can authenticate with.
-It is only intended for cases where you cannot authenticate with Stroom, i.e. when setting up a new Stroom with a 3rd party IDP or when scripting the creation of a test environment.
-If you want to automate actions that can be performed in the UI then you can make use of the REST API that is described at `/stroom/noauth/swagger-ui`.
+This command creates Stroom users and groups and manages their permissions.
+It works regardless of whether the internal identity provider or an external one is used, and is the only way to give a brand new installation an administrator.
 
 {{% warning %}}
-See the [section](#authentication-accounts-and-stroom-users) above about the distinction between authentication accounts and stroom users.
-
 This command does **not** create an account for authentication.
-See [`create_account`]({{< relref "#create_account" >}}) for that.
+When using the internal IDP you need [`create_account`]({{< relref "#create_account" >}}) as well, and the username must match exactly.
+See [Accounts and Stroom Users](#accounts-and-stroom-users).
 {{% /warning %}}
+
+This command is not intended for automation of user management tasks on a running Stroom instance that you can authenticate with.
+It is only intended for cases where you cannot authenticate with Stroom, i.e. when setting up a new Stroom or when scripting the creation of a test environment.
+If you want to automate actions that can be performed in the UI then you can make use of the REST API that is described at `/stroom/noauth/swagger-ui`.
 
 The following is an example command to create a new stroom user `jbloggs`, create a group called `Administrators` with the _Administrator_ application permission and then add `jbloggs` to the `Administrators` group.
 This is a typical command to bootstrap a stroom instance with one admin user so they can login to stroom with full privileges to manage other users from within the application.
@@ -239,15 +273,16 @@ It can be run multiple times with the same value with no error.
 The `manage_users` command is particularly useful for provisioning a new Stroom installation.
 It allows you to automate the setup of some or all Stroom users and their group membership and application permissions.
 
-{{% note %}}
-See [below]({{< relref "#typical-use-cases" >}}) for examples of using this command.
-{{% /note %}}
-
-External OIDC identity providers have a unique identifier for each user (this may be called `sub` or `oid`) and this often takes the form of a {{< glossary "UUID" >}}.
-Stroom stores this unique identifier (known as a _Subject ID_ in stroom) against a user so it is able to associate the stroom user with the identity provider user.
+{{% see-also %}}
+See [Creating the First Administrator]({{< relref "docs/install-guide/setup/create-first-admin" >}}) for worked examples of bootstrapping a new installation with both the internal and an external IDP.
+{{% /see-also %}}
 
 
 #### `USER_IDENTIFIER`
+
+External OIDC identity providers have a unique identifier for each user (this may be called `sub` or `oid`) and this often takes the form of a {{< glossary "UUID" >}}.
+Stroom stores this unique identifier (known as a _Subject ID_ in stroom) against a user so it is able to associate the stroom user with the identity provider user.
+Which claim is used for this is governed by `stroom.security.authentication.openId.uniqueIdentityClaim`, which defaults to `sub`.
 
 The `USER_IDENTIFIER` is of the form `subject_id[,display_name[,full_name]]` e.g.:
 
@@ -257,6 +292,7 @@ The `USER_IDENTIFIER` is of the form `subject_id[,display_name[,full_name]]` e.g
 
 The optional parts are so that stroom can display more human friendly identifiers for a user.
 They are only initial values and will always be over written with the values from the identity provider when the user logs in.
+The properties `stroom.security.authentication.openId.userDisplayNameClaim` (defaults to `preferred_username`) and `stroom.security.authentication.openId.fullNameClaimTemplate` (defaults to `${name}`) control which claims are used for the _Display Name_ and _Full Name_ fields once that happens.
 
 The following are examples of various uses of the `--createUser` argument group.
 
@@ -286,14 +322,14 @@ path/to/config.yml
 {{</ command-line >}}
 
 
-##### `GROUP_IDENTIFIER`
+#### `GROUP_IDENTIFIER`
 
 The `GROUP_IDENTIFIER` is the name of the group in stroom, e.g. `Administrators`, `Analysts`, etc.
 Groups are created by an admin to help manage permissions for large number of similar users.
 Groups relate only to stroom and have nothing to do with the identity provider.
 
 
-##### `USER_OR_GROUP_IDENTIFIER`
+#### `USER_OR_GROUP_IDENTIFIER`
 
 The `USER_OR_GROUP_IDENTIFIER` can either be the identifier for a user or a group, e.g. when granting a permission to a user/group.
 
@@ -327,94 +363,26 @@ path/to/config.yml
 
 The arguments to the command are as follows:
 
-* `u` `user` - The identity of the user to create the API Key for.
+* `-u` `--user` - The identity of the user to create the API Key for.
   This is the unique subject ID of the user.
-* `n` `keyName` - The name of the key.
+* `-n` `--keyName` - The name of the key.
   This must be unique for the user.
-* `e` `expiresDays` - Optional number of days after which the key should expire.
+* `-e` `--expiresDays` - Optional number of days after which the key should expire.
   This must not be greater than the configured property `stroom.security.authentication.maxApiKeyExpiryAge`.
   If not set, it will be defaulted to the maximum configured age.
-* `c` `comments` - Optional string to set the comments for the API Key.
-* `o` `outFile` - Optional path to use to output the API Key string to.
+* `-c` `--comments` - Optional string to set the comments for the API Key.
+* `-o` `--outFile` - Optional path to use to output the API Key string to.
   If not set, the API Key string will be output to _stdout_.
+* `-a` `--hashAlgorithm` - Optional name of the hash algorithm used to hash the API Key.
+  If not set, Stroom's default is used.
 
 
 ## Typical Use Cases
 
-### Creating an Internal IDP Administrator
+The most common use of these commands is bootstrapping a brand new installation with an administrator, using `create_account` and/or `manage_users`.
 
-If you have installed a new Stroom instance (and are not using the `stroom_core_test` Docker stack) that is using the default Internal IDP, then you will need to create an administrator account in order to login and set up your stroom instance.
+That task is documented as a step by step procedure, covering both the internal and an external identity provider, and both the zip and Docker forms of each command:
 
-Assuming that you are running the `stroom_core` docker stack that is configured to use the internal IDP and want to setup `johndoe` and `janedoe` as administrators, you need to do the following:
-
-First create the Stroom user accounts:
-
-{{< command-line "stroomuser" "localhost" >}}
-./command.sh \
-create_account \
---user johndoe \
---firstName John \
---lastName Doe \
---password "correct horse battery staple"
-
-./command.sh \
-create_account \
---user janedoe \
---firstName Jane \
---lastName Doe \
---password "staple battery horse correct"
-{{</ command-line >}}
-
-Now create the corresponding Stroom users and grant the admin permissions.
-
-{{< command-line "stroomuser" "localhost" >}}
-./command.sh \
-manage_users \
---createUser johndoe \
---createUser janedoe \
---createGroup Administrators \
---addToGroup johndoe Administrators \
---addToGroup janedoe Administrators \
---grantPermission Administrators "Administrator" \
-path/to/config.yml
-{{</ command-line >}}
-
-{{% note %}}
-The username in arguments `--user` (in `create_account`), `--createUser` (in `manage_users`) and `--addToGroup` (in `manage_users`) must match exactly.
-{{% /note %}}
-
-See [above]({{< relref "#running-commands-with-the-zip-distribution" >}}) for how to run the commands on a Stroom ZIP distribution (i.e. without the docker stack).
-
-
-### Creating an External IDP Administrator
-
-If you have installed a new Stroom instance that has been configured to use an external IDP, you will need to create as a minimum a Stroom user (but not an account) that corresponds to the user identity (on the external IDP) of the person that will be an administrator.
-
-If you don't do this, the person will be able to login, but will have no permissions to set up any other users or create any content.
-
-First you need to establish the `claim` in the authentication tokens that will be used to uniquely identify the user.
-This is configured using the property `stroom.authentication.openiId.uniqueIdentityClaim`, which has a default value of `sub`.
-This may need to be changed if the IDP in use has a different claim to uniquely identify the user identity.
-
-Once you have established the claim that will be used to identify the user and have configured Stroom accordingly, you need to find the value of this claim in the IDP for the user that will be the administrator.
-This value may look like an email address, or a {{< glossary "UUID" >}} or something else.
-
-Assuming the unique identifier for _John Doe_ is `b6e06181-9e10-44eb-a33a-537509ec3abd`, do the following to set them up as an administrator.
-
-{{< command-line "stroomuser" "localhost" >}}
-java -jar /absolute/path/to/stroom-app-all.jar \
-manage_users \
---createUser "2b6e06181-9e10-44eb-a33a-537509ec3abd2,johndoe,John Doe" \
---createGroup Administrators \
---addToGroup "2b6e06181-9e10-44eb-a33a-537509ec3abd2" Administrators \
---grantPermission Administrators "Administrator" \
-path/to/config.yml
-{{</ command-line >}}
-
-
-Identity providers may also have a more friendly _Display Name_ and _Full Name_ for the user, though these may not be unique.
-The above command will set initial values for these fields, so that you have more human friendly values in the Stroom UI, but once the user has logged in, the values will be obtained from the IDP tokens.
-
-The properties `stroom.authentication.openiId.userDisplayNameClaim` (defaults to `preferred_username`) and `stroom.authentication.openiId.fullNameClaimTemplate` (defaults to `${name}`) allow you to control which IDP claims are used for the _Display Name_ and _Full Name_ fields in Stroom.
-
-
+{{% see-also %}}
+See [Creating the First Administrator]({{< relref "docs/install-guide/setup/create-first-admin" >}}).
+{{% /see-also %}}

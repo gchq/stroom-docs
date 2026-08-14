@@ -8,7 +8,7 @@ description: >
   New features in Stroom version 7.8.
 ---
 
-## New Stroom-Proxy implementation
+## New Stroom-Proxy Implementation
 
 Stroom-Proxy has been re-written to fundamentally change the way it works internally.
 This is to improve performance over previous Stroom-Proxy implementations and to make it more robust.

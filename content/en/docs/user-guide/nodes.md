@@ -13,8 +13,11 @@ description: >
 
 All nodes in a Stroom cluster must be configured correctly for them to communicate with each other.
 
-## Configuring nodes
-Open Monitoring/Nodes from the top menu. The nodes screen looks like this:
+
+## Configuring Nodes
+
+Open Monitoring/Nodes from the top menu.
+The nodes screen looks like this:
 
 {{% todo %}}
 Screenshot

@@ -34,13 +34,13 @@ To create an API key (token) for a user:
 To make an authenticated API call you need to provide a header of the form `Authorization:Bearer ${TOKEN}`, where `${TOKEN}` is your API Key as copied from Stroom.
 
 
-## Calling an API method with `curl`
+## Calling an API Method with `curl`
 
 This section describes how to call an API method using the command line tool `curl` as an example client.
 Other clients can be used, e.g. using python, but these examples should provide enough help to get started using another client.
 
 
-### HTTP Requests Without a Body
+### HTTP Requests without a Body
 
 Typically HTTP `GET` requests will have no body/payload
 Often `PUT` and `DELETE` requests will also have no body/payload.
@@ -79,10 +79,11 @@ curl \
 
 {{% /warning %}}
 
-You can either call the API via Nginx (or similar reverse proxy) at `https://stroom-fqdn/api/some/path` or if you are making the call from one of the stroom hosts you can go direct using `http://localhost:8080/api/some/path`. The former is preferred as it is more secure.
+You can either call the API via Nginx (or similar reverse proxy) at `https://stroom-fqdn/api/some/path` or if you are making the call from one of the stroom hosts you can go direct using `http://localhost:8080/api/some/path`.
+The former is preferred as it is more secure.
 
 
-### Requests With a Body
+### Requests with a Body
 
 A lot of the API methods in Stroom require complex bodies/payloads for the request.
 The following example is an HTTP `POST` to perform a reference data lookup on the local host.

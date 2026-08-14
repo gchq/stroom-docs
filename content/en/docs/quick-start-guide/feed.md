@@ -9,9 +9,9 @@ description: >
   How to get data into Stroom. 
 ---
 
-## Getting data into Stroom
+## Getting Data into Stroom
 
-### Create the feed
+### Create the Feed
 
 Stroom organises the data it ingests and stores by {{< glossary "Feed" >}}.
 A feed will typically be created for each client system and data format.
@@ -21,7 +21,8 @@ We will use `curl` to represent a client system [sending data]({{< relref "/docs
 
 {{% warning %}}
 The _stroom_core_test_ stack that you are running includes a copy of the content created by this quick start guide in the folder _Stroom 101_.
-If you want to skip the steps involving creating content then you can just use the pre-loaded _Stroom 101_ content. To delete the folder and all its content, right-click on it and then click delete.
+If you want to skip the steps involving creating content then you can just use the pre-loaded _Stroom 101_ content.
+To delete the folder and all its content, right-click on it and then click delete.
 
 We think you will learn more by deleting this pre-loaded content and following all the steps.
 {{% /warning %}}

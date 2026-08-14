@@ -25,6 +25,7 @@ Template pipelines are being used to simplify the establishment of this processi
 
 The sample BlueCoat Proxy log will be transformed into an intermediate simple XML key value pair structure, then into the {{< external-link "Stroom Event Logging XML Schema" "https://github.com/gchq/event-logging-schema" >}} format.
 
+
 ## Assumptions
 
 The following assumptions are used in this document.
@@ -929,7 +930,8 @@ The column entries in the Processors Table pane describe
  * Enabled - check box to indicate the processor is enabled
  * Pipeline - the name of the Processor pipeline ({{< stroom-icon "filter.svg">}})
  * Priority - the queue scheduling priority of task submission to available stream processors
- * Max Concurrent - The maximum number of tasks that can run concurrently. Zero means unlimited 
+ * Max Concurrent - The maximum number of tasks that can run concurrently.
+   Zero means unlimited
  * Status - the status of the processor
  * Last Poll Age - the last time the processor found new streams to process
  * Task Count - the number of processor tasks currently running

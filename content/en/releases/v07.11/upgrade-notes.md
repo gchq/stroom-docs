@@ -50,6 +50,7 @@ git diff origin/${old_ver}..origin/${new_ver} stroom-config/stroom-config-app/sr
 git diff origin/${old_ver}..origin/${new_ver} stroom-proxy/stroom-proxy-app/src/test/resources/stroom/dist/proxy-expected.yaml
 -->
 
+
 ### Common Configuration Changes
 
 These changes are common to both Stroom and Stroom Proxy.
@@ -89,7 +90,6 @@ proxyConfig:
   receive:
     receiptPolicyUuid:
 ```
-
 
 
 ### Stroom's `config.yml`
@@ -166,7 +166,7 @@ appCongfig:
 ```
 
 
-#### `db` Branch added to `gitRepo`
+#### `db` Branch Added to `gitRepo`
 
 A standard database configuration branch has been added to `GitRepo`.
 You should not need to set this unless you want the Git Repo table data to be stored on a different database.
@@ -259,7 +259,7 @@ proxyConfig:
 ```
 
 
-#### Remove various `feedStatus` properties
+#### Remove Various `feedStatus` Properties
 
 The following three properties have been removed from the `feedStatus` branch.
 
@@ -299,7 +299,7 @@ proxyConfig:
 ```
 
 
-#### New `forwardHttpDestinations` property
+#### New `forwardHttpDestinations` Property
 
 A new property has been added to enable/disable the liveness checking for HTTP destinations.
 Liveness checking will periodically check that the destination is live and if not, disable forwarding until the liveness check determines it to be live again.
@@ -313,7 +313,7 @@ proxyConfig:
 ```
 
 
-#### New `forwardFileDestinations` property
+#### New `forwardFileDestinations` Property
 
 A new property has been added to enable/disable the liveness checking for file destinations.
 Liveness checking will periodically check that the destination is live and if not, disable forwarding until the liveness check determines it to be live again.
@@ -328,7 +328,7 @@ proxyConfig:
 ```
 
 
-#### Changes to `forwardHttpDestinations[*].forwardUrl` property
+#### Changes to `forwardHttpDestinations[*].forwardUrl` Property
 
 This property no longer needs to be set unless you need to forward to a location that is different to that defined by `downstreamHost`.
 The forward URL will now be derived from the properties in `downstreamHost` and the static path for the datafeed endpoint.
@@ -458,7 +458,8 @@ this section
 For information purposes only, the following are the database migrations that will be run when upgrading to 7.11.0 from the previous minor version.
  
 Note, the `legacy` module will run first (if present) then the other module will run in no particular order. 
- 
+
+
 #### Module `stroom-annotation` 
  
 ##### Script `V07_11_00_001__annotation3.sql`

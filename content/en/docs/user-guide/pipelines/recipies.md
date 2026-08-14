@@ -13,6 +13,7 @@ The following are a basic set of pipeline recipes for doing typical tasks in Str
 It is not an exhaustive list, as the possibilities with Pipelines are vast.
 They are intended as a rough guide to get you started with building Pipelines.
 
+
 ## Data Ingest and Transformation
 
 ### CSV to Normalised XML
@@ -159,6 +160,7 @@ If the XML fragments are already in `event-logging` format then no _Normalise_ X
 **Configured Content**
 
 * {{< pipe-elm "XMLFragmentParser" "XMLFragParser">}} - Content similar to:
+
   ```xml
   <?xml version="1.1" encoding="utf-8"?>
   <!DOCTYPE Records [
@@ -172,13 +174,14 @@ If the XML fragments are already in `event-logging` format then no _Normalise_ X
   &fragment;
   </Events>
   ```
+
 * {{< pipe-elm "XSLTFilter" "Decorate">}} - An XSLT {{< stroom-icon "document/XSLT.svg">}} transforming `event-logging:3` => `event-logging:3`.
 * {{< pipe-elm "SchemaFilter" >}} - XMLSchema `event-logging:3`
 
 
 ## Handling Malformed Data
 
-### Cleaning Malformed XML data
+### Cleaning Malformed XML Data
 
 In some cases client systems may send XML containing characters that are not supported by the XML standard.
 These can be removed using the {{< pipe-elm "InvalidXMLCharFilterReader" >}}.

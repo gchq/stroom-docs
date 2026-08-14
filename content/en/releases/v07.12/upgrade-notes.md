@@ -55,6 +55,7 @@ git diff origin/${old_ver}..origin/${new_ver} stroom-proxy/stroom-proxy-app/src/
 
 These changes are common to both Stroom and Stroom Proxy.
 
+
 #### Changes to `receive` Branch
 
 The property `dataFeedIdentitiesDir` has been renamed from `dataFeedKeysDir`, and its default value has changed to `data_feed_identities`.

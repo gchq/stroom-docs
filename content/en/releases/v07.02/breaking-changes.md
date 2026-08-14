@@ -12,6 +12,7 @@ description: >
 Please read this section carefully in case any of the changes affect you.
 {{% /warning %}}
 
+
 ## Quoted Strings in Dashboard Table Expressions
 
 Quoted strings in dashboard table expressions can now be expressed with single and double quotes.
