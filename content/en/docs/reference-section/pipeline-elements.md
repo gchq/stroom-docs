@@ -184,6 +184,9 @@ The Resulting XML will conform to the http://www.w3.org/2013/XSL/json namespace.
 | allowUnquotedControlChars          | Feature that determines whether parser will allow JSON Strings to contain unquoted control characters (ASCII characters with value less than 32, including tab and line feed characters) or not. If feature is set false, an exception is thrown if such a character is encountered. | false         | Boolean    |
 | allowUnquotedFieldNames            | Feature that determines whether parser will allow use of unquoted field names (which is allowed by Javascript, but not by JSON specification).                                                                                                                                       | false         | Boolean    |
 | allowYamlComments                  | Feature that determines whether parser will allow use of YAML comments, ones starting with '#' and continuing until the end of the line. This commenting style is common with scripting languages as well.                                                                           | false         | Boolean    |
+| maxDepth                           | Maximum number of levels in the JSON document. An Error will be logged if this is exceeded.                                                                                                                                                                                          | 500           | Integer    |
+| maxStringLength                    | String values longer than this length will result in an Error being logged, regardless of the value of stringTruncateLength. Setting this to a very large value effectively disables this.                                                                                           | 100000000     | Integer    |
+| stringTruncateLength               | String values will be truncated to this length. This is to protect Stroom from running out of memory when there are very large string values in the JSON. When a value is truncated a Warning will be logged.Setting this to a very large value effectively disables this.           | 10000         | Integer    |
 
 
 ### XMLFragmentParser
@@ -434,14 +437,6 @@ This allows the XSLT to process data more efficiently than loading a potentially
 | storeLocations | Should this split filter store processing locations.                        | true          | Boolean    |
 
 
-### StateFilter
-
-{{< pipe-elm "StateFilter" >}}&nbsp;
-
-Takes XML input (conforming to the reference-data:2 schema) and loads the data into the State Store.
-Reference data values can be either simple strings or XML fragments.
-
-
 ### StatisticsFilter
 
 {{< pipe-elm "StatisticsFilter" >}}&nbsp;
@@ -454,22 +449,6 @@ An element to allow the source data (conforming to the `statistics` XML Schema) 
 | Name                 | Description                                              | Default Value | Value Type |
 |----------------------|----------------------------------------------------------|---------------|------------|
 | statisticsDataSource | The statistics data source to record statistics against. | -             | Document   |
-
-
-### StroomStatsFilter
-
-{{< pipe-elm "StroomStatsFilter" >}}&nbsp;
-
-An element to allow the source data (conforming to the `statistics` XML Schema) to be sent to an external stroom-stats service.
-
-
-**Element properties:**
-
-| Name                 | Description                                                                                                                                                 | Default Value | Value Type |
-|----------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------|---------------|------------|
-| flushOnSend          | At the end of the stream, wait for acknowledgement from the Kafka broker for all the messages sent. This ensures errors are caught in the pipeline process. | true          | Boolean    |
-| kafkaConfig          | The Kafka config to use.                                                                                                                                    | -             | Document   |
-| statisticsDataSource | The stroom-stats data source to record statistics against.                                                                                                  | -             | Document   |
 
 
 ### XPathExtractionOutputFilter
@@ -550,19 +529,20 @@ Writer to convert XML events data into XML output in the specified character enc
 
 **Element properties:**
 
-| Name                         | Description                                                                                          | Default Value | Value Type |
-|------------------------------|------------------------------------------------------------------------------------------------------|---------------|------------|
-| encoding                     | The output character encoding to use.                                                                | UTF-8         | String     |
-| indentOutput                 | Should output XML be indented and include new lines (pretty printed)?                                | false         | Boolean    |
-| suppressXSLTNotFoundWarnings | If XSLT cannot be found to match the name pattern suppress warnings.                                 | false         | Boolean    |
-| xslt                         | A previously saved XSLT, used to modify the output via xsl:output attributes.                        | -             | Document   |
-| xsltNamePattern              | A name pattern for dynamic loading of an XSLT, that will modify the output via xsl:output attributes. | -             | String     |
+| Name                         | Description                                                                                                                | Default Value | Value Type |
+|------------------------------|----------------------------------------------------------------------------------------------------------------------------|---------------|------------|
+| encoding                     | The output character encoding to use.                                                                                      | UTF-8         | String     |
+| indentOutput                 | Should output XML be indented and include new lines (pretty printed)?                                                      | false         | Boolean    |
+| preventEscapeSwitching       | Some inputs might contain control character 0 which turns off output escaping. Set this to true to prevent that behaviour. | false         | Boolean    |
+| suppressXSLTNotFoundWarnings | If XSLT cannot be found to match the name pattern suppress warnings.                                                       | false         | Boolean    |
+| xslt                         | A previously saved XSLT, used to modify the output via xsl:output attributes.                                              | -             | Document   |
+| xsltNamePattern              | A name pattern for dynamic loading of an XSLT, that will modfy the output via xsl:output attributes.                       | -             | String     |
 
 
 
 ## Destination
 
-Destination elements consume a stream of bytes from a _Writer_ and persist them to a destination.
+Destination elements consume a stream of bytes from a _Writer_ and persist then to a destination.
 This could be a file on a file system or to Stroom's stream store.
 
 ### AnnotationWriter
@@ -571,6 +551,19 @@ This could be a file on a file system or to Stroom's stream store.
 
 Consume XML documents in the `annotation:1` namespace and writes them as Stroom Annotations.
 Allows for the annotating of events that meet some criteria.
+
+
+### DictionaryAppender
+
+{{< pipe-elm "DictionaryAppender" >}}&nbsp;
+
+A destination used to write the output stream to a dictionary overwriting all previous data.
+
+**Element properties:**
+
+| Name       | Description                                           | Default Value | Value Type |
+|------------|-------------------------------------------------------|---------------|------------|
+| dictionary | The dictionary that output text should be written to. | -             | Document   |
 
 
 ### FileAppender
@@ -720,7 +713,11 @@ A destination used to write an output stream to an S3 bucket.
 | Name                   | Description                                                                                                                                                       | Default Value                                                    | Value Type |
 |------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------|------------------------------------------------------------------|------------|
 | bucketNamePattern      | Set the bucket name pattern if you want to override the one provided by the S3 config.                                                                            | -                                                                | String     |
+| cacheControl           | A general header field used to specify caching policies.                                                                                                          | -                                                                | String     |
 | compressionMethod      | Compression method to apply, if compression is enabled. Supported values: bzip2, deflate, gz, lz4-block, lz4-framed, lzma, pack200, snappy-framed, xz, zip, zstd. | gz                                                               | String     |
+| contentDisposition     | Object presentational information.                                                                                                                                | -                                                                | String     |
+| contentEncoding        | The content encodings (like compression) that have been applied to the object's data.                                                                             | -                                                                | String     |
+| contentType            | The object type.                                                                                                                                                  | -                                                                | String     |
 | keyNamePattern         | Set the key name pattern if you want to override the one provided by the S3 config.                                                                               | ${type}/${year}/${month}/${day}/${idPath}/${feed}/${idPadded}.gz | String     |
 | rollSize               | When the current output object exceeds this size it will be closed and a new one created.                                                                         | -                                                                | String     |
 | s3Config               | The S3 bucket config to use.                                                                                                                                      | -                                                                | Document   |
@@ -762,20 +759,4 @@ The configuration allows for starting a new stream once a size threshold is reac
 | splitRecords           | Choose if you want to split individual records into separate output streams.                                          | false         | Boolean    |
 | streamType             | The stream type that the output stream should be written as. This must be specified.                                  | -             | String     |
 | volumeGroup            | Optionally override the default volume group of the destination feed.                                                 | -             | String     |
-
-
-### StroomStatsAppender
-
-{{< pipe-elm "StroomStatsAppender" >}}&nbsp;
-
-This element is deprecated and should not be used.
-
-**Element properties:**
-
-| Name                 | Description                                                                                                                                                 | Default Value | Value Type |
-|----------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------|---------------|------------|
-| flushOnSend          | At the end of the stream, wait for acknowledgement from the Kafka broker for all the messages sent. This ensures errors are caught in the pipeline process. | true          | Boolean    |
-| kafkaConfig          | The Kafka config to use.                                                                                                                                    | -             | Document   |
-| maxRecordCount       | Choose the maximum number of records or events that a message will contain                                                                                  | 1             | String     |
-| statisticsDataSource | The stroom-stats data source to record statistics against.                                                                                                  | -             | Document   |
 
