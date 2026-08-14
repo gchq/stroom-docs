@@ -146,7 +146,7 @@ The data can either be opened in a popup dialog (`dialog`) or in another stroom 
 It can also be display in `preview` form (with formatting and syntax highlighting) or unaltered `source` form.
 
 {{% note %}}
-To make full use of data links for viewing raw data, you need to use the `stroom:source()` [XSLT Function]({{< relref "docs/user-guide/pipelines/xslt/xslt-functions" >}}) to decorate an event with the details of the source location it derived from.
+To make full use of data links for viewing raw data, you need to use the `stroom:source()` [XSLT Function]({{< relref "docs/user-guide/pipelines/xslt/xslt-functions/stream-and-source#source" >}}) to decorate an event with the details of the source location it derived from.
 {{% /note %}}
 
 The format for a data link is as follows:

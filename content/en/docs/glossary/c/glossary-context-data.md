@@ -13,6 +13,6 @@ The contextual information (such as hostname, FQDN, physical location, etc.) can
 {{% see-also %}}
 * [Context Data]({{< relref "context-data" >}})
 * [Stream Concepts]({{< relref "docs/user-guide/concepts/streams" >}})
-* [`stroom:lookup()`]({{< relref "docs/user-guide/pipelines/xslt/xslt-functions#lookup" >}})
+* [`stroom:lookup()`]({{< relref "docs/user-guide/pipelines/xslt/xslt-functions/reference-data#lookup" >}})
 {{% /see-also %}}
 
