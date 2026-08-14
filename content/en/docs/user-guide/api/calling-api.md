@@ -34,7 +34,7 @@ To create an API key (token) for a user:
 To make an authenticated API call you need to provide a header of the form `Authorization:Bearer ${TOKEN}`, where `${TOKEN}` is your API Key as copied from Stroom.
 
 
-## Calling an API Method With `curl`
+## Calling an API Method with `curl`
 
 This section describes how to call an API method using the command line tool `curl` as an example client.
 Other clients can be used, e.g. using python, but these examples should provide enough help to get started using another client.

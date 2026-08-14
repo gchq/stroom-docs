@@ -327,7 +327,7 @@ Becomes
 Remember, deploy this file on all nodes.
 
 
-### Configuration Of `ssl.conf`
+### Configuration of `ssl.conf`
 
 We modify `/etc/httpd/conf.d/ssl.conf` on all nodes, backing up first,
 

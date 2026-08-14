@@ -46,7 +46,7 @@ spec:
 ...
 ```
 
-### Provision a `PersistentVolume` for The `DatabaseServer`
+### Provision a `PersistentVolume` for the `DatabaseServer`
 
 General instructions on creating a Kubernetes Persistent Volume (PV) are explained {{< external-link "here" "https://kubernetes.io/docs/concepts/storage/persistent-volumes/" >}}.
 
@@ -86,7 +86,7 @@ Complete this section.
 {{% /todo %}}
 
 
-### Store Credentials in A `Secret`
+### Store Credentials in a `Secret`
 
 Create a `Secret` in the same namespace as the `StroomCluster`, containing the key `stroomuser`, with the value set to the password of that user.
 
@@ -95,7 +95,7 @@ If at any time the MySQL password is updated, the value of the `Secret` must als
 Otherwise, Stroom will stop functioning.
 {{% /warning %}}
 
-## Upgrading or Removing A `DatabaseServer`
+## Upgrading or Removing a `DatabaseServer`
 
 A `DatabaseServer` cannot shut down while its dependent `StroomCluster` is running.
 This is a necessary safeguard to prevent database connectivity from being lost.

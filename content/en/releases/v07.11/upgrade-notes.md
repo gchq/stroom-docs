@@ -166,7 +166,7 @@ appCongfig:
 ```
 
 
-#### `db` Branch Added To `gitRepo`
+#### `db` Branch Added to `gitRepo`
 
 A standard database configuration branch has been added to `GitRepo`.
 You should not need to set this unless you want the Git Repo table data to be stored on a different database.

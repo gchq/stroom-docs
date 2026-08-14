@@ -167,7 +167,11 @@ def core(word):
 def title_case_offenders(text):
     text = re.sub(r"<--.*$", "", text)          # trailing annotations in examples
     text = re.sub(r"\{#[^}]*\}", "", text)      # explicit anchor attributes
-    text = re.sub(r"`[^`]*`", "", text)         # code / identifiers
+    # Code spans stand in for a word rather than being dropped, so that a word
+    # before a trailing code span is not mistaken for the last word of the
+    # title, e.g. the 'a' in 'Store Credentials in a `Secret`'. The placeholder
+    # is upper case so it is skipped as an acronym below.
+    text = re.sub(r"`[^`]*`", "CODESPAN", text)  # code / identifiers
     words = [w for w in text.split() if core(w)]
     offenders = []
     for index, word in enumerate(words):

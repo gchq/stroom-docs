@@ -104,7 +104,7 @@ The only permitted values are `post_logout_redirect_uri`, the default and what t
 
 ## Client Credentials
 
-### `clientId` And `clientSecret`
+### `clientId` and `clientSecret`
 
 The client, sometimes called an application, registered at the provider.
 

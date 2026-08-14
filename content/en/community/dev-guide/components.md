@@ -45,7 +45,7 @@ These typical relationships are shown in the diagram below.
 {{< image "dev-guide/external-dependencies.puml.svg">}}External Component Dependencies{{< /image >}}
 
 
-## Component API, e.g. Modules Ending In `-api`
+## Component API, e.g. Modules Ending in `-api`
 
 
 ### API Layer
@@ -55,7 +55,7 @@ The API provides the minimum surface area for communication between components a
 For component testing purposes mock implementations of these APIs can be used to limit testing to just a single component.
 
 
-## Component API and Service Implementation, e.g. Modules Ending In `-impl`
+## Component API and Service Implementation, e.g. Modules Ending in `-impl`
 
 
 ### Client Interaction - REST Services and GWT Action Handlers
@@ -81,7 +81,7 @@ The service layer provides implementations for any API that the component may ha
 The service layer provides the DAO (Data Access Object) API for the persistence layer to implement but maintains no knowledge of underlying persistence implementation, e.g. database queries.
 
 
-## Persistence Implementation, e.g. Modules Ending In `-impl-db`
+## Persistence Implementation, e.g. Modules Ending in `-impl-db`
 
 
 ### Persistence Layer - DAOs

@@ -131,7 +131,7 @@ You can now download the results of a Query using the {{< stroom-icon "download.
 {{< image "releases/07.05/QueryDownload.png" "500x" />}}
 
 
-#### Functions In `select`
+#### Functions in `select`
 
 Functions, e.g. `count()` can now be used within the `select` clause of a StroomQL query.
 

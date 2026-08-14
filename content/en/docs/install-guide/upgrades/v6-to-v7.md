@@ -148,7 +148,7 @@ mysql --table -u"authuser" -p"stroompassword1" auth \
 This will rename all but one of the tables in the `auth` database.
 
 
-### Copy the `auth` Database Content To `stroom`
+### Copy the `auth` Database Content to `stroom`
 
 Having run the table rename perform another backup of just the `auth` database.
 
