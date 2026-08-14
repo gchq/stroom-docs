@@ -11,15 +11,21 @@ description: >
 
 Stroom provides a number of powerful capabilities:
 
-* **Data ingest.** Receive and store large volumes of data such as native format logs.
+* **Data ingest.**
+  Receive and store large volumes of data such as native format logs.
   Ingested data is always available in its raw form.
-* **Data transformation pipelines.** Create sequences of XSL and text operations, in order to normalise or export data in any format.
+* **Data transformation pipelines.**
+  Create sequences of XSL and text operations, in order to normalise or export data in any format.
   It is possible to enrich data using lookups and reference data.
-* **Integrated transformation development.** Easily add new data formats and debug the transformations if they don't work as expected.
-* **Scalable Search.** Create multiple indexes with different retention periods.
+* **Integrated transformation development.**
+  Easily add new data formats and debug the transformations if they don't work as expected.
+* **Scalable Search.**
+  Create multiple indexes with different retention periods.
   These can be sharded across your cluster.
-* **Statistics.** Record counts or values of items over time, providing answers to questions such as "how many times has a specific machine provided data in the last hour/day/month?"
-* **Dashboards.** Run queries against your indexes or statistics and view the results within custom visualisations.
+* **Statistics.**
+  Record counts or values of items over time, providing answers to questions such as "how many times has a specific machine provided data in the last hour/day/month?"
+* **Dashboards.**
+  Run queries against your indexes or statistics and view the results within custom visualisations.
 
 
 ## Benefits

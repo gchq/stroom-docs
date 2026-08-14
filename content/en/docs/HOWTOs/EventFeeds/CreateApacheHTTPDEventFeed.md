@@ -481,7 +481,8 @@ we click on the Step Last {{< stroom-icon name="fast-forward.svg" title="Step la
 
 {{< screenshot "HOWTOs/v6/UI-ApacheHttpEventFeed-52.png" >}}pipeline Stepping tab - Text Converter Complete last event{{< /screenshot >}}
 
-You should take note of the stepping location that has been displayed in each stepping window. The stepping location is the numbers enclosed in square brackets e.g. [7556:1:16] found in the top right-hand side of the stepping window next to the stepping icons
+You should take note of the stepping location that has been displayed in each stepping window.
+The stepping location is the numbers enclosed in square brackets e.g. [7556:1:16] found in the top right-hand side of the stepping window next to the stepping icons
 
 {{< screenshot "HOWTOs/v6/UI-ApacheHttpEventFeed-53.png" >}}pipeline Stepping tab - Stepping Location{{< /screenshot >}}
 
@@ -490,10 +491,12 @@ The form of these stepping locations is [ streamId ':' subStreamId ':' recordNo]
 where
 
 * **streamId** - is the stream ID and won’t change when stepping through the selected stream.
-* **subStreamId** - is the sub stream ID. When Stroom processes event streams it aggregates multiple input files and this is the file number.
+* **subStreamId** - is the sub stream ID.
+  When Stroom processes event streams it aggregates multiple input files and this is the file number.
 * **recordNo** - is the record number within the sub stream.
 
-One can double click on either the **subStreamId** or **recordNo** numbers and enter a new number. This allows you to ‘step’ around a stream rather than just relying on first, previous, next and last movement.
+One can double click on either the **subStreamId** or **recordNo** numbers and enter a new number.
+This allows you to ‘step’ around a stream rather than just relying on first, previous, next and last movement.
 
 Note, you should now Save {{< stroom-icon "save.svg" >}} your edited Text Converter.
 
@@ -504,11 +507,17 @@ To start authoring the xslt Translation Filter, press the {{< pipe-elm "XSLTFilt
 
 {{< screenshot "HOWTOs/v6/UI-ApacheHttpEventFeed-54.png" >}}pipeline Stepping tab - Translation Initial{{< /screenshot >}}
 
-As for the _Text Converter_ stepping tab, this tab is divided into three sub-panes. The top one is the xslt translation editor and it will allow you to edit the xslt translation. The bottom left window displays the _input_ to the xslt translation (which is the output from the _Text Converter_). The bottom right window displays the _output_ from the xslt Translation filter for the given input.
+As for the _Text Converter_ stepping tab, this tab is divided into three sub-panes.
+The top one is the xslt translation editor and it will allow you to edit the xslt translation.
+The bottom left window displays the _input_ to the xslt translation (which is the output from the _Text Converter_).
+The bottom right window displays the _output_ from the xslt Translation filter for the given input.
 
-We now click on the pipeline Step Forward button {{< stroom-icon name="step-forward.svg" title="Step forward" colour="green" >}} to single step the Text Converter _records_ element data through our xslt Translation. We see no change as an empty translation will just perform a copy of the input data.
+We now click on the pipeline Step Forward button {{< stroom-icon name="step-forward.svg" title="Step forward" colour="green" >}} to single step the Text Converter _records_ element data through our xslt Translation.
+We see no change as an empty translation will just perform a copy of the input data.
 
-To correct this, we will author our xslt translation. Like the Data Splitter this is also authored incrementally. A minimum xslt translation might contain
+To correct this, we will author our xslt translation.
+Like the Data Splitter this is also authored incrementally.
+A minimum xslt translation might contain
 
 ```xml
 <?xml version="1.0" encoding="UTF-8" ?>
@@ -572,7 +581,9 @@ To correct this, we will author our xslt translation. Like the Data Splitter thi
 
 {{< screenshot "HOWTOs/v6/UI-ApacheHttpEventFeed-55.png" >}}Translation Minimal{{< /screenshot >}}
 
-Clearly this doesn’t generate useful events. Our first iterative change might be to generate the TimeCreated element value. The change would be
+Clearly this doesn’t generate useful events.
+Our first iterative change might be to generate the TimeCreated element value.
+The change would be
 
 ```xml
     <xsl:template match="node()" mode="eventTime">
@@ -649,4 +660,5 @@ Note, you should now Save {{< stroom-icon "save.svg" >}} your edited xslt Transl
 
 We have completed the translation and have completed developing our Apache-SSLBlackBox-V2.0-EVENTS event feed.
 
-At this point, this event feed is set up to accept Raw Event data, but it will not automatically process the raw data and hence it will not place events into the Event Store. To have Stroom automatically process Raw Event streams, you will need to enable Processors for this pipeline.
+At this point, this event feed is set up to accept Raw Event data, but it will not automatically process the raw data and hence it will not place events into the Event Store.
+To have Stroom automatically process Raw Event streams, you will need to enable Processors for this pipeline.

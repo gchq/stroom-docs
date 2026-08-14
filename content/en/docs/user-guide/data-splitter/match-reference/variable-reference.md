@@ -8,7 +8,9 @@ description: >
   
 ---
 
-Variables are added to Data Splitter configuration using the `<var>` element, see [variables]({{< relref "variables.md" >}}). Each variable must have a unique id so that it can be referenced. References to variables have the form `$VARIABLE_ID$`, e.g.
+Variables are added to Data Splitter configuration using the `<var>` element, see [variables]({{< relref "variables.md" >}}).
+Each variable must have a unique id so that it can be referenced.
+References to variables have the form `$VARIABLE_ID$`, e.g.
 
 ```xml
 <data name="$heading$" value="$" />
@@ -19,7 +21,8 @@ Variables are added to Data Splitter configuration using the `<var>` element, se
 
 Data Splitter validates the configuration on load and ensures that all element ids are unique and that referenced ids belong to a variable.
 
-A variable will only store data if it is referenced so variables that are not referenced will do nothing. In addition to this a variable will only store data for match groups that are referenced, e.g. if `$heading$1` is the only reference to a variable with an id of ‘heading’ then only data for match group 1 will be stored for reference lookup.
+A variable will only store data if it is referenced so variables that are not referenced will do nothing.
+In addition to this a variable will only store data for match groups that are referenced, e.g. if `$heading$1` is the only reference to a variable with an id of ‘heading’ then only data for match group 1 will be stored for reference lookup.
 
 
 ## Scopes
@@ -48,10 +51,12 @@ Variables are local to a reference if the reference exists as a descendant of th
 </split>
 ```
 
-In the above example, matches for the outermost `<split>` expression are stored in the variable with the id of `line`. The only reference to this variable is in a data element that is a descendant of the variables parent expression `<split>`, i.e. it is nested within split/group/regex.
+In the above example, matches for the outermost `<split>` expression are stored in the variable with the id of `line`.
+The only reference to this variable is in a data element that is a descendant of the variables parent expression `<split>`, i.e. it is nested within split/group/regex.
 
 Because the variable is referenced locally only the most recent parent match is relevant, i.e. no retrieval of values by
-[iteration]({{< relref "#iteration" >}}), [iteration offset]({{< relref "#iteration-offset" >}}) or [fixed position]({{< relref "#fixed-position" >}}) is applicable. These features only apply to remote variables that store multiple values.
+[iteration]({{< relref "#iteration" >}}), [iteration offset]({{< relref "#iteration-offset" >}}) or [fixed position]({{< relref "#fixed-position" >}}) is applicable.
+These features only apply to remote variables that store multiple values.
 
 
 ### Remote Scope
@@ -94,7 +99,9 @@ The [CSV example with a heading]({{< relref "simple-csv-example-with-heading.md"
 </dataSplitter>
 ```
 
-In the above example the parent expression of the variable is not the ancestor of the reference in the `<data>` element. This makes the `<data>` elements reference to the variable a remote one. In this situation the variable knows that it must store multiple values as the remote reference `<data>` may retrieve one of many values from the variable based on:
+In the above example the parent expression of the variable is not the ancestor of the reference in the `<data>` element.
+This makes the `<data>` elements reference to the variable a remote one.
+In this situation the variable knows that it must store multiple values as the remote reference `<data>` may retrieve one of many values from the variable based on:
 
 1. The match count of the parent expression.
 2. The match count of the parent expression, plus or minus an offset.
@@ -103,9 +110,13 @@ In the above example the parent expression of the variable is not the ancestor o
 
 #### Retrieval of Value by Iteration {#iteration}
 
-In the above example the first line is taken then repeatedly matched by delimiting with commas. This results in multiple values being stored in the ‘heading’ variable. Once this is done subsequent lines are matched and then also repeatedly matched by delimiting with commas in the same way the heading is.
+In the above example the first line is taken then repeatedly matched by delimiting with commas.
+This results in multiple values being stored in the ‘heading’ variable.
+Once this is done subsequent lines are matched and then also repeatedly matched by delimiting with commas in the same way the heading is.
 
-Each time a line is matched the internal match count of all sub expressions, (e.g. the `<split>` expression that is delimited by comma) is reset to 0. Every time the sub `<split>` expression matches up to a comma delimiter the match count is incremented. Any references to remote variables will, by default, use the current match count as an index to retrieve one of the many values stored in the variable. This means that the `<data>` element in the above example will retrieve the corresponding heading for each value as the match count of the values will match the storage position of each heading.
+Each time a line is matched the internal match count of all sub expressions, (e.g. the `<split>` expression that is delimited by comma) is reset to 0. Every time the sub `<split>` expression matches up to a comma delimiter the match count is incremented.
+Any references to remote variables will, by default, use the current match count as an index to retrieve one of the many values stored in the variable.
+This means that the `<data>` element in the above example will retrieve the corresponding heading for each value as the match count of the values will match the storage position of each heading.
 
 
 #### Retrieval of Value by Iteration Offset {#iteration-offset}
@@ -119,15 +130,19 @@ BAD,Date,Time,IPAddress,HostName,User,EventType,Detail
 01/01/2010,00:00:00,192.168.1.100,SOMEHOST.SOMEWHERE.COM,user1,logon,
 ```
 
-In the above example we can see that the first heading ‘BAD’ is not correct for the first value of every line. In this situation we could either adjust the way the heading line is parsed to ignore ‘BAD’ or just adjust the way the heading variable is referenced.
+In the above example we can see that the first heading ‘BAD’ is not correct for the first value of every line.
+In this situation we could either adjust the way the heading line is parsed to ignore ‘BAD’ or just adjust the way the heading variable is referenced.
 
-To make this adjustment the reference just needs to be told what offset to apply to the current match count to correctly retrieve the stored value. In the above example this would be done like this:
+To make this adjustment the reference just needs to be told what offset to apply to the current match count to correctly retrieve the stored value.
+In the above example this would be done like this:
 
 ```xml
 <data name="$heading$1[+1]" value="$1" />
 ```
 
-The above reference just uses the match count plus 1 to retrieve the stored value. Any integral offset plus or minus may be used, e.g. [+4] or [-10]. Offsets that result in a position that is outside of the storage range for the variable will not return a value.
+The above reference just uses the match count plus 1 to retrieve the stored value.
+Any integral offset plus or minus may be used, e.g. [+4] or [-10].
+Offsets that result in a position that is outside of the storage range for the variable will not return a value.
 
 
 #### Retrieval of Value by Fixed Position {#fixed-position}

@@ -163,7 +163,8 @@ The move/copy dialog offers the following choices:
     Adds the permissions of the destination folder.
     You will be the owner of the moved document if not already.
 * **Combined** - Keep the current permissions and add the permissions
-    of the destination folder. You will be the owner of the moved document if not already.
+    of the destination folder.
+    You will be the owner of the moved document if not already.
 
 {{% note %}}
 You must have `Owner` permission on the source document/folder (or `Administrator` {{< glossary "Application Permission" >}}) if you wish to use _None_, _Destination_ or _Combined_ as these all involve a change of permissions.

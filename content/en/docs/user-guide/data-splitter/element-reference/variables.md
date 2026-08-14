@@ -8,9 +8,12 @@ description: >
   
 ---
 
-A variable is added to Data Splitter using the `<var>` element. A variable is used to store matches from a parent expression for use in a reference elsewhere in the configuration, see [variable reference]({{< relref "variable-reference.md" >}}).
+A variable is added to Data Splitter using the `<var>` element.
+A variable is used to store matches from a parent expression for use in a reference elsewhere in the configuration, see [variable reference]({{< relref "variable-reference.md" >}}).
 
-The most recent matches are stored for use in local references, i.e. references that are in the same match scope as the variable. Multiple matches are stored for use in references that are in a separate match scope. The concept of different variable scopes is described in [scopes]({{< relref "variable-reference.md#scopes" >}}).
+The most recent matches are stored for use in local references, i.e. references that are in the same match scope as the variable.
+Multiple matches are stored for use in references that are in a separate match scope.
+The concept of different variable scopes is described in [scopes]({{< relref "variable-reference.md#scopes" >}}).
 
 
 ## The `<var>` Element

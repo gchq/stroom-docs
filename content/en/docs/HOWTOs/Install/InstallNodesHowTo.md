@@ -10,7 +10,8 @@ description: >
   Configuring Stroom cluster URLs
 ---
 
-In a Stroom cluster, [Nodes]({{< relref "../../user-guide/nodes.md" >}}) are expected to communicate with each other on port 8080 over http. To facilitate this, we need to set each node's Cluster URL and the following demonstrates this process.
+In a Stroom cluster, [Nodes]({{< relref "../../user-guide/nodes.md" >}}) are expected to communicate with each other on port 8080 over http.
+To facilitate this, we need to set each node's Cluster URL and the following demonstrates this process.
 
 
 ## Assumptions
@@ -31,12 +32,14 @@ then move down and select the `Nodes` sub-item to be presented with the `Nodes` 
 
 {{< screenshot "HOWTOs/UI-NodeClusterSetup-01.png" >}}Stroom UI Node Management - management tab{{< /screenshot >}}
 
-To set `stroomp00`'s Cluster URL, move to its line in the display and select it. It will be highlighted.
+To set `stroomp00`'s Cluster URL, move to its line in the display and select it.
+It will be highlighted.
 
 {{< screenshot "HOWTOs/UI-NodeClusterSetup-02.png" >}}Stroom UI Node Management - select first node{{< /screenshot >}}
 
 Then move the cursor to the _Edit Node_ icon {{< stroom-icon "edit.svg" "Edit" >}} in the top left of
-the `Nodes` tab and select it. On selection the `Edit Node` configuration window will be displayed and into
+the `Nodes` tab and select it.
+On selection the `Edit Node` configuration window will be displayed and into
 the __Cluster URL:__ entry box, enter the first node's URL of `http://stroomp00.strmdev00.org:8080/stroom/clustercall.rpc`
 
 {{< screenshot "HOWTOs/UI-NodeClusterSetup-03.png" >}}Stroom UI Node Management - set clustercall url for first node{{< /screenshot >}}
@@ -50,7 +53,8 @@ We next select the second node
 {{< screenshot "HOWTOs/UI-NodeClusterSetup-05.png" >}}Stroom UI Node Management - select second node{{< /screenshot >}}
 
 then move the cursor to the _Edit Node_ icon {{< stroom-icon "edit.svg" "Edit" >}} in the top left of
-the `Nodes` tab and select it. On selection the `Edit Node` configuration window will be displayed and into
+the `Nodes` tab and select it.
+On selection the `Edit Node` configuration window will be displayed and into
 the __Cluster URL:__ entry box, enter the second node's URL of `http://stroomp01.strmdev00.org:8080/stroom/clustercall.rpc`
 
 {{< screenshot "HOWTOs/UI-NodeClusterSetup-06.png" >}}Stroom UI Node Management - set clustercall url for second node{{< /screenshot >}}
@@ -65,12 +69,16 @@ You may need to press the _Refresh_ icon {{< stroom-icon "refresh.svg" "Refresh"
 
 {{< screenshot "HOWTOs/UI-NodeClusterSetup-08.png" >}}Stroom UI Node Management - both nodes ping{{< /screenshot >}}.
 
-If you do not get ping results for each node, then they are not configured correctly. In that situation,
+If you do not get ping results for each node, then they are not configured correctly.
+In that situation,
 review all log files and processes that you have performed.
 
 Once you have set the Cluster URLs of each node you should also set the _master assignment priority_ for each node to
-be different to all of the others. In the image above both have been assigned equal priority - `1`. We will
-change `stroomp00` to have a different priority - `3`. You should note that the node with the highest
+be different to all of the others.
+In the image above both have been assigned equal priority - `1`.
+We will
+change `stroomp00` to have a different priority - `3`.
+You should note that the node with the highest
 priority gains the `Master` node status.
 
 {{< screenshot "HOWTOs/UI-NodeClusterSetup-09.png" >}}Stroom UI Node Management - set node priorities{{< /screenshot >}}.
@@ -89,12 +97,14 @@ then move down and select the `Nodes` sub-item to be presented with the `Nodes` 
 
 {{< screenshot "HOWTOs/UI-AddNewNode-00.png" >}}Stroom UI New Node Management - management tab{{< /screenshot >}}
 
-To set `stroomp02`'s Cluster URL, move to its line in the display and select it. It will be highlighted.
+To set `stroomp02`'s Cluster URL, move to its line in the display and select it.
+It will be highlighted.
 
 {{< screenshot "HOWTOs/UI-AddNewNode-01.png" >}}Stroom UI Node Management - select new node{{< /screenshot >}}
 
 Then move the cursor to the _Edit Node_ icon {{< stroom-icon "edit.svg" "Edit" >}} in the top left
-of the `Nodes` tab and select it. On selection the `Edit Node` configuration window will be displayed
+of the `Nodes` tab and select it.
+On selection the `Edit Node` configuration window will be displayed
 and into the __Cluster URL:__ entry box, enter the first node's URL of `http://stroomp02.strmdev00.org:8080/stroom/clustercall.rpc`
 
 {{< screenshot "HOWTOs/UI-AddNewNode-02.png" >}}Stroom UI New Node Management - set clustercall url for new node{{< /screenshot >}}
@@ -107,12 +117,16 @@ You need to press the _Refresh_ icon {{< stroom-icon "refresh.svg" "Refresh" >}}
 
 {{< screenshot "HOWTOs/UI-AddNewNode-04.png" >}}Stroom UI New Node Management - all nodes ping{{< /screenshot >}}.
 
-If you do not get a ping results for the new node, then it is not configured correctly. In that situation, review all log files
+If you do not get a ping results for the new node, then it is not configured correctly.
+In that situation, review all log files
 and processes that you have performed.
 
 Once you have set the Cluster URL you should also set the _master assignment priority_ for each node to
-be different to all of the others. In the image above both `stroomp01` and the new node, `stroomp02`, have been
-assigned equal priority - `1`. We will change `stroomp01` to have a different priority - `2`. You should note that the node
+be different to all of the others.
+In the image above both `stroomp01` and the new node, `stroomp02`, have been
+assigned equal priority - `1`.
+We will change `stroomp01` to have a different priority - `2`.
+You should note that the node
 with the highest priority maintains the `Master` node status.
 
 {{< screenshot "HOWTOs/UI-AddNewNode-05.png" >}}Stroom UI New Node Management - set node priorities{{< /screenshot >}}.

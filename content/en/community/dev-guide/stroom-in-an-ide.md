@@ -217,7 +217,8 @@ NOTE: During development, it is helpful to skip running unit and integration tes
 
 This run configuration essentially sets the JVM argument `-DgwtSuperDevMode=true` to run the application in Super Dev Mode.
 
-Watch the log output. Once you see a log INFO message containing the text "Started", you will be able to launch the app in a browser from: https://localhost.
+Watch the log output.
+Once you see a log INFO message containing the text "Started", you will be able to launch the app in a browser from: https://localhost.
 
 You will see the Stroom blue background, with a username/password prompt.
 Enter the following default credentials:

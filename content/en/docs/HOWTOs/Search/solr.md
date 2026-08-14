@@ -31,7 +31,8 @@ description: >
    docker run -d -p 8983:8983 --name my_solr solr
    {{</ command-line >}}
 
-1. Check your Solr node. Point your browser at http://yourSolrHost:8983
+1. Check your Solr node.
+   Point your browser at http://yourSolrHost:8983
 1. Create a core in Solr using the CLI.
 
    {{< command-line "user" "localhost" >}}

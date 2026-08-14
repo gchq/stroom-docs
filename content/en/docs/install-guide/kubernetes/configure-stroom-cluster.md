@@ -83,7 +83,8 @@ If the `StroomCluster` configuration is valid, the Operator will deploy a `State
 Once these `StatefulSet`s reach `Ready` state, you are ready to access the Stroom UI.
 
 {{% note %}}
-If the `StatefulSet`s don't deploy, there is probably something wrong with your configuration. Check the logs of the pod `stroom-operator-system/stroom-operator-controller-manager` for any errors.
+If the `StatefulSet`s don't deploy, there is probably something wrong with your configuration.
+Check the logs of the pod `stroom-operator-system/stroom-operator-controller-manager` for any errors.
 {{% /note %}}
 
 

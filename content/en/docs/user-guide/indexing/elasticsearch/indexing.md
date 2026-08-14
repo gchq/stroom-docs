@@ -204,7 +204,8 @@ Now you have created a template indexing pipeline, it's time to create a feed-sp
 1. Click the `Inherit From` {{< stroom-icon "ellipses-horizontal.svg" Ellipsis >}} button.
 1. In the dialog that appears, select the template pipeline you created named `Indexing (Elasticsearch)` and click {{< stroom-btn "OK" >}}.
 1. Select the Elastic Indexing Filter pipeline element.
-1. Set the `indexName` property to the name of the destination index or data stream. `indexName` may be a simple string (static) or dynamic.
+1. Set the `indexName` property to the name of the destination index or data stream.
+   `indexName` may be a simple string (static) or dynamic.
 1. If using dynamic index names, configure the translation to output named element(s) that will be interpolated into `indexName` for each document indexed.
 
 

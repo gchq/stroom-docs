@@ -11,7 +11,8 @@ description: >
   How to create java key/trust stores for use with Java client applications.
 ---
 
-There are many times when you may wish to create a Java keystore from certificates and keys and vice versa. This guide aims to explain how this can be done.
+There are many times when you may wish to create a Java keystore from certificates and keys and vice versa.
+This guide aims to explain how this can be done.
 
 
 ## Import
@@ -43,7 +44,8 @@ keytool -import -noprompt -alias CA -file <CA CERT>.crt -keystore ca.jks -storep
 
 ### ExportKey
 
-Use the `ExportKey` class in the `stroom-java-client` library to export keys. If you would like to use curl or similar application but only have keys contained within a Java keystore then they can be exported.
+Use the `ExportKey` class in the `stroom-java-client` library to export keys.
+If you would like to use curl or similar application but only have keys contained within a Java keystore then they can be exported.
 
 For example:
 
@@ -51,4 +53,5 @@ For example:
 java ExportKey keystore=<YOUR KEY>.jks keypass=<YOUR PASSWORD> alias=<YOUR KEY>
 {{< /command-line >}}
 
-This will print both the key and certificate to standard out. This can then be copied into a PEM file for use with cURL or other similar application.
+This will print both the key and certificate to standard out.
+This can then be copied into a PEM file for use with cURL or other similar application.

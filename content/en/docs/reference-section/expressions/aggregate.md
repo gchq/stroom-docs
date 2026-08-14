@@ -38,7 +38,8 @@ ${val} = [10, 20, 30, 40]
 
 ## Count
 
-Counts the number of records that are passed through it. Doesn't take any notice of the values of any fields.
+Counts the number of records that are passed through it.
+Doesn't take any notice of the values of any fields.
 
 ```clike
 count()

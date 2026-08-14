@@ -279,7 +279,8 @@ To test the PDF generation, run this from the repository root:
 
 ## Updating the Docsy Theme
 
-The Docsy theme is a dependency of this Hugo site. See {{< external-link "Update the Hugo Docsy Module" "https://www.docsy.dev/docs/updating/updating-hugo-module/" >}} for details on how to update the version of the Docsy theme.
+The Docsy theme is a dependency of this Hugo site.
+See {{< external-link "Update the Hugo Docsy Module" "https://www.docsy.dev/docs/updating/updating-hugo-module/" >}} for details on how to update the version of the Docsy theme.
 
 In those instructions when it says to run a `hugo` command you need to do it from within the hugo docker container.
 

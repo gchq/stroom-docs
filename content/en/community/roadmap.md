@@ -33,14 +33,16 @@ Changing Stroom libraries to replace Spring with Guice and Hibernate with JOOQ.
 
 ### Annotations
 
-Search results in dashboards can be annotated to provide status and notes relating to the result item, e.g. an event. These annotations can later be searched to see which events have annotations associated with them.
+Search results in dashboards can be annotated to provide status and notes relating to the result item, e.g. an event.
+These annotations can later be searched to see which events have annotations associated with them.
 
 
 ## v7.1
 
 ### Elastic Search Integration
 
-Elasticsearch can be used for indexing data. Data can be sent to an Elasticsearch index via a pipeline element and an Elasticsearch index can be queried from a Stroom dashboard.
+Elasticsearch can be used for indexing data.
+Data can be sent to an Elasticsearch index via a pipeline element and an Elasticsearch index can be queried from a Stroom dashboard.
 
 
 ### Interactive Visualisations
@@ -79,7 +81,8 @@ The Stroom authorisation system is split out into a separate service and provide
 
 ### Proxy Processing
 
-Stroom proxy is capable of pipeline processing in the same way as a full Stroom application. Pipeline configuration content can be pushed to proxies so that they can perform local processing prior to sending data to Stroom. 
+Stroom proxy is capable of pipeline processing in the same way as a full Stroom application.
+Pipeline configuration content can be pushed to proxies so that they can perform local processing prior to sending data to Stroom.
 
 
 ### Multiple Input Sources
@@ -104,7 +107,8 @@ Stroom exposes the use of Apache Kafka Streams for performing certain complex an
 
 ### Query Fusion
 
-Stroom allows multiple data sources to be queried at the same time and the results of the queries to be fused. This might be for fusing data from multiple search indexes, e.g. events and annotations, or to effectively decorate results with additional data at search time.
+Stroom allows multiple data sources to be queried at the same time and the results of the queries to be fused.
+This might be for fusing data from multiple search indexes, e.g. events and annotations, or to effectively decorate results with additional data at search time.
 
 
 ### Reference Data Deltas

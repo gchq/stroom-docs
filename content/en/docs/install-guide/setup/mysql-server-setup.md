@@ -94,7 +94,8 @@ flush privileges;
 It is recommended to run /usr/bin/mysql_secure_installation to remove test database and accounts.
 
 ./stroom-setup/mysql_grant.sh is a utility script that creates accounts for you to use within a
- cluster (or single node setup). Run to see the options:
+ cluster (or single node setup).
+ Run to see the options:
 
 {{< command-line "stroomuser" "host" >}}
 ./mysql_grant.sh

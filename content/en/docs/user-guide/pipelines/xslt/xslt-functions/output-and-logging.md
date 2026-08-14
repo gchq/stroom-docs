@@ -45,7 +45,8 @@ Type can be one of:
 * `browser` : Display the content of the link URL within a new browser tab.
 * `dashboard` : Used to launch a stroom dashboard internally with parameters in the URL.
 
-If you wish to override the default title or URL of the target link in either a tab or dialog you can. Both `dialog` and `tab` types allow titles to be specified after a `|`, e.g. `dialog|My Title`.
+If you wish to override the default title or URL of the target link in either a tab or dialog you can.
+Both `dialog` and `tab` types allow titles to be specified after a `|`, e.g. `dialog|My Title`.
 
 
 ## log()

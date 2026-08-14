@@ -216,7 +216,8 @@ And change the **Id:** from `rollingFileAppender` to `AUSrollingFileAppender` to
 
 {{< screenshot "HOWTOs/v6/UI-MultiGeoFwd-20.png" >}}Stroom UI MultiGeoFwd - MultiGeoFwd Pipeline development3{{< /screenshot >}}
 
-This completes the pipeline structure for the AUS branch of the pipeline. Replicate the process of adding schemaFilter, xmlWriter, and rollingFileAppender Elements for the GBR branch of the pipeline to get the complete pipeline structure as below
+This completes the pipeline structure for the AUS branch of the pipeline.
+Replicate the process of adding schemaFilter, xmlWriter, and rollingFileAppender Elements for the GBR branch of the pipeline to get the complete pipeline structure as below
 
 {{< screenshot "HOWTOs/v6/UI-MultiGeoFwd-21.png" >}}Stroom UI MultiGeoFwd - MultiGeoFwd Pipeline Structure completed{{< /screenshot >}}
 

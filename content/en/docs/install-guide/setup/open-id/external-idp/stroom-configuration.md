@@ -415,9 +415,15 @@ So sign in working tells you the client id, secret and endpoints are all correct
 
 In order of likelihood:
 
-1. **Audience.** The access token's `aud` claim does not match `clientId` or `allowedAudiences`, or the token has no `aud` claim and `audienceClaimRequired` is `true`. See [Audience validation](#audience-validation).
-1. **Token type.** `requiredAccessTokenType` is set to something the provider does not put in the token's `typ` header. Unset it, or correct it to the value the provider actually uses.
-1. **Token type, the other way round.** The caller is presenting an `id_token` rather than an access token. Setting `requiredAccessTokenType` is what catches this.
+1. **Audience.**
+   The access token's `aud` claim does not match `clientId` or `allowedAudiences`, or the token has no `aud` claim and `audienceClaimRequired` is `true`.
+   See [Audience validation](#audience-validation).
+1. **Token type.**
+   `requiredAccessTokenType` is set to something the provider does not put in the token's `typ` header.
+   Unset it, or correct it to the value the provider actually uses.
+1. **Token type, the other way round.**
+   The caller is presenting an `id_token` rather than an access token.
+   Setting `requiredAccessTokenType` is what catches this.
 
 Enable debug logging for `stroom.security.common.impl.StandardJwtContextFactory` to see the issuers, audiences and settings actually in use when a token is validated.
 

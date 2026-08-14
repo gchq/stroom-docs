@@ -16,7 +16,8 @@ All nodes in a Stroom cluster must be configured correctly for them to communica
 
 ## Configuring Nodes
 
-Open Monitoring/Nodes from the top menu. The nodes screen looks like this:
+Open Monitoring/Nodes from the top menu.
+The nodes screen looks like this:
 
 {{% todo %}}
 Screenshot

@@ -23,7 +23,8 @@ You can then perform a `stroom:lookup()` in the XSLT to decorate an event with t
 Reference data can come from two different sources:
 
 * Reference stream - A separate Feed containing _Raw Reference_ streams that have been translated into _Reference_ streams conforming to `reference-data:2` XML.
-* [Context sub-stream]({{< relref "/docs/user-guide/concepts/streams#context" >}}) - A _Context_ stream that is a sub-stream of the _Events_ stream. This sub-stream contains contextual data relevant to the events in the _Events_ stream.
+* [Context sub-stream]({{< relref "/docs/user-guide/concepts/streams#context" >}}) - A _Context_ stream that is a sub-stream of the _Events_ stream.
+  This sub-stream contains contextual data relevant to the events in the _Events_ stream.
 
 
 ### Reference Stream

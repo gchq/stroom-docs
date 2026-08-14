@@ -10,7 +10,8 @@ description: >
   The various HTTP headers that can be sent with data.
 ---
 
-The following data must be passed in as HTTP header arguments when sending files to Stroom via HTTP POST. These arguments are case insensitive.
+The following data must be passed in as HTTP header arguments when sending files to Stroom via HTTP POST.
+These arguments are case insensitive.
 
 * `System` - The name by which the system is known within the organisation, e.g. `PAYROLL_SYSTEM`.
   This could be the name of a project/service or capability.
@@ -23,7 +24,10 @@ The following data must be passed in as HTTP header arguments when sending files
   This is mandatory and must match a feed defined within Stroom in order for Stroom to accept the data and know what to do with it.
 
 * `Compression` - This token is optionally used when the POST payload is compressed with either gzip or zip compression.
-  Value of `ZIP` and `GZIP` are valid. **Note**: The `Compression` token MUST not be used in conjunction with the standard HTTP header token `Content-Encoding` otherwise stroom will be unable to un-compress the data. Use either `Compression:GZIP` or `Content-Encoding:gzip`, not both. Using `Compression` is preferred.
+  Value of `ZIP` and `GZIP` are valid.
+  **Note**: The `Compression` token MUST not be used in conjunction with the standard HTTP header token `Content-Encoding` otherwise stroom will be unable to un-compress the data.
+  Use either `Compression:GZIP` or `Content-Encoding:gzip`, not both.
+  Using `Compression` is preferred.
 
 * `EffectiveTime` - This is only applicable to reference data.
   It is used to indicate the point in time that the reference data is applicable to, i.e. all event data that uses the reference data that is created after the effective time will use the reference data until a new reference data item arrives with a later effective time.
@@ -39,4 +43,6 @@ Environment:OPS
 Feed:MY_SYSTEM-EVENTS
 ```
 
-The post payload must contain the events file. If the compression format is ZIP the payload must contain ZIP entries with the events files and optional context files ending in .ctx. Further details of supported payload formats can be found [here]({{< relref "payloads.md" >}}).
+The post payload must contain the events file.
+If the compression format is ZIP the payload must contain ZIP entries with the events files and optional context files ending in .ctx.
+Further details of supported payload formats can be found [here]({{< relref "payloads.md" >}}).

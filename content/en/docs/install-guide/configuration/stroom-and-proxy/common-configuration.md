@@ -458,7 +458,8 @@ The client names are as follows:
 
 * `DEFAULT` - The default client configuration used if a named configuration is not present.
 * `AWS_PUBLIC_KEYS` - Connections to fetch AWS public keys used in Open ID Connect authentication.
-* `DOWNSTREAM` - Connections to downstream proxy/stroom instances to check feed status. (**Stroom Proxy only**).
+* `DOWNSTREAM` - Connections to downstream proxy/stroom instances to check feed status.
+  (**Stroom Proxy only**).
 * `OPEN_ID` - Connections to an Open ID Connect identity provider, e.g. Cognito, Azure AD, KeyCloak, etc.
 * `STROOM` - Inter-node communications within the Stroom cluster (**Stroom only**).
 
@@ -726,7 +727,8 @@ The following is an example of an appender that rolls every minute to gzipped fi
 
 {{% warning %}}
 Log file rolling is event based, so a file will only roll when a new message arrives that would require a roll to happen.
-This means that if the application is idle for a long period with no log output then the un-rolled file will remain active until a new message arrives to trigger it to roll. For example, if Stroom is unused overnight, then the last log message from the night before will not be rolled until a new messages arrive in the morning.
+This means that if the application is idle for a long period with no log output then the un-rolled file will remain active until a new message arrives to trigger it to roll.
+For example, if Stroom is unused overnight, then the last log message from the night before will not be rolled until a new messages arrive in the morning.
 
 For this reason, `archivedFileCount` should be set to a value that is greater than the maximum time the application may be idle, else rolled log files may be deleted as soon as they are rolled.
 {{% /warning %}}

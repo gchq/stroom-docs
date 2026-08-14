@@ -458,7 +458,8 @@ To display a top level Stroom document tab, like {{< stroom-tab "Index.svg" "Big
 **Arguments**:
 * `icon_filename` - The filename of the icon to use (relative to `assets/images/stroom-ui/document/`) (case sensitive), e.g. `Pipeline.svg`.
 * `title` - The text to display in the tab, e.g. `Indexing Pipeline`.
-* `state` (optional) - Whether the tab is active or not (`active` or `inactive`). Defaults to `inactive`.
+* `state` (optional) - Whether the tab is active or not (`active` or `inactive`).
+  Defaults to `inactive`.
 
 For a full list of all available icons see the [Icon Gallery]({{< ref "icon-gallery/#document-type-icons" >}})
 

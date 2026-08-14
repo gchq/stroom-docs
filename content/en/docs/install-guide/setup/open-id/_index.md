@@ -14,7 +14,8 @@ description: >
 Stroom authenticates its users against an {{< glossary "idp" >}} using {{< external-link "Open ID Connect" "https://openid.net/connect/" >}}.
 There are three deployment models, distinguished by *where the user accounts live* and *which component performs the sign in*.
 
-* [Internal IDP]({{< relref "internal-idp" >}}) - Stroom acts as its own identity provider and manages the user accounts itself. This is the default.
+* [Internal IDP]({{< relref "internal-idp" >}}) - Stroom acts as its own identity provider and manages the user accounts itself.
+  This is the default.
 * [External IDP]({{< relref "external-idp" >}}) - A 3rd party identity provider, such as KeyCloak, Cognito or Google, holds the accounts; **Stroom performs the sign in** by redirecting the browser to it.
 * [Edge Proxy RP]({{< relref "edge-proxy" >}}) - A 3rd party identity provider holds the accounts, but **an authenticating reverse proxy in front of Stroom performs the sign in** (an AWS Application Load Balancer with Cognito, NGINX with oauth2-proxy, etc.) and passes Stroom a verified identity with each request.
 

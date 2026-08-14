@@ -58,7 +58,8 @@ Processor Priority
   The default priority is 10.
 
 Processor Max Concurrent Tasks
-: The maximum number of concurrent tasks to assign to the pipeline processor when created. Zero means un-bounded.
+: The maximum number of concurrent tasks to assign to the pipeline processor when created.
+Zero means un-bounded.
 
 Expression
 : Each template has an expression that will be used to match on the headers when auto-generation of content has been triggered.

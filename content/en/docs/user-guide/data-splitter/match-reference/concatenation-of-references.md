@@ -8,7 +8,9 @@ description: >
   
 ---
 
-It is possible to concatenate multiple fixed strings and match group references using the `+` character. As with all references and fixed strings this can be done in `<group>` value and `<data>` name and value attributes. However concatenation does have some performance overhead as new buffers have to be created to store concatenated content.
+It is possible to concatenate multiple fixed strings and match group references using the `+` character.
+As with all references and fixed strings this can be done in `<group>` value and `<data>` name and value attributes.
+However concatenation does have some performance overhead as new buffers have to be created to store concatenated content.
 
 A good example of concatenation is the production of ISO8601 date format from data in the previous example:
 
@@ -34,7 +36,9 @@ Using the original example, this would result in the output:
 <data name="dateTime" value="2010-01-01T00:00:00.000Z" />
 ```
 
-Note that the value output pattern wraps all fixed strings in single quotes. This is necessary when concatenating strings and references so that Data Splitter can determine which parts are to be treated as fixed strings. This also allows fixed strings to contain `$` and `+` characters.
+Note that the value output pattern wraps all fixed strings in single quotes.
+This is necessary when concatenating strings and references so that Data Splitter can determine which parts are to be treated as fixed strings.
+This also allows fixed strings to contain `$` and `+` characters.
 
 As single quotes are used for this purpose, a single quote needs to be escaped with another single quote if one is desired in a fixed string, e.g.
 

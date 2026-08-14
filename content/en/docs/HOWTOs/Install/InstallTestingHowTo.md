@@ -35,12 +35,14 @@ description: >
 
 These tests are to ensure the Stroom _Store_ proxy and its connection to the database is working along with the Apache mod_jk loadbalancer.
 We will send a file to the load balanced `stroomp.strmdev00.org` node (really `stroomp00.strmdev00.org`) and each time we send the file,
-its receipt should be managed by alternate proxy nodes. As a number of elements can effect load balancing, it is not always guaranteed
+its receipt should be managed by alternate proxy nodes.
+As a number of elements can effect load balancing, it is not always guaranteed
 to alternate every time but for the most part it will.
 
 Perform the following
 - Log onto the Stroom database node (stroomdb0.strmdev00.org) as any user.
-- Log onto both Stroom nodes and become the `stroomuser` and monitor each node's Stroom proxy service using the `Tp` bash macro. That is, on each node, run
+- Log onto both Stroom nodes and become the `stroomuser` and monitor each node's Stroom proxy service using the `Tp` bash macro.
+  That is, on each node, run
 
 {{< command-line >}}
 sudo -i -u stroomuser
@@ -86,8 +88,10 @@ If you are monitoring the proxy log of `stroomp00.strmdev00.org` you would see t
 curl -k --data-binary @/etc/group "https://stroomp.strmdev00.org/stroom/datafeed" -H "Feed:TEST-FEED-V1_0" -H "System:EXAMPLE_SYSTEM" -H "Environment:EXAMPLE_ENVIRONMENT"
 {{< /command-line >}}
 
-If you are monitoring the proxy log of `stroomp01.strmdev00.org` you should see a new log. As foreshadowed, we didn't as the time delay resulted
-in the first node getting the file. That is `stroomp00.strmdev00.org` log file gained the two entries
+If you are monitoring the proxy log of `stroomp01.strmdev00.org` you should see a new log.
+As foreshadowed, we didn't as the time delay resulted
+in the first node getting the file.
+That is `stroomp00.strmdev00.org` log file gained the two entries
 
 ```text
 2017-01-14T06:47:26.642Z INFO  [ajp-apr-9009-exec-2] handler.LogRequestHandler (LogRequestHandler.java:37) - log() - guid=941d2904-734f-4764-9ccf-4124b94a56f6,feed=TEST-FEED-V1_0,system=EXAMPLE_SYSTEM,environment=EXAMPLE_ENVIRONMENT,remotehost=192.168.2.144,remoteaddress=192.168.2.144
@@ -158,7 +162,8 @@ total 12
 [stroomuser@stroomp01 ~]$
 ```
 
-which corresponds to the seven posts of data and the associated events in the proxy logs. To see the contents of one of these files we execute on either node, the command
+which corresponds to the seven posts of data and the associated events in the proxy logs.
+To see the contents of one of these files we execute on either node, the command
 
 {{< command-line >}}
 unzip -c /stroomdata/stroom-working*/proxy/001.zip
@@ -227,7 +232,8 @@ user-agent:curl/7.29.0
 [stroomuser@stroomp00 ~]$
 ```
 
-Checking the /etc/group file on `stroomdb0.strmdev00.org` confirms the above contents. For the present, ignore
+Checking the /etc/group file on `stroomdb0.strmdev00.org` confirms the above contents.
+For the present, ignore
 the metadata file present in the zip archive.
 
 If you execute the same command on the other files, all that changes is the value of the _ReceivedTime:_ attribute in the `.meta` file.
@@ -255,12 +261,14 @@ We have effectively tested the receipt of our data and the load balancing of the
 
 In this test we will use the direct feed interface of the Stroom application, rather than sending data via the proxy.
 One would normally use this interface for time sensitive data which shouldn't aggregate in a proxy waiting for
-the Stroom application to collect it. In this situation we use the command
+the Stroom application to collect it.
+In this situation we use the command
 {{< command-line >}}
 curl -k --data-binary @/etc/group "https://stroomp.strmdev00.org/stroom/datafeeddirect" -H "Feed:TEST-FEED-V1_0" -H "System:EXAMPLE_SYSTEM" -H "Environment:EXAMPLE_ENVIRONMENT"
 {{< /command-line >}}
 
-To prepare for this test, we monitor the Stroom application log using the `T` bash alias on each node. So on each node run the command
+To prepare for this test, we monitor the Stroom application log using the `T` bash alias on each node.
+So on each node run the command
 
 {{< command-line >}}
 sudo -i -u stroomuser
@@ -276,10 +284,13 @@ On each node you should see _LifecycleTask_ events, for example,
 2017-01-14T07:42:18.285Z INFO  [Stroom P2 #7 - LifecycleTask] spring.StroomBeanMethodExecutable (StroomBeanMethodExecutable.java:47) - Executing distributedTaskFetcher.execute
 ```
 
-To perform the test, on the database node, run the posting command a number of times in rapid succession. This will result
-in _server.DataFeedServiceImpl_ events in both log files. The Stroom application log is quite busy, you may have to look for these logs.
+To perform the test, on the database node, run the posting command a number of times in rapid succession.
+This will result
+in _server.DataFeedServiceImpl_ events in both log files.
+The Stroom application log is quite busy, you may have to look for these logs.
 
-In the following we needed to execute the posting command three times before seeing the data arrive on both nodes. Looking at the arrival
+In the following we needed to execute the posting command three times before seeing the data arrive on both nodes.
+Looking at the arrival
 times, the file turned up on the second node twice before appearing on the first node.
 `stroomp00:`
 
@@ -293,7 +304,8 @@ and on `stroomp01:`
 2017-01-14T07:43:06.821Z INFO  [ajp-apr-8009-exec-2] server.DataFeedServiceImpl (DataFeedServiceImpl.java:133) - handleRequest response 200 - 0 - OK
 ```
 
-To confirm this data arrived, we need to view the __Data__ pane of our `TEST-FEED-V1_0` tab. To do this, log onto the Stroom UI then
+To confirm this data arrived, we need to view the __Data__ pane of our `TEST-FEED-V1_0` tab.
+To do this, log onto the Stroom UI then
 move the cursor to the `TEST-FEED-V1_0` entry in the `Explorer` tab and select the item with a left click
 
 {{< screenshot "HOWTOs/UI-TestDirectFeed-00.png" >}}Stroom UI Test Feed - Open Feed{{< /screenshot >}}
@@ -350,14 +362,16 @@ This demonstrates that Proxy Aggregation is working.
 This test is to ensure the Stroom _Forwarding_ proxy and its connection to the central Stroom Processing system is working.
 
 We will send a file to our _Forwarding_ proxy (`stroomfp0.strmdev00.org`) and monitor this nodes' proxy log files as well as all the
-destination nodes proxy log files. The reason for monitoring all the destination system's proxy log files is that the destination system is
+destination nodes proxy log files.
+The reason for monitoring all the destination system's proxy log files is that the destination system is
 probably load balancing and hence the forwarded file may turn up on any of the destination nodes.
 
 Perform the following
 - Log onto any host where you will perform the `curl` post
 - Monitor all proxy log files
  - Log onto the Forwarding Proxy node and become the `stroomuser` and monitor the Stroom proxy service using the `Tp` bash macro.
- - Log onto the destination Stroom nodes and become the `stroomuser` and monitor each node's Stroom proxy service using the `Tp` bash macro. That is, on each node, run
+ - Log onto the destination Stroom nodes and become the `stroomuser` and monitor each node's Stroom proxy service using the `Tp` bash macro.
+   That is, on each node, run
 
 {{< command-line >}}
 sudo -i -u stroomuser
@@ -418,7 +432,8 @@ received files are meant to be stored in.
 
 Perform the following
 - Log onto any host where you will perform the `curl` post
-- Log onto the Standalone Proxy node and become the `stroomuser` and monitor the Stroom proxy service using the `Tp` bash macro. That is run
+- Log onto the Standalone Proxy node and become the `stroomuser` and monitor the Stroom proxy service using the `Tp` bash macro.
+  That is run
 
 {{< command-line >}}
 sudo -i -u stroomuser
@@ -441,7 +456,8 @@ In the stroom proxy log, `~/stroom-proxy/instance/logs/stroom.log`, you will see
 ...
 ```
 
-Further, if you check the proxy's storage directory, you will see the file `001.zip`. The file names number upwards from 001.
+Further, if you check the proxy's storage directory, you will see the file `001.zip`.
+The file names number upwards from 001.
 {{< command-line >}}
 ls -l /stroomdata/stroom-working-sap0/proxy
 {{< /command-line >}}

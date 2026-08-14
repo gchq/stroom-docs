@@ -27,7 +27,8 @@ In the {{< external-link "Microsoft Entra admin centre" "https://entra.microsoft
 
 1. Go to _App registrations_ => _New registration_.
 1. Give it a name, e.g. `Stroom`.
-1. For _Supported account types_ choose **Accounts in this organizational directory only**, i.e. single tenant, unless you have a specific reason not to. This restricts sign in to your own tenant.
+1. For _Supported account types_ choose **Accounts in this organizational directory only**, i.e. single tenant, unless you have a specific reason not to.
+   This restricts sign in to your own tenant.
 1. Under _Redirect URI_ select a platform of **Web** and enter `https://STROOM_FQDN/api/auth/flow/v1/signin-oidc`.
 1. Click _Register_, then note the **Application (client) ID** and the **Directory (tenant) ID** from the overview page.
 
@@ -66,7 +67,8 @@ Interactive sign in still works throughout, because it uses the `id_token`.
 
 To get an access token that Stroom can validate, the app registration has to expose an API of its own:
 
-1. Go to _Expose an API_ => _Add_ next to _Application ID URI_. Accept the default of `api://<client-id>`, or set your own.
+1. Go to _Expose an API_ => _Add_ next to _Application ID URI_.
+   Accept the default of `api://<client-id>`, or set your own.
 1. Click _Add a scope_, name it something like `user_impersonation`, and choose who can consent.
 1. Under _Manifest_, set `accessTokenAcceptedVersion` to `2`.
 

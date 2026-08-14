@@ -19,9 +19,13 @@ Read [External IDP]({{< relref "docs/install-guide/setup/open-id/external-idp" >
 {{% warning %}}
 Google is a more limited choice than KeyCloak or Cognito, in three respects.
 
-* **Its access tokens are opaque, not JWTs.** Stroom cannot validate them, so token authentication for the API and for data receipt does not work with Google. Use Stroom {{< glossary "API Key" "API Keys" >}} instead.
-* **It has no OIDC sign out endpoint.** Signing out of Stroom cannot sign the user out of Google.
-* **It has no OIDC client credentials grant.** A Stroom-Proxy cannot obtain a service user token from Google.
+* **Its access tokens are opaque, not JWTs.**
+  Stroom cannot validate them, so token authentication for the API and for data receipt does not work with Google.
+  Use Stroom {{< glossary "API Key" "API Keys" >}} instead.
+* **It has no OIDC sign out endpoint.**
+  Signing out of Stroom cannot sign the user out of Google.
+* **It has no OIDC client credentials grant.**
+  A Stroom-Proxy cannot obtain a service user token from Google.
 
 Interactive sign in to the Stroom UI works perfectly well.
 It is the machine to machine paths that Google does not serve.
@@ -33,7 +37,9 @@ It is the machine to machine paths that Google does not serve.
 In the {{< external-link "Google Cloud Console" "https://console.cloud.google.com/" >}}:
 
 1. Select or create a project.
-1. Configure the **OAuth consent screen**. For a Workspace domain choose the _Internal_ user type, which restricts sign in to your own domain. For consumer accounts the only option is _External_.
+1. Configure the **OAuth consent screen**.
+   For a Workspace domain choose the _Internal_ user type, which restricts sign in to your own domain.
+   For consumer accounts the only option is _External_.
 1. Go to _APIs & Services_ => _Credentials_ => _Create Credentials_ => _OAuth client ID_.
 1. Choose an application type of **Web application**.
 1. Under _Authorised redirect URIs_, add `https://STROOM_FQDN/api/auth/flow/v1/signin-oidc`.
@@ -128,7 +134,8 @@ Anyone Google will authenticate can complete a sign in and have a Stroom user cr
 Even so, you should restrict who can reach the sign in at all:
 
 * For a Workspace domain, set the OAuth consent screen to _Internal_, so only accounts in your domain can authenticate.
-* For consumer accounts there is no equivalent, so any Google account can reach the consent screen. Consider whether Google is the right provider in that case.
+* For consumer accounts there is no equivalent, so any Google account can reach the consent screen.
+  Consider whether Google is the right provider in that case.
 
 Stroom has no configuration to restrict sign in by `hd` or email domain, so this has to be done at Google.
 
@@ -141,7 +148,8 @@ Unlike KeyCloak and Cognito, Google does not show this in an admin console; the 
 The simplest route is therefore:
 
 1. Configure Stroom as above and start it.
-1. Have the intended administrator sign in once. They will land in Stroom with no permissions.
+1. Have the intended administrator sign in once.
+   They will land in Stroom with no permissions.
 1. Read their `sub` from the Stroom logs, or from the {{< stroom-menu "Tools" "Users" >}} screen if another administrator is available.
 1. Run the `manage_users` command with that value, then restart Stroom so the permission caches are rebuilt.
 

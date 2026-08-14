@@ -11,7 +11,8 @@ description: >
 
 1. Create an API Key for yourself, this will allow the API to authenticate as you and run the query with your privileges.
 
-1. Create a Dashboard that extracts the data you are interested in. You should create a Query and Table.
+1. Create a Dashboard that extracts the data you are interested in.
+   You should create a Query and Table.
 
 1. Download the JSON for your Query.
    Press the download icon in the Query Pane to generate a file containing the JSON.

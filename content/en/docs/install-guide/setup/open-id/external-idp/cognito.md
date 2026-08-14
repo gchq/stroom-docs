@@ -23,7 +23,8 @@ If Stroom sits behind an AWS Application Load Balancer whose listener rule does 
 
 Cognito differs from a typical OIDC provider in two ways that directly affect the Stroom configuration, so they are worth knowing before you start.
 
-* Its **access tokens carry no `aud` claim**, using `client_id` instead. Stroom requires an audience claim by default, so this has to be turned off.
+* Its **access tokens carry no `aud` claim**, using `client_id` instead.
+  Stroom requires an audience claim by default, so this has to be turned off.
 * Its authorization, token and sign out endpoints belong to the **hosted UI domain**, which is separate from the user pool's issuer host.
 
 
@@ -35,7 +36,8 @@ In the AWS console, under Cognito:
 1. Configure a **domain** for the pool, either a Cognito prefix domain giving `https://YOUR_PREFIX.auth.REGION.amazoncognito.com`, or your own custom domain.
    This provides the hosted UI and the OAuth endpoints, and is required.
 1. Create an **app client** of the confidential type, i.e. one with a client secret.
-1. Enable the **Authorization code grant** for the client. Do not enable the implicit grant.
+1. Enable the **Authorization code grant** for the client.
+   Do not enable the implicit grant.
 1. Set the OpenID Connect scopes to at least `openid` and `email`.
 1. Set the **Allowed callback URL** to `https://STROOM_FQDN/api/auth/flow/v1/signin-oidc`.
 1. Set the **Allowed sign out URL** to `https://STROOM_FQDN/`.

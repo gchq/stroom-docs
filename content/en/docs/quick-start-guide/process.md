@@ -26,7 +26,8 @@ We're not doing that now because we want to show how to create one from scratch.
 
 1. Call it something like `CSV to XML pipeline`.
 
-1. Select _Structure_ from the top of the new tab. This is the most important view for the pipeline because it shows what will actually happen on the pipeline.
+1. Select _Structure_ from the top of the new tab.
+   This is the most important view for the pipeline because it shows what will actually happen on the pipeline.
 
 We already have a `Source` element.
 Unlike most other pipeline elements this isn't something we need to configure.

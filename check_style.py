@@ -196,15 +196,24 @@ def title_case_offenders(text):
     return offenders
 
 
+# Emphasis markers count as part of a word and as a sentence opener, so that
+# both 'the **consent screen**. Next...' and '**a bold sentence.** Next...' are
+# seen as two sentences.
 SENTENCE_RE = re.compile(
-    r"([A-Za-z0-9\)\]\"'`]+)([.!?])([\"')\]]?)\s+(?=[A-Z\"'`(])")
+    r"([A-Za-z0-9\)\]\"'`*_]+)([.!?])([\"')\]*_]*)\s+(?=[A-Z\"'`(*_\[])")
 
 
 def extra_sentences(line):
-    text = re.sub(r"`[^`]*`", " X ", line)                 # code spans
-    text = re.sub(r"\{\{[<%].*?[%>]\}\}", " X ", text)     # shortcodes
-    text = re.sub(r"\[[^\]]*\]\([^)]*\)", " X ", text)     # markdown links
-    text = re.sub(r"https?://\S+", " X ", text)            # bare urls
+    # Masked spans keep their original length and gain no surrounding spaces,
+    # so that a span butted up against a full stop, e.g. the caption in
+    # 'Add tags.{{< /image >}}', is not read as the start of a new sentence.
+    def blank(match):
+        return "X" * len(match.group(0))
+
+    text = re.sub(r"`[^`]*`", blank, line)                 # code spans
+    text = re.sub(r"\{\{[<%].*?[%>]\}\}", blank, text)     # shortcodes
+    text = re.sub(r"\[[^\]]*\]\([^)]*\)", blank, text)     # markdown links
+    text = re.sub(r"https?://\S+", blank, text)            # bare urls
     hits = []
     for match in SENTENCE_RE.finditer(text):
         word = match.group(1)

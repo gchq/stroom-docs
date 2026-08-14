@@ -95,7 +95,8 @@ While the old paths still work, they will be removed in a future version of Stro
 * `/stroom/sessionList` => `/sessionList` 
 
 {{% note %}}
-These servlet paths are those presented by the stroom application itself. Stroom may be fronted by nginx in which case that may already be doing path mapping to abstract the end client from Stroom's servlet paths.
+These servlet paths are those presented by the stroom application itself.
+Stroom may be fronted by nginx in which case that may already be doing path mapping to abstract the end client from Stroom's servlet paths.
 {{% /note %}}
 
 

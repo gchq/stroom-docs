@@ -314,6 +314,7 @@ eventId                 | String                       | The ID of the {{< gloss
 
 
 {{% warning %}}
-When choosing the names of the columns in your rule it may be beneficial to use `snake_case` or `UpperCamelCase` to make it easier to reference those columns in the detection template (see [Accessing Collection Items]({{< relref "#accessing-collection-items" >}}) above). E.g. `myDict.some_key` vs `myDict['some key']`.
+When choosing the names of the columns in your rule it may be beneficial to use `snake_case` or `UpperCamelCase` to make it easier to reference those columns in the detection template (see [Accessing Collection Items]({{< relref "#accessing-collection-items" >}}) above).
+E.g. `myDict.some_key` vs `myDict['some key']`.
 {{% /warning %}}
 

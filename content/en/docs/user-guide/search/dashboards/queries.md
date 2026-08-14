@@ -60,7 +60,8 @@ Multiple durations can be combined in the expression, e.g.
 
 `now() + 2w - 1d10h`
 
-Durations consist of a number and duration unit. Supported duration units are:
+Durations consist of a number and duration unit.
+Supported duration units are:
 
 * `s` - Seconds
 * `m` - Minutes

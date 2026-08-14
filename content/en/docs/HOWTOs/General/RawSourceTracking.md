@@ -58,7 +58,8 @@ Using the positional information it is possible to tag Events with sufficient de
 
 1. Insert a new XSLT filter into your translation pipeline after your translation filter and set it to the XSLT created above.
 1. Reprocess the Events through the modified pipeline, also ensure your Events are indexed.
-1. Amend the translation performed by the Extraction pipeline to include the new data items that represent the source position data. Add the following to the XSLT:
+1. Amend the translation performed by the Extraction pipeline to include the new data items that represent the source position data.
+   Add the following to the XSLT:
    ```xml
    <xsl:element name="data">
      <xsl:attribute name="name">

@@ -220,7 +220,8 @@ Select the `Settings` tab within your new Visualisation document.
 
 **Script** - Leave this blank
 
-**Settings** - Copy from the old visualisation. Make sure you get the whole file.
+**Settings** - Copy from the old visualisation.
+Make sure you get the whole file.
 
 
 ## `index.html` Asset

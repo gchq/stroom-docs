@@ -109,7 +109,8 @@ The upgrade path for MySQL is 5.6 => 5.7.33 => 8.x
 
 To ensure the database is up to date `mysql_upgrade` needs to be run using the 5.7.33 binaries, see the {{< external-link "MySQL documentation" "https://dev.mysql.com/doc/refman/8.0/en/mysql-upgrade.html" >}}.
 
-This is the process for upgrading the database. All of these commands are using the v7 stack.
+This is the process for upgrading the database.
+All of these commands are using the v7 stack.
 
 {{< command-line "stroomuser" "localhost" >}}
 # Set the version of the MySQL docker image to use

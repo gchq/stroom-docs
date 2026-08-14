@@ -215,7 +215,8 @@ We need to author the feed's translation.
 ### Create Text Converter
 
 To turn our tab delimited data in Stroom reference data, we first need to convert the text into simple XML.
-We do this using a _Text Converter_. _Test Converters_ use a _Stroom Data Splitter_ to convert text into simple XML.
+We do this using a _Text Converter_.
+_Test Converters_ use a _Stroom Data Splitter_ to convert text into simple XML.
 
 Within the Explorer pane, and having selected the `Event Sources` system group, right click to bring up the object context menu.
 Navigate to the {{< stroom-icon "pipeline/text.svg" "Text converter">}} item and left click to select.

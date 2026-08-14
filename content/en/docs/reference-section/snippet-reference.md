@@ -30,7 +30,8 @@ The following is an example of a snippet with multiple tab positions:
 </xsl:apply-templates>
 ```
 
-Tab positions are expressed like `${n}` or `${n:xxx}`, where `n` is a number indication the order of the tab position and `xxx` is the default value at that tab position. Sometimes `xxx` will not be a default value, but will instead be a string to hint at the kind of thing the user is expected to overtype with where no obvious default is available.
+Tab positions are expressed like `${n}` or `${n:xxx}`, where `n` is a number indication the order of the tab position and `xxx` is the default value at that tab position.
+Sometimes `xxx` will not be a default value, but will instead be a string to hint at the kind of thing the user is expected to overtype with where no obvious default is available.
 `${0}` is a special tab position in that it defines the last tab position.
 
 Snippets all have a unique _Tab Trigger_, e.g. `first` is the Tab Trigger for the `Eval first value` snippet.

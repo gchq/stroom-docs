@@ -23,7 +23,8 @@ The Visualisation Assets system provides a way to manage these easily through th
 
 ## User Interface
 
-The Assets tab within a Visualisation allows you to upload and edit files within a folder structure. For example:
+The Assets tab within a Visualisation allows you to upload and edit files within a folder structure.
+For example:
 
 {{< image "content/visualisation-asset-ui.png" >}}
 Visualisation Assets Tab
@@ -38,7 +39,8 @@ However, you can create a directory structure if necessary.
 * {{< stroom-icon "save.svg" "Save">}} Save any changes and make them live
 * {{< stroom-icon "saveas.svg" "Save As">}} Save the live and any unsaved changes to a new document
 * {{< stroom-icon "refresh.svg" "Revert changes">}} Throw away any unsaved changes and revert to the live version
-* {{< stroom-icon "add.svg" "Add file">}} Add an asset to the tree. The asset could be a folder, a new empty file, or an uploaded file.
+* {{< stroom-icon "add.svg" "Add file">}} Add an asset to the tree.
+  The asset could be a folder, a new empty file, or an uploaded file.
 * {{< stroom-icon "delete.svg" "Delete">}} Delete an asset from the asset tree. 
   Note that if you delete a folder, everything under the folder will also be deleted.
 * {{< stroom-icon "eye.svg" "View in browser">}} View the asset in the browser in a new window.

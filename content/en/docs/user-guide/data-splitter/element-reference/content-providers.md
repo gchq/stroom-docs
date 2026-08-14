@@ -217,7 +217,8 @@ It is only necessary to use this feature when fields that are identifiable with 
 
 #### `reverse`
 
-Occasionally it is desirable to reverse the content presented by a group to child expressions. This is because it is sometimes easier to form a pattern by matching content in reverse.
+Occasionally it is desirable to reverse the content presented by a group to child expressions.
+This is because it is sometimes easier to form a pattern by matching content in reverse.
 
 Take the following example content of name, value pairs delimited by `=` but with no spaces between names, multiple spaces between values and only a space between subsequent pairs:
 
@@ -237,9 +238,11 @@ This would match the following:
 ipAddress=123.123.123.123 zones=
 ```
 
-Here we are capturing the name and value for each pair in separate groups but the pattern has to also match the name from the next name value pair to find the end of the value. By default Data Splitter will move the content buffer to the end of the match ready for subsequent matches so the next name will not be available for matching.
+Here we are capturing the name and value for each pair in separate groups but the pattern has to also match the name from the next name value pair to find the end of the value.
+By default Data Splitter will move the content buffer to the end of the match ready for subsequent matches so the next name will not be available for matching.
 
-In addition to matching too much content the above example also uses a reluctant qualifier `.+?`. Use of reluctant qualifiers almost always impacts performance so they are to be avoided if at all possible.
+In addition to matching too much content the above example also uses a reluctant qualifier `.+?`.
+Use of reluctant qualifiers almost always impacts performance so they are to be avoided if at all possible.
 
 A better way to match the example content is to match the input in reverse, reading characters from right to left.
 
@@ -253,9 +256,11 @@ The following example demonstrates this:
 </group>
 ```
 
-Using the reverse attribute on the parent group causes content to be supplied to all child expressions in reverse order. In the above example this allows the pattern to match values followed by names which enables us to cope with the fact that values have multiple spaces but names have no spaces.
+Using the reverse attribute on the parent group causes content to be supplied to all child expressions in reverse order.
+In the above example this allows the pattern to match values followed by names which enables us to cope with the fact that values have multiple spaces but names have no spaces.
 
-Content is only presented to child regular expressions in reverse. When referencing values from match groups the content is returned in the correct order, e.g. the above example would return:
+Content is only presented to child regular expressions in reverse.
+When referencing values from match groups the content is returned in the correct order, e.g. the above example would return:
 
 ```xml
 <data name="ipAddress" value="123.123.123.123" />
@@ -267,4 +272,6 @@ Content is only presented to child regular expressions in reverse. When referenc
 
 The reverse feature isn't needed very often but there are a few cases where it really helps produce the desired output without the complexity and performance overhead of a reluctant match.
 
-An alternative to using the reverse attribute is to use the original reluctant expression example but tell Data Splitter to make the subsequent name available for the next match by not advancing the content beyond the end of the previous value. This is done by using the [advance attribute]({{< relref "expressions.md#regex-advance" >}}) on the `<regex>`. However, the reverse attribute represents a better way to solve this particular problem and allows a simpler and more efficient regular expression to be used.
+An alternative to using the reverse attribute is to use the original reluctant expression example but tell Data Splitter to make the subsequent name available for the next match by not advancing the content beyond the end of the previous value.
+This is done by using the [advance attribute]({{< relref "expressions.md#regex-advance" >}}) on the `<regex>`.
+However, the reverse attribute represents a better way to solve this particular problem and allows a simpler and more efficient regular expression to be used.

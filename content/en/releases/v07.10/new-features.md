@@ -238,7 +238,8 @@ If the IDP is known to provide the `aud` claim (often populated with the `client
 ### User Full Name
 
 Add the config prop `stroom.security.authentication.openId.fullNameClaimTemplate` to allow the user's full name to be formed from a template containing a mixture of static text and claim variables, e.g. `${firstName} ${lastName}`.
-Unknown variables are replaced with an empty string. Default is `${name}`.
+Unknown variables are replaced with an empty string.
+Default is `${name}`.
 
 This provides full control over the source of the user's full name in stroom and allows it to be formed from multiple claims within the authentication token.
 

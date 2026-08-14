@@ -373,7 +373,8 @@ But if there's ever a possibility of e.g. logon failures, logoffs or anything el
 
 ## Filtering Wanted/Unwanted Event Types
 
-It's common that not all received events are required to be translated. Depending upon the data being received and the auditing requirements that have been set against the source system, there are several ways to filter the events.
+It's common that not all received events are required to be translated.
+Depending upon the data being received and the auditing requirements that have been set against the source system, there are several ways to filter the events.
 
 
 ### Remove Unwanted Events

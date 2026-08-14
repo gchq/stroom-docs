@@ -160,7 +160,8 @@ If a development version of a library needs to be shared between projects then y
 
 ## Release Versioning Conventions
 
-Semantic versioning is used, and this should be adhered to, see {{< external-link "SemVer" "https://semver.org/" >}}. The following are examples of valid version names
+Semantic versioning is used, and this should be adhered to, see {{< external-link "SemVer" "https://semver.org/" >}}.
+The following are examples of valid version names
 
 * `SNAPSHOT` - Used only for local development, never to be published publicly.
 * `v3.3.0` - Initial release of v3.3, with an associated `3.3` branch.

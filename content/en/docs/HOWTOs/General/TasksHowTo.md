@@ -12,7 +12,8 @@ description: >
 
 Various
 [Tasks]({{< relref "/docs/reference-section/jobs" >}})
-run in the background within Stroom. This HOWTO demonstrates how to manage these tasks
+run in the background within Stroom.
+This HOWTO demonstrates how to manage these tasks
 
 
 ## Assumptions
@@ -65,7 +66,8 @@ Now, re-enable each node's `Proxy Aggregation` check-box and the main `Proxy Agg
 
 After checking the check-boxes, perform a refresh of the display by pressing the _Refresh_ icon {{< stroom-icon "refresh.svg" >}}.
 
-on the top right of the lower (node display) pane. You should note the `Last Executed` date/time change to see
+on the top right of the lower (node display) pane.
+You should note the `Last Executed` date/time change to see
 
 {{< screenshot "HOWTOs/UI-TestProxyAggregation-00.png" >}}Stroom UI Test Feed - Re-enable Proxy Aggregation{{< /screenshot >}}
 
@@ -89,11 +91,13 @@ nodes in the Stroom deployment.
 
 Clearly, if it was a single node Stroom deployment, you would only see the one node at the bottom of the `Jobs` configuration tab.
 
-We enable nodes by selecting their check-boxes as well as the main `Stream Processors` check-box. Do so.
+We enable nodes by selecting their check-boxes as well as the main `Stream Processors` check-box.
+Do so.
 
 {{< screenshot "HOWTOs/UI-NodeProcessors-02.png" >}}Stroom UI Jobs Management - Stream Processor enabled{{< /screenshot >}}
 
-That is it. Stroom will automatically take note of these changes and internally start each node's Stroom Processor task.
+That is it.
+Stroom will automatically take note of these changes and internally start each node's Stroom Processor task.
 
 
 ### Enable Stream Processors on New Node

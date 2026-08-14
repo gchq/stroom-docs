@@ -8,7 +8,8 @@ description: >
   
 ---
 
-In addition to referencing content produced by a parent element it is often desirable to store content and reference it later. The following example of a CSV with a heading demonstrates how content can be stored in a variable and then referenced later on.
+In addition to referencing content produced by a parent element it is often desirable to store content and reference it later.
+The following example of a CSV with a heading demonstrates how content can be stored in a variable and then referenced later on.
 
 
 ## Input

@@ -31,7 +31,8 @@ Periodically a Java release will be deemed a Long Term Support (LTS) releases, e
 Intermediate version have a short support lifecycle.
 
 Stroom and Stroom-Proxy versions will now typically require an LTS releases of Java as a minimum.
-While you can run a later release of Java than that required by the Stroom/Stroom-Proxy release, it is generally simpler to run the minimum required version. Using the same LTS release means you will get security/bug updates for 4 or so years and you don't need to worry about any breaking changes that a later version of Java may have introduced.
+While you can run a later release of Java than that required by the Stroom/Stroom-Proxy release, it is generally simpler to run the minimum required version.
+Using the same LTS release means you will get security/bug updates for 4 or so years and you don't need to worry about any breaking changes that a later version of Java may have introduced.
 
 The following lists the minimum required Java version required by each Stroom release.
 
