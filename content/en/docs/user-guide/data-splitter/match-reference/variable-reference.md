@@ -104,8 +104,8 @@ This makes the `<data>` elements reference to the variable a remote one.
 In this situation the variable knows that it must store multiple values as the remote reference `<data>` may retrieve one of many values from the variable based on:
 
 1. The match count of the parent expression.
-2. The match count of the parent expression, plus or minus an offset.
-3. A fixed position in the variable store.
+1. The match count of the parent expression, plus or minus an offset.
+1. A fixed position in the variable store.
 
 
 #### Retrieval of Value by Iteration {#iteration}

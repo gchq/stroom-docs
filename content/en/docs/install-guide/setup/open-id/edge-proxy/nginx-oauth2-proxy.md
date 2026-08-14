@@ -157,5 +157,5 @@ To also end the KeyCloak session, give oauth2-proxy's sign out a redirect to Key
 ## Verifying it Works
 
 1. Loading Stroom redirects via oauth2-proxy to KeyCloak; after signing in, the UI loads.
-2. The request to `/api/auth/flow/v1/status` returns `200` with `"authenticated": true`, and there is no subsequent navigation to KeyCloak's `/auth` endpoint.
-3. `curl -H "Authorization: Bearer $TOKEN" https://stroom-backend:8080/api/...` from inside the network still works — machine access does not traverse the proxy.
+1. The request to `/api/auth/flow/v1/status` returns `200` with `"authenticated": true`, and there is no subsequent navigation to KeyCloak's `/auth` endpoint.
+1. `curl -H "Authorization: Bearer $TOKEN" https://stroom-backend:8080/api/...` from inside the network still works — machine access does not traverse the proxy.

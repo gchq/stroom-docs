@@ -132,7 +132,7 @@ Stroom verifies the signature of whatever credential the proxy injects, so a for
 Two things must still be true of the deployment, and Stroom cannot verify them from the inside:
 
 1. **Stroom is unreachable except through the proxy** — a security group, firewall rule or network policy allowing traffic to Stroom's application port only from the proxy.
-2. **The proxy overwrites the headers it injects**, so a client cannot supply its own.
+1. **The proxy overwrites the headers it injects**, so a client cannot supply its own.
    The ALB does this for its `x-amzn-oidc-*` headers; with NGINX make sure `proxy_set_header` is used for the `Authorization` header, which overwrites, and nothing upstream re-adds it.
 
 

@@ -46,7 +46,7 @@ The ALB is the only OIDC client in this topology.
 Order the listener rules so machine traffic is forwarded *without* authentication, then authenticate everything else:
 
 1. Paths `/datafeed*`, `/stroom/datafeed*`, `/remoting/*`, `/status` → **forward** to the Stroom target group.
-2. Default → **authenticate-cognito** (your user pool, app client and hosted UI domain) then **forward** to the Stroom target group.
+1. Default → **authenticate-cognito** (your user pool, app client and hosted UI domain) then **forward** to the Stroom target group.
 
 Points worth knowing:
 
@@ -132,7 +132,7 @@ Two registration details make it work:
 After deploying, load Stroom in a browser and check, in the developer tools network tab:
 
 1. You are redirected to the Cognito hosted UI, sign in, and land back at Stroom.
-2. The request to `/api/auth/flow/v1/status` returns `200` with `"authenticated": true` and the UI loads.
-3. There is **no** navigation to `.../oauth2/authorize` on the Cognito domain after that first sign in — if there is, Stroom is running a second flow and `edgeAuthentication.enabled` is not set.
+1. The request to `/api/auth/flow/v1/status` returns `200` with `"authenticated": true` and the UI loads.
+1. There is **no** navigation to `.../oauth2/authorize` on the Cognito domain after that first sign in — if there is, Stroom is running a second flow and `edgeAuthentication.enabled` is not set.
 
 On the Stroom side, the log should not contain `Redirecting with an AuthenticationRequest to:` during normal browsing.
