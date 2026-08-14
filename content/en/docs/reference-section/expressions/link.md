@@ -51,7 +51,8 @@ annotation('Create suspect event annotation', null(), 123, 456, 'Suspect Event',
 > [Create suspect event annotation](?streamId=123&eventId=456&title=Suspect%20Event&assignedTo=jbloggs){annotation}
 ```
 
-### CreateAnnotation
+
+## Create Annotation
 
 {{% see-also %}}
 [Annotation Links]({{< relref "docs/user-guide/search/dashboards/internal-links#annotation" >}}).

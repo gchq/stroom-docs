@@ -44,6 +44,23 @@ toDouble('1.2')
 > 1.2
 ```
 
+
+## To Float
+
+Attempts to convert the passed value to a _float_ data type.
+
+```clike
+toFloat(arg1)
+```
+
+Examples:
+
+```clike
+toFloat('1.2')
+> 1.2
+```
+
+
 ## To Integer
 
 Attempts to convert the passed value to a _integer_ data type.

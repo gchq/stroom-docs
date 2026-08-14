@@ -103,7 +103,9 @@ ${val} = [20, 1002]
 Determines the modulus of the dividend divided by the divisor.
 
 ```clike
+dividend % divisor
 modulo(dividend, divisor)
+mod(dividend, divisor)
 ```
 
 Examples

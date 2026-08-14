@@ -56,12 +56,17 @@ count()
 
 ## Count Groups
 
-This is used to count the number of unique values where there are multiple group levels.
-For Example, a data set grouped as follows
+This is used to count the number of unique group keys where there are multiple group levels.
+For example, a data set grouped as follows
+
 1. Group by Name
 1. Group by Type
 
-A groupCount could be used to count the number of distinct values of 'type' for each value of 'name'
+`countGroups` could be used to count the number of distinct values of 'type' for each value of 'name'.
+
+```clike
+countGroups()
+```
 
 
 ## Count Unique
@@ -189,6 +194,23 @@ min(max(${val}), 40, 67, 89)
 ${val} = [20, 1002]
 > 20
 ```
+
+
+## Period
+
+This provides a way of selectively applying a function to the values for one period of a window, when using the window feature.
+
+```clike
+period(period)
+period(period, function)
+```
+
+* `period` - The window period to apply the function to, as a whole number.
+* `function` - The function to apply to the values for the selected period.
+  If this is omitted then `count()` is used.
+
+Returns the value computed by the nested function for the specified period.
+Values belonging to any other period of the window are ignored.
 
 
 ## StDev (Standard Deviation)

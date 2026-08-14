@@ -42,22 +42,6 @@ contains('this', 'that')
 ```
 
 
-## Current User
-
-Returns the username of the user running the query.
-
-```clike
-currentUser()
-```
-
-Example
-
-```clike
-currentUser()
-> 'jbloggs'
-```
-
-
 ## Decode
 
 The arguments are split into 3 parts
@@ -238,6 +222,29 @@ indexOf('aa-bb-cc', '-')
 ```
 
 
+## Jq
+
+Extracts values from a JSON string using a JQ expression.
+
+```clike
+jq(json, jq)
+```
+
+* `json` - The JSON string to evaluate.
+* `jq` - The JQ expression to use for extraction.
+
+Returns the string value of the matched JSON element(s).
+Where the expression matches a single value node that value is returned, and where it matches an object or array the JSON form of it is returned.
+If nothing is matched then `null` is returned.
+
+Example
+
+```clike
+jq('{"user":{"id":"jbloggs"}}', '.user.id')
+> 'jbloggs'
+```
+
+
 ## Last Index Of
 
 Finds the last position (zero based) of `subString` in `inputString` or `-1` if it cannot be found.
@@ -289,34 +296,36 @@ match('this', 'that')
 ```
 
 
-## Query Param
+## Param
 
-Returns the value of the requested query parameter.
+Fetches the value of a named query parameter, or `null()` if the key cannot be found.
 
 ```clike
-queryParam(paramKey)
+param(paramKey)
 ```
+
+* `paramKey` - The parameter key name to fetch the value for.
 
 Examples
 
 ```clike
-queryParam('user')
+param('user')
 > 'jbloggs'
 ```
 
 
-## Query Params
+## Params
 
-Returns all query parameters as a space delimited string.
+Returns all the query parameters for the current query as a space delimited string.
 
 ```clike
-queryParams()
+params()
 ```
 
 Examples
 
 ```clike
-queryParams()
+params()
 > 'user=jbloggs site=HQ'
 ```
 
@@ -414,4 +423,31 @@ Example
 ```clike
 upperCase('Hello DeVeLoPER')
 > 'HELLO DEVELOPER'
+```
+
+
+## XPath
+
+Extracts a value from an XML string using an XPath 1.0 expression.
+
+```clike
+xpath(xml, xpath)
+xpath(xml, xpath, prefix, uri...)
+```
+
+* `xml` - The XML string to evaluate.
+* `xpath` - The XPath expression to use for extraction.
+* `prefix` - A namespace prefix used in the expression.
+* `uri` - The namespace URI that the preceding prefix is bound to.
+
+Returns the string value of the matched node.
+
+Namespace prefixes and URIs are supplied in pairs, and as many pairs as are needed can be supplied.
+A prefix must be declared for each namespace used in the expression, including the default namespace of the document.
+
+Example
+
+```clike
+xpath('<user><id>jbloggs</id></user>', '/user/id')
+> 'jbloggs'
 ```
