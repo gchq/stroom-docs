@@ -12,6 +12,7 @@ description: >
 
 Stroom and Stroom Proxy should be run under a processing user (we assume _stroomuser_ below).
 
+
 ## Create User
 
 {{< command-line "root" "localhost" >}}
@@ -19,6 +20,7 @@ Stroom and Stroom Proxy should be run under a processing user (we assume _stroom
 {{</ command-line >}}
 
 You may want to allow normal accounts to sudo to this account for maintenance (visudo).
+
 
 ## Create Service Script
 
@@ -94,6 +96,7 @@ In vi add the following lines.
 # User specific aliases and functions
 . ~/env.sh
 ```
+
 
 ### Verify Java Installation
 

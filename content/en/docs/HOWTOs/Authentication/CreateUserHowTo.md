@@ -44,6 +44,7 @@ See
 [Permissions](../../../user-guide/roles "Stroom Application Permissions")
 for an explanation of the various Application Permissions a user can have.
 
+
 #### Assign an Administrator Permission
 
 As we want the user to be an administrator, select the __Administrator__ Permission check-box

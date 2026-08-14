@@ -13,6 +13,7 @@ description: >
 This site is built using Hugo with the Docsy Hugo theme.
 The content is pre-dominantly authored in Markdown with some Hugo shortcodes.
 
+
 ## Useful External Links
 
 * {{< external-link "Hugo" "https://gohugo.io/" >}} static site generator.

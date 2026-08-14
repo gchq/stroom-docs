@@ -15,6 +15,7 @@ description: >
 [HOWTO - Creating a Simple Reference Feed]({{< relref "../ReferenceFeeds/CreateSimpleReferenceFeed" >}})
 {{% /see-also %}}
 
+
 ## Introduction
 
 Reference feeds are temporal stores of reference data that a translation can look up to enhance an Event with additional data.
@@ -331,6 +332,7 @@ and the fragment from the output pane for our last event of this stream shows
 
 This is the XSLT Translation.
 {{< textfile "HOWTOs/ReferenceFeeds/ApacheHPPTDwithLookups-TranslationXSLT.xslt" "xml" >}}Apache BlackBox with Lookups Translation XSLT{{< /textfile >}}
+
 
 ## Troubleshooting Lookup Issues
 

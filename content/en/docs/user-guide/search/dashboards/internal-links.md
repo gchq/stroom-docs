@@ -40,6 +40,7 @@ The link type can be one of the following:
 * `data` : Used to show Stroom data internally with parameters in the URL.
 * `annotation` : Used to show a Stroom annotation internally with parameters in the URL.
 
+
 ## Dialog
 
 Dialog links are used to embed any referenced URL in a Stroom popup Dialog.
@@ -61,6 +62,7 @@ The dialog title can be controlled by adding a `|` and required title after the 
 ```clike
 {dialog|Embedded In Stroom}
 ```
+
 
 ## Tab
 
@@ -84,6 +86,7 @@ The tab title can be controlled by adding a `|` and required title after the typ
 {tab|Embedded In Stroom}
 ```
 
+
 ## Browser
 
 Browser links are used to open any referenced URL in a new browser tab.
@@ -103,6 +106,7 @@ In a dashboard text pane the HTML could look like this:
 {{% note %}}
 Unlike the other link types there is no way to control the browser tab title.
 {{% /note %}}
+
 
 ## Dashboard
 
@@ -138,6 +142,7 @@ An example of this type of link in HTML:
 {{% note %}}
 By using a pipeline with the appropriate XSLT it is possible to dynamically generate links in dashboard text panes that will be specific to the data being displayed.
 {{% /note %}}
+
 
 ## Data
 
@@ -194,7 +199,9 @@ An example of this type of link in HTML:
 </div>
 ```
 
+
 ### View Type
+
 The additional parameter `viewType` can be used to switch the data view mode from `preview` (default) to `source`.
 
 In preview mode the optional parameters `lineFrom`, `colFrom`, `lineTo`, `colTo` can be used to limit the portion of the data that is displayed.
@@ -219,8 +226,11 @@ In source mode the optional parameters `lineFrom`, `colFrom`, `lineTo`, `colTo` 
 </div>
 ```
 
+
 ### Display Type
+
 Choose whether to display data in a `dialog` (default) or a Stroom `tab`.
+
 
 ## Stepping
 
@@ -246,7 +256,9 @@ An example of this type of link in HTML:
 </div>
 ```
 
+
 ## Annotation
+
 A link can be used to edit or create annotations.
 To view or edit an existing annotation the id must be known or one can be found using a stream and event id.
 If all parameters are specified an annotation will either be created or edited depending on whether it exists or not.

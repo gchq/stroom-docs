@@ -14,11 +14,15 @@ Stroom stores data in [volumes]({{< relref "../../user-guide/volumes.md" >}}).
 These are the logical link to the Storage hierarchy we setup on the operating system.
 This HOWTO will demonstrate how one first sets up volumes and also how to add additional volumes if one expanded an existing Stroom cluster.
 
+
 ## Assumptions
+
 - an account with the `Administrator` [Application Permission]({{< relref "docs/user-guide/security/app-permissions.md" >}}) is currently logged in.
 - we will add volumes as per the Multi Node Stroom deployment Storage hierarchy
 
+
 ## Configure the Volumes
+
 We need to configure the volumes for Stroom. The follow demonstrates adding the volumes for two nodes, but demonstrates the process for a single node
 deployment as well the volume maintenance needed when expanding a Multi Node Cluster when adding in a new node.
 
@@ -51,7 +55,9 @@ The attributes we see for each volume are
 If you are setting up Stroom for the first time and you had accepted the default for the __CREATE_DEFAULT_VOLUME_ON_START__ configuration option (_true_) when
 configuring the Stroom service application, you will see two default volumes have already been created. Had you set this option to _false_ then the window would be empty.
 
+
 #### Add Volumes
+
 Now from our two node Stroom Cluster example, our storage hierarchy was
 
 - Node: `stroomp00.strmdev00.org`
@@ -148,6 +154,7 @@ This **MUST** be done before sending any data to your multi-node Stroom cluster.
 
 
 ## Adding New Volumes
+
 When one expands a Multi Node Stroom cluster deployment, after the installation of the Stroom Proxy and Application software and services on the new node,
 one has to configure the new volumes that are on the new node. The following demonstrates this assuming we are adding
 * the new node is `stroomp02`

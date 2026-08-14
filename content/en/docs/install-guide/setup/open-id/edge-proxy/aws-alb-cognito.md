@@ -90,12 +90,14 @@ POOL_ID/.well-known/openid-configuration"
           - "arn:aws:elasticloadbalancing:REGION:ACCOUNT_ID:"
 ```
 
+
 ### `expectedSignerPrefixes`
 
 The regional AWS endpoint that Stroom fetches verification keys from serves the keys of **every** load balancer in that region, so the signature alone proves a token came from *an* ALB, not from *your* ALB.
 This setting closes that gap: the `signer` field in the token's header, which is the signing load balancer's ARN, must start with one of the configured values.
 
 It is required — with it unset, every ALB token is rejected, and the log message names this property.
+
 
 ### `publicKeyUriPattern`
 
@@ -106,6 +108,7 @@ AWS GovCloud serves the keys from different, S3 hosted endpoints, so GovCloud de
         publicKeyUriPattern: "https://s3-us-gov-west-1.amazonaws.com/\
 aws-elb-public-keys-prod-us-gov-west-1/${keyId}"
 ```
+
 
 ### Identity Claims
 

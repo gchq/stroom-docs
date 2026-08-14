@@ -42,6 +42,7 @@ echo -e "-------\n$key\n-------"; \
 key=""
 ```
 
+
 ## Setting up the Gradle Build
 
 The signing and release to Sonatype is done by various gradle plugins.

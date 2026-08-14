@@ -69,6 +69,7 @@ If you want a reused tab position to also be a tab stop so that the user can cho
 </xsl:stylesheet>
 ```
 
+
 ## Adding Snippets to Stroom
 
 We have plans for improving how completion snippets are defined, i.e. allowing users to define their own.
@@ -91,6 +92,8 @@ and paste it below this message.
 -->
 
 <!-- #~#~#~#~#~# GENERATED CONTENT START #~#~#~#~#~#~# -->
+
+
 ## XML/XSLT Snippets 
  
 ### Apply-templates With-param (`wapply`)
@@ -524,6 +527,8 @@ ${0}
   </xsl:template>
 </xsl:stylesheet>
 ````
+
+
 ## Data Splitter Snippets 
  
 ### CSV Splitter (`csv`)
@@ -699,6 +704,8 @@ ${0}
   </group>
 </regex>
 ````
+
+
 ## XMLFragmentParser Snippets 
  
 ### Events Fragment Template (`evt`)
@@ -737,6 +744,8 @@ ${0}
 </records>
 ${0}
 ````
+
+
 ## Documentation (Markdown) Snippets 
  
 ### Heading Level 1 (`h1`)
@@ -884,7 +893,10 @@ _${1:italic_text}_${0}
 ```markdown
 ***${1:bold_italic_text}***${0}
 ````
+
+
 ## Stroom Query Language Snippets 
+
 All [Expression Functions]({{< relref "docs/reference-section/expressions" >}}) are available as snippets.
 They do not currently have `tab` triggers.
  
@@ -928,7 +940,8 @@ $0
 eval ${1:field_name} = first(${1})
 $0
 ````
- 
+
+
 ## Dashboard Table Expression Editor Snippets
  
 All [Expression Functions]({{< relref "docs/reference-section/expressions" >}}) are available as snippets.

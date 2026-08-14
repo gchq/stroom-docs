@@ -64,8 +64,6 @@ The following is the list of different permissions that can be granted to users/
 | **Use**    | Only allow use of a folder, e.g. allow use of an index as part of a search process but do not allow viewing of the folder itself.                                      |
 
 
-
-
 ### Implied Permissions
 
 Note that each permission in the two tables above also includes all the permissions below it in the table, e.g. a user with `Edit` permission on a document will also have the implied permissions `View` and `Use`.

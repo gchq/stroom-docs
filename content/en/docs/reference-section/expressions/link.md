@@ -12,7 +12,9 @@ Links can be inserted into dashboard tables using the `link` function.
 All link types described in [Internal Links]({{< relref "docs/user-guide/search/dashboards/internal-links" >}}) can be added to dashboard tables using the `link` function.
 In addition to the `link` function there are convenience functions such as `annotation`, `dashboard`, `data` and `stepping` that make it easier to supply the required link parameters.
 
+
 ## Annotation
+
 DEPRECATED - replaced by fully integrated Stroom annotation functionality and `createAnnotation`
 
 {{% see-also %}}
@@ -72,6 +74,7 @@ Example:
 ```
 createAnnotation('Create Annotation', 'My Annotation Title', ${SubjectField}, 'New', 'UserA', 'Look at this thing', '123:2,123444:3')
 ```
+
 
 ## Dashboard
 
@@ -139,6 +142,7 @@ Example of a single event metadata record from a segmented stream, viewed in a p
 data('View Cooked', ${StreamId}, 1, ${eventId}, null(), null(), null(), null(), 'info')
 ```
 
+
 ## Link
 
 {{% see-also %}}
@@ -165,6 +169,7 @@ link('Click Here','https://www.somehost.com/somepath', 'dialog')
 link('Click Here','https://www.somehost.com/somepath', 'dialog|Dialog Title')
 > [Click Here](https://www.somehost.com/somepath){dialog|Dialog Title}
 ```
+
 
 ## Stepping
 

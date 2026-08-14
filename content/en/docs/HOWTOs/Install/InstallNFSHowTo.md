@@ -37,6 +37,7 @@ sudo systemctl start nfs-lock
 sudo systemctl start nfs-idmap
 ```
 
+
 ## Configuration of NFS Exports
 
 We now export the node's `/stroomdata` directory (in case you want to share the working directories) by configuring /etc/exports. For simplicity sake, we will allow all nodes with the hostname nomenclature of `stroomp*.strmdev00.org` to mount the `/stroomdata` directory.

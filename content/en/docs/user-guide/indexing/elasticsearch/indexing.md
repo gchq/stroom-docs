@@ -196,7 +196,6 @@ Now you have created a template indexing pipeline, it's time to create a feed-sp
 
 ## Create an Elasticsearch Indexing Pipeline
 
-
 ### Procedure
 
 1. Right-click on a folder {{< stroom-icon "folder.svg">}} in the Stroom Explorer pane {{< stroom-icon "folder-tree.svg" "Explorer" >}}.

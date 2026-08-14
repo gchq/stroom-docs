@@ -109,6 +109,7 @@ Callers then request that scope, e.g. `api://<client-id>/user_impersonation`, an
 
 Replace `TENANT_ID` with the Directory (tenant) ID.
 
+
 ### Issuers
 
 The v2.0 discovery endpoint advertises an issuer of `https://login.microsoftonline.com/TENANT_ID/v2.0`, which is a parent path of the discovery endpoint itself, so Stroom's issuer check is satisfied with no extra configuration.
@@ -132,6 +133,7 @@ Do not use the `common` or `organizations` endpoints in place of a tenant id.
 Their discovery documents report an issuer containing a literal `{tenantid}` placeholder rather than a real value, and they allow sign in from any tenant, which is unlikely to be what you want.
 {{% /note %}}
 
+
 ### Audience Validation
 
 An Entra ID **id_token** carries `aud` set to the Application (client) ID, so interactive sign in validates against `clientId` with no further configuration.
@@ -145,6 +147,7 @@ Entra ID does populate the audience claim, so an absent one means the token is n
 {{% /warning %}}
 
 Leave `validateAudience` at its default of `true`.
+
 
 ### Claims
 
@@ -172,11 +175,13 @@ Changing it later means every existing Stroom user is orphaned, and their permis
 Do not use `preferred_username`, `email` or `upn`; all can be reassigned to a different person, who would then inherit the Stroom user.
 {{% /warning %}}
 
+
 ### Group and Role Claims
 
 Entra ID can be configured to emit `groups` and `roles` claims.
 Stroom does not consume them.
 All authorisation is done with Stroom's own users, groups and permissions, so directory group membership has no effect on what a user can do in Stroom.
+
 
 ### Access Token Type
 

@@ -35,6 +35,8 @@ The following is a list of all Document types in Stroom.
 
 
 <!-- #~#~#~#~#~# GENERATED CONTENT START #~#~#~#~#~#~# -->
+
+
 ## Configuration
  
 Documents that are used as configuration for other documents.
@@ -118,7 +120,6 @@ Scripts can have dependencies on other Script Documents, e.g. to allow re-use of
 Defines a data visualisation that can be used in a [Dashboard]({{< relref "#dashboard" >}}) Document.
 The Visualisation defines the settings that will be available to the user when it is embedded in a Dashboard.
 A Visualisation is dependent on a [Script]({{< relref "#script" >}}) Document for the Javascript code to make it work.
- 
 
 
 ## Data Processing
@@ -150,7 +151,6 @@ The Pipeline Document defines the structure of the pipeline and the configuratio
 It also defines the filter(s) that will be used to control what data is passed through the pipeline and the priority of processing.
 The Pipeline Document can be used to view the data produced by the pipeline and to monitor its processing state and progress.
 {{% see-also %}}[Pipelines]({{< relref "docs/user-guide/pipelines" >}}){{% /see-also %}}
- 
 
 
 ## Indexing
@@ -241,7 +241,6 @@ It is used by the {{< pipe-elm "StatisticsFilter" >}} pipeline element.
  
 A view is an abstraction over a data source (such as a [Lucene Index]({{< relref "#lucene-index" >}})) and optionally an [extraction pipeline]({{< relref "docs/user-guide/pipelines/recipies#search-extraction" >}}).
 Views provide a much simpler way for users to query data as the user can simply query against the View without any knowledge of the underlying data source or extraction of that data.
- 
 
 
 ## Search
@@ -313,7 +312,6 @@ A Query can query main types of data source including [Views]({{< relref "#view"
  
 Defines a report that can be run at scheduled intervals and sent to individuals via email.
 The criteria is defined using a StroomQL query.
- 
 
 
 ## Transformation

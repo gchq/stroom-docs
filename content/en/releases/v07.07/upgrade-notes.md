@@ -12,6 +12,7 @@ description: >
 Please read this section carefully in case any of it is relevant to your Stroom instance.
 {{% /warning %}}
 
+
 ## Java Version
 
 Stroom v7.7 requires Java 21.
@@ -28,6 +29,7 @@ new_ver=7.7
 git diff origin/${old_ver}..origin/${new_ver} stroom-config/stroom-config-app/src/test/resources/stroom/config/app/expected.yaml
 git diff origin/${old_ver}..origin/${new_ver} stroom-proxy/stroom-proxy-app/src/test/resources/stroom/dist/proxy-expected.yaml
 -->
+
 
 ### Stroom's `config.yml`
 
@@ -62,6 +64,7 @@ See [`migrate` command]({{< relref "/docs/user-guide/tools/command-line#migrate"
 Run stroom.db.migration.TestListDbMigrations.listDbMigrationsForLatestVersion() to generate the content for
 this section
 -->
+
 
 ### Migration Scripts
 

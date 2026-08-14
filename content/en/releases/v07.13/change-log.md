@@ -24,6 +24,7 @@ OR, if you use Vim use this command (changing the path to the stroom repo) to re
 
 <!-- Changes between the latest v7.12 release and v7.13 -->
 
+
 ## New Features and Changes
 
 * Feature **{{< external-link "#5582" "https://github.com/gchq/stroom/issues/5582" >}}** : Add proper audit trail to doc history and store snapshots of data changes to allow future restore.

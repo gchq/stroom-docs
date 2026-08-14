@@ -72,6 +72,7 @@ The servlets, path and function are described below:
 | SessionList | `/sessionList` | Lists the logged in users | Needs to be secured so that only appropriate users can see who is logged in |
 | SessionResourceStore | `/resourcestore/*` | Used to create, download and delete temporary files linked to a user's session such as data for export | This is secured by using the users session and requiring authentication |
 
+
 ## HDFS, Kafka, HBase, Zookeeper
 
 Stroom and stroom-stats can integrate with HDFS, Kafka, HBase and Zookeeper. It should be noted that communication with these external services is currently not secure. Until additional security measures (e.g. authentication) are put in place it is assumed that access to these services will be carefully controlled (using a firewall, iptables or similar) so that only stroom nodes can access the open ports.

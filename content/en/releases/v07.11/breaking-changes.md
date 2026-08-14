@@ -17,6 +17,7 @@ Please read this section carefully in case any of the changes affect you.
 
 Breaking changes relating to Stroom.
 
+
 ### Import of Legacy Content
 
 Stroom v7.11 is no longer able to import content that has been exported from a v5/v6 Stroom.

@@ -16,6 +16,7 @@ The following features are usable but should be considered experimental at this 
 The functionality may be subject to future changes that may break any content created with this version.  
 {{% /warning %}}
 
+
 ### _View_
 
 A View {{< stroom-icon "document/View.svg">}} is a document type that has been added in to make using Dashboards and Queries easier.

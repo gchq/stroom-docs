@@ -21,6 +21,7 @@ Analytic rules are a means of writing a query to find matching data.
 
 Analytic rules have three different processing types:
 
+
 #### Streaming
 
 A streaming rule uses a processor filter to find streams that match the filter and runs the query against the stream.

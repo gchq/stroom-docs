@@ -9,6 +9,7 @@ description: >
 ---
 
 ## Assumptions
+
 - the user has reasonable RHEL/Centos System administration skills
 - installation is on a fully patched minimal Centos 7.3 instance.
 - the application user `stroomuser` has been created
@@ -16,6 +17,7 @@ description: >
  - the example two node Stroom cluster whose storage is described [here]({{< relref "InstallHowTo.md#storage-scenario" >}})
  - a simple Forwarding or Standalone Proxy
  - adding a node to an existing Stroom cluster
+
 
 ## Set up the Stroom Processing User's Environment
 
@@ -27,7 +29,9 @@ We first become the stroomuser
 sudo -i -u stroomuser
 {{< /command-line >}}
 
+
 ### Environment Variable Files
+
 When either a Stroom Proxy or Application starts, it needs predefined environment variables. We set these up in the `stroomuser` home directory.
 We need two files for this. The first is for the Stroom processes themselves and the second is for the Stroom systemd service we deploy. The
 difference is that for the Stroom processes, we need to `export` the environment variables where as the Stroom systemd service file just needs to read them.
@@ -133,6 +137,7 @@ chmod 750 ${F}
 
 Although one can modify the above for Stroom Forwarding or Standalone Proxy deployments, there is no issue if you use the same scripts.
 
+
 ## Establish and Deploy Systemd Services
 
 ### Processing or Proxy Node
@@ -163,6 +168,7 @@ printf 'WantedBy=multi-user.target\n' >> ${F}
 chmod 640 ${F}
 ```
 
+
 ### Single Node Scenario with Local Database
 
 Should you only have a deployment where the database is on a processing node, use the following service script. The only
@@ -192,6 +198,7 @@ printf '[Install]\n' >> ${F}
 printf 'WantedBy=multi-user.target\n' >> ${F}
 chmod 640 ${F}
 ```
+
 
 ### Enable the Service
 

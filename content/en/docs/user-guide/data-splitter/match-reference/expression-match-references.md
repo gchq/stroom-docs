@@ -10,6 +10,7 @@ description: >
 
 Referencing matches in expressions is done using `$`. In addition to this a match group number may be added to just retrieve part of the expression match. The applicability and effect that this has depends on the type of expression used.
 
+
 ## References to `<split>` Match Groups
 
 In the following example a line matched by a parent `<split>` expression is referenced by a child `<data>` element.
@@ -74,6 +75,7 @@ The match groups are as follows:
 
 `This is some text, that we wish to match`
 
+
 ## References to <Regex> Match Groups
 
 Like the `<split>` element various match groups can be referenced in a `<regex>` expression to retrieve portions of matched content. This content can be used as values for `<group>` and `<data>` elements.
@@ -105,6 +107,7 @@ The match groups are as follows:
 `user1`
 
 Match group numbers in regular expressions are determined by the order that their open bracket appears in the expression.
+
 
 ## References to `<any>` Match Groups
 

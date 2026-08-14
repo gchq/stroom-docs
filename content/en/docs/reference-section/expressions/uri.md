@@ -36,7 +36,9 @@ extractSchemeFromUri(${URI})             | http
 extractSchemeSpecificPartFromUri(${URI}) | //foo:bar@w1.superman.com:8080/very/long/path.html?p1=v1&amp;p2=v2
 extractUserInfoFromUri(${URI})           | foo:bar
 
+
 ## extractAuthorityFromUri
+
 Extracts the Authority component from a URI
 
 `extractAuthorityFromUri(uri)`
@@ -47,6 +49,7 @@ Example
 extractAuthorityFromUri('http://foo:bar@w1.superman.com:8080/very/long/path.html?p1=v1&p2=v2#more-details')
 > 'foo:bar@w1.superman.com:8080'
 ```
+
 
 ## extractFragmentFromUri
 
@@ -61,6 +64,7 @@ extractFragmentFromUri('http://foo:bar@w1.superman.com:8080/very/long/path.html?
 > 'more-details'
 ```
 
+
 ## extractHostFromUri
 
 Extracts the Host component from a URI
@@ -73,6 +77,7 @@ Example
 extractHostFromUri('http://foo:bar@w1.superman.com:8080/very/long/path.html?p1=v1&p2=v2#more-details')
 > 'w1.superman.com'
 ```
+
 
 ## extractPathFromUri
 
@@ -87,6 +92,7 @@ extractPathFromUri('http://foo:bar@w1.superman.com:8080/very/long/path.html?p1=v
 > '/very/long/path.html'
 ```
 
+
 ## extractPortFromUri
 
 Extracts the Port component from a URI
@@ -99,6 +105,7 @@ Example
 extractPortFromUri('http://foo:bar@w1.superman.com:8080/very/long/path.html?p1=v1&p2=v2#more-details')
 > '8080'
 ```
+
 
 ## extractQueryFromUri
 
@@ -113,6 +120,7 @@ extractQueryFromUri('http://foo:bar@w1.superman.com:8080/very/long/path.html?p1=
 > 'p1=v1&p2=v2'
 ```
 
+
 ## extractSchemeFromUri
 
 Extracts the Scheme component from a URI
@@ -126,6 +134,7 @@ extractSchemeFromUri('http://foo:bar@w1.superman.com:8080/very/long/path.html?p1
 > 'http'
 ```
 
+
 ## extractSchemeSpecificPartFromUri
 
 Extracts the SchemeSpecificPart component from a URI
@@ -138,6 +147,7 @@ Example
 extractSchemeSpecificPartFromUri('http://foo:bar@w1.superman.com:8080/very/long/path.html?p1=v1&p2=v2#more-details')
 > '//foo:bar@w1.superman.com:8080/very/long/path.html?p1=v1&p2=v2'
 ```
+
 
 ## extractUserInfoFromUri
 

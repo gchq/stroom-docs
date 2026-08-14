@@ -21,6 +21,7 @@ Stroom has two databases. The first, `stroom`, is used for management of Stroom 
 
 In this HOWTO, we describe the deployment of two database instances on the one node, each serving a single database. We provide example deployments using either the {{< external-link "MariaDB" "https://mariadb.com" >}} or {{< external-link "MySQL Community" "https://www.mysql.com/products/community/" >}} versions of MySQL.
 
+
 ## Assumptions
 
 - we are installing the MariaDB or MySQL Community RDBMS software.
@@ -41,6 +42,7 @@ As MariaDB is directly supported by Centos 7, we simply install the database ser
 {{< command-line >}}
 sudo yum -y install policycoreutils-python mariadb-server
 {{< /command-line >}}
+
 
 ### MySQL Community Server Installation
 
@@ -111,6 +113,7 @@ Next we install server software and SELinux policy files, as per
 {{< command-line >}}
 sudo yum -y install policycoreutils-python mysql-community-server
 {{< /command-line >}}
+
 
 ## Preparing the Database Deployment
 
@@ -233,7 +236,9 @@ sudo systemctl start mysqld@1
 {{< /command-line >}}
 At this point, we should have both instances running. One should check each instance's log file for any errors.
 
+
 #### Secure Each Database Instance
+
 We secure each database engine by running the `mysql_secure_installation` script. One should accept all defaults, which means the
 only entry (aside from pressing returns) is the administrator (root) database password. Make a note of the password you use. In this case
 we will use `Stroom5User@`.
@@ -318,6 +323,7 @@ sudo mysql_secure_installation
 sudo rm /var/lib/mysql/mysql.sock
 {{< /command-line >}}
 and process as before (for when running mysql_secure_installation). At this both database instances should be secure.
+
 
 ### MySQL Community Variant
 
@@ -448,6 +454,7 @@ sudo systemctl start mysqld@1
 
 At this point, we should have both instances running. One should check each instance's log file for any errors.
 
+
 #### Secure Each Database Instance
 
 We secure each database engine by running the `mysql_secure_installation` script. One should accept all defaults, which means the
@@ -541,6 +548,7 @@ sudo rm /var/lib/mysql/mysql.sock
 {{< /command-line >}}
 and process as before (for when running mysql_secure_installation). At this point, both database instances should be secure.
 
+
 ## Create the Databases and Enable Access by the Stroom Processing Users
 
 We now create the `stroom` database within the first instance, `mysqld0` and the `statistics` database within the second
@@ -617,6 +625,7 @@ to exit.
 
 Clearly if we need to add more processing nodes, additional `grant` commands would be used. Further, if we were installing the databases in a single node Stroom environment, we would just have the first two pairs of `grants`.
 
+
 ## Configure Firewall
 
 Next we need to modify our firewall to allow remote access to our databases which listens on ports 3307 and 3308.
@@ -632,6 +641,7 @@ sudo firewall-cmd --zone=public --list-all
 {{% note %}}
 That this allows ANY node to connect to your databases. You should give consideration to restricting this to only allowing processing node access.
 {{% /note %}}
+
 
 ### Debugging of Mariadb for Stroom
 

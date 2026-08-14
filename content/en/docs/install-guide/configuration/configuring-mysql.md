@@ -16,6 +16,7 @@ description: >
 {{< external-link "MySQL Server Administration" "https://dev.mysql.com/doc/refman/8.0/en/server-administration.html" >}}
 {{% /see-also %}}
 
+
 ## General Configuration
 
 MySQL is configured via the `.cnf` file which is typically located in one of these locations:
@@ -25,6 +26,7 @@ MySQL is configured via the `.cnf` file which is typically located in one of the
 * `$MYSQL_HOME/my.cnf`
 * `<data dir>/my.cnf`
 * `~/.my.cnf`
+
 
 ### Key Configuration Properties
 
@@ -61,6 +63,7 @@ How MySQL is deployed and configured will depend on the requirements of the envi
 Where a stroom docker stack includes stroom-all-dbs (MySQL) the MySQL instance is configured via the `.cnf` file.
 The `.cnf` file is located in `volumes/stroom-all-dbs/conf/stroom-all-dbs.cnf`.
 This file is read-only to the container and will be read on container start.
+
 
 ### Database Initialisation
 

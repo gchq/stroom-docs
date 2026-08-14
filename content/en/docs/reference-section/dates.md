@@ -111,6 +111,7 @@ Symbol   | Meaning                    | Presentation | Examples
 
 The count of pattern letters determines the format.
 
+
 ### Presentation Types
 
 * **Text**: The text style is determined based on the number of pattern letters used.

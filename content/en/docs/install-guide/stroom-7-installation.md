@@ -12,6 +12,7 @@ description: >
 This section is not yet complete.
 {{% /todo %}}
 
+
 ## Typical Deployments
 
 Stroom can be deployed in a number of ways:

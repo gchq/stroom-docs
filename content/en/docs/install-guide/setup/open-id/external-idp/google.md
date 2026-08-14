@@ -78,10 +78,12 @@ The discovery document supplies the issuer, `https://accounts.google.com`, along
 
 Note that `logoutEndpoint` is deliberately absent; see [Signing out](#signing-out) below.
 
+
 ### Audience Validation
 
 Nothing to do.
 Google's `id_token` carries `aud` set to your client id, so it validates against `clientId` with the default settings.
+
 
 ### Claims
 
@@ -101,6 +103,7 @@ A Workspace administrator can reassign an address to a different person, who wou
 Google's own guidance is to key on `sub` for exactly this reason.
 {{% /warning %}}
 
+
 ### Signing Out
 
 Google offers no OIDC sign out endpoint, so leave `logoutEndpoint` unset.
@@ -109,6 +112,7 @@ Logging out of Stroom then ends the Stroom session but leaves the user signed in
 Their next visit to Stroom will sign them straight back in without being asked for credentials, which is worth being aware of on a shared machine.
 
 Do not point `logoutEndpoint` at a general Google sign out URL, as that would sign the user out of every Google service on that browser, which is unlikely to be what they expect from a Stroom logout.
+
 
 ### Access Token Type
 

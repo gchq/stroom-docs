@@ -59,6 +59,7 @@ appConfig:
     localDir: "git_repo"
 ```
 
+
 #### X509 Certificate Extraction
 
 A new property `x509CertificateDnFormat` has been added to define the format of the certificate Distinguished Name (DN).
@@ -70,6 +71,7 @@ appConfig:
   receive:
     x509CertificateDnFormat: "LDAP"
 ```
+
 
 #### Open ID Connect Authentication
 
@@ -164,6 +166,7 @@ For information purposes only, the following are the database migrations that wi
 
 Note, the `legacy` module will run first (if present) then the other module will run in no particular order.
 
+
 #### Module `stroom-index`
 
 ##### Script `V07_10_00_001__index_field.sql`
@@ -189,6 +192,7 @@ SET SQL_NOTES=@OLD_SQL_NOTES;
 
 It is not possible to display the content here.
 The file can be viewed on : {{< external-link "GitHub" "https://github.com/gchq/stroom/tree/7.10/stroom-processor/stroom-processor-impl-db/src/main/java/stroom/processor/impl/db/migration/V07_10_00_999__processor_filter_data.java" >}}
+
 
 #### Module `stroom-security`
 

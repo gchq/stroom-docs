@@ -46,7 +46,9 @@ sudo yum -y install mysql-community-client
 
 Note that we do __NOT__ need the database client software for a Forwarding or Standalone proxy.
 
+
 ## Get the Software
+
 The following will gain the identified, in this case release `5.1-beta.10`, Stroom Application software release from github, then deploy it. You should regularly monitor the site for newer releases.
 
 {{< command-line >}}
@@ -143,6 +145,7 @@ At this point, the script will configure the proxy. There should be no errors, b
 
 
 ## Apache/Mod_JK Change
+
 For all proxy deployments, if we are using Apache's mod_jk then we need to ensure the proxy's AJP connector specifies a 64K packetSize. View the file `stroom-proxy/instance/conf/server.xml` to ensure the Connector element for the AJP protocol has a packetSize attribute of `65536`. For example,
 
 {{< command-line >}}
@@ -227,6 +230,7 @@ Available time based parameters are based on the file's time of processing and a
 
 For each of the following templates applied to a Store NoDB Proxy, the resultant proxy directory tree is shown after three posts were sent to the test feed `TEST-FEED-V1_0` and two posts to the test feed `FEED-NOVALUE-V9_0`
 
+
 #### Example a - the Default - `${pathId}/${id}`
 
 {{< command-line "stroomuser" "stroomsap0" >}}
@@ -239,6 +243,7 @@ find /stroomdata/stroom-working-sap0/proxy/
 (out)/stroomdata/stroom-working-sap0/proxy/005.zip
 
 {{< /command-line >}}
+
 
 #### Example B - a Feed Orientated Structure - `${feed}/${year}/${month}/${day}/${pathId}/${id}`
 
@@ -261,6 +266,7 @@ find /stroomdata/stroom-working-sap0/proxy/
 
 {{< /command-line >}}
 
+
 #### Example C - a Date Orientated Structure - `${year}/${month}/${day}/${pathId}/${id}`
 
 {{< command-line "stroomuser" "stroomsap0" >}}
@@ -276,6 +282,7 @@ find /stroomdata/stroom-working-sap0/proxy/
 (out)/stroomdata/stroom-working-sap0/proxy/2017/07/23/005.zip
 
 {{< /command-line >}}
+
 
 #### Example D - a Feed Orientated Structure, but with a Bad Parameter - `${feed}/${badparam}/${day}/${pathId}/${id}`
 

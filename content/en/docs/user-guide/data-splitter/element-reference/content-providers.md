@@ -11,11 +11,13 @@ description: >
 Content providers take some content from the input source or elsewhere (see [fixed strings]({{< relref "use-of-fixed-strings.md" >}}) and provide it to one or more expressions.
 Both the root element `<dataSplitter>` and `<group>` elements are content providers.
 
+
 ## Root Element `<dataSplitter>`
 
 The root element of a Data Splitter configuration is `<dataSplitter>`.
 It supplies content from the input source to one or more expressions defined within it.
 The way that content is buffered is controlled by the root element and the way that errors are handled as a result of child expressions not matching all of the content it supplies.
+
 
 ### Attributes
 
@@ -23,6 +25,7 @@ The following attributes can be added to the `<dataSplitter>` root element:
 
 * [`ignoreErrors`]({{< relref "#datasplitter-ignoreerrors" >}})
 * [`bufferSize`]({{< relref "#buffersize-advanced" >}})
+
 
 #### `ignoreErrors` {#datasplitter-ignoreerrors}
 
@@ -96,12 +99,14 @@ Sub-expressions of 'body' could use match group 1 and ignore the comment.
 However as previously stated it might often be difficult to write expressions that will just match content that is to be discarded.
 In these cases `ignoreErrors` can be used to suppress errors caused by unmatched content.
 
+
 #### `bufferSize` (Advanced)
 
 This is an optional attribute used to tune the size of the character buffer used by Data Splitter.
 The default size is 20000 characters and should be fine for most translations.
 The minimum value that this can be set to is 20000 characters and the maximum is 1000000000.
 The only reason to specify this attribute is when individual records are bigger than 10000 characters which is rarely the case.
+
 
 ## Group Element `<group>`
 
@@ -115,6 +120,7 @@ Groups behave in a similar way to the root element in that they provide content 
   ...
 ```
 
+
 ### Attributes
 
 As the `<group>` element is a content provider it also includes the same `ignoreErrors` attribute which behaves in the same way.
@@ -125,6 +131,7 @@ The complete list of attributes for the `<group>` element is as follows:
 * [`ignoreErrors`]({{< relref "#group-ignoreerrors" >}})
 * [`matchOrder`]({{< relref "#matchorder" >}})
 * [`reverse`]({{< relref "#reverse" >}})
+
 
 #### `id`
 
@@ -141,6 +148,7 @@ To make identification easier you can add an 'id' attribute to any element in th
 DSParser [2:1] ERROR: Expressions failed to match all of the content provided by group: regex[0]/group[0]/regex[3]/group[1] : <group id="myGroupId">
 ```
 
+
 #### `value`
 
 This attribute determines what content to present to child expressions.
@@ -156,6 +164,7 @@ In addition to this content can be composed in the same way as it is for data na
 #### `ignoreErrors` {#group-ignoreerrors}
 
 This behaves in the same way as for the root element.
+
 
 #### `matchOrder`
 
@@ -204,6 +213,7 @@ In the following example the first expression would match and remove `Value1=1` 
 If the attribute is omitted by default the match order will be sequential.
 This is the default behaviour as tokens are most often in sequence and consuming content in this way is more efficient as content does not need to be copied by the parser to chop out sections as is required for matching in any order.
 It is only necessary to use this feature when fields that are identifiable with a specific match can occur in any order.
+
 
 #### `reverse`
 

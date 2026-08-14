@@ -18,6 +18,7 @@ Before commencing an upgrade to v7 you must upgrade Stroom to the latest minor a
 At the time of writing the latest version of v5 is `v5.5.16`.
 {{% /page-warning %}}
 
+
 ## Differences between v5 and v7
 
 Stroom v7 has significant differences to v6 which make the upgrade process a little more complicated.

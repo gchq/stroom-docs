@@ -86,6 +86,7 @@ Repeated requests are rate limited by `stroom.security.identity.passwordResetReq
 Completing a reset ends all of that user's existing sessions everywhere in the cluster.
 They then sign in with their new password.
 
+
 ### When a Reset Cannot be Completed
 
 Some accounts cannot be recovered this way.

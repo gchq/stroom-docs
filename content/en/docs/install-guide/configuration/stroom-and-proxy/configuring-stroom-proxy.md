@@ -360,6 +360,7 @@ proxyConfig:
     queue:
 ```
 
+
 #### Queue Configuration
 
 Each forward destination (whether file or HTTP) has a `queue` configuration property that controls various aspects of forwarding, e.g. failure handling, delays, concurrency, etc.

@@ -16,6 +16,7 @@ Both the user interface and underlying data model has changed.
 The legacy screens for managing users, groups and their permissions were often very confusing to use.
 The new screens attempt to make it much more intuitive.
 
+
 ### Terminology
 
 * _Explicit_ / _Direct_ - This means a permission is specifically granted to the User/Group in question.

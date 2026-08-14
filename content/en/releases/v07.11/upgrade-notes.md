@@ -50,6 +50,7 @@ git diff origin/${old_ver}..origin/${new_ver} stroom-config/stroom-config-app/sr
 git diff origin/${old_ver}..origin/${new_ver} stroom-proxy/stroom-proxy-app/src/test/resources/stroom/dist/proxy-expected.yaml
 -->
 
+
 ### Common Configuration Changes
 
 These changes are common to both Stroom and Stroom Proxy.
@@ -89,7 +90,6 @@ proxyConfig:
   receive:
     receiptPolicyUuid:
 ```
-
 
 
 ### Stroom's `config.yml`
@@ -458,7 +458,8 @@ this section
 For information purposes only, the following are the database migrations that will be run when upgrading to 7.11.0 from the previous minor version.
  
 Note, the `legacy` module will run first (if present) then the other module will run in no particular order. 
- 
+
+
 #### Module `stroom-annotation` 
  
 ##### Script `V07_11_00_001__annotation3.sql`

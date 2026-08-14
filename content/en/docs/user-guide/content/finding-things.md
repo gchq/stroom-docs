@@ -215,6 +215,7 @@ NOTE: In the following examples the `^` character is used to indicate which char
 
 If no input is provided all items will match.
 
+
 ### Contains (Default)
 
 If no prefixes or suffixes are used then all characters in the user input will need to be contained as a whole somewhere within the string being tested.

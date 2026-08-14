@@ -17,6 +17,7 @@ OR, if you use Vim use this command to read it straight into this buffer
 :r !../stroom_v7_10/diff_changelog.sh 7.9 7.10 | sed -E -e 's/^/\n/' -e 's|Issue \*\*\#([0-9]+)\*\*|Issue **{{< external-link "\#\1" "https://github.com/gchq/stroom/issues/\1" >}}**|g'
 -->
 
+
 ## Features and Changes
 
 * Change the resource store to not rely on sessions. Resources are now linked to a user.

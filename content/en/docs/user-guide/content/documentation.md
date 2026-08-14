@@ -196,7 +196,6 @@ echo "Computer name : $computer_name"
 Long paragraphs will be wrapped
 
 
-
 ## Code Syntax Highlighting
 
 This is an example of a fenced code block.

@@ -12,7 +12,9 @@ description: >
 This section was written for Stroom v5, so some parts are out of date.
 {{% /todo %}}
 
+
 ## Assumptions
+
 - the user has reasonable RHEL/Centos System administration skills
 - installation is on a fully patched minimal Centos 7.3 instance.
 - the Stroom `stroom` database has been created and resides on the host `stroomdb0.strmdev00.org` listening on port 3307.
@@ -25,7 +27,9 @@ This section was written for Stroom v5, so some parts are out of date.
 - the prerequisite software has been installed
 - when a screen capture is documented, data entry is identified by the data surrounded by '<__' '__>' . This excludes enter/return presses.
 
+
 ## Confirm Prerequisite Software Installation
+
 The following command will ensure the prerequisite software has been deployed
 
 {{< command-line >}}
@@ -39,7 +43,9 @@ or
 sudo yum -y install mysql-community-client
 {{< /command-line >}}
 
+
 ## Test Database Connectivity
+
 We need to test access to the Stroom databases on `stroomdb0.strmdev00.org`. We do this using the client `mysql` utility. We note that we
 must enter the `stroomuser` user's password set up in the creation of the database earlier (`Stroompassword1@`) when connecting to
 the `stroom` database and we must enter the `stroomstats` user's password (`Stroompassword2@`) when connecting to the `statistics` database.
@@ -146,6 +152,7 @@ quit
 
 If there are any errors, correct them.
 
+
 ## Get the Software
 
 The following will gain the identified, in this case release `5.0-beta.18`, Stroom Application software release from github, then deploy it. You should regularly monitor the site for newer releases.
@@ -157,6 +164,7 @@ wget https://github.com/gchq/stroom/releases/download/v${App}/stroom-app-distrib
 unzip stroom-app-distribution-${App}-bin.zip
 chmod 750 stroom-app
 {{< /command-line >}}
+
 
 ## Configure the Software
 
@@ -227,7 +235,9 @@ WARN  [Stroom P2 #9 - GenericServerTask] server.UpdateClusterStateTaskHandler (U
 ```
 This is ok as we will establish the cluster URL's later.
 
+
 ### Multi Node Firewall Provision
+
 In the case of a multi node Stroom deployment, you will need to open certain ports to allow Tomcat to communicate to all nodes participating
 in the cluster. Execute the following on all nodes. Note you will need to drop out of the `stroomuser` shell prior to execution.
 {{< command-line >}}

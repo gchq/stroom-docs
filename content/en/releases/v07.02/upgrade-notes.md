@@ -12,6 +12,7 @@ description: >
 Please read this section carefully in case any of it is relevant to your Stroom instance.
 {{% /warning %}}
 
+
 ## Java Version
 
 Stroom v7.2 requires Java v17.

@@ -182,7 +182,9 @@ systemctl start haveged
 
 For background reading in this matter, see {{< external-link "this reference" "https://www.digitalocean.com/community/tutorials/how-to-setup-additional-entropy-for-cloud-servers-using-haveged" >}} or {{< external-link "this reference" "https://cwiki.apache.org/confluence/display/TOMCAT/HowTo+FasterStartUp" >}}.
 
+
 ## Storage Scenario
+
 For the purpose of this Installation HOWTO, the following sets up the storage hierarchy for a two node processing
 cluster. To share our __permanent data__ we will use NFS. Accept that the NFS deployment described here is very simple, and
 in a production deployment, a _lot_ more security controls should be used. Further,
@@ -200,7 +202,9 @@ Our hierarchy is
  - `/stroomdata/stroom-working-p01`	- location to store Stroom application working files (e.g. temporary files, output, etc.) for this node
  - `/stroomdata/stroom-working-p01/proxy`	- location for Stroom proxy to store inbound data files
 
+
 #### Creation of Storage Hierarchy
+
 So, we first create processing user on all nodes as per
 {{< command-line >}}
 sudo useradd --system stroomuser
@@ -225,6 +229,7 @@ sudo chown -R stroomuser:stroomuser /stroomdata
 sudo chmod -R 750 /stroomdata
 {{< /command-line >}}
 
+
 #### Deployment of NFS to Share Stroom Storage
 
 We will use NFS to cross mount the _permanent data_ directories. That is
@@ -233,20 +238,28 @@ We will use NFS to cross mount the _permanent data_ directories. That is
 
 The HOWTO guide to deploy and configure NFS for our Scenario is [here]({{< relref "InstallNFSHowTo.md" >}})
 
+
 ## Stroom Installation
 
 ### Pre-installation Setup
+
 Before installing either the Stroom Proxy or Stroom Application, we need establish various files and scripts within
 the Stroom Processing user's home directory to support the Stroom services and their persistence. This is setup is described
 [here]({{< relref "InstallProcessingUserSetupHowTo.md" >}}).
 
+
 ### Stroom Proxy Installation
+
 Instructions for installation of the Stroom Proxy can be found [here]({{< relref "InstallProxyHowTo.md" >}}).
 
+
 ### Stroom Application Installation
+
 Instructions for installation of the Stroom application can be found [here]({{< relref "InstallApplicationHowTo.md" >}}).
 
+
 ## Web Service Integration
+
 One typically 'fronts' either a Stroom Proxy or Stroom Application with a secure web service such as Apache's Httpd or NGINX.
 In our scenario, we will use SSL to secure the web service and further, we will use Apache's Httpd.
 
@@ -259,10 +272,14 @@ to configure this can be found [here]({{< relref "InstallHttpdHowTo.md" >}}).
 
 Other Web service capability can be used, for example, {{< external-link "NGINX" "https://nginx.org" >}}.
 
+
 ## Installation Validation
+
 We will now check that the installation and web services integration has worked.
 
+
 ### Sanity Firewall Check
+
 To ensure you have the firewall correctly set up, the following command
 
 {{< command-line >}}
@@ -288,7 +305,9 @@ public (active)
   rich rules: 
 ```
 
+
 ### Test Posting of Data to the Stroom Service
+
 You can test the data posting service with the command
 
 {{< command-line >}}
@@ -316,10 +335,12 @@ Further, if you execute the data posting command (`curl`) multiple times, you wi
 the above WARN/ERROR/INFO logs will swap between the proxy services (i.e. first error will be in `stroomp00.strmdev00.org`'s
 proxy log file, then second on `stroomp01.strmdev00.org`'s proxy log file, then back to `stroomp00.strmdev00.org` and so on).
 
+
 ## Stroom Application Configuration
 
 Although we have installed our multi node Stroom cluster, we now need to configure it.
 We do this via the user interface (UI).
+
 
 ### Logging into the Stroom UI for the First Time
 
@@ -352,7 +373,9 @@ In the **About Stroom** panel we see an introductory description of Stroom in th
 - `Up Date:` - the install date
 - `Node Name:` - the node within the Stroom cluster you have connected to
 
+
 ### Login with Stroom Default Administrative User
+
 Each new Stroom deployment automatically creates the administrative user `admin` and this user's password is initially set to `admin`.
 We will [login as this user]({{< relref "../Authentication/UserLoginHowTo.md" >}}) which also validates that the database and UI is working correctly in that you can login and the password is `admin`.
 
@@ -378,6 +401,7 @@ In a Stroom cluster, nodes are expected to communicate with each other on port 8
 installation in a multi node environment ensures the firewall will allow this but we also need to
 configure the nodes. This is achieved via the Stroom UI where we set a Cluster URL for each node.
 The following [Node Configuration HOWTO]({{< relref "InstallNodesHowTo.md" >}}) demonstrates how do set the Cluster URL.
+
 
 ### Data Stream Processing
 
@@ -511,10 +535,12 @@ the Stroom Processing user's home directory to support the Stroom services and t
 [here]({{< relref "InstallProcessingUserSetupHowTo.md" >}}). Although this setup HOWTO is orientated towards a complete Stroom Proxy
 and Application installation, it does provide all the processing user setup requirements for a Stroom Proxy as well.
 
+
 ### Stroom Forwarding Proxy Installation
 
 Instructions for installation of the Stroom Proxy can be found [here]({{< relref "InstallProxyHowTo.md" >}}), noting you
 should follow the steps for configuring the proxy as a _Forwarding_ proxy.
+
 
 ## Web Service Integration for Forwarding Proxy
 
@@ -623,11 +649,15 @@ the Stroom Processing user's home directory to support the Stroom services and t
 [here]({{< relref "InstallProcessingUserSetupHowTo.md" >}}). Although this setup HOWTO is orientated towards a complete Stroom Proxy
 and Application installation, it does provide all the processing user setup requirements for a Stroom Proxy as well.
 
+
 ### Stroom Standalone Proxy Installation
+
 Instructions for installation of the Stroom Proxy can be found [here]({{< relref "InstallProxyHowTo.md" >}}), noting you
 should follow the steps for configuring the proxy as a _Store_NoDB_ proxy.
 
+
 ## Web Service Integration for Standalone Proxy
+
 One typically 'fronts' a Stroom Proxy with a secure web service such as Apache's Httpd or NGINX.
 In our scenario, we will use SSL to secure the web service and further, we will use Apache's Httpd.
 
@@ -764,6 +794,7 @@ sudo chmod 750 /stroomdata/stroom-data-p02
 sudo chown stroomuser:stroomuser /stroomdata/stroom-data-p02
 {{< /command-line >}}
 
+
 #### Deployment of NFS to Share Stroom Storage
 
 We will use NFS to cross mount the _permanent data_ directories. That is
@@ -892,6 +923,7 @@ We do this by logging into the Stroom User Interface (UI) with an account with A
 is recommended you use a attributed user for this activity. Once you have logged in you can configure this
 new node.
 
+
 ### Configure the Volumes for Our Stroom Deployment
 
 Before we can store data on this new Stroom node we need to configure its
@@ -899,6 +931,7 @@ Before we can store data on this new Stroom node we need to configure its
 we have allocated in our Storage hierarchy. The section on adding new [volumes]({{< relref "../../user-guide/volumes.md" >}}) in the
 [Volume Maintenance HOWTO]({{< relref "InstallVolumesHowTo.md#adding-new-volumes" >}})
 shows how to do this.
+
 
 ### Configure the Nodes for Our Stroom Deployment
 
@@ -908,6 +941,7 @@ configure the new node. This is achieved via the Stroom UI where we set a Cluste
 The section on Configuring a new node in the
 [Node Configuration HOWTO]({{< relref "InstallNodesHowTo.md#configure-new-node" >}}) demonstrates how do
 set the Cluster URL.
+
 
 ### Data Stream Processing
 

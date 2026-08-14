@@ -14,6 +14,7 @@ description: >
 There are multiple distributions of Java available (Oracle, OpenJDK, Adoptium, Azul, etc).
 Our recommendation is to use {{< external-link "Adoptium Eclipse Temurin" "https://adoptium.net/en-GB/temurin/releases" >}} as this is free and Open Source and has 4 year support periods for Long Term Support (LTS) releases of Java.
 
+
 ## JDK or JRE
 
 Java distributions are available as a Java Development Kit or a Java Runtime Environment.

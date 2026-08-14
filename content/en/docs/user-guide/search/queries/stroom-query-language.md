@@ -19,6 +19,7 @@ change the headings without changing the anchors in Stroom.
 !!! IMPORTANT !!!
 -->
 
+
 ## Query Format
 
 Stroom Query Language (StroomQL) is a text based replacement for the existing {{< glossary "Dashboard" >}} query builder and allows you to express the same queries in text form as well as providing additional functionality.
@@ -285,12 +286,14 @@ Or
 sort by feed desc
 ```
 
+
 ### Limit
 
 Limit the number of results, e.g.
 ```stroomql
 limit 10
 ```
+
 
 ### Select
 
@@ -307,6 +310,7 @@ select feed as 'my feed column',
   name as 'my name column'
 ```
 
+
 ### Show
 
 The `show` keyword is used to tell StroomQL how to show the data resulting from the `select`.
@@ -322,6 +326,7 @@ For visualisations that contain spaces in their names it is necessary to use quo
 ```stroomql
 show "My Visualisation" (x = EventTime, y = count)
 ```
+
 
 ## Comments
 

@@ -11,6 +11,7 @@ description: >
 This section contains the significant new features or changes in Stroom.
 For a full list of changes see [Change Log]({{< relref "./change-log" >}}).
 
+
 ## User Interface
 
 ### Jobs Screen

@@ -11,6 +11,7 @@ description: >
 ---
 
 ## Creating
+
 Right click on a folder in the explorer tree that you want to create a dictionary in.
 Choose ‘New/Dictionary’ from the popup menu:
 

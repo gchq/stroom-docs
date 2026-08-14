@@ -13,11 +13,13 @@ description: >
 Stroom v6.1 introduced a new feature (_stroom:source()_) to allow a translation developer to obtain positional details of the source file that is currently being processed.
 Using the positional information it is possible to tag Events with sufficient details to link back to the Raw source.
 
+
 ## Assumptions
 
 1. You have a working pipeline that processes logs into Events.
 1. Events are indexed
 1. You have a Dashboard that uses a Search Extraction pipeline.
+
 
 ## Steps
 

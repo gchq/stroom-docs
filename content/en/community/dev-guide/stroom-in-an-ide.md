@@ -305,6 +305,7 @@ stroom:
 
 To return it to its default value, set it to `"return false;"`.
 
+
 ### Hot Loading GWT UI Code Changes
 
 If you make any changes to the Java code in `-client` or `-shared` modules then in order for them to be hot loaded into the Javascript code you simply need to refresh the browser.

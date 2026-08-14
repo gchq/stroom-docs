@@ -136,6 +136,7 @@ git diff origin/${old_ver}..origin/${new_ver} stroom-proxy/stroom-proxy-app/src/
 
 <!-- Comparison of the latest v7.12 release => v7.13 -->
 
+
 #### New `ai` Branch
 
 The following `ai` branch has been added for configuring the database connection details for the _ai_ module.
@@ -281,6 +282,7 @@ appConfig:
       refreshAfterWrite: "PT10S"
       statisticsMode: "INTERNAL"
 ```
+
 
 #### Changes to `pipeline` Branch
 
@@ -508,6 +510,7 @@ appConfig:
         name: "Volumes"
 ```
 
+
 #### New `visualisationAsset` Properties
 
 ```yaml
@@ -601,7 +604,6 @@ appConfig:
 ```
 
 
-
 ## Database Migrations
 
 When Stroom boots for the first time with a new version it will run any required database migrations to bring the database schema up to the correct version.
@@ -629,6 +631,7 @@ this section
 
 <!-- Run on v7.13 -->
 
+
 ### Migration Scripts
  
 <!--
@@ -642,7 +645,8 @@ this section
 For information purposes only, the following are the database migrations that will be run when upgrading to 7.13.0 from the previous minor version.
  
 Note, the `legacy` module will run first (if present) then the other module will run in no particular order. 
- 
+
+
 #### Module `stroom-ai` 
  
 ##### Script `V07_13_00_001__ai.sql`
@@ -831,7 +835,8 @@ SET SQL_NOTES=@OLD_SQL_NOTES;
  
 It is not possible to display the content here.
 The file can be viewed on : {{< external-link "GitHub" "https://github.com/gchq/stroom/tree/7.13/stroom-app/src/main/java/stroom/app/db/migration/V07_13_00_005__populate_doc_dependency_processor_filters.java" >}} 
- 
+
+
 #### Module `stroom-docstore` 
  
 ##### Script `V07_13_00_001__split_doc_table.sql`
@@ -1166,7 +1171,8 @@ SET sql_notes=@old_sql_notes;
  
 It is not possible to display the content here.
 The file can be viewed on : {{< external-link "GitHub" "https://github.com/gchq/stroom/tree/7.13/stroom-docstore/stroom-docstore-impl-db/src/main/java/stroom/docstore/impl/db/migration/V07_13_00_004__populate_doc_dependency.java" >}} 
- 
+
+
 #### Module `stroom-security` 
  
 ##### Script `V07_13_00_005__json_web_key.sql`

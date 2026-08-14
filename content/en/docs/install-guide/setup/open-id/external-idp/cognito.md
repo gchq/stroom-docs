@@ -109,6 +109,7 @@ Where the two agree you can leave `authEndpoint` and `tokenEndpoint` unset and l
         userDisplayNameClaim: "cognito:username"
 ```
 
+
 ### Audience Validation
 
 This is the setting most likely to catch you out.
@@ -127,6 +128,7 @@ Interactive sign in is unaffected.
 Leave `validateAudience` at its default of `true`.
 Setting it to `false` would switch off audience checking for the `id_token` as well, which Cognito populates perfectly well.
 
+
 ### Claims
 
 Cognito does not issue a `preferred_username` claim unless the user pool has been set up with that attribute, so the Stroom default for `userDisplayNameClaim` will usually not resolve.
@@ -142,6 +144,7 @@ Both can be changed or reassigned to another person, who would then inherit the 
 For `fullNameClaimTemplate` to resolve, the corresponding attributes must be populated on the user and included in the token.
 Add `profile` to `requestScopes` if you need `name`, `given_name` or `family_name`.
 
+
 ### Signing Out
 
 Cognito's sign out endpoint has historically expected the return address in a `logout_uri` parameter rather than the `post_logout_redirect_uri` that Stroom sends.
@@ -155,6 +158,7 @@ If it leaves them on an error page at Cognito, try:
 
 Those two values are the only ones Stroom accepts.
 If neither works with your pool, leave `logoutEndpoint` unset; signing out will then end the Stroom session without signing the user out of Cognito, which means their next visit will sign them straight back in without being asked for credentials.
+
 
 ### Access Token Type
 

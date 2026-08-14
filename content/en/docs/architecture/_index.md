@@ -89,7 +89,6 @@ Any client certificate details will be passed on to the service that is being re
 
 ## Physical Deployment
 
-
 ### Single Node Docker Deployment
 
 The simplest deployment of stroom is where all services are on a single host and each service runs in its own docker container.

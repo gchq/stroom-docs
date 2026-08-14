@@ -10,6 +10,7 @@ description: >
 
 Example multi line file where records are split over many lines. There are various ways this data could be treated but this example forms a record from data created when some fictitious query starts plus the subsequent query results.
 
+
 ## Input
 
 ```text
@@ -31,6 +32,7 @@ Example multi line file where records are split over many lines. There are vario
 09/07/2009    16:45:36    Line 3:   result3
 09/07/2009    16:45:36    Line 4:   result4
 ```
+
 
 ## Configuration
 
@@ -89,6 +91,7 @@ Example multi line file where records are split over many lines. There are vario
   </regex>
 </dataSplitter>
 ```
+
 
 ## Output
 

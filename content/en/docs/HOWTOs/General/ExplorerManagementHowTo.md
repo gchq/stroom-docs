@@ -11,6 +11,7 @@ description: >
 
 <!-- Created with Stroom v6.1-beta.16 -->
 
+
 ## Moving a Set of Objects
 
 The following shows how to create a System Folder(s) within the Explorer tree and move a set of objects into the new structure.

@@ -10,6 +10,7 @@ description: >
 
 In addition to referencing content produced by a parent element it is often desirable to store content and reference it later. The following example of a CSV with a heading demonstrates how content can be stored in a variable and then referenced later on.
 
+
 ## Input
 
 This example will use a similar input to the one in the previous CSV example but also adds a heading line.
@@ -20,6 +21,7 @@ Date,Time,IPAddress,HostName,User,EventType,Detail
 01/01/2010,00:01:00,192.168.1.100,SOMEHOST.SOMEWHERE.COM,user1,create,c:\test.txt
 01/01/2010,00:02:00,192.168.1.100,SOMEHOST.SOMEWHERE.COM,user1,logoff,
 ```
+
 
 ## Configuration
 
@@ -60,6 +62,7 @@ Date,Time,IPAddress,HostName,User,EventType,Detail
   </split>
 </dataSplitter>
 ```
+
 
 ## Output
 

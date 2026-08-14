@@ -36,6 +36,7 @@ then one-way SSL authentication using the CA certificate is successful.
 
 The VBScript file to check windows certificates is `check-certs.vbs` (TODO link).
 
+
 ## Final Testing
 
 Once one-way authentication has been tested, two-way authentication should be configured:
@@ -60,9 +61,11 @@ If the response contains the line
 
 then two-way SSL authentication is successful.
 
+
 ## Final Tidy Up
 
 The files `ca.crt` and `hostname.pem` are the only files required for two-way authentication and should be stored permanently on the server; all other remaining files may be deleted or backed up if required.
+
 
 ## Certificate Expiry
 

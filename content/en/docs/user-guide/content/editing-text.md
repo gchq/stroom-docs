@@ -103,6 +103,7 @@ To do this using snippets you can do the following:
 
 Snippets can be disabled from the list of suggestions by selecting the option in the editor context menu.
 
+
 ### Tab Triggers
 
 Some snippets can be triggered by typing an abbreviation and then hitting {{< key-bind "tab" >}} to insert the snippet.

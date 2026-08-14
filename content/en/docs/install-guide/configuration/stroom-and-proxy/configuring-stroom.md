@@ -367,7 +367,6 @@ appConfig:
 It is used for defining a database connection configuration that will be used for all stroom functional areas/modules unless the module has explicitly configured its `db` configuration branch.
 
 
-
 ### `contentPackImport`
 
 ```yaml

@@ -11,6 +11,7 @@ description: >
 ---
 
 ## Assumptions
+
 The following assumptions are used in this document.
  - the user has reasonable RHEL/Centos System administration skills
  - installations are on Centos 7.3 minimal systems (fully patched)
@@ -23,7 +24,9 @@ The following assumptions are used in this document.
  - the use of self signed certificates is appropriate for test systems, but users should consider appropriate CA infrastructure in production environments
  - in this document, when a screen capture is documented, data entry is identified by the data surrounded by `<__` `__>` . This excludes enter/return presses.
 
+
 ## Create Certificates
+
 The first step is to establish a self signed certificate for our Stroom service. If you have a certificate server, then certainly gain an
 appropriately signed certificate. For this HOWTO, we will stay with a self signed solution and hence no certificate authorities are
 involved. If you are deploying a cluster, then you will only have one certificate for all nodes. We achieve this by setting up an
@@ -36,7 +39,9 @@ As the certificates will be stored in the `stroomuser's` home directory, we beco
 sudo -i -u stroomuser
 {{< /command-line >}}
 
+
 ### Use Host Variable
+
 To make things simpler in the following bash extracts, we establish the bash variable `H` to be used in filename generation. The variable name
 is set to the name of the host (or cluster alias) your are deploying the certificates on. In our multi node HOWTO example we are using, we
 would use the host CNAME `stroomp`. Thus we execute
@@ -132,7 +137,9 @@ mv private/$H.key.insecure private/$H.key
 
 We have now completed the creation of our certificates and keys.
 
+
 ### Replication of Keys Directory to Other Nodes
+
 If you are deploying a multi node Stroom cluster, then you would replicate the directory `~/stroomuser/stroom-jks` to each node in the cluster. That is,
 tar it up, copy the tar file to the other node(s) then `untar` it. We can make use of the other node's mounted file system for this process.
 That is one could execute the commands on the first node, where we created the certificates
@@ -148,6 +155,7 @@ cd ~stroomuser
 tar xf /stroomdata/stroom-data-p01/stroom-jks.tar && rm -f /stroomdata/stroom-data-p01/stroom-jks.tar
 {{< /command-line >}}
 
+
 ### Protection, Ownership and SELinux Context
 
 Now ensure protection, ownership and SELinux context for these key files on **ALL** nodes via
@@ -156,6 +164,7 @@ chmod 700 ~stroomuser/stroom-jks/private ~stroomuser/stroom-jks
 chown -R stroomuser:stroomuser ~stroomuser/stroom-jks
 chcon -R --reference /etc/pki ~stroomuser/stroom-jks
 {{< /command-line >}}
+
 
 ## Stroom Proxy to Proxy Key and Trust Stores
 

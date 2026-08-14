@@ -13,8 +13,11 @@ description: >
 
 There are many times when you may wish to create a Java keystore from certificates and keys and vice versa. This guide aims to explain how this can be done.
 
+
 ## Import
+
 If you need to create a Java keystore from a .crt and .key then this is how to do it.
+
 
 ### Convert Your Keys to DER Format
 
@@ -23,7 +26,9 @@ openssl x509 -in <YOUR KEY>.crt -inform PEM -out <YOUR KEY>.crt.der -outform DER
 openssl pkcs8 -topk8 -nocrypt -in <YOUR KEY>.key -inform PEM -out <YOUR KEY>.key.der -outform DER
 {{< /command-line >}}
 
+
 ### ImportKey
+
 Use the `ImportKey` class in the `stroom-java-client` library to import keys.
 
 For example:
@@ -33,8 +38,11 @@ java ImportKey keystore=<YOUR KEY>.jks keypass=<YOUR PASSWORD> alias=<YOUR KEY> 
 keytool -import -noprompt -alias CA -file <CA CERT>.crt -keystore ca.jks -storepass ca
 {{< /command-line >}}
 
+
 ## Export
+
 ### ExportKey
+
 Use the `ExportKey` class in the `stroom-java-client` library to export keys. If you would like to use curl or similar application but only have keys contained within a Java keystore then they can be exported.
 
 For example:

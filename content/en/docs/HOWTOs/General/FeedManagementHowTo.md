@@ -12,7 +12,9 @@ description: >
 This HOWTO demonstrates how to manage
 [Feeds]({{< relref "../../user-guide/feeds.md" >}})
 
+
 ## Assumptions
+
 - All Sections
   - an account with the `Administrator` [Application Permission]({{< relref "docs/user-guide/security/app-permissions.md" >}}) is currently logged in.
 

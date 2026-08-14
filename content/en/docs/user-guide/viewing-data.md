@@ -57,6 +57,7 @@ It shows a table of errors and warnings with associated messages and locations i
 
 
 #### Data Preview Tab
+
 This sub-tab shows the content of the data child stream, formatted if it is XML.
 It will only show a limited amount of data so if the data child stream is large then it will only show the first n characters.
 

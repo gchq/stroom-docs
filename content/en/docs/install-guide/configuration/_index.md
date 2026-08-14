@@ -37,7 +37,6 @@ The following sections provide links to how to configure each application.
 
 ## General Configuration of Docker Stacks
 
-
 ### Environment Variables
 
 The stroom docker stacks have a single env file `<stack name>.env` that acts as a single point to configure some aspects of the stack.

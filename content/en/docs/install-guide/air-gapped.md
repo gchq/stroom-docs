@@ -47,7 +47,6 @@ This is a third party script so we cannot vouch for it in any way.
 As with all scripts you run that you find on the internet, look at and understand what they do before running them.
 
 
-
 ### Loading the Images
 
 Once you have downloaded the image tar files and transferred them over the air gap you will need to load them into your local docker repo.

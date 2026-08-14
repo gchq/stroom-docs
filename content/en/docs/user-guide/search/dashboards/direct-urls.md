@@ -12,6 +12,7 @@ description: >
 It is possible to navigate directly to a specific _Stroom_ dashboard using a direct URL.
 This can be useful when you have a dashboard that needs to be viewed by users that would otherwise not be using the _Stroom_ user interface.
 
+
 ## URL Format
 
 The format for the URL is as follows:

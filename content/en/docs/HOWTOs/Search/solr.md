@@ -16,11 +16,13 @@ description: >
 1. You are familiar with Lucene indexing within Stroom
 1. You have some data to index
 
+
 ## Points to Note
 
 1. A Solr core is the home for exactly one Stroom index.
 1. Cores must initially be created in Solr.
 1. It is good practice to name your Solr core the same as your Stroom Index.
+
 
 ## Method
 

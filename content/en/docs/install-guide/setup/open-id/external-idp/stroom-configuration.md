@@ -80,10 +80,12 @@ The replacement is described in [Insecure Test Credential]({{< relref "docs/inst
 The provider's OIDC discovery document, conventionally at `https://IDP_HOST/.well-known/openid-configuration`.
 Setting this is much the easiest approach, as Stroom reads the other endpoints from it.
 
+
 ### `issuer`, `authEndpoint`, `tokenEndpoint`, `jwksUri`
 
 Set these only if you are not using a configuration endpoint, or to override a value the provider advertises incorrectly.
 Anything set here takes precedence over the discovery document.
+
 
 ### `logoutEndpoint`
 
@@ -91,6 +93,7 @@ Where Stroom sends the user to sign out at the provider.
 This is not part of the discovery document, so it always has to be set by hand, and some providers do not offer one at all.
 
 If it is not set, signing out ends the Stroom session but leaves the user signed in at the provider, so their next visit signs them straight back in without being asked for credentials.
+
 
 ### `logoutRedirectParamName`
 
@@ -115,6 +118,7 @@ The client secret is a credential.
 Supply it through an environment variable or your secret management system rather than committing it to `config.yml`, and rotate it if it is ever exposed.
 {{% /warning %}}
 
+
 ### `requestScopes`
 
 ```yaml
@@ -127,6 +131,7 @@ The scopes Stroom asks for during an interactive sign in.
 Setting this replaces the defaults rather than adding to them, so include `openid` in whatever you set.
 Add `profile` if you need the `name`, `given_name` or `family_name` claims for `fullNameClaimTemplate`.
 
+
 ### `clientCredentialsScopes`
 
 ```yaml
@@ -137,6 +142,7 @@ clientCredentialsScopes:
 The scopes used when Stroom or Stroom-Proxy requests a token for its own service user, rather than for a person.
 Again, this replaces the default.
 For Azure AD you will likely need `openid` and `<your-app-id-uri>/.default`.
+
 
 ### `formTokenRequest`
 
@@ -156,6 +162,7 @@ Checking it is what stops a token issued to some other application at the same p
 
 Three settings control this.
 
+
 ### `validateAudience`
 
 ```yaml
@@ -173,6 +180,7 @@ Any token that any application at the same provider can obtain would then be acc
 With `identityProviderType: EXTERNAL_IDP` and `validateAudience` left on, at least one of `allowedAudiences` or `clientId` must be set.
 Stroom refuses to start otherwise, rather than letting mandatory validation quietly become a no-op.
 
+
 ### `allowedAudiences`
 
 ```yaml
@@ -183,6 +191,7 @@ A set of acceptable audience values, of which a token must carry at least one.
 When empty, Stroom validates against `clientId` instead.
 
 Set this when the provider puts something other than the client id in the `aud` claim of its access tokens, which is common.
+
 
 ### `audienceClaimRequired`
 
@@ -225,6 +234,7 @@ Set it once you have confirmed what your provider actually puts in that header; 
 This applies only to bearer tokens on the API.
 It has no effect on the interactive sign in flow or on an AWS load balancer data token.
 
+
 ### `validIssuers`
 
 ```yaml
@@ -235,6 +245,7 @@ Additional issuers to accept beyond the one the provider advertises.
 
 Stroom checks that the issuer in the provider's configuration response is consistent with `openIdConfigurationEndpoint`.
 Where a provider legitimately reports an issuer that is not a parent path of that endpoint, list it here so the check passes.
+
 
 ### Signature Algorithms
 
@@ -255,6 +266,7 @@ uniqueIdentityClaim: "sub"
 The claim used to link an identity at the provider to a Stroom user.
 It must be unique at the provider and must never change for a given person, which is why `sub` is the default and normally the right answer.
 
+
 ### `userDisplayNameClaim`
 
 ```yaml
@@ -265,6 +277,7 @@ A friendlier name for the user in the Stroom UI.
 Not used for identity, so it need not be unique and may change.
 
 Change it if your provider does not issue `preferred_username`; `email` is the usual alternative.
+
 
 ### `fullNameClaimTemplate`
 
@@ -284,6 +297,7 @@ Use single quotes in the YAML file, otherwise the `${...}` variables are expande
 
 These apply when an AWS Application Load Balancer in front of Stroom performs the authentication and passes the result on in an `x-amzn-oidc-data` header.
 
+
 ### `expectedSignerPrefixes`
 
 ```yaml
@@ -292,6 +306,7 @@ expectedSignerPrefixes: []
 
 The Amazon Resource Names of the load balancer(s) fronting Stroom, used to verify the `signer` in the JWT header.
 Each value is the first N characters of an ARN and must include at least everything up to the colon after the account id, i.e. `arn:aws:elasticloadbalancing:region-code:account-id:`.
+
 
 ### `publicKeyUriPattern`
 

@@ -66,10 +66,12 @@ Direct machine access is unaffected: API keys and bearer tokens work as they alw
         # ... provider settings, see the worked examples ...
 ```
 
+
 ### `edgeAuthentication.enabled`
 
 Declares that the proxy is the Relying Party, with the effects described above.
 Requires `identityProviderType: EXTERNAL_IDP`; Stroom will refuse to start otherwise.
+
 
 ### `edgeAuthentication.logout.cookiesToExpire`
 
@@ -77,6 +79,7 @@ Signing out of Stroom does not end the proxy's session by itself; without help, 
 This setting lists the proxy's session cookie **name prefixes**, which Stroom expires when the user logs out.
 
 They are prefixes because proxies shard large session cookies: an ALB's `AWSELBAuthSessionCookie` arrives as `AWSELBAuthSessionCookie-0`, `-1` and so on, and oauth2-proxy chunks `_oauth2_proxy` the same way.
+
 
 ### `edgeAuthentication.logout.signOutUrl`
 
@@ -88,6 +91,7 @@ If it is not set, Stroom logs a warning at each logout: the proxy session surviv
 {{% warning %}}
 The page the user lands on after signing out must be on a path the proxy does **not** authenticate, otherwise the sign in flow simply restarts and the user never sees that they signed out.
 {{% /warning %}}
+
 
 ### `csrf.protectBrowserOriginatedRequests`
 

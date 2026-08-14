@@ -65,6 +65,7 @@ appConfig:
       refreshAfterWrite: null
 ```
 
+
 ### Changed Property Values
 
 #### `stroom.ui.helpSubPathJobs`
@@ -135,7 +136,6 @@ and script = 'stroom.app.db.migration.V07_04_00_005__Orphaned_Doc_Perms';
 {{% /warning %}}
 
 
-
 ### Migration Scripts
 
 <!--
@@ -150,6 +150,7 @@ For information purposes only, the following are the database migrations that wi
 
 Note, the `legacy` module will run first (if present) then the other module will run in no particular order.
 
+
 #### Module `stroom-app`
 
 ##### Script `V07_05_00_005__Orphaned_Doc_Perms.java`
@@ -158,6 +159,7 @@ Note, the `legacy` module will run first (if present) then the other module will
 
 It is not possible to display the content here.
 The file can be viewed on : {{< external-link "GitHub" "https://github.com/gchq/stroom/tree/7.5/stroom-app/src/main/java/stroom/app/db/migration/V07_05_00_005__Orphaned_Doc_Perms.java" >}}
+
 
 #### Module `stroom-docstore`
 

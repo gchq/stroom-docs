@@ -13,6 +13,7 @@ The following are a basic set of pipeline recipes for doing typical tasks in Str
 It is not an exhaustive list, as the possibilities with Pipelines are vast.
 They are intended as a rough guide to get you started with building Pipelines.
 
+
 ## Data Ingest and Transformation
 
 ### CSV to Normalised XML

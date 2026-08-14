@@ -23,6 +23,7 @@ isBoolean(toBoolean('true'))
 > true
 ```
 
+
 ## Is Double
 
 Checks if the passed value is a _double_ data type.
@@ -37,6 +38,7 @@ Examples:
 isDouble(toDouble('1.2'))
 > true
 ```
+
 
 ## Is Error
 
@@ -56,6 +58,7 @@ isError(err())
 > true
 ```
 
+
 ## Is Integer
 
 Checks if the passed value is an _integer_ data type.
@@ -71,6 +74,7 @@ isInteger(toInteger('1'))
 > true
 ```
 
+
 ## Is Long
 
 Checks if the passed value is a _long_ data type.
@@ -85,6 +89,7 @@ Examples:
 isLong(toLong('1'))
 > true
 ```
+
 
 ## Is Null
 
@@ -104,6 +109,7 @@ isNull(null())
 > true
 ```
 
+
 ## Is Number
 
 Checks if the passed value is a numeric data type.
@@ -119,6 +125,7 @@ isNumber(toLong('1'))
 > true
 ```
 
+
 ## Is String
 
 Checks if the passed value is a _string_ data type.
@@ -132,6 +139,7 @@ Examples:
 isString(toString(1.2))
 > true
 ```
+
 
 ## Is Value
 
@@ -149,6 +157,7 @@ isValue(toLong('1'))
 isValue(null())
 > false
 ```
+
 
 ## Type Of
 

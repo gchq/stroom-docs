@@ -28,6 +28,7 @@ run in the background within Stroom. This HOWTO demonstrates how to manage these
 
 ## Proxy Aggregation
 
+
 ## Turn Off Proxy Aggregation
 
 We first select the `Monitoring` item of the __Main Menu__ to bring up the `Monitoring` sub-menu.

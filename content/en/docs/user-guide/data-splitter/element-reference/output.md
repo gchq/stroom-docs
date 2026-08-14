@@ -10,6 +10,7 @@ description: >
 
 As with all other aspects of Data Splitter, output XML is determined by adding certain elements to the Data Splitter configuration.
 
+
 ## The `<data>` Element
 
 Output is created by Data Splitter using one or more `<data>` elements in the configuration.

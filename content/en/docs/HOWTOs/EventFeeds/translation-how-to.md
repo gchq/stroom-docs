@@ -489,7 +489,6 @@ Looking through these error streams will allow the developer to see which unexpe
 
 ## Common Mistakes
 
-
 ### Performance Issues
 
 The way that the code is written can affect its overall performance.

@@ -227,6 +227,7 @@ Once the user(s) are created, the appropriate permissions/groups can be assigned
 
 The following new types of document can be created and managed in the explorer tree.
 
+
 ### _Documentation_
 
 It is now possible to create a _Documentation_ {{< stroom-icon "document/Documentation.svg" >}} entity in the explorer tree.

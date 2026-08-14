@@ -36,6 +36,7 @@ Additional user accounts are created and maintained using
 
 See [User Accounts]({{< relref "docs/user-guide/security/user-accounts" >}}) for managing those accounts, and [Signing In]({{< relref "docs/user-guide/security/signing-in" >}}) for what users experience.
 
+
 ## Configuration for the Internal IDP
 
 While Stroom is pre-configured to use its internal IDP, this section describes the configuration required.

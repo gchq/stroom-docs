@@ -47,7 +47,6 @@ These typical relationships are shown in the diagram below.
 
 ## Component API, e.g. Modules Ending in `-api`
 
-
 ### API Layer
 
 All communication between components in stroom must be made via a component's API.
@@ -56,7 +55,6 @@ For component testing purposes mock implementations of these APIs can be used to
 
 
 ## Component API and Service Implementation, e.g. Modules Ending in `-impl`
-
 
 ### Client Interaction - REST Services and GWT Action Handlers
 
@@ -82,7 +80,6 @@ The service layer provides the DAO (Data Access Object) API for the persistence 
 
 
 ## Persistence Implementation, e.g. Modules Ending in `-impl-db`
-
 
 ### Persistence Layer - DAOs
 

@@ -25,6 +25,7 @@ Template pipelines are being used to simplify the establishment of this processi
 
 The sample BlueCoat Proxy log will be transformed into an intermediate simple XML key value pair structure, then into the {{< external-link "Stroom Event Logging XML Schema" "https://github.com/gchq/event-logging-schema" >}} format.
 
+
 ## Assumptions
 
 The following assumptions are used in this document.
