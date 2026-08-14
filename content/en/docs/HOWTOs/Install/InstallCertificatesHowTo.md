@@ -134,6 +134,7 @@ subject=/C=XX/L=Default City/O=Default Company Ltd/CN=stroomp.strmdev00.org
 Getting Private key
 Enter pass phrase for private/stroomp.key: <__ENTER_SERVER_KEY_PASSWORD__>
 ```
+
 and noting the `subject` will change depending on the host name used when generating the signing request.
 
 Create insecure version of private key for Apache auto-boot (you will again need to enter the server key password)
@@ -146,6 +147,7 @@ as per
 Enter pass phrase for private/stroomp.key: <__ENTER_SERVER_KEY_PASSWORD__>
 writing RSA key
 ```
+
 and then move the insecure keys as appropriate
 {{< command-line >}}
 mv private/$H.key private/$H.key.secure

@@ -98,6 +98,7 @@ Irrespective, once the mounting works, make the mounts permanent by adding the f
 ```text
 stroomp01.strmdev00.org:/stroomdata/stroom-data-p01 /stroomdata/stroom-data-p01 nfs4 soft,bg
 ```
+
 achieved with
 
 {{< command-line >}}
@@ -109,6 +110,7 @@ sudo su -c "printf 'stroomp01.strmdev00.org:/stroomdata/stroom-data-p01 /stroomd
 ```text
 stroomp00.strmdev00.org:/stroomdata/stroom-data-p00 /stroomdata/stroom-data-p00 nfs4 soft,bg
 ```
+
 achieved with
 
 {{< command-line >}}
@@ -155,6 +157,7 @@ sudo mount -t nfs4 stroomp01.strmdev00.org:/stroomdata/stroom-data-p01 /stroomda
 stroomp00.strmdev00.org:/home/stroomdata/stroom-data-p00 /home/stroomdata/stroom-data-p00 nfs4 soft,bg
 stroomp01.strmdev00.org:/home/stroomdata/stroom-data-p01 /home/stroomdata/stroom-data-p01 nfs4 soft,bg
 ```
+
 achieved with
 
 {{< command-line >}}
@@ -175,6 +178,7 @@ sudo mount -t nfs4 stroomp02.strmdev00.org:/stroomdata/stroom-data-p02 /stroomda
 ```text
 stroomp02.strmdev00.org:/stroomdata/stroom-data-p02 /stroomdata/stroom-data-p02 nfs4 soft,bg
 ```
+
 achieved with
 
 {{< command-line >}}

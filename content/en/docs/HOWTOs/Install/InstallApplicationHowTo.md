@@ -234,6 +234,7 @@ This is indicated by the message
 ```text
 INFO  [Thread-11] lifecycle.LifecycleServiceImpl (LifecycleServiceImpl.java:166) - Started Stroom Lifecycle service
 ```
+
 The directory `stroom-app/instance/logs/events` will also appear with an empty file with
 the nomenclature `events_YYYY-MM-DDThh:mm:ss.msecZ`.
 This is the directory for storing Stroom's application event logs.
@@ -252,6 +253,7 @@ you will see server.UpdateClusterStateTaskHandler messages in the log file of th
 ```
 WARN  [Stroom P2 #9 - GenericServerTask] server.UpdateClusterStateTaskHandler (UpdateClusterStateTaskHandler.java:150) - discover() - unable to contact stroomp00 - No cluster call URL has been set for node: stroomp00
 ```
+
 This is ok as we will establish the cluster URL's later.
 
 

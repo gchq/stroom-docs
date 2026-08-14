@@ -54,6 +54,7 @@ Using the positional information it is possible to tag Events with sufficient de
      </xsl:template>
    </xsl:stylesheet>
    ```
+
    This XSLT will add or augment the Meta section of the Event with the source details.
 
 1. Insert a new XSLT filter into your translation pipeline after your translation filter and set it to the XSLT created above.
@@ -105,11 +106,13 @@ Using the positional information it is possible to tag Events with sufficient de
      <xsl:attribute name="value" select="Meta/sm:source/sm:colTo" />
    </xsl:element>
    ```
+
 1. Open your dashboard, now add the following custom fields to your table:
 
    ```text
    ${src-id}, ${src-partNo}, ${src-recordNo}, ${src-lineFrom}, ${src-lineTo}, ${src-colFrom}, ${src-colTo}
    ```
+
 1. Now add a New Text Window to your Dashboard, and configure it as below:
    {{< screenshot "HOWTOs/HT-RawSourceTextWindow.png" "500x" >}}TextWindow Config{{< /screenshot >}}
 1. You can also add a column to the table that will open a data window showing the source.

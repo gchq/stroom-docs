@@ -203,6 +203,7 @@ For example the data may contain:
 <Event>...</Event>
 <Event>...</Event>
 ```
+
 i.e. with no root element, so not valid XML.
 The XMLFragmentParser will wrap the fragments with a root element as defined in the TextConverter document configured with the `textConverterRef` property.
 

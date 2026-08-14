@@ -150,6 +150,7 @@ In all cases the docker daemon should be stopped prior to making the changes, e.
       "data-root": "/mnt/docker"
     }
     ```
+
 * **Mount** - If your intention is to use a whole storage device for the docker data root then you can mount that device to `/var/lib/docker`.
     You will need to make a copy of the `/var/lib/docker` directory prior to doing this then copy it mount once created.
     The process for setting up this mount will be OS dependent and is outside the scope of this document.

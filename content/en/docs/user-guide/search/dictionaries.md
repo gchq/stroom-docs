@@ -30,6 +30,7 @@ You can add multiple terms.
   banana
   orange
   ```
+
 * Terms on a single line separated by spaces act as if they are part of an 'AND' expression when used in a search.
 
   ```text

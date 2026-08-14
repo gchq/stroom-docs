@@ -162,6 +162,7 @@ We now block access to the /var/www directory by commenting out
   Require all granted
 </Directory>
 ```
+
 that is
 
 ```
@@ -552,21 +553,25 @@ We replace
 ```
 SSLCertificateFile /etc/pki/tls/certs/localhost.crt
 ```
+
 with
 
 ```
 SSLCertificateFile /home/stroomuser/stroom-jks/public/stroomp.crt
 ```
+
 and
 
 ```
 SSLCertificateKeyFile /etc/pki/tls/private/localhost.key
 ```
+
 with
 
 ```
 SSLCertificateKeyFile /home/stroomuser/stroom-jks/private/stroomp.key
 ```
+
 That is, change
 
 ```
@@ -586,6 +591,7 @@ SSLCertificateKeyFile /etc/pki/tls/private/localhost.key
 #   Point SSLCertificateChainFile at a file containing the
 ...
 ```
+
 to
 
 ```
@@ -620,6 +626,7 @@ If you have signed your Stroom server certificate with a Certificate Authority, 
 ```
 SSLCACertificateFile /etc/pki/tls/certs/ca-bundle.crt
 ```
+
 to be your own certificate bundle which you should probably store as `~stroomuser/stroom-jks/public/stroomp-ca-bundle.crt`.
 
 Now if you are using a self signed certificate, you will need to set the Client Authentication to have a value of
@@ -627,6 +634,7 @@ Now if you are using a self signed certificate, you will need to set the Client 
 ```
 SSLVerifyClient optional_no_ca
 ```
+
 noting that this may change if you actually use a CA.
 That is, changing
 
@@ -644,6 +652,7 @@ That is, changing
 #   With SSLRequire you can do per-directory access control based
 ...
 ```
+
 to
 
 ```
@@ -678,6 +687,7 @@ We achieve this by adding after the example Location directives
  Require ip 127.0.0.1 192.168.2
 </Location>
 ```
+
 We further restrict the `clustercall` and `export` servlets to just the localhost.
 If we had multiple Stroom processing nodes, you would specify each node, or preferably, the subnet they are on.
 In our multi node case this is 192.168.2.
@@ -688,6 +698,7 @@ In our multi node case this is 192.168.2.
  Require ip 127.0.0.1 192.168.2
 </Location>
 ```
+
 That is, the following
 
 ```
@@ -702,6 +713,7 @@ That is, the following
 #   o FakeBasicAuth:
 ...
 ```
+
 changes to
 
 ```
@@ -738,11 +750,13 @@ Finally, as we make use of the Black Box Apache log format, we replace the stand
 CustomLog logs/ssl_request_log \
         "%t %h %{SSL_PROTOCOL}x %{SSL_CIPHER}x \"%r\" %b"
 ```
+
 with
 
 ```
 CustomLog logs/ssl_request_log blackboxSSLUser
 ```
+
 That is, change
 
 ```
@@ -755,6 +769,7 @@ CustomLog logs/ssl_request_log \
 
 </VirtualHost>
 ```
+
 to
 
 ```
@@ -770,6 +785,7 @@ CustomLog logs/ssl_request_log blackboxSSLUser
 
 </VirtualHost>
 ```
+
 Remember, in the case of Multi node stroom Application servers, deploy this file on all servers.
 
 
@@ -880,6 +896,7 @@ If you were to add an additional node to a multi node cluster, say the node `str
 ```bash
 Nodes="stroomp00.strmdev00.org stroomp01.strmdev00.org stroomp02.strmdev00.org"
 ```
+
 then redeploy all three files to the respective servers.
 Also note, that for the newly created workers.properties files for the existing nodes to
 take effect you will need to restart the Apache Httpd service on both nodes.

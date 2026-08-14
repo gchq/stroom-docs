@@ -118,6 +118,7 @@ To do this you need to follow these steps:
      "data-root": "/path/to/new/location"
    }
    ```
+
 1. Start the Docker engine.
 
 

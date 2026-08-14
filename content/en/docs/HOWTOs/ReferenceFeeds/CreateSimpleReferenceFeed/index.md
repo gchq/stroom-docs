@@ -699,6 +699,7 @@ version="2.0">
 </xsl:template>
 </xsl:stylesheet>
 ```
+
 and our second ReferenceData element would now look like
 
 {{< screenshot "HOWTOs/v6/UI-CreateReferenceFeed-57.png" >}}xslt Translation - complete translation 2nd record{{< /screenshot >}}
@@ -916,6 +917,7 @@ The complete ReferenceData for this stream is
   </reference>
 </referenceData>
 ```
+
 If we go back to the reference feed itself (and click on the {{< stroom-icon "refresh.svg" >}} button on the far right of the top and middle panes), we now see both the _Reference_ and _Raw Reference_ streams in the _Streams Table_ pane.
 
 {{< screenshot "HOWTOs/v6/UI-CreateReferenceFeed-68.png" >}}reference feed - Data tab{{< /screenshot >}}

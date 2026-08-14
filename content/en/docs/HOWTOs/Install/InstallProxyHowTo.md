@@ -130,6 +130,7 @@ REPO_FORMAT can be left as the default, just press return
 FORWARD_SERVER should be set to our stroom server. (i.e. 'stroomp.strmdev00.org' in our example)
 JAVA_OPTS can use the defaults, but ensure you have sufficient memory, either change or accept the default
 ```
+
 At this point, the script will configure the proxy.
 There should be no errors, but review the output.
 
@@ -199,6 +200,7 @@ The proxy will have completely started when you see the messages
 ```
 INFO  [localhost-startStop-1] spring.StroomBeanLifeCycleReloadableContextBeanProcessor (StroomBeanLifeCycleReloadableContextBeanProcessor.java:109) - ** proxyContext 0 START COMPLETE **
 ```
+
 and
 
 ```

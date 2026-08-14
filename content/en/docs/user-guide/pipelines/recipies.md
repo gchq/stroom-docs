@@ -174,6 +174,7 @@ If the XML fragments are already in `event-logging` format then no _Normalise_ X
   &fragment;
   </Events>
   ```
+
 * {{< pipe-elm "XSLTFilter" "Decorate">}} - An XSLT {{< stroom-icon "document/XSLT.svg">}} transforming `event-logging:3` => `event-logging:3`.
 * {{< pipe-elm "SchemaFilter" >}} - XMLSchema `event-logging:3`
 

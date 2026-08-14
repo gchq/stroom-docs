@@ -210,6 +210,7 @@ printf '# Disabling symbolic-links is recommended to prevent assorted security r
 printf 'symbolic-links=0\n' >> ${F}
 exit # To exit the root shell
 ```
+
 We also need to associate the ports with the `mysqld_port_t` SELinux context as per
 {{< command-line >}}
 sudo semanage port -a -t mysqld_port_t -p tcp 3307

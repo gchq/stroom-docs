@@ -139,6 +139,7 @@ If you had the following files:
 |-- 01.data2
 `-- 01.ctx
 ```
+
 Then `001.data1` and `001.data2` would both be considered event data files for the base name `001` and Stroom does not allow multiple files of the same type for the same base name.
 Therefore the ZIP would be rejected with a _duplicate file_ error.
 

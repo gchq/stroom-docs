@@ -228,6 +228,7 @@ This XSLT will generate the following output data which is identical to the prev
   ...
 <Events>
 ```
+
 Once the initial XSLT is correct, it's a fairly simple matter to populate the correct nodes using standard XSLT functions and a knowledge of XPaths.
 
 

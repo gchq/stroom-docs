@@ -103,6 +103,7 @@ E.g:
 ```text
 name:^xml name:$events type:feed
 ```
+
 In the above example the filter will match on items with a name beginning `xml`, a name ending `events` and a type partially matching `feed`.
 
 All the match terms are combined with an AND operator.
@@ -132,6 +133,7 @@ E.g:
 ```text
 name:xml source:!/default
 ```
+
 In the above example it would match on items where the Name field matched `xml` and the Source field does NOT match the regex pattern `default`.
 
 
@@ -467,4 +469,5 @@ E.g:
 ```text
 !/(error|warn)
 ```
+
 In the above example it will match everything except those matched by the regex pattern `(error|warn)`.

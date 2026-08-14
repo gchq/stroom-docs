@@ -166,6 +166,7 @@ Only certain languages are supported in Stroom.
 
 **JSON**
 ```json
+
 {
   "key1": "some text",
   "key2": 123
@@ -175,6 +176,7 @@ Only certain languages are supported in Stroom.
 
 **XML**
 ```xml
+
   <record>
     <data name="dateTime" value="2020-09-28T14:30:33.476" />
     <data name="machineIp" value="19.141.201.14" />
@@ -184,6 +186,7 @@ Only certain languages are supported in Stroom.
 
 **bash**
 ```bash
+
 #!/bin/bash
 now="$(date)"
 computer_name="$(hostname)"
@@ -205,6 +208,7 @@ This is an example of a fenced code block.
 
 ````markdown
 ```xml
+
   <record>
     <data name="dateTime" value="2020-09-28T14:30:33.476" />
   </record>
