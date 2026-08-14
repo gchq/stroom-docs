@@ -17,7 +17,7 @@ For more details about external Identity Providers, see [Open ID Connect]({{< re
 {{% /note %}}
 
 
-## Accounts Vs Stroom Users
+## Accounts vs Stroom Users
 
 See [Accounts vs Users]({{< relref "docs/install-guide/setup/open-id/accounts-users" >}}) for details on the difference between a Stroom User Account and a Stroom User.
 

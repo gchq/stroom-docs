@@ -181,7 +181,7 @@ You should now have a database and stream store populated with tables and data, 
 When Stroom is next started it will begin to process the data using the pre-defined pipelines.
 
 
-## Running Stroom From the IDE
+## Running Stroom from the IDE
 
 The user interface for Stroom is built using GWT (see [GWT Project](http://www.gwtproject.org/) for more information or GWT specific documentation).
 As a result Stroom needs to be started up with GWT _Super Dev Mode_.

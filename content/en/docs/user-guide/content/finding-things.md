@@ -51,7 +51,7 @@ The way the matching works for entity names is described in [Common Fuzzy Matchi
 
 ### Filtering by UUID
 
-#### What Is a UUID?
+#### What is a UUID?
 
 The _Explorer Tree_ can be filtered by the UUID of the entity.
 The UUID {{< external-link "Universally unique identifier" "https://en.wikipedia.org/wiki/Universally_unique_identifier" >}} is an identifier that can be relied on to be unique both within the system and universally across all other systems.

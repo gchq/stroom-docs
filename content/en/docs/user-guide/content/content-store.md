@@ -23,7 +23,7 @@ The Content Store can be accessed via the Stroom Menu:
 {{< stroom-menu "Tools" "Content Store" >}}
 
 
-## What Is a Content Store?
+## What is a Content Store?
 
 A Content Store is a {{< glossary "YAML" >}} text file that references a number of sources of content.
 The content needs to be available via Git.
@@ -92,7 +92,7 @@ To update click `Pull from Git`.
 Any updates will immediately be imported into Stroom.
 
 
-### The Difference Between a Content Pack and a Git Repo
+### The Difference between a Content Pack and a Git Repo
 
 You will notice that the settings tab of {{< stroom-icon "document/GitRepo.svg" >}} Git Repo documents created manually looks slightly different to those created via the Content Store.
 This is because some of the fields should be controlled by the Content Store, otherwise upgrades might do unexpected things.

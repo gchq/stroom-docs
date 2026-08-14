@@ -214,7 +214,7 @@ The `--addToGroup` and `--grantPermission` arguments are what actually give them
 {{% /note %}}
 
 
-## Verifying It Worked
+## Verifying it Worked
 
 Start Stroom, then log in as the new administrator.
 

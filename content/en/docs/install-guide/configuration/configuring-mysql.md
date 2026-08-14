@@ -50,7 +50,7 @@ Add additional key configuration items
 {{% /todo %}}
 
 
-## Deploying Without Docker
+## Deploying without Docker
 
 When MySQL is deployed without a docker stack then MySQL should be installed and configured according to the MySQL documentation.
 How MySQL is deployed and configured will depend on the requirements of the environment, e.g. clustered, primary/standby, etc.

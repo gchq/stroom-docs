@@ -13,7 +13,7 @@ description: >
 Before commencing an upgrade to v7 you should upgrade Stroom to the latest minor and patch version of v6.
 {{% /page-warning %}}
 
-## Differences Between v6 and v7
+## Differences between v6 and v7
 
 Stroom v7 has significant differences to v6 which make the upgrade process a little more complicated.
 

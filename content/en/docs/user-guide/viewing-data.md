@@ -105,7 +105,7 @@ In order to navigate through the data you have three options
   If a range is entered that is too big to display Stroom will limit the data to its maximum.
 
 
-#### A Note About Characters
+#### A Note about Characters
 
 Stroom does not know the size of a stream in terms of character lines/cols, it only knows the size in bytes.
 Due to the way character data is encoded into bytes it is not possible to say how many characters are in a stream based on its size in bytes.

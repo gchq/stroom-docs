@@ -32,9 +32,15 @@ CODE_SHORTCODES = (
 )
 
 # Words left in lower case in a title, unless first or last.
+# Particles that form compounds or phrasal verbs, e.g. 'off' in 'Off Heap' and
+# 'out' in 'Checking Out', are deliberately absent, as a word list cannot tell
+# those apart from the preposition of the same spelling.
 SMALL_WORDS = {
     "a", "an", "the", "and", "but", "or", "nor", "for", "yet", "so",
     "at", "by", "in", "of", "on", "to", "up", "as", "if", "per", "via",
+    "it", "its", "is", "are", "was", "be", "vs", "with", "from", "into",
+    "between", "through", "without", "than", "about", "after", "before",
+    "over", "onto", "upon",
 }
 
 # Abbreviations ending in '.' that do not terminate a sentence.

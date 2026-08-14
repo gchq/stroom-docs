@@ -166,7 +166,7 @@ In the example below, an invalid XML element has been added to the Data Splitter
 {{< image "quick-start-guide/process/stepping-error.png" "700" />}}
 
 
-### Add XSLT to Transform Records Format XML Into Something Else
+### Add XSLT to Transform Records Format XML into Something Else
 
 {{< glossary "XSLT" >}} is the language used to transform record/event data from one form into another in Stroom pipelines.
 An {{< element "XSLTFilter" >}} pipeline element takes XML input and uses an XSLT to transform it into different XML or some other text format.

@@ -124,7 +124,7 @@ Two registration details make it work:
 * The page it points at must be matched by a **forward** rule, not the authenticate rule, or the sign in flow simply restarts and the user never appears to sign out.
 
 
-## Verifying It Works
+## Verifying it Works
 
 After deploying, load Stroom in a browser and check, in the developer tools network tab:
 

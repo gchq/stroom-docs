@@ -321,7 +321,7 @@ proxy log file, then second on `stroomp01.strmdev00.org`'s proxy log file, then 
 Although we have installed our multi node Stroom cluster, we now need to configure it.
 We do this via the user interface (UI).
 
-### Logging Into the Stroom UI for the First Time
+### Logging into the Stroom UI for the First Time
 
 To log into the UI of your newly installed Stroom instance, present the base URL to your
 {{< external-link "Chrome" "https://www.google.com/chrome" >}} browser. In this deployment, you should enter the URLS
@@ -352,7 +352,7 @@ In the **About Stroom** panel we see an introductory description of Stroom in th
 - `Up Date:` - the install date
 - `Node Name:` - the node within the Stroom cluster you have connected to
 
-### Login With Stroom Default Administrative User
+### Login with Stroom Default Administrative User
 Each new Stroom deployment automatically creates the administrative user `admin` and this user's password is initially set to `admin`.
 We will [login as this user]({{< relref "../Authentication/UserLoginHowTo.md" >}}) which also validates that the database and UI is working correctly in that you can login and the password is `admin`.
 

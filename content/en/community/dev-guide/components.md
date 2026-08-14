@@ -28,7 +28,7 @@ Components have further subdirectories (modules) that make up the various parts 
     * `stroom-activity-mock` - Mock implementation for the `stroom-activity` API
 
 
-## Dependencies Between a Module's Components
+## Dependencies between a Module's Components
 
 The diagram below shows the dependencies between the different modules that make up a component as well as the internal dependencies within the `impl` module.
 The actual implementations used at runtime are determined by Guice bindings in whichever Guice modules are loaded by the application.
@@ -37,7 +37,7 @@ Tests can bind mock implementations of a component's API just by using the Guice
 {{< image "dev-guide/module-dependencies.puml.svg">}}Internal Component Dependencies{{< /image >}}
 
 
-## Dependencies Between Components
+## Dependencies between Components
 
 Typically a component will need to call out to other components to apply security constraints and to log user activity.
 These typical relationships are shown in the diagram below.

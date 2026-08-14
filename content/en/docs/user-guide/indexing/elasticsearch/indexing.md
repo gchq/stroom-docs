@@ -209,7 +209,7 @@ Now you have created a template indexing pipeline, it's time to create a feed-sp
 1. If using dynamic index names, configure the translation to output named element(s) that will be interpolated into `indexName` for each document indexed.
 
 
-### Choosing Between Simple and Dynamic Index Names
+### Choosing between Simple and Dynamic Index Names
 
 Indexing data to a single, named data stream or index, is a simple and convenient way to manage data.
 There are cases however, where indices may contain significant volumes of data spanning long periods - and where a large portion of indexing will be performed up-front (such as when processing a feed with a lot of historical data).

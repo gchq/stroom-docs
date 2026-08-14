@@ -39,7 +39,7 @@ feed=EXAMPLE-FEED
 {{</ command-line >}}
 
 
-## Example HTTPS With 1 Way SSL Authentication:
+## Example HTTPS with 1 Way SSL Authentication:
 
 {{< command-line "user" "localhost" >}}
 java \
@@ -55,7 +55,7 @@ feed=EXAMPLE-FEED
 {{</ command-line >}}
 
 
-## Example HTTPS With 2 Way SSL Authentication:
+## Example HTTPS with 2 Way SSL Authentication:
 
 {{< command-line "user" "localhost" >}}
 java \

@@ -73,7 +73,7 @@ You can limit folder access as required in the resultant window.
 Make any required changes and click on {{< stroom-btn "Ok" >}} to save the changes.
 
 
-### Moving Objects Into a System Group
+### Moving Objects into a System Group
 
 Now you have created the new folder structure you can move the various GeoHost resources to this location.
 

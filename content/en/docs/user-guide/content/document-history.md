@@ -35,7 +35,7 @@ The actions that are recorded are _Created_, _Updated_, _Deleted_, _Imported_, _
 The dialog is not modal, so it can be left open while selecting another document in the tree, and it will update to show that document instead.
 
 
-## What Is Recorded
+## What is Recorded
 
 Alongside the audit trail, Stroom stores a snapshot of the document's data each time it changes.
 Snapshots are held so that the content of a document at a point in the past is not lost when it is edited, and are deduplicated so that repeated saves of unchanged content do not each cost a copy.

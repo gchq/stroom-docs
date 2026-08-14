@@ -18,7 +18,7 @@ Before commencing an upgrade to v7 you must upgrade Stroom to the latest minor a
 At the time of writing the latest version of v5 is `v5.5.16`.
 {{% /page-warning %}}
 
-## Differences Between v5 and v7
+## Differences between v5 and v7
 
 Stroom v7 has significant differences to v6 which make the upgrade process a little more complicated.
 
@@ -120,7 +120,7 @@ Deploy the latest version of Stroom but don't start it.
 *TODO* - more detail
 
 
-### Migrate the v5 Configuration Into v7
+### Migrate the v5 Configuration into v7
 
 The configuration properties held in the database and accessed for the _Properties_ UI screen will be migrated automatically by Stroom where possible.
 

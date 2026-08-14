@@ -88,7 +88,7 @@ The internal identity provider needs no configuration for this.
 {{% /see-also %}}
 
 
-### Upgrading From a 7.13 Beta Release
+### Upgrading from a 7.13 Beta Release
 
 This applies only if you have deployed a 7.13 beta release up to and including `v7.13-beta.10`.
 

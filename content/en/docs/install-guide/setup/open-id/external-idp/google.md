@@ -176,7 +176,7 @@ See [Tokens for API use]({{< relref "docs/install-guide/setup/open-id/tokens-for
 {{% /see-also %}}
 
 
-## Stroom-Proxy With Google
+## Stroom-Proxy with Google
 
 Google has no OIDC client credentials grant, so a Stroom-Proxy cannot obtain a service user token from it, and `addOpenIdAccessToken` on a forward destination has nothing to add.
 

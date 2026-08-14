@@ -136,7 +136,7 @@ Thus the development procedure will look like this:
 1. Go back to step 1
 
 
-### Links Between Assets
+### Links between Assets
 
 If the assets are owned by the same document then you only need the relative path you defined within the tree.
 For example, `theme-css.css` or `images/background.png`.

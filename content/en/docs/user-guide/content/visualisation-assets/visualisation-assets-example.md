@@ -55,7 +55,7 @@ However, sometimes CSS is needed instead of Javascript, so the CSS is held in a 
 This needs to be converted into plain Javascript to create a plain CSS file.
 
 
-#### Convert CSS in Javascript Into CSS
+#### Convert CSS in Javascript into CSS
 
 The Script will look something like this (cut down for this example):
 

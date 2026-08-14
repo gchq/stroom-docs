@@ -73,7 +73,7 @@ This is the address that users will use in their browser.
 ```
 
 
-## Deploying Without Docker
+## Deploying without Docker
 
 Stroom running without docker has two files to configure it.
 The following locations are relative to the stroom home directory, i.e. the root of the distribution zip.

@@ -277,7 +277,7 @@ find /stroomdata/stroom-working-sap0/proxy/
 
 {{< /command-line >}}
 
-#### Example D - a Feed Orientated Structure, but With a Bad Parameter - `${feed}/${badparam}/${day}/${pathId}/${id}`
+#### Example D - a Feed Orientated Structure, but with a Bad Parameter - `${feed}/${badparam}/${day}/${pathId}/${id}`
 
 {{< command-line "stroomuser" "stroomsap0" >}}
 find /stroomdata/stroom-working-sap0/proxy/

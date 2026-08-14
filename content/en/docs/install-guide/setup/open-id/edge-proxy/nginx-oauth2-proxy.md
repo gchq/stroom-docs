@@ -154,7 +154,7 @@ To also end the KeyCloak session, give oauth2-proxy's sign out a redirect to Key
 (The `rd` value must be URL encoded and allowed by oauth2-proxy's `whitelist_domains`.)
 
 
-## Verifying It Works
+## Verifying it Works
 
 1. Loading Stroom redirects via oauth2-proxy to KeyCloak; after signing in, the UI loads.
 2. The request to `/api/auth/flow/v1/status` returns `200` with `"authenticated": true`, and there is no subsequent navigation to KeyCloak's `/auth` endpoint.

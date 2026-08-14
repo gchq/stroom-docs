@@ -49,7 +49,7 @@ Save a copy of this data to your local environment for use later in this HOWTO.
 Save this file as a text document with ANSI encoding.
 
 
-## Create the Feed and Its Pipeline
+## Create the Feed and its Pipeline
 
 To reflect the source of these Accounting Logs, we will name our feed and its pipeline _Apache-SSLBlackBox-V2.0-EVENTS_ and it will be stored in the system group Apache HTTPD under the main system group - `Event Sources`.
 
@@ -374,7 +374,7 @@ Note that, in addition to the feed attributes we set, the upload process added a
 We now have data that will allow us to develop our text converter and translation.
 
 
-### Step Data Through Pipeline - Source
+### Step Data through Pipeline - Source
 
 We now need to step our data through the pipeline.
 
@@ -399,7 +399,7 @@ Which, initially displays the Raw Event data from our stream.
 This is the Source display for the Event Pipeline.
 
 
-### Step Data Through Pipeline - Text Converter
+### Step Data through Pipeline - Text Converter
 
 We click on the {{< pipe-elm "DSParser" >}} element to enter the Text Converter stepping window.
 
@@ -498,7 +498,7 @@ One can double click on either the **subStreamId** or **recordNo** numbers and e
 Note, you should now Save {{< stroom-icon "save.svg" >}} your edited Text Converter.
 
 
-### Step Data Through Pipeline - Translation
+### Step Data through Pipeline - Translation
 
 To start authoring the xslt Translation Filter, press the {{< pipe-elm "XSLTFilter" "translationFilter" >}} element which steps us to the xsl Translation Filter pane.
 

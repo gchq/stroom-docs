@@ -9,7 +9,7 @@ description: >
   How to get data into Stroom. 
 ---
 
-## Getting Data Into Stroom
+## Getting Data into Stroom
 
 ### Create the Feed
 

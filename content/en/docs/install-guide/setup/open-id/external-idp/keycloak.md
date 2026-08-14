@@ -257,7 +257,7 @@ This does mean that new users will need to log in before the administrator can m
 {{% /note %}}
 
 
-## Logging Into Stroom
+## Logging into Stroom
 
 ### As the Administrator
 

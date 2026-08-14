@@ -183,7 +183,7 @@ See [KeyCloak]({{< relref "keycloak#setting-up-the-admin-user-in-stroom" >}}) fo
 {{% /see-also %}}
 
 
-## Stroom-Proxy With Cognito
+## Stroom-Proxy with Cognito
 
 A Stroom-Proxy obtains a token for its own service user using the client credentials grant.
 

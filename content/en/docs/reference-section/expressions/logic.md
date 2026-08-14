@@ -73,7 +73,7 @@ greaterThan(49, 50)
 ```
 
 
-## Greater Than or Equal To
+## Greater than or Equal To
 
 Evaluates if `arg1` is greater than or equal to `arg2`
 
@@ -176,7 +176,7 @@ lessThan(49, 50)
 ```
 
 
-## Less Than or Equal To
+## Less than or Equal To
 
 Evaluates if `arg1` is less than or equal to `arg2`
 

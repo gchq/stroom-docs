@@ -303,7 +303,7 @@ These three entries correspond to the three posts we performed.
 
 We have successfully tested direct posting to a Stroom feed and that the Apache mod_jk loadbalancer also works for this posting method.
 
-#### Test Proxy Aggregation Is Working
+#### Test Proxy Aggregation is Working
 
 To test that the Proxy Aggregation is working,
 we need to [enable]({{< relref "../General/TasksHowTo.md#turn-on-proxy-aggregation" >}}) on each node.

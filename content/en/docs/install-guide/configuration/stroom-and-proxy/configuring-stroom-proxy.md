@@ -640,7 +640,7 @@ proxyConfig:
 ```
 
 
-## Deploying Without Docker
+## Deploying without Docker
 
 Apart from the structure of the `config.yml` file, the configuration in a non-docker environment is the same as for [stroom]({{< relref "./configuring-stroom.md#deploying-without-docker" >}}).
 

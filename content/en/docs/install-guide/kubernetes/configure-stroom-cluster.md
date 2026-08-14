@@ -87,7 +87,7 @@ If the `StatefulSet`s don't deploy, there is probably something wrong with your 
 {{% /note %}}
 
 
-### Log Into Stroom
+### Log into Stroom
 
 Access the Stroom UI at: `https://<ingress hostname>`.
 The initial credentials are:

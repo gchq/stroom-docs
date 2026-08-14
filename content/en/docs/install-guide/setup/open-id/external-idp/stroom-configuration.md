@@ -378,7 +378,7 @@ Check that `https://STROOM_FQDN/api/auth/flow/v1/signin-oidc` is registered exac
 
 This is the single most common problem when upgrading, because Stroom used to send a different redirect URI for every page.
 
-### Sign in Works but API Calls Are Refused
+### Sign in Works but API Calls are Refused
 
 Interactive sign in validates the `id_token`, whereas the API validates an access token, and providers treat the two differently.
 So sign in working tells you the client id, secret and endpoints are all correct, and points at the token validation settings.

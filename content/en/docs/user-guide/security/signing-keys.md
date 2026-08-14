@@ -76,7 +76,7 @@ A key revoked by mistake costs everybody a fresh sign in, but no data is lost.
 {{% /warning %}}
 
 
-### What to Expect After Revoking the Active Key
+### What to Expect after Revoking the Active Key
 
 Everybody using Stroom is signed out and must authenticate again.
 For people at a browser this is quick, and they will be signed back in as soon as they do so.

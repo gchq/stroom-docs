@@ -129,7 +129,7 @@ This button will attempt to push any changes into the remote Git repository.
 This button will determine whether there are any newer versions available in the remote Git repository.
 
 
-### Pull From Git
+### Pull from Git
 
 This button will pull down any newer version from the remote Git repository.
 

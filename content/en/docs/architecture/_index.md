@@ -25,7 +25,7 @@ This represents a reference architecture and deployment for stroom but it is pos
 {{< image "architecture/architecture.puml.svg" >}}Architecture Diagram{{< /image >}}
 
 
-## Changes From Previous Versions
+## Changes from Previous Versions
 
 Stroom v7 features a number of key changes to architecture compared to v5 and v6.
 They are:

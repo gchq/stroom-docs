@@ -560,7 +560,7 @@ ${0}
 ````
  
  
-### CSV Splitter With Heading (`csvh`)
+### CSV Splitter with Heading (`csvh`)
  
 **Name**: `CSV Splitter with heading`, **Tab Trigger**: `csvh`
  
@@ -620,7 +620,7 @@ ${0}
 ````
  
  
-### Data Element With Name Attribute (`nval`)
+### Data Element with Name Attribute (`nval`)
  
 **Name**: `Data element with name attribute`, **Tab Trigger**: `nval`
  
@@ -630,7 +630,7 @@ ${0}
 ````
  
  
-### Data Element Without Name Attribute (`val`)
+### Data Element without Name Attribute (`val`)
  
 **Name**: `Data element without name attribute`, **Tab Trigger**: `val`
  

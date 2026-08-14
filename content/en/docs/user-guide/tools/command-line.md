@@ -43,7 +43,7 @@ Also, each command will run in its own JVM so are not really intended to be run 
 {{% /note %}}
 
 
-### Running Commands With the Zip Distribution
+### Running Commands with the Zip Distribution
 
 The commands are run by passing the command and any of its arguments to the `java` command.
 The jar file is in the `bin` directory of the zip distribution.

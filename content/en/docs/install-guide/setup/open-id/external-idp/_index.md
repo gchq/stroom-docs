@@ -28,7 +28,7 @@ It applies whichever provider you use, so read it before following one of the pr
 * [Microsoft Entra ID (Azure AD)]({{< relref "azure-ad" >}})
 
 
-## What Stroom Needs From the Provider
+## What Stroom Needs from the Provider
 
 Stroom is a confidential OAuth 2.0 client using the authorization code flow.
 To register it with a provider you need the following.

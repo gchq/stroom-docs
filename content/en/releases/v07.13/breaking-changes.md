@@ -172,7 +172,7 @@ Breaking changes that are common to both Stroom and Stroom Proxy.
 These apply wherever an external identity provider is used, so to Stroom and to Stroom-Proxy.
 
 
-#### Audience Validation Is Now on by Default
+#### Audience Validation is Now on by Default
 
 The audience, i.e. `aud`, claim of a token from an external identity provider is now validated.
 Previously, if `allowedAudiences` was not configured then no audience validation was performed at all, so a token minted for a different application at the same provider could be replayed against Stroom.
@@ -187,7 +187,7 @@ Stroom also now refuses to start with an external identity provider unless one o
 {{% /see-also %}}
 
 
-#### An Audience Claim Is Now Required
+#### An Audience Claim is Now Required
 
 `audienceClaimRequired` now defaults to `true`, so an access token from an external identity provider that carries no `aud` claim is rejected.
 

@@ -163,7 +163,7 @@ printf 'WantedBy=multi-user.target\n' >> ${F}
 chmod 640 ${F}
 ```
 
-### Single Node Scenario With Local Database
+### Single Node Scenario with Local Database
 
 Should you only have a deployment where the database is on a processing node, use the following service script. The only
 difference is the Stroom dependency on the database. The database dependency below is for the MariaDB database. If you had
