@@ -18,6 +18,7 @@ bitmap-lookup(String map, String key)
 bitmap-lookup(String map, String key, String time)
 bitmap-lookup(String map, String key, String time, Boolean ignoreWarnings)
 bitmap-lookup(String map, String key, String time, Boolean ignoreWarnings, Boolean trace)
+bitmap-lookup(String map, String key, String time, Boolean ignoreWarnings, Boolean trace, String delimiter)
 ```
 
 * `map` - The name of the reference data map to perform the lookup against.
@@ -28,13 +29,16 @@ bitmap-lookup(String map, String key, String time, Boolean ignoreWarnings, Boole
            Time is in the format `yyyy-MM-dd'T'HH:mm:ss.SSSXX`, e.g. `2010-01-01T00:00:00.000Z`.
 * `ignoreWarnings` - If true, any lookup failures will be ignored, else they will be reported as warnings.
 * `trace` - If true, additional trace information is output as INFO messages.
+* `delimiter` - The string placed between the values of the matched bit positions.
+                Defaults to a single space.
+                An empty string concatenates the values with no delimiter.
 
 If the look up fails no result will be returned.
 
 The key is a bitmap expressed as either a decimal integer or a hexadecimal value, e.g. `14`/`0xE` is `1110` as a binary bitmap.
 For each bit position that is set, (i.e. has a binary value of `1`) a lookup will be performed using that bit position as the key.
 In this example, positions `1`, `2` & `3` are set so a lookup would be performed for these bit positions.
-The result of each lookup for the bitmap are concatenated together in bit position order, separated by a space.
+The result of each lookup for the bitmap are concatenated together in bit position order, separated by `delimiter` (a single space if not supplied).
 
 If `ignoreWarnings` is true then any lookup failures will be ignored and it will return the value(s) for the bit positions it was able to lookup.
 
