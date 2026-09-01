@@ -7,6 +7,13 @@ are not recorded in here. Changes are in chronological order with the most
 recent at the top.
 
 
+* Add `AI` XSLT function section for `stroom:ai()`.
+
+* Add `AI Functions` expression section for the StroomQL `ai()` function.
+
+* Add release notes for Stroom v7.14, covering the `ai()` XSLT and StroomQL functions and AI summaries on reports.
+
+
 * Make path to font files relative so they work when the site is served from the sub-directory, e.g. on github.io.
 
 * Add sections on moving/copying documents and folder permissions to the `Document Permissions` page.

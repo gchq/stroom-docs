@@ -124,4 +124,8 @@ The functions are grouped as follows.
   * [`split-document()`](maths-and-vectors#split-document)
   {{< /card >}}
 
+  {{< card header="AI" >}}
+  * [`ai()`](ai#ai)
+  {{< /card >}}
+
 {{< /cardpane >}}
