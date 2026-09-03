@@ -8,13 +8,13 @@ description: >
   Functions for asking an AI model about your data.
 ---
 
-## AI
+## Ask AI
 
 Asks a chat model a question and returns its answer.
 
 ```clike
-ai(model, message)
-ai(model, message, systemPrompt)
+askAi(model, message)
+askAi(model, message, systemPrompt)
 ```
 
 * `model` - The name or UUID of the {{< glossary "Document" >}} of type `OpenAIModel` to use.
@@ -31,6 +31,6 @@ Repeated identical questions are served from a cache rather than being asked aga
 Example
 
 ```clike
-ai('Event Classifier', concat('Summarise this user agent: ', ${UserAgent}))
+askAi('Event Classifier', concat('Summarise this user agent: ', ${UserAgent}))
 > 'A headless Chrome browser, commonly used by automated tooling.'
 ```

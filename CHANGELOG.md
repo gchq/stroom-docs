@@ -7,6 +7,16 @@ are not recorded in here. Changes are in chronological order with the most
 recent at the top.
 
 
+* Add `Analytic Rules` user guide section covering queries, execution schedules, notifications, detections, duplicate management, streaming and table builder.
+
+* Add `Reports` user guide section covering report settings, file types, AI summaries and delivery.
+
+* Add `Report Context` section to the `Templating` reference for report email templates.
+
+* Add `Email Setup` section to the install guide for the SMTP server used by Analytic Rule and Report emails.
+
+* Expand the `Analytic Rule` and `Report` entries in the `Documents` reference section.
+
 * Add `AI` XSLT function section for `stroom:ai()`.
 
 * Add `AI Functions` expression section for the StroomQL `ai()` function.

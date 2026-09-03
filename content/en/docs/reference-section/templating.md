@@ -304,6 +304,8 @@ executionTime           | String                       | This is the actual wall
 effectiveExecutionTime  | String                       | This is the time used in any relative date expressions [relative data expressions name]({{< relref "docs/reference-section/dates#date-expressions" >}}) in the rule's query or time range, e.g. `day() - 1w`. The effective time is relevant when executing historic time ranges in a scheduled query.
 values                  | Dictionary                   | This a dictionary with all the field/column names from the Query (with the exception of `StreamId` and `EventId`) as keys and their respective cell values as the value.
 linkedEvents            | List of DetectionLinkedEvent | This is a list of the event(s) that are linked to this detection.
+level                   | String                       | The severity of the rule that raised the detection, e.g. `High`, where the rule declares one. See [Rule Settings]({{< relref "docs/user-guide/search/analytics/settings#level-and-status" >}}).
+status                  | String                       | How reliable the rule that raised the detection declares itself to be, e.g. `Stable`, where the rule declares it. See [Rule Settings]({{< relref "docs/user-guide/search/analytics/settings#level-and-status" >}}).
 
 
 DetectionLinkedEvent fields:
@@ -320,3 +322,27 @@ When choosing the names of the columns in your rule it may be beneficial to use 
 E.g. `myDict.some_key` vs `myDict['some key']`.
 {{% /warning %}}
 
+
+### Report Context
+
+When an email subject/body template is rendered for a Report {{< stroom-icon "document/Report.svg" "title">}}, the context describes the report that was produced rather than a detection.
+
+A Report delivers its data as an attached file, so the context carries facts about that file and about the run that produced it, not the data itself.
+
+Field Name             | Type    | Description
+---------------------- | ------- | ------------------
+reportName             | String  | The name of the Report {{< stroom-icon "document/Report.svg" "title">}} document.
+description            | String  | The content of the report's _Documentation_ tab.
+executionTime          | String  | This is the actual wall clock time that the report ran.
+effectiveExecutionTime | String  | This is the time used in any relative date expressions in the report's query or time range, e.g. `day() - 1w`.
+rowCount               | Integer | The number of rows in the report.
+fileType               | String  | The format of the attached file, e.g. `EXCEL`.
+fileName               | String  | The name of the attached file.
+aiSummary              | String  | The AI summary of the report's data, or an empty string where there is none.
+
+`aiSummary` is always present in the context, so that a template using it renders whether or not a summary was produced.
+
+{{% note %}}
+None of the fields from the [Rule Detections Context]({{< relref "#rule-detections-context" >}}) are available to a Report template, and none of the fields above are available to an Analytic Rule template.
+A template written for one will not render against the other.
+{{% /note %}}

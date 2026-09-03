@@ -254,11 +254,15 @@ Documents relating to searching for data in Stroom.
 * Type: `AnalyticRule`
  
 Defines an analytic rule which can be run to alert on events meeting a criteria.
-The criteria is defined using a StroomQL query.
-The analytic can be processed in different ways:
-* Streaming
-* Table Builder
-* Scheduled Query
+The criteria is defined using a {{< glossary "StroomQL" >}} query, and each row that query returns becomes a detection.
+Detections can be written to a Feed as XML or sent to people by email.
+
+The rule can be processed in different ways:
+* Scheduled Query, which runs the query on a schedule over a window of data.
+* Streaming, which runs the query against each stream as it is processed.
+* Table Builder, which is experimental and should not be used.
+
+See [Analytic Rules]({{< relref "docs/user-guide/search/analytics" >}}).
  
 
 ### Annotation
@@ -311,7 +315,12 @@ A Query can query main types of data source including [Views]({{< relref "#view"
 * Type: `Report`
  
 Defines a report that can be run at scheduled intervals and sent to individuals via email.
-The criteria is defined using a StroomQL query.
+The criteria is defined using a {{< glossary "StroomQL" >}} query, and the whole result table becomes a single file.
+
+The file can be produced as CSV, TSV, Excel or Markdown, and can optionally include an AI generated summary of the data.
+Reports are delivered as an email attachment or written to a Feed.
+
+See [Reports]({{< relref "docs/user-guide/search/reports" >}}).
 
 
 ## Transformation

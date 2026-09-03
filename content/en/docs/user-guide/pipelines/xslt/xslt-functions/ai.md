@@ -9,13 +9,13 @@ description: >
   XSLT functions for asking an AI model about your data.
 ---
 
-## ai()
+## ask-ai()
 
 Asks a chat model a question and returns its answer.
 
 ```text
-ai(String model, String message)
-ai(String model, String message, String systemPrompt)
+ask-ai(String model, String message)
+ask-ai(String model, String message, String systemPrompt)
 ```
 
 The arguments are as follows:
@@ -51,14 +51,14 @@ Asking a model to classify a value.
 
 ```xml
 <xsl:variable name="answer"
-              select="stroom:ai('Event Classifier', concat('Is this user agent a bot? Answer yes or no. ', UserAgent))"/>
+              select="stroom:ask-ai('Event Classifier', concat('Is this user agent a bot? Answer yes or no. ', UserAgent))"/>
 ```
 
 Giving the model a role with a system prompt.
 
 ```xml
 <xsl:variable name="answer"
-              select="stroom:ai(
+              select="stroom:ask-ai(
                   'Event Classifier',
                   Description,
                   'You are a security analyst. Answer in one short sentence.')"/>
