@@ -17,6 +17,7 @@ The order below is the one that most installations will want to follow.
 1. [Open ID Connect]({{< relref "open-id" >}}) - choosing and configuring the {{< glossary "idp" >}} that will authenticate your users.
 1. [Creating the First Administrator]({{< relref "create-first-admin" >}}) - giving the new installation somebody who can log in and administer it.
 1. [Securing Stroom]({{< relref "securing-stroom" >}}) - hardening the deployment.
+1. [Email Setup]({{< relref "email-setup" >}}) - the SMTP server used by Analytic Rule and Report emails, only needed if you intend to use email.
 
 {{% note %}}
 Creating the first administrator is easily missed.

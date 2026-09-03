@@ -66,3 +66,8 @@ Where only some batches succeed, the summary says how much of the data it covers
 The report is what the recipient is waiting for, so a model that is unavailable, slow or misconfigured costs the summary and nothing else.
 The failure is logged and the report is sent without a summary.
 {{% /note %}}
+
+{{% see-also %}}
+* [Report Settings]({{< relref "docs/user-guide/search/reports/settings#ai-summary" >}})
+* [Report Delivery]({{< relref "docs/user-guide/search/reports/delivery" >}})
+{{% /see-also %}}
