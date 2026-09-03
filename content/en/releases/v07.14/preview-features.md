@@ -17,9 +17,9 @@ All three ask a model defined by an `OpenAIModel` document, and all three requir
 Like Ask Stroom AI itself, these remain preview features and are subject to breaking changes in future releases.
 
 
-### The `ai()` XSLT Function
+### The `ask-ai()` XSLT Function
 
-A translation can now ask a model a question with `stroom:ai()`, passing the model to use, the message to ask, and optionally a system prompt.
+A translation can now ask a model a question with `stroom:ask-ai()`, passing the model to use, the message to ask, and optionally a system prompt.
 
 {{% warning %}}
 The model is asked once per call, so a pipeline that calls this for every record will make one request per record.
@@ -27,13 +27,13 @@ Repeated identical questions are served from a cache, but a translation that ask
 {{% /warning %}}
 
 {{% see-also %}}
-[`ai()`]({{< relref "docs/user-guide/pipelines/xslt/xslt-functions/ai" >}})
+[`ask-ai()`]({{< relref "docs/user-guide/pipelines/xslt/xslt-functions/ai" >}})
 {{% /see-also %}}
 
 
-### The `ai()` StroomQL Function
+### The `askAi()` StroomQL Function
 
-Queries and dashboards gain a matching `ai()` expression function, under a new _AI_ function category.
+Queries and dashboards gain a matching `askAi()` expression function, under a new _AI_ function category.
 As with the XSLT function the model is asked once per value, so it is best used on a grouped or otherwise small set of rows.
 
 {{% see-also %}}

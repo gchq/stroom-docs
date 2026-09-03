@@ -125,7 +125,7 @@ The functions are grouped as follows.
   {{< /card >}}
 
   {{< card header="AI" >}}
-  * [`ai()`](ai#ai)
+  * [`ask-ai()`](ai#ask-ai)
   {{< /card >}}
 
 {{< /cardpane >}}

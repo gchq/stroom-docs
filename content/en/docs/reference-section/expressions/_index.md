@@ -181,7 +181,7 @@ The arguments to functions can either be other functions, literal values, or the
   {{< /card >}}
 
   {{< card header="AI Functions" >}}
-  * [AI](ai#ai)
+  * [Ask AI](ai#ask-ai)
   {{< /card >}}
 
   {{< card header="Lookup Functions" >}}
