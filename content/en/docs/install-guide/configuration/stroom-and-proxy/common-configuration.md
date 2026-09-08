@@ -1,7 +1,7 @@
 ---
 title: "Common Configuration"
 linkTitle: "Common Configuration"
-#weight:
+weight: 10
 date: 2023-07-11
 tags: 
   - configuration
@@ -27,7 +27,8 @@ For details of the Dropwizard configuration structure, see {{< external-link "he
 The file is split into sections using these keys:
 
 * `server` - Configuration of the web server, e.g. ports, paths, request logging.
-* `logging` - Configuration of application logging
+* `logging` - Configuration of application logging.
+  See [Logging Configuration]({{< relref "./configuring-logging" >}})
 * `jerseyClients` - Configuration of the various Jersey HTTP clients in use.
   See [Jersey HTTP Client Configuration]({{< relref "#jersey-http-client-configuration" >}}).
 * Application specific configuration:
@@ -533,179 +534,5 @@ The paths used for the key and trust stores will be treated in the same way as S
 
 ## Logging Configuration
 
-The Dropwizard configuration file controls all the logging by the application.
-In addition to the main application log, there are additional logs such as stroom user events (for audit), Stroom-Proxy send and receive logs and database migration logs.
-
-For full details of the logging configuration, see {{< external-link "Dropwizard Logging Configuration" "https://www.dropwizard.io/en/latest/manual/configuration.html#logging" >}}
-
-
-### Request Log
-
-The request log is slightly different to the other logs.
-It logs all requests to the web server.
-It is configured in the `server` section.
-
-The property `archivedLogFilenamePattern` controls rolling of the active log file.
-The date pattern in the filename controls the frequency that the log files are rolled.
-In this example, files will be rolled every 1 minute.
-
-```yaml
-server:
-  requestLog:
-    appenders:
-    - type: file
-      currentLogFilename: logs/access/access.log
-      discardingThreshold: 0
-      # Rolled and gzipped every minute
-      archivedLogFilenamePattern: logs/access/access-%d{yyyy-MM-dd'T'HH:mm}.log.gz
-      archivedFileCount: 10080
-      logFormat: '%h %l "%u" [%t] "%r" %s %b "%i{Referer}" "%i{User-Agent}" %D'
-```
-
-
-### Logback Logs
-
-Dropwizard uses {{< external-link "Logback" "https://logback.qos.ch" >}} for application level logging.
-All logs in Stroom and Stroom-Proxy apart from the request log are Logback based logs.
-
-Logback uses the concept of _Loggers_ and _Appenders_.
-A _Logger_ is a named thing that produces log messages.
-An _Appender_ is an output that a _Logger_ can append its log messages to.
-Typical _Appenders_ are:
-* File - appends messages to a file that may or may not be rolled.
-* Console - appends messages to `stdout`.
-* Syslog - appends messages to `syslog`.
-
-
-#### Loggers
-
-A _Logger_ can append to more than one _Appender_ if required.
-For example, the default configuration file for Stroom has two appenders for the application logs.
-The rolled files from one appender are POSTed to Stroom to index its own logs, then deleted and the other is intended to
-remain on the server until archived off to allow viewing by an administrator.
-
-A _Logger_ can be configured with a severity, valid severities are (`TRACE`, `DEBUG`, `WARN`, `ERROR`).
-The severity set on a logger means that only messages with that severity or higher will be logged, with the rest not logged.
-
-_Logger_ names are typically the name of the Java class that is producing the log message.
-You don't need to understand too much about Java classes as you are only likely to change logger severities when requested by one of the developers.
-Some loggers, such as `event-logger` do not have a Java class name.
-
-As an example this is a portion of a Stroom config.yml file to illustrate the different loggers/appenders:
-
-```yaml
-logging:
-  # This is root logging severity level for all loggers. Only messages >= to WARN will be logged unless overridden
-  # for a specific logger
-  level: WARN
-
-  # All the named loggers
-  loggers:
-    # Logs useful information about stroom. Only set DEBUG on specific 'stroom' classes or packages
-    # due to the large volume of logs that would be produced for all of 'stroom' in DEBUG.
-    stroom: INFO
-    # Logs useful information about dropwizard when booting stroom
-    io.dropwizard: INFO
-    # Logs useful information about the jetty server when booting stroom
-    org.eclipse.jetty: INFO
-    # Logs REST request/responses with headers/payloads. Set this to OFF to turn disable that logging.
-    org.glassfish.jersey.logging.LoggingFeature: INFO
-    # Logs summary information about FlyWay database migrations
-    org.flywaydb: INFO
-    # Logger and custom appender for audit logs
-    event-logger:
-      level: INFO
-      # Prevents messages from this logger from being sent to other appenders
-      additive: false
-      appenders:
-        - type: file
-          currentLogFilename: logs/user/user.log
-          discardingThreshold: 0
-          # Rolled every minute
-          archivedLogFilenamePattern: logs/user/user-%d{yyyy-MM-dd'T'HH:mm}.log
-          # Minute rolled logs older than a week will be deleted. Note rolled logs are deleted
-          # based on the age of the window they contain, not the number of them. This value should be greater
-          # than the maximum time stroom is not producing events for.
-          archivedFileCount: 10080
-          logFormat: "%msg%n"
-    # Logger and custom appender for the flyway DB migration SQL output
-    org.flywaydb.core.internal.sqlscript:
-      level: DEBUG
-      additive: false
-      appenders:
-        - type: file
-          currentLogFilename: logs/migration/migration.log
-          discardingThreshold: 0
-          # Rolled every day
-          archivedLogFilenamePattern: logs/migration/migration-%d{yyyy-MM-dd}.log
-          archivedFileCount: 10
-          logFormat: "%-6level [%d{\"yyyy-MM-dd'T'HH:mm:ss.SSS'Z'\",UTC}] [%t] %logger - %X{code} %msg %n"
-```
-
-
-#### Appenders
-
-The following is an example of the default appenders that will be used for all loggers unless they have their own custom appender configured.
-
-```yaml
-logging:
-  # Appenders for all loggers except for where a logger has a custom appender configured
-  appenders:
-
-    # stdout
-  - type: console
-    # Multi-coloured log format for console output
-    logFormat: "%highlight(%-6level) [%d{\"yyyy-MM-dd'T'HH:mm:ss.SSS'Z'\",UTC}] [%green(%t)] %cyan(%logger) - %X{code} %msg %n"
-    timeZone: UTC
-#
-    # Minute rolled files for stroom/datafeed, will be curl'd/deleted by stroom-log-sender
-  - type: file
-    currentLogFilename: logs/app/app.log
-    discardingThreshold: 0
-    # Rolled and gzipped every minute
-    archivedLogFilenamePattern: logs/app/app-%d{yyyy-MM-dd'T'HH:mm}.log.gz
-    # One week using minute files
-    archivedFileCount: 10080
-    logFormat: "%-6level [%d{\"yyyy-MM-dd'T'HH:mm:ss.SSS'Z'\",UTC}] [%t] %logger - %X{code} %msg %n"
-```
-
-
-#### Log Rolling
-
-Rolling of log files can be done based on size of file or time.
-The `archivedLogFilenamePattern` property controls the rolling behaviour.
-The rolling policy is determined from the filename pattern, e.g. a pattern with a minute precision date format will be rolled every minute.
-The following is an example of an appender that rolls based on the size of the log file:
-
-```yaml
-  - type: file
-    currentLogFilename: logs/app.log
-    # The name pattern, where i a sequential number indicating age, where 1 is the most recent
-    archivedLogFilenamePattern: logs/app-%i.log
-    # The maximum number of rolled files to keep
-    archivedFileCount: 10
-    # The maximum size of a log file
-    maxFileSize: "100MB"
-    logFormat: "%-6level [%d{\"yyyy-MM-dd'T'HH:mm:ss.SSS'Z'\",UTC}] [%t] %logger - %X{code} %msg %n"
-
-```
-
-The following is an example of an appender that rolls every minute to gzipped files:
-
-```yaml
-  - type: file
-    currentLogFilename: logs/app/app.log
-    # Rolled and gzipped every minute
-    archivedLogFilenamePattern: logs/app/app-%d{yyyy-MM-dd'T'HH:mm}.log.gz
-    # One week using minute files
-    archivedFileCount: 10080
-    logFormat: "%-6level [%d{\"yyyy-MM-dd'T'HH:mm:ss.SSS'Z'\",UTC}] [%t] %logger - %X{code} %msg %n"
-```
-
-{{% warning %}}
-Log file rolling is event based, so a file will only roll when a new message arrives that would require a roll to happen.
-This means that if the application is idle for a long period with no log output then the un-rolled file will remain active until a new message arrives to trigger it to roll. For example, if Stroom is unused overnight, then the last log message from the night before will not be rolled until a new messages arrive in the morning.
-
-For this reason, `archivedFileCount` should be set to a value that is greater than the maximum time the application may be idle, else rolled log files may be deleted as soon as they are rolled.
-{{% /warning %}}
+For details of how to configure logging in Stroom and Stroom-Proxy, see [Logging Configuration]({{< relref "configuring-logging" >}}).
 
