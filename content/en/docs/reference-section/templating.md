@@ -15,7 +15,6 @@ Templating is currently used in Stroom for creating email templates for Analytic
 
 Stroom's templating uses a sub-set of the template syntax called _jinja_ and specifically the JinJava library.
 The templating syntax includes support for variables, filters, condition blocks, loops, etc.
-Full details of the syntax can be found {{< external-link "here" "https://developers.hubspot.com/docs/reference/cms/hubl/overview" >}}.
 
 When a template is rendered, Stroom will populate the [template context]({{< relref "#template-context" >}}) with data that can be used by the template.
 
@@ -23,7 +22,14 @@ When a template is rendered, Stroom will populate the [template context]({{< rel
 ## Basic Templating Syntax
 
 Jinja templating is very powerful and has a rich language so this is a quick guide to the very basic features.
-See the full syntax {{< external-link "here" "https://developers.hubspot.com/docs/reference/cms/hubl/overview" >}}.
+Stroom uses the {{< external-link "JinJava" "https://github.com/HubSpot/jinjava" >}} templating engine that is based on Jinja templating.
+Not all feature
+
+{{% see-also %}}
+HubSpot's Hubl language also uses the JinJava engine, its {{< external-link "documentation" "https://developers.hubspot.com/docs/cms/reference/hubl/overview" >}} may be helpful.
+
+Another reference for jinja templating is {{< external-link "here" "https://jinja.palletsprojects.com/en/stable/templates/" >}}.
+{{% /see-also %}}
 
 
 ### Data Types
