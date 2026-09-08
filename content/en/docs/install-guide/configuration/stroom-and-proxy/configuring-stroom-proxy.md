@@ -1,7 +1,7 @@
 ---
 title: "Stroom Proxy Configuration"
 linkTitle: "Stroom Proxy Configuration"
-#weight:
+weight: 30
 date: 2021-06-23
 tags: 
   - proxy
