@@ -25,6 +25,8 @@
 
 
 
+<link rel="canonical" href="../../../../">
+
 
 <link rel="shortcut icon" href="../../../favicons/favicon.ico" >
 <link rel="apple-touch-icon" href="../../../favicons/apple-touch-icon-180x180.png" sizes="180x180">
@@ -98,9 +100,6 @@
       <li class="nav-item mr-4 mb-2 mb-lg-0">
         <a class="nav-link" href="../../../community/"><span>Community</span></a>
       </li>
-      <li class="nav-item mr-4 mb-2 mb-lg-0">
-        <a class="nav-link" href="../../../news/"><span>News</span></a>
-      </li>
       <li class="nav-item dropdown mr-4 d-none d-lg-block">
         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 	Stroom Version (7.12)
@@ -109,33 +108,33 @@
 	
 	
 	
-	<a class="dropdown-item" href="../../../">7.12 (Latest)</a>
+	<a class="dropdown-item" href="../../../../">7.13 (Latest)</a>
 	
-	<a class="dropdown-item" href="../../../7.11">7.11</a>
+	<a class="dropdown-item" href="../../../">7.12</a>
 	
-	<a class="dropdown-item" href="../../../7.10">7.10</a>
+	<a class="dropdown-item" href="../../../../7.11">7.11</a>
 	
-	<a class="dropdown-item" href="../../../7.9">7.9</a>
+	<a class="dropdown-item" href="../../../../7.10">7.10</a>
 	
-	<a class="dropdown-item" href="../../../7.8">7.8</a>
+	<a class="dropdown-item" href="../../../../7.9">7.9</a>
 	
-	<a class="dropdown-item" href="../../../7.7">7.7</a>
+	<a class="dropdown-item" href="../../../../7.8">7.8</a>
 	
-	<a class="dropdown-item" href="../../../7.6">7.6</a>
+	<a class="dropdown-item" href="../../../../7.7">7.7</a>
 	
-	<a class="dropdown-item" href="../../../7.5">7.5</a>
+	<a class="dropdown-item" href="../../../../7.6">7.6</a>
 	
-	<a class="dropdown-item" href="../../../7.4">7.4</a>
+	<a class="dropdown-item" href="../../../../7.5">7.5</a>
 	
-	<a class="dropdown-item" href="../../../7.3">7.3</a>
+	<a class="dropdown-item" href="../../../../7.4">7.4</a>
 	
-	<a class="dropdown-item" href="../../../7.2">7.2</a>
+	<a class="dropdown-item" href="../../../../7.3">7.3</a>
 	
-	<a class="dropdown-item" href="../../../7.1">7.1</a>
+	<a class="dropdown-item" href="../../../../7.2">7.2</a>
 	
-	<a class="dropdown-item" href="../../../7.0">7.0</a>
+	<a class="dropdown-item" href="../../../../7.1">7.1</a>
 	
-	<a class="dropdown-item" href="../../../legacy">Legacy</a>
+	<a class="dropdown-item" href="../../../../7.0">7.0</a>
 	
 </div>
 </li>
@@ -151,7 +150,7 @@
     aria-label="Search this site…"
     autocomplete="off"
     
-    data-offline-search-index-json-src="../../../offline-search-index.0b75ac6449ed36a769a464bbf3096878.json"
+    data-offline-search-index-json-src="../../../offline-search-index.3bc02b3e026fea123640433a633ba2fc.json"
     data-offline-search-base-href="../../../"
     data-offline-search-max-results="50"
   >
@@ -264,6 +263,14 @@ This is the multi-page printable view of this section.
     
 	
 <li>2.1.3: <a href="#pg-8b79abf8bc6d35d887f9b09047eebed1">Stroom Proxy Configuration</a></li>
+
+
+    
+  
+    
+    
+	
+<li>2.1.4: <a href="#pg-7015595c56e4be8a3257bd53eceb816c">Logging Configuration</a></li>
 
 
     
@@ -1184,7 +1191,8 @@ For details of the Dropwizard configuration structure, see <span class="external
 <p>The file is split into sections using these keys:</p>
 <ul>
 <li><code>server</code> - Configuration of the web server, e.g. ports, paths, request logging.</li>
-<li><code>logging</code> - Configuration of application logging</li>
+<li><code>logging</code> - Configuration of application logging.
+See <a href="../../../docs/install-guide/configuration/stroom-and-proxy/configuring-logging/">Logging Configuration</a></li>
 <li><code>jerseyClients</code> - Configuration of the various Jersey HTTP clients in use.
 See <a href="#jersey-http-client-configuration">Jersey HTTP Client Configuration</a>.</li>
 <li>Application specific configuration:
@@ -1718,168 +1726,7 @@ ISO 8601 duration strings are NOT supported, nor are values without a suffix.
 
 
 <h2 id="logging-configuration">Logging Configuration</h2>
-<p>The Dropwizard configuration file controls all the logging by the application.
-In addition to the main application log, there are additional logs such as stroom user events (for audit), Stroom-Proxy send and receive logs and database migration logs.</p>
-<p>For full details of the logging configuration, see <span class="external-link">
-  <a href="https://www.dropwizard.io/en/latest/manual/configuration.html#logging" target="_blank" class="external-link" title="Dropwizard Logging Configuration (external link to https://www.dropwizard.io/en/latest/manual/configuration.html#logging)">
-    <span>Dropwizard Logging Configuration</span>
-    <i class="external-link-icon fas fa-external-link-alt fa-sm text-secondary"></i>
-  </a>
-</span>
-</p>
-<h3 id="request-log">Request Log</h3>
-<p>The request log is slightly different to the other logs.
-It logs all requests to the web server.
-It is configured in the <code>server</code> section.</p>
-<p>The property <code>archivedLogFilenamePattern</code> controls rolling of the active log file.
-The date pattern in the filename controls the frequency that the log files are rolled.
-In this example, files will be rolled every 1 minute.</p>
-<pre><code class="language-yaml">server:
-  requestLog:
-    appenders:
-    - type: file
-      currentLogFilename: logs/access/access.log
-      discardingThreshold: 0
-      # Rolled and gzipped every minute
-      archivedLogFilenamePattern: logs/access/access-%d{yyyy-MM-dd'T'HH:mm}.log.gz
-      archivedFileCount: 10080
-      logFormat: '%h %l &quot;%u&quot; [%t] &quot;%r&quot; %s %b &quot;%i{Referer}&quot; &quot;%i{User-Agent}&quot; %D'
-</code></pre>
-<h3 id="logback-logs">Logback Logs</h3>
-<p>Dropwizard uses <span class="external-link">
-  <a href="https://logback.qos.ch" target="_blank" class="external-link" title="Logback (external link to https://logback.qos.ch)">
-    <span>Logback</span>
-    <i class="external-link-icon fas fa-external-link-alt fa-sm text-secondary"></i>
-  </a>
-</span>
- for application level logging.
-All logs in Stroom and Stroom-Proxy apart from the request log are Logback based logs.</p>
-<p>Logback uses the concept of <em>Loggers</em> and <em>Appenders</em>.
-A <em>Logger</em> is a named thing that produces log messages.
-An <em>Appender</em> is an output that a <em>Logger</em> can append its log messages to.
-Typical <em>Appenders</em> are:</p>
-<ul>
-<li>File - appends messages to a file that may or may not be rolled.</li>
-<li>Console - appends messages to <code>stdout</code>.</li>
-<li>Syslog - appends messages to <code>syslog</code>.</li>
-</ul>
-<h4 id="loggers">Loggers</h4>
-<p>A <em>Logger</em> can append to more than one <em>Appender</em> if required.
-For example, the default configuration file for Stroom has two appenders for the application logs.
-The rolled files from one appender are POSTed to Stroom to index its own logs, then deleted and the other is intended to
-remain on the server until archived off to allow viewing by an administrator.</p>
-<p>A <em>Logger</em> can be configured with a severity, valid severities are (<code>TRACE</code>, <code>DEBUG</code>, <code>WARN</code>, <code>ERROR</code>).
-The severity set on a logger means that only messages with that severity or higher will be logged, with the rest not logged.</p>
-<p><em>Logger</em> names are typically the name of the Java class that is producing the log message.
-You don&rsquo;t need to understand too much about Java classes as you are only likely to change logger severities when requested by one of the developers.
-Some loggers, such as <code>event-logger</code> do not have a Java class name.</p>
-<p>As an example this is a portion of a Stroom config.yml file to illustrate the different loggers/appenders:</p>
-<pre><code class="language-yaml">logging:
-  # This is root logging severity level for all loggers. Only messages &gt;= to WARN will be logged unless overridden
-  # for a specific logger
-  level: WARN
-
-  # All the named loggers
-  loggers:
-    # Logs useful information about stroom. Only set DEBUG on specific 'stroom' classes or packages
-    # due to the large volume of logs that would be produced for all of 'stroom' in DEBUG.
-    stroom: INFO
-    # Logs useful information about dropwizard when booting stroom
-    io.dropwizard: INFO
-    # Logs useful information about the jetty server when booting stroom
-    org.eclipse.jetty: INFO
-    # Logs REST request/responses with headers/payloads. Set this to OFF to turn disable that logging.
-    org.glassfish.jersey.logging.LoggingFeature: INFO
-    # Logs summary information about FlyWay database migrations
-    org.flywaydb: INFO
-    # Logger and custom appender for audit logs
-    event-logger:
-      level: INFO
-      # Prevents messages from this logger from being sent to other appenders
-      additive: false
-      appenders:
-        - type: file
-          currentLogFilename: logs/user/user.log
-          discardingThreshold: 0
-          # Rolled every minute
-          archivedLogFilenamePattern: logs/user/user-%d{yyyy-MM-dd'T'HH:mm}.log
-          # Minute rolled logs older than a week will be deleted. Note rolled logs are deleted
-          # based on the age of the window they contain, not the number of them. This value should be greater
-          # than the maximum time stroom is not producing events for.
-          archivedFileCount: 10080
-          logFormat: &quot;%msg%n&quot;
-    # Logger and custom appender for the flyway DB migration SQL output
-    org.flywaydb.core.internal.sqlscript:
-      level: DEBUG
-      additive: false
-      appenders:
-        - type: file
-          currentLogFilename: logs/migration/migration.log
-          discardingThreshold: 0
-          # Rolled every day
-          archivedLogFilenamePattern: logs/migration/migration-%d{yyyy-MM-dd}.log
-          archivedFileCount: 10
-          logFormat: &quot;%-6level [%d{\&quot;yyyy-MM-dd'T'HH:mm:ss.SSS'Z'\&quot;,UTC}] [%t] %logger - %X{code} %msg %n&quot;
-</code></pre>
-<h4 id="appenders">Appenders</h4>
-<p>The following is an example of the default appenders that will be used for all loggers unless they have their own custom appender configured.</p>
-<pre><code class="language-yaml">logging:
-  # Appenders for all loggers except for where a logger has a custom appender configured
-  appenders:
-
-    # stdout
-  - type: console
-    # Multi-coloured log format for console output
-    logFormat: &quot;%highlight(%-6level) [%d{\&quot;yyyy-MM-dd'T'HH:mm:ss.SSS'Z'\&quot;,UTC}] [%green(%t)] %cyan(%logger) - %X{code} %msg %n&quot;
-    timeZone: UTC
-#
-    # Minute rolled files for stroom/datafeed, will be curl'd/deleted by stroom-log-sender
-  - type: file
-    currentLogFilename: logs/app/app.log
-    discardingThreshold: 0
-    # Rolled and gzipped every minute
-    archivedLogFilenamePattern: logs/app/app-%d{yyyy-MM-dd'T'HH:mm}.log.gz
-    # One week using minute files
-    archivedFileCount: 10080
-    logFormat: &quot;%-6level [%d{\&quot;yyyy-MM-dd'T'HH:mm:ss.SSS'Z'\&quot;,UTC}] [%t] %logger - %X{code} %msg %n&quot;
-</code></pre>
-<h4 id="log-rolling">Log Rolling</h4>
-<p>Rolling of log files can be done based on size of file or time.
-The <code>archivedLogFilenamePattern</code> property controls the rolling behaviour.
-The rolling policy is determined from the filename pattern, e.g. a pattern with a minute precision date format will be rolled every minute.
-The following is an example of an appender that rolls based on the size of the log file:</p>
-<pre><code class="language-yaml">  - type: file
-    currentLogFilename: logs/app.log
-    # The name pattern, where i a sequential number indicating age, where 1 is the most recent
-    archivedLogFilenamePattern: logs/app-%i.log
-    # The maximum number of rolled files to keep
-    archivedFileCount: 10
-    # The maximum size of a log file
-    maxFileSize: &quot;100MB&quot;
-    logFormat: &quot;%-6level [%d{\&quot;yyyy-MM-dd'T'HH:mm:ss.SSS'Z'\&quot;,UTC}] [%t] %logger - %X{code} %msg %n&quot;
-
-</code></pre>
-<p>The following is an example of an appender that rolls every minute to gzipped files:</p>
-<pre><code class="language-yaml">  - type: file
-    currentLogFilename: logs/app/app.log
-    # Rolled and gzipped every minute
-    archivedLogFilenamePattern: logs/app/app-%d{yyyy-MM-dd'T'HH:mm}.log.gz
-    # One week using minute files
-    archivedFileCount: 10080
-    logFormat: &quot;%-6level [%d{\&quot;yyyy-MM-dd'T'HH:mm:ss.SSS'Z'\&quot;,UTC}] [%t] %logger - %X{code} %msg %n&quot;
-</code></pre>
-
-<div class="alert alert-warning" role="alert">
-<h4 class="alert-heading">Warning</h4>
-
-    <p>Log file rolling is event based, so a file will only roll when a new message arrives that would require a roll to happen.
-This means that if the application is idle for a long period with no log output then the un-rolled file will remain active until a new message arrives to trigger it to roll. For example, if Stroom is unused overnight, then the last log message from the night before will not be rolled until a new messages arrive in the morning.</p>
-<p>For this reason, <code>archivedFileCount</code> should be set to a value that is greater than the maximum time the application may be idle, else rolled log files may be deleted as soon as they are rolled.</p>
-
-
-</div>
-
-
+<p>For details of how to configure logging in Stroom and Stroom-Proxy, see <a href="../../../docs/install-guide/configuration/stroom-and-proxy/configuring-logging/">Logging Configuration</a>.</p>
 
 </div>
 
@@ -3797,6 +3644,607 @@ proxyConfig:
     # No receipt checking due to air-gap. All data accepted.
     receiptCheckMode: &quot;RECEIVE_ALL&quot;
 </code></pre>
+
+</div>
+
+
+
+
+    
+	
+  
+    
+    
+	
+    
+
+
+
+<div class="td-content" style="--base-section-num: '2.1.4.'; page-break-before: always">
+    
+  <h1 id="pg-7015595c56e4be8a3257bd53eceb816c">2.1.4 - Logging Configuration</h1>
+    <div class="lead">This section describes how to configure the logging produced by Stroom and Stroom-Proxy.</div>
+	<h2 id="overview">Overview</h2>
+<p>Stroom and Stroom-Proxy output a number of different types of log file for various purposes.
+They use Logback for the logging and configure it through the Dropwizard&rsquo;s <code>config.yml</code> file.</p>
+<p>Logback uses the concept of <em>Loggers</em> and <em>Appenders</em>.
+A <em>Logger</em> is a named thing that produces log messages.
+A <em>Log Level</em> is the granularity of logging for a <em>Logger</em>.
+An <em>Appender</em> is an output that a <em>Logger</em> can append its log messages to.</p>
+<p>Typical <em>Appenders</em> are:</p>
+<ul>
+<li>File - appends messages to a file that may or may not be rolled.</li>
+<li>Console - appends messages to <code>stdout</code>.</li>
+<li>Syslog - appends messages to <code>syslog</code>.</li>
+</ul>
+
+<div class="alert alert-primary" role="alert">
+<h4 class="alert-heading">See Also</h4>
+<div class="alert-content">
+  
+  <p>Dropwizard’s logging configuration reference can be found <span class="external-link">
+<a href="https://www.dropwizard.io/en/stable/manual/core.html#logging" target="_blank" class="external-link" title="here (external link to https://www.dropwizard.io/en/stable/manual/core.html#logging)">
+<span>here</span>
+<i class="external-link-icon fas fa-external-link-alt fa-sm text-secondary"></i>
+</a>
+</span>
+.</p>
+<p>Logback documentation can be found <span class="external-link">
+<a href="https://logback.qos.ch/manual/appenders.html" target="_blank" class="external-link" title="here (external link to https://logback.qos.ch/manual/appenders.html)">
+<span>here</span>
+<i class="external-link-icon fas fa-external-link-alt fa-sm text-secondary"></i>
+</a>
+</span>
+.</p>
+
+</div>
+</div>
+
+<h2 id="types-of-logging">Types of Logging</h2>
+<p>The following types of logging are available:</p>
+<ul>
+<li>
+<p><strong>Stroom and Stroom-Proxy</strong></p>
+<ul>
+<li>
+<p><strong>Application logs</strong> - Application logs record general activity of the application.
+Application logs make use of <a href="#log-levels">log levels</a> to control the granularity of logging output.</p>
+</li>
+<li>
+<p><strong>Access logs</strong> - Access or Request logs log the activity of the web server in Stroom and Stroom-Proxy.
+They log all requests made to the API and servlets.</p>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>Stroom Only</strong></p>
+<ul>
+<li><strong>User logs</strong> - Stroom logs all user (and API) activity as XML audit events conforming to the <code>event-logging</code> XML schema.
+User logs aim to record what the user was attempting to do, e.g. <em>Delete an XSLT filter</em>, in a single log event even if this would encompass many application log events.
+These logs are typically sent back into Stroom to be stored and indexed so that they can be queried in the same way as other data in Stroom.
+All events are logged at the <code>INFO</code> level.</li>
+</ul>
+</li>
+<li>
+<p><strong>Stroom-Proxy Only</strong></p>
+<ul>
+<li>
+<p><strong>Receive logs</strong> - These logs record all requests on Stroom-Proxy&rsquo;s <code>/datafeed</code> endpoint.
+All events are logged at the <code>INFO</code> level.
+The logs record the type of event:</p>
+<ul>
+<li><code>RECEIVE</code> - Data that has been successfully received by Stroom-Proxy.</li>
+<li><code>REJECT</code> - Data that has been rejected by a receipt policy or Feed status setting.
+The client will receive an error response when data is rejected.</li>
+<li><code>DROP</code> - Data that has been silently dropped by Stroom-Proxy.
+The client will receive a <code>200</code> response as if it had been successfully received.</li>
+<li><code>ERROR</code> - An unexpected error occurred while receiving the data.</li>
+</ul>
+</li>
+<li>
+<p><strong>Send logs</strong> - These logs record all requests made by Stroom-Proxy to a downstream HTTP forward destination.
+All events are logged at the <code>INFO</code> level.
+The logs record the type of event:</p>
+<ul>
+<li><code>SEND</code> - The data has been successfully forwarded to the destination.</li>
+<li><code>ERROR</code> - An unexpected error occurred while receiving the data.</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="log-levels">Log Levels</h3>
+<p>Log levels control the granularity of log events that get logged.
+They are mainly relevant to application logging as it allows the amount of logging to be increased when debugging issues.</p>
+<p>The following log levels are used in descending order of importance:</p>
+<ul>
+<li>
+<p><code>OFF</code> - No logging is output.</p>
+</li>
+<li>
+<p><code>ERROR</code> - Used for logging expected and unexpected errors.</p>
+</li>
+<li>
+<p><code>WARN</code> - Used for logging things that an admin should be made aware of but that are not errors.</p>
+</li>
+<li>
+<p><code>INFO</code> - Used to log informational messages for low frequency events.
+<code>INFO</code> messages are typically aimed at an administrator audience.</p>
+</li>
+<li>
+<p><code>DEBUG</code> - Used to log more detail than <code>INFO</code>, likely recording the inner workings of the application and variable values.
+These messages may be higher frequency so will produce more log output.
+<code>DEBUG</code> messages are typically intended for a developer audience.
+<code>DEBUG</code> should only be set for specific classes, not application wide due to the amount of logging it will produce.</p>
+</li>
+<li>
+<p><code>TRACE</code> - The finest level of logging available.
+This will potentially produce a very large amount of logging as it is often used inside large code loops.
+<code>TRACE</code> messages are intended for a developer audience.</p>
+</li>
+</ul>
+<p>Setting a log level will also set all log levels above it in the list above, e.g. setting the level at <code>WARN</code> will result in <code>WARN</code> and <code>ERROR</code> messages being output.</p>
+<h2 id="logging-in-the-configuration-file">Logging in the Configuration File</h2>
+<h3 id="loggers">Loggers</h3>
+<p>A logger defines what will be logged.
+It is essentially a combination of an identity and a log level.
+The identity can be a Class name (e.g. <code>stroom.security.impl.SecurityFilter</code>), a package name (e.g. <code>stroom.security</code>) or a custom logger name (e.g. <code>event-logging</code>).</p>
+
+<div class="alert alert-primary" role="alert">
+<h4 class="alert-heading">Note</h4>
+
+
+    It is likely that you will not need to change the log settings unless specifically asked to by one of the developers or you have a good understanding of the underlying application code.
+
+</div>
+
+
+<p>The following is an example of logging configuration:</p>
+<pre><code class="language-yaml">logging:
+  # The root (or default) level used unless overridden
+  level: WARN
+  loggers:
+    # All stroom (&amp; stroom-proxy) code will log at INFO
+    # This is an example of configuring package level logging.
+    stroom: INFO
+    # Logs useful information about the DropWizard framework when booting stroom (&amp; stroom-proxy)
+    io.dropwizard: INFO
+    # Logs useful information about the jetty server when booting stroom
+    org.eclipse.jetty: INFO
+    # Set this to INFO if you want to log all REST request/responses with headers/payloads.
+    # This is an example of configuring class level logging.
+    org.glassfish.jersey.logging.LoggingFeature: OFF
+    # Logs summary information about FlyWay database migrations
+    org.flywaydb: INFO
+</code></pre>
+<h3 id="log-appenders">Log Appenders</h3>
+<p>An appender defines an output for all messages that match the criteria for that logger.
+Typically an appender will be either the console appender that logs to (<code>STDOUT</code>) or a file appender that logs to one or more file(s).
+The appender controls things like the format of the log messages output, the structure of the file name and any file rolling/compressing behaviour.</p>
+<p>An appender can be defined against a specific logger (as is the case for the <code>event-logging</code> logger/appender, but typically one of more root level appenders are defined that will be the default appender(s) for all loggers unless they have their own appender defined.</p>
+<pre><code class="language-yaml">logging:
+  level: WARN
+  loggers:
+    # A logger for the 'stroom' package with no specific appender
+    stroom: INFO
+
+    # A named logger with its own appender
+    event-logger:
+      level: INFO
+      # Prevents messages from this logger from being sent to other appenders
+      additive: false
+      appenders:
+        - type: file
+          currentLogFilename: logs/user/user.log
+          discardingThreshold: 0
+          # Rolled every minute
+          archivedLogFilenamePattern: logs/user/user-%d{yyyy-MM-dd'T'HH:mm}.log
+          # Minute rolled logs older than a week will be deleted. Note rolled logs are deleted
+          # based on the age of the window they contain, not the number of them. This value should be greater
+          # than the maximum time stroom is not producing events for.
+          archivedFileCount: 10080
+          logFormat: &quot;%msg%n&quot;
+
+    # Default appenders for all loggers except for where a logger has a dedicated non-additive appender
+    # Here logs will go to two appenders.
+    appenders:
+
+      # Console appender that logs to stdout
+    - type: console
+      # Multi-coloured log format for console output
+      logFormat: &quot;%highlight(%-6level) [%d{\&quot;yyyy-MM-dd'T'HH:mm:ss.SSS'Z'\&quot;,UTC}] [%green(%t)] %cyan(%logger) - %X{code} %msg %n&quot;
+      timeZone: UTC
+
+      # File appender
+      # Minute rolled files for stroom/datafeed, will be curl'd/deleted by stroom-log-sender
+    - type: file
+      currentLogFilename: logs/app/app.log
+      discardingThreshold: 0
+      # Rolled and gzipped every minute
+      archivedLogFilenamePattern: logs/app/app-%d{yyyy-MM-dd'T'HH:mm}.log.gz
+      # One week using minute files
+      archivedFileCount: 10080
+      logFormat: &quot;%-6level [%d{\&quot;yyyy-MM-dd'T'HH:mm:ss.SSS'Z'\&quot;,UTC}] [%t] %logger - %X{code} %msg %n&quot;
+</code></pre>
+
+<div class="alert alert-primary" role="alert">
+<h4 class="alert-heading">See Also</h4>
+<div class="alert-content">
+  
+  <p>For a detailed description of the logging configuration, see <span class="external-link">
+<a href="https://www.dropwizard.io/en/stable/manual/configuration.html#logging" target="_blank" class="external-link" title="Dropwizard Logging Configuration (external link to https://www.dropwizard.io/en/stable/manual/configuration.html#logging)">
+<span>Dropwizard Logging Configuration</span>
+<i class="external-link-icon fas fa-external-link-alt fa-sm text-secondary"></i>
+</a>
+</span>
+.</p>
+
+</div>
+</div>
+
+<h3 id="console-appender">Console Appender</h3>
+<p>The console appender is typically only used when the application is running as a foreground process, i.e. in a Docker container (so that logging can be captured by Docker&rsquo;s logging driver) or in development.
+The following is an example of a console appender in the Stroom <code>config.yml</code> file:</p>
+<pre><code class="language-yaml">logging:
+  level: WARN
+  loggers:
+    # ...
+
+  # Appenders that will apply to all loggers that don't have an appender 
+  appenders:
+    - type: console
+      # Multi-coloured log format for console output
+      logFormat: &quot;%highlight(%-6level) [%d{\&quot;yyyy-MM-dd'T'HH:mm:ss.SSS'Z'\&quot;,UTC}] [%green(%t)] %cyan(%logger) - %X{code} %msg %n&quot;
+      timeZone: UTC
+</code></pre>
+<h3 id="file-appender">File Appender</h3>
+<p>A file appender will append log messages to a file.
+The file can optionally be rolled based on</p>
+<pre><code class="language-yaml">logging:
+  level: WARN
+  loggers:
+    # ...
+
+  # Appenders that will apply to all loggers that don't have an appender 
+  appenders:
+
+      # Files rolled every minute.
+      # This is a typicaly configuration where rolled logs will be sent uncompressed to Stroom then deleted.
+    - type: file
+      # The path and file name of the active log file being appended to
+      currentLogFilename: logs/app/app.log
+      # Rolled and gzipped every minute
+      archivedLogFilenamePattern: logs/app/app-%d{yyyy-MM-dd'T'HH:mm}.log.gz
+      # Number of rolled files to keep (one week using minute files)
+      archivedFileCount: 10080
+      logFormat: &quot;%-6level [%d{\&quot;yyyy-MM-dd'T'HH:mm:ss.SSS'Z'\&quot;,UTC}] [%t] %logger - %X{code} %msg %n&quot;
+      # Number of messages to buffer before blocking
+      queueSize: 256
+      discardingThreshold: 0
+
+      # Rolled hourly or when size reaches 100MB
+    - type: file
+      currentLogFilename: logs/app.log
+      discardingThreshold: 0
+      archivedLogFilenamePattern: logs/app-%d{yyyy-MM-dd}.%i.log
+      # Only keep 7 days worth. (Note: this is maximum number of time periods, not files)
+      archivedFileCount: 7
+      # Limit the size of each file
+      maxFileSize: &quot;100MB&quot;
+      # Set a limit on the total size for all log files
+      totalSizeCap: &quot;10GB&quot;
+      logFormat: &quot;%-6level [%d{\&quot;yyyy-MM-dd'T'HH:mm:ss.SSS'Z'\&quot;,UTC}] [%t] %logger - %X{code} %msg %n&quot;
+</code></pre>
+<h4 id="discardingthreshold"><code>discardingThreshold</code></h4>
+<p>The default file appender is asynchronous, so will queue messages so that the application carry on while another thread writes the messages to the file.
+<code>queueSize</code> controls the size of this buffer.
+<code>discardingThreshold</code> controls the threshold for when <code>TRACE</code>, <code>DEBUG</code> and <code>INFO</code> messages will start to be discarded.
+If <code>discardingThreshold</code> is set to <code>0</code>, no messages will be discarded and if the queue fills up, the application will be blocked until the queued messages can be written to file.
+The value of <code>discardingThreshold</code> is remaining capacity of the queue that will trigger discards.
+For example, if <code>queueSize</code> is set to <code>1000</code> and <code>discardingThreshold</code> is set to <code>200</code>, messages will start being discarded when the queue has <code>800</code> items on it, i.e. a remaining capacity of <code>200</code>.</p>
+<p>A larger <code>queueSize</code> means that the application can better cope with surges in logging or contention on the file IO, but at the risk of having more logs in memory that will be lost in the event of an unplanned outage.</p>
+<h4 id="archivedlogfilenamepattern"><code>archivedLogFilenamePattern</code></h4>
+<p>This property controls both the name and path of the archived files, but the rolling time interval.
+Setting a file extension of <code>.gz</code> will also instruct the file appender to compress the rolled files using gzip compression.
+Setting a file extension of <code>.zip</code> will also instruct the file appender to compress the rolled files using Zip compression.</p>
+<ul>
+<li>
+<p>Time based rolling</p>
+<ul>
+<li><code>logs/app/app-%d{yyyy-MM-dd'T'HH:mm}.log.gz</code> - Minute rolled files.</li>
+<li><code>logs/app/app-%d{yyyy-MM-dd'T'HH}.log.gz</code> - Hour rolled files.</li>
+<li><code>logs/app/app-%d{yyyy-MM-dd}.log.gz</code> - Daily rolled files.</li>
+</ul>
+</li>
+<li>
+<p>Time and size based rolling</p>
+<ul>
+<li><code>logs/app/app-%d{yyyy-MM-dd'T'HH}.%i.log.gz</code> - Files rolled daily and by size (set by <code>maxFileSize</code>).
+When the <code>maxFileSize</code> is reached within the same time interval as an existing rolled file, <code>%i</code> will be set to the next integer value (starting from <code>0</code>).</li>
+</ul>
+</li>
+<li>
+<p>Size based rolling</p>
+<ul>
+<li><code>logs/app/app-%i.log.gz</code> - Size rolled files.
+See warning below.</li>
+</ul>
+</li>
+</ul>
+
+<div class="alert alert-warning" role="alert">
+<h4 class="alert-heading">Warning</h4>
+
+    <p>Rolling based on size alone is not recommended as this involves renaming all the existing rolled files on each roll event.
+From the Logback documentation:</p>
+<blockquote>
+<p>Given that file renaming is a relatively slow process and is fraught with problems, we consider FixedWindowRollingPolicy as a deprecated policy and do not recommend its use.</p>
+</blockquote>
+
+
+</div>
+
+
+<h4 id="archivedfilecount"><code>archivedFileCount</code></h4>
+<p>This property controls the number of archived files that are retained, however it is a little confusing.</p>
+<p>For time and size rolling and time only rolling it is actually setting the maximum number of time periods to keep, <strong>not</strong> the maximum number of files.</p>
+<p>For example, if <code>archivedLogFilenamePattern</code> is set to <code>logs/app/app-%d{yyyy-MM-dd'T'HH}.%i.log.gz</code> and <code>archivedFileCount</code> is set to <code>2</code> then you will have up to two hours worth of logs, regardless of the number of files in that period.</p>
+<pre><code class="language-text">logs/app/app-2026-09-08T15.0.log.gz
+logs/app/app-2026-09-08T15.1.log.gz
+logs/app/app-2026-09-08T16.0.log.gz
+logs/app/app-2026-09-08T16.1.log.gz
+logs/app/app-2026-09-08T16.2.log.gz
+</code></pre>
+<p>For size based rolling it directly controls the maximum number of rolled files.</p>
+<p>For example, if <code>archivedLogFilenamePattern</code> is set to <code>logs/app/app-%i.log.gz</code> and <code>archivedFileCount</code> is set to <code>5</code> then you will have up to 5 rolled files.</p>
+<pre><code class="language-text">logs/app/app-1.log.gz
+logs/app/app-2.log.gz
+logs/app/app-3.log.gz
+logs/app/app-4.log.gz
+logs/app/app-5.log.gz
+</code></pre>
+
+<div class="alert alert-warning" role="alert">
+<h4 class="alert-heading">Warning</h4>
+
+    <p>Log file rolling is event based, so a file will only roll when a new message arrives that would require a roll to happen.
+This means that if the application is idle for a long period with no log output then the un-rolled file will remain active until a new message arrives to trigger it to roll. For example, if Stroom is unused overnight, then the last log message from the night before will not be rolled until a new messages arrive in the morning.</p>
+<p>For this reason, <code>archivedFileCount</code> should be set to a value that is greater than the maximum time the application may be idle, else rolled log files may be deleted as soon as they are rolled.</p>
+
+
+</div>
+
+
+<h4 id="totalsizecap"><code>totalSizeCap</code></h4>
+<p>This property limits the total size taken up by the log files.
+It is useful when you want a hard cap on log storage to avoid filling up a disk.
+When this limit is breached old rolled files will be deleted.</p>
+<h3 id="logformat"><code>logFormat</code></h3>
+<p><code>logFormat</code> controls the format of each log message.
+The following are some examples of different formats:</p>
+<p>Using colour codes for colourful terminal logging.
+Colour codes should not be used in file logging.</p>
+<p><code>%highlight(%-6level) [%d{\&quot;yyyy-MM-dd'T'HH:mm:ss.SSS'Z'\&quot;,UTC}] [%green(%t)] %cyan(%logger) - %X{code} %msg %n</code></p>
+<p>Monochrome logging for file appender use.</p>
+<p><code>%-6level [%d{\&quot;yyyy-MM-dd'T'HH:mm:ss.SSS'Z'\&quot;,UTC}] [%t] %logger - %X{code} %msg %n</code></p>
+<p>A simple format that only outputs the log message.
+This is used for loggers like <code>event-logging</code></p>
+<p><code>%msg%n</code></p>
+<p>The format for an access/request log.</p>
+<p><code>%h %l &quot;%u&quot; [%t] &quot;%r&quot; %s %b &quot;%i{Referer}&quot; &quot;%i{User-Agent}&quot; %D</code></p>
+
+<div class="alert alert-primary" role="alert">
+<h4 class="alert-heading">Note</h4>
+
+
+    If the value of <code>%msg</code> contains new line characters then a log message can span multiple lines.
+
+</div>
+
+
+
+<div class="alert alert-primary" role="alert">
+<h4 class="alert-heading">See Also</h4>
+<div class="alert-content">
+  
+  <p>For details of the pattern variables used in <code>logFormat</code> value, see <span class="external-link">
+<a href="https://logback.qos.ch/manual/layouts.html#ClassicPatternLayout" target="_blank" class="external-link" title="Logback Pattern Layout (external link to https://logback.qos.ch/manual/layouts.html#ClassicPatternLayout)">
+<span>Logback Pattern Layout</span>
+<i class="external-link-icon fas fa-external-link-alt fa-sm text-secondary"></i>
+</a>
+</span>
+.</p>
+
+</div>
+</div>
+
+<h3 id="json-logging">JSON Logging</h3>
+<p>By default logging output is formatted using the <code>logFormat</code> property described above.</p>
+<p>In some instances it may be preferable to output the logs in JSON format.</p>
+<p>By default, JSON format logging is output as JSON Lines format, i.e. one JSON object per line, with objects delimited by line breaks.</p>
+<p>The following are examples of how to configure JSON logging for the various loggers.</p>
+<h4 id="requestaccess-log">Request/Access Log</h4>
+<p>Configuration for Stroom and Stroom-Proxy&rsquo;s request/access logs.</p>
+<pre><code class="language-yaml">server:
+  requestLog:
+    appenders:
+        # Log appender for the web server request logging
+      - type: file
+        currentLogFilename: logs/access/access.log
+        discardingThreshold: 0
+        # Rolled and gzipped every minute
+        archivedLogFilenamePattern: logs/access/access-%d{yyyy-MM-dd'T'HH:mm}.log.gz
+        archivedFileCount: 10080
+        # This configures the JSON layout
+        layout:
+          # Note: Uses a specific type for access logging.
+          type: access-json
+          timestampFormat: &quot;yyyy-MM-dd'T'HH:mm:ss.SSS'Z'&quot;
+</code></pre>
+<p>This produces logs like (shown indented and multi-line for clarity):</p>
+<pre><code class="language-json">{
+  &quot;timestamp&quot;: &quot;2026-09-07T11:19:49.741Z&quot;,
+  &quot;contentLength&quot;: 64,
+  &quot;method&quot;: &quot;POST&quot;,
+  &quot;protocol&quot;: &quot;HTTP/1.1&quot;,
+  &quot;remoteAddress&quot;: &quot;[0:0:0:0:0:0:0:1]&quot;,
+  &quot;requestTime&quot;: 157,
+  &quot;uri&quot;: &quot;/datafeed&quot;,
+  &quot;status&quot;: 200,
+  &quot;userAgent&quot;: &quot;curl/8.21.0&quot;
+}
+</code></pre>
+<h4 id="application-log">Application Log</h4>
+<p>Configuration for Stroom and Stroom-Proxy&rsquo;s general application logging.</p>
+<pre><code class="language-yaml">logging:
+  level: ${STROOM_LOGGING_LEVEL:- ERROR}
+  loggers:
+    stroom: INFO
+    # ...
+  appenders:
+    - type: file
+      currentLogFilename: logs/app/app.log
+      threshold: ALL
+      queueSize: 256
+      discardingThreshold: 0
+      archive: true
+      archivedLogFilenamePattern: logs/app/app-%d{yyyy-MM-dd'T'HH:mm}.log
+      archivedFileCount: 10
+      timeZone: UTC
+      # JSON layout
+      layout:
+        type: json
+        timestampFormat: &quot;yyyy-MM-dd'T'HH:mm:ss.SSS'Z'&quot;
+</code></pre>
+<p>This produces logs like (shown indented and multi-line for clarity):</p>
+<pre><code class="language-json">{
+  &quot;timestamp&quot;: &quot;2026-09-07T11:19:49.601Z&quot;,
+  &quot;level&quot;: &quot;INFO&quot;,
+  &quot;thread&quot;: &quot;dw-147 - POST /datafeed&quot;,
+  &quot;logger&quot;: &quot;stroom.dropwizard.common.AbstractJerseyClientFactory&quot;,
+  &quot;message&quot;: &quot;Building and registering jersey client for name 'DEFAULT', DropWizard metric name 'stroom-proxy_jersey_client_default', userAgent 'stroom-proxy/SNAPSHOT'&quot;
+}
+</code></pre>
+<h4 id="stroom-proxy-receive-log">Stroom-Proxy Receive Log</h4>
+<p>This is the configuration for Stroom-Proxy&rsquo;s <code>receive</code> log that logs all data received.</p>
+<pre><code class="language-yaml">logging:
+  level: WARN
+  loggers:
+    stroom: INFO
+    # ...
+    &quot;receive&quot;:
+      level: INFO
+      # Stops it logging to other loggers.
+      additive: false
+      appenders:
+        - type: file
+          currentLogFilename: logs/receive/receive.log
+          archivedLogFilenamePattern: logs/receive/receive-%d{yyyy-MM-dd'T'HH:mm}.log
+          timeZone: UTC
+          #...
+          # JSON layout
+          layout:
+            type: json
+            timestampFormat: &quot;yyyy-MM-dd'T'HH:mm:ss.SSS'Z'&quot;
+            customFieldNames:
+              # Sets the name of the sub-object in the JSON log event (default is 'mdc')
+              mdc: &quot;receive&quot;
+</code></pre>
+<p>To enable JSON logging for <code>receive</code> and <code>send</code> you must also set this property in the Stroom-Proxy <code>config.yml</code> file.</p>
+<pre><code class="language-yaml">proxyConfig:
+  logStream:
+    useMappedDiagnosticContext: true
+</code></pre>
+<p>This produces logs like (shown indented and multi-line for clarity):</p>
+<pre><code class="language-json">{
+  &quot;timestamp&quot;: &quot;2026-09-07T11:15:50.012Z&quot;,
+  &quot;level&quot;: &quot;INFO&quot;,
+  &quot;thread&quot;: &quot;dw-147 - POST /datafeed&quot;,
+  &quot;logger&quot;: &quot;receive&quot;,
+  &quot;message&quot;: &quot;OK&quot;,
+  &quot;receive&quot;: {
+    &quot;meta.Type&quot;: &quot;Raw Events&quot;,
+    &quot;meta.RemoteAddress&quot;: &quot;[0:0:0:0:0:0:0:1]&quot;,
+    &quot;stroomStatusCode&quot;: &quot;0&quot;,
+    &quot;meta.RemoteHost&quot;: &quot;[0:0:0:0:0:0:0:1]&quot;,
+    &quot;eventType&quot;: &quot;RECEIVE&quot;,
+    &quot;meta.DataReceiptRule&quot;: null,
+    &quot;meta.Environment&quot;: &quot;DEV&quot;,
+    &quot;url&quot;: &quot;/datafeed&quot;,
+    &quot;meta.GUID&quot;: &quot;fd8acd55-ab1c-4243-ad02-75950e1ee34f&quot;,
+    &quot;duration&quot;: &quot;145&quot;,
+    &quot;meta.ReceiptId&quot;: &quot;1788779749866_0000_P_Proxy-f7dfef15-b89a-4b23-900f-ad39208b1868&quot;,
+    &quot;meta.RemoteDN&quot;: null,
+    &quot;bytes&quot;: &quot;38&quot;,
+    &quot;meta.System&quot;: &quot;FOO&quot;,
+    &quot;httpResponseCode&quot;: &quot;200&quot;,
+    &quot;meta.RemoteCertExpiry&quot;: null,
+    &quot;meta.Feed&quot;: &quot;TEST_FEED&quot;
+  }
+}
+</code></pre>
+<p><code>eventType</code> can be one of <code>RECEIVE</code>, <code>REJECT</code>, <code>DROP</code>, <code>ERROR</code>.</p>
+<p><code>meta.</code> prefixed keys contain the meta data for the keys defined in the property <code>proxyConfig.logStream.metaKeys</code>.</p>
+<h4 id="stroom-proxy-send-log">Stroom-Proxy Send Log</h4>
+<p>This is the configuration for Stroom-Proxy&rsquo;s <code>send</code> log that logs all data forwarded to a downstream host.</p>
+<pre><code class="language-yaml">logging:
+  level: WARN
+  loggers:
+    stroom: INFO
+    # ...
+    &quot;send&quot;:
+      level: INFO
+      # Stops it logging to other loggers.
+      additive: false
+      appenders:
+        - type: file
+          currentLogFilename: logs/send/send.log
+          archivedLogFilenamePattern: logs/send/send-%d{yyyy-MM-dd'T'HH:mm}.log
+          timeZone: UTC
+          #...
+          # JSON layout
+          layout:
+            type: json
+            timestampFormat: &quot;yyyy-MM-dd'T'HH:mm:ss.SSS'Z'&quot;
+            customFieldNames:
+              # Sets the name of the sub-object in the JSON log event (default is 'mdc')
+              mdc: &quot;send&quot;
+</code></pre>
+<p>To enable JSON logging for <code>receive</code> and <code>send</code> you must also set this property in the Stroom-Proxy <code>config.yml</code> file.</p>
+<pre><code class="language-yaml">proxyConfig:
+  logStream:
+    useMappedDiagnosticContext: true
+</code></pre>
+<p>This produces logs like (shown indented and multi-line for clarity):</p>
+<pre><code class="language-json">{
+  &quot;timestamp&quot;: &quot;2026-09-07T11:20:06.254Z&quot;,
+  &quot;level&quot;: &quot;INFO&quot;,
+  &quot;thread&quot;: &quot;forward - upstream 1&quot;,
+  &quot;logger&quot;: &quot;send&quot;,
+  &quot;message&quot;: &quot;OK&quot;,
+  &quot;send&quot;: {
+    &quot;meta.Type&quot;: &quot;Raw Events&quot;,
+    &quot;meta.RemoteAddress&quot;: &quot;[0:0:0:0:0:0:0:1]&quot;,
+    &quot;stroomStatusCode&quot;: &quot;0&quot;,
+    &quot;meta.RemoteHost&quot;: &quot;[0:0:0:0:0:0:0:1]&quot;,
+    &quot;eventType&quot;: &quot;SEND&quot;,
+    &quot;meta.DataReceiptRule&quot;: null,
+    &quot;meta.Environment&quot;: &quot;DEV&quot;,
+    &quot;url&quot;: &quot;http://localhost:8080/datafeed&quot;,
+    &quot;meta.GUID&quot;: &quot;95aa59a7-eabb-403b-982b-33bea2b798f7&quot;,
+    &quot;duration&quot;: &quot;53&quot;,
+    &quot;meta.ReceiptId&quot;: &quot;1788779989589_0000_P_Proxy-f7dfef15-b89a-4b23-900f-ad39208b1868&quot;,
+    &quot;meta.RemoteDN&quot;: null,
+    &quot;bytes&quot;: &quot;805&quot;,
+    &quot;meta.System&quot;: &quot;FOO&quot;,
+    &quot;httpResponseCode&quot;: &quot;200&quot;,
+    &quot;meta.RemoteCertExpiry&quot;: null,
+    &quot;meta.Feed&quot;: &quot;TEST_FEED&quot;
+  }
+}
+</code></pre>
+<p><code>eventType</code> can be <code>SEND</code> or <code>ERROR</code>.</p>
+<p><code>meta.</code> prefixed keys contain the meta data for the keys defined in the property <code>proxyConfig.logStream.metaKeys</code>.</p>
 
 </div>
 
