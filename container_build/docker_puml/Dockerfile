@@ -32,7 +32,7 @@ ENV CONTAINER_USER_ID=$USER_ID \
     LANG=en_GB.UTF-8 \
     FONTCONFIG_PATH=/var/cache/fontconfig
 
-CMD id
+CMD ["id"]
 
 # graphviz, ttf-* for plantuml
 RUN apk add --no-cache \
