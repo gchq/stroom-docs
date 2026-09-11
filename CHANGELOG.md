@@ -7,6 +7,8 @@ are not recorded in here. Changes are in chronological order with the most
 recent at the top.
 
 
+* Upgrade Docsy to 0.10.0 and enable the light/dark colour mode menu.
+
 * Add `Analytic Rules` user guide section covering queries, execution schedules, notifications, detections, duplicate management, streaming and table builder.
 
 * Add `Reports` user guide section covering report settings, file types, AI summaries and delivery.
