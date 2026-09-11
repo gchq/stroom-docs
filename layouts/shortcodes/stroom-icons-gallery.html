@@ -6,8 +6,9 @@ Short code to display all stroom icons
 {{ with resources.Match (printf "%s*" $pathPrefix) }}
   <div class="row bg-light stroom-icon-gallery">
   {{ range . }}
-    {{ $filename := strings.TrimPrefix $pathPrefix .Name }}
-    {{ $rel_path := strings.TrimPrefix "images/stroom-ui" .Name }}
+    {{ $resourceName := strings.TrimPrefix "/" .Name }}
+    {{ $filename := strings.TrimPrefix $pathPrefix $resourceName }}
+    {{ $rel_path := strings.TrimPrefix "images/stroom-ui/" $resourceName }}
     {{ if and
     (not (or
       (eq $filename "tabBackground.png")

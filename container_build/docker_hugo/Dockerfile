@@ -14,18 +14,17 @@
 # limitations under the License.
 #**********************************************************************
 
-FROM klakegg/hugo:0.95.0-ext-alpine@sha256:5bd78a81d105aa68c208f6d0acc3ad4b93d3a37d258a4dea041034e03c2cf8b8
-
-# The behaviour of shortcode commenting seems to have changed in 0.111.3.
-# Also this repo seems dead so should consider another
-#FROM klakegg/hugo:0.111.3-ext-alpine
+FROM hugomods/hugo:0.125.4@sha256:a2b2404f4404e9c13cd23be6d095ad86ac6f7d234d4cc5fe551cb05641038066
 
 # Run separately so docker can cache the layer to speed up image creation
 RUN true \
     && apk update \
     && apk add --no-cache \
         bash \
-        git
+        git \
+    && npm install --global \
+        autoprefixer@9.8.6 \
+        postcss-cli@7.1.2
 
 # Work from the shared git repo dir
 WORKDIR /builder/shared
