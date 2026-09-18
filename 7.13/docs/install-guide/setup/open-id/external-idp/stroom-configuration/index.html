@@ -45,13 +45,13 @@
 <meta property="og:type" content="article" />
 <meta property="og:url" content="/docs/install-guide/setup/open-id/external-idp/stroom-configuration/" /><meta property="article:section" content="docs" />
 <meta property="article:published_time" content="2026-08-03T00:00:00+00:00" />
-<meta property="article:modified_time" content="2026-09-11T16:53:28+01:00" /><meta property="og:site_name" content="Stroom" />
+<meta property="article:modified_time" content="2026-09-18T17:41:26+01:00" /><meta property="og:site_name" content="Stroom" />
 
 <meta itemprop="name" content="Stroom Configuration">
 <meta itemprop="description" content="A reference for every Stroom and Stroom-Proxy setting involved in authenticating against an external identity provider.
 "><meta itemprop="datePublished" content="2026-08-03T00:00:00+00:00" />
-<meta itemprop="dateModified" content="2026-09-11T16:53:28+01:00" />
-<meta itemprop="wordCount" content="2235">
+<meta itemprop="dateModified" content="2026-09-18T17:41:26+01:00" />
+<meta itemprop="wordCount" content="2344">
 <meta itemprop="keywords" content="open-id,authentication," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Stroom Configuration"/>
 <meta name="twitter:description" content="A reference for every Stroom and Stroom-Proxy setting involved in authenticating against an external identity provider.
@@ -155,7 +155,7 @@
     aria-label="Search this site…"
     autocomplete="off"
     
-    data-offline-search-index-json-src="../../../../../../offline-search-index.e0af7b16821c4724f5916dcd6e2d5721.json"
+    data-offline-search-index-json-src="../../../../../../offline-search-index.e424995b7c0a32f30e51e970d1880c98.json"
     data-offline-search-base-href="../../../../../../"
     data-offline-search-max-results="50"
   >
@@ -180,7 +180,7 @@
     aria-label="Search this site…"
     autocomplete="off"
     
-    data-offline-search-index-json-src="../../../../../../offline-search-index.e0af7b16821c4724f5916dcd6e2d5721.json"
+    data-offline-search-index-json-src="../../../../../../offline-search-index.e424995b7c0a32f30e51e970d1880c98.json"
     data-offline-search-base-href="../../../../../../"
     data-offline-search-max-results="50"
   >
@@ -1637,9 +1637,13 @@ It has no effect on the interactive sign in flow or on an AWS load balancer data
 <h3 id="validissuers"><code>validIssuers</code></h3>
 <pre><code class="language-yaml">validIssuers: []
 </code></pre>
-<p>Additional issuers to accept beyond the one the provider advertises.</p>
-<p>Stroom checks that the issuer in the provider&rsquo;s configuration response is consistent with <code>openIdConfigurationEndpoint</code>.
-Where a provider legitimately reports an issuer that is not a parent path of that endpoint, list it here so the check passes.</p>
+<p>Additional issuers to accept on a token, beyond the one the provider advertises.
+A token is accepted if its <code>iss</code> claim matches either the advertised issuer or any value listed here, so this is how to accept tokens from two generations of endpoint at once, e.g. Entra ID v1.0 and v2.0.</p>
+<p>Stroom also checks at startup that the issuer in the provider&rsquo;s configuration response is consistent with <code>openIdConfigurationEndpoint</code>.
+When <code>validIssuers</code> is empty, the advertised issuer must be a parent path of that endpoint.
+When <code>validIssuers</code> is set, the advertised issuer must instead be one of the listed values, and the parent path check is not applied.
+So where a provider legitimately reports an issuer that is not a parent path of the endpoint, list it here, and whenever you set this property for any other reason, include the advertised issuer alongside the others or Stroom will not start.
+Values are compared exactly, so trailing slashes matter.</p>
 <h3 id="signature-algorithms">Signature Algorithms</h3>
 <p>Not configurable.
 Stroom accepts RS256/384/512, PS256/384/512 and ES256/384/512, and refuses unsigned tokens and tokens signed with an HMAC algorithm.</p>
@@ -1792,7 +1796,7 @@ The Stroom session ends either way, but the provider&rsquo;s session does not, s
 	
 	
 	<div class="text-muted mt-5 pt-3 border-top">
-  Last modified September 11, 2026: <a href="https://github.com/gchq/stroom-docs/commit/8b07c1b766c78d2e0cc82c1ec8f7a8716cffaadf">Merge branch &#39;7.12&#39; into 7.13 (8b07c1b)</a>
+  Last modified September 18, 2026: <a href="https://github.com/gchq/stroom-docs/commit/7525944ed02daaf947a41c75ab29397503ebf080">#140 Fix Microsoft Entra ID (Azure AD) Stroom config docs (7525944)</a>
 </div>
 
 </div>

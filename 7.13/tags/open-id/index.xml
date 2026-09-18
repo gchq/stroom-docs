@@ -222,9 +222,13 @@ It has no effect on the interactive sign in flow or on an AWS load balancer data
 &lt;h3 id=&#34;validissuers&#34;&gt;&lt;code&gt;validIssuers&lt;/code&gt;&lt;/h3&gt;
 &lt;pre&gt;&lt;code class=&#34;language-yaml&#34;&gt;validIssuers: []
 &lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;Additional issuers to accept beyond the one the provider advertises.&lt;/p&gt;
-&lt;p&gt;Stroom checks that the issuer in the provider&amp;rsquo;s configuration response is consistent with &lt;code&gt;openIdConfigurationEndpoint&lt;/code&gt;.
-Where a provider legitimately reports an issuer that is not a parent path of that endpoint, list it here so the check passes.&lt;/p&gt;
+&lt;p&gt;Additional issuers to accept on a token, beyond the one the provider advertises.
+A token is accepted if its &lt;code&gt;iss&lt;/code&gt; claim matches either the advertised issuer or any value listed here, so this is how to accept tokens from two generations of endpoint at once, e.g. Entra ID v1.0 and v2.0.&lt;/p&gt;
+&lt;p&gt;Stroom also checks at startup that the issuer in the provider&amp;rsquo;s configuration response is consistent with &lt;code&gt;openIdConfigurationEndpoint&lt;/code&gt;.
+When &lt;code&gt;validIssuers&lt;/code&gt; is empty, the advertised issuer must be a parent path of that endpoint.
+When &lt;code&gt;validIssuers&lt;/code&gt; is set, the advertised issuer must instead be one of the listed values, and the parent path check is not applied.
+So where a provider legitimately reports an issuer that is not a parent path of the endpoint, list it here, and whenever you set this property for any other reason, include the advertised issuer alongside the others or Stroom will not start.
+Values are compared exactly, so trailing slashes matter.&lt;/p&gt;
 &lt;h3 id=&#34;signature-algorithms&#34;&gt;Signature Algorithms&lt;/h3&gt;
 &lt;p&gt;Not configurable.
 Stroom accepts RS256/384/512, PS256/384/512 and ES256/384/512, and refuses unsigned tokens and tokens signed with an HMAC algorithm.&lt;/p&gt;
@@ -2375,8 +2379,22 @@ See &lt;a href=&#34;#issuers&#34;&gt;Issuers&lt;/a&gt; if you have a reason to s
         allowedAudiences:
           - &amp;quot;11111111-2222-3333-4444-555555555555&amp;quot;
           - &amp;quot;api://11111111-2222-3333-4444-555555555555&amp;quot;
+        # Accept tokens from both the v2.0 and the v1.0 endpoints. Setting this replaces
+        # Stroom&#39;s default issuer check, so the v2.0 issuer must be listed too.
+        validIssuers:
+          - &amp;quot;https://login.microsoftonline.com/TENANT_ID/v2.0&amp;quot;
+          - &amp;quot;https://sts.windows.net/TENANT_ID/&amp;quot;
+        # Entra ID only issues the &#39;name&#39; and &#39;preferred_username&#39; claims when &#39;profile&#39;
+        # is requested, and Stroom&#39;s default scopes do not include it.
+        requestScopes:
+          - &amp;quot;openid&amp;quot;
+          - &amp;quot;email&amp;quot;
+          - &amp;quot;profile&amp;quot;
+        # &#39;oid&#39; is stable across app registrations; the default of &#39;sub&#39; is not.
+        uniqueIdentityClaim: &amp;quot;oid&amp;quot;
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;Replace &lt;code&gt;TENANT_ID&lt;/code&gt; with the Directory (tenant) ID.&lt;/p&gt;
+&lt;p&gt;Each of &lt;code&gt;validIssuers&lt;/code&gt;, &lt;code&gt;requestScopes&lt;/code&gt; and &lt;code&gt;uniqueIdentityClaim&lt;/code&gt; is explained in the sections that follow.&lt;/p&gt;
 &lt;h3 id=&#34;issuers&#34;&gt;Issuers&lt;/h3&gt;
 &lt;p&gt;The v2.0 discovery endpoint advertises an issuer of &lt;code&gt;https://login.microsoftonline.com/TENANT_ID/v2.0&lt;/code&gt;, which is a parent path of the discovery endpoint itself, so Stroom&amp;rsquo;s issuer check is satisfied with no extra configuration.&lt;/p&gt;
 &lt;p&gt;The v1.0 endpoints are not so tidy.
@@ -2384,11 +2402,29 @@ Their issuer is &lt;code&gt;https://sts.windows.net/TENANT_ID/&lt;/code&gt;, whi
 &lt;blockquote&gt;
 &lt;p&gt;Issuer &amp;lsquo;X&amp;rsquo; obtained from configuration endpoint Y does not share the same base URI.&lt;/p&gt;
 &lt;/blockquote&gt;
-&lt;p&gt;If you must use v1.0, or you have v1.0 access tokens in circulation from an app registration you cannot change, list the issuer explicitly:&lt;/p&gt;
+&lt;p&gt;If you must use v1.0, or you have v1.0 access tokens in circulation from an app registration you cannot change, list both issuers explicitly, as in the example above:&lt;/p&gt;
 &lt;pre&gt;&lt;code class=&#34;language-yaml&#34;&gt;        validIssuers:
+          - &amp;quot;https://login.microsoftonline.com/TENANT_ID/v2.0&amp;quot;
           - &amp;quot;https://sts.windows.net/TENANT_ID/&amp;quot;
 &lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;Using the v2.0 endpoints and &lt;code&gt;accessTokenAcceptedVersion: 2&lt;/code&gt; is much the better answer.&lt;/p&gt;
+&lt;p&gt;Stroom then accepts tokens carrying either issuer, so v1.0 and v2.0 tokens can be in use at the same time.&lt;/p&gt;
+
+&lt;div class=&#34;alert alert-warning&#34; role=&#34;alert&#34;&gt;
+&lt;h4 class=&#34;alert-heading&#34;&gt;Warning&lt;/h4&gt;
+
+    &lt;p&gt;When &lt;code&gt;validIssuers&lt;/code&gt; is set, the issuer advertised by the discovery document must be one of the values in it; the parent path check described above is no longer applied.
+Listing only the v1.0 issuer against the v2.0 discovery endpoint will stop Stroom starting with:&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Issuer &amp;lsquo;X&amp;rsquo; obtained from configuration endpoint Y does not match those in the &amp;lsquo;issuer&amp;rsquo; or &amp;lsquo;validIssuers&amp;rsquo; properties.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;Always include the v2.0 issuer alongside the v1.0 one.
+The values must match exactly, including the &lt;code&gt;/v2.0&lt;/code&gt; suffix on one and the trailing &lt;code&gt;/&lt;/code&gt; on the other.&lt;/p&gt;
+
+
+&lt;/div&gt;
+
+
+&lt;p&gt;Using the v2.0 endpoints and &lt;code&gt;accessTokenAcceptedVersion: 2&lt;/code&gt; is much the better answer, in which case &lt;code&gt;validIssuers&lt;/code&gt; can be omitted altogether.&lt;/p&gt;
 
 &lt;div class=&#34;alert alert-primary&#34; role=&#34;alert&#34;&gt;
 &lt;h4 class=&#34;alert-heading&#34;&gt;Note&lt;/h4&gt;
@@ -2416,8 +2452,10 @@ Entra ID does populate the audience claim, so an absent one means the token is n
 
 &lt;p&gt;Leave &lt;code&gt;validateAudience&lt;/code&gt; at its default of &lt;code&gt;true&lt;/code&gt;.&lt;/p&gt;
 &lt;h3 id=&#34;claims&#34;&gt;Claims&lt;/h3&gt;
-&lt;p&gt;The Stroom defaults suit Entra ID v2.0.
-It issues &lt;code&gt;preferred_username&lt;/code&gt;, normally the user principal name, which Stroom uses as the display name, and &lt;code&gt;name&lt;/code&gt;, which satisfies the default &lt;code&gt;fullNameClaimTemplate&lt;/code&gt; of &lt;code&gt;${name}&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;Entra ID v2.0 issues &lt;code&gt;preferred_username&lt;/code&gt;, normally the user principal name, which Stroom uses as the display name by default, and &lt;code&gt;name&lt;/code&gt;, which satisfies the default &lt;code&gt;fullNameClaimTemplate&lt;/code&gt; of &lt;code&gt;${name}&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;Both of those claims are only issued when the &lt;strong&gt;&lt;code&gt;profile&lt;/code&gt; scope&lt;/strong&gt; is requested.
+Stroom&amp;rsquo;s default &lt;code&gt;requestScopes&lt;/code&gt; is &lt;code&gt;openid&lt;/code&gt; and &lt;code&gt;email&lt;/code&gt;, which does not include it, so without the &lt;code&gt;requestScopes&lt;/code&gt; shown in the example above users will sign in with no display name or full name.
+Setting &lt;code&gt;requestScopes&lt;/code&gt; replaces the defaults rather than adding to them, so keep &lt;code&gt;openid&lt;/code&gt; and &lt;code&gt;email&lt;/code&gt; in the list.&lt;/p&gt;
 &lt;p&gt;For &lt;code&gt;uniqueIdentityClaim&lt;/code&gt; you have a choice:&lt;/p&gt;
 &lt;table&gt;
 &lt;thead&gt;
@@ -2438,9 +2476,8 @@ It issues &lt;code&gt;preferred_username&lt;/code&gt;, normally the user princip
 &lt;/tbody&gt;
 &lt;/table&gt;
 &lt;p&gt;&lt;code&gt;oid&lt;/code&gt; is the more robust choice for a single tenant deployment, and is what Microsoft&amp;rsquo;s own guidance points to as the durable identifier.
-&lt;code&gt;sub&lt;/code&gt; is fine if you are confident the app registration will not be recreated.&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-yaml&#34;&gt;        uniqueIdentityClaim: &amp;quot;oid&amp;quot;
-&lt;/code&gt;&lt;/pre&gt;
+&lt;code&gt;sub&lt;/code&gt; is fine if you are confident the app registration will not be recreated.
+The example above uses &lt;code&gt;oid&lt;/code&gt;; remove that line to keep the default of &lt;code&gt;sub&lt;/code&gt;.&lt;/p&gt;
 
 &lt;div class=&#34;alert alert-warning&#34; role=&#34;alert&#34;&gt;
 &lt;h4 class=&#34;alert-heading&#34;&gt;Warning&lt;/h4&gt;

@@ -45,13 +45,13 @@
 <meta property="og:type" content="article" />
 <meta property="og:url" content="/docs/install-guide/setup/open-id/external-idp/azure-ad/" /><meta property="article:section" content="docs" />
 <meta property="article:published_time" content="2026-08-03T00:00:00+00:00" />
-<meta property="article:modified_time" content="2026-09-11T16:53:28+01:00" /><meta property="og:site_name" content="Stroom" />
+<meta property="article:modified_time" content="2026-09-18T17:41:26+01:00" /><meta property="og:site_name" content="Stroom" />
 
 <meta itemprop="name" content="Microsoft Entra ID (Azure AD)">
 <meta itemprop="description" content="How to set up Microsoft Entra ID, formerly Azure Active Directory, as an external identity provider for Stroom.
 "><meta itemprop="datePublished" content="2026-08-03T00:00:00+00:00" />
-<meta itemprop="dateModified" content="2026-09-11T16:53:28+01:00" />
-<meta itemprop="wordCount" content="1720">
+<meta itemprop="dateModified" content="2026-09-18T17:41:26+01:00" />
+<meta itemprop="wordCount" content="2006">
 <meta itemprop="keywords" content="open-id,authentication," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Microsoft Entra ID (Azure AD)"/>
 <meta name="twitter:description" content="How to set up Microsoft Entra ID, formerly Azure Active Directory, as an external identity provider for Stroom.
@@ -155,7 +155,7 @@
     aria-label="Search this site…"
     autocomplete="off"
     
-    data-offline-search-index-json-src="../../../../../../offline-search-index.e0af7b16821c4724f5916dcd6e2d5721.json"
+    data-offline-search-index-json-src="../../../../../../offline-search-index.e424995b7c0a32f30e51e970d1880c98.json"
     data-offline-search-base-href="../../../../../../"
     data-offline-search-max-results="50"
   >
@@ -180,7 +180,7 @@
     aria-label="Search this site…"
     autocomplete="off"
     
-    data-offline-search-index-json-src="../../../../../../offline-search-index.e0af7b16821c4724f5916dcd6e2d5721.json"
+    data-offline-search-index-json-src="../../../../../../offline-search-index.e424995b7c0a32f30e51e970d1880c98.json"
     data-offline-search-base-href="../../../../../../"
     data-offline-search-max-results="50"
   >
@@ -1516,8 +1516,22 @@ See <a href="#issuers">Issuers</a> if you have a reason to stay on v1.0.</p>
         allowedAudiences:
           - &quot;11111111-2222-3333-4444-555555555555&quot;
           - &quot;api://11111111-2222-3333-4444-555555555555&quot;
+        # Accept tokens from both the v2.0 and the v1.0 endpoints. Setting this replaces
+        # Stroom's default issuer check, so the v2.0 issuer must be listed too.
+        validIssuers:
+          - &quot;https://login.microsoftonline.com/TENANT_ID/v2.0&quot;
+          - &quot;https://sts.windows.net/TENANT_ID/&quot;
+        # Entra ID only issues the 'name' and 'preferred_username' claims when 'profile'
+        # is requested, and Stroom's default scopes do not include it.
+        requestScopes:
+          - &quot;openid&quot;
+          - &quot;email&quot;
+          - &quot;profile&quot;
+        # 'oid' is stable across app registrations; the default of 'sub' is not.
+        uniqueIdentityClaim: &quot;oid&quot;
 </code></pre>
 <p>Replace <code>TENANT_ID</code> with the Directory (tenant) ID.</p>
+<p>Each of <code>validIssuers</code>, <code>requestScopes</code> and <code>uniqueIdentityClaim</code> is explained in the sections that follow.</p>
 <h3 id="issuers">Issuers</h3>
 <p>The v2.0 discovery endpoint advertises an issuer of <code>https://login.microsoftonline.com/TENANT_ID/v2.0</code>, which is a parent path of the discovery endpoint itself, so Stroom&rsquo;s issuer check is satisfied with no extra configuration.</p>
 <p>The v1.0 endpoints are not so tidy.
@@ -1525,11 +1539,29 @@ Their issuer is <code>https://sts.windows.net/TENANT_ID/</code>, which shares no
 <blockquote>
 <p>Issuer &lsquo;X&rsquo; obtained from configuration endpoint Y does not share the same base URI.</p>
 </blockquote>
-<p>If you must use v1.0, or you have v1.0 access tokens in circulation from an app registration you cannot change, list the issuer explicitly:</p>
+<p>If you must use v1.0, or you have v1.0 access tokens in circulation from an app registration you cannot change, list both issuers explicitly, as in the example above:</p>
 <pre><code class="language-yaml">        validIssuers:
+          - &quot;https://login.microsoftonline.com/TENANT_ID/v2.0&quot;
           - &quot;https://sts.windows.net/TENANT_ID/&quot;
 </code></pre>
-<p>Using the v2.0 endpoints and <code>accessTokenAcceptedVersion: 2</code> is much the better answer.</p>
+<p>Stroom then accepts tokens carrying either issuer, so v1.0 and v2.0 tokens can be in use at the same time.</p>
+
+<div class="alert alert-warning" role="alert">
+<h4 class="alert-heading">Warning</h4>
+
+    <p>When <code>validIssuers</code> is set, the issuer advertised by the discovery document must be one of the values in it; the parent path check described above is no longer applied.
+Listing only the v1.0 issuer against the v2.0 discovery endpoint will stop Stroom starting with:</p>
+<blockquote>
+<p>Issuer &lsquo;X&rsquo; obtained from configuration endpoint Y does not match those in the &lsquo;issuer&rsquo; or &lsquo;validIssuers&rsquo; properties.</p>
+</blockquote>
+<p>Always include the v2.0 issuer alongside the v1.0 one.
+The values must match exactly, including the <code>/v2.0</code> suffix on one and the trailing <code>/</code> on the other.</p>
+
+
+</div>
+
+
+<p>Using the v2.0 endpoints and <code>accessTokenAcceptedVersion: 2</code> is much the better answer, in which case <code>validIssuers</code> can be omitted altogether.</p>
 
 <div class="alert alert-primary" role="alert">
 <h4 class="alert-heading">Note</h4>
@@ -1557,8 +1589,10 @@ Entra ID does populate the audience claim, so an absent one means the token is n
 
 <p>Leave <code>validateAudience</code> at its default of <code>true</code>.</p>
 <h3 id="claims">Claims</h3>
-<p>The Stroom defaults suit Entra ID v2.0.
-It issues <code>preferred_username</code>, normally the user principal name, which Stroom uses as the display name, and <code>name</code>, which satisfies the default <code>fullNameClaimTemplate</code> of <code>${name}</code>.</p>
+<p>Entra ID v2.0 issues <code>preferred_username</code>, normally the user principal name, which Stroom uses as the display name by default, and <code>name</code>, which satisfies the default <code>fullNameClaimTemplate</code> of <code>${name}</code>.</p>
+<p>Both of those claims are only issued when the <strong><code>profile</code> scope</strong> is requested.
+Stroom&rsquo;s default <code>requestScopes</code> is <code>openid</code> and <code>email</code>, which does not include it, so without the <code>requestScopes</code> shown in the example above users will sign in with no display name or full name.
+Setting <code>requestScopes</code> replaces the defaults rather than adding to them, so keep <code>openid</code> and <code>email</code> in the list.</p>
 <p>For <code>uniqueIdentityClaim</code> you have a choice:</p>
 <table>
 <thead>
@@ -1579,9 +1613,8 @@ It issues <code>preferred_username</code>, normally the user principal name, whi
 </tbody>
 </table>
 <p><code>oid</code> is the more robust choice for a single tenant deployment, and is what Microsoft&rsquo;s own guidance points to as the durable identifier.
-<code>sub</code> is fine if you are confident the app registration will not be recreated.</p>
-<pre><code class="language-yaml">        uniqueIdentityClaim: &quot;oid&quot;
-</code></pre>
+<code>sub</code> is fine if you are confident the app registration will not be recreated.
+The example above uses <code>oid</code>; remove that line to keep the default of <code>sub</code>.</p>
 
 <div class="alert alert-warning" role="alert">
 <h4 class="alert-heading">Warning</h4>
@@ -1677,7 +1710,7 @@ Entra ID&rsquo;s v2.0 client credentials flow generally accepts a <code>.default
 	
 	
 	<div class="text-muted mt-5 pt-3 border-top">
-  Last modified September 11, 2026: <a href="https://github.com/gchq/stroom-docs/commit/8b07c1b766c78d2e0cc82c1ec8f7a8716cffaadf">Merge branch &#39;7.12&#39; into 7.13 (8b07c1b)</a>
+  Last modified September 18, 2026: <a href="https://github.com/gchq/stroom-docs/commit/7525944ed02daaf947a41c75ab29397503ebf080">#140 Fix Microsoft Entra ID (Azure AD) Stroom config docs (7525944)</a>
 </div>
 
 </div>
