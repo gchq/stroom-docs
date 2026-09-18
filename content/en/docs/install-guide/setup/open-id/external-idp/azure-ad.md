@@ -107,9 +107,24 @@ Callers then request that scope, e.g. `api://<client-id>/user_impersonation`, an
         allowedAudiences:
           - "11111111-2222-3333-4444-555555555555"
           - "api://11111111-2222-3333-4444-555555555555"
+        # Accept tokens from both the v2.0 and the v1.0 endpoints. Setting this replaces
+        # Stroom's default issuer check, so the v2.0 issuer must be listed too.
+        validIssuers:
+          - "https://login.microsoftonline.com/TENANT_ID/v2.0"
+          - "https://sts.windows.net/TENANT_ID/"
+        # Entra ID only issues the 'name' and 'preferred_username' claims when 'profile'
+        # is requested, and Stroom's default scopes do not include it.
+        requestScopes:
+          - "openid"
+          - "email"
+          - "profile"
+        # 'oid' is stable across app registrations; the default of 'sub' is not.
+        uniqueIdentityClaim: "oid"
 ```
 
 Replace `TENANT_ID` with the Directory (tenant) ID.
+
+Each of `validIssuers`, `requestScopes` and `uniqueIdentityClaim` is explained in the sections that follow.
 
 
 ### Issuers
@@ -121,14 +136,27 @@ Their issuer is `https://sts.windows.net/TENANT_ID/`, which shares no base URI w
 
 > Issuer 'X' obtained from configuration endpoint Y does not share the same base URI.
 
-If you must use v1.0, or you have v1.0 access tokens in circulation from an app registration you cannot change, list the issuer explicitly:
+If you must use v1.0, or you have v1.0 access tokens in circulation from an app registration you cannot change, list both issuers explicitly, as in the example above:
 
 ```yaml
         validIssuers:
+          - "https://login.microsoftonline.com/TENANT_ID/v2.0"
           - "https://sts.windows.net/TENANT_ID/"
 ```
 
-Using the v2.0 endpoints and `accessTokenAcceptedVersion: 2` is much the better answer.
+Stroom then accepts tokens carrying either issuer, so v1.0 and v2.0 tokens can be in use at the same time.
+
+{{% warning %}}
+When `validIssuers` is set, the issuer advertised by the discovery document must be one of the values in it; the parent path check described above is no longer applied.
+Listing only the v1.0 issuer against the v2.0 discovery endpoint will stop Stroom starting with:
+
+> Issuer 'X' obtained from configuration endpoint Y does not match those in the 'issuer' or 'validIssuers' properties.
+
+Always include the v2.0 issuer alongside the v1.0 one.
+The values must match exactly, including the `/v2.0` suffix on one and the trailing `/` on the other.
+{{% /warning %}}
+
+Using the v2.0 endpoints and `accessTokenAcceptedVersion: 2` is much the better answer, in which case `validIssuers` can be omitted altogether.
 
 {{% note %}}
 Do not use the `common` or `organizations` endpoints in place of a tenant id.
@@ -153,8 +181,11 @@ Leave `validateAudience` at its default of `true`.
 
 ### Claims
 
-The Stroom defaults suit Entra ID v2.0.
-It issues `preferred_username`, normally the user principal name, which Stroom uses as the display name, and `name`, which satisfies the default `fullNameClaimTemplate` of `${name}`.
+Entra ID v2.0 issues `preferred_username`, normally the user principal name, which Stroom uses as the display name by default, and `name`, which satisfies the default `fullNameClaimTemplate` of `${name}`.
+
+Both of those claims are only issued when the **`profile` scope** is requested.
+Stroom's default `requestScopes` is `openid` and `email`, which does not include it, so without the `requestScopes` shown in the example above users will sign in with no display name or full name.
+Setting `requestScopes` replaces the defaults rather than adding to them, so keep `openid` and `email` in the list.
 
 For `uniqueIdentityClaim` you have a choice:
 
@@ -165,10 +196,7 @@ For `uniqueIdentityClaim` you have a choice:
 
 `oid` is the more robust choice for a single tenant deployment, and is what Microsoft's own guidance points to as the durable identifier.
 `sub` is fine if you are confident the app registration will not be recreated.
-
-```yaml
-        uniqueIdentityClaim: "oid"
-```
+The example above uses `oid`; remove that line to keep the default of `sub`.
 
 {{% warning %}}
 Whichever you choose, decide before the first user signs in.
