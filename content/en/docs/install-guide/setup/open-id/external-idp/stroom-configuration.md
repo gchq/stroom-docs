@@ -241,10 +241,14 @@ It has no effect on the interactive sign in flow or on an AWS load balancer data
 validIssuers: []
 ```
 
-Additional issuers to accept beyond the one the provider advertises.
+Additional issuers to accept on a token, beyond the one the provider advertises.
+A token is accepted if its `iss` claim matches either the advertised issuer or any value listed here, so this is how to accept tokens from two generations of endpoint at once, e.g. Entra ID v1.0 and v2.0.
 
-Stroom checks that the issuer in the provider's configuration response is consistent with `openIdConfigurationEndpoint`.
-Where a provider legitimately reports an issuer that is not a parent path of that endpoint, list it here so the check passes.
+Stroom also checks at startup that the issuer in the provider's configuration response is consistent with `openIdConfigurationEndpoint`.
+When `validIssuers` is empty, the advertised issuer must be a parent path of that endpoint.
+When `validIssuers` is set, the advertised issuer must instead be one of the listed values, and the parent path check is not applied.
+So where a provider legitimately reports an issuer that is not a parent path of the endpoint, list it here, and whenever you set this property for any other reason, include the advertised issuer alongside the others or Stroom will not start.
+Values are compared exactly, so trailing slashes matter.
 
 
 ### Signature Algorithms
