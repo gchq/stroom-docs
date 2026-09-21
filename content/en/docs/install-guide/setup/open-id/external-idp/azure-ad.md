@@ -68,7 +68,7 @@ Interactive sign in still works throughout, because it uses the `id_token`.
 To get an access token that Stroom can validate, the app registration has to expose an API of its own:
 
 1. Go to _Expose an API_ => _Add_ next to _Application ID URI_.
-   Accept the default of `api://<client-id>`, or set your own.
+   Accept the default of `api://CLIENT_ID`, or set your own.
 1. Click _Add a scope_, name it something like `user_impersonation`, and choose who can consent.
 1. Under _Manifest_, set `accessTokenAcceptedVersion` to `2`.
 
@@ -80,7 +80,7 @@ Setting it to `2` is the clean fix.
 See [Issuers](#issuers) if you have a reason to stay on v1.0.
 {{% /note %}}
 
-Callers then request that scope, e.g. `api://<client-id>/user_impersonation`, and the resulting access token carries an `aud` claim that Stroom can be configured to accept.
+Callers then request that scope, e.g. `api://CLIENT_ID/user_impersonation`, and the resulting access token carries an `aud` claim that Stroom can be configured to accept.
 
 
 ## Configuring Stroom
@@ -99,14 +99,14 @@ Callers then request that scope, e.g. `api://<client-id>/user_impersonation`, an
         # Note the '/v2.0' path part. Without it you get the v1.0 endpoints and a different issuer.
         openIdConfigurationEndpoint: "https://login.microsoftonline.com/TENANT_ID/v2.0/.well-known/openid-configuration"
         # The Application (client) ID from the app registration overview
-        clientId: "11111111-2222-3333-4444-555555555555"
-        clientSecret: "THE_CLIENT_SECRET_VALUE"
+        clientId: "CLIENT_ID"
+        clientSecret: "CLIENT_SECRET"
         logoutEndpoint: "https://login.microsoftonline.com/TENANT_ID/oauth2/v2.0/logout"
         # Accept both the id_token audience (the client id) and the access token audience
         # (the Application ID URI). Adjust to match what your tokens actually carry.
         allowedAudiences:
-          - "11111111-2222-3333-4444-555555555555"
-          - "api://11111111-2222-3333-4444-555555555555"
+          - "CLIENT_ID"
+          - "api://CLIENT_ID"
         # Accept tokens from both the v2.0 and the v1.0 endpoints. Setting this replaces
         # Stroom's default issuer check, so the v2.0 issuer must be listed too.
         validIssuers:
@@ -122,7 +122,7 @@ Callers then request that scope, e.g. `api://<client-id>/user_impersonation`, an
         uniqueIdentityClaim: "oid"
 ```
 
-Replace `TENANT_ID` with the Directory (tenant) ID.
+Replace `TENANT_ID` with the Directory (tenant) ID, `CLIENT_ID` with the Application (client) ID, and `CLIENT_SECRET` with the value of the client secret, all from the app registration's _Overview_ and _Certificates & secrets_ pages.
 
 Each of `validIssuers`, `requestScopes` and `uniqueIdentityClaim` is explained in the sections that follow.
 
@@ -265,10 +265,12 @@ Entra ID's client credentials flow uses the `.default` scope of the target API:
       openId:
         identityProviderType: EXTERNAL_IDP
         openIdConfigurationEndpoint: "https://login.microsoftonline.com/TENANT_ID/v2.0/.well-known/openid-configuration"
-        clientId: "THE_PROXY_CLIENT_ID"
-        clientSecret: "THE_PROXY_CLIENT_SECRET"
+        # The proxy's own app registration
+        clientId: "PROXY_CLIENT_ID"
+        clientSecret: "PROXY_CLIENT_SECRET"
+        # The Application ID URI of the Stroom app registration, not the proxy's
         clientCredentialsScopes:
-          - "api://11111111-2222-3333-4444-555555555555/.default"
+          - "api://CLIENT_ID/.default"
 ```
 
 {{% note %}}
@@ -277,3 +279,110 @@ Entra ID's v2.0 client credentials flow generally accepts a `.default` scope on 
 {{% /note %}}
 
 The destination the proxy forwards to must accept the audience these tokens carry, which will be the Application ID URI or client id of the Stroom app registration, so make sure it appears in that destination's `allowedAudiences`.
+
+
+## Obtaining a Token to Send Data
+
+When a Stroom-Proxy, or Stroom itself, is configured with Entra ID as above and has `receive.authenticationRequired` and `receive.tokenAuthenticationEnabled` both set to `true`, anything sending data to `/datafeed` must present an Entra ID access token, or a certificate, with each request.
+See [Token Authentication]({{< relref "docs/sending-data/token-authentication" >}}) for how the token is attached.
+
+This section covers how a sending system gets that token.
+It is the mirror image of [Stroom-Proxy with Entra ID](#stroom-proxy-with-entra-id): the sender is a client of the API exposed by the Stroom app registration in exactly the same way the proxy is, and uses the same client credentials grant.
+
+
+### Registering the Sender
+
+Each sending system needs an app registration of its own, so that it has a client id and secret to authenticate with and can be granted, or revoked, individually.
+
+1. Create an app registration for the sender, e.g. `Stroom Sender - Widget Service`.
+   No redirect URI is needed as it will never sign in interactively.
+1. Under _Certificates & secrets_, create a client secret and record its value.
+1. Under _API permissions_ => _Add a permission_ => _My APIs_, select the Stroom app registration.
+1. Choose _Application permissions_, not delegated permissions.
+1. Have a directory administrator **grant admin consent**, without which the token request will fail.
+
+The Stroom app registration must already [expose an API](#exposing-an-api-for-access-tokens) with `accessTokenAcceptedVersion` set to `2`.
+If it does not, the token comes back as a v1.0 token with an issuer of `https://sts.windows.net/TENANT_ID/` and is refused unless that issuer is listed in `validIssuers`, see [Issuers](#issuers).
+
+
+### Requesting the Token
+
+The sender asks the v2.0 token endpoint for a token using the client credentials grant.
+The `scope` is the `.default` scope of the Stroom app registration's Application ID URI, **not** `openid` or `email`; asking for those returns a token for Microsoft Graph that Stroom cannot validate.
+
+{{< command-line >}}
+TENANT_ID="<TENANT_ID>"; \
+SENDER_CLIENT_ID="<SENDER_CLIENT_ID>"; \
+SENDER_CLIENT_SECRET="<SENDER_CLIENT_SECRET>"; \
+STROOM_APP_ID_URI="api://<CLIENT_ID>"; \
+TOKEN="$( \
+  curl \
+    --silent \
+    --request POST \
+    --header "Content-Type: application/x-www-form-urlencoded" \
+    --data "grant_type=client_credentials" \
+    --data "client_id=${SENDER_CLIENT_ID}" \
+    --data "client_secret=${SENDER_CLIENT_SECRET}" \
+    --data "scope=${STROOM_APP_ID_URI}/.default" \
+    "https://login.microsoftonline.com/${TENANT_ID}/oauth2/v2.0/token" \
+  | jq -r '.access_token' \
+)"
+{{</ command-line >}}
+
+Where:
+
+* `TENANT_ID` is the Directory (tenant) ID.
+* `SENDER_CLIENT_ID` and `SENDER_CLIENT_SECRET` are from the sender's app registration.
+* `STROOM_APP_ID_URI` is the Application ID URI of the Stroom app registration, as shown under _Expose an API_.
+  The default form is `api://<CLIENT_ID>`, where `CLIENT_ID` is the Stroom app registration's client id, not the sender's, and it is the same value used in the proxy's `clientCredentialsScopes` above.
+
+The response is a JSON document containing `access_token`, `token_type` and `expires_in`; the command above extracts just the token.
+A `400` response instead carries `error` and `error_description` fields, the latter with an `AADSTS` code and a message that says what is wrong.
+The usual causes are a wrong or expired client secret, a `scope` that is not the `.default` scope of an API the Stroom app registration actually exposes, or admin consent not having been granted.
+
+
+### Sending Data with the Token
+
+The token goes in the `Authorization` header as a bearer token, alongside the usual [header arguments]({{< relref "docs/sending-data/header-arguments" >}}):
+
+{{< command-line >}}
+curl \
+  --silent \
+  --request POST \
+  --header "Authorization: Bearer ${TOKEN}" \
+  --header "Feed: <FEED_NAME>" \
+  --header "System: <SYSTEM_NAME>" \
+  --header "Environment: <ENVIRONMENT>" \
+  --data-binary @events.log \
+  "https://stroom-proxy.example.com/stroom/datafeed"
+{{</ command-line >}}
+
+Tokens are short lived, typically around an hour, so a sender must request a fresh token when `expires_in` has elapsed or a request is refused with a `401`, rather than caching one indefinitely.
+
+{{% see-also %}}
+See [curl (Linux)]({{< relref "docs/sending-data/example-clients/curl-linux" >}}) for more on sending data with curl.
+{{% /see-also %}}
+
+
+### Checking the Token
+
+If the proxy rejects the token, decode its payload before assuming the proxy is at fault:
+
+{{< command-line >}}
+echo "${TOKEN}" \
+  | cut -d '.' -f 2 \
+  | tr '_-' '/+' \
+  | base64 --decode 2>/dev/null \
+  | jq '.'
+{{</ command-line >}}
+
+Check that:
+
+* `iss` is `https://login.microsoftonline.com/TENANT_ID/v2.0`.
+  If it is `https://sts.windows.net/TENANT_ID/` the Stroom app registration is still issuing v1.0 tokens, see [Exposing an API for Access Tokens](#exposing-an-api-for-access-tokens).
+* `aud` is a value that appears in the proxy's `allowedAudiences`.
+  It will be the Application ID URI or the client id of the Stroom app registration.
+* `exp` is in the future.
+
+Once accepted, the sender's identity is recorded against the received data in the `UploadUserId` meta attribute, taken from the claim named in `uniqueIdentityClaim`.
+For a client credentials token that is the `oid` of the sender's service principal, so it is that value, not the app registration's display name, that you match on in [Data Receipt Rules]({{< relref "docs/user-guide/data-receipt/data-receipt-rules" >}}).

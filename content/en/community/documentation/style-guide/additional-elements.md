@@ -706,6 +706,46 @@ Examples of how to use in-line files are:
   ```
 
 
+### Placeholders
+
+Where a reader has to substitute their own value into an example, use a placeholder named in `UPPER_SNAKE_CASE` that describes the value, e.g. `TENANT_ID`, `CLIENT_SECRET`, `STROOM_HOST`.
+Use the same name for the same value everywhere on a page, and in the prose that refers to it.
+
+How the placeholder is written depends on where it appears:
+
+* In commands, wrap it in angle brackets, e.g. `<TENANT_ID>`, so it is obviously not literal.
+* In YAML, JSON, properties and other configuration file content, use it bare, e.g. `clientId: "CLIENT_ID"`.
+  Angle brackets in a configuration file look like markup and are not valid in every format, and an example that is copied as-is should at least be syntactically valid.
+* In a shell snippet that assigns to variables, put the placeholder on the right hand side so that the variable name can match the placeholder name, e.g. `TENANT_ID="<TENANT_ID>"`.
+* In prose, use whichever form the example being discussed uses, so a reader can match the text to the block.
+  A URL quoted from a configuration block is written bare, e.g. `https://login.microsoftonline.com/TENANT_ID/v2.0`, while a value from a command keeps its brackets.
+
+Do not prefix placeholders with `THE_` or `YOUR_`, and do not use a realistic looking fake value, such as a made up UUID, in place of a named placeholder, as readers cannot tell it needs replacing.
+
+After the first block on a page that introduces a placeholder, say what it should be replaced with, e.g.
+
+```markdown
+Replace `TENANT_ID` with the Directory (tenant) ID and `CLIENT_ID` with the Application (client) ID.
+```
+
+{{< cardpane >}}
+  {{< card header="Configuration" >}}
+```yaml
+openId:
+  openIdConfigurationEndpoint: "https://login.microsoftonline.com/TENANT_ID/v2.0/.well-known/openid-configuration"
+  clientId: "CLIENT_ID"
+  clientSecret: "CLIENT_SECRET"
+```
+  {{< /card >}}
+  {{< card header="Command" >}}
+{{< command-line >}}
+TENANT_ID="<TENANT_ID>"; \
+curl "https://login.microsoftonline.com/${TENANT_ID}/v2.0/.well-known/openid-configuration"
+{{</ command-line >}}
+  {{< /card >}}
+{{< /cardpane >}}
+
+
 ### Supported Languages
 
 This site uses {{< external-link "Prismjs" "https://prismjs.com/index.html" >}} for syntax highlighting code blocks.

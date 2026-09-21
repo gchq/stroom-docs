@@ -33,9 +33,11 @@ For most providers this is all that is needed:
         identityProviderType: EXTERNAL_IDP
         openIdConfigurationEndpoint: "https://IDP_HOST/.well-known/openid-configuration"
         clientId: "StroomClient"
-        clientSecret: "THE_CLIENT_SECRET"
+        clientSecret: "CLIENT_SECRET"
         logoutEndpoint: "https://IDP_HOST/logout"
 ```
+
+Replace `IDP_HOST` with the host of your provider, `StroomClient` with the client id it issued or you chose for Stroom, and `CLIENT_SECRET` with that client's secret.
 
 Stroom fetches the provider's configuration document from `openIdConfigurationEndpoint` at startup and takes the issuer, authorization endpoint, token endpoint and JWKS URI from it.
 The logout endpoint is not part of that document, so it is set separately.
@@ -141,7 +143,7 @@ clientCredentialsScopes:
 
 The scopes used when Stroom or Stroom-Proxy requests a token for its own service user, rather than for a person.
 Again, this replaces the default.
-For Azure AD you will likely need `openid` and `<your-app-id-uri>/.default`.
+For Entra ID you will likely need `api://CLIENT_ID/.default`, where `CLIENT_ID` is that of the Stroom app registration, and possibly `openid`; see [Microsoft Entra ID]({{< relref "azure-ad#stroom-proxy-with-entra-id" >}}).
 
 
 ### `formTokenRequest`
@@ -343,7 +345,7 @@ What it needs is the ability to obtain a token for its own service user via the 
         identityProviderType: EXTERNAL_IDP
         openIdConfigurationEndpoint: "https://IDP_HOST/.well-known/openid-configuration"
         clientId: "StroomProxyClient"
-        clientSecret: "THE_CLIENT_SECRET"
+        clientSecret: "CLIENT_SECRET"
 ```
 
 Where the proxy forwards data to another proxy or to Stroom, it can attach a token for its service user, provided the destination is configured against the same provider:
