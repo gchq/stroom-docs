@@ -52,9 +52,10 @@ The structure is identical for both.&lt;/p&gt;
         identityProviderType: EXTERNAL_IDP
         openIdConfigurationEndpoint: &amp;quot;https://IDP_HOST/.well-known/openid-configuration&amp;quot;
         clientId: &amp;quot;StroomClient&amp;quot;
-        clientSecret: &amp;quot;THE_CLIENT_SECRET&amp;quot;
+        clientSecret: &amp;quot;CLIENT_SECRET&amp;quot;
         logoutEndpoint: &amp;quot;https://IDP_HOST/logout&amp;quot;
 &lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Replace &lt;code&gt;IDP_HOST&lt;/code&gt; with the host of your provider, &lt;code&gt;StroomClient&lt;/code&gt; with the client id it issued or you chose for Stroom, and &lt;code&gt;CLIENT_SECRET&lt;/code&gt; with that client&amp;rsquo;s secret.&lt;/p&gt;
 &lt;p&gt;Stroom fetches the provider&amp;rsquo;s configuration document from &lt;code&gt;openIdConfigurationEndpoint&lt;/code&gt; at startup and takes the issuer, authorization endpoint, token endpoint and JWKS URI from it.
 The logout endpoint is not part of that document, so it is set separately.&lt;/p&gt;
 &lt;p&gt;If you also want data receipt to be authenticated:&lt;/p&gt;
@@ -148,7 +149,7 @@ Add &lt;code&gt;profile&lt;/code&gt; if you need the &lt;code&gt;name&lt;/code&g
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;The scopes used when Stroom or Stroom-Proxy requests a token for its own service user, rather than for a person.
 Again, this replaces the default.
-For Azure AD you will likely need &lt;code&gt;openid&lt;/code&gt; and &lt;code&gt;&amp;lt;your-app-id-uri&amp;gt;/.default&lt;/code&gt;.&lt;/p&gt;
+For Entra ID you will likely need &lt;code&gt;api://CLIENT_ID/.default&lt;/code&gt;, where &lt;code&gt;CLIENT_ID&lt;/code&gt; is that of the Stroom app registration, and possibly &lt;code&gt;openid&lt;/code&gt;; see &lt;a href=&#34;../../docs/install-guide/setup/open-id/external-idp/azure-ad/#stroom-proxy-with-entra-id&#34;&gt;Microsoft Entra ID&lt;/a&gt;.&lt;/p&gt;
 &lt;h3 id=&#34;formtokenrequest&#34;&gt;&lt;code&gt;formTokenRequest&lt;/code&gt;&lt;/h3&gt;
 &lt;pre&gt;&lt;code class=&#34;language-yaml&#34;&gt;formTokenRequest: true
 &lt;/code&gt;&lt;/pre&gt;
@@ -289,7 +290,7 @@ What it needs is the ability to obtain a token for its own service user via the 
         identityProviderType: EXTERNAL_IDP
         openIdConfigurationEndpoint: &amp;quot;https://IDP_HOST/.well-known/openid-configuration&amp;quot;
         clientId: &amp;quot;StroomProxyClient&amp;quot;
-        clientSecret: &amp;quot;THE_CLIENT_SECRET&amp;quot;
+        clientSecret: &amp;quot;CLIENT_SECRET&amp;quot;
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;Where the proxy forwards data to another proxy or to Stroom, it can attach a token for its service user, provided the destination is configured against the same provider:&lt;/p&gt;
 &lt;pre&gt;&lt;code class=&#34;language-yaml&#34;&gt;  forwardHttpDestinations:
@@ -2337,7 +2338,7 @@ Interactive sign in still works throughout, because it uses the &lt;code&gt;id_t
 &lt;p&gt;To get an access token that Stroom can validate, the app registration has to expose an API of its own:&lt;/p&gt;
 &lt;ol&gt;
 &lt;li&gt;Go to &lt;em&gt;Expose an API&lt;/em&gt; =&amp;gt; &lt;em&gt;Add&lt;/em&gt; next to &lt;em&gt;Application ID URI&lt;/em&gt;.
-Accept the default of &lt;code&gt;api://&amp;lt;client-id&amp;gt;&lt;/code&gt;, or set your own.&lt;/li&gt;
+Accept the default of &lt;code&gt;api://CLIENT_ID&lt;/code&gt;, or set your own.&lt;/li&gt;
 &lt;li&gt;Click &lt;em&gt;Add a scope&lt;/em&gt;, name it something like &lt;code&gt;user_impersonation&lt;/code&gt;, and choose who can consent.&lt;/li&gt;
 &lt;li&gt;Under &lt;em&gt;Manifest&lt;/em&gt;, set &lt;code&gt;accessTokenAcceptedVersion&lt;/code&gt; to &lt;code&gt;2&lt;/code&gt;.&lt;/li&gt;
 &lt;/ol&gt;
@@ -2356,7 +2357,7 @@ See &lt;a href=&#34;#issuers&#34;&gt;Issuers&lt;/a&gt; if you have a reason to s
 &lt;/div&gt;
 
 
-&lt;p&gt;Callers then request that scope, e.g. &lt;code&gt;api://&amp;lt;client-id&amp;gt;/user_impersonation&lt;/code&gt;, and the resulting access token carries an &lt;code&gt;aud&lt;/code&gt; claim that Stroom can be configured to accept.&lt;/p&gt;
+&lt;p&gt;Callers then request that scope, e.g. &lt;code&gt;api://CLIENT_ID/user_impersonation&lt;/code&gt;, and the resulting access token carries an &lt;code&gt;aud&lt;/code&gt; claim that Stroom can be configured to accept.&lt;/p&gt;
 &lt;h2 id=&#34;configuring-stroom&#34;&gt;Configuring Stroom&lt;/h2&gt;
 &lt;pre&gt;&lt;code class=&#34;language-yaml&#34;&gt;  receive:
     # Set to true to require authentication for /datafeed requests
@@ -2371,14 +2372,14 @@ See &lt;a href=&#34;#issuers&#34;&gt;Issuers&lt;/a&gt; if you have a reason to s
         # Note the &#39;/v2.0&#39; path part. Without it you get the v1.0 endpoints and a different issuer.
         openIdConfigurationEndpoint: &amp;quot;https://login.microsoftonline.com/TENANT_ID/v2.0/.well-known/openid-configuration&amp;quot;
         # The Application (client) ID from the app registration overview
-        clientId: &amp;quot;11111111-2222-3333-4444-555555555555&amp;quot;
-        clientSecret: &amp;quot;THE_CLIENT_SECRET_VALUE&amp;quot;
+        clientId: &amp;quot;CLIENT_ID&amp;quot;
+        clientSecret: &amp;quot;CLIENT_SECRET&amp;quot;
         logoutEndpoint: &amp;quot;https://login.microsoftonline.com/TENANT_ID/oauth2/v2.0/logout&amp;quot;
         # Accept both the id_token audience (the client id) and the access token audience
         # (the Application ID URI). Adjust to match what your tokens actually carry.
         allowedAudiences:
-          - &amp;quot;11111111-2222-3333-4444-555555555555&amp;quot;
-          - &amp;quot;api://11111111-2222-3333-4444-555555555555&amp;quot;
+          - &amp;quot;CLIENT_ID&amp;quot;
+          - &amp;quot;api://CLIENT_ID&amp;quot;
         # Accept tokens from both the v2.0 and the v1.0 endpoints. Setting this replaces
         # Stroom&#39;s default issuer check, so the v2.0 issuer must be listed too.
         validIssuers:
@@ -2393,7 +2394,7 @@ See &lt;a href=&#34;#issuers&#34;&gt;Issuers&lt;/a&gt; if you have a reason to s
         # &#39;oid&#39; is stable across app registrations; the default of &#39;sub&#39; is not.
         uniqueIdentityClaim: &amp;quot;oid&amp;quot;
 &lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;Replace &lt;code&gt;TENANT_ID&lt;/code&gt; with the Directory (tenant) ID.&lt;/p&gt;
+&lt;p&gt;Replace &lt;code&gt;TENANT_ID&lt;/code&gt; with the Directory (tenant) ID, &lt;code&gt;CLIENT_ID&lt;/code&gt; with the Application (client) ID, and &lt;code&gt;CLIENT_SECRET&lt;/code&gt; with the value of the client secret, all from the app registration&amp;rsquo;s &lt;em&gt;Overview&lt;/em&gt; and &lt;em&gt;Certificates &amp;amp; secrets&lt;/em&gt; pages.&lt;/p&gt;
 &lt;p&gt;Each of &lt;code&gt;validIssuers&lt;/code&gt;, &lt;code&gt;requestScopes&lt;/code&gt; and &lt;code&gt;uniqueIdentityClaim&lt;/code&gt; is explained in the sections that follow.&lt;/p&gt;
 &lt;h3 id=&#34;issuers&#34;&gt;Issuers&lt;/h3&gt;
 &lt;p&gt;The v2.0 discovery endpoint advertises an issuer of &lt;code&gt;https://login.microsoftonline.com/TENANT_ID/v2.0&lt;/code&gt;, which is a parent path of the discovery endpoint itself, so Stroom&amp;rsquo;s issuer check is satisfied with no extra configuration.&lt;/p&gt;
@@ -2552,10 +2553,12 @@ Restart Stroom afterwards if it was running, as permissions are cached.&lt;/p&gt
       openId:
         identityProviderType: EXTERNAL_IDP
         openIdConfigurationEndpoint: &amp;quot;https://login.microsoftonline.com/TENANT_ID/v2.0/.well-known/openid-configuration&amp;quot;
-        clientId: &amp;quot;THE_PROXY_CLIENT_ID&amp;quot;
-        clientSecret: &amp;quot;THE_PROXY_CLIENT_SECRET&amp;quot;
+        # The proxy&#39;s own app registration
+        clientId: &amp;quot;PROXY_CLIENT_ID&amp;quot;
+        clientSecret: &amp;quot;PROXY_CLIENT_SECRET&amp;quot;
+        # The Application ID URI of the Stroom app registration, not the proxy&#39;s
         clientCredentialsScopes:
-          - &amp;quot;api://11111111-2222-3333-4444-555555555555/.default&amp;quot;
+          - &amp;quot;api://CLIENT_ID/.default&amp;quot;
 &lt;/code&gt;&lt;/pre&gt;
 
 &lt;div class=&#34;alert alert-primary&#34; role=&#34;alert&#34;&gt;
@@ -2569,6 +2572,139 @@ Entra ID&amp;rsquo;s v2.0 client credentials flow generally accepts a &lt;code&g
 
 
 &lt;p&gt;The destination the proxy forwards to must accept the audience these tokens carry, which will be the Application ID URI or client id of the Stroom app registration, so make sure it appears in that destination&amp;rsquo;s &lt;code&gt;allowedAudiences&lt;/code&gt;.&lt;/p&gt;
+&lt;h2 id=&#34;obtaining-a-token-to-send-data&#34;&gt;Obtaining a Token to Send Data&lt;/h2&gt;
+&lt;p&gt;When a Stroom-Proxy, or Stroom itself, is configured with Entra ID as above and has &lt;code&gt;receive.authenticationRequired&lt;/code&gt; and &lt;code&gt;receive.tokenAuthenticationEnabled&lt;/code&gt; both set to &lt;code&gt;true&lt;/code&gt;, anything sending data to &lt;code&gt;/datafeed&lt;/code&gt; must present an Entra ID access token, or a certificate, with each request.
+See &lt;a href=&#34;../../docs/sending-data/token-authentication/&#34;&gt;Token Authentication&lt;/a&gt; for how the token is attached.&lt;/p&gt;
+&lt;p&gt;This section covers how a sending system gets that token.
+It is the mirror image of &lt;a href=&#34;#stroom-proxy-with-entra-id&#34;&gt;Stroom-Proxy with Entra ID&lt;/a&gt;: the sender is a client of the API exposed by the Stroom app registration in exactly the same way the proxy is, and uses the same client credentials grant.&lt;/p&gt;
+&lt;h3 id=&#34;registering-the-sender&#34;&gt;Registering the Sender&lt;/h3&gt;
+&lt;p&gt;Each sending system needs an app registration of its own, so that it has a client id and secret to authenticate with and can be granted, or revoked, individually.&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;Create an app registration for the sender, e.g. &lt;code&gt;Stroom Sender - Widget Service&lt;/code&gt;.
+No redirect URI is needed as it will never sign in interactively.&lt;/li&gt;
+&lt;li&gt;Under &lt;em&gt;Certificates &amp;amp; secrets&lt;/em&gt;, create a client secret and record its value.&lt;/li&gt;
+&lt;li&gt;Under &lt;em&gt;API permissions&lt;/em&gt; =&amp;gt; &lt;em&gt;Add a permission&lt;/em&gt; =&amp;gt; &lt;em&gt;My APIs&lt;/em&gt;, select the Stroom app registration.&lt;/li&gt;
+&lt;li&gt;Choose &lt;em&gt;Application permissions&lt;/em&gt;, not delegated permissions.&lt;/li&gt;
+&lt;li&gt;Have a directory administrator &lt;strong&gt;grant admin consent&lt;/strong&gt;, without which the token request will fail.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;The Stroom app registration must already &lt;a href=&#34;#exposing-an-api-for-access-tokens&#34;&gt;expose an API&lt;/a&gt; with &lt;code&gt;accessTokenAcceptedVersion&lt;/code&gt; set to &lt;code&gt;2&lt;/code&gt;.
+If it does not, the token comes back as a v1.0 token with an issuer of &lt;code&gt;https://sts.windows.net/TENANT_ID/&lt;/code&gt; and is refused unless that issuer is listed in &lt;code&gt;validIssuers&lt;/code&gt;, see &lt;a href=&#34;#issuers&#34;&gt;Issuers&lt;/a&gt;.&lt;/p&gt;
+&lt;h3 id=&#34;requesting-the-token&#34;&gt;Requesting the Token&lt;/h3&gt;
+&lt;p&gt;The sender asks the v2.0 token endpoint for a token using the client credentials grant.
+The &lt;code&gt;scope&lt;/code&gt; is the &lt;code&gt;.default&lt;/code&gt; scope of the Stroom app registration&amp;rsquo;s Application ID URI, &lt;strong&gt;not&lt;/strong&gt; &lt;code&gt;openid&lt;/code&gt; or &lt;code&gt;email&lt;/code&gt;; asking for those returns a token for Microsoft Graph that Stroom cannot validate.&lt;/p&gt;
+
+  
+
+
+
+
+
+
+&lt;div class=&#34;code-toolbar&#34;&gt;
+  &lt;pre 
+    class=&#34;command-line language-bash&#34; 
+    data-user=&#34;user&#34; 
+    data-host=&#34;localhost&#34; 
+    data-continuation-str=&#34;\&#34;
+    data-filter-output=&#34;(out)&#34;&gt;&lt;code class=&#34;language-bash&#34;&gt;TENANT_ID=&amp;#34;&amp;lt;TENANT_ID&amp;gt;&amp;#34;; \
+SENDER_CLIENT_ID=&amp;#34;&amp;lt;SENDER_CLIENT_ID&amp;gt;&amp;#34;; \
+SENDER_CLIENT_SECRET=&amp;#34;&amp;lt;SENDER_CLIENT_SECRET&amp;gt;&amp;#34;; \
+STROOM_APP_ID_URI=&amp;#34;api://&amp;lt;CLIENT_ID&amp;gt;&amp;#34;; \
+TOKEN=&amp;#34;$( \
+  curl \
+    --silent \
+    --request POST \
+    --header &amp;#34;Content-Type: application/x-www-form-urlencoded&amp;#34; \
+    --data &amp;#34;grant_type=client_credentials&amp;#34; \
+    --data &amp;#34;client_id=${SENDER_CLIENT_ID}&amp;#34; \
+    --data &amp;#34;client_secret=${SENDER_CLIENT_SECRET}&amp;#34; \
+    --data &amp;#34;scope=${STROOM_APP_ID_URI}/.default&amp;#34; \
+    &amp;#34;https://login.microsoftonline.com/${TENANT_ID}/oauth2/v2.0/token&amp;#34; \
+  | jq -r &amp;#39;.access_token&amp;#39; \
+)&amp;#34;&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;Where:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;TENANT_ID&lt;/code&gt; is the Directory (tenant) ID.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;SENDER_CLIENT_ID&lt;/code&gt; and &lt;code&gt;SENDER_CLIENT_SECRET&lt;/code&gt; are from the sender&amp;rsquo;s app registration.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;STROOM_APP_ID_URI&lt;/code&gt; is the Application ID URI of the Stroom app registration, as shown under &lt;em&gt;Expose an API&lt;/em&gt;.
+The default form is &lt;code&gt;api://&amp;lt;CLIENT_ID&amp;gt;&lt;/code&gt;, where &lt;code&gt;CLIENT_ID&lt;/code&gt; is the Stroom app registration&amp;rsquo;s client id, not the sender&amp;rsquo;s, and it is the same value used in the proxy&amp;rsquo;s &lt;code&gt;clientCredentialsScopes&lt;/code&gt; above.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;The response is a JSON document containing &lt;code&gt;access_token&lt;/code&gt;, &lt;code&gt;token_type&lt;/code&gt; and &lt;code&gt;expires_in&lt;/code&gt;; the command above extracts just the token.
+A &lt;code&gt;400&lt;/code&gt; response instead carries &lt;code&gt;error&lt;/code&gt; and &lt;code&gt;error_description&lt;/code&gt; fields, the latter with an &lt;code&gt;AADSTS&lt;/code&gt; code and a message that says what is wrong.
+The usual causes are a wrong or expired client secret, a &lt;code&gt;scope&lt;/code&gt; that is not the &lt;code&gt;.default&lt;/code&gt; scope of an API the Stroom app registration actually exposes, or admin consent not having been granted.&lt;/p&gt;
+&lt;h3 id=&#34;sending-data-with-the-token&#34;&gt;Sending Data with the Token&lt;/h3&gt;
+&lt;p&gt;The token goes in the &lt;code&gt;Authorization&lt;/code&gt; header as a bearer token, alongside the usual &lt;a href=&#34;../../docs/sending-data/header-arguments/&#34;&gt;header arguments&lt;/a&gt;:&lt;/p&gt;
+
+  
+
+
+
+
+
+
+&lt;div class=&#34;code-toolbar&#34;&gt;
+  &lt;pre 
+    class=&#34;command-line language-bash&#34; 
+    data-user=&#34;user&#34; 
+    data-host=&#34;localhost&#34; 
+    data-continuation-str=&#34;\&#34;
+    data-filter-output=&#34;(out)&#34;&gt;&lt;code class=&#34;language-bash&#34;&gt;curl \
+  --silent \
+  --request POST \
+  --header &amp;#34;Authorization: Bearer ${TOKEN}&amp;#34; \
+  --header &amp;#34;Feed: &amp;lt;FEED_NAME&amp;gt;&amp;#34; \
+  --header &amp;#34;System: &amp;lt;SYSTEM_NAME&amp;gt;&amp;#34; \
+  --header &amp;#34;Environment: &amp;lt;ENVIRONMENT&amp;gt;&amp;#34; \
+  --data-binary @events.log \
+  &amp;#34;https://stroom-proxy.example.com/stroom/datafeed&amp;#34;&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;Tokens are short lived, typically around an hour, so a sender must request a fresh token when &lt;code&gt;expires_in&lt;/code&gt; has elapsed or a request is refused with a &lt;code&gt;401&lt;/code&gt;, rather than caching one indefinitely.&lt;/p&gt;
+
+&lt;div class=&#34;alert alert-primary&#34; role=&#34;alert&#34;&gt;
+&lt;h4 class=&#34;alert-heading&#34;&gt;See Also&lt;/h4&gt;
+&lt;div class=&#34;alert-content&#34;&gt;
+  
+  &lt;p&gt;See &lt;a href=&#34;../../docs/sending-data/example-clients/curl-linux/&#34;&gt;curl (Linux)&lt;/a&gt; for more on sending data with curl.&lt;/p&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;h3 id=&#34;checking-the-token&#34;&gt;Checking the Token&lt;/h3&gt;
+&lt;p&gt;If the proxy rejects the token, decode its payload before assuming the proxy is at fault:&lt;/p&gt;
+
+  
+
+
+
+
+
+
+&lt;div class=&#34;code-toolbar&#34;&gt;
+  &lt;pre 
+    class=&#34;command-line language-bash&#34; 
+    data-user=&#34;user&#34; 
+    data-host=&#34;localhost&#34; 
+    data-continuation-str=&#34;\&#34;
+    data-filter-output=&#34;(out)&#34;&gt;&lt;code class=&#34;language-bash&#34;&gt;echo &amp;#34;${TOKEN}&amp;#34; \
+  | cut -d &amp;#39;.&amp;#39; -f 2 \
+  | tr &amp;#39;_-&amp;#39; &amp;#39;/&amp;#43;&amp;#39; \
+  | base64 --decode 2&amp;gt;/dev/null \
+  | jq &amp;#39;.&amp;#39;&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;Check that:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;iss&lt;/code&gt; is &lt;code&gt;https://login.microsoftonline.com/TENANT_ID/v2.0&lt;/code&gt;.
+If it is &lt;code&gt;https://sts.windows.net/TENANT_ID/&lt;/code&gt; the Stroom app registration is still issuing v1.0 tokens, see &lt;a href=&#34;#exposing-an-api-for-access-tokens&#34;&gt;Exposing an API for Access Tokens&lt;/a&gt;.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;aud&lt;/code&gt; is a value that appears in the proxy&amp;rsquo;s &lt;code&gt;allowedAudiences&lt;/code&gt;.
+It will be the Application ID URI or the client id of the Stroom app registration.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;exp&lt;/code&gt; is in the future.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Once accepted, the sender&amp;rsquo;s identity is recorded against the received data in the &lt;code&gt;UploadUserId&lt;/code&gt; meta attribute, taken from the claim named in &lt;code&gt;uniqueIdentityClaim&lt;/code&gt;.
+For a client credentials token that is the &lt;code&gt;oid&lt;/code&gt; of the sender&amp;rsquo;s service principal, so it is that value, not the app registration&amp;rsquo;s display name, that you match on in &lt;a href=&#34;../../docs/user-guide/data-receipt/data-receipt-rules/&#34;&gt;Data Receipt Rules&lt;/a&gt;.&lt;/p&gt;
 
       </description>
     </item>

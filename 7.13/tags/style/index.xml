@@ -1348,6 +1348,82 @@ host01.company4.org	192.168.4.220	USA	LosAngeles-S19	ILM	C5-54-2	-08:00/-07:00
 {{&amp;lt; textfile &amp;quot;style-guide/in_line_file_example.xml&amp;quot; &amp;gt;}}My caption{{&amp;lt; /textfile &amp;gt;}}
 {{&amp;lt; textfile &amp;quot;style-guide/in_line_file_example.xml&amp;quot; /&amp;gt;}}
 &lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&#34;placeholders&#34;&gt;Placeholders&lt;/h3&gt;
+&lt;p&gt;Where a reader has to substitute their own value into an example, use a placeholder named in &lt;code&gt;UPPER_SNAKE_CASE&lt;/code&gt; that describes the value, e.g. &lt;code&gt;TENANT_ID&lt;/code&gt;, &lt;code&gt;CLIENT_SECRET&lt;/code&gt;, &lt;code&gt;STROOM_HOST&lt;/code&gt;.
+Use the same name for the same value everywhere on a page, and in the prose that refers to it.&lt;/p&gt;
+&lt;p&gt;How the placeholder is written depends on where it appears:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;In commands, wrap it in angle brackets, e.g. &lt;code&gt;&amp;lt;TENANT_ID&amp;gt;&lt;/code&gt;, so it is obviously not literal.&lt;/li&gt;
+&lt;li&gt;In YAML, JSON, properties and other configuration file content, use it bare, e.g. &lt;code&gt;clientId: &amp;quot;CLIENT_ID&amp;quot;&lt;/code&gt;.
+Angle brackets in a configuration file look like markup and are not valid in every format, and an example that is copied as-is should at least be syntactically valid.&lt;/li&gt;
+&lt;li&gt;In a shell snippet that assigns to variables, put the placeholder on the right hand side so that the variable name can match the placeholder name, e.g. &lt;code&gt;TENANT_ID=&amp;quot;&amp;lt;TENANT_ID&amp;gt;&amp;quot;&lt;/code&gt;.&lt;/li&gt;
+&lt;li&gt;In prose, use whichever form the example being discussed uses, so a reader can match the text to the block.
+A URL quoted from a configuration block is written bare, e.g. &lt;code&gt;https://login.microsoftonline.com/TENANT_ID/v2.0&lt;/code&gt;, while a value from a command keeps its brackets.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Do not prefix placeholders with &lt;code&gt;THE_&lt;/code&gt; or &lt;code&gt;YOUR_&lt;/code&gt;, and do not use a realistic looking fake value, such as a made up UUID, in place of a named placeholder, as readers cannot tell it needs replacing.&lt;/p&gt;
+&lt;p&gt;After the first block on a page that introduces a placeholder, say what it should be replaced with, e.g.&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-markdown&#34;&gt;Replace `TENANT_ID` with the Directory (tenant) ID and `CLIENT_ID` with the Application (client) ID.
+&lt;/code&gt;&lt;/pre&gt;
+&lt;div class=&#34;td-card-deck card-deck mb-4&#34;&gt;
+  &lt;div class=&#34;td-card card mb-4&#34;&gt;
+  
+    &lt;div class=&#34;card-header&#34;&gt;
+      
+        Configuration
+      
+    &lt;/div&gt;
+  
+  &lt;div class=&#34;card-body&#34;&gt;
+    
+    
+    
+      &lt;p class=&#34;card-text&#34;&gt;
+        
+          &lt;pre&gt;&lt;code class=&#34;language-yaml&#34;&gt;openId:
+  openIdConfigurationEndpoint: &amp;quot;https://login.microsoftonline.com/TENANT_ID/v2.0/.well-known/openid-configuration&amp;quot;
+  clientId: &amp;quot;CLIENT_ID&amp;quot;
+  clientSecret: &amp;quot;CLIENT_SECRET&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+
+        
+      &lt;/p&gt;
+    
+  &lt;/div&gt;
+  
+&lt;/div&gt;
+
+  &lt;div class=&#34;td-card card mb-4&#34;&gt;
+  
+    &lt;div class=&#34;card-header&#34;&gt;
+      
+        Command
+      
+    &lt;/div&gt;
+  
+  &lt;div class=&#34;card-body&#34;&gt;
+    
+    
+    
+      &lt;p class=&#34;card-text&#34;&gt;
+        
+          &lt;div class=&#34;code-toolbar&#34;&gt;
+  &lt;pre 
+    class=&#34;command-line language-bash&#34; 
+    data-user=&#34;user&#34; 
+    data-host=&#34;localhost&#34; 
+    data-continuation-str=&#34;\&#34;
+    data-filter-output=&#34;(out)&#34;&gt;&lt;code class=&#34;language-bash&#34;&gt;TENANT_ID=&amp;#34;&amp;lt;TENANT_ID&amp;gt;&amp;#34;; \
+curl &amp;#34;https://login.microsoftonline.com/${TENANT_ID}/v2.0/.well-known/openid-configuration&amp;#34;&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+        
+      &lt;/p&gt;
+    
+  &lt;/div&gt;
+  
+&lt;/div&gt;
+
+&lt;/div&gt;
 &lt;h3 id=&#34;supported-languages&#34;&gt;Supported Languages&lt;/h3&gt;
 &lt;p&gt;This site uses &lt;span class=&#34;external-link&#34;&gt;
   &lt;a href=&#34;https://prismjs.com/index.html&#34; target=&#34;_blank&#34; class=&#34;external-link&#34; title=&#34;Prismjs (external link to https://prismjs.com/index.html)&#34;&gt;

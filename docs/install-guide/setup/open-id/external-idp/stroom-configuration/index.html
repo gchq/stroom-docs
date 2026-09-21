@@ -45,13 +45,13 @@
 <meta property="og:type" content="article" />
 <meta property="og:url" content="/docs/install-guide/setup/open-id/external-idp/stroom-configuration/" /><meta property="article:section" content="docs" />
 <meta property="article:published_time" content="2026-08-03T00:00:00+00:00" />
-<meta property="article:modified_time" content="2026-09-18T17:41:26+01:00" /><meta property="og:site_name" content="Stroom" />
+<meta property="article:modified_time" content="2026-09-21T12:19:44+01:00" /><meta property="og:site_name" content="Stroom" />
 
 <meta itemprop="name" content="Stroom Configuration">
 <meta itemprop="description" content="A reference for every Stroom and Stroom-Proxy setting involved in authenticating against an external identity provider.
 "><meta itemprop="datePublished" content="2026-08-03T00:00:00+00:00" />
-<meta itemprop="dateModified" content="2026-09-18T17:41:26+01:00" />
-<meta itemprop="wordCount" content="2344">
+<meta itemprop="dateModified" content="2026-09-21T12:19:44+01:00" />
+<meta itemprop="wordCount" content="2384">
 <meta itemprop="keywords" content="open-id,authentication," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Stroom Configuration"/>
 <meta name="twitter:description" content="A reference for every Stroom and Stroom-Proxy setting involved in authenticating against an external identity provider.
@@ -155,7 +155,7 @@
     aria-label="Search this site…"
     autocomplete="off"
     
-    data-offline-search-index-json-src="../../../../../../offline-search-index.e424995b7c0a32f30e51e970d1880c98.json"
+    data-offline-search-index-json-src="../../../../../../offline-search-index.ac4c8e848ef795347c9b206bcf418ac1.json"
     data-offline-search-base-href="../../../../../../"
     data-offline-search-max-results="50"
   >
@@ -180,7 +180,7 @@
     aria-label="Search this site…"
     autocomplete="off"
     
-    data-offline-search-index-json-src="../../../../../../offline-search-index.e424995b7c0a32f30e51e970d1880c98.json"
+    data-offline-search-index-json-src="../../../../../../offline-search-index.ac4c8e848ef795347c9b206bcf418ac1.json"
     data-offline-search-base-href="../../../../../../"
     data-offline-search-max-results="50"
   >
@@ -1467,9 +1467,10 @@ The structure is identical for both.</p>
         identityProviderType: EXTERNAL_IDP
         openIdConfigurationEndpoint: &quot;https://IDP_HOST/.well-known/openid-configuration&quot;
         clientId: &quot;StroomClient&quot;
-        clientSecret: &quot;THE_CLIENT_SECRET&quot;
+        clientSecret: &quot;CLIENT_SECRET&quot;
         logoutEndpoint: &quot;https://IDP_HOST/logout&quot;
 </code></pre>
+<p>Replace <code>IDP_HOST</code> with the host of your provider, <code>StroomClient</code> with the client id it issued or you chose for Stroom, and <code>CLIENT_SECRET</code> with that client&rsquo;s secret.</p>
 <p>Stroom fetches the provider&rsquo;s configuration document from <code>openIdConfigurationEndpoint</code> at startup and takes the issuer, authorization endpoint, token endpoint and JWKS URI from it.
 The logout endpoint is not part of that document, so it is set separately.</p>
 <p>If you also want data receipt to be authenticated:</p>
@@ -1563,7 +1564,7 @@ Add <code>profile</code> if you need the <code>name</code>, <code>given_name</co
 </code></pre>
 <p>The scopes used when Stroom or Stroom-Proxy requests a token for its own service user, rather than for a person.
 Again, this replaces the default.
-For Azure AD you will likely need <code>openid</code> and <code>&lt;your-app-id-uri&gt;/.default</code>.</p>
+For Entra ID you will likely need <code>api://CLIENT_ID/.default</code>, where <code>CLIENT_ID</code> is that of the Stroom app registration, and possibly <code>openid</code>; see <a href="../../../../../../docs/install-guide/setup/open-id/external-idp/azure-ad/#stroom-proxy-with-entra-id">Microsoft Entra ID</a>.</p>
 <h3 id="formtokenrequest"><code>formTokenRequest</code></h3>
 <pre><code class="language-yaml">formTokenRequest: true
 </code></pre>
@@ -1704,7 +1705,7 @@ What it needs is the ability to obtain a token for its own service user via the 
         identityProviderType: EXTERNAL_IDP
         openIdConfigurationEndpoint: &quot;https://IDP_HOST/.well-known/openid-configuration&quot;
         clientId: &quot;StroomProxyClient&quot;
-        clientSecret: &quot;THE_CLIENT_SECRET&quot;
+        clientSecret: &quot;CLIENT_SECRET&quot;
 </code></pre>
 <p>Where the proxy forwards data to another proxy or to Stroom, it can attach a token for its service user, provided the destination is configured against the same provider:</p>
 <pre><code class="language-yaml">  forwardHttpDestinations:
@@ -1796,7 +1797,7 @@ The Stroom session ends either way, but the provider&rsquo;s session does not, s
 	
 	
 	<div class="text-muted mt-5 pt-3 border-top">
-  Last modified September 18, 2026: <a href="https://github.com/gchq/stroom-docs/commit/7525944ed02daaf947a41c75ab29397503ebf080">#140 Fix Microsoft Entra ID (Azure AD) Stroom config docs (7525944)</a>
+  Last modified September 21, 2026: <a href="https://github.com/gchq/stroom-docs/commit/bc839e7185d20e85775c97d19d8c4c6c5acae963">Merge pull request #141 from gchq/entra_id (bc839e7)</a>
 </div>
 
 </div>
