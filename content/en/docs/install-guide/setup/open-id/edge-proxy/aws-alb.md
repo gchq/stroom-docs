@@ -133,8 +133,8 @@ aws-elb-public-keys-prod-us-gov-west-1/${keyId}"
 | --- | -------------- | ------------------ | ------------------- |
 | ALB action | `authenticate-cognito` | `authenticate-oidc` | `authenticate-oidc` |
 | Client registration | User pool app client | App registration | Per provider |
-| Claims in `x-amzn-oidc-data` | `sub`, `username`, `email` | `sub`, `name`, `given_name`, `family_name`, `email` | Whatever the user info endpoint returns |
-| `uniqueIdentityClaim` | `sub` (default) | `sub` (default) | `sub` (default) |
+| Claims in `x-amzn-oidc-data` | `sub`, `username`, `email` | v2.0: `sub`, `name`, `given_name`, `family_name`, `email`; v1.0: `sub`, `oid`, `tid`, name claims | Whatever the user info endpoint returns |
+| `uniqueIdentityClaim` | `sub` (default) | `sub` (default), or `oid` on v1.0 | `sub` (default) |
 | `userDisplayNameClaim` | `username` or `email` | `email` or `name` | Check the user info claims |
 | `signOutUrl` | Hosted UI `/logout` | `oauth2/v2.0/logout` | The end session endpoint |
 
@@ -224,7 +224,8 @@ The [Exposing an API for Access Tokens]({{< relref "docs/install-guide/setup/ope
 The access token Entra ID gives the ALB is a Microsoft Graph token, and the ALB only uses it to call Graph's user info endpoint, which is exactly what it is for.
 It is still needed if Stroom-Proxies or other machine clients obtain Entra ID tokens to present to Stroom directly, as that traffic does not go through the ALB's authenticate rule.
 
-Use a single tenant registration and the **v2.0** endpoints throughout, for the reasons given on the Entra ID page.
+Use a single tenant registration.
+The example below uses the **v2.0** endpoints, as the Entra ID page recommends, but behind an ALB the choice of endpoint generation decides which claims Stroom gets, so read [Identity Claims](#identity-claims) before settling on it.
 
 
 ### Listener Rule
@@ -258,20 +259,36 @@ Entra ID's discovery document does not need to be, and cannot be, given to the A
 
 ### Identity Claims
 
-Entra ID's user info endpoint returns only `sub`, `name`, `given_name`, `family_name`, `picture` and `email`.
-In particular it returns neither `oid` nor `preferred_username`, so the Entra ID page's advice does not carry over:
+The v1.0 and v2.0 generations of Entra ID endpoint have **different user info endpoints**, and they return different claims.
+Because the ALB signs the user info claims and discards the ID token, this decides which identity claims Stroom can use:
 
-* `uniqueIdentityClaim` must be left at the default of `sub`.
-  With `uniqueIdentityClaim: "oid"` copied from the Entra ID page, every request is rejected and the log says `Expecting claims to contain configured uniqueIdentityClaim 'oid' but it is not there`, followed by the claims that did arrive.
-  In Entra ID `sub` is pairwise, i.e. specific to the app registration, and stable for as long as that registration exists.
-  Deleting and recreating the ALB's app registration changes every user's `sub` and orphans their Stroom user, so treat the registration as permanent.
-* `userDisplayNameClaim` must be set to `email` or `name`.
-* The default `fullNameClaimTemplate` of `${name}` works, given the `profile` scope.
+| | v2.0 endpoints | v1.0 endpoints |
+| --- | -------------- | -------------- |
+| User info endpoint | `https://graph.microsoft.com/oidc/userinfo` | `https://login.microsoftonline.com/TENANT_ID/openid/userinfo` |
+| Claims returned | `sub`, `name`, `given_name`, `family_name`, `picture`, `email` | `sub`, `oid`, `tid` and the v1.0 name claims, but **not** `email` |
+| `uniqueIdentityClaim` | `sub` only; `oid` is not returned | `sub` or `oid` |
+| Issuer | `https://login.microsoftonline.com/TENANT_ID/v2.0` | `https://sts.windows.net/TENANT_ID/` |
+
+Neither returns `preferred_username`, so `userDisplayNameClaim` must be set explicitly either way, and the default `fullNameClaimTemplate` of `${name}` works with both given the `profile` scope.
+
+**With the v2.0 endpoints** `uniqueIdentityClaim` must be left at the default of `sub`.
+With `uniqueIdentityClaim: "oid"` copied from the Entra ID page, every request is rejected and the log says `Expecting claims to contain configured uniqueIdentityClaim 'oid' but it is not there`, followed by the claims that did arrive.
+In Entra ID `sub` is pairwise, i.e. specific to the app registration, and stable for as long as that registration exists.
+Deleting and recreating the ALB's app registration changes every user's `sub` and orphans their Stroom user, so treat the registration as permanent.
+
+**With the v1.0 endpoints** `oid` is available, which is the durable identifier the Entra ID page recommends, and the one an existing Stroom that used to be Entra ID's own client will already be keyed on.
+It also means users can be created in Stroom before they first sign in, because `oid` can be read from the directory, which pairwise `sub` cannot.
+The cost is that v1.0 is the legacy generation of the platform, and its user info endpoint does not return `email`.
+The full configuration is under [Using the v1.0 Endpoints](#using-the-v10-endpoints).
+
+Whichever generation you pick, check what actually arrives before the first user signs in, with the `DEBUG` logging described under [Setting up the Admin User](#setting-up-the-admin-user), and decide the identity claim then.
+Changing it later orphans every user.
 
 {{% warning %}}
-Moving an existing Stroom from being Entra ID's client itself to sitting behind the ALB **changes every user's identity**: they were known by `oid` (or by the `sub` pairwise to Stroom's own app registration) and are now known by the `sub` pairwise to the ALB's.
+Moving an existing Stroom from being Entra ID's client itself to sitting behind the ALB on the **v2.0** endpoints **changes every user's identity**: they were known by `oid` (or by the `sub` pairwise to Stroom's own app registration) and are now known by the `sub` pairwise to the ALB's.
 None of the existing Stroom users will match, so their permissions and group memberships have to be reapplied to the new identities.
 Plan this before switching, rather than discovering it when the administrator signs in to an empty UI.
+Using the v1.0 endpoints with `uniqueIdentityClaim: "oid"` avoids this for a Stroom that was already keyed on `oid`.
 {{% /warning %}}
 
 
@@ -297,21 +314,109 @@ post_logout_redirect_uri=https://STROOM_FQDN/signed-out"
 ```
 
 Compared with the [Entra ID]({{< relref "docs/install-guide/setup/open-id/external-idp/azure-ad#configuring-stroom" >}}) page's configuration, there is no `clientSecret`, `validIssuers`, `allowedAudiences`, `requestScopes` or `uniqueIdentityClaim: oid`.
-Stroom runs no flow, only v2.0 tokens are ever involved, the ALB's token carries no audience, the scopes are set on the listener rule, and `oid` is not available.
+Stroom runs no flow, only v2.0 tokens are ever involved, the ALB's token carries no audience, the scopes are set on the listener rule, and `oid` is not returned by the v2.0 user info endpoint.
+For the v1.0 variant, see [Using the v1.0 Endpoints](#using-the-v10-endpoints).
+
+
+### Using the v1.0 Endpoints
+
+The same app registration works for either generation; nothing in the registration selects v1.0 or v2.0.
+What changes is the listener rule, which names the v1.0 endpoints, and the Stroom configuration, which has to accept the v1.0 issuer.
+
+The v1.0 endpoints support only the `openid` scope; `profile`, `email` and `offline_access` are v2.0 concepts.
+The user info endpoint returns the name claims regardless, and the code flow returns a refresh token without being asked, so the ALB can still renew the session silently.
+
+```json
+{
+    "Type": "authenticate-oidc",
+    "AuthenticateOidcConfig": {
+        "Issuer": "https://sts.windows.net/TENANT_ID/",
+        "AuthorizationEndpoint": "https://login.microsoftonline.com/TENANT_ID/oauth2/authorize",
+        "TokenEndpoint": "https://login.microsoftonline.com/TENANT_ID/oauth2/token",
+        "UserInfoEndpoint": "https://login.microsoftonline.com/TENANT_ID/openid/userinfo",
+        "ClientId": "ALB_CLIENT_ID",
+        "ClientSecret": "ALB_CLIENT_SECRET",
+        "Scope": "openid",
+        "OnUnauthenticatedRequest": "authenticate"
+    },
+    "Order": 1
+}
+```
+
+`Issuer` must be **exactly** `https://sts.windows.net/TENANT_ID/`, including the trailing slash; it is what the v1.0 discovery document advertises and what Stroom checks the token's `iss` against.
+
+```yaml
+      edgeAuthentication:
+        enabled: true
+        logout:
+          cookiesToExpire: [ "AWSELBAuthSessionCookie" ]
+          signOutUrl: "https://login.microsoftonline.com/TENANT_ID/oauth2/logout?\
+post_logout_redirect_uri=https://STROOM_FQDN/signed-out"
+      openId:
+        identityProviderType: EXTERNAL_IDP
+        # The v1.0 discovery document: no '/v2.0' path part.
+        openIdConfigurationEndpoint: "https://login.microsoftonline.com/TENANT_ID/\
+.well-known/openid-configuration"
+        clientId: "ALB_CLIENT_ID"
+        expectedSignerPrefixes:
+          - "arn:aws:elasticloadbalancing:REGION:ACCOUNT_ID:"
+        # The v1.0 issuer shares no base URI with the discovery endpoint, so Stroom refuses
+        # to start unless it is listed here; see the Entra ID page. With validIssuers set,
+        # the discovery document's issuer must be in the list, which this one is.
+        validIssuers:
+          - "https://sts.windows.net/TENANT_ID/"
+        # The v1.0 user info endpoint returns 'oid', so the durable identifier is available.
+        uniqueIdentityClaim: "oid"
+        # It does not return 'email' or 'preferred_username'.
+        userDisplayNameClaim: "name"
+```
+
+The differences from the [v2.0 configuration](#stroom-configuration-for-entra-id) are the `oauth2/logout` sign out endpoint (no `v2.0`), the discovery document, `validIssuers`, and the two claim settings.
+`https://STROOM_FQDN/signed-out` still has to be registered as a redirect URI in the app registration.
+
+With `oid` as the identity, the administrator can be set up **before** anyone signs in, exactly as on the [Entra ID page]({{< relref "docs/install-guide/setup/open-id/external-idp/azure-ad#setting-up-the-admin-user-in-stroom" >}}): the Object ID is shown on the user's page in the Entra admin centre.
+The sign in first procedure under [Setting up the Admin User](#setting-up-the-admin-user) is only needed for `sub`.
 
 
 ### Setting up the Admin User
 
-The administrator's `sub` is pairwise and is not shown anywhere in the Entra admin centre, and the `x-amzn-oidc-*` headers are only visible to Stroom, not in the browser.
-The simplest way to obtain it is from Stroom's log:
+With the v2.0 endpoints the identity is the pairwise `sub`, and that **cannot be looked up in advance**: it is computed by Entra ID for each app registration, is not exposed by the Graph API or the admin centre, and only ever appears in a token issued for that user to that client.
+Any process that reads identities from the directory and pre-creates Stroom users, as is possible with `oid`, does not work with `sub`.
+Users have to sign in first, which creates their Stroom user, and be granted permissions afterwards.
 
-1. Set the logger `stroom.security.common.impl.StandardJwtContextFactory` to `DEBUG` on one node; it then logs the claims of every token it verifies.
-1. Have the administrator sign in once through the ALB.
-1. Find the `jwtClaims:` entry for that sign in and take the `sub` value, then put the logger back to its normal level.
+For the first administrator:
 
-Stroom will already have created a user with that identity, with no permissions.
-Grant them as described under [Setting up the Admin User in Stroom]({{< relref "docs/install-guide/setup/open-id/external-idp/azure-ad#setting-up-the-admin-user-in-stroom" >}}); the `manage_users` command is repeatable, so running it against the user that already exists is fine.
-Once one administrator exists, further users can simply be found under _Users_ in the UI after their first sign in.
+1. Have them sign in once through the ALB.
+   Stroom creates a user with `name` set to their `sub` and `display_name` set to the `email` claim, with no permissions.
+1. Read the `sub` from the database:
+
+   ```sql
+   SELECT name FROM stroom_user WHERE display_name = 'admin@example.com' AND is_group = 0;
+   ```
+
+1. Grant permissions with `manage_users` as described under [Setting up the Admin User in Stroom]({{< relref "docs/install-guide/setup/open-id/external-idp/azure-ad#setting-up-the-admin-user-in-stroom" >}}), using that value as the subject id.
+   The command is repeatable, so running it against a user that already exists is fine.
+
+Once one administrator exists, further users can be found under _Users_ in the UI after their first sign in, or a script can find them by display name with `POST /api/users/v1/find` and add them to groups with `PUT /api/users/v1/{userUuid}/{groupUuid}`, matched on the email address the directory reports for them.
+
+If the `sub` is not where you expect, the logger `stroom.security.common.impl.StandardJwtContextFactory` at `DEBUG` logs the claims of every token Stroom verifies.
+
+
+### Migrating Existing Users
+
+A Stroom that was Entra ID's own client already has users keyed on `oid`, or on the `sub` pairwise to Stroom's app registration.
+Behind the ALB on the v2.0 endpoints those users will never be matched again; on the v1.0 endpoints with `uniqueIdentityClaim: "oid"` they will, and nothing needs migrating.
+
+To migrate to the v2.0 identities, each user signs in once, which creates an empty user keyed on their new `sub`, and their groups and permissions are then copied across from the old user:
+
+1. Find the old user's UUID: `GET /api/users/v1/fetchBySubjectId/{oid}`.
+1. Find the new user's UUID by display name, as above.
+   The old user's display name is the UPN (the `preferred_username` claim) and the new one's is the `email` claim; where those differ in your tenant, resolve `oid` to `mail` with the Graph API.
+1. `POST /api/users/v1/{newUserUuid}/copyPermissions` with the old user's UUID as the body.
+   This copies group memberships, application permissions and document permissions, and is the same operation as _Copy Permissions_ in the _Users_ screen.
+1. Disable the old user.
+
+Ownership of things such as API keys and processor filters is not copied, as it is tied to the user's UUID rather than its permissions; recreate those against the new user where needed.
 
 
 ## Other OIDC Providers
