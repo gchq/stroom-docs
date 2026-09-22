@@ -38,19 +38,19 @@
 <link rel="icon" type="image/png" href="../../../../../favicons/android-192x192.png" sizes="192x192">
 
 <title>Edge Proxy as the Relying Party | Stroom</title>
-<meta name="description" content="Running Stroom behind an authenticating reverse proxy, such as an AWS Application Load Balancer with Cognito, that completes the Open ID Connect flow itself.
+<meta name="description" content="Running Stroom behind an authenticating reverse proxy, such as an AWS Application Load Balancer or NGINX with oauth2-proxy, that completes the Open ID Connect flow itself against Cognito, Entra ID, KeyCloak or any other provider.
 ">
 <meta property="og:title" content="Edge Proxy as the Relying Party" />
-<meta property="og:description" content="Running Stroom behind an authenticating reverse proxy, such as an AWS Application Load Balancer with Cognito, that completes the Open ID Connect flow itself.
+<meta property="og:description" content="Running Stroom behind an authenticating reverse proxy, such as an AWS Application Load Balancer or NGINX with oauth2-proxy, that completes the Open ID Connect flow itself against Cognito, Entra ID, KeyCloak or any other provider.
 " />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="/docs/install-guide/setup/open-id/edge-proxy/" /><meta property="og:site_name" content="Stroom" />
 
 <meta itemprop="name" content="Edge Proxy as the Relying Party">
-<meta itemprop="description" content="Running Stroom behind an authenticating reverse proxy, such as an AWS Application Load Balancer with Cognito, that completes the Open ID Connect flow itself.
+<meta itemprop="description" content="Running Stroom behind an authenticating reverse proxy, such as an AWS Application Load Balancer or NGINX with oauth2-proxy, that completes the Open ID Connect flow itself against Cognito, Entra ID, KeyCloak or any other provider.
 "><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Edge Proxy as the Relying Party"/>
-<meta name="twitter:description" content="Running Stroom behind an authenticating reverse proxy, such as an AWS Application Load Balancer with Cognito, that completes the Open ID Connect flow itself.
+<meta name="twitter:description" content="Running Stroom behind an authenticating reverse proxy, such as an AWS Application Load Balancer or NGINX with oauth2-proxy, that completes the Open ID Connect flow itself against Cognito, Entra ID, KeyCloak or any other provider.
 "/>
 
 
@@ -151,7 +151,7 @@
     aria-label="Search this site…"
     autocomplete="off"
     
-    data-offline-search-index-json-src="../../../../../offline-search-index.ac4c8e848ef795347c9b206bcf418ac1.json"
+    data-offline-search-index-json-src="../../../../../offline-search-index.1d874cd3547bf9910d6bc3b0e5f2405f.json"
     data-offline-search-base-href="../../../../../"
     data-offline-search-max-results="50"
   >
@@ -176,7 +176,7 @@
     aria-label="Search this site…"
     autocomplete="off"
     
-    data-offline-search-index-json-src="../../../../../offline-search-index.ac4c8e848ef795347c9b206bcf418ac1.json"
+    data-offline-search-index-json-src="../../../../../offline-search-index.1d874cd3547bf9910d6bc3b0e5f2405f.json"
     data-offline-search-base-href="../../../../../"
     data-offline-search-max-results="50"
   >
@@ -287,8 +287,8 @@
 </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section with-child active-path" id="m-docsinstall-guidesetupopen-idedge-proxy-li">
   <a href="../../../../../docs/install-guide/setup/open-id/edge-proxy/" title="Edge Proxy as the Relying Party" class="align-left pl-0 active td-sidebar-link td-sidebar-link__section" id="m-docsinstall-guidesetupopen-idedge-proxy"><span class="td-sidebar-nav-active-item">Edge Proxy RP</span></a>
   <ul class="ul-5 foldable">
-    <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-docsinstall-guidesetupopen-idedge-proxyaws-alb-cognito-li">
-  <a href="../../../../../docs/install-guide/setup/open-id/edge-proxy/aws-alb-cognito/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-docsinstall-guidesetupopen-idedge-proxyaws-alb-cognito"><span class="">AWS ALB and Cognito</span></a>
+    <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-docsinstall-guidesetupopen-idedge-proxyaws-alb-li">
+  <a href="../../../../../docs/install-guide/setup/open-id/edge-proxy/aws-alb/" title="AWS Application Load Balancer" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-docsinstall-guidesetupopen-idedge-proxyaws-alb"><span class="">AWS ALB</span></a>
 </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-docsinstall-guidesetupopen-idedge-proxynginx-oauth2-proxy-li">
   <a href="../../../../../docs/install-guide/setup/open-id/edge-proxy/nginx-oauth2-proxy/" title="NGINX, oauth2-proxy and KeyCloak" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-docsinstall-guidesetupopen-idedge-proxynginx-oauth2-proxy"><span class="">NGINX and oauth2-proxy</span></a>
 </li>
@@ -1149,6 +1149,7 @@
     <li><a href="#trust-prerequisites">Trust Prerequisites</a></li>
     <li><a href="#request-header-sizes">Request Header Sizes</a></li>
     <li><a href="#user-accounts-and-permissions">User Accounts and Permissions</a></li>
+    <li><a href="#what-depends-on-the-idp">What Depends on the IDP</a></li>
     <li><a href="#worked-examples">Worked Examples</a></li>
     <li><a href="#troubleshooting">Troubleshooting</a></li>
   </ul>
@@ -1361,7 +1362,7 @@
             
 <div class="td-content">
 	<h1>Edge Proxy as the Relying Party</h1>
-  <div class="lead">Running Stroom behind an authenticating reverse proxy, such as an AWS Application Load Balancer with Cognito, that completes the Open ID Connect flow itself.</div>
+  <div class="lead">Running Stroom behind an authenticating reverse proxy, such as an AWS Application Load Balancer or NGINX with oauth2-proxy, that completes the Open ID Connect flow itself against Cognito, Entra ID, KeyCloak or any other provider.</div>
 	<header class="article-meta">
 		
 
@@ -1415,6 +1416,8 @@ Examples include:</p>
 </span>
  (or NGINX Plus&rsquo;s native OIDC support, or <code>lua-resty-openidc</code>), which relays the IDP&rsquo;s token as an <code>Authorization: Bearer</code> header.</li>
 </ul>
+<p>The proxy can authenticate against any OIDC provider — Amazon Cognito, Microsoft Entra ID, KeyCloak, Google and so on.
+The proxy&rsquo;s mechanism determines most of the Stroom configuration; the provider behind it changes only a few settings, listed under <a href="#what-depends-on-the-idp">What Depends on the IDP</a>.</p>
 <p>This is common in cloud and government estates where a policy requires that unauthenticated traffic never reaches the application.
 Stroom supports it as a first class deployment model.</p>
 
@@ -1457,8 +1460,8 @@ Direct machine access is unaffected: API keys and bearer tokens work as they alw
       edgeAuthentication:
         enabled: true
         logout:
-          cookiesToExpire: [ &quot;AWSELBAuthSessionCookie&quot; ]
-          signOutUrl: &quot;https://MY_DOMAIN.auth.REGION.amazoncognito.com/logout?client_id=CLIENT_ID&amp;logout_uri=POST_LOGOUT_URI&quot;
+          cookiesToExpire: [ &quot;PROXY_SESSION_COOKIE_PREFIX&quot; ]
+          signOutUrl: &quot;PROXY_OR_IDP_SIGN_OUT_URL&quot;
       openId:
         identityProviderType: EXTERNAL_IDP
         # ... provider settings, see the worked examples ...
@@ -1472,13 +1475,17 @@ This setting lists the proxy&rsquo;s session cookie <strong>name prefixes</stron
 <p>They are prefixes because proxies shard large session cookies: an ALB&rsquo;s <code>AWSELBAuthSessionCookie</code> arrives as <code>AWSELBAuthSessionCookie-0</code>, <code>-1</code> and so on, and oauth2-proxy chunks <code>_oauth2_proxy</code> the same way.</p>
 <h3 id="edgeauthenticationlogoutsignouturl"><code>edgeAuthentication.logout.signOutUrl</code></h3>
 <p>Where to send the browser after logging out of Stroom, normally the proxy&rsquo;s or IDP&rsquo;s own sign out endpoint, so the session ends everywhere.
-For Cognito this is the hosted UI&rsquo;s <code>/logout</code> endpoint; for oauth2-proxy it is <code>/oauth2/sign_out</code>.</p>
+For an ALB it is the IDP&rsquo;s end session endpoint (Cognito&rsquo;s hosted UI <code>/logout</code>, Entra ID&rsquo;s <code>oauth2/v2.0/logout</code>); for oauth2-proxy it is the proxy&rsquo;s own <code>/oauth2/sign_out</code>.</p>
 <p>If it is not set, Stroom logs a warning at each logout: the proxy session survives, and the user may be signed straight back in.</p>
+<p>The sign out endpoint will normally return the browser to a <strong>post logout landing page</strong> given in the URL, and Stroom does not provide one — in edge mode every Stroom page is behind the proxy&rsquo;s authenticate rule, and Stroom cannot show a sign in prompt of its own.
+The deployment has to supply it, as a page the proxy serves without authentication.
+The worked examples use a <code>/signed-out</code> page served by the proxy itself.</p>
 
 <div class="alert alert-warning" role="alert">
 <h4 class="alert-heading">Warning</h4>
 
     The page the user lands on after signing out must be on a path the proxy does <strong>not</strong> authenticate, otherwise the sign in flow simply restarts and the user never sees that they signed out.
+Most IDPs also require the landing page&rsquo;s URL to be registered against the client.
 
 </div>
 
@@ -1537,6 +1544,11 @@ None of that traffic can complete an interactive sign in, so the proxy&rsquo;s a
 <td>Health checks</td>
 </tr>
 <tr>
+<td><code>/signed-out</code> (or similar)</td>
+<td>Serve at the proxy</td>
+<td>The post logout landing page, see <a href="#edgeauthenticationlogoutsignouturl"><code>signOutUrl</code></a></td>
+</tr>
+<tr>
 <td>Admin port (<code>/stroomAdmin</code>)</td>
 <td>Bypass</td>
 <td>Should not be publicly exposed at all</td>
@@ -1568,7 +1580,7 @@ The failure looks like a network error, not an authentication error.</p>
 <h2 id="user-accounts-and-permissions">User Accounts and Permissions</h2>
 <p>Exactly as with any <a href="../../../../../docs/install-guide/setup/open-id/external-idp/">external IDP</a>, the proxy establishes <em>who the user is</em>; Stroom still decides <em>what they may do</em>.
 A Stroom user record is created automatically the first time a verified identity is seen, with no permissions.
-Anyone the IDP will authenticate can therefore reach an empty Stroom UI, so if that is not wanted, restrict who can authenticate at the IDP or proxy (for example, limit the Cognito app client or the ALB rule to a group).</p>
+Anyone the IDP will authenticate can therefore reach an empty Stroom UI, so if that is not wanted, restrict who can authenticate at the IDP or proxy (for example, limit the Cognito app client to a group, or require assignment on the Entra ID enterprise application).</p>
 
 <div class="alert alert-primary" role="alert">
 <h4 class="alert-heading">See Also</h4>
@@ -1579,10 +1591,45 @@ Anyone the IDP will authenticate can therefore reach an empty Stroom UI, so if t
 </div>
 </div>
 
+<h2 id="what-depends-on-the-idp">What Depends on the IDP</h2>
+<p>The proxy decides <em>how</em> the identity reaches Stroom, and that fixes most of the configuration.
+The IDP behind the proxy only affects:</p>
+<table>
+<thead>
+<tr>
+<th>Setting</th>
+<th>Why it varies</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>openIdConfigurationEndpoint</code></td>
+<td>The IDP&rsquo;s discovery document, which supplies the issuer that the injected token is checked against</td>
+</tr>
+<tr>
+<td><code>clientId</code></td>
+<td>The proxy&rsquo;s client at the IDP, which is the audience of a relayed IDP token</td>
+</tr>
+<tr>
+<td><code>uniqueIdentityClaim</code>, <code>userDisplayNameClaim</code></td>
+<td>Which claims are present depends on the IDP <em>and</em> on the proxy: an ALB signs the IDP&rsquo;s <strong>user info</strong> claims, while oauth2-proxy relays the <strong>ID token</strong>, and the two can differ for the same IDP</td>
+</tr>
+<tr>
+<td><code>logout.signOutUrl</code></td>
+<td>The IDP&rsquo;s end session endpoint and the name of its return address parameter</td>
+</tr>
+<tr>
+<td>Client secret rotation</td>
+<td>The secret lives at the proxy, so an expiring secret (Entra ID&rsquo;s, for example) is renewed there</td>
+</tr>
+</tbody>
+</table>
+<p>The <a href="../../../../../docs/install-guide/setup/open-id/external-idp/">External IDP</a> page for your provider is still the reference for creating the client, but do not copy its Stroom configuration wholesale: <code>clientSecret</code>, <code>requestScopes</code> and any claim advice based on the ID token may not apply.
+The worked examples spell out the differences.</p>
 <h2 id="worked-examples">Worked Examples</h2>
 <ul>
-<li><a href="../../../../../docs/install-guide/setup/open-id/edge-proxy/aws-alb-cognito/">AWS ALB and Cognito</a> - the load balancer authenticates against a Cognito user pool and injects a signed <code>x-amzn-oidc-data</code> header.</li>
-<li><a href="../../../../../docs/install-guide/setup/open-id/edge-proxy/nginx-oauth2-proxy/">NGINX, oauth2-proxy and KeyCloak</a> - the proxy authenticates against KeyCloak (or any OIDC provider) and relays the IDP&rsquo;s token as a bearer header.</li>
+<li><a href="../../../../../docs/install-guide/setup/open-id/edge-proxy/aws-alb/">AWS Application Load Balancer</a> - the load balancer authenticates against Cognito, Entra ID or any OIDC provider and injects a signed <code>x-amzn-oidc-data</code> header.</li>
+<li><a href="../../../../../docs/install-guide/setup/open-id/edge-proxy/nginx-oauth2-proxy/">NGINX, oauth2-proxy and KeyCloak</a> - the proxy authenticates against KeyCloak (or Entra ID, Cognito, any OIDC provider) and relays the IDP&rsquo;s token as a bearer header.</li>
 </ul>
 <h2 id="troubleshooting">Troubleshooting</h2>
 <table>
@@ -1617,6 +1664,18 @@ Anyone the IDP will authenticate can therefore reach an empty Stroom UI, so if t
 <td>Signing out signs the user straight back in</td>
 <td><code>logout.cookiesToExpire</code> / <code>logout.signOutUrl</code> not set, or the post logout page is behind the proxy&rsquo;s authenticate rule</td>
 </tr>
+<tr>
+<td>Signing out ends at an IDP error page</td>
+<td>The post logout landing URL is not registered against the client at the IDP, or the IDP uses a different parameter name for it</td>
+</tr>
+<tr>
+<td>Log says <code>Expecting claims to contain configured uniqueIdentityClaim 'X' but it is not there</code></td>
+<td>The proxy forwards a different claim set from the one the External IDP page assumes, e.g. an ALB forwards Entra ID&rsquo;s user info claims, which on the v2.0 endpoints have no <code>oid</code>. The log line lists the claims that did arrive; use one of those, normally <code>sub</code></td>
+</tr>
+<tr>
+<td>Users have no display name</td>
+<td><code>userDisplayNameClaim</code> names a claim the proxy does not forward; check what actually arrives, see <a href="#what-depends-on-the-idp">What Depends on the IDP</a></td>
+</tr>
 </tbody>
 </table>
 
@@ -1634,9 +1693,9 @@ Anyone the IDP will authenticate can therefore reach an empty Stroom UI, so if t
             
             <div class="entry">
                 <h5>
-                    <a href="../../../../../docs/install-guide/setup/open-id/edge-proxy/aws-alb-cognito/">AWS ALB and Cognito</a>
+                    <a href="../../../../../docs/install-guide/setup/open-id/edge-proxy/aws-alb/">AWS Application Load Balancer</a>
                 </h5>
-                <p>Running Stroom behind an AWS Application Load Balancer that authenticates users against an Amazon Cognito user pool.</p>
+                <p>Running Stroom behind an AWS Application Load Balancer that authenticates users against Amazon Cognito, Microsoft Entra ID or any other Open ID Connect provider.</p>
             </div>
         
             
@@ -1653,7 +1712,7 @@ Anyone the IDP will authenticate can therefore reach an empty Stroom UI, so if t
 	
 	
 	<div class="text-muted mt-5 pt-3 border-top">
-  Last modified September 21, 2026: <a href="https://github.com/gchq/stroom-docs/commit/bc839e7185d20e85775c97d19d8c4c6c5acae963">Merge pull request #141 from gchq/entra_id (bc839e7)</a>
+  Last modified September 22, 2026: <a href="https://github.com/gchq/stroom-docs/commit/8ba264a35317e2c8802b61096ad799f8bd77f49f">Merge pull request #142 from gchq/edge-proxy (8ba264a)</a>
 </div>
 
 </div>

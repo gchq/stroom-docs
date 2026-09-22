@@ -151,7 +151,7 @@
     aria-label="Search this site…"
     autocomplete="off"
     
-    data-offline-search-index-json-src="../../../../offline-search-index.ac4c8e848ef795347c9b206bcf418ac1.json"
+    data-offline-search-index-json-src="../../../../offline-search-index.1d874cd3547bf9910d6bc3b0e5f2405f.json"
     data-offline-search-base-href="../../../../"
     data-offline-search-max-results="50"
   >
@@ -176,7 +176,7 @@
     aria-label="Search this site…"
     autocomplete="off"
     
-    data-offline-search-index-json-src="../../../../offline-search-index.ac4c8e848ef795347c9b206bcf418ac1.json"
+    data-offline-search-index-json-src="../../../../offline-search-index.1d874cd3547bf9910d6bc3b0e5f2405f.json"
     data-offline-search-base-href="../../../../"
     data-offline-search-max-results="50"
   >
@@ -287,8 +287,8 @@
 </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section with-child" id="m-docsinstall-guidesetupopen-idedge-proxy-li">
   <a href="../../../../docs/install-guide/setup/open-id/edge-proxy/" title="Edge Proxy as the Relying Party" class="align-left pl-0 td-sidebar-link td-sidebar-link__section" id="m-docsinstall-guidesetupopen-idedge-proxy"><span class="">Edge Proxy RP</span></a>
   <ul class="ul-5 foldable">
-    <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-docsinstall-guidesetupopen-idedge-proxyaws-alb-cognito-li">
-  <a href="../../../../docs/install-guide/setup/open-id/edge-proxy/aws-alb-cognito/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-docsinstall-guidesetupopen-idedge-proxyaws-alb-cognito"><span class="">AWS ALB and Cognito</span></a>
+    <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-docsinstall-guidesetupopen-idedge-proxyaws-alb-li">
+  <a href="../../../../docs/install-guide/setup/open-id/edge-proxy/aws-alb/" title="AWS Application Load Balancer" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-docsinstall-guidesetupopen-idedge-proxyaws-alb"><span class="">AWS ALB</span></a>
 </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-docsinstall-guidesetupopen-idedge-proxynginx-oauth2-proxy-li">
   <a href="../../../../docs/install-guide/setup/open-id/edge-proxy/nginx-oauth2-proxy/" title="NGINX, oauth2-proxy and KeyCloak" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-docsinstall-guidesetupopen-idedge-proxynginx-oauth2-proxy"><span class="">NGINX and oauth2-proxy</span></a>
 </li>
@@ -1383,7 +1383,7 @@ There are three deployment models, distinguished by <em>where the user accounts 
 <li><a href="../../../../docs/install-guide/setup/open-id/internal-idp/">Internal IDP</a> - Stroom acts as its own identity provider and manages the user accounts itself.
 This is the default.</li>
 <li><a href="../../../../docs/install-guide/setup/open-id/external-idp/">External IDP</a> - A 3rd party identity provider, such as KeyCloak, Cognito or Google, holds the accounts; <strong>Stroom performs the sign in</strong> by redirecting the browser to it.</li>
-<li><a href="../../../../docs/install-guide/setup/open-id/edge-proxy/">Edge Proxy RP</a> - A 3rd party identity provider holds the accounts, but <strong>an authenticating reverse proxy in front of Stroom performs the sign in</strong> (an AWS Application Load Balancer with Cognito, NGINX with oauth2-proxy, etc.) and passes Stroom a verified identity with each request.</li>
+<li><a href="../../../../docs/install-guide/setup/open-id/edge-proxy/">Edge Proxy RP</a> - A 3rd party identity provider holds the accounts, but <strong>an authenticating reverse proxy in front of Stroom performs the sign in</strong> (an AWS Application Load Balancer, NGINX with oauth2-proxy, etc., against Cognito, Entra ID, KeyCloak or any other provider) and passes Stroom a verified identity with each request.</li>
 </ul>
 <p>Not sure which you have?</p>
 <table>
@@ -1403,7 +1403,7 @@ This is the default.</li>
 <td><a href="../../../../docs/install-guide/setup/open-id/external-idp/">External IDP</a></td>
 </tr>
 <tr>
-<td>A load balancer or proxy in front of Stroom signs users in before traffic reaches it, e.g. an ALB <code>authenticate-cognito</code> rule, oauth2-proxy, or a policy that unauthenticated traffic must not reach the application</td>
+<td>A load balancer or proxy in front of Stroom signs users in before traffic reaches it, e.g. an ALB <code>authenticate-cognito</code> or <code>authenticate-oidc</code> rule, oauth2-proxy, or a policy that unauthenticated traffic must not reach the application</td>
 <td><a href="../../../../docs/install-guide/setup/open-id/edge-proxy/">Edge Proxy RP</a></td>
 </tr>
 </tbody>
@@ -1461,7 +1461,7 @@ The provider establishes who a user is; Stroom decides what they are allowed to 
                 <h5>
                     <a href="../../../../docs/install-guide/setup/open-id/edge-proxy/">Edge Proxy as the Relying Party</a>
                 </h5>
-                <p>Running Stroom behind an authenticating reverse proxy, such as an AWS Application Load Balancer with Cognito, that completes the Open ID Connect flow itself.</p>
+                <p>Running Stroom behind an authenticating reverse proxy, such as an AWS Application Load Balancer or NGINX with oauth2-proxy, that completes the Open ID Connect flow itself against Cognito, Entra ID, KeyCloak or any other provider.</p>
             </div>
         
             
@@ -1486,7 +1486,7 @@ The provider establishes who a user is; Stroom decides what they are allowed to 
 	
 	
 	<div class="text-muted mt-5 pt-3 border-top">
-  Last modified September 21, 2026: <a href="https://github.com/gchq/stroom-docs/commit/bc839e7185d20e85775c97d19d8c4c6c5acae963">Merge pull request #141 from gchq/entra_id (bc839e7)</a>
+  Last modified September 22, 2026: <a href="https://github.com/gchq/stroom-docs/commit/8ba264a35317e2c8802b61096ad799f8bd77f49f">Merge pull request #142 from gchq/edge-proxy (8ba264a)</a>
 </div>
 
 </div>

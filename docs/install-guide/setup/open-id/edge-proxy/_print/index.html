@@ -38,19 +38,19 @@
 <link rel="icon" type="image/png" href="../../../../../../favicons/android-192x192.png" sizes="192x192">
 
 <title>Edge Proxy as the Relying Party | Stroom</title>
-<meta name="description" content="Running Stroom behind an authenticating reverse proxy, such as an AWS Application Load Balancer with Cognito, that completes the Open ID Connect flow itself.
+<meta name="description" content="Running Stroom behind an authenticating reverse proxy, such as an AWS Application Load Balancer or NGINX with oauth2-proxy, that completes the Open ID Connect flow itself against Cognito, Entra ID, KeyCloak or any other provider.
 ">
 <meta property="og:title" content="Edge Proxy as the Relying Party" />
-<meta property="og:description" content="Running Stroom behind an authenticating reverse proxy, such as an AWS Application Load Balancer with Cognito, that completes the Open ID Connect flow itself.
+<meta property="og:description" content="Running Stroom behind an authenticating reverse proxy, such as an AWS Application Load Balancer or NGINX with oauth2-proxy, that completes the Open ID Connect flow itself against Cognito, Entra ID, KeyCloak or any other provider.
 " />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="/docs/install-guide/setup/open-id/edge-proxy/" /><meta property="og:site_name" content="Stroom" />
 
 <meta itemprop="name" content="Edge Proxy as the Relying Party">
-<meta itemprop="description" content="Running Stroom behind an authenticating reverse proxy, such as an AWS Application Load Balancer with Cognito, that completes the Open ID Connect flow itself.
+<meta itemprop="description" content="Running Stroom behind an authenticating reverse proxy, such as an AWS Application Load Balancer or NGINX with oauth2-proxy, that completes the Open ID Connect flow itself against Cognito, Entra ID, KeyCloak or any other provider.
 "><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Edge Proxy as the Relying Party"/>
-<meta name="twitter:description" content="Running Stroom behind an authenticating reverse proxy, such as an AWS Application Load Balancer with Cognito, that completes the Open ID Connect flow itself.
+<meta name="twitter:description" content="Running Stroom behind an authenticating reverse proxy, such as an AWS Application Load Balancer or NGINX with oauth2-proxy, that completes the Open ID Connect flow itself against Cognito, Entra ID, KeyCloak or any other provider.
 "/>
 
 
@@ -151,7 +151,7 @@
     aria-label="Search this site…"
     autocomplete="off"
     
-    data-offline-search-index-json-src="../../../../../../offline-search-index.ac4c8e848ef795347c9b206bcf418ac1.json"
+    data-offline-search-index-json-src="../../../../../../offline-search-index.1d874cd3547bf9910d6bc3b0e5f2405f.json"
     data-offline-search-base-href="../../../../../../"
     data-offline-search-max-results="50"
   >
@@ -182,7 +182,7 @@ This is the multi-page printable view of this section.
 
 
 <h1 class="title">Edge Proxy as the Relying Party</h1>
-<div class="lead">Running Stroom behind an authenticating reverse proxy, such as an AWS Application Load Balancer with Cognito, that completes the Open ID Connect flow itself.</div>
+<div class="lead">Running Stroom behind an authenticating reverse proxy, such as an AWS Application Load Balancer or NGINX with oauth2-proxy, that completes the Open ID Connect flow itself against Cognito, Entra ID, KeyCloak or any other provider.</div>
 
 
 
@@ -198,7 +198,7 @@ This is the multi-page printable view of this section.
     
     
 	
-<li>1: <a href="#pg-16ec30cde28ceeabf09d16ee1c972cef">AWS ALB and Cognito</a></li>
+<li>1: <a href="#pg-23ef82bfb995d2ed04de9b8bf0c1a93c">AWS Application Load Balancer</a></li>
 
 
     
@@ -243,6 +243,8 @@ Examples include:</p>
 </span>
  (or NGINX Plus&rsquo;s native OIDC support, or <code>lua-resty-openidc</code>), which relays the IDP&rsquo;s token as an <code>Authorization: Bearer</code> header.</li>
 </ul>
+<p>The proxy can authenticate against any OIDC provider — Amazon Cognito, Microsoft Entra ID, KeyCloak, Google and so on.
+The proxy&rsquo;s mechanism determines most of the Stroom configuration; the provider behind it changes only a few settings, listed under <a href="#what-depends-on-the-idp">What Depends on the IDP</a>.</p>
 <p>This is common in cloud and government estates where a policy requires that unauthenticated traffic never reaches the application.
 Stroom supports it as a first class deployment model.</p>
 
@@ -285,8 +287,8 @@ Direct machine access is unaffected: API keys and bearer tokens work as they alw
       edgeAuthentication:
         enabled: true
         logout:
-          cookiesToExpire: [ &quot;AWSELBAuthSessionCookie&quot; ]
-          signOutUrl: &quot;https://MY_DOMAIN.auth.REGION.amazoncognito.com/logout?client_id=CLIENT_ID&amp;logout_uri=POST_LOGOUT_URI&quot;
+          cookiesToExpire: [ &quot;PROXY_SESSION_COOKIE_PREFIX&quot; ]
+          signOutUrl: &quot;PROXY_OR_IDP_SIGN_OUT_URL&quot;
       openId:
         identityProviderType: EXTERNAL_IDP
         # ... provider settings, see the worked examples ...
@@ -300,13 +302,17 @@ This setting lists the proxy&rsquo;s session cookie <strong>name prefixes</stron
 <p>They are prefixes because proxies shard large session cookies: an ALB&rsquo;s <code>AWSELBAuthSessionCookie</code> arrives as <code>AWSELBAuthSessionCookie-0</code>, <code>-1</code> and so on, and oauth2-proxy chunks <code>_oauth2_proxy</code> the same way.</p>
 <h3 id="edgeauthenticationlogoutsignouturl"><code>edgeAuthentication.logout.signOutUrl</code></h3>
 <p>Where to send the browser after logging out of Stroom, normally the proxy&rsquo;s or IDP&rsquo;s own sign out endpoint, so the session ends everywhere.
-For Cognito this is the hosted UI&rsquo;s <code>/logout</code> endpoint; for oauth2-proxy it is <code>/oauth2/sign_out</code>.</p>
+For an ALB it is the IDP&rsquo;s end session endpoint (Cognito&rsquo;s hosted UI <code>/logout</code>, Entra ID&rsquo;s <code>oauth2/v2.0/logout</code>); for oauth2-proxy it is the proxy&rsquo;s own <code>/oauth2/sign_out</code>.</p>
 <p>If it is not set, Stroom logs a warning at each logout: the proxy session survives, and the user may be signed straight back in.</p>
+<p>The sign out endpoint will normally return the browser to a <strong>post logout landing page</strong> given in the URL, and Stroom does not provide one — in edge mode every Stroom page is behind the proxy&rsquo;s authenticate rule, and Stroom cannot show a sign in prompt of its own.
+The deployment has to supply it, as a page the proxy serves without authentication.
+The worked examples use a <code>/signed-out</code> page served by the proxy itself.</p>
 
 <div class="alert alert-warning" role="alert">
 <h4 class="alert-heading">Warning</h4>
 
     The page the user lands on after signing out must be on a path the proxy does <strong>not</strong> authenticate, otherwise the sign in flow simply restarts and the user never sees that they signed out.
+Most IDPs also require the landing page&rsquo;s URL to be registered against the client.
 
 </div>
 
@@ -365,6 +371,11 @@ None of that traffic can complete an interactive sign in, so the proxy&rsquo;s a
 <td>Health checks</td>
 </tr>
 <tr>
+<td><code>/signed-out</code> (or similar)</td>
+<td>Serve at the proxy</td>
+<td>The post logout landing page, see <a href="#edgeauthenticationlogoutsignouturl"><code>signOutUrl</code></a></td>
+</tr>
+<tr>
 <td>Admin port (<code>/stroomAdmin</code>)</td>
 <td>Bypass</td>
 <td>Should not be publicly exposed at all</td>
@@ -396,7 +407,7 @@ The failure looks like a network error, not an authentication error.</p>
 <h2 id="user-accounts-and-permissions">User Accounts and Permissions</h2>
 <p>Exactly as with any <a href="../../../../../../docs/install-guide/setup/open-id/external-idp/">external IDP</a>, the proxy establishes <em>who the user is</em>; Stroom still decides <em>what they may do</em>.
 A Stroom user record is created automatically the first time a verified identity is seen, with no permissions.
-Anyone the IDP will authenticate can therefore reach an empty Stroom UI, so if that is not wanted, restrict who can authenticate at the IDP or proxy (for example, limit the Cognito app client or the ALB rule to a group).</p>
+Anyone the IDP will authenticate can therefore reach an empty Stroom UI, so if that is not wanted, restrict who can authenticate at the IDP or proxy (for example, limit the Cognito app client to a group, or require assignment on the Entra ID enterprise application).</p>
 
 <div class="alert alert-primary" role="alert">
 <h4 class="alert-heading">See Also</h4>
@@ -407,10 +418,45 @@ Anyone the IDP will authenticate can therefore reach an empty Stroom UI, so if t
 </div>
 </div>
 
+<h2 id="what-depends-on-the-idp">What Depends on the IDP</h2>
+<p>The proxy decides <em>how</em> the identity reaches Stroom, and that fixes most of the configuration.
+The IDP behind the proxy only affects:</p>
+<table>
+<thead>
+<tr>
+<th>Setting</th>
+<th>Why it varies</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>openIdConfigurationEndpoint</code></td>
+<td>The IDP&rsquo;s discovery document, which supplies the issuer that the injected token is checked against</td>
+</tr>
+<tr>
+<td><code>clientId</code></td>
+<td>The proxy&rsquo;s client at the IDP, which is the audience of a relayed IDP token</td>
+</tr>
+<tr>
+<td><code>uniqueIdentityClaim</code>, <code>userDisplayNameClaim</code></td>
+<td>Which claims are present depends on the IDP <em>and</em> on the proxy: an ALB signs the IDP&rsquo;s <strong>user info</strong> claims, while oauth2-proxy relays the <strong>ID token</strong>, and the two can differ for the same IDP</td>
+</tr>
+<tr>
+<td><code>logout.signOutUrl</code></td>
+<td>The IDP&rsquo;s end session endpoint and the name of its return address parameter</td>
+</tr>
+<tr>
+<td>Client secret rotation</td>
+<td>The secret lives at the proxy, so an expiring secret (Entra ID&rsquo;s, for example) is renewed there</td>
+</tr>
+</tbody>
+</table>
+<p>The <a href="../../../../../../docs/install-guide/setup/open-id/external-idp/">External IDP</a> page for your provider is still the reference for creating the client, but do not copy its Stroom configuration wholesale: <code>clientSecret</code>, <code>requestScopes</code> and any claim advice based on the ID token may not apply.
+The worked examples spell out the differences.</p>
 <h2 id="worked-examples">Worked Examples</h2>
 <ul>
-<li><a href="../../../../../../docs/install-guide/setup/open-id/edge-proxy/aws-alb-cognito/">AWS ALB and Cognito</a> - the load balancer authenticates against a Cognito user pool and injects a signed <code>x-amzn-oidc-data</code> header.</li>
-<li><a href="../../../../../../docs/install-guide/setup/open-id/edge-proxy/nginx-oauth2-proxy/">NGINX, oauth2-proxy and KeyCloak</a> - the proxy authenticates against KeyCloak (or any OIDC provider) and relays the IDP&rsquo;s token as a bearer header.</li>
+<li><a href="../../../../../../docs/install-guide/setup/open-id/edge-proxy/aws-alb/">AWS Application Load Balancer</a> - the load balancer authenticates against Cognito, Entra ID or any OIDC provider and injects a signed <code>x-amzn-oidc-data</code> header.</li>
+<li><a href="../../../../../../docs/install-guide/setup/open-id/edge-proxy/nginx-oauth2-proxy/">NGINX, oauth2-proxy and KeyCloak</a> - the proxy authenticates against KeyCloak (or Entra ID, Cognito, any OIDC provider) and relays the IDP&rsquo;s token as a bearer header.</li>
 </ul>
 <h2 id="troubleshooting">Troubleshooting</h2>
 <table>
@@ -445,6 +491,18 @@ Anyone the IDP will authenticate can therefore reach an empty Stroom UI, so if t
 <td>Signing out signs the user straight back in</td>
 <td><code>logout.cookiesToExpire</code> / <code>logout.signOutUrl</code> not set, or the post logout page is behind the proxy&rsquo;s authenticate rule</td>
 </tr>
+<tr>
+<td>Signing out ends at an IDP error page</td>
+<td>The post logout landing URL is not registered against the client at the IDP, or the IDP uses a different parameter name for it</td>
+</tr>
+<tr>
+<td>Log says <code>Expecting claims to contain configured uniqueIdentityClaim 'X' but it is not there</code></td>
+<td>The proxy forwards a different claim set from the one the External IDP page assumes, e.g. an ALB forwards Entra ID&rsquo;s user info claims, which on the v2.0 endpoints have no <code>oid</code>. The log line lists the claims that did arrive; use one of those, normally <code>sub</code></td>
+</tr>
+<tr>
+<td>Users have no display name</td>
+<td><code>userDisplayNameClaim</code> names a claim the proxy does not forward; check what actually arrives, see <a href="#what-depends-on-the-idp">What Depends on the IDP</a></td>
+</tr>
 </tbody>
 </table>
 
@@ -470,8 +528,8 @@ Anyone the IDP will authenticate can therefore reach an empty Stroom UI, so if t
 
 <div class="td-content" style="--base-section-num: '1.'; page-break-before: always">
     
-  <h1 id="pg-16ec30cde28ceeabf09d16ee1c972cef">1 - AWS ALB and Cognito</h1>
-    <div class="lead">Running Stroom behind an AWS Application Load Balancer that authenticates users against an Amazon Cognito user pool.</div>
+  <h1 id="pg-23ef82bfb995d2ed04de9b8bf0c1a93c">1 - AWS Application Load Balancer</h1>
+    <div class="lead">Running Stroom behind an AWS Application Load Balancer that authenticates users against Amazon Cognito, Microsoft Entra ID or any other Open ID Connect provider.</div>
 	<p>In this deployment the <span class="external-link">
   <a href="https://docs.aws.amazon.com/elasticloadbalancing/latest/application/listener-authenticate-users.html" target="_blank" class="external-link" title="Application Load Balancer (external link to https://docs.aws.amazon.com/elasticloadbalancing/latest/application/listener-authenticate-users.html)">
     <span>Application Load Balancer</span>
@@ -479,7 +537,13 @@ Anyone the IDP will authenticate can therefore reach an empty Stroom UI, so if t
   </a>
 </span>
  is the Open ID Connect Relying Party.
-Its listener rule sends unauthenticated browsers to Cognito, completes the code flow, holds the session in <code>AWSELBAuthSessionCookie</code> cookies, and forwards each authenticated request to Stroom with three extra headers:</p>
+Its listener rule sends unauthenticated browsers to the <span class="glossary-link">
+    <a href="../../../../../../docs/glossary/i/glossary-idp">
+      <span>Identity Provider (IDP)</span>
+      <i class="glossary-link-icon fas fa-book fa-sm text-primary"></i>
+    </a><span class="glossary-tooltip">
+      <span class="glossary-tooltip-title">Identity Provider (IDP)</span>
+      <span class="glossary-tooltip-summary">An <strong>Id</strong>entity <strong>P</strong>rovider is a system or service that can authenticate a user and assert their identity. <em>Identity providers</em> can support single sign on (SSO), which allows the user to sign in once to the <em>Identity Provider</em> so they are then authenticated to all systems using that IDP.</span><span class="glossary-tooltip-truncated">Click to see more details...</span></span></span>, completes the code flow, holds the session in <code>AWSELBAuthSessionCookie</code> cookies, and forwards each authenticated request to Stroom with three extra headers:</p>
 <table>
 <thead>
 <tr>
@@ -494,7 +558,7 @@ Its listener rule sends unauthenticated browsers to Cognito, completes the code 
 </tr>
 <tr>
 <td><code>x-amzn-oidc-accesstoken</code></td>
-<td>The access token from Cognito, in plain text</td>
+<td>The access token from the IDP, in plain text</td>
 </tr>
 <tr>
 <td><code>x-amzn-oidc-identity</code></td>
@@ -503,42 +567,58 @@ Its listener rule sends unauthenticated browsers to Cognito, completes the code 
 </tbody>
 </table>
 <p>Stroom authenticates the request by verifying the <code>x-amzn-oidc-data</code> signature against AWS&rsquo;s regional public key endpoint, checking the token&rsquo;s issuer against the configured one, and checking that the signing load balancer is one of yours.</p>
+<p>The ALB can authenticate against an Amazon Cognito user pool (an <code>authenticate-cognito</code> rule) or against any OIDC provider directly (an <code>authenticate-oidc</code> rule).
+Stroom does not care which: the token it verifies is minted and signed by the ALB either way.
+What the IDP changes is covered in <a href="#what-depends-on-the-idp">What Depends on the IDP</a>, with worked examples for <a href="#amazon-cognito">Cognito</a> and <a href="#microsoft-entra-id">Entra ID</a> below.</p>
 
 <div class="alert alert-primary" role="alert">
 <h4 class="alert-heading">See Also</h4>
 <div class="alert-content">
   
-  <p>Read <a href="../../../../../../docs/install-guide/setup/open-id/edge-proxy/">Edge Proxy RP</a> first for the model, the path scoping rules and the trust prerequisites.
-The <a href="../../../../../../docs/install-guide/setup/open-id/external-idp/cognito/">Amazon Cognito</a> page covers creating the user pool; this page covers what is different when the ALB, not Stroom, is the client.</p>
+  <p>Read <a href="../../../../../../docs/install-guide/setup/open-id/edge-proxy/">Edge Proxy RP</a> first for the model, the path scoping rules and the trust prerequisites.</p>
 
 </div>
 </div>
 
-<h2 id="cognito-setup">Cognito Setup</h2>
-<p>Create a user pool, hosted UI domain and app client as described on the <a href="../../../../../../docs/install-guide/setup/open-id/external-idp/cognito/">Cognito</a> page, with these differences:</p>
+<h2 id="how-the-alb-builds-the-token">How the ALB Builds the Token</h2>
+<p>It matters where the claims in <code>x-amzn-oidc-data</code> come from, because it is not where the <a href="../../../../../../docs/install-guide/setup/open-id/external-idp/">External IDP</a> pages assume.</p>
+<p>After exchanging the authorization code, the ALB sends the access token to the IDP&rsquo;s <strong>user info endpoint</strong> and signs the claims that come back.
+The ID token is discarded; nothing from it reaches Stroom.
+The payload therefore contains only what the IDP&rsquo;s user info endpoint returns, which is typically a small subset of the ID token&rsquo;s claims, plus an <code>iss</code> and <code>exp</code> that the ALB adds.</p>
+<p>Two consequences for the Stroom configuration:</p>
 <ul>
-<li>The app client belongs to the <strong>ALB</strong>, not to Stroom, so its allowed callback URL is the ALB&rsquo;s own:
-<code>https://STROOM_FQDN/oauth2/idpresponse</code>
-(this fixed path is handled by the load balancer itself and never reaches Stroom).</li>
-<li>The client must have a <strong>client secret</strong> and use the code grant; the ALB requires both.</li>
-<li>Register the post logout landing page as an allowed sign out URL for the client (see <a href="#logout">Logout</a>).</li>
+<li><code>uniqueIdentityClaim</code> and <code>userDisplayNameClaim</code> must name claims that the <strong>user info endpoint</strong> returns.
+A claim that is only in the ID token, such as Entra ID&rsquo;s <code>oid</code>, cannot be used.</li>
+<li>Stroom checks the payload&rsquo;s <code>iss</code> against the issuer from <code>openIdConfigurationEndpoint</code>, so the issuer the ALB is configured with must be exactly the one the IDP&rsquo;s discovery document advertises.</li>
 </ul>
-<p>No second app client for Stroom is needed.
-The ALB is the only OIDC client in this topology.</p>
 <h2 id="load-balancer-setup">Load Balancer Setup</h2>
-<p>Order the listener rules so machine traffic is forwarded <em>without</em> authentication, then authenticate everything else:</p>
+<p>The <code>authenticate-cognito</code> and <code>authenticate-oidc</code> actions are only supported on an <strong>HTTPS</strong> listener.</p>
+<p>Order the listener rules so machine traffic and the post logout page are served <em>without</em> authentication, then authenticate everything else:</p>
 <ol>
-<li>Paths <code>/datafeed*</code>, <code>/stroom/datafeed*</code>, <code>/remoting/*</code>, <code>/status</code> → <strong>forward</strong> to the Stroom target group.</li>
-<li>Default → <strong>authenticate-cognito</strong> (your user pool, app client and hosted UI domain) then <strong>forward</strong> to the Stroom target group.</li>
+<li>
+<p>Paths <code>/datafeed*</code>, <code>/stroom/datafeed*</code>, <code>/remoting/*</code>, <code>/status</code> → <strong>forward</strong> to the Stroom target group.</p>
+</li>
+<li>
+<p>Path <code>/signed-out</code> → <strong>fixed-response</strong> with status <code>200</code>, content type <code>text/html</code> and body:</p>
+<pre><code class="language-html">&lt;html&gt;&lt;body&gt;&lt;p&gt;You have been signed out.&lt;/p&gt;&lt;p&gt;&lt;a href=&quot;/&quot;&gt;Sign in again&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;
+</code></pre>
+</li>
+<li>
+<p>Default → <strong>authenticate-cognito</strong> or <strong>authenticate-oidc</strong> (see the IDP sections below) then <strong>forward</strong> to the Stroom target group.</p>
+</li>
 </ol>
+<p>The <code>/signed-out</code> rule is the landing page for <a href="#logout">logout</a>.
+Stroom does not serve one of its own, and it must be a page the authenticate rule does not cover, so the load balancer answers it directly.</p>
 <p>Points worth knowing:</p>
 <ul>
 <li><code>SessionCookieName</code> defaults to <code>AWSELBAuthSessionCookie</code>; if you change it, change <code>edgeAuthentication.logout.cookiesToExpire</code> to match.</li>
 <li>The session cookie is sharded at 4KB per shard (<code>-0</code>, <code>-1</code>, &hellip;), which is why the <a href="../../../../../../docs/install-guide/setup/open-id/edge-proxy/#request-header-sizes">header size limit</a> matters.</li>
 <li>If the total claims and access token exceed 11KB the ALB itself returns HTTP 500 and increments its <code>ELBAuthUserClaimsSizeExceeded</code> metric — trim what the IDP puts in the token if you hit this.</li>
+<li>The ALB holds the IDP client secret, so the secret&rsquo;s rotation is now a listener rule change, not a Stroom one.</li>
 <li>Restrict the Stroom target&rsquo;s security group to accept traffic only from the ALB&rsquo;s security group; this is <a href="../../../../../../docs/install-guide/setup/open-id/edge-proxy/#trust-prerequisites">trust prerequisite one</a>.</li>
 </ul>
 <h2 id="stroom-configuration">Stroom Configuration</h2>
+<p>The parts that do not depend on the IDP:</p>
 <pre><code class="language-yaml">server:
   applicationConnectors:
     - type: http
@@ -554,14 +634,13 @@ appConfig:
         enabled: true
         logout:
           cookiesToExpire: [ &quot;AWSELBAuthSessionCookie&quot; ]
-          signOutUrl: &quot;https://MY_DOMAIN.auth.REGION.amazoncognito.com/logout?\
-client_id=ALB_CLIENT_ID&amp;logout_uri=https://STROOM_FQDN/loggedOut&quot;
+          signOutUrl: &quot;IDP_SIGN_OUT_URL&quot;    # see the IDP sections below
       openId:
         identityProviderType: EXTERNAL_IDP
-        # Cognito's discovery document; supplies the issuer that x-amzn-oidc-data is
+        # The IDP's discovery document; supplies the issuer that x-amzn-oidc-data is
         # checked against. Stroom runs no flow of its own, so no clientSecret is needed.
-        openIdConfigurationEndpoint: &quot;https://cognito-idp.REGION.amazonaws.com/\
-POOL_ID/.well-known/openid-configuration&quot;
+        openIdConfigurationEndpoint: &quot;IDP_DISCOVERY_URL&quot;
+        # The ALB's client at the IDP.
         clientId: &quot;ALB_CLIENT_ID&quot;
         # MANDATORY - pins the JWT's 'signer' header to your load balancer(s).
         # Without it, every x-amzn-oidc-data token is rejected. Each value must reach at
@@ -579,25 +658,339 @@ AWS GovCloud serves the keys from different, S3 hosted endpoints, so GovCloud de
 <pre><code class="language-yaml">        publicKeyUriPattern: &quot;https://s3-us-gov-west-1.amazonaws.com/\
 aws-elb-public-keys-prod-us-gov-west-1/${keyId}&quot;
 </code></pre>
-<h3 id="identity-claims">Identity Claims</h3>
-<p>The claims in <code>x-amzn-oidc-data</code> come from Cognito&rsquo;s <strong>user info</strong> endpoint, not from an ID token.
-The default <code>uniqueIdentityClaim</code> of <code>sub</code> is correct and stable; set <code>userDisplayNameClaim</code> to taste (<code>username</code> and <code>email</code> are usually available).</p>
+<h2 id="what-depends-on-the-idp">What Depends on the IDP</h2>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>Amazon Cognito</th>
+<th>Microsoft Entra ID</th>
+<th>Other OIDC provider</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ALB action</td>
+<td><code>authenticate-cognito</code></td>
+<td><code>authenticate-oidc</code></td>
+<td><code>authenticate-oidc</code></td>
+</tr>
+<tr>
+<td>Client registration</td>
+<td>User pool app client</td>
+<td>App registration</td>
+<td>Per provider</td>
+</tr>
+<tr>
+<td>Claims in <code>x-amzn-oidc-data</code></td>
+<td><code>sub</code>, <code>username</code>, <code>email</code></td>
+<td>v2.0: <code>sub</code>, <code>name</code>, <code>given_name</code>, <code>family_name</code>, <code>email</code>; v1.0: <code>sub</code>, <code>oid</code>, <code>tid</code>, name claims</td>
+<td>Whatever the user info endpoint returns</td>
+</tr>
+<tr>
+<td><code>uniqueIdentityClaim</code></td>
+<td><code>sub</code> (default)</td>
+<td><code>sub</code> (default), or <code>oid</code> on v1.0</td>
+<td><code>sub</code> (default)</td>
+</tr>
+<tr>
+<td><code>userDisplayNameClaim</code></td>
+<td><code>username</code> or <code>email</code></td>
+<td><code>email</code> or <code>name</code></td>
+<td>Check the user info claims</td>
+</tr>
+<tr>
+<td><code>signOutUrl</code></td>
+<td>Hosted UI <code>/logout</code></td>
+<td><code>oauth2/v2.0/logout</code></td>
+<td>The end session endpoint</td>
+</tr>
+</tbody>
+</table>
+<p>The default <code>userDisplayNameClaim</code> of <code>preferred_username</code> is not returned by either Cognito&rsquo;s or Entra ID&rsquo;s user info endpoint, so set it explicitly, or users will sign in with no display name.</p>
 <h2 id="logout">Logout</h2>
 <p>AWS documents ending an ALB session as the application&rsquo;s job: expire the session cookies and send the browser to the IDP&rsquo;s logout endpoint.
-The configuration above does exactly that — <code>cookiesToExpire</code> removes the <code>AWSELBAuthSessionCookie</code> shards and <code>signOutUrl</code> sends the browser to Cognito&rsquo;s <code>/logout</code>.</p>
-<p>Two registration details make it work:</p>
+The Stroom configuration above does exactly that — <code>cookiesToExpire</code> removes the <code>AWSELBAuthSessionCookie</code> shards and <code>signOutUrl</code> sends the browser to the IDP.</p>
+<p>The IDP then returns the browser to a landing page, which is the <code>/signed-out</code> fixed response in the <a href="#load-balancer-setup">listener rules</a>.
+Two things must be true of it:</p>
 <ul>
-<li>The <code>logout_uri</code> value must be registered in the Cognito app client as an <strong>allowed sign out URL</strong>.</li>
-<li>The page it points at must be matched by a <strong>forward</strong> rule, not the authenticate rule, or the sign in flow simply restarts and the user never appears to sign out.</li>
+<li>It must be served by a rule that comes <strong>before</strong> the authenticate rule, or the sign in flow simply restarts and the user never appears to sign out.</li>
+<li>Its full URL, <code>https://STROOM_FQDN/signed-out</code>, must be registered with the IDP as an allowed post logout destination; the sections below say where.</li>
 </ul>
+<h2 id="amazon-cognito">Amazon Cognito</h2>
+
+<div class="alert alert-primary" role="alert">
+<h4 class="alert-heading">See Also</h4>
+<div class="alert-content">
+  
+  <p>The <a href="../../../../../../docs/install-guide/setup/open-id/external-idp/cognito/">Amazon Cognito</a> page covers creating the user pool; this section covers what is different when the ALB, not Stroom, is the client.</p>
+
+</div>
+</div>
+
+<h3 id="cognito-setup">Cognito Setup</h3>
+<p>Create a user pool, hosted UI domain and app client as described on the <a href="../../../../../../docs/install-guide/setup/open-id/external-idp/cognito/">Cognito</a> page, with these differences:</p>
+<ul>
+<li>The app client belongs to the <strong>ALB</strong>, not to Stroom, so its allowed callback URL is the ALB&rsquo;s own:
+<code>https://STROOM_FQDN/oauth2/idpresponse</code>
+(this fixed path is handled by the load balancer itself and never reaches Stroom).</li>
+<li>The client must have a <strong>client secret</strong> and use the code grant; the ALB requires both.</li>
+<li>Register <code>https://STROOM_FQDN/signed-out</code> as an allowed <strong>sign out URL</strong> for the client.</li>
+</ul>
+<p>No second app client for Stroom is needed.
+The ALB is the only OIDC client in this topology.</p>
+<h3 id="listener-rule">Listener Rule</h3>
+<p>The default rule is an <strong>authenticate-cognito</strong> action naming your user pool, app client and hosted UI domain, followed by a forward to the Stroom target group.
+Cognito&rsquo;s default <code>openid</code> scope returns an ID token, which the ALB needs to complete the flow; <code>email</code> and <code>profile</code> add the claims of the same name.</p>
+<h3 id="stroom-configuration-for-cognito">Stroom Configuration for Cognito</h3>
+<pre><code class="language-yaml">      edgeAuthentication:
+        enabled: true
+        logout:
+          cookiesToExpire: [ &quot;AWSELBAuthSessionCookie&quot; ]
+          signOutUrl: &quot;https://MY_DOMAIN.auth.REGION.amazoncognito.com/logout?\
+client_id=ALB_CLIENT_ID&amp;logout_uri=https://STROOM_FQDN/signed-out&quot;
+      openId:
+        identityProviderType: EXTERNAL_IDP
+        openIdConfigurationEndpoint: &quot;https://cognito-idp.REGION.amazonaws.com/\
+POOL_ID/.well-known/openid-configuration&quot;
+        clientId: &quot;ALB_CLIENT_ID&quot;
+        expectedSignerPrefixes:
+          - &quot;arn:aws:elasticloadbalancing:REGION:ACCOUNT_ID:&quot;
+        # Cognito's user info endpoint returns 'username' and 'email', not 'preferred_username'.
+        userDisplayNameClaim: &quot;username&quot;
+</code></pre>
+<p>The default <code>uniqueIdentityClaim</code> of <code>sub</code> is correct and stable.</p>
+<h2 id="microsoft-entra-id">Microsoft Entra ID</h2>
+
+<div class="alert alert-primary" role="alert">
+<h4 class="alert-heading">See Also</h4>
+<div class="alert-content">
+  
+  <p>The <a href="../../../../../../docs/install-guide/setup/open-id/external-idp/azure-ad/">Microsoft Entra ID</a> page covers Entra ID generally; this section covers what is different when the ALB, not Stroom, is the client.
+Much of that page does not apply here, as explained below.</p>
+
+</div>
+</div>
+
+<h3 id="app-registration">App Registration</h3>
+<p>Create an app registration as described under <a href="../../../../../../docs/install-guide/setup/open-id/external-idp/azure-ad/#creating-the-app-registration">Creating the App Registration</a>, with these differences:</p>
+<ul>
+<li>The registration belongs to the <strong>ALB</strong>, so the Web platform redirect URI is <code>https://STROOM_FQDN/oauth2/idpresponse</code>, not Stroom&rsquo;s <code>signin-oidc</code> callback.</li>
+<li>Add <code>https://STROOM_FQDN/signed-out</code> as a second Web redirect URI; Entra ID requires the <code>post_logout_redirect_uri</code> to be registered.</li>
+<li>A client secret is required, and it goes in the listener rule rather than Stroom&rsquo;s configuration.
+Entra ID secrets expire, with a maximum lifetime of 24 months; when this one does, the ALB can no longer complete sign in for anyone, so record the date.</li>
+</ul>
+<p>The <a href="../../../../../../docs/install-guide/setup/open-id/external-idp/azure-ad/#exposing-an-api-for-access-tokens">Exposing an API for Access Tokens</a> step is <strong>not</strong> needed for browser sign in.
+The access token Entra ID gives the ALB is a Microsoft Graph token, and the ALB only uses it to call Graph&rsquo;s user info endpoint, which is exactly what it is for.
+It is still needed if Stroom-Proxies or other machine clients obtain Entra ID tokens to present to Stroom directly, as that traffic does not go through the ALB&rsquo;s authenticate rule.</p>
+<p>Use a single tenant registration.
+The example below uses the <strong>v2.0</strong> endpoints, as the Entra ID page recommends, but behind an ALB the choice of endpoint generation decides which claims Stroom gets, so read <a href="#identity-claims">Identity Claims</a> before settling on it.</p>
+<h3 id="listener-rule-1">Listener Rule</h3>
+<p>The default rule is an <strong>authenticate-oidc</strong> action, followed by a forward to the Stroom target group.
+Entra ID&rsquo;s discovery document does not need to be, and cannot be, given to the ALB; the endpoints are entered individually:</p>
+<pre><code class="language-json">{
+    &quot;Type&quot;: &quot;authenticate-oidc&quot;,
+    &quot;AuthenticateOidcConfig&quot;: {
+        &quot;Issuer&quot;: &quot;https://login.microsoftonline.com/TENANT_ID/v2.0&quot;,
+        &quot;AuthorizationEndpoint&quot;: &quot;https://login.microsoftonline.com/TENANT_ID/oauth2/v2.0/authorize&quot;,
+        &quot;TokenEndpoint&quot;: &quot;https://login.microsoftonline.com/TENANT_ID/oauth2/v2.0/token&quot;,
+        &quot;UserInfoEndpoint&quot;: &quot;https://graph.microsoft.com/oidc/userinfo&quot;,
+        &quot;ClientId&quot;: &quot;ALB_CLIENT_ID&quot;,
+        &quot;ClientSecret&quot;: &quot;ALB_CLIENT_SECRET&quot;,
+        &quot;Scope&quot;: &quot;openid profile email offline_access&quot;,
+        &quot;OnUnauthenticatedRequest&quot;: &quot;authenticate&quot;
+    },
+    &quot;Order&quot;: 1
+}
+</code></pre>
+<ul>
+<li><code>Issuer</code> must be <strong>exactly</strong> <code>https://login.microsoftonline.com/TENANT_ID/v2.0</code>, with the <code>/v2.0</code> and no trailing slash.
+It becomes the <code>iss</code> claim of <code>x-amzn-oidc-data</code>, and Stroom checks it against the issuer from the v2.0 discovery document, so any difference rejects every request.</li>
+<li><code>Scope</code> must include <code>profile</code> and <code>email</code>, otherwise the user info endpoint returns only <code>sub</code>.
+<code>offline_access</code> makes Entra ID issue a refresh token, which the ALB uses to renew the session silently; without it every user is bounced back through Entra ID when the access token expires, typically hourly.</li>
+<li>The user info endpoint is on <code>graph.microsoft.com</code>, not <code>login.microsoftonline.com</code>, so the ALB needs outbound access to both.</li>
+</ul>
+<h3 id="identity-claims">Identity Claims</h3>
+<p>The v1.0 and v2.0 generations of Entra ID endpoint have <strong>different user info endpoints</strong>, and they return different claims.
+Because the ALB signs the user info claims and discards the ID token, this decides which identity claims Stroom can use:</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>v2.0 endpoints</th>
+<th>v1.0 endpoints</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>User info endpoint</td>
+<td><code>https://graph.microsoft.com/oidc/userinfo</code></td>
+<td><code>https://login.microsoftonline.com/TENANT_ID/openid/userinfo</code></td>
+</tr>
+<tr>
+<td>Claims returned</td>
+<td><code>sub</code>, <code>name</code>, <code>given_name</code>, <code>family_name</code>, <code>picture</code>, <code>email</code></td>
+<td><code>sub</code>, <code>oid</code>, <code>tid</code> and the v1.0 name claims, but <strong>not</strong> <code>email</code></td>
+</tr>
+<tr>
+<td><code>uniqueIdentityClaim</code></td>
+<td><code>sub</code> only; <code>oid</code> is not returned</td>
+<td><code>sub</code> or <code>oid</code></td>
+</tr>
+<tr>
+<td>Issuer</td>
+<td><code>https://login.microsoftonline.com/TENANT_ID/v2.0</code></td>
+<td><code>https://sts.windows.net/TENANT_ID/</code></td>
+</tr>
+</tbody>
+</table>
+<p>Neither returns <code>preferred_username</code>, so <code>userDisplayNameClaim</code> must be set explicitly either way, and the default <code>fullNameClaimTemplate</code> of <code>${name}</code> works with both given the <code>profile</code> scope.</p>
+<p><strong>With the v2.0 endpoints</strong> <code>uniqueIdentityClaim</code> must be left at the default of <code>sub</code>.
+With <code>uniqueIdentityClaim: &quot;oid&quot;</code> copied from the Entra ID page, every request is rejected and the log says <code>Expecting claims to contain configured uniqueIdentityClaim 'oid' but it is not there</code>, followed by the claims that did arrive.
+In Entra ID <code>sub</code> is pairwise, i.e. specific to the app registration, and stable for as long as that registration exists.
+Deleting and recreating the ALB&rsquo;s app registration changes every user&rsquo;s <code>sub</code> and orphans their Stroom user, so treat the registration as permanent.</p>
+<p><strong>With the v1.0 endpoints</strong> <code>oid</code> is available, which is the durable identifier the Entra ID page recommends, and the one an existing Stroom that used to be Entra ID&rsquo;s own client will already be keyed on.
+It also means users can be created in Stroom before they first sign in, because <code>oid</code> can be read from the directory, which pairwise <code>sub</code> cannot.
+The cost is that v1.0 is the legacy generation of the platform, and its user info endpoint does not return <code>email</code>.
+The full configuration is under <a href="#using-the-v10-endpoints">Using the v1.0 Endpoints</a>.</p>
+<p>Whichever generation you pick, check what actually arrives before the first user signs in, with the <code>DEBUG</code> logging described under <a href="#setting-up-the-admin-user">Setting up the Admin User</a>, and decide the identity claim then.
+Changing it later orphans every user.</p>
+
+<div class="alert alert-warning" role="alert">
+<h4 class="alert-heading">Warning</h4>
+
+    Moving an existing Stroom from being Entra ID&rsquo;s client itself to sitting behind the ALB on the <strong>v2.0</strong> endpoints <strong>changes every user&rsquo;s identity</strong>: they were known by <code>oid</code> (or by the <code>sub</code> pairwise to Stroom&rsquo;s own app registration) and are now known by the <code>sub</code> pairwise to the ALB&rsquo;s.
+None of the existing Stroom users will match, so their permissions and group memberships have to be reapplied to the new identities.
+Plan this before switching, rather than discovering it when the administrator signs in to an empty UI.
+Using the v1.0 endpoints with <code>uniqueIdentityClaim: &quot;oid&quot;</code> avoids this for a Stroom that was already keyed on <code>oid</code>.
+
+</div>
+
+
+<h3 id="stroom-configuration-for-entra-id">Stroom Configuration for Entra ID</h3>
+<pre><code class="language-yaml">      edgeAuthentication:
+        enabled: true
+        logout:
+          cookiesToExpire: [ &quot;AWSELBAuthSessionCookie&quot; ]
+          signOutUrl: &quot;https://login.microsoftonline.com/TENANT_ID/oauth2/v2.0/logout?\
+post_logout_redirect_uri=https://STROOM_FQDN/signed-out&quot;
+      openId:
+        identityProviderType: EXTERNAL_IDP
+        # Note the '/v2.0' path part, which must agree with the listener rule's Issuer.
+        openIdConfigurationEndpoint: &quot;https://login.microsoftonline.com/TENANT_ID/v2.0/\
+.well-known/openid-configuration&quot;
+        clientId: &quot;ALB_CLIENT_ID&quot;
+        expectedSignerPrefixes:
+          - &quot;arn:aws:elasticloadbalancing:REGION:ACCOUNT_ID:&quot;
+        # Entra ID's user info endpoint does not return 'preferred_username'.
+        userDisplayNameClaim: &quot;email&quot;
+</code></pre>
+<p>Compared with the <a href="../../../../../../docs/install-guide/setup/open-id/external-idp/azure-ad/#configuring-stroom">Entra ID</a> page&rsquo;s configuration, there is no <code>clientSecret</code>, <code>validIssuers</code>, <code>allowedAudiences</code>, <code>requestScopes</code> or <code>uniqueIdentityClaim: oid</code>.
+Stroom runs no flow, only v2.0 tokens are ever involved, the ALB&rsquo;s token carries no audience, the scopes are set on the listener rule, and <code>oid</code> is not returned by the v2.0 user info endpoint.
+For the v1.0 variant, see <a href="#using-the-v10-endpoints">Using the v1.0 Endpoints</a>.</p>
+<h3 id="using-the-v10-endpoints">Using the v1.0 Endpoints</h3>
+<p>The same app registration works for either generation; nothing in the registration selects v1.0 or v2.0.
+What changes is the listener rule, which names the v1.0 endpoints, and the Stroom configuration, which has to accept the v1.0 issuer.</p>
+<p>The v1.0 endpoints support only the <code>openid</code> scope; <code>profile</code>, <code>email</code> and <code>offline_access</code> are v2.0 concepts.
+The user info endpoint returns the name claims regardless, and the code flow returns a refresh token without being asked, so the ALB can still renew the session silently.</p>
+<pre><code class="language-json">{
+    &quot;Type&quot;: &quot;authenticate-oidc&quot;,
+    &quot;AuthenticateOidcConfig&quot;: {
+        &quot;Issuer&quot;: &quot;https://sts.windows.net/TENANT_ID/&quot;,
+        &quot;AuthorizationEndpoint&quot;: &quot;https://login.microsoftonline.com/TENANT_ID/oauth2/authorize&quot;,
+        &quot;TokenEndpoint&quot;: &quot;https://login.microsoftonline.com/TENANT_ID/oauth2/token&quot;,
+        &quot;UserInfoEndpoint&quot;: &quot;https://login.microsoftonline.com/TENANT_ID/openid/userinfo&quot;,
+        &quot;ClientId&quot;: &quot;ALB_CLIENT_ID&quot;,
+        &quot;ClientSecret&quot;: &quot;ALB_CLIENT_SECRET&quot;,
+        &quot;Scope&quot;: &quot;openid&quot;,
+        &quot;OnUnauthenticatedRequest&quot;: &quot;authenticate&quot;
+    },
+    &quot;Order&quot;: 1
+}
+</code></pre>
+<p><code>Issuer</code> must be <strong>exactly</strong> <code>https://sts.windows.net/TENANT_ID/</code>, including the trailing slash; it is what the v1.0 discovery document advertises and what Stroom checks the token&rsquo;s <code>iss</code> against.</p>
+<pre><code class="language-yaml">      edgeAuthentication:
+        enabled: true
+        logout:
+          cookiesToExpire: [ &quot;AWSELBAuthSessionCookie&quot; ]
+          signOutUrl: &quot;https://login.microsoftonline.com/TENANT_ID/oauth2/logout?\
+post_logout_redirect_uri=https://STROOM_FQDN/signed-out&quot;
+      openId:
+        identityProviderType: EXTERNAL_IDP
+        # The v1.0 discovery document: no '/v2.0' path part.
+        openIdConfigurationEndpoint: &quot;https://login.microsoftonline.com/TENANT_ID/\
+.well-known/openid-configuration&quot;
+        clientId: &quot;ALB_CLIENT_ID&quot;
+        expectedSignerPrefixes:
+          - &quot;arn:aws:elasticloadbalancing:REGION:ACCOUNT_ID:&quot;
+        # The v1.0 issuer shares no base URI with the discovery endpoint, so Stroom refuses
+        # to start unless it is listed here; see the Entra ID page. With validIssuers set,
+        # the discovery document's issuer must be in the list, which this one is.
+        validIssuers:
+          - &quot;https://sts.windows.net/TENANT_ID/&quot;
+        # The v1.0 user info endpoint returns 'oid', so the durable identifier is available.
+        uniqueIdentityClaim: &quot;oid&quot;
+        # It does not return 'email' or 'preferred_username'.
+        userDisplayNameClaim: &quot;name&quot;
+</code></pre>
+<p>The differences from the <a href="#stroom-configuration-for-entra-id">v2.0 configuration</a> are the <code>oauth2/logout</code> sign out endpoint (no <code>v2.0</code>), the discovery document, <code>validIssuers</code>, and the two claim settings.
+<code>https://STROOM_FQDN/signed-out</code> still has to be registered as a redirect URI in the app registration.</p>
+<p>With <code>oid</code> as the identity, the administrator can be set up <strong>before</strong> anyone signs in, exactly as on the <a href="../../../../../../docs/install-guide/setup/open-id/external-idp/azure-ad/#setting-up-the-admin-user-in-stroom">Entra ID page</a>: the Object ID is shown on the user&rsquo;s page in the Entra admin centre.
+The sign in first procedure under <a href="#setting-up-the-admin-user">Setting up the Admin User</a> is only needed for <code>sub</code>.</p>
+<h3 id="setting-up-the-admin-user">Setting up the Admin User</h3>
+<p>With the v2.0 endpoints the identity is the pairwise <code>sub</code>, and that <strong>cannot be looked up in advance</strong>: it is computed by Entra ID for each app registration, is not exposed by the Graph API or the admin centre, and only ever appears in a token issued for that user to that client.
+Any process that reads identities from the directory and pre-creates Stroom users, as is possible with <code>oid</code>, does not work with <code>sub</code>.
+Users have to sign in first, which creates their Stroom user, and be granted permissions afterwards.</p>
+<p>For the first administrator:</p>
+<ol>
+<li>
+<p>Have them sign in once through the ALB.
+Stroom creates a user with <code>name</code> set to their <code>sub</code> and <code>display_name</code> set to the <code>email</code> claim, with no permissions.</p>
+</li>
+<li>
+<p>Read the <code>sub</code> from the database:</p>
+<pre><code class="language-sql">SELECT name FROM stroom_user WHERE display_name = 'admin@example.com' AND is_group = 0;
+</code></pre>
+</li>
+<li>
+<p>Grant permissions with <code>manage_users</code> as described under <a href="../../../../../../docs/install-guide/setup/open-id/external-idp/azure-ad/#setting-up-the-admin-user-in-stroom">Setting up the Admin User in Stroom</a>, using that value as the subject id.
+The command is repeatable, so running it against a user that already exists is fine.</p>
+</li>
+</ol>
+<p>Once one administrator exists, further users can be found under <em>Users</em> in the UI after their first sign in, or a script can find them by display name with <code>POST /api/users/v1/find</code> and add them to groups with <code>PUT /api/users/v1/{userUuid}/{groupUuid}</code>, matched on the email address the directory reports for them.</p>
+<p>If the <code>sub</code> is not where you expect, the logger <code>stroom.security.common.impl.StandardJwtContextFactory</code> at <code>DEBUG</code> logs the claims of every token Stroom verifies.</p>
+<h3 id="migrating-existing-users">Migrating Existing Users</h3>
+<p>A Stroom that was Entra ID&rsquo;s own client already has users keyed on <code>oid</code>, or on the <code>sub</code> pairwise to Stroom&rsquo;s app registration.
+Behind the ALB on the v2.0 endpoints those users will never be matched again; on the v1.0 endpoints with <code>uniqueIdentityClaim: &quot;oid&quot;</code> they will, and nothing needs migrating.</p>
+<p>To migrate to the v2.0 identities, each user signs in once, which creates an empty user keyed on their new <code>sub</code>, and their groups and permissions are then copied across from the old user:</p>
+<ol>
+<li>Find the old user&rsquo;s UUID: <code>GET /api/users/v1/fetchBySubjectId/{oid}</code>.</li>
+<li>Find the new user&rsquo;s UUID by display name, as above.
+The old user&rsquo;s display name is the UPN (the <code>preferred_username</code> claim) and the new one&rsquo;s is the <code>email</code> claim; where those differ in your tenant, resolve <code>oid</code> to <code>mail</code> with the Graph API.</li>
+<li><code>POST /api/users/v1/{newUserUuid}/copyPermissions</code> with the old user&rsquo;s UUID as the body.
+This copies group memberships, application permissions and document permissions, and is the same operation as <em>Copy Permissions</em> in the <em>Users</em> screen.</li>
+<li>Disable the old user.</li>
+</ol>
+<p>Ownership of things such as API keys and processor filters is not copied, as it is tied to the user&rsquo;s UUID rather than its permissions; recreate those against the new user where needed.</p>
+<h2 id="other-oidc-providers">Other OIDC Providers</h2>
+<p>Any provider the ALB can reach works the same way as Entra ID: an <code>authenticate-oidc</code> rule with the provider&rsquo;s issuer and endpoints, and the <a href="#stroom-configuration">generic Stroom configuration</a> with the provider&rsquo;s discovery document.
+Check three things against the provider&rsquo;s documentation:</p>
+<ol>
+<li>The <code>Issuer</code> on the rule is exactly the issuer its discovery document advertises.</li>
+<li>What its user info endpoint returns, and set <code>userDisplayNameClaim</code> accordingly.</li>
+<li>What its end session endpoint is called, what parameter it takes for the return address, and whether that address must be registered.</li>
+</ol>
 <h2 id="verifying-it-works">Verifying it Works</h2>
 <p>After deploying, load Stroom in a browser and check, in the developer tools network tab:</p>
 <ol>
-<li>You are redirected to the Cognito hosted UI, sign in, and land back at Stroom.</li>
+<li>You are redirected to the IDP&rsquo;s sign in page, sign in, and land back at Stroom.</li>
 <li>The request to <code>/api/auth/flow/v1/status</code> returns <code>200</code> with <code>&quot;authenticated&quot;: true</code> and the UI loads.</li>
-<li>There is <strong>no</strong> navigation to <code>.../oauth2/authorize</code> on the Cognito domain after that first sign in — if there is, Stroom is running a second flow and <code>edgeAuthentication.enabled</code> is not set.</li>
+<li>There is <strong>no</strong> further navigation to the IDP&rsquo;s authorization endpoint (<code>.../oauth2/authorize</code> for Cognito, <code>.../oauth2/v2.0/authorize</code> for Entra ID) after that first sign in — if there is, Stroom is running a second flow and <code>edgeAuthentication.enabled</code> is not set.</li>
+<li>Signing out lands on the <em>You have been signed out</em> page, and following its link asks you to sign in again.</li>
 </ol>
 <p>On the Stroom side, the log should not contain <code>Redirecting with an AuthenticationRequest to:</code> during normal browsing.</p>
+<p>If every request is rejected with <code>Authenticated user is not permitted to use stroom</code>, set the logger <code>stroom.security.common.impl.StandardJwtContextFactory</code> to <code>DEBUG</code>: it logs the raw <code>x-amzn-oidc-data</code> token (<code>jws:</code>) and why verification failed.
+Decode the token&rsquo;s header and payload (base64 JSON, the first and second dot separated segments) and compare the payload&rsquo;s <code>iss</code> with the issuer in the discovery document at <code>openIdConfigurationEndpoint</code>, and the header&rsquo;s <code>signer</code> with <code>expectedSignerPrefixes</code>.</p>
 
 </div>
 
@@ -633,7 +1026,7 @@ NGINX asks it to authorise each request (<code>auth_request</code>); oauth2-prox
       <span class="glossary-tooltip-title">Identity Provider (IDP)</span>
       <span class="glossary-tooltip-summary">An <strong>Id</strong>entity <strong>P</strong>rovider is a system or service that can authenticate a user and assert their identity. <em>Identity providers</em> can support single sign on (SSO), which allows the user to sign in once to the <em>Identity Provider</em> so they are then authenticated to all systems using that IDP.</span><span class="glossary-tooltip-truncated">Click to see more details...</span></span></span>, holds its session in <code>_oauth2_proxy</code> cookies, and hands back the IDP&rsquo;s token, which NGINX forwards to Stroom as an <code>Authorization: Bearer</code> header.</p>
 <p>Unlike the ALB, nothing here mints its own token: Stroom receives the <strong>IDP&rsquo;s own token</strong> and verifies it against the IDP&rsquo;s published keys, exactly as it would verify a token presented by an API client.
-That is why this pattern works unchanged with KeyCloak, Cognito or Entra ID behind the proxy.</p>
+That is why this pattern works unchanged with KeyCloak, Cognito or Entra ID behind the proxy; the page is written for KeyCloak, and <a href="#entra-id-instead-of-keycloak">Entra ID</a> at the end lists what differs.</p>
 
 <div class="alert alert-primary" role="alert">
 <h4 class="alert-heading">See Also</h4>
@@ -717,6 +1110,12 @@ Stroom verifies either happily, but this means the <code>requiredAccessTokenType
     location /datafeed  { proxy_pass https://stroom-backend:8080/datafeed; }
     location /remoting/ { proxy_pass https://stroom-backend:8080/remoting/; }
     location /status    { proxy_pass https://stroom-backend:8080/status; }
+
+    # Post logout landing page, served by NGINX itself so it needs no session
+    location = /signed-out {
+        default_type text/html;
+        return 200 '&lt;html&gt;&lt;body&gt;&lt;p&gt;You have been signed out.&lt;/p&gt;&lt;p&gt;&lt;a href=&quot;/&quot;&gt;Sign in again&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;';
+    }
 }
 </code></pre>
 <h2 id="stroom-configuration">Stroom Configuration</h2>
@@ -765,12 +1164,60 @@ To also end the KeyCloak session, give oauth2-proxy&rsquo;s sign out a redirect 
 <pre><code class="language-yaml">          signOutUrl: &quot;https://STROOM_FQDN/oauth2/sign_out?rd=https%3A%2F%2FIDP_HOST%2Frealms%2FREALM%2Fprotocol%2Fopenid-connect%2Flogout&quot;
 </code></pre>
 <p>(The <code>rd</code> value must be URL encoded and allowed by oauth2-proxy&rsquo;s <code>whitelist_domains</code>.)</p>
+<p>With no return address, KeyCloak shows its own <em>You are logged out</em> page, which is fine.
+To land on the <code>/signed-out</code> page served by NGINX instead, add a <code>post_logout_redirect_uri</code> (and <code>client_id</code>) to KeyCloak&rsquo;s logout URL, URL encoded within the <code>rd</code> value, and add <code>https://STROOM_FQDN/signed-out</code> to the client&rsquo;s <em>Valid post logout redirect URIs</em> in KeyCloak.
+Either way the landing page must not be behind <code>auth_request</code>, or the sign in flow simply restarts.</p>
 <h2 id="verifying-it-works">Verifying it Works</h2>
 <ol>
 <li>Loading Stroom redirects via oauth2-proxy to KeyCloak; after signing in, the UI loads.</li>
 <li>The request to <code>/api/auth/flow/v1/status</code> returns <code>200</code> with <code>&quot;authenticated&quot;: true</code>, and there is no subsequent navigation to KeyCloak&rsquo;s <code>/auth</code> endpoint.</li>
 <li><code>curl -H &quot;Authorization: Bearer $TOKEN&quot; https://stroom-backend:8080/api/...</code> from inside the network still works — machine access does not traverse the proxy.</li>
 </ol>
+<h2 id="entra-id-instead-of-keycloak">Entra ID Instead of KeyCloak</h2>
+
+<div class="alert alert-primary" role="alert">
+<h4 class="alert-heading">See Also</h4>
+<div class="alert-content">
+  
+  <p>The <a href="../../../../../../docs/install-guide/setup/open-id/external-idp/azure-ad/">Microsoft Entra ID</a> page covers the app registration; here it belongs to oauth2-proxy rather than to Stroom.</p>
+
+</div>
+</div>
+
+<p>The NGINX configuration and the Stroom <code>edgeAuthentication</code> settings are unchanged.
+What differs:</p>
+<ul>
+<li>
+<p><strong>App registration</strong> - create it as on the Entra ID page, but with a Web redirect URI of <code>https://STROOM_FQDN/oauth2/callback</code> (oauth2-proxy&rsquo;s callback), and <code>https://STROOM_FQDN/signed-out</code> as a second redirect URI for the post logout return.
+The client secret goes in oauth2-proxy&rsquo;s configuration and expires within 24 months; record the date.
+The <em>Expose an API</em> step is not needed for browser sign in, because Stroom receives the ID token, not an access token.</p>
+</li>
+<li>
+<p><strong>oauth2-proxy</strong> (7.8 or later, which added the <code>entra-id</code> provider and deprecated the old <code>azure</code> one):</p>
+<pre><code class="language-ini">provider = &quot;entra-id&quot;
+oidc_issuer_url = &quot;https://login.microsoftonline.com/TENANT_ID/v2.0&quot;
+client_id = &quot;PROXY_CLIENT_ID&quot;
+client_secret = &quot;PROXY_CLIENT_SECRET&quot;
+# 'profile' for the name claims, 'offline_access' for a refresh token, without
+# which cookie_refresh cannot renew the session.
+scope = &quot;openid email profile offline_access&quot;
+</code></pre>
+<p>The remaining settings (<code>redirect_url</code>, <code>cookie_secret</code>, <code>set_authorization_header</code>, <code>cookie_refresh</code>) are as above.</p>
+</li>
+<li>
+<p><strong>Stroom</strong> - point <code>openIdConfigurationEndpoint</code> at <code>https://login.microsoftonline.com/TENANT_ID/v2.0/.well-known/openid-configuration</code> and set <code>clientId</code> to <code>PROXY_CLIENT_ID</code>.
+Because Stroom receives the <strong>ID token</strong>, the claims are the ones the Entra ID page describes: <code>oid</code>, <code>preferred_username</code> and <code>name</code> are all present, so <code>uniqueIdentityClaim: &quot;oid&quot;</code> is available here, unlike behind an <a href="../../../../../../docs/install-guide/setup/open-id/edge-proxy/aws-alb/#identity-claims">ALB</a> where only the user info claims arrive.
+Decide on <code>sub</code> or <code>oid</code> before the first user signs in.
+No <code>clientSecret</code>, <code>validIssuers</code>, <code>allowedAudiences</code> or <code>requestScopes</code> are needed: Stroom runs no flow, only v2.0 tokens are involved, the ID token&rsquo;s audience is the client id, and the scopes are set on oauth2-proxy.</p>
+</li>
+<li>
+<p><strong>Logout</strong> - Entra ID&rsquo;s end session endpoint, with the return address registered as above:</p>
+<pre><code class="language-yaml">          signOutUrl: &quot;https://STROOM_FQDN/oauth2/sign_out?rd=https%3A%2F%2Flogin.microsoftonline.com%2FTENANT_ID%2Foauth2%2Fv2.0%2Flogout%3Fpost_logout_redirect_uri%3Dhttps%3A%2F%2FSTROOM_FQDN%2Fsigned-out&quot;
+</code></pre>
+<p><code>login.microsoftonline.com</code> must be in oauth2-proxy&rsquo;s <code>whitelist_domains</code> for the <code>rd</code> to be honoured.
+Without the <code>post_logout_redirect_uri</code>, Entra ID shows a generic signed out page of its own instead.</p>
+</li>
+</ul>
 
 </div>
 

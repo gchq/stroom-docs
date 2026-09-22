@@ -44,14 +44,14 @@
 " />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="/docs/install-guide/setup/open-id/edge-proxy/nginx-oauth2-proxy/" /><meta property="article:section" content="docs" />
-<meta property="article:published_time" content="2026-08-05T00:00:00+00:00" />
-<meta property="article:modified_time" content="2026-09-21T12:19:44+01:00" /><meta property="og:site_name" content="Stroom" />
+<meta property="article:published_time" content="2026-09-22T00:00:00+00:00" />
+<meta property="article:modified_time" content="2026-09-22T14:31:56+01:00" /><meta property="og:site_name" content="Stroom" />
 
 <meta itemprop="name" content="NGINX, oauth2-proxy and KeyCloak">
 <meta itemprop="description" content="Running Stroom behind NGINX with oauth2-proxy authenticating users against KeyCloak (or any Open ID Connect provider).
-"><meta itemprop="datePublished" content="2026-08-05T00:00:00+00:00" />
-<meta itemprop="dateModified" content="2026-09-21T12:19:44+01:00" />
-<meta itemprop="wordCount" content="739">
+"><meta itemprop="datePublished" content="2026-09-22T00:00:00+00:00" />
+<meta itemprop="dateModified" content="2026-09-22T14:31:56+01:00" />
+<meta itemprop="wordCount" content="1162">
 <meta itemprop="keywords" content="open-id,authentication," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="NGINX, oauth2-proxy and KeyCloak"/>
 <meta name="twitter:description" content="Running Stroom behind NGINX with oauth2-proxy authenticating users against KeyCloak (or any Open ID Connect provider).
@@ -155,7 +155,7 @@
     aria-label="Search this site…"
     autocomplete="off"
     
-    data-offline-search-index-json-src="../../../../../../offline-search-index.ac4c8e848ef795347c9b206bcf418ac1.json"
+    data-offline-search-index-json-src="../../../../../../offline-search-index.1d874cd3547bf9910d6bc3b0e5f2405f.json"
     data-offline-search-base-href="../../../../../../"
     data-offline-search-max-results="50"
   >
@@ -180,7 +180,7 @@
     aria-label="Search this site…"
     autocomplete="off"
     
-    data-offline-search-index-json-src="../../../../../../offline-search-index.ac4c8e848ef795347c9b206bcf418ac1.json"
+    data-offline-search-index-json-src="../../../../../../offline-search-index.1d874cd3547bf9910d6bc3b0e5f2405f.json"
     data-offline-search-base-href="../../../../../../"
     data-offline-search-max-results="50"
   >
@@ -291,8 +291,8 @@
 </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section with-child active-path" id="m-docsinstall-guidesetupopen-idedge-proxy-li">
   <a href="../../../../../../docs/install-guide/setup/open-id/edge-proxy/" title="Edge Proxy as the Relying Party" class="align-left pl-0 td-sidebar-link td-sidebar-link__section" id="m-docsinstall-guidesetupopen-idedge-proxy"><span class="">Edge Proxy RP</span></a>
   <ul class="ul-5 foldable">
-    <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-docsinstall-guidesetupopen-idedge-proxyaws-alb-cognito-li">
-  <a href="../../../../../../docs/install-guide/setup/open-id/edge-proxy/aws-alb-cognito/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-docsinstall-guidesetupopen-idedge-proxyaws-alb-cognito"><span class="">AWS ALB and Cognito</span></a>
+    <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-docsinstall-guidesetupopen-idedge-proxyaws-alb-li">
+  <a href="../../../../../../docs/install-guide/setup/open-id/edge-proxy/aws-alb/" title="AWS Application Load Balancer" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-docsinstall-guidesetupopen-idedge-proxyaws-alb"><span class="">AWS ALB</span></a>
 </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child active-path" id="m-docsinstall-guidesetupopen-idedge-proxynginx-oauth2-proxy-li">
   <a href="../../../../../../docs/install-guide/setup/open-id/edge-proxy/nginx-oauth2-proxy/" title="NGINX, oauth2-proxy and KeyCloak" class="align-left pl-0 active td-sidebar-link td-sidebar-link__page" id="m-docsinstall-guidesetupopen-idedge-proxynginx-oauth2-proxy"><span class="td-sidebar-nav-active-item">NGINX and oauth2-proxy</span></a>
 </li>
@@ -1146,6 +1146,7 @@
     <li><a href="#stroom-configuration">Stroom Configuration</a></li>
     <li><a href="#logout">Logout</a></li>
     <li><a href="#verifying-it-works">Verifying it Works</a></li>
+    <li><a href="#entra-id-instead-of-keycloak">Entra ID Instead of KeyCloak</a></li>
   </ul>
 </nav>
       </div>
@@ -1400,7 +1401,7 @@ NGINX asks it to authorise each request (<code>auth_request</code>); oauth2-prox
       <span class="glossary-tooltip-title">Identity Provider (IDP)</span>
       <span class="glossary-tooltip-summary">An <strong>Id</strong>entity <strong>P</strong>rovider is a system or service that can authenticate a user and assert their identity. <em>Identity providers</em> can support single sign on (SSO), which allows the user to sign in once to the <em>Identity Provider</em> so they are then authenticated to all systems using that IDP.</span><span class="glossary-tooltip-truncated">Click to see more details...</span></span></span>, holds its session in <code>_oauth2_proxy</code> cookies, and hands back the IDP&rsquo;s token, which NGINX forwards to Stroom as an <code>Authorization: Bearer</code> header.</p>
 <p>Unlike the ALB, nothing here mints its own token: Stroom receives the <strong>IDP&rsquo;s own token</strong> and verifies it against the IDP&rsquo;s published keys, exactly as it would verify a token presented by an API client.
-That is why this pattern works unchanged with KeyCloak, Cognito or Entra ID behind the proxy.</p>
+That is why this pattern works unchanged with KeyCloak, Cognito or Entra ID behind the proxy; the page is written for KeyCloak, and <a href="#entra-id-instead-of-keycloak">Entra ID</a> at the end lists what differs.</p>
 
 <div class="alert alert-primary" role="alert">
 <h4 class="alert-heading">See Also</h4>
@@ -1484,6 +1485,12 @@ Stroom verifies either happily, but this means the <code>requiredAccessTokenType
     location /datafeed  { proxy_pass https://stroom-backend:8080/datafeed; }
     location /remoting/ { proxy_pass https://stroom-backend:8080/remoting/; }
     location /status    { proxy_pass https://stroom-backend:8080/status; }
+
+    # Post logout landing page, served by NGINX itself so it needs no session
+    location = /signed-out {
+        default_type text/html;
+        return 200 '&lt;html&gt;&lt;body&gt;&lt;p&gt;You have been signed out.&lt;/p&gt;&lt;p&gt;&lt;a href=&quot;/&quot;&gt;Sign in again&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;';
+    }
 }
 </code></pre>
 <h2 id="stroom-configuration">Stroom Configuration</h2>
@@ -1532,17 +1539,65 @@ To also end the KeyCloak session, give oauth2-proxy&rsquo;s sign out a redirect 
 <pre><code class="language-yaml">          signOutUrl: &quot;https://STROOM_FQDN/oauth2/sign_out?rd=https%3A%2F%2FIDP_HOST%2Frealms%2FREALM%2Fprotocol%2Fopenid-connect%2Flogout&quot;
 </code></pre>
 <p>(The <code>rd</code> value must be URL encoded and allowed by oauth2-proxy&rsquo;s <code>whitelist_domains</code>.)</p>
+<p>With no return address, KeyCloak shows its own <em>You are logged out</em> page, which is fine.
+To land on the <code>/signed-out</code> page served by NGINX instead, add a <code>post_logout_redirect_uri</code> (and <code>client_id</code>) to KeyCloak&rsquo;s logout URL, URL encoded within the <code>rd</code> value, and add <code>https://STROOM_FQDN/signed-out</code> to the client&rsquo;s <em>Valid post logout redirect URIs</em> in KeyCloak.
+Either way the landing page must not be behind <code>auth_request</code>, or the sign in flow simply restarts.</p>
 <h2 id="verifying-it-works">Verifying it Works</h2>
 <ol>
 <li>Loading Stroom redirects via oauth2-proxy to KeyCloak; after signing in, the UI loads.</li>
 <li>The request to <code>/api/auth/flow/v1/status</code> returns <code>200</code> with <code>&quot;authenticated&quot;: true</code>, and there is no subsequent navigation to KeyCloak&rsquo;s <code>/auth</code> endpoint.</li>
 <li><code>curl -H &quot;Authorization: Bearer $TOKEN&quot; https://stroom-backend:8080/api/...</code> from inside the network still works — machine access does not traverse the proxy.</li>
 </ol>
+<h2 id="entra-id-instead-of-keycloak">Entra ID Instead of KeyCloak</h2>
+
+<div class="alert alert-primary" role="alert">
+<h4 class="alert-heading">See Also</h4>
+<div class="alert-content">
+  
+  <p>The <a href="../../../../../../docs/install-guide/setup/open-id/external-idp/azure-ad/">Microsoft Entra ID</a> page covers the app registration; here it belongs to oauth2-proxy rather than to Stroom.</p>
+
+</div>
+</div>
+
+<p>The NGINX configuration and the Stroom <code>edgeAuthentication</code> settings are unchanged.
+What differs:</p>
+<ul>
+<li>
+<p><strong>App registration</strong> - create it as on the Entra ID page, but with a Web redirect URI of <code>https://STROOM_FQDN/oauth2/callback</code> (oauth2-proxy&rsquo;s callback), and <code>https://STROOM_FQDN/signed-out</code> as a second redirect URI for the post logout return.
+The client secret goes in oauth2-proxy&rsquo;s configuration and expires within 24 months; record the date.
+The <em>Expose an API</em> step is not needed for browser sign in, because Stroom receives the ID token, not an access token.</p>
+</li>
+<li>
+<p><strong>oauth2-proxy</strong> (7.8 or later, which added the <code>entra-id</code> provider and deprecated the old <code>azure</code> one):</p>
+<pre><code class="language-ini">provider = &quot;entra-id&quot;
+oidc_issuer_url = &quot;https://login.microsoftonline.com/TENANT_ID/v2.0&quot;
+client_id = &quot;PROXY_CLIENT_ID&quot;
+client_secret = &quot;PROXY_CLIENT_SECRET&quot;
+# 'profile' for the name claims, 'offline_access' for a refresh token, without
+# which cookie_refresh cannot renew the session.
+scope = &quot;openid email profile offline_access&quot;
+</code></pre>
+<p>The remaining settings (<code>redirect_url</code>, <code>cookie_secret</code>, <code>set_authorization_header</code>, <code>cookie_refresh</code>) are as above.</p>
+</li>
+<li>
+<p><strong>Stroom</strong> - point <code>openIdConfigurationEndpoint</code> at <code>https://login.microsoftonline.com/TENANT_ID/v2.0/.well-known/openid-configuration</code> and set <code>clientId</code> to <code>PROXY_CLIENT_ID</code>.
+Because Stroom receives the <strong>ID token</strong>, the claims are the ones the Entra ID page describes: <code>oid</code>, <code>preferred_username</code> and <code>name</code> are all present, so <code>uniqueIdentityClaim: &quot;oid&quot;</code> is available here, unlike behind an <a href="../../../../../../docs/install-guide/setup/open-id/edge-proxy/aws-alb/#identity-claims">ALB</a> where only the user info claims arrive.
+Decide on <code>sub</code> or <code>oid</code> before the first user signs in.
+No <code>clientSecret</code>, <code>validIssuers</code>, <code>allowedAudiences</code> or <code>requestScopes</code> are needed: Stroom runs no flow, only v2.0 tokens are involved, the ID token&rsquo;s audience is the client id, and the scopes are set on oauth2-proxy.</p>
+</li>
+<li>
+<p><strong>Logout</strong> - Entra ID&rsquo;s end session endpoint, with the return address registered as above:</p>
+<pre><code class="language-yaml">          signOutUrl: &quot;https://STROOM_FQDN/oauth2/sign_out?rd=https%3A%2F%2Flogin.microsoftonline.com%2FTENANT_ID%2Foauth2%2Fv2.0%2Flogout%3Fpost_logout_redirect_uri%3Dhttps%3A%2F%2FSTROOM_FQDN%2Fsigned-out&quot;
+</code></pre>
+<p><code>login.microsoftonline.com</code> must be in oauth2-proxy&rsquo;s <code>whitelist_domains</code> for the <code>rd</code> to be honoured.
+Without the <code>post_logout_redirect_uri</code>, Entra ID shows a generic signed out page of its own instead.</p>
+</li>
+</ul>
 
 	
 	
 	<div class="text-muted mt-5 pt-3 border-top">
-  Last modified September 21, 2026: <a href="https://github.com/gchq/stroom-docs/commit/bc839e7185d20e85775c97d19d8c4c6c5acae963">Merge pull request #141 from gchq/entra_id (bc839e7)</a>
+  Last modified September 22, 2026: <a href="https://github.com/gchq/stroom-docs/commit/8ba264a35317e2c8802b61096ad799f8bd77f49f">Merge pull request #142 from gchq/edge-proxy (8ba264a)</a>
 </div>
 
 </div>

@@ -151,7 +151,7 @@
     aria-label="Search this site…"
     autocomplete="off"
     
-    data-offline-search-index-json-src="../../../../../../offline-search-index.ac4c8e848ef795347c9b206bcf418ac1.json"
+    data-offline-search-index-json-src="../../../../../../offline-search-index.1d874cd3547bf9910d6bc3b0e5f2405f.json"
     data-offline-search-base-href="../../../../../../"
     data-offline-search-max-results="50"
   >
@@ -261,7 +261,7 @@ Stroom supports 3rd party IDPs that conform to the <span class="external-link">
 
 
     <p>On this page and its children, <strong>Stroom itself signs the user in</strong> at the provider.
-If a load balancer or reverse proxy in front of Stroom performs the sign in instead - an AWS ALB with an <code>authenticate-cognito</code> rule, NGINX with oauth2-proxy - you want <a href="../../../../../../docs/install-guide/setup/open-id/edge-proxy/">Edge Proxy RP</a>, not this page.</p>
+If a load balancer or reverse proxy in front of Stroom performs the sign in instead - an AWS ALB with an <code>authenticate-cognito</code> or <code>authenticate-oidc</code> rule, NGINX with oauth2-proxy - you want <a href="../../../../../../docs/install-guide/setup/open-id/edge-proxy/">Edge Proxy RP</a>, not this page.</p>
 
 
 </div>
@@ -1434,7 +1434,7 @@ This assumes the downstream Stroom or Stroom-Proxy is also configured to use the
 
 
     <p>This page covers Stroom itself being the OIDC client of the user pool.
-If Stroom sits behind an AWS Application Load Balancer whose listener rule does the authentication, the load balancer is the client instead - see <a href="../../../../../../docs/install-guide/setup/open-id/edge-proxy/aws-alb-cognito/">AWS ALB and Cognito</a>.</p>
+If Stroom sits behind an AWS Application Load Balancer whose listener rule does the authentication, the load balancer is the client instead - see <a href="../../../../../../docs/install-guide/setup/open-id/edge-proxy/aws-alb/#amazon-cognito">AWS Application Load Balancer</a>.</p>
 
 
 </div>
@@ -1987,6 +1987,19 @@ Entra ID is the current name for what was Azure Active Directory, and much of th
 
 </div>
 </div>
+
+
+<div class="alert alert-primary" role="alert">
+<h4 class="alert-heading">Note</h4>
+
+
+
+    <p>This page covers Stroom itself being the OIDC client of Entra ID.
+If an authenticating proxy in front of Stroom does the sign in instead, the proxy is the client and much of this page does not apply - see <a href="../../../../../../docs/install-guide/setup/open-id/edge-proxy/aws-alb/#microsoft-entra-id">AWS Application Load Balancer</a> or <a href="../../../../../../docs/install-guide/setup/open-id/edge-proxy/nginx-oauth2-proxy/#entra-id-instead-of-keycloak">NGINX and oauth2-proxy</a>.</p>
+
+
+</div>
+
 
 <p>Entra ID has two generations of endpoint, v1.0 and v2.0, which issue tokens with different issuers and different formats.
 Two of the three things most likely to go wrong here come from mixing them up, so it is worth being deliberate: <strong>use the v2.0 endpoints throughout</strong>.</p>
