@@ -18,7 +18,7 @@ Read [External IDP]({{< relref "docs/install-guide/setup/open-id/external-idp" >
 
 {{% note %}}
 This page covers Stroom itself being the OIDC client of the user pool.
-If Stroom sits behind an AWS Application Load Balancer whose listener rule does the authentication, the load balancer is the client instead - see [AWS ALB and Cognito]({{< relref "docs/install-guide/setup/open-id/edge-proxy/aws-alb-cognito" >}}).
+If Stroom sits behind an AWS Application Load Balancer whose listener rule does the authentication, the load balancer is the client instead - see [AWS Application Load Balancer]({{< relref "docs/install-guide/setup/open-id/edge-proxy/aws-alb#amazon-cognito" >}}).
 {{% /note %}}
 
 Cognito differs from a typical OIDC provider in two ways that directly affect the Stroom configuration, so they are worth knowing before you start.

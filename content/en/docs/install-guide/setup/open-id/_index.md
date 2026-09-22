@@ -17,7 +17,7 @@ There are three deployment models, distinguished by *where the user accounts liv
 * [Internal IDP]({{< relref "internal-idp" >}}) - Stroom acts as its own identity provider and manages the user accounts itself.
   This is the default.
 * [External IDP]({{< relref "external-idp" >}}) - A 3rd party identity provider, such as KeyCloak, Cognito or Google, holds the accounts; **Stroom performs the sign in** by redirecting the browser to it.
-* [Edge Proxy RP]({{< relref "edge-proxy" >}}) - A 3rd party identity provider holds the accounts, but **an authenticating reverse proxy in front of Stroom performs the sign in** (an AWS Application Load Balancer with Cognito, NGINX with oauth2-proxy, etc.) and passes Stroom a verified identity with each request.
+* [Edge Proxy RP]({{< relref "edge-proxy" >}}) - A 3rd party identity provider holds the accounts, but **an authenticating reverse proxy in front of Stroom performs the sign in** (an AWS Application Load Balancer, NGINX with oauth2-proxy, etc., against Cognito, Entra ID, KeyCloak or any other provider) and passes Stroom a verified identity with each request.
 
 Not sure which you have?
 
@@ -25,7 +25,7 @@ Not sure which you have?
 | -------------- | ----- |
 | No existing identity provider, or Stroom should manage its own accounts | [Internal IDP]({{< relref "internal-idp" >}}) |
 | An existing IDP (KeyCloak, Cognito, Google, Entra ID) and browsers reach Stroom directly, or through a proxy that only routes | [External IDP]({{< relref "external-idp" >}}) |
-| A load balancer or proxy in front of Stroom signs users in before traffic reaches it, e.g. an ALB `authenticate-cognito` rule, oauth2-proxy, or a policy that unauthenticated traffic must not reach the application | [Edge Proxy RP]({{< relref "edge-proxy" >}}) |
+| A load balancer or proxy in front of Stroom signs users in before traffic reaches it, e.g. an ALB `authenticate-cognito` or `authenticate-oidc` rule, oauth2-proxy, or a policy that unauthenticated traffic must not reach the application | [Edge Proxy RP]({{< relref "edge-proxy" >}}) |
 
 Whichever you use, authorisation is always handled by Stroom.
 The provider establishes who a user is; Stroom decides what they are allowed to do.

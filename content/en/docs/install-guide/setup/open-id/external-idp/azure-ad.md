@@ -17,6 +17,11 @@ Entra ID is the current name for what was Azure Active Directory, and much of th
 Read [External IDP]({{< relref "docs/install-guide/setup/open-id/external-idp" >}}) first for what Stroom needs from any provider, and [Stroom Configuration]({{< relref "stroom-configuration" >}}) for what each setting does.
 {{% /see-also %}}
 
+{{% note %}}
+This page covers Stroom itself being the OIDC client of Entra ID.
+If an authenticating proxy in front of Stroom does the sign in instead, the proxy is the client and much of this page does not apply - see [AWS Application Load Balancer]({{< relref "docs/install-guide/setup/open-id/edge-proxy/aws-alb#microsoft-entra-id" >}}) or [NGINX and oauth2-proxy]({{< relref "docs/install-guide/setup/open-id/edge-proxy/nginx-oauth2-proxy#entra-id-instead-of-keycloak" >}}).
+{{% /note %}}
+
 Entra ID has two generations of endpoint, v1.0 and v2.0, which issue tokens with different issuers and different formats.
 Two of the three things most likely to go wrong here come from mixing them up, so it is worth being deliberate: **use the v2.0 endpoints throughout**.
 
