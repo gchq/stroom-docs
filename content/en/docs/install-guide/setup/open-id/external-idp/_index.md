@@ -15,7 +15,7 @@ Stroom supports 3rd party IDPs that conform to the {{< external-link "Open ID Co
 
 {{% note %}}
 On this page and its children, **Stroom itself signs the user in** at the provider.
-If a load balancer or reverse proxy in front of Stroom performs the sign in instead - an AWS ALB with an `authenticate-cognito` rule, NGINX with oauth2-proxy - you want [Edge Proxy RP]({{< relref "docs/install-guide/setup/open-id/edge-proxy" >}}), not this page.
+If a load balancer or reverse proxy in front of Stroom performs the sign in instead - an AWS ALB with an `authenticate-cognito` or `authenticate-oidc` rule, NGINX with oauth2-proxy - you want [Edge Proxy RP]({{< relref "docs/install-guide/setup/open-id/edge-proxy" >}}), not this page.
 {{% /note %}}
 
 This page describes what Stroom needs from any such provider.
