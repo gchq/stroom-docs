@@ -151,7 +151,7 @@
     aria-label="Search this site…"
     autocomplete="off"
     
-    data-offline-search-index-json-src="../../../offline-search-index.1d874cd3547bf9910d6bc3b0e5f2405f.json"
+    data-offline-search-index-json-src="../../../offline-search-index.c45b168ca93ec3903a0832b256fbfc1b.json"
     data-offline-search-base-href="../../../"
     data-offline-search-max-results="50"
   >
@@ -7337,6 +7337,60 @@ You must instead create the first administrator from the command line.</p>
 
 
 <p>See <a href="../../../docs/user-guide/security/user-accounts/">User Accounts</a> for managing those accounts, and <a href="../../../docs/user-guide/security/signing-in/">Signing In</a> for what users experience.</p>
+<h2 id="the-flow">The Flow</h2>
+<p>Stroom runs the same authorization code flow as it does against an <a href="../../../docs/install-guide/setup/open-id/external-idp/#the-flow">external IDP</a>, but both ends of it are Stroom.
+It hosts its own authorization, token and key endpoints under <code>/oauth2/v1</code>, checks the password against its own account records, and signs the token with its own <a href="../../../docs/user-guide/security/signing-keys/">signing key</a>.</p>
+
+
+
+
+
+
+
+  
+  
+  
+  
+  
+
+
+
+
+
+
+
+  
+
+
+
+<div class="card rounded shadow-stroom p-2 td-post-card mb-4 mt-4" style="width: fit-content;">
+
+  <a title="images/install-guide/open-id/internal-idp-flow.puml.svg" href="../../../images/install-guide/open-id/internal-idp-flow.puml.svg">
+    <figure style="margin-block-end: 0px" >
+      
+      <img class="card-img-top" src="../../../images/install-guide/open-id/internal-idp-flow.puml.svg" style="max-width: fit-content" alt="images/install-guide/open-id/internal-idp-flow.puml.svg">
+      
+
+      
+      <div class="card-body px-0 pt-2 pb-0">
+        <hr style="border-top: 1px solid #ddd; margin-top: 0px; margin-bottom:4px;">
+        <figcaption class="card-text" style="font-size: smaller; text-align: center;">Internal IDP sign in flow</figcaption>
+      </div>
+      
+    </figure>
+  </a>
+</div>
+
+
+<div class="alert alert-primary" role="alert">
+<h4 class="alert-heading">See Also</h4>
+<div class="alert-content">
+  
+  <p>See <a href="../../../docs/user-guide/security/signing-in/">Signing In</a> for what the user experiences at the sign in screen, including locked and disabled accounts.</p>
+
+</div>
+</div>
+
 <h2 id="configuration-for-the-internal-idp">Configuration for the Internal IDP</h2>
 <p>While Stroom is pre-configured to use its internal IDP, this section describes the configuration required.</p>
 <p>In Stroom:</p>
@@ -7410,6 +7464,60 @@ It applies whichever provider you use, so read it before following one of the pr
 <li><a href="../../../docs/install-guide/setup/open-id/external-idp/google/">Google</a></li>
 <li><a href="../../../docs/install-guide/setup/open-id/external-idp/azure-ad/">Microsoft Entra ID (Azure AD)</a></li>
 </ul>
+<h2 id="the-flow">The Flow</h2>
+<p>Stroom is the Open ID Connect client, or Relying Party, and runs the authorization code flow itself.</p>
+
+
+
+
+
+
+
+  
+  
+  
+  
+  
+
+
+
+
+
+
+
+  
+
+
+
+<div class="card rounded shadow-stroom p-2 td-post-card mb-4 mt-4" style="width: fit-content;">
+
+  <a title="images/install-guide/open-id/external-idp-flow.puml.svg" href="../../../images/install-guide/open-id/external-idp-flow.puml.svg">
+    <figure style="margin-block-end: 0px" >
+      
+      <img class="card-img-top" src="../../../images/install-guide/open-id/external-idp-flow.puml.svg" style="max-width: fit-content" alt="images/install-guide/open-id/external-idp-flow.puml.svg">
+      
+
+      
+      <div class="card-body px-0 pt-2 pb-0">
+        <hr style="border-top: 1px solid #ddd; margin-top: 0px; margin-bottom:4px;">
+        <figcaption class="card-text" style="font-size: smaller; text-align: center;">External IDP sign in flow</figcaption>
+      </div>
+      
+    </figure>
+  </a>
+</div>
+
+<p>The requirements in the rest of this page are all steps in that sequence: the <a href="#the-redirect-uri">redirect URI</a> the IDP sends the code to, the <a href="#pkce">PKCE</a> challenge and verifier, the <a href="#claims">claims</a> Stroom reads from the ID token, and the <a href="#token-validation">token validation</a> it performs before creating the session.</p>
+
+<div class="alert alert-primary" role="alert">
+<h4 class="alert-heading">See Also</h4>
+<div class="alert-content">
+  
+  <p>If a proxy in front of Stroom performs this flow instead, see <a href="../../../docs/install-guide/setup/open-id/edge-proxy/#the-flow">Edge Proxy RP</a>.</p>
+
+</div>
+</div>
+
 <h2 id="what-stroom-needs-from-the-provider">What Stroom Needs from the Provider</h2>
 <p>Stroom is a confidential OAuth 2.0 client using the authorization code flow.
 To register it with a provider you need the following.</p>
@@ -9636,7 +9744,7 @@ The browser is driven through a second, redundant OIDC flow stacked on the one t
 Stroom then:</p>
 <ul>
 <li>Accepts the proxy&rsquo;s injected credential, verified cryptographically on every request, as the user&rsquo;s identity.
-No Stroom session is created; the identity is re-derived from the headers each time, which is also how the proxy&rsquo;s own token refresh reaches Stroom.</li>
+The identity is never held in a Stroom session; it is re-derived from the headers on every request, which is also how the proxy&rsquo;s own token refresh reaches Stroom.</li>
 <li>Never starts an OIDC flow of its own, and disables its OIDC callback endpoint.</li>
 <li>Treats the injected credential as needing Cross-Site Request Forgery (CSRF) protection on browser requests, because the browser attaches the <em>proxy&rsquo;s</em> session cookie automatically, even to cross site requests.</li>
 <li>Can end the proxy&rsquo;s session on logout, not just its own.</li>
@@ -9652,6 +9760,61 @@ Direct machine access is unaffected: API keys and bearer tokens work as they alw
 </div>
 
 
+<h2 id="the-flow">The Flow</h2>
+<p>The proxy completes the whole Open ID Connect flow before Stroom sees anything, then injects a credential that Stroom verifies on each request.</p>
+
+
+
+
+
+
+
+  
+  
+  
+  
+  
+
+
+
+
+
+
+
+  
+
+
+
+<div class="card rounded shadow-stroom p-2 td-post-card mb-4 mt-4" style="width: fit-content;">
+
+  <a title="images/install-guide/open-id/edge-proxy-flow.puml.svg" href="../../../images/install-guide/open-id/edge-proxy-flow.puml.svg">
+    <figure style="margin-block-end: 0px" >
+      
+      <img class="card-img-top" src="../../../images/install-guide/open-id/edge-proxy-flow.puml.svg" style="max-width: fit-content" alt="images/install-guide/open-id/edge-proxy-flow.puml.svg">
+      
+
+      
+      <div class="card-body px-0 pt-2 pb-0">
+        <hr style="border-top: 1px solid #ddd; margin-top: 0px; margin-bottom:4px;">
+        <figcaption class="card-text" style="font-size: smaller; text-align: center;">Edge proxy authentication flow</figcaption>
+      </div>
+      
+    </figure>
+  </a>
+</div>
+
+<p>Two things in that sequence are easy to miss, and both matter:</p>
+<ul>
+<li>Stroom <strong>never authenticates from a session</strong>.
+The identity is derived from the injected header on every request, which is also how the proxy&rsquo;s own token refresh reaches Stroom.
+A Stroom session is still created, because parts of the application need one, and it appears in the sessions list with no user against it.
+Expiring it does not sign the user out, because the next request re-derives them from the header.
+Signing out is therefore a matter of ending the <em>proxy&rsquo;s</em> session, which is what <a href="#edgeauthenticationlogoutcookiestoexpire"><code>logout.cookiesToExpire</code></a> and <a href="#edgeauthenticationlogoutsignouturl"><code>logout.signOutUrl</code></a> are for.</li>
+<li>What the proxy injects is not necessarily the IDP&rsquo;s own token.
+An ALB signs the claims it fetched from the IDP&rsquo;s user info endpoint, while oauth2-proxy relays the IDP&rsquo;s token itself, and the claims available differ accordingly.
+See <a href="#what-depends-on-the-idp">What Depends on the IDP</a>.</li>
+</ul>
+<p>Compare this with the <a href="../../../docs/install-guide/setup/open-id/external-idp/#the-flow">External IDP</a> flow, where Stroom performs every step the proxy performs above.</p>
 <h2 id="stroom-configuration">Stroom Configuration</h2>
 <pre><code class="language-yaml">  security:
     authentication:

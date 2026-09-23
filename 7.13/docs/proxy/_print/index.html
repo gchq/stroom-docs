@@ -151,7 +151,7 @@
     aria-label="Search this site…"
     autocomplete="off"
     
-    data-offline-search-index-json-src="../../../offline-search-index.1d874cd3547bf9910d6bc3b0e5f2405f.json"
+    data-offline-search-index-json-src="../../../offline-search-index.c45b168ca93ec3903a0832b256fbfc1b.json"
     data-offline-search-base-href="../../../"
     data-offline-search-max-results="50"
   >
@@ -960,6 +960,34 @@ Note that this endpoint does not use the same authentication as the other REST e
 <li><code>POST</code> - <code>/api/feedStatus/v2/getFeedStatus</code> - Allows an upstream Stroom-Proxy to check the receipt status of a Feed.</li>
 <li><code>GET</code>  - <code>/api/ruleset/v2/fetchHashedRules</code> - Allows an upstream Stroom-Proxy to fetch the obfuscated receipt policy rules.</li>
 </ul>
+<h2 id="authentication">Authentication</h2>
+<p>Stroom-Proxy holds no user accounts of its own, so it cannot answer questions about identity, feed status or receipt rules by itself.
+It passes each one down the chain until it reaches something that can, and caches the answer.
+That is why the three REST endpoints above exist on Stroom-Proxy as well as on Stroom: an upstream proxy asks its downstream in exactly the same way that the downstream asks Stroom.</p>
+<p>Stroom-Proxy authenticates these calls with the <span class="glossary-link">
+    <a href="../../../docs/glossary/a/glossary-api-key">
+      <span>API Key</span>
+      <i class="glossary-link-icon fas fa-book fa-sm text-primary"></i>
+    </a><span class="glossary-tooltip">
+      <span class="glossary-tooltip-title">API Key</span>
+      <span class="glossary-tooltip-summary"><em>API Keys</em> are a form of authentication token that are created within Stroom for use by Stroom-Proxy instances or other clients that want to use Stroom&rsquo;s <em>API</em>. It is an encrypted string that contains details of the user and the expiration date of the token. Possession of a valid API Key for a user account means that you can do anything that the user can do in the user interface via the API.</span><span class="glossary-tooltip-truncated">Click to see more details...</span></span></span> in <code>downstreamHost.apiKey</code>.
+If that property is not set, it instead obtains a bearer token for its own service user from the <span class="glossary-link">
+    <a href="../../../docs/glossary/i/glossary-idp">
+      <span>Identity Provider (IDP)</span>
+      <i class="glossary-link-icon fas fa-book fa-sm text-primary"></i>
+    </a><span class="glossary-tooltip">
+      <span class="glossary-tooltip-title">Identity Provider (IDP)</span>
+      <span class="glossary-tooltip-summary">An <strong>Id</strong>entity <strong>P</strong>rovider is a system or service that can authenticate a user and assert their identity. <em>Identity providers</em> can support single sign on (SSO), which allows the user to sign in once to the <em>Identity Provider</em> so they are then authenticated to all systems using that IDP.</span><span class="glossary-tooltip-truncated">Click to see more details...</span></span></span> using the client credentials grant, which requires <code>identityProviderType</code> to be <code>EXTERNAL_IDP</code>.</p>
+
+<div class="alert alert-primary" role="alert">
+<h4 class="alert-heading">See Also</h4>
+<div class="alert-content">
+  
+  <p>See <a href="../../../docs/install-guide/configuration/stroom-and-proxy/configuring-stroom-proxy/#downstream-host-configuration">Downstream Host Configuration</a> for these properties, and <a href="../../../docs/sending-data/api-key-authentication/#the-flow">API Key Authentication</a> for the sequence Stroom-Proxy follows when a client presents an API Key to <code>/datafeed</code>.</p>
+
+</div>
+</div>
+
 <h2 id="admin-apis">Admin APIs</h2>
 <p>These APIs are presented on the administration port/path which by default is:</p>
 <p><code>localhost:8091/proxyAdmin/...</code>.</p>

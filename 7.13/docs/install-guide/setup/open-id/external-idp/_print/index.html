@@ -151,7 +151,7 @@
     aria-label="Search this site…"
     autocomplete="off"
     
-    data-offline-search-index-json-src="../../../../../../offline-search-index.1d874cd3547bf9910d6bc3b0e5f2405f.json"
+    data-offline-search-index-json-src="../../../../../../offline-search-index.c45b168ca93ec3903a0832b256fbfc1b.json"
     data-offline-search-base-href="../../../../../../"
     data-offline-search-max-results="50"
   >
@@ -276,6 +276,60 @@ It applies whichever provider you use, so read it before following one of the pr
 <li><a href="../../../../../../docs/install-guide/setup/open-id/external-idp/google/">Google</a></li>
 <li><a href="../../../../../../docs/install-guide/setup/open-id/external-idp/azure-ad/">Microsoft Entra ID (Azure AD)</a></li>
 </ul>
+<h2 id="the-flow">The Flow</h2>
+<p>Stroom is the Open ID Connect client, or Relying Party, and runs the authorization code flow itself.</p>
+
+
+
+
+
+
+
+  
+  
+  
+  
+  
+
+
+
+
+
+
+
+  
+
+
+
+<div class="card rounded shadow-stroom p-2 td-post-card mb-4 mt-4" style="width: fit-content;">
+
+  <a title="images/install-guide/open-id/external-idp-flow.puml.svg" href="../../../../../../images/install-guide/open-id/external-idp-flow.puml.svg">
+    <figure style="margin-block-end: 0px" >
+      
+      <img class="card-img-top" src="../../../../../../images/install-guide/open-id/external-idp-flow.puml.svg" style="max-width: fit-content" alt="images/install-guide/open-id/external-idp-flow.puml.svg">
+      
+
+      
+      <div class="card-body px-0 pt-2 pb-0">
+        <hr style="border-top: 1px solid #ddd; margin-top: 0px; margin-bottom:4px;">
+        <figcaption class="card-text" style="font-size: smaller; text-align: center;">External IDP sign in flow</figcaption>
+      </div>
+      
+    </figure>
+  </a>
+</div>
+
+<p>The requirements in the rest of this page are all steps in that sequence: the <a href="#the-redirect-uri">redirect URI</a> the IDP sends the code to, the <a href="#pkce">PKCE</a> challenge and verifier, the <a href="#claims">claims</a> Stroom reads from the ID token, and the <a href="#token-validation">token validation</a> it performs before creating the session.</p>
+
+<div class="alert alert-primary" role="alert">
+<h4 class="alert-heading">See Also</h4>
+<div class="alert-content">
+  
+  <p>If a proxy in front of Stroom performs this flow instead, see <a href="../../../../../../docs/install-guide/setup/open-id/edge-proxy/#the-flow">Edge Proxy RP</a>.</p>
+
+</div>
+</div>
+
 <h2 id="what-stroom-needs-from-the-provider">What Stroom Needs from the Provider</h2>
 <p>Stroom is a confidential OAuth 2.0 client using the authorization code flow.
 To register it with a provider you need the following.</p>

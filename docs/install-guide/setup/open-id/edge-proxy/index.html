@@ -151,7 +151,7 @@
     aria-label="Search this site…"
     autocomplete="off"
     
-    data-offline-search-index-json-src="../../../../../offline-search-index.1d874cd3547bf9910d6bc3b0e5f2405f.json"
+    data-offline-search-index-json-src="../../../../../offline-search-index.c45b168ca93ec3903a0832b256fbfc1b.json"
     data-offline-search-base-href="../../../../../"
     data-offline-search-max-results="50"
   >
@@ -176,7 +176,7 @@
     aria-label="Search this site…"
     autocomplete="off"
     
-    data-offline-search-index-json-src="../../../../../offline-search-index.1d874cd3547bf9910d6bc3b0e5f2405f.json"
+    data-offline-search-index-json-src="../../../../../offline-search-index.c45b168ca93ec3903a0832b256fbfc1b.json"
     data-offline-search-base-href="../../../../../"
     data-offline-search-max-results="50"
   >
@@ -797,6 +797,8 @@
   <a href="../../../../../docs/sending-data/payloads/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-docssending-datapayloads"><span class="">Payload Formats</span></a>
 </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-docssending-datassl-li">
   <a href="../../../../../docs/sending-data/ssl/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-docssending-datassl"><span class="">SSL Configuration</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-docssending-dataapi-key-authentication-li">
+  <a href="../../../../../docs/sending-data/api-key-authentication/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-docssending-dataapi-key-authentication"><span class="">API Key Authentication</span></a>
 </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section with-child collapse" id="m-docssending-dataexample-clients-li">
   <a href="../../../../../docs/sending-data/example-clients/" class="align-left pl-0 td-sidebar-link td-sidebar-link__section" id="m-docssending-dataexample-clients"><span class="">Example Clients</span></a>
   <ul class="ul-3 foldable">
@@ -1137,6 +1139,7 @@
         <nav id="TableOfContents">
   <ul>
     <li><a href="#the-one-rule-exactly-one-relying-party">The One Rule: Exactly One Relying Party</a></li>
+    <li><a href="#the-flow">The Flow</a></li>
     <li><a href="#stroom-configuration">Stroom Configuration</a>
       <ul>
         <li><a href="#edgeauthenticationenabled"><code>edgeAuthentication.enabled</code></a></li>
@@ -1187,7 +1190,7 @@
         
           <li><a class="taxonomy-term" href="../../../../../tags/api/" data-taxonomy-term="api"><span class="taxonomy-label">api</span><span class="taxonomy-count">9</span></a></li>
         
-          <li><a class="taxonomy-term" href="../../../../../tags/authentication/" data-taxonomy-term="authentication"><span class="taxonomy-label">authentication</span><span class="taxonomy-count">19</span></a></li>
+          <li><a class="taxonomy-term" href="../../../../../tags/authentication/" data-taxonomy-term="authentication"><span class="taxonomy-label">authentication</span><span class="taxonomy-count">20</span></a></li>
         
           <li><a class="taxonomy-term" href="../../../../../tags/authorisation/" data-taxonomy-term="authorisation"><span class="taxonomy-label">authorisation</span><span class="taxonomy-count">3</span></a></li>
         
@@ -1313,7 +1316,7 @@
         
           <li><a class="taxonomy-term" href="../../../../../tags/todo/" data-taxonomy-term="todo"><span class="taxonomy-label">TODO</span><span class="taxonomy-count">14</span></a></li>
         
-          <li><a class="taxonomy-term" href="../../../../../tags/token/" data-taxonomy-term="token"><span class="taxonomy-label">token</span><span class="taxonomy-count">4</span></a></li>
+          <li><a class="taxonomy-term" href="../../../../../tags/token/" data-taxonomy-term="token"><span class="taxonomy-label">token</span><span class="taxonomy-count">5</span></a></li>
         
           <li><a class="taxonomy-term" href="../../../../../tags/truststore/" data-taxonomy-term="truststore"><span class="taxonomy-label">truststore</span><span class="taxonomy-count">1</span></a></li>
         
@@ -1438,7 +1441,7 @@ The browser is driven through a second, redundant OIDC flow stacked on the one t
 Stroom then:</p>
 <ul>
 <li>Accepts the proxy&rsquo;s injected credential, verified cryptographically on every request, as the user&rsquo;s identity.
-No Stroom session is created; the identity is re-derived from the headers each time, which is also how the proxy&rsquo;s own token refresh reaches Stroom.</li>
+The identity is never held in a Stroom session; it is re-derived from the headers on every request, which is also how the proxy&rsquo;s own token refresh reaches Stroom.</li>
 <li>Never starts an OIDC flow of its own, and disables its OIDC callback endpoint.</li>
 <li>Treats the injected credential as needing Cross-Site Request Forgery (CSRF) protection on browser requests, because the browser attaches the <em>proxy&rsquo;s</em> session cookie automatically, even to cross site requests.</li>
 <li>Can end the proxy&rsquo;s session on logout, not just its own.</li>
@@ -1454,6 +1457,61 @@ Direct machine access is unaffected: API keys and bearer tokens work as they alw
 </div>
 
 
+<h2 id="the-flow">The Flow</h2>
+<p>The proxy completes the whole Open ID Connect flow before Stroom sees anything, then injects a credential that Stroom verifies on each request.</p>
+
+
+
+
+
+
+
+  
+  
+  
+  
+  
+
+
+
+
+
+
+
+  
+
+
+
+<div class="card rounded shadow-stroom p-2 td-post-card mb-4 mt-4" style="width: fit-content;">
+
+  <a title="images/install-guide/open-id/edge-proxy-flow.puml.svg" href="../../../../../images/install-guide/open-id/edge-proxy-flow.puml.svg">
+    <figure style="margin-block-end: 0px" >
+      
+      <img class="card-img-top" src="../../../../../images/install-guide/open-id/edge-proxy-flow.puml.svg" style="max-width: fit-content" alt="images/install-guide/open-id/edge-proxy-flow.puml.svg">
+      
+
+      
+      <div class="card-body px-0 pt-2 pb-0">
+        <hr style="border-top: 1px solid #ddd; margin-top: 0px; margin-bottom:4px;">
+        <figcaption class="card-text" style="font-size: smaller; text-align: center;">Edge proxy authentication flow</figcaption>
+      </div>
+      
+    </figure>
+  </a>
+</div>
+
+<p>Two things in that sequence are easy to miss, and both matter:</p>
+<ul>
+<li>Stroom <strong>never authenticates from a session</strong>.
+The identity is derived from the injected header on every request, which is also how the proxy&rsquo;s own token refresh reaches Stroom.
+A Stroom session is still created, because parts of the application need one, and it appears in the sessions list with no user against it.
+Expiring it does not sign the user out, because the next request re-derives them from the header.
+Signing out is therefore a matter of ending the <em>proxy&rsquo;s</em> session, which is what <a href="#edgeauthenticationlogoutcookiestoexpire"><code>logout.cookiesToExpire</code></a> and <a href="#edgeauthenticationlogoutsignouturl"><code>logout.signOutUrl</code></a> are for.</li>
+<li>What the proxy injects is not necessarily the IDP&rsquo;s own token.
+An ALB signs the claims it fetched from the IDP&rsquo;s user info endpoint, while oauth2-proxy relays the IDP&rsquo;s token itself, and the claims available differ accordingly.
+See <a href="#what-depends-on-the-idp">What Depends on the IDP</a>.</li>
+</ul>
+<p>Compare this with the <a href="../../../../../docs/install-guide/setup/open-id/external-idp/#the-flow">External IDP</a> flow, where Stroom performs every step the proxy performs above.</p>
 <h2 id="stroom-configuration">Stroom Configuration</h2>
 <pre><code class="language-yaml">  security:
     authentication:
@@ -1712,7 +1770,7 @@ The worked examples spell out the differences.</p>
 	
 	
 	<div class="text-muted mt-5 pt-3 border-top">
-  Last modified September 22, 2026: <a href="https://github.com/gchq/stroom-docs/commit/8ba264a35317e2c8802b61096ad799f8bd77f49f">Merge pull request #142 from gchq/edge-proxy (8ba264a)</a>
+  Last modified September 23, 2026: <a href="https://github.com/gchq/stroom-docs/commit/860d6f4250dca92a9fc2a0c691d714a907a884a2">#140 Add auth flow sequence diagrams (860d6f4)</a>
 </div>
 
 </div>

@@ -151,7 +151,7 @@
     aria-label="Search this site…"
     autocomplete="off"
     
-    data-offline-search-index-json-src="../../../../../../offline-search-index.1d874cd3547bf9910d6bc3b0e5f2405f.json"
+    data-offline-search-index-json-src="../../../../../../offline-search-index.c45b168ca93ec3903a0832b256fbfc1b.json"
     data-offline-search-base-href="../../../../../../"
     data-offline-search-max-results="50"
   >
@@ -265,7 +265,7 @@ The browser is driven through a second, redundant OIDC flow stacked on the one t
 Stroom then:</p>
 <ul>
 <li>Accepts the proxy&rsquo;s injected credential, verified cryptographically on every request, as the user&rsquo;s identity.
-No Stroom session is created; the identity is re-derived from the headers each time, which is also how the proxy&rsquo;s own token refresh reaches Stroom.</li>
+The identity is never held in a Stroom session; it is re-derived from the headers on every request, which is also how the proxy&rsquo;s own token refresh reaches Stroom.</li>
 <li>Never starts an OIDC flow of its own, and disables its OIDC callback endpoint.</li>
 <li>Treats the injected credential as needing Cross-Site Request Forgery (CSRF) protection on browser requests, because the browser attaches the <em>proxy&rsquo;s</em> session cookie automatically, even to cross site requests.</li>
 <li>Can end the proxy&rsquo;s session on logout, not just its own.</li>
@@ -281,6 +281,61 @@ Direct machine access is unaffected: API keys and bearer tokens work as they alw
 </div>
 
 
+<h2 id="the-flow">The Flow</h2>
+<p>The proxy completes the whole Open ID Connect flow before Stroom sees anything, then injects a credential that Stroom verifies on each request.</p>
+
+
+
+
+
+
+
+  
+  
+  
+  
+  
+
+
+
+
+
+
+
+  
+
+
+
+<div class="card rounded shadow-stroom p-2 td-post-card mb-4 mt-4" style="width: fit-content;">
+
+  <a title="images/install-guide/open-id/edge-proxy-flow.puml.svg" href="../../../../../../images/install-guide/open-id/edge-proxy-flow.puml.svg">
+    <figure style="margin-block-end: 0px" >
+      
+      <img class="card-img-top" src="../../../../../../images/install-guide/open-id/edge-proxy-flow.puml.svg" style="max-width: fit-content" alt="images/install-guide/open-id/edge-proxy-flow.puml.svg">
+      
+
+      
+      <div class="card-body px-0 pt-2 pb-0">
+        <hr style="border-top: 1px solid #ddd; margin-top: 0px; margin-bottom:4px;">
+        <figcaption class="card-text" style="font-size: smaller; text-align: center;">Edge proxy authentication flow</figcaption>
+      </div>
+      
+    </figure>
+  </a>
+</div>
+
+<p>Two things in that sequence are easy to miss, and both matter:</p>
+<ul>
+<li>Stroom <strong>never authenticates from a session</strong>.
+The identity is derived from the injected header on every request, which is also how the proxy&rsquo;s own token refresh reaches Stroom.
+A Stroom session is still created, because parts of the application need one, and it appears in the sessions list with no user against it.
+Expiring it does not sign the user out, because the next request re-derives them from the header.
+Signing out is therefore a matter of ending the <em>proxy&rsquo;s</em> session, which is what <a href="#edgeauthenticationlogoutcookiestoexpire"><code>logout.cookiesToExpire</code></a> and <a href="#edgeauthenticationlogoutsignouturl"><code>logout.signOutUrl</code></a> are for.</li>
+<li>What the proxy injects is not necessarily the IDP&rsquo;s own token.
+An ALB signs the claims it fetched from the IDP&rsquo;s user info endpoint, while oauth2-proxy relays the IDP&rsquo;s token itself, and the claims available differ accordingly.
+See <a href="#what-depends-on-the-idp">What Depends on the IDP</a>.</li>
+</ul>
+<p>Compare this with the <a href="../../../../../../docs/install-guide/setup/open-id/external-idp/#the-flow">External IDP</a> flow, where Stroom performs every step the proxy performs above.</p>
 <h2 id="stroom-configuration">Stroom Configuration</h2>
 <pre><code class="language-yaml">  security:
     authentication:

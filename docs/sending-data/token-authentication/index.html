@@ -44,14 +44,14 @@
 " />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="/docs/sending-data/token-authentication/" /><meta property="article:section" content="docs" />
-<meta property="article:published_time" content="2022-12-30T00:00:00+00:00" />
-<meta property="article:modified_time" content="2026-09-22T14:31:56+01:00" /><meta property="og:site_name" content="Stroom" />
+<meta property="article:published_time" content="2026-09-23T00:00:00+00:00" />
+<meta property="article:modified_time" content="2026-09-23T12:22:07+01:00" /><meta property="og:site_name" content="Stroom" />
 
 <meta itemprop="name" content="Token Authentication">
 <meta itemprop="description" content="How to send data using token based authentication.
-"><meta itemprop="datePublished" content="2022-12-30T00:00:00+00:00" />
-<meta itemprop="dateModified" content="2026-09-22T14:31:56+01:00" />
-<meta itemprop="wordCount" content="111">
+"><meta itemprop="datePublished" content="2026-09-23T00:00:00+00:00" />
+<meta itemprop="dateModified" content="2026-09-23T12:22:07+01:00" />
+<meta itemprop="wordCount" content="274">
 <meta itemprop="keywords" content="authentication,token," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Token Authentication"/>
 <meta name="twitter:description" content="How to send data using token based authentication.
@@ -155,7 +155,7 @@
     aria-label="Search this site…"
     autocomplete="off"
     
-    data-offline-search-index-json-src="../../../offline-search-index.1d874cd3547bf9910d6bc3b0e5f2405f.json"
+    data-offline-search-index-json-src="../../../offline-search-index.c45b168ca93ec3903a0832b256fbfc1b.json"
     data-offline-search-base-href="../../../"
     data-offline-search-max-results="50"
   >
@@ -180,7 +180,7 @@
     aria-label="Search this site…"
     autocomplete="off"
     
-    data-offline-search-index-json-src="../../../offline-search-index.1d874cd3547bf9910d6bc3b0e5f2405f.json"
+    data-offline-search-index-json-src="../../../offline-search-index.c45b168ca93ec3903a0832b256fbfc1b.json"
     data-offline-search-base-href="../../../"
     data-offline-search-max-results="50"
   >
@@ -801,6 +801,8 @@
   <a href="../../../docs/sending-data/payloads/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-docssending-datapayloads"><span class="">Payload Formats</span></a>
 </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-docssending-datassl-li">
   <a href="../../../docs/sending-data/ssl/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-docssending-datassl"><span class="">SSL Configuration</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-docssending-dataapi-key-authentication-li">
+  <a href="../../../docs/sending-data/api-key-authentication/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-docssending-dataapi-key-authentication"><span class="">API Key Authentication</span></a>
 </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section with-child" id="m-docssending-dataexample-clients-li">
   <a href="../../../docs/sending-data/example-clients/" class="align-left pl-0 td-sidebar-link td-sidebar-link__section" id="m-docssending-dataexample-clients"><span class="">Example Clients</span></a>
   <ul class="ul-3 foldable">
@@ -1137,7 +1139,14 @@
 
 </div>
 
-            
+            <div class="td-toc">
+        <nav id="TableOfContents">
+  <ul>
+    <li><a href="#the-flow">The Flow</a></li>
+  </ul>
+</nav>
+      </div>
+    
             
 
 	
@@ -1169,7 +1178,7 @@
         
           <li><a class="taxonomy-term" href="../../../tags/api/" data-taxonomy-term="api"><span class="taxonomy-label">api</span><span class="taxonomy-count">9</span></a></li>
         
-          <li><a class="taxonomy-term" href="../../../tags/authentication/" data-taxonomy-term="authentication"><span class="taxonomy-label">authentication</span><span class="taxonomy-count">19</span></a></li>
+          <li><a class="taxonomy-term" href="../../../tags/authentication/" data-taxonomy-term="authentication"><span class="taxonomy-label">authentication</span><span class="taxonomy-count">20</span></a></li>
         
           <li><a class="taxonomy-term" href="../../../tags/authorisation/" data-taxonomy-term="authorisation"><span class="taxonomy-label">authorisation</span><span class="taxonomy-count">3</span></a></li>
         
@@ -1295,7 +1304,7 @@
         
           <li><a class="taxonomy-term" href="../../../tags/todo/" data-taxonomy-term="todo"><span class="taxonomy-label">TODO</span><span class="taxonomy-count">14</span></a></li>
         
-          <li><a class="taxonomy-term" href="../../../tags/token/" data-taxonomy-term="token"><span class="taxonomy-label">token</span><span class="taxonomy-count">4</span></a></li>
+          <li><a class="taxonomy-term" href="../../../tags/token/" data-taxonomy-term="token"><span class="taxonomy-label">token</span><span class="taxonomy-count">5</span></a></li>
         
           <li><a class="taxonomy-term" href="../../../tags/truststore/" data-taxonomy-term="truststore"><span class="taxonomy-label">truststore</span><span class="taxonomy-count">1</span></a></li>
         
@@ -1367,7 +1376,7 @@
 
 		
 	</header>    
-	<p>As an alternative to using SSL certificates for authentication when sending data to the <code>/datafeed</code> endpoint, you can use a <span class="glossary-link">
+	<p>As an alternative to using SSL certificates or an <a href="../../../docs/sending-data/api-key-authentication/">API Key</a> for authentication when sending data to the <code>/datafeed</code> endpoint, you can use a <span class="glossary-link">
     <a href="../../../docs/glossary/t/glossary-token">
       <span>JSON Web Token</span>
       <i class="glossary-link-icon fas fa-book fa-sm text-primary"></i>
@@ -1378,11 +1387,72 @@ Using a token for authentication requires that Stroom or Stroom-Proxy have been 
 <p>To attach a token to the request you just need to set the <a href="../../../docs/sending-data/header-arguments/">HTTP header</a> <code>Authorization</code> with a value of the form</p>
 <pre><code class="language-text">Bearer YOUR_TOKEN_GOES_HERE
 </code></pre>
+<h2 id="the-flow">The Flow</h2>
+<p>The sending system obtains a token from the <span class="glossary-link">
+    <a href="../../../docs/glossary/i/glossary-idp">
+      <span>Identity Provider (IDP)</span>
+      <i class="glossary-link-icon fas fa-book fa-sm text-primary"></i>
+    </a><span class="glossary-tooltip">
+      <span class="glossary-tooltip-title">Identity Provider (IDP)</span>
+      <span class="glossary-tooltip-summary">An <strong>Id</strong>entity <strong>P</strong>rovider is a system or service that can authenticate a user and assert their identity. <em>Identity providers</em> can support single sign on (SSO), which allows the user to sign in once to the <em>Identity Provider</em> so they are then authenticated to all systems using that IDP.</span><span class="glossary-tooltip-truncated">Click to see more details...</span></span></span> for its own identity, then presents it with each request.
+Stroom or Stroom-Proxy verifies that token against the IDP&rsquo;s published signing keys, exactly as it would verify any other bearer token.</p>
+
+
+
+
+
+
+
+  
+  
+  
+  
+  
+
+
+
+
+
+
+
+  
+
+
+
+<div class="card rounded shadow-stroom p-2 td-post-card mb-4 mt-4" style="width: fit-content;">
+
+  <a title="images/sending-data/token-authentication.puml.svg" href="../../../images/sending-data/token-authentication.puml.svg">
+    <figure style="margin-block-end: 0px" >
+      
+      <img class="card-img-top" src="../../../images/sending-data/token-authentication.puml.svg" style="max-width: fit-content" alt="images/sending-data/token-authentication.puml.svg">
+      
+
+      
+      <div class="card-body px-0 pt-2 pb-0">
+        <hr style="border-top: 1px solid #ddd; margin-top: 0px; margin-bottom:4px;">
+        <figcaption class="card-text" style="font-size: smaller; text-align: center;">Obtaining a token and sending data with it</figcaption>
+      </div>
+      
+    </figure>
+  </a>
+</div>
+
+<p>Tokens are short lived, typically around an hour, so a sender must obtain a fresh one when the old one expires rather than caching one indefinitely.</p>
+
+<div class="alert alert-primary" role="alert">
+<h4 class="alert-heading">See Also</h4>
+<div class="alert-content">
+  
+  <p>See <a href="../../../docs/install-guide/setup/open-id/tokens-for-api/">Tokens for API Use</a> for creating the client credentials a sender uses, and <a href="../../../docs/install-guide/setup/open-id/external-idp/azure-ad/#obtaining-a-token-to-send-data">Microsoft Entra ID</a> for a worked example with one provider.</p>
+
+</div>
+</div>
+
 
 	
 	
 	<div class="text-muted mt-5 pt-3 border-top">
-  Last modified September 22, 2026: <a href="https://github.com/gchq/stroom-docs/commit/8ba264a35317e2c8802b61096ad799f8bd77f49f">Merge pull request #142 from gchq/edge-proxy (8ba264a)</a>
+  Last modified September 23, 2026: <a href="https://github.com/gchq/stroom-docs/commit/860d6f4250dca92a9fc2a0c691d714a907a884a2">#140 Add auth flow sequence diagrams (860d6f4)</a>
 </div>
 
 </div>

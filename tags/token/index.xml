@@ -4,7 +4,7 @@
     <link>/tags/token/</link>
     <description>Recent content in token on Stroom</description>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Wed, 29 Jul 2026 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Wed, 23 Sep 2026 00:00:00 +0000</lastBuildDate>
     
 	  <atom:link href="/tags/token/index.xml" rel="self" type="application/rss+xml" />
     
@@ -613,15 +613,114 @@ The process of including the token in a HTTP request is described in &lt;a href=
     </item>
     
     <item>
+      <title>Docs: API Key Authentication</title>
+      <link>/docs/sending-data/api-key-authentication/</link>
+      <pubDate>Wed, 23 Sep 2026 00:00:00 +0000</pubDate>
+      
+      <guid>/docs/sending-data/api-key-authentication/</guid>
+      <description>
+        
+        
+        &lt;p&gt;As an alternative to a &lt;a href=&#34;../../docs/sending-data/ssl/&#34;&gt;certificate&lt;/a&gt; or an &lt;span class=&#34;glossary-link&#34;&gt;
+    &lt;a href=&#34;../../docs/glossary/i/glossary-idp&#34;&gt;
+      &lt;span&gt;Identity Provider (IDP)&lt;/span&gt;
+      &lt;i class=&#34;glossary-link-icon fas fa-book fa-sm text-primary&#34;&gt;&lt;/i&gt;
+    &lt;/a&gt;&lt;span class=&#34;glossary-tooltip&#34;&gt;
+      &lt;span class=&#34;glossary-tooltip-title&#34;&gt;Identity Provider (IDP)&lt;/span&gt;
+      &lt;span class=&#34;glossary-tooltip-summary&#34;&gt;An &lt;strong&gt;Id&lt;/strong&gt;entity &lt;strong&gt;P&lt;/strong&gt;rovider is a system or service that can authenticate a user and assert their identity. &lt;em&gt;Identity providers&lt;/em&gt; can support single sign on (SSO), which allows the user to sign in once to the &lt;em&gt;Identity Provider&lt;/em&gt; so they are then authenticated to all systems using that IDP.&lt;/span&gt;&lt;span class=&#34;glossary-tooltip-truncated&#34;&gt;Click to see more details...&lt;/span&gt;&lt;/span&gt;&lt;/span&gt; &lt;a href=&#34;../../docs/sending-data/token-authentication/&#34;&gt;token&lt;/a&gt;, data can be sent to the &lt;code&gt;/datafeed&lt;/code&gt; endpoint using an &lt;span class=&#34;glossary-link&#34;&gt;
+    &lt;a href=&#34;../../docs/glossary/a/glossary-api-key&#34;&gt;
+      &lt;span&gt;API Key&lt;/span&gt;
+      &lt;i class=&#34;glossary-link-icon fas fa-book fa-sm text-primary&#34;&gt;&lt;/i&gt;
+    &lt;/a&gt;&lt;span class=&#34;glossary-tooltip&#34;&gt;
+      &lt;span class=&#34;glossary-tooltip-title&#34;&gt;API Key&lt;/span&gt;
+      &lt;span class=&#34;glossary-tooltip-summary&#34;&gt;&lt;em&gt;API Keys&lt;/em&gt; are a form of authentication token that are created within Stroom for use by Stroom-Proxy instances or other clients that want to use Stroom&amp;rsquo;s &lt;em&gt;API&lt;/em&gt;. It is an encrypted string that contains details of the user and the expiration date of the token. Possession of a valid API Key for a user account means that you can do anything that the user can do in the user interface via the API.&lt;/span&gt;&lt;span class=&#34;glossary-tooltip-truncated&#34;&gt;Click to see more details...&lt;/span&gt;&lt;/span&gt;&lt;/span&gt; created within Stroom.&lt;/p&gt;
+&lt;p&gt;An API Key belongs to a Stroom user, and carries that user&amp;rsquo;s permissions, so it should be protected as carefully as a password.
+Create one as described in &lt;a href=&#34;../../docs/user-guide/api/calling-api/#authentication&#34;&gt;Calling the API&lt;/a&gt;, then attach it to the request with the &lt;a href=&#34;../../docs/sending-data/header-arguments/&#34;&gt;HTTP header&lt;/a&gt; &lt;code&gt;Authorization&lt;/code&gt;, exactly as a token would be:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-text&#34;&gt;Bearer YOUR_API_KEY_GOES_HERE
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;API Keys have the form &lt;code&gt;sak_&amp;lt;hash&amp;gt;_&amp;lt;random&amp;gt;&lt;/code&gt;, and it is that &lt;code&gt;sak_&lt;/code&gt; prefix that lets Stroom-Proxy tell them apart from &lt;span class=&#34;glossary-link&#34;&gt;
+    &lt;a href=&#34;../../docs/glossary/i/glossary-idp&#34;&gt;
+      &lt;span&gt;Identity Provider (IDP)&lt;/span&gt;
+      &lt;i class=&#34;glossary-link-icon fas fa-book fa-sm text-primary&#34;&gt;&lt;/i&gt;
+    &lt;/a&gt;&lt;span class=&#34;glossary-tooltip&#34;&gt;
+      &lt;span class=&#34;glossary-tooltip-title&#34;&gt;Identity Provider (IDP)&lt;/span&gt;
+      &lt;span class=&#34;glossary-tooltip-summary&#34;&gt;An &lt;strong&gt;Id&lt;/strong&gt;entity &lt;strong&gt;P&lt;/strong&gt;rovider is a system or service that can authenticate a user and assert their identity. &lt;em&gt;Identity providers&lt;/em&gt; can support single sign on (SSO), which allows the user to sign in once to the &lt;em&gt;Identity Provider&lt;/em&gt; so they are then authenticated to all systems using that IDP.&lt;/span&gt;&lt;span class=&#34;glossary-tooltip-truncated&#34;&gt;Click to see more details...&lt;/span&gt;&lt;/span&gt;&lt;/span&gt; tokens arriving in the same header.&lt;/p&gt;
+&lt;h2 id=&#34;the-flow&#34;&gt;The Flow&lt;/h2&gt;
+&lt;p&gt;Stroom can check an API Key against its own records.
+Stroom-Proxy holds no user accounts, so it asks its downstream Stroom, or the next Stroom-Proxy in the chain, and caches the answer.&lt;/p&gt;
+
+
+
+
+
+
+
+  
+  
+  
+  
+  
+
+
+
+
+
+
+
+  
+
+
+
+&lt;div class=&#34;card rounded shadow-stroom p-2 td-post-card mb-4 mt-4&#34; style=&#34;width: fit-content;&#34;&gt;
+
+  &lt;a title=&#34;images/sending-data/api-key-authentication.puml.svg&#34; href=&#34;../../images/sending-data/api-key-authentication.puml.svg&#34;&gt;
+    &lt;figure style=&#34;margin-block-end: 0px&#34; &gt;
+      
+      &lt;img class=&#34;card-img-top&#34; src=&#34;../../images/sending-data/api-key-authentication.puml.svg&#34; style=&#34;max-width: fit-content&#34; alt=&#34;images/sending-data/api-key-authentication.puml.svg&#34;&gt;
+      
+
+      
+      &lt;div class=&#34;card-body px-0 pt-2 pb-0&#34;&gt;
+        &lt;hr style=&#34;border-top: 1px solid #ddd; margin-top: 0px; margin-bottom:4px;&#34;&gt;
+        &lt;figcaption class=&#34;card-text&#34; style=&#34;font-size: smaller; text-align: center;&#34;&gt;Sending data with an API Key&lt;/figcaption&gt;
+      &lt;/div&gt;
+      
+    &lt;/figure&gt;
+  &lt;/a&gt;
+&lt;/div&gt;
+
+&lt;p&gt;Two consequences worth knowing when sending to a Stroom-Proxy:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;The &lt;strong&gt;first&lt;/strong&gt; request with a given key is slower than the rest, because it waits on the downstream call.
+Afterwards the key is served from memory for &lt;code&gt;downstreamHost.maxCachedKeyAge&lt;/code&gt;.&lt;/li&gt;
+&lt;li&gt;A key that has been verified before goes on working through a downstream outage, because Stroom-Proxy falls back to its local file of verified keys, for as long as the entry there is younger than &lt;code&gt;downstreamHost.maxPersistedKeyAge&lt;/code&gt;.
+That file survives a restart of the proxy.
+A key used for the &lt;strong&gt;first&lt;/strong&gt; time during an outage cannot be verified and is refused, though it is not remembered as invalid and will be verified once the downstream returns.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;div class=&#34;alert alert-primary&#34; role=&#34;alert&#34;&gt;
+&lt;h4 class=&#34;alert-heading&#34;&gt;See Also&lt;/h4&gt;
+&lt;div class=&#34;alert-content&#34;&gt;
+  
+  &lt;p&gt;See &lt;a href=&#34;../../docs/user-guide/data-receipt/data-feed-identities/&#34;&gt;Data Feed Identities&lt;/a&gt; for &lt;em&gt;Data Feed Keys&lt;/em&gt;, a similar credential that Stroom-Proxy can check locally with no downstream call, and which also sets meta data on the received data.&lt;/p&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+
+
+      </description>
+    </item>
+    
+    <item>
       <title>Docs: Token Authentication</title>
       <link>/docs/sending-data/token-authentication/</link>
-      <pubDate>Fri, 30 Dec 2022 00:00:00 +0000</pubDate>
+      <pubDate>Wed, 23 Sep 2026 00:00:00 +0000</pubDate>
       
       <guid>/docs/sending-data/token-authentication/</guid>
       <description>
         
         
-        &lt;p&gt;As an alternative to using SSL certificates for authentication when sending data to the &lt;code&gt;/datafeed&lt;/code&gt; endpoint, you can use a &lt;span class=&#34;glossary-link&#34;&gt;
+        &lt;p&gt;As an alternative to using SSL certificates or an &lt;a href=&#34;../../docs/sending-data/api-key-authentication/&#34;&gt;API Key&lt;/a&gt; for authentication when sending data to the &lt;code&gt;/datafeed&lt;/code&gt; endpoint, you can use a &lt;span class=&#34;glossary-link&#34;&gt;
     &lt;a href=&#34;../../docs/glossary/t/glossary-token&#34;&gt;
       &lt;span&gt;JSON Web Token&lt;/span&gt;
       &lt;i class=&#34;glossary-link-icon fas fa-book fa-sm text-primary&#34;&gt;&lt;/i&gt;
@@ -632,6 +731,67 @@ Using a token for authentication requires that Stroom or Stroom-Proxy have been 
 &lt;p&gt;To attach a token to the request you just need to set the &lt;a href=&#34;../../docs/sending-data/header-arguments/&#34;&gt;HTTP header&lt;/a&gt; &lt;code&gt;Authorization&lt;/code&gt; with a value of the form&lt;/p&gt;
 &lt;pre&gt;&lt;code class=&#34;language-text&#34;&gt;Bearer YOUR_TOKEN_GOES_HERE
 &lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;the-flow&#34;&gt;The Flow&lt;/h2&gt;
+&lt;p&gt;The sending system obtains a token from the &lt;span class=&#34;glossary-link&#34;&gt;
+    &lt;a href=&#34;../../docs/glossary/i/glossary-idp&#34;&gt;
+      &lt;span&gt;Identity Provider (IDP)&lt;/span&gt;
+      &lt;i class=&#34;glossary-link-icon fas fa-book fa-sm text-primary&#34;&gt;&lt;/i&gt;
+    &lt;/a&gt;&lt;span class=&#34;glossary-tooltip&#34;&gt;
+      &lt;span class=&#34;glossary-tooltip-title&#34;&gt;Identity Provider (IDP)&lt;/span&gt;
+      &lt;span class=&#34;glossary-tooltip-summary&#34;&gt;An &lt;strong&gt;Id&lt;/strong&gt;entity &lt;strong&gt;P&lt;/strong&gt;rovider is a system or service that can authenticate a user and assert their identity. &lt;em&gt;Identity providers&lt;/em&gt; can support single sign on (SSO), which allows the user to sign in once to the &lt;em&gt;Identity Provider&lt;/em&gt; so they are then authenticated to all systems using that IDP.&lt;/span&gt;&lt;span class=&#34;glossary-tooltip-truncated&#34;&gt;Click to see more details...&lt;/span&gt;&lt;/span&gt;&lt;/span&gt; for its own identity, then presents it with each request.
+Stroom or Stroom-Proxy verifies that token against the IDP&amp;rsquo;s published signing keys, exactly as it would verify any other bearer token.&lt;/p&gt;
+
+
+
+
+
+
+
+  
+  
+  
+  
+  
+
+
+
+
+
+
+
+  
+
+
+
+&lt;div class=&#34;card rounded shadow-stroom p-2 td-post-card mb-4 mt-4&#34; style=&#34;width: fit-content;&#34;&gt;
+
+  &lt;a title=&#34;images/sending-data/token-authentication.puml.svg&#34; href=&#34;../../images/sending-data/token-authentication.puml.svg&#34;&gt;
+    &lt;figure style=&#34;margin-block-end: 0px&#34; &gt;
+      
+      &lt;img class=&#34;card-img-top&#34; src=&#34;../../images/sending-data/token-authentication.puml.svg&#34; style=&#34;max-width: fit-content&#34; alt=&#34;images/sending-data/token-authentication.puml.svg&#34;&gt;
+      
+
+      
+      &lt;div class=&#34;card-body px-0 pt-2 pb-0&#34;&gt;
+        &lt;hr style=&#34;border-top: 1px solid #ddd; margin-top: 0px; margin-bottom:4px;&#34;&gt;
+        &lt;figcaption class=&#34;card-text&#34; style=&#34;font-size: smaller; text-align: center;&#34;&gt;Obtaining a token and sending data with it&lt;/figcaption&gt;
+      &lt;/div&gt;
+      
+    &lt;/figure&gt;
+  &lt;/a&gt;
+&lt;/div&gt;
+
+&lt;p&gt;Tokens are short lived, typically around an hour, so a sender must obtain a fresh one when the old one expires rather than caching one indefinitely.&lt;/p&gt;
+
+&lt;div class=&#34;alert alert-primary&#34; role=&#34;alert&#34;&gt;
+&lt;h4 class=&#34;alert-heading&#34;&gt;See Also&lt;/h4&gt;
+&lt;div class=&#34;alert-content&#34;&gt;
+  
+  &lt;p&gt;See &lt;a href=&#34;../../docs/install-guide/setup/open-id/tokens-for-api/&#34;&gt;Tokens for API Use&lt;/a&gt; for creating the client credentials a sender uses, and &lt;a href=&#34;../../docs/install-guide/setup/open-id/external-idp/azure-ad/#obtaining-a-token-to-send-data&#34;&gt;Microsoft Entra ID&lt;/a&gt; for a worked example with one provider.&lt;/p&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+
 
       </description>
     </item>

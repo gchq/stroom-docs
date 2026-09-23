@@ -151,7 +151,7 @@
     aria-label="Search this site…"
     autocomplete="off"
     
-    data-offline-search-index-json-src="../../../../../offline-search-index.1d874cd3547bf9910d6bc3b0e5f2405f.json"
+    data-offline-search-index-json-src="../../../../../offline-search-index.c45b168ca93ec3903a0832b256fbfc1b.json"
     data-offline-search-base-href="../../../../../"
     data-offline-search-max-results="50"
   >
@@ -176,7 +176,7 @@
     aria-label="Search this site…"
     autocomplete="off"
     
-    data-offline-search-index-json-src="../../../../../offline-search-index.1d874cd3547bf9910d6bc3b0e5f2405f.json"
+    data-offline-search-index-json-src="../../../../../offline-search-index.c45b168ca93ec3903a0832b256fbfc1b.json"
     data-offline-search-base-href="../../../../../"
     data-offline-search-max-results="50"
   >
@@ -797,6 +797,8 @@
   <a href="../../../../../docs/sending-data/payloads/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-docssending-datapayloads"><span class="">Payload Formats</span></a>
 </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-docssending-datassl-li">
   <a href="../../../../../docs/sending-data/ssl/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-docssending-datassl"><span class="">SSL Configuration</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-docssending-dataapi-key-authentication-li">
+  <a href="../../../../../docs/sending-data/api-key-authentication/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-docssending-dataapi-key-authentication"><span class="">API Key Authentication</span></a>
 </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section with-child collapse" id="m-docssending-dataexample-clients-li">
   <a href="../../../../../docs/sending-data/example-clients/" class="align-left pl-0 td-sidebar-link td-sidebar-link__section" id="m-docssending-dataexample-clients"><span class="">Example Clients</span></a>
   <ul class="ul-3 foldable">
@@ -1136,6 +1138,7 @@
             <div class="td-toc">
         <nav id="TableOfContents">
   <ul>
+    <li><a href="#the-flow">The Flow</a></li>
     <li><a href="#what-stroom-needs-from-the-provider">What Stroom Needs from the Provider</a>
       <ul>
         <li><a href="#the-redirect-uri">The Redirect URI</a></li>
@@ -1181,7 +1184,7 @@
         
           <li><a class="taxonomy-term" href="../../../../../tags/api/" data-taxonomy-term="api"><span class="taxonomy-label">api</span><span class="taxonomy-count">9</span></a></li>
         
-          <li><a class="taxonomy-term" href="../../../../../tags/authentication/" data-taxonomy-term="authentication"><span class="taxonomy-label">authentication</span><span class="taxonomy-count">19</span></a></li>
+          <li><a class="taxonomy-term" href="../../../../../tags/authentication/" data-taxonomy-term="authentication"><span class="taxonomy-label">authentication</span><span class="taxonomy-count">20</span></a></li>
         
           <li><a class="taxonomy-term" href="../../../../../tags/authorisation/" data-taxonomy-term="authorisation"><span class="taxonomy-label">authorisation</span><span class="taxonomy-count">3</span></a></li>
         
@@ -1307,7 +1310,7 @@
         
           <li><a class="taxonomy-term" href="../../../../../tags/todo/" data-taxonomy-term="todo"><span class="taxonomy-label">TODO</span><span class="taxonomy-count">14</span></a></li>
         
-          <li><a class="taxonomy-term" href="../../../../../tags/token/" data-taxonomy-term="token"><span class="taxonomy-label">token</span><span class="taxonomy-count">4</span></a></li>
+          <li><a class="taxonomy-term" href="../../../../../tags/token/" data-taxonomy-term="token"><span class="taxonomy-label">token</span><span class="taxonomy-count">5</span></a></li>
         
           <li><a class="taxonomy-term" href="../../../../../tags/truststore/" data-taxonomy-term="truststore"><span class="taxonomy-label">truststore</span><span class="taxonomy-count">1</span></a></li>
         
@@ -1419,6 +1422,60 @@ It applies whichever provider you use, so read it before following one of the pr
 <li><a href="../../../../../docs/install-guide/setup/open-id/external-idp/google/">Google</a></li>
 <li><a href="../../../../../docs/install-guide/setup/open-id/external-idp/azure-ad/">Microsoft Entra ID (Azure AD)</a></li>
 </ul>
+<h2 id="the-flow">The Flow</h2>
+<p>Stroom is the Open ID Connect client, or Relying Party, and runs the authorization code flow itself.</p>
+
+
+
+
+
+
+
+  
+  
+  
+  
+  
+
+
+
+
+
+
+
+  
+
+
+
+<div class="card rounded shadow-stroom p-2 td-post-card mb-4 mt-4" style="width: fit-content;">
+
+  <a title="images/install-guide/open-id/external-idp-flow.puml.svg" href="../../../../../images/install-guide/open-id/external-idp-flow.puml.svg">
+    <figure style="margin-block-end: 0px" >
+      
+      <img class="card-img-top" src="../../../../../images/install-guide/open-id/external-idp-flow.puml.svg" style="max-width: fit-content" alt="images/install-guide/open-id/external-idp-flow.puml.svg">
+      
+
+      
+      <div class="card-body px-0 pt-2 pb-0">
+        <hr style="border-top: 1px solid #ddd; margin-top: 0px; margin-bottom:4px;">
+        <figcaption class="card-text" style="font-size: smaller; text-align: center;">External IDP sign in flow</figcaption>
+      </div>
+      
+    </figure>
+  </a>
+</div>
+
+<p>The requirements in the rest of this page are all steps in that sequence: the <a href="#the-redirect-uri">redirect URI</a> the IDP sends the code to, the <a href="#pkce">PKCE</a> challenge and verifier, the <a href="#claims">claims</a> Stroom reads from the ID token, and the <a href="#token-validation">token validation</a> it performs before creating the session.</p>
+
+<div class="alert alert-primary" role="alert">
+<h4 class="alert-heading">See Also</h4>
+<div class="alert-content">
+  
+  <p>If a proxy in front of Stroom performs this flow instead, see <a href="../../../../../docs/install-guide/setup/open-id/edge-proxy/#the-flow">Edge Proxy RP</a>.</p>
+
+</div>
+</div>
+
 <h2 id="what-stroom-needs-from-the-provider">What Stroom Needs from the Provider</h2>
 <p>Stroom is a confidential OAuth 2.0 client using the authorization code flow.
 To register it with a provider you need the following.</p>
@@ -1629,7 +1686,7 @@ That is solved with the <code>manage_users</code> command, described on each pro
 	
 	
 	<div class="text-muted mt-5 pt-3 border-top">
-  Last modified September 22, 2026: <a href="https://github.com/gchq/stroom-docs/commit/8ba264a35317e2c8802b61096ad799f8bd77f49f">Merge pull request #142 from gchq/edge-proxy (8ba264a)</a>
+  Last modified September 23, 2026: <a href="https://github.com/gchq/stroom-docs/commit/860d6f4250dca92a9fc2a0c691d714a907a884a2">#140 Add auth flow sequence diagrams (860d6f4)</a>
 </div>
 
 </div>

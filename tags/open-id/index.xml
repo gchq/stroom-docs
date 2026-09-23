@@ -4,7 +4,7 @@
     <link>/tags/open-id/</link>
     <description>Recent content in open-id on Stroom</description>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Tue, 22 Sep 2026 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Wed, 23 Sep 2026 00:00:00 +0000</lastBuildDate>
     
 	  <atom:link href="/tags/open-id/index.xml" rel="self" type="application/rss+xml" />
     
@@ -1426,6 +1426,261 @@ This assumes the downstream Stroom or Stroom-Proxy is also configured to use the
     </item>
     
     <item>
+      <title>Docs: External IDP</title>
+      <link>/docs/install-guide/setup/open-id/external-idp/</link>
+      <pubDate>Wed, 23 Sep 2026 00:00:00 +0000</pubDate>
+      
+      <guid>/docs/install-guide/setup/open-id/external-idp/</guid>
+      <description>
+        
+        
+        &lt;p&gt;You may be running Stroom in an environment with an existing &lt;span class=&#34;glossary-link&#34;&gt;
+    &lt;a href=&#34;../../docs/glossary/i/glossary-idp&#34;&gt;
+      &lt;span&gt;Identity Provider (IDP)&lt;/span&gt;
+      &lt;i class=&#34;glossary-link-icon fas fa-book fa-sm text-primary&#34;&gt;&lt;/i&gt;
+    &lt;/a&gt;&lt;span class=&#34;glossary-tooltip&#34;&gt;
+      &lt;span class=&#34;glossary-tooltip-title&#34;&gt;Identity Provider (IDP)&lt;/span&gt;
+      &lt;span class=&#34;glossary-tooltip-summary&#34;&gt;An &lt;strong&gt;Id&lt;/strong&gt;entity &lt;strong&gt;P&lt;/strong&gt;rovider is a system or service that can authenticate a user and assert their identity. &lt;em&gt;Identity providers&lt;/em&gt; can support single sign on (SSO), which allows the user to sign in once to the &lt;em&gt;Identity Provider&lt;/em&gt; so they are then authenticated to all systems using that IDP.&lt;/span&gt;&lt;span class=&#34;glossary-tooltip-truncated&#34;&gt;Click to see more details...&lt;/span&gt;&lt;/span&gt;&lt;/span&gt; (KeyCloak, Cognito, Google, Active Directory, etc.) and want to use that for authenticating users.
+Stroom supports 3rd party IDPs that conform to the &lt;span class=&#34;external-link&#34;&gt;
+  &lt;a href=&#34;https://openid.net/connect/&#34; target=&#34;_blank&#34; class=&#34;external-link&#34; title=&#34;Open ID Connect (external link to https://openid.net/connect/)&#34;&gt;
+    &lt;span&gt;Open ID Connect&lt;/span&gt;
+    &lt;i class=&#34;external-link-icon fas fa-external-link-alt fa-sm text-secondary&#34;&gt;&lt;/i&gt;
+  &lt;/a&gt;
+&lt;/span&gt;
+ specification.&lt;/p&gt;
+
+&lt;div class=&#34;alert alert-primary&#34; role=&#34;alert&#34;&gt;
+&lt;h4 class=&#34;alert-heading&#34;&gt;Note&lt;/h4&gt;
+
+
+
+    &lt;p&gt;On this page and its children, &lt;strong&gt;Stroom itself signs the user in&lt;/strong&gt; at the provider.
+If a load balancer or reverse proxy in front of Stroom performs the sign in instead - an AWS ALB with an &lt;code&gt;authenticate-cognito&lt;/code&gt; or &lt;code&gt;authenticate-oidc&lt;/code&gt; rule, NGINX with oauth2-proxy - you want &lt;a href=&#34;../../docs/install-guide/setup/open-id/edge-proxy/&#34;&gt;Edge Proxy RP&lt;/a&gt;, not this page.&lt;/p&gt;
+
+
+&lt;/div&gt;
+
+
+&lt;p&gt;This page describes what Stroom needs from any such provider.
+It applies whichever provider you use, so read it before following one of the provider specific pages.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;../../docs/install-guide/setup/open-id/external-idp/stroom-configuration/&#34;&gt;Stroom Configuration&lt;/a&gt; - every Stroom setting involved, and what it does.&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;../../docs/install-guide/setup/open-id/external-idp/keycloak/&#34;&gt;KeyCloak&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;../../docs/install-guide/setup/open-id/external-idp/cognito/&#34;&gt;Amazon Cognito&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;../../docs/install-guide/setup/open-id/external-idp/google/&#34;&gt;Google&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;../../docs/install-guide/setup/open-id/external-idp/azure-ad/&#34;&gt;Microsoft Entra ID (Azure AD)&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;the-flow&#34;&gt;The Flow&lt;/h2&gt;
+&lt;p&gt;Stroom is the Open ID Connect client, or Relying Party, and runs the authorization code flow itself.&lt;/p&gt;
+
+
+
+
+
+
+
+  
+  
+  
+  
+  
+
+
+
+
+
+
+
+  
+
+
+
+&lt;div class=&#34;card rounded shadow-stroom p-2 td-post-card mb-4 mt-4&#34; style=&#34;width: fit-content;&#34;&gt;
+
+  &lt;a title=&#34;images/install-guide/open-id/external-idp-flow.puml.svg&#34; href=&#34;../../images/install-guide/open-id/external-idp-flow.puml.svg&#34;&gt;
+    &lt;figure style=&#34;margin-block-end: 0px&#34; &gt;
+      
+      &lt;img class=&#34;card-img-top&#34; src=&#34;../../images/install-guide/open-id/external-idp-flow.puml.svg&#34; style=&#34;max-width: fit-content&#34; alt=&#34;images/install-guide/open-id/external-idp-flow.puml.svg&#34;&gt;
+      
+
+      
+      &lt;div class=&#34;card-body px-0 pt-2 pb-0&#34;&gt;
+        &lt;hr style=&#34;border-top: 1px solid #ddd; margin-top: 0px; margin-bottom:4px;&#34;&gt;
+        &lt;figcaption class=&#34;card-text&#34; style=&#34;font-size: smaller; text-align: center;&#34;&gt;External IDP sign in flow&lt;/figcaption&gt;
+      &lt;/div&gt;
+      
+    &lt;/figure&gt;
+  &lt;/a&gt;
+&lt;/div&gt;
+
+&lt;p&gt;The requirements in the rest of this page are all steps in that sequence: the &lt;a href=&#34;#the-redirect-uri&#34;&gt;redirect URI&lt;/a&gt; the IDP sends the code to, the &lt;a href=&#34;#pkce&#34;&gt;PKCE&lt;/a&gt; challenge and verifier, the &lt;a href=&#34;#claims&#34;&gt;claims&lt;/a&gt; Stroom reads from the ID token, and the &lt;a href=&#34;#token-validation&#34;&gt;token validation&lt;/a&gt; it performs before creating the session.&lt;/p&gt;
+
+&lt;div class=&#34;alert alert-primary&#34; role=&#34;alert&#34;&gt;
+&lt;h4 class=&#34;alert-heading&#34;&gt;See Also&lt;/h4&gt;
+&lt;div class=&#34;alert-content&#34;&gt;
+  
+  &lt;p&gt;If a proxy in front of Stroom performs this flow instead, see &lt;a href=&#34;../../docs/install-guide/setup/open-id/edge-proxy/#the-flow&#34;&gt;Edge Proxy RP&lt;/a&gt;.&lt;/p&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;h2 id=&#34;what-stroom-needs-from-the-provider&#34;&gt;What Stroom Needs from the Provider&lt;/h2&gt;
+&lt;p&gt;Stroom is a confidential OAuth 2.0 client using the authorization code flow.
+To register it with a provider you need the following.&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;What&lt;/th&gt;
+&lt;th&gt;Value&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;Client type&lt;/td&gt;
+&lt;td&gt;Confidential, i.e. one that is issued a client secret. Stroom is a server side application and keeps its secret on the server.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Grant type / flow&lt;/td&gt;
+&lt;td&gt;Authorization code. Stroom does not use the implicit or password flows.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Redirect URI&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;https://STROOM_FQDN/api/auth/flow/v1/signin-oidc&lt;/code&gt; (see below)&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Post logout redirect URI&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;https://STROOM_FQDN/&lt;/code&gt; (see below)&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;PKCE&lt;/td&gt;
+&lt;td&gt;Supported, and may be required (see below)&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Scopes&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;openid&lt;/code&gt; and &lt;code&gt;email&lt;/code&gt; by default&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;&lt;code&gt;STROOM_FQDN&lt;/code&gt; is the public facing address of Stroom, which is what you have configured as &lt;code&gt;appConfig.publicUri&lt;/code&gt; and is the address users type into their browser.
+If Stroom is behind a load balancer or Nginx, it is that address and not the address of an individual node.&lt;/p&gt;
+&lt;h3 id=&#34;the-redirect-uri&#34;&gt;The Redirect URI&lt;/h3&gt;
+&lt;p&gt;The redirect URI, sometimes called the callback or reply URL, is where the provider sends the user&amp;rsquo;s browser once they have authenticated.&lt;/p&gt;
+&lt;p&gt;Stroom uses a single fixed redirect URI:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;https://STROOM_FQDN/api/auth/flow/v1/signin-oidc
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Register that exact value.
+It does not vary with the page the user was trying to reach, so there is no need to register a wildcard, and you should not do so.
+The page the user came from is remembered separately by Stroom and does not travel through the provider.&lt;/p&gt;
+
+&lt;div class=&#34;alert alert-warning&#34; role=&#34;alert&#34;&gt;
+&lt;h4 class=&#34;alert-heading&#34;&gt;Warning&lt;/h4&gt;
+
+    Earlier versions of Stroom sent the user&amp;rsquo;s current page as the redirect URI, which meant registering a wildcard such as &lt;code&gt;https://STROOM_FQDN/*&lt;/code&gt; at the provider.
+That is no longer how it works.
+If you are upgrading, replace any such wildcard with the single exact URI above, otherwise sign in will be refused by the provider.
+
+&lt;/div&gt;
+
+
+&lt;p&gt;If Stroom is served under a path prefix, i.e. &lt;code&gt;appConfig.publicUri.pathPrefix&lt;/code&gt; is set, that prefix comes before &lt;code&gt;/api&lt;/code&gt;.&lt;/p&gt;
+&lt;h3 id=&#34;the-post-logout-redirect-uri&#34;&gt;The Post Logout Redirect URI&lt;/h3&gt;
+&lt;p&gt;When a user signs out, Stroom sends them to the provider&amp;rsquo;s logout endpoint and asks to be returned to Stroom&amp;rsquo;s public root:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;https://STROOM_FQDN/
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Stroom appends a &lt;code&gt;state&lt;/code&gt; query parameter to that URI.
+Providers that match post logout redirect URIs exactly may need to be told to permit it, so if sign out leaves the user on an error page at the provider, that is the usual cause.&lt;/p&gt;
+&lt;p&gt;The name of the parameter Stroom uses to pass this URI is controlled by &lt;code&gt;logoutRedirectParamName&lt;/code&gt;, which may be &lt;code&gt;post_logout_redirect_uri&lt;/code&gt;, the default and current specification, or &lt;code&gt;redirect_uri&lt;/code&gt; for older providers.&lt;/p&gt;
+&lt;h3 id=&#34;pkce&#34;&gt;PKCE&lt;/h3&gt;
+&lt;p&gt;Stroom always sends a &lt;span class=&#34;external-link&#34;&gt;
+  &lt;a href=&#34;https://datatracker.ietf.org/doc/html/rfc7636&#34; target=&#34;_blank&#34; class=&#34;external-link&#34; title=&#34;PKCE (external link to https://datatracker.ietf.org/doc/html/rfc7636)&#34;&gt;
+    &lt;span&gt;PKCE&lt;/span&gt;
+    &lt;i class=&#34;external-link-icon fas fa-external-link-alt fa-sm text-secondary&#34;&gt;&lt;/i&gt;
+  &lt;/a&gt;
+&lt;/span&gt;
+ &lt;code&gt;code_challenge&lt;/code&gt; using the &lt;code&gt;S256&lt;/code&gt; method, and the matching &lt;code&gt;code_verifier&lt;/code&gt; when it exchanges the authorization code for tokens.&lt;/p&gt;
+&lt;p&gt;There is nothing to configure in Stroom for this.
+Providers that require PKCE, and anything following OAuth 2.1, will be satisfied, and providers that do not support it ignore the extra parameters.
+Where the provider lets you insist on PKCE, as KeyCloak does, you can safely turn that on.&lt;/p&gt;
+&lt;h3 id=&#34;claims&#34;&gt;Claims&lt;/h3&gt;
+&lt;p&gt;Stroom reads three things about a user from the token.&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;Setting&lt;/th&gt;
+&lt;th&gt;Default&lt;/th&gt;
+&lt;th&gt;Purpose&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;uniqueIdentityClaim&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;sub&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;Links the identity at the provider to a Stroom user. Must be unique at the provider and must never change for a given person.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;userDisplayNameClaim&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;preferred_username&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;A friendlier name shown in the Stroom UI. Need not be unique and may change.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;fullNameClaimTemplate&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;${name}&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;Builds the user&amp;rsquo;s full name from claim values, e.g. &lt;code&gt;&#39;${given_name} ${family_name}&#39;&lt;/code&gt;.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;Not every provider issues &lt;code&gt;preferred_username&lt;/code&gt;, so check the provider page before assuming the defaults will do.&lt;/p&gt;
+
+&lt;div class=&#34;alert alert-warning&#34; role=&#34;alert&#34;&gt;
+&lt;h4 class=&#34;alert-heading&#34;&gt;Warning&lt;/h4&gt;
+
+    Do not set &lt;code&gt;uniqueIdentityClaim&lt;/code&gt; to an email address or a username.
+Both can be reassigned to a different person at the provider, and whoever holds it next would inherit the Stroom user, along with its permissions.
+
+&lt;/div&gt;
+
+
+&lt;h2 id=&#34;token-validation&#34;&gt;Token Validation&lt;/h2&gt;
+&lt;p&gt;Stroom validates every token it is given, whether that is the &lt;code&gt;id_token&lt;/code&gt; from an interactive sign in or a bearer access token presented to the API.&lt;/p&gt;
+&lt;p&gt;The signature must verify against a key from the provider&amp;rsquo;s JWKS, and the algorithm must be one of the RSA, RSA-PSS or ECDSA families.
+Unsigned tokens and tokens signed with an HMAC algorithm are refused.&lt;/p&gt;
+&lt;p&gt;The issuer must match what the provider advertised, and the audience must match what Stroom expects.
+Audience validation is the part most likely to need attention, because providers differ in what they put in the &lt;code&gt;aud&lt;/code&gt; claim of an &lt;strong&gt;access&lt;/strong&gt; token.
+See &lt;a href=&#34;../../docs/install-guide/setup/open-id/external-idp/stroom-configuration/#audience-validation&#34;&gt;Audience validation&lt;/a&gt;.&lt;/p&gt;
+
+&lt;div class=&#34;alert alert-primary&#34; role=&#34;alert&#34;&gt;
+&lt;h4 class=&#34;alert-heading&#34;&gt;Note&lt;/h4&gt;
+
+
+    &lt;code&gt;id_token&lt;/code&gt;s carry an &lt;code&gt;aud&lt;/code&gt; claim holding the client id at every provider, so interactive sign in works with the default settings.
+It is API authentication with access tokens where providers differ.
+
+&lt;/div&gt;
+
+
+&lt;h2 id=&#34;users-and-permissions&#34;&gt;Users and Permissions&lt;/h2&gt;
+&lt;p&gt;Authentication is handled by the provider.
+Authorisation, i.e. what a user may do once they are in, is always handled by Stroom.&lt;/p&gt;
+&lt;p&gt;Whenever a user successfully signs in via the provider, Stroom automatically creates an entry for them in its own user table.
+That user starts with no permissions and no group memberships, so an administrator must grant those.
+This does mean a new user has to sign in once before an administrator can do anything with them.&lt;/p&gt;
+&lt;p&gt;The very first administrator is a chicken and egg problem, since there is nobody able to grant permissions yet.
+That is solved with the &lt;code&gt;manage_users&lt;/code&gt; command, described on each provider page.&lt;/p&gt;
+
+&lt;div class=&#34;alert alert-primary&#34; role=&#34;alert&#34;&gt;
+&lt;h4 class=&#34;alert-heading&#34;&gt;See Also&lt;/h4&gt;
+&lt;div class=&#34;alert-content&#34;&gt;
+  
+  &lt;p&gt;See &lt;a href=&#34;../../docs/install-guide/setup/create-first-admin/&#34;&gt;Creating the First Administrator&lt;/a&gt; for the full procedure, and &lt;a href=&#34;../../docs/install-guide/setup/open-id/accounts-users/&#34;&gt;Accounts and Users&lt;/a&gt; for how identities at the provider relate to Stroom users.&lt;/p&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+
+
+      </description>
+    </item>
+    
+    <item>
       <title>Docs: NGINX, oauth2-proxy and KeyCloak</title>
       <link>/docs/install-guide/setup/open-id/edge-proxy/nginx-oauth2-proxy/</link>
       <pubDate>Tue, 22 Sep 2026 00:00:00 +0000</pubDate>
@@ -1895,210 +2150,9 @@ Set &lt;code&gt;clientCredentialsScopes&lt;/code&gt; to the custom scopes you ha
     </item>
     
     <item>
-      <title>Docs: External IDP</title>
-      <link>/docs/install-guide/setup/open-id/external-idp/</link>
-      <pubDate>Mon, 03 Aug 2026 00:00:00 +0000</pubDate>
-      
-      <guid>/docs/install-guide/setup/open-id/external-idp/</guid>
-      <description>
-        
-        
-        &lt;p&gt;You may be running Stroom in an environment with an existing &lt;span class=&#34;glossary-link&#34;&gt;
-    &lt;a href=&#34;../../docs/glossary/i/glossary-idp&#34;&gt;
-      &lt;span&gt;Identity Provider (IDP)&lt;/span&gt;
-      &lt;i class=&#34;glossary-link-icon fas fa-book fa-sm text-primary&#34;&gt;&lt;/i&gt;
-    &lt;/a&gt;&lt;span class=&#34;glossary-tooltip&#34;&gt;
-      &lt;span class=&#34;glossary-tooltip-title&#34;&gt;Identity Provider (IDP)&lt;/span&gt;
-      &lt;span class=&#34;glossary-tooltip-summary&#34;&gt;An &lt;strong&gt;Id&lt;/strong&gt;entity &lt;strong&gt;P&lt;/strong&gt;rovider is a system or service that can authenticate a user and assert their identity. &lt;em&gt;Identity providers&lt;/em&gt; can support single sign on (SSO), which allows the user to sign in once to the &lt;em&gt;Identity Provider&lt;/em&gt; so they are then authenticated to all systems using that IDP.&lt;/span&gt;&lt;span class=&#34;glossary-tooltip-truncated&#34;&gt;Click to see more details...&lt;/span&gt;&lt;/span&gt;&lt;/span&gt; (KeyCloak, Cognito, Google, Active Directory, etc.) and want to use that for authenticating users.
-Stroom supports 3rd party IDPs that conform to the &lt;span class=&#34;external-link&#34;&gt;
-  &lt;a href=&#34;https://openid.net/connect/&#34; target=&#34;_blank&#34; class=&#34;external-link&#34; title=&#34;Open ID Connect (external link to https://openid.net/connect/)&#34;&gt;
-    &lt;span&gt;Open ID Connect&lt;/span&gt;
-    &lt;i class=&#34;external-link-icon fas fa-external-link-alt fa-sm text-secondary&#34;&gt;&lt;/i&gt;
-  &lt;/a&gt;
-&lt;/span&gt;
- specification.&lt;/p&gt;
-
-&lt;div class=&#34;alert alert-primary&#34; role=&#34;alert&#34;&gt;
-&lt;h4 class=&#34;alert-heading&#34;&gt;Note&lt;/h4&gt;
-
-
-
-    &lt;p&gt;On this page and its children, &lt;strong&gt;Stroom itself signs the user in&lt;/strong&gt; at the provider.
-If a load balancer or reverse proxy in front of Stroom performs the sign in instead - an AWS ALB with an &lt;code&gt;authenticate-cognito&lt;/code&gt; or &lt;code&gt;authenticate-oidc&lt;/code&gt; rule, NGINX with oauth2-proxy - you want &lt;a href=&#34;../../docs/install-guide/setup/open-id/edge-proxy/&#34;&gt;Edge Proxy RP&lt;/a&gt;, not this page.&lt;/p&gt;
-
-
-&lt;/div&gt;
-
-
-&lt;p&gt;This page describes what Stroom needs from any such provider.
-It applies whichever provider you use, so read it before following one of the provider specific pages.&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;a href=&#34;../../docs/install-guide/setup/open-id/external-idp/stroom-configuration/&#34;&gt;Stroom Configuration&lt;/a&gt; - every Stroom setting involved, and what it does.&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;../../docs/install-guide/setup/open-id/external-idp/keycloak/&#34;&gt;KeyCloak&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;../../docs/install-guide/setup/open-id/external-idp/cognito/&#34;&gt;Amazon Cognito&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;../../docs/install-guide/setup/open-id/external-idp/google/&#34;&gt;Google&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;../../docs/install-guide/setup/open-id/external-idp/azure-ad/&#34;&gt;Microsoft Entra ID (Azure AD)&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h2 id=&#34;what-stroom-needs-from-the-provider&#34;&gt;What Stroom Needs from the Provider&lt;/h2&gt;
-&lt;p&gt;Stroom is a confidential OAuth 2.0 client using the authorization code flow.
-To register it with a provider you need the following.&lt;/p&gt;
-&lt;table&gt;
-&lt;thead&gt;
-&lt;tr&gt;
-&lt;th&gt;What&lt;/th&gt;
-&lt;th&gt;Value&lt;/th&gt;
-&lt;/tr&gt;
-&lt;/thead&gt;
-&lt;tbody&gt;
-&lt;tr&gt;
-&lt;td&gt;Client type&lt;/td&gt;
-&lt;td&gt;Confidential, i.e. one that is issued a client secret. Stroom is a server side application and keeps its secret on the server.&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;Grant type / flow&lt;/td&gt;
-&lt;td&gt;Authorization code. Stroom does not use the implicit or password flows.&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;Redirect URI&lt;/td&gt;
-&lt;td&gt;&lt;code&gt;https://STROOM_FQDN/api/auth/flow/v1/signin-oidc&lt;/code&gt; (see below)&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;Post logout redirect URI&lt;/td&gt;
-&lt;td&gt;&lt;code&gt;https://STROOM_FQDN/&lt;/code&gt; (see below)&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;PKCE&lt;/td&gt;
-&lt;td&gt;Supported, and may be required (see below)&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;Scopes&lt;/td&gt;
-&lt;td&gt;&lt;code&gt;openid&lt;/code&gt; and &lt;code&gt;email&lt;/code&gt; by default&lt;/td&gt;
-&lt;/tr&gt;
-&lt;/tbody&gt;
-&lt;/table&gt;
-&lt;p&gt;&lt;code&gt;STROOM_FQDN&lt;/code&gt; is the public facing address of Stroom, which is what you have configured as &lt;code&gt;appConfig.publicUri&lt;/code&gt; and is the address users type into their browser.
-If Stroom is behind a load balancer or Nginx, it is that address and not the address of an individual node.&lt;/p&gt;
-&lt;h3 id=&#34;the-redirect-uri&#34;&gt;The Redirect URI&lt;/h3&gt;
-&lt;p&gt;The redirect URI, sometimes called the callback or reply URL, is where the provider sends the user&amp;rsquo;s browser once they have authenticated.&lt;/p&gt;
-&lt;p&gt;Stroom uses a single fixed redirect URI:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;https://STROOM_FQDN/api/auth/flow/v1/signin-oidc
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;Register that exact value.
-It does not vary with the page the user was trying to reach, so there is no need to register a wildcard, and you should not do so.
-The page the user came from is remembered separately by Stroom and does not travel through the provider.&lt;/p&gt;
-
-&lt;div class=&#34;alert alert-warning&#34; role=&#34;alert&#34;&gt;
-&lt;h4 class=&#34;alert-heading&#34;&gt;Warning&lt;/h4&gt;
-
-    Earlier versions of Stroom sent the user&amp;rsquo;s current page as the redirect URI, which meant registering a wildcard such as &lt;code&gt;https://STROOM_FQDN/*&lt;/code&gt; at the provider.
-That is no longer how it works.
-If you are upgrading, replace any such wildcard with the single exact URI above, otherwise sign in will be refused by the provider.
-
-&lt;/div&gt;
-
-
-&lt;p&gt;If Stroom is served under a path prefix, i.e. &lt;code&gt;appConfig.publicUri.pathPrefix&lt;/code&gt; is set, that prefix comes before &lt;code&gt;/api&lt;/code&gt;.&lt;/p&gt;
-&lt;h3 id=&#34;the-post-logout-redirect-uri&#34;&gt;The Post Logout Redirect URI&lt;/h3&gt;
-&lt;p&gt;When a user signs out, Stroom sends them to the provider&amp;rsquo;s logout endpoint and asks to be returned to Stroom&amp;rsquo;s public root:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;https://STROOM_FQDN/
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;Stroom appends a &lt;code&gt;state&lt;/code&gt; query parameter to that URI.
-Providers that match post logout redirect URIs exactly may need to be told to permit it, so if sign out leaves the user on an error page at the provider, that is the usual cause.&lt;/p&gt;
-&lt;p&gt;The name of the parameter Stroom uses to pass this URI is controlled by &lt;code&gt;logoutRedirectParamName&lt;/code&gt;, which may be &lt;code&gt;post_logout_redirect_uri&lt;/code&gt;, the default and current specification, or &lt;code&gt;redirect_uri&lt;/code&gt; for older providers.&lt;/p&gt;
-&lt;h3 id=&#34;pkce&#34;&gt;PKCE&lt;/h3&gt;
-&lt;p&gt;Stroom always sends a &lt;span class=&#34;external-link&#34;&gt;
-  &lt;a href=&#34;https://datatracker.ietf.org/doc/html/rfc7636&#34; target=&#34;_blank&#34; class=&#34;external-link&#34; title=&#34;PKCE (external link to https://datatracker.ietf.org/doc/html/rfc7636)&#34;&gt;
-    &lt;span&gt;PKCE&lt;/span&gt;
-    &lt;i class=&#34;external-link-icon fas fa-external-link-alt fa-sm text-secondary&#34;&gt;&lt;/i&gt;
-  &lt;/a&gt;
-&lt;/span&gt;
- &lt;code&gt;code_challenge&lt;/code&gt; using the &lt;code&gt;S256&lt;/code&gt; method, and the matching &lt;code&gt;code_verifier&lt;/code&gt; when it exchanges the authorization code for tokens.&lt;/p&gt;
-&lt;p&gt;There is nothing to configure in Stroom for this.
-Providers that require PKCE, and anything following OAuth 2.1, will be satisfied, and providers that do not support it ignore the extra parameters.
-Where the provider lets you insist on PKCE, as KeyCloak does, you can safely turn that on.&lt;/p&gt;
-&lt;h3 id=&#34;claims&#34;&gt;Claims&lt;/h3&gt;
-&lt;p&gt;Stroom reads three things about a user from the token.&lt;/p&gt;
-&lt;table&gt;
-&lt;thead&gt;
-&lt;tr&gt;
-&lt;th&gt;Setting&lt;/th&gt;
-&lt;th&gt;Default&lt;/th&gt;
-&lt;th&gt;Purpose&lt;/th&gt;
-&lt;/tr&gt;
-&lt;/thead&gt;
-&lt;tbody&gt;
-&lt;tr&gt;
-&lt;td&gt;&lt;code&gt;uniqueIdentityClaim&lt;/code&gt;&lt;/td&gt;
-&lt;td&gt;&lt;code&gt;sub&lt;/code&gt;&lt;/td&gt;
-&lt;td&gt;Links the identity at the provider to a Stroom user. Must be unique at the provider and must never change for a given person.&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;&lt;code&gt;userDisplayNameClaim&lt;/code&gt;&lt;/td&gt;
-&lt;td&gt;&lt;code&gt;preferred_username&lt;/code&gt;&lt;/td&gt;
-&lt;td&gt;A friendlier name shown in the Stroom UI. Need not be unique and may change.&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;&lt;code&gt;fullNameClaimTemplate&lt;/code&gt;&lt;/td&gt;
-&lt;td&gt;&lt;code&gt;${name}&lt;/code&gt;&lt;/td&gt;
-&lt;td&gt;Builds the user&amp;rsquo;s full name from claim values, e.g. &lt;code&gt;&#39;${given_name} ${family_name}&#39;&lt;/code&gt;.&lt;/td&gt;
-&lt;/tr&gt;
-&lt;/tbody&gt;
-&lt;/table&gt;
-&lt;p&gt;Not every provider issues &lt;code&gt;preferred_username&lt;/code&gt;, so check the provider page before assuming the defaults will do.&lt;/p&gt;
-
-&lt;div class=&#34;alert alert-warning&#34; role=&#34;alert&#34;&gt;
-&lt;h4 class=&#34;alert-heading&#34;&gt;Warning&lt;/h4&gt;
-
-    Do not set &lt;code&gt;uniqueIdentityClaim&lt;/code&gt; to an email address or a username.
-Both can be reassigned to a different person at the provider, and whoever holds it next would inherit the Stroom user, along with its permissions.
-
-&lt;/div&gt;
-
-
-&lt;h2 id=&#34;token-validation&#34;&gt;Token Validation&lt;/h2&gt;
-&lt;p&gt;Stroom validates every token it is given, whether that is the &lt;code&gt;id_token&lt;/code&gt; from an interactive sign in or a bearer access token presented to the API.&lt;/p&gt;
-&lt;p&gt;The signature must verify against a key from the provider&amp;rsquo;s JWKS, and the algorithm must be one of the RSA, RSA-PSS or ECDSA families.
-Unsigned tokens and tokens signed with an HMAC algorithm are refused.&lt;/p&gt;
-&lt;p&gt;The issuer must match what the provider advertised, and the audience must match what Stroom expects.
-Audience validation is the part most likely to need attention, because providers differ in what they put in the &lt;code&gt;aud&lt;/code&gt; claim of an &lt;strong&gt;access&lt;/strong&gt; token.
-See &lt;a href=&#34;../../docs/install-guide/setup/open-id/external-idp/stroom-configuration/#audience-validation&#34;&gt;Audience validation&lt;/a&gt;.&lt;/p&gt;
-
-&lt;div class=&#34;alert alert-primary&#34; role=&#34;alert&#34;&gt;
-&lt;h4 class=&#34;alert-heading&#34;&gt;Note&lt;/h4&gt;
-
-
-    &lt;code&gt;id_token&lt;/code&gt;s carry an &lt;code&gt;aud&lt;/code&gt; claim holding the client id at every provider, so interactive sign in works with the default settings.
-It is API authentication with access tokens where providers differ.
-
-&lt;/div&gt;
-
-
-&lt;h2 id=&#34;users-and-permissions&#34;&gt;Users and Permissions&lt;/h2&gt;
-&lt;p&gt;Authentication is handled by the provider.
-Authorisation, i.e. what a user may do once they are in, is always handled by Stroom.&lt;/p&gt;
-&lt;p&gt;Whenever a user successfully signs in via the provider, Stroom automatically creates an entry for them in its own user table.
-That user starts with no permissions and no group memberships, so an administrator must grant those.
-This does mean a new user has to sign in once before an administrator can do anything with them.&lt;/p&gt;
-&lt;p&gt;The very first administrator is a chicken and egg problem, since there is nobody able to grant permissions yet.
-That is solved with the &lt;code&gt;manage_users&lt;/code&gt; command, described on each provider page.&lt;/p&gt;
-
-&lt;div class=&#34;alert alert-primary&#34; role=&#34;alert&#34;&gt;
-&lt;h4 class=&#34;alert-heading&#34;&gt;See Also&lt;/h4&gt;
-&lt;div class=&#34;alert-content&#34;&gt;
-  
-  &lt;p&gt;See &lt;a href=&#34;../../docs/install-guide/setup/create-first-admin/&#34;&gt;Creating the First Administrator&lt;/a&gt; for the full procedure, and &lt;a href=&#34;../../docs/install-guide/setup/open-id/accounts-users/&#34;&gt;Accounts and Users&lt;/a&gt; for how identities at the provider relate to Stroom users.&lt;/p&gt;
-
-&lt;/div&gt;
-&lt;/div&gt;
-
-
-      </description>
-    </item>
-    
-    <item>
       <title>Docs: Edge Proxy as the Relying Party</title>
       <link>/docs/install-guide/setup/open-id/edge-proxy/</link>
-      <pubDate>Tue, 22 Sep 2026 00:00:00 +0000</pubDate>
+      <pubDate>Wed, 23 Sep 2026 00:00:00 +0000</pubDate>
       
       <guid>/docs/install-guide/setup/open-id/edge-proxy/</guid>
       <description>
@@ -2153,7 +2207,7 @@ The browser is driven through a second, redundant OIDC flow stacked on the one t
 Stroom then:&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;Accepts the proxy&amp;rsquo;s injected credential, verified cryptographically on every request, as the user&amp;rsquo;s identity.
-No Stroom session is created; the identity is re-derived from the headers each time, which is also how the proxy&amp;rsquo;s own token refresh reaches Stroom.&lt;/li&gt;
+The identity is never held in a Stroom session; it is re-derived from the headers on every request, which is also how the proxy&amp;rsquo;s own token refresh reaches Stroom.&lt;/li&gt;
 &lt;li&gt;Never starts an OIDC flow of its own, and disables its OIDC callback endpoint.&lt;/li&gt;
 &lt;li&gt;Treats the injected credential as needing Cross-Site Request Forgery (CSRF) protection on browser requests, because the browser attaches the &lt;em&gt;proxy&amp;rsquo;s&lt;/em&gt; session cookie automatically, even to cross site requests.&lt;/li&gt;
 &lt;li&gt;Can end the proxy&amp;rsquo;s session on logout, not just its own.&lt;/li&gt;
@@ -2169,6 +2223,61 @@ Direct machine access is unaffected: API keys and bearer tokens work as they alw
 &lt;/div&gt;
 
 
+&lt;h2 id=&#34;the-flow&#34;&gt;The Flow&lt;/h2&gt;
+&lt;p&gt;The proxy completes the whole Open ID Connect flow before Stroom sees anything, then injects a credential that Stroom verifies on each request.&lt;/p&gt;
+
+
+
+
+
+
+
+  
+  
+  
+  
+  
+
+
+
+
+
+
+
+  
+
+
+
+&lt;div class=&#34;card rounded shadow-stroom p-2 td-post-card mb-4 mt-4&#34; style=&#34;width: fit-content;&#34;&gt;
+
+  &lt;a title=&#34;images/install-guide/open-id/edge-proxy-flow.puml.svg&#34; href=&#34;../../images/install-guide/open-id/edge-proxy-flow.puml.svg&#34;&gt;
+    &lt;figure style=&#34;margin-block-end: 0px&#34; &gt;
+      
+      &lt;img class=&#34;card-img-top&#34; src=&#34;../../images/install-guide/open-id/edge-proxy-flow.puml.svg&#34; style=&#34;max-width: fit-content&#34; alt=&#34;images/install-guide/open-id/edge-proxy-flow.puml.svg&#34;&gt;
+      
+
+      
+      &lt;div class=&#34;card-body px-0 pt-2 pb-0&#34;&gt;
+        &lt;hr style=&#34;border-top: 1px solid #ddd; margin-top: 0px; margin-bottom:4px;&#34;&gt;
+        &lt;figcaption class=&#34;card-text&#34; style=&#34;font-size: smaller; text-align: center;&#34;&gt;Edge proxy authentication flow&lt;/figcaption&gt;
+      &lt;/div&gt;
+      
+    &lt;/figure&gt;
+  &lt;/a&gt;
+&lt;/div&gt;
+
+&lt;p&gt;Two things in that sequence are easy to miss, and both matter:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Stroom &lt;strong&gt;never authenticates from a session&lt;/strong&gt;.
+The identity is derived from the injected header on every request, which is also how the proxy&amp;rsquo;s own token refresh reaches Stroom.
+A Stroom session is still created, because parts of the application need one, and it appears in the sessions list with no user against it.
+Expiring it does not sign the user out, because the next request re-derives them from the header.
+Signing out is therefore a matter of ending the &lt;em&gt;proxy&amp;rsquo;s&lt;/em&gt; session, which is what &lt;a href=&#34;#edgeauthenticationlogoutcookiestoexpire&#34;&gt;&lt;code&gt;logout.cookiesToExpire&lt;/code&gt;&lt;/a&gt; and &lt;a href=&#34;#edgeauthenticationlogoutsignouturl&#34;&gt;&lt;code&gt;logout.signOutUrl&lt;/code&gt;&lt;/a&gt; are for.&lt;/li&gt;
+&lt;li&gt;What the proxy injects is not necessarily the IDP&amp;rsquo;s own token.
+An ALB signs the claims it fetched from the IDP&amp;rsquo;s user info endpoint, while oauth2-proxy relays the IDP&amp;rsquo;s token itself, and the claims available differ accordingly.
+See &lt;a href=&#34;#what-depends-on-the-idp&#34;&gt;What Depends on the IDP&lt;/a&gt;.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Compare this with the &lt;a href=&#34;../../docs/install-guide/setup/open-id/external-idp/#the-flow&#34;&gt;External IDP&lt;/a&gt; flow, where Stroom performs every step the proxy performs above.&lt;/p&gt;
 &lt;h2 id=&#34;stroom-configuration&#34;&gt;Stroom Configuration&lt;/h2&gt;
 &lt;pre&gt;&lt;code class=&#34;language-yaml&#34;&gt;  security:
     authentication:
