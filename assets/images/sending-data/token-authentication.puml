@@ -1,0 +1,47 @@
+@startuml
+!theme materia
+
+<style>
+document {
+  BackgroundColor transparent
+  `materia wants Verdana, which isn't installed
+  FontName sans-serif
+}
+</style>
+
+title
+  =Sending data with a token
+  ==The sender obtains its own token from the identity provider
+end title
+
+participant "Sending system" as client
+participant "Identity provider" as idp
+participant "Stroom-Proxy\nor Stroom" as stroom
+
+== Obtaining a token ==
+
+client -> idp: POST //token endpoint//\ngrant_type=client_credentials\nclient_id, client secret, scope
+idp --> client: access_token, expires_in
+note right of client
+  The scope must be one that yields
+  a token for Stroom. A token minted
+  for another application will not
+  validate here
+end note
+
+== Sending data ==
+
+client -> stroom: POST /datafeed\nAuthorization: Bearer <access_token>\nFeed, System and Environment headers
+stroom -> idp: GET //jwks_uri// (cached)
+idp --> stroom: Signing keys
+stroom -> stroom: Verify signature, issuer,\naudience and expiry.\nRecord uniqueIdentityClaim\nagainst the received data
+stroom --> client: 200
+
+== When the token expires ==
+
+client -> stroom: POST /datafeed (expired token)
+stroom --> client: 401
+client -> idp: Request a new token
+idp --> client: A fresh access_token
+
+@enduml

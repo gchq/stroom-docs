@@ -1,0 +1,61 @@
+@startuml
+!theme materia
+
+<style>
+document {
+  BackgroundColor transparent
+  `materia wants Verdana, which isn't installed
+  FontName sans-serif
+}
+</style>
+
+title
+  =Internal IDP
+  ==Stroom is both the Relying Party and the identity provider
+end title
+
+actor "User\n(browser)" as browser
+
+box "Stroom" #Transparent
+participant "Application" as app
+participant "Internal IDP" as idp
+end box
+
+database "Accounts" as db
+
+== Signing in ==
+
+browser -> app: GET /
+app --> browser: Bootstrap page
+browser -> app: GET /api/auth/flow/v1/status
+app -> app: No session
+app --> browser: 200 {authenticated: false, redirectUrl}\nSets the state and target cookies
+
+browser -> idp: GET /oauth2/v1/auth\nclient_id, redirect_uri, state,\nnonce, code_challenge (S256)
+idp --> browser: Sign in screen
+browser -> idp: User id and password
+idp -> db: Check the account and password
+db --> idp: Account state
+note right of idp
+  A locked or disabled account is
+  refused without the password
+  being checked at all
+end note
+idp --> browser: 302 to the redirect_uri\nwith an authorization code
+
+browser -> app: GET /api/auth/flow/v1/signin-oidc\ncode, state
+app -> app: The state must match\nthe cookie set above
+app -> idp: POST /oauth2/v1/token\ncode, code_verifier, client_id, clientSecret
+idp -> idp: Mint and sign an ID token\nwith the current signing key
+idp --> app: ID token and access token
+app -> idp: GET /oauth2/v1/certs (cached)
+idp --> app: Public signing keys
+app -> app: Verify signature, issuer,\naudience and nonce
+app --> browser: 302 to the original page,\nsets the session cookie
+
+== Afterwards ==
+
+browser -> app: GET /api/... (session cookie)
+app --> browser: Response
+
+@enduml

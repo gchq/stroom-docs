@@ -2,7 +2,7 @@
 title: "Stroom's Internal IDP"
 linkTitle: "Internal IDP"
 weight: 20
-date: 2022-11-25
+date: 2026-09-23
 tags: 
 description: >
   Details about Stroom's own internal identity provider and authentication mechanisms.
@@ -35,6 +35,18 @@ Additional user accounts are created and maintained using
 {{< stroom-menu "Security" "Manage Accounts" >}}
 
 See [User Accounts]({{< relref "docs/user-guide/security/user-accounts" >}}) for managing those accounts, and [Signing In]({{< relref "docs/user-guide/security/signing-in" >}}) for what users experience.
+
+
+## The Flow
+
+Stroom runs the same authorization code flow as it does against an [external IDP]({{< relref "external-idp#the-flow" >}}), but both ends of it are Stroom.
+It hosts its own authorization, token and key endpoints under `/oauth2/v1`, checks the password against its own account records, and signs the token with its own [signing key]({{< relref "docs/user-guide/security/signing-keys" >}}).
+
+{{< image "install-guide/open-id/internal-idp-flow.puml.svg" >}}Internal IDP sign in flow{{< /image >}}
+
+{{% see-also %}}
+See [Signing In]({{< relref "docs/user-guide/security/signing-in" >}}) for what the user experiences at the sign in screen, including locked and disabled accounts.
+{{% /see-also %}}
 
 
 ## Configuration for the Internal IDP

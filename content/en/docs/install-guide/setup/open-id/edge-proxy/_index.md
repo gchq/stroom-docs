@@ -2,7 +2,7 @@
 title: "Edge Proxy as the Relying Party"
 linkTitle: "Edge Proxy RP"
 weight: 35
-date: 2026-09-22
+date: 2026-09-23
 tags:
   - open-id
   - authentication
@@ -42,7 +42,7 @@ Setting `edgeAuthentication.enabled` tells Stroom the proxy owns the flow.
 Stroom then:
 
 * Accepts the proxy's injected credential, verified cryptographically on every request, as the user's identity.
-  No Stroom session is created; the identity is re-derived from the headers each time, which is also how the proxy's own token refresh reaches Stroom.
+  The identity is never held in a Stroom session; it is re-derived from the headers on every request, which is also how the proxy's own token refresh reaches Stroom.
 * Never starts an OIDC flow of its own, and disables its OIDC callback endpoint.
 * Treats the injected credential as needing Cross-Site Request Forgery (CSRF) protection on browser requests, because the browser attaches the *proxy's* session cookie automatically, even to cross site requests.
 * Can end the proxy's session on logout, not just its own.
@@ -52,6 +52,26 @@ With `edgeAuthentication.enabled` set, **all browser access must go through the 
 A browser that reaches Stroom directly (an internal load balancer, a port forward) has no way to sign in, because Stroom will not start a flow.
 Direct machine access is unaffected: API keys and bearer tokens work as they always have.
 {{% /warning %}}
+
+
+## The Flow
+
+The proxy completes the whole Open ID Connect flow before Stroom sees anything, then injects a credential that Stroom verifies on each request.
+
+{{< image "install-guide/open-id/edge-proxy-flow.puml.svg" >}}Edge proxy authentication flow{{< /image >}}
+
+Two things in that sequence are easy to miss, and both matter:
+
+* Stroom **never authenticates from a session**.
+  The identity is derived from the injected header on every request, which is also how the proxy's own token refresh reaches Stroom.
+  A Stroom session is still created, because parts of the application need one, and it appears in the sessions list with no user against it.
+  Expiring it does not sign the user out, because the next request re-derives them from the header.
+  Signing out is therefore a matter of ending the *proxy's* session, which is what [`logout.cookiesToExpire`](#edgeauthenticationlogoutcookiestoexpire) and [`logout.signOutUrl`](#edgeauthenticationlogoutsignouturl) are for.
+* What the proxy injects is not necessarily the IDP's own token.
+  An ALB signs the claims it fetched from the IDP's user info endpoint, while oauth2-proxy relays the IDP's token itself, and the claims available differ accordingly.
+  See [What Depends on the IDP](#what-depends-on-the-idp).
+
+Compare this with the [External IDP]({{< relref "docs/install-guide/setup/open-id/external-idp#the-flow" >}}) flow, where Stroom performs every step the proxy performs above.
 
 
 ## Stroom Configuration

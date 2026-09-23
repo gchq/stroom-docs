@@ -1,0 +1,43 @@
+@startuml
+!theme materia
+
+<style>
+document {
+  BackgroundColor transparent
+  `materia wants Verdana, which isn't installed
+  FontName sans-serif
+}
+</style>
+
+title
+  =Sending data with an API Key
+  ==Stroom-Proxy holds no user accounts, so it asks its downstream
+end title
+
+participant "Sending system" as client
+participant "Stroom-Proxy" as proxy
+participant "Stroom\n(downstream)" as stroom
+
+== A key Stroom-Proxy has not seen before ==
+
+client -> proxy: POST /datafeed\nAuthorization: Bearer sak_...
+proxy -> proxy: Recognise the API key format,\nlook in the verified key cache
+proxy -> stroom: POST /api/apikey/v2/verifyApiKey\nthe key, and the permission it must hold\n//authenticated with the proxy's own credential//
+stroom -> stroom: Hash and look up the key,\ncheck it has not expired and that\nits owner holds the permission
+stroom --> proxy: 200 with the owner's identity,\nor 404 if the key is not valid
+proxy -> proxy: Remember a valid key in memory,\nand write it, hashed, to a local file
+proxy --> client: 200
+
+== The same key again ==
+
+client -> proxy: POST /datafeed\nAuthorization: Bearer sak_...
+proxy -> proxy: Cache hit, no downstream call
+proxy --> client: 200
+note right of proxy
+  The file is only consulted when
+  the downstream cannot be reached.
+  It survives a restart, so an outage
+  does not stop keys already seen
+end note
+
+@enduml
