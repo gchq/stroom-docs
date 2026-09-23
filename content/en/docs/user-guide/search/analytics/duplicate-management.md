@@ -13,7 +13,7 @@ Some rules will detect the same thing over and over.
 A rule that runs hourly and looks for a misconfigured device will find that device every hour until someone fixes it, and nobody needs telling twenty four times a day.
 
 _Duplicate Management_ suppresses detections that match ones the rule has already raised.
-The tab is only shown for [Scheduled Query]({{< relref "_index#scheduled-query" >}}) rules.
+The tab is only shown for [Scheduled Query]({{< relref "docs/user-guide/search/analytics#scheduled-query" >}}) rules.
 
 This is different from [limiting notifications]({{< relref "notifications#limiting-notifications" >}}), which bounds how many notifications a rule may send regardless of what they say.
 Duplicate management suppresses repeats while still delivering anything new.

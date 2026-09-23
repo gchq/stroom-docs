@@ -38,7 +38,7 @@ Complete this page.
 ### Stored Fields
 
 If a field is _Stored_ then it means the complete field value will be stored in the index.
-This means the value can be retrieved from the index when building search results rather than using the slower [Search Extraction]({{< relref "extraction.md" >}}) process.
+This means the value can be retrieved from the index when building search results rather than using the slower [Search Extraction]({{< relref "docs/user-guide/search/search-extraction" >}}) process.
 Storing field values comes at the cost of high storage requirements for the index.
 If storage space is not an issue then storing all fields that you want to return in search results is the optimum.
 

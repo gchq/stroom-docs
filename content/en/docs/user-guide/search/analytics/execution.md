@@ -9,7 +9,7 @@ description: >
   Execution schedules, how a scheduled rule works through time, and the history of what it has run.
 ---
 
-The _Execution_ tab sets the rule's [processing type]({{< relref "_index#processing-types" >}}), and for a _Scheduled Query_ rule it is where you define when the rule runs.
+The _Execution_ tab sets the rule's [processing type]({{< relref "docs/user-guide/search/analytics#processing-types" >}}), and for a _Scheduled Query_ rule it is where you define when the rule runs.
 
 A scheduled rule does not have a single schedule field.
 Instead it has a list of _execution schedules_, each of which runs the rule independently.

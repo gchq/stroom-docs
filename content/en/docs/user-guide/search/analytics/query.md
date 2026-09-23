@@ -24,7 +24,7 @@ A query that returns a million rows will raise a million detections, so it is wo
 
 ## Choosing a Data Source
 
-A rule query can use any data source that a Query document can use, but the choice interacts with the [processing type]({{< relref "_index#processing-types" >}}).
+A rule query can use any data source that a Query document can use, but the choice interacts with the [processing type]({{< relref "docs/user-guide/search/analytics#processing-types" >}}).
 
 * A _Scheduled Query_ rule can query anything, including {{< glossary "Searchable" "Searchables" >}} and Lucene indexes.
 * A _Streaming_ rule must query a View {{< stroom-icon "document/View.svg" >}}, because the View's filter is what decides which streams are fed through the rule.

@@ -13,7 +13,7 @@ A _Streaming_ rule is run by a {{< glossary "Processor Filter" >}} rather than b
 Each {{< glossary "Stream" >}} that matches the filter is passed through the rule as it is processed, so a detection is raised without waiting for the next scheduled run.
 
 Use this type where the delay imposed by a schedule is unacceptable.
-For most rules a [Scheduled Query]({{< relref "_index#scheduled-query" >}}) is the better choice, because it can look across a window of data rather than at one stream at a time.
+For most rules a [Scheduled Query]({{< relref "docs/user-guide/search/analytics#scheduled-query" >}}) is the better choice, because it can look across a window of data rather than at one stream at a time.
 
 
 ## Data Source

@@ -14,7 +14,7 @@ _Table Builder_ is experimental and should not be used.
 The in-product help says the same, and the job that runs these rules is disabled by default.
 
 It is documented here only so that anyone who encounters an existing Table Builder rule can recognise what it is.
-Use a [Scheduled Query]({{< relref "_index#scheduled-query" >}}) or a [Streaming]({{< relref "streaming" >}}) rule instead.
+Use a [Scheduled Query]({{< relref "docs/user-guide/search/analytics#scheduled-query" >}}) or a [Streaming]({{< relref "streaming" >}}) rule instead.
 {{% /warning %}}
 
 A Table Builder rule builds and maintains its own table of data from the streams it processes, and raises detections from that table.
