@@ -2,7 +2,7 @@
 title: "Proxy API"
 linkTitle: "Proxy API"
 weight: 40
-date: 2026-02-26
+date: 2026-09-23
 tags: 
 description: >
   Details of the various APIs presented by Stroom-Proxy.
@@ -101,6 +101,20 @@ Stroom-Proxy presents a number of {{< glossary "REST" >}} endpoints:
 * `POST` - `/api/feedStatus/v1/getFeedStatus` - Allows an upstream Stroom-Proxy to check the receipt status of a Feed.
 * `POST` - `/api/feedStatus/v2/getFeedStatus` - Allows an upstream Stroom-Proxy to check the receipt status of a Feed.
 * `GET`  - `/api/ruleset/v2/fetchHashedRules` - Allows an upstream Stroom-Proxy to fetch the obfuscated receipt policy rules.
+
+
+## Authentication
+
+Stroom-Proxy holds no user accounts of its own, so it cannot answer questions about identity, feed status or receipt rules by itself.
+It passes each one down the chain until it reaches something that can, and caches the answer.
+That is why the three REST endpoints above exist on Stroom-Proxy as well as on Stroom: an upstream proxy asks its downstream in exactly the same way that the downstream asks Stroom.
+
+Stroom-Proxy authenticates these calls with the {{< glossary "API Key" >}} in `downstreamHost.apiKey`.
+If that property is not set, it instead obtains a bearer token for its own service user from the {{< glossary "idp" >}} using the client credentials grant, which requires `identityProviderType` to be `EXTERNAL_IDP`.
+
+{{% see-also %}}
+See [Downstream Host Configuration]({{< relref "docs/install-guide/configuration/stroom-and-proxy/configuring-stroom-proxy#downstream-host-configuration" >}}) for these properties, and [API Key Authentication]({{< relref "docs/sending-data/api-key-authentication#the-flow" >}}) for the sequence Stroom-Proxy follows when a client presents an API Key to `/datafeed`.
+{{% /see-also %}}
 
 
 ## Admin APIs

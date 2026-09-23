@@ -1,0 +1,53 @@
+@startuml
+!theme materia
+
+<style>
+document {
+  BackgroundColor transparent
+  `materia wants Verdana, which isn't installed
+  FontName sans-serif
+}
+</style>
+
+title
+  =External IDP
+  ==Stroom is the Relying Party and runs the code flow itself
+end title
+
+actor "User\n(browser)" as browser
+participant "Stroom" as stroom
+participant "Identity provider" as idp
+
+== Signing in ==
+
+browser -> stroom: GET /
+stroom --> browser: Bootstrap page
+browser -> stroom: GET /api/auth/flow/v1/status
+stroom -> stroom: No session, and no verified\ncredential on the request
+stroom --> browser: 200 {authenticated: false, redirectUrl}\nSets the state and target cookies
+note right of stroom
+  The state binds the flow to this
+  browser and carries the nonce
+  and the PKCE code verifier
+end note
+
+browser -> idp: GET //authorization endpoint//\nclient_id, redirect_uri, state,\nnonce, code_challenge (S256)
+idp --> browser: Sign in prompt
+browser -> idp: Credentials
+idp --> browser: 302 to the redirect_uri\nwith an authorization code
+
+browser -> stroom: GET /api/auth/flow/v1/signin-oidc\ncode, state
+stroom -> stroom: The state must match\nthe cookie set above
+stroom -> idp: POST //token endpoint//\ncode, code_verifier,\nclient_id, clientSecret
+idp --> stroom: ID token and access token
+stroom -> idp: GET //jwks_uri// (cached)
+idp --> stroom: Signing keys
+stroom -> stroom: Verify signature, issuer,\naudience and nonce.\nMap uniqueIdentityClaim\nto a Stroom user
+stroom --> browser: 302 to the original page,\nsets the session cookie
+
+== Afterwards ==
+
+browser -> stroom: GET /api/... (session cookie)
+stroom --> browser: Response
+
+@enduml

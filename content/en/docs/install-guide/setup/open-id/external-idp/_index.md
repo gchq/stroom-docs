@@ -2,7 +2,7 @@
 title: "External IDP"
 linkTitle: "External IDP"
 weight: 30
-date: 2026-08-03
+date: 2026-09-23
 tags:
   - open-id
   - authentication
@@ -26,6 +26,19 @@ It applies whichever provider you use, so read it before following one of the pr
 * [Amazon Cognito]({{< relref "cognito" >}})
 * [Google]({{< relref "google" >}})
 * [Microsoft Entra ID (Azure AD)]({{< relref "azure-ad" >}})
+
+
+## The Flow
+
+Stroom is the Open ID Connect client, or Relying Party, and runs the authorization code flow itself.
+
+{{< image "install-guide/open-id/external-idp-flow.puml.svg" >}}External IDP sign in flow{{< /image >}}
+
+The requirements in the rest of this page are all steps in that sequence: the [redirect URI](#the-redirect-uri) the IDP sends the code to, the [PKCE](#pkce) challenge and verifier, the [claims](#claims) Stroom reads from the ID token, and the [token validation](#token-validation) it performs before creating the session.
+
+{{% see-also %}}
+If a proxy in front of Stroom performs this flow instead, see [Edge Proxy RP]({{< relref "docs/install-guide/setup/open-id/edge-proxy#the-flow" >}}).
+{{% /see-also %}}
 
 
 ## What Stroom Needs from the Provider

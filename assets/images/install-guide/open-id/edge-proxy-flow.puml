@@ -1,0 +1,57 @@
+@startuml
+!theme materia
+
+<style>
+document {
+  BackgroundColor transparent
+  `materia wants Verdana, which isn't installed
+  FontName sans-serif
+}
+</style>
+
+title
+  =Edge proxy as the Relying Party
+  ==An AWS Application Load Balancer is shown
+end title
+
+actor "User\n(browser)" as browser
+participant "Edge proxy\n(ALB)" as proxy
+participant "Identity provider" as idp
+participant "Stroom" as stroom
+
+== The proxy runs the flow, once ==
+
+browser -> proxy: GET /
+proxy -> proxy: No session cookie
+proxy --> browser: 302 to the //authorization endpoint//
+browser -> idp: Sign in
+idp --> browser: 302 to /oauth2/idpresponse\nwith an authorization code
+browser -> proxy: GET /oauth2/idpresponse\ncode
+proxy -> idp: POST //token endpoint//\nclient_id, client secret, code
+idp --> proxy: ID token and access token
+proxy -> idp: GET //userinfo endpoint//\naccess token
+idp --> proxy: User claims
+note right of proxy
+  The ALB signs these claims,
+  and discards the ID token.
+  Only claims the userinfo
+  endpoint returns reach Stroom
+end note
+proxy --> browser: Sets AWSELBAuthSessionCookie-*,\n302 to the original page
+
+== Stroom verifies, on every request ==
+
+browser -> proxy: GET / (session cookie)
+proxy -> stroom: GET /\nx-amzn-oidc-data: signed claims JWT
+stroom -> stroom: Verify the signature against the\nregional AWS key (cached),\ncheck signer and issuer,\nmap uniqueIdentityClaim to a Stroom user
+note right of stroom
+  The identity is never held in a
+  Stroom session. It is re-derived
+  from the header on every request,
+  which is how the proxy's own
+  token refresh reaches Stroom
+end note
+stroom --> proxy: Response
+proxy --> browser: Response
+
+@enduml
