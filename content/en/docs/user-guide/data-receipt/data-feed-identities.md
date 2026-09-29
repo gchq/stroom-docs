@@ -66,9 +66,9 @@ The following JSON properties are common to both types:
   The attributes in `streamMetaData` will overwrite any matching attribute keys in the received data.
 
 The property `.receive.dataFeedOwnerMetaKey` defines the Meta key that will be used to extract the owner of the Data Feed Identity.
-By default this key is set to `accountId`.
+By default, this property is set to the value `AccountId`.
 It is typically an identifier for a client team that may have one or more systems that require one or more Feeds in Stroom.
-An `accountID` can have many active Data Feed Identities.
+An `AccountId` can have many active Data Feed Identities.
 
 
 ## Data Feed Keys
@@ -95,25 +95,31 @@ They allow for a set of hashed short life keys to be placed in a directory acces
 Data Feed Identities have an expiry date after which they will no longer work.
 Multiple files can be placed in the directory and all valid keys will be loaded.
 
-The `hashAlgorithmId` is the identifier for the hash algorithm used to hash the key.
+The `hashAlgorithm` is the name of the hash algorithm that was used to hash the key.
 The system creating the hashed data feed keys must use the same hash algorithm and parameters when hashing the key as Stroom will use when it hashes the key used in data receipt to validate them.
 
-Currently the only hash algorithm available for use is Argon2 with an ID of `000` and the following parameters:
+Currently the available hash algorithms are:
 
-* Hash length: 48
-* Iterations: 2
-* Memory KB: 65536
+* `ARGON2`
+  * Hash length: `48`
+  * Iterations: `2`
+  * Memory KB: `65536`
+  * Parallelism: `1`
+
+* `BCRYPT_2A`
+  * Salt log rounds: `10`
+
 
 A Data Feed Key takes the following form:
 
 ```text
-sdk_<3 char hash algorithm ID>_<128 char random Base58 string>
+sdk_<128 char random Base58 string>
 ```
 
 The regular expression pattern for a Data Feed Key is
 
 ```regex
-^sdk_[0-9]{3}_[A-HJ-NP-Za-km-z1-9]{128}$
+^sdk_[A-HJ-NP-Za-km-z1-9]{128}$
 ```
 
 Data Feed Identities are used in the same way as API Keys or OAuth2 tokens, i.e. using the Header `Authorization: Bearer <data feed key>`.
