@@ -51,8 +51,8 @@ This will be the node that reaches that point in the boot process first.
 All other nodes will wait until that is complete before proceeding with the boot process.
 
 It is recommended however to use a single node to execute the migration.
-To avoid Stroom starting up and beginning processing you can use the `migrage` command to just migrate the database and not fully boot Stroom.
-See [`migrage` command]({{< relref "/docs/user-guide/tools/command-line#migrate" >}}) for more details.
+To avoid Stroom starting up and beginning processing you can use the `migrate` command to just migrate the database and not fully boot Stroom.
+See [`migrate` command]({{< relref "/docs/user-guide/tools/command-line#migrate" >}}) for more details.
 
 
 ### Migration Scripts
@@ -62,6 +62,7 @@ See [`migrage` command]({{< relref "/docs/user-guide/tools/command-line#migrate"
 For information purposes only, the following are the database migrations that will be run when upgrading to 7.3.0 from the previous minor version.
 
 Note, the `legacy` module will run first (if present) then the other module will run in no particular order.
+
 
 #### Module `stroom-data`
 

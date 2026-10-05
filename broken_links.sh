@@ -23,13 +23,37 @@ file_deny_list=(
 )
 
 # Any link locations to not check
-# The VS Code one seems to 403 most of the time, may be rate limited?
+# mariadb.com - We get a 403 even when using a browser user-agent
 url_deny_list=(
-  "https://github.com/gchq/stroom/issues/\1"
-  "https://code.visualstudio.com/docs/editor/userdefinedsnippets"
+  "https://mariadb.com"
 )
 
+# This VS Code one seems to 403 most of the time, may be rate limited?
+# Have removed this from the list as the user-agent may have solved it
+#  "https://code.visualstudio.com/docs/editor/userdefinedsnippets"
+
 indent="    "
+# Make sites think we are a broweser, as some don't like requests from curl
+user_agent="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36"
+
+# Options applied to every curl call so that a transient network problem
+# doesn't fail the build. Without these, all the attempts below happen within
+# a second or so of each other, so a brief outage breaks them all.
+# --retry-all-errors is needed for curl to retry connection failures, which are
+# the ones that produce a 000 response.
+curl_retry_args=(
+  "--connect-timeout" "10"
+  "--max-time" "30"
+  "--retry" "3"
+  "--retry-delay" "2"
+  "--retry-all-errors"
+)
+
+# A response of 000 means curl got no HTTP response at all, i.e. DNS failure,
+# connection refused, TLS failure or timeout. That is a different thing to a
+# site telling us the page has gone, so it gets one more go after a pause and
+# is then reported as a warning rather than an error.
+unreachable_retry_delay_secs=10
 
 setup_echo_colours() {
   # Exit the script on any error
@@ -86,6 +110,7 @@ debug_value() {
 }
 
 # Requires setup_debuging to be run once
+# shellcheck disable=SC2329
 debug() {
   # echo to stderr so we don't polute stdout which causes issues
   # for funcs that return via stdout
@@ -113,9 +138,13 @@ verify_http_link() {
       echo -e "${indent}${NC}Checking URL ${NC}${link_url}${NC}"
     fi
 
+    # Set the user-agent to try to mimic a browser as some sites (e.g.
+    # mariadb) give a 403 when using curl/wget.
     local response_code
     response_code="$( \
       curl \
+        "${curl_retry_args[@]}" \
+        --insecure \
         --silent \
         --head \
         --location \
@@ -125,16 +154,32 @@ verify_http_link() {
         "${link_url}" \
       || echo "" )"
 
-    if [[ "${response_code}" =~ ^2 ]]; then
-      # Link is good so add to our set/map so we don't have to hit it again
-      checked_links_map["${link_url}"]=1
-      new_checked_links_map["${link_url}"]=1
-    else
+    if [[ "${response_code}" =~ 403 ]]; then
+      # Forbidden - Site may not like our user-agent, so try to mimic a browser
+      echo -e "${indent}${NC}Re-checking URL with --user-agent (${YELLOW}${user_agent}${NC}) ${NC}${link_url}${NC}"
+      response_code="$( \
+        curl \
+          "${curl_retry_args[@]}" \
+          --insecure \
+          --silent \
+          --head \
+          --location \
+          --user-agent "${user_agent}" \
+          --output /dev/null \
+          --write-out "%{http_code}" \
+          "${header_args[@]}" \
+          "${link_url}" \
+        || echo "" )"
+    fi
+
+    if [[ ! "${response_code}" =~ ^2 ]] && [[ ! "${response_code}" =~ 429 ]]; then
       # Some sites don't seem to like the --head option so try it again
       # but getting the full page.
       echo -e "${indent}${NC}Re-checking URL without --head ${NC}${link_url}${NC}"
       response_code="$( \
         curl \
+          "${curl_retry_args[@]}" \
+          --insecure \
           --silent \
           --location \
           --output /dev/null \
@@ -142,32 +187,79 @@ verify_http_link() {
           "${header_args[@]}" \
           "${link_url}" \
         || echo "" )"
-      if [[ "${response_code}" =~ ^2 ]]; then
-        # Link is good so add to our set/map so we don't have to hit it again
-        checked_links_map["${link_url}"]=1
-        new_checked_links_map["${link_url}"]=1
-      elif [[ "${response_code}" =~ ^429 ]]; then
-        echo -e "${indent}${NC}Got 429 rate limit response, have to assume URL is ok ${NC}${link_url}${NC}"
-        # There doesn't seem to be any rhyme or reason when github returns
-        # a 429, it seems to only do it on some checks.
-        # Not a lot we can do other than treat it as good and move on.
-        checked_links_map["${link_url}"]=1
-        new_checked_links_map["${link_url}"]=1
+    fi
 
-        #if [[ "${link_url}" =~ ^https://github.com/.* ]]; then
-          ## Show current the GH rate limits
-          #curl \
-            #--silent \
-            #"${header_args[@]}" \
-            #https://api.github.com/rate_limit
-        #fi
-      else
-        log_broken_http_link \
-          "${source_file}" \
-          "${link_name}" \
+    if [[ ! "${response_code}" =~ ^2 ]] && [[ ! "${response_code}" =~ 429 ]]; then
+      # This time without --head and with --user-agent
+      echo -e "${indent}${NC}Re-checking URL without --head and with --user-agent ${NC}${link_url}${NC}"
+      response_code="$( \
+        curl \
+          "${curl_retry_args[@]}" \
+          --insecure \
+          --silent \
+          --location \
+          --user-agent "${user_agent}" \
+          --output /dev/null \
+          --write-out "%{http_code}" \
+          "${header_args[@]}" \
           "${link_url}" \
-          "${response_code}"
-      fi
+        || echo "" )"
+    fi
+
+    if [[ -z "${response_code}" || "${response_code}" == "000" ]]; then
+      # No HTTP response at all, so the host was unreachable rather than the
+      # page being gone. Give it one more go after a pause in case it is a
+      # blip on the network or the far end is briefly down.
+      echo -e "${indent}${YELLOW}No response from host, waiting" \
+        "${unreachable_retry_delay_secs}s then re-checking ${NC}${link_url}${NC}"
+      sleep "${unreachable_retry_delay_secs}"
+      response_code="$( \
+        curl \
+          "${curl_retry_args[@]}" \
+          --insecure \
+          --silent \
+          --location \
+          --user-agent "${user_agent}" \
+          --output /dev/null \
+          --write-out "%{http_code}" \
+          "${header_args[@]}" \
+          "${link_url}" \
+        || echo "" )"
+    fi
+
+    if [[ "${response_code}" =~ ^2 ]]; then
+      # Link is good so add to our set/map so we don't have to hit it again
+      checked_links_map["${link_url}"]=1
+      new_checked_links_map["${link_url}"]=1
+    elif [[ -z "${response_code}" || "${response_code}" == "000" ]]; then
+      # Still no response, so we cannot say whether the link is broken. Warn
+      # rather than fail, as failing the build on someone else's outage is
+      # worse than missing a link that has genuinely gone. A dead page returns
+      # 404/410, which is still treated as an error below.
+      echo -e "${indent}${YELLOW}Warning${NC}: Unable to reach host for link" \
+        "[${BLUE}${link_name}${NC}] with url [${BLUE}${link_url}${NC}]" \
+        "in ${BLUE}${source_file}${NC}, so cannot check it."
+    elif [[ "${response_code}" =~ ^429 ]]; then
+      echo -e "${indent}${NC}Got 429 rate limit response, have to assume URL is ok ${NC}${link_url}${NC}"
+      # There doesn't seem to be any rhyme or reason when github returns
+      # a 429, it seems to only do it on some checks.
+      # Not a lot we can do other than treat it as good and move on.
+      checked_links_map["${link_url}"]=1
+      new_checked_links_map["${link_url}"]=1
+
+      #if [[ "${link_url}" =~ ^https://github.com/.* ]]; then
+        ## Show current the GH rate limits
+        #curl \
+          #--silent \
+          #"${header_args[@]}" \
+          #https://api.github.com/rate_limit
+      #fi
+    else
+      log_broken_http_link \
+        "${source_file}" \
+        "${link_name}" \
+        "${link_url}" \
+        "${response_code}"
     fi
   else
     echo -e "${indent}${NC}Already Checked URL ${NC}${link_url}${NC}"
@@ -284,6 +376,14 @@ verify_link() {
       echo -e "${indent}${YELLOW}Unable to check localhost link" \
         "[${BLUE}${link_name}${YELLOW}]" \
         "with url [${BLUE}${link_location}${YELLOW}]${NC}"
+    elif [[  "${link_location}" =~ https?://github.com/gchq/stroom/issues/[0-9]+ ]]; then
+      # GitHub is pretty agressive with rate limiting, so checking all
+      # the issue links in the rel notes is not wise. They are unlikely
+      # to be deleted though, just closed.
+      : # noop
+      #echo -e "${indent}${YELLOW}Unable to check github issue links due to rate limiting" \
+        #"[${BLUE}${link_name}${YELLOW}]" \
+        #"with url [${BLUE}${link_location}${YELLOW}]${NC}"
     elif [[  "${link_location}" =~ www\.somehost\.com ]]; then
       : # noop
       #echo -e "${indent}${YELLOW}Ignoring dummy link" \

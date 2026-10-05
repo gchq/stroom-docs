@@ -29,6 +29,7 @@ toBoolean('false')
 > false
 ```
 
+
 ## To Double
 
 Attempts to convert the passed value to a _double_ data type.
@@ -43,6 +44,23 @@ Examples:
 toDouble('1.2')
 > 1.2
 ```
+
+
+## To Float
+
+Attempts to convert the passed value to a _float_ data type.
+
+```clike
+toFloat(arg1)
+```
+
+Examples:
+
+```clike
+toFloat('1.2')
+> 1.2
+```
+
 
 ## To Integer
 
@@ -59,6 +77,7 @@ toInteger('1')
 > 1
 ```
 
+
 ## To Long
 
 Attempts to convert the passed value to a _long_ data type.
@@ -73,6 +92,7 @@ Examples:
 toLong('1')
 > 1
 ```
+
 
 ## To String
 

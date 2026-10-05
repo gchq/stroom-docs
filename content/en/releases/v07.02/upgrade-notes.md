@@ -12,6 +12,7 @@ description: >
 Please read this section carefully in case any of it is relevant to your Stroom instance.
 {{% /warning %}}
 
+
 ## Java Version
 
 Stroom v7.2 requires Java v17.
@@ -29,7 +30,7 @@ It is likely a future release of Stroom will include a new version of Saxon that
 
 The performance issue will show itself when multiple pipelines with effected XSLTs are being processed concurrently.
 This impacts XSLT/Xpath functions like `matches()` that use the `i` flag for case insensitive matching.
-If you don't not use any case-insensitive regular expressions in your XSLTs then you do not need to do anything.
+If you do not use any case-insensitive regular expressions in your XSLTs then you do not need to do anything.
 
 Until Stroom is changed to used a new version of Saxon with a fix, you will have to change the XSLTs that use the `i` flag in one of the following ways:
 
@@ -84,7 +85,7 @@ The legacy store exists in the directory configured by `stroom.pipeline.referenc
 Each feed specific store will be in a sub-directory with a name like `USER-DETAILS-REFERENCE___309e1ca0-7a5f-4f05-847b-b706805d758c` (i.e. a file system safe version of the _Feed_ name and the _Feed's_ {{< glossary "UUID" >}}.
 
 The migration happens on an as-needed basis.
-When a [lookup]({{< relref "/docs/user-guide/pipelines/xslt/xslt-functions#lookup" >}}) is called from an XSLT, if the required reference stream is found to exist in the legacy store then it will be copied into the appropriate _Feed_ specific store (creating the store if required).
+When a [lookup]({{< relref "/docs/user-guide/pipelines/xslt/xslt-functions/reference-data#lookup" >}}) is called from an XSLT, if the required reference stream is found to exist in the legacy store then it will be copied into the appropriate _Feed_ specific store (creating the store if required).
 After being copied, the stream in the legacy store will be marked as available for purge so will get purged on the next run of the job _Ref Data Off-heap Store Purge_.
 
 When Stroom boots it will delete a legacy store if it is found to be empty, so eventually the legacy store will cease to exist.
@@ -113,8 +114,8 @@ This will be the node that reaches that point in the boot process first.
 All other nodes will wait until that is complete before proceeding with the boot process.
 
 It is recommended however to use a single node to execute the migration.
-To avoid Stroom starting up and beginning processing you can use the `migrage` command to just migrate the database and not fully boot Stroom.
-See [`migrage` command]({{< relref "/docs/user-guide/tools/command-line#migrate" >}}) for more details.
+To avoid Stroom starting up and beginning processing you can use the `migrate` command to just migrate the database and not fully boot Stroom.
+See [`migrate` command]({{< relref "/docs/user-guide/tools/command-line#migrate" >}}) for more details.
 
 
 ### Migration Scripts
@@ -123,6 +124,7 @@ For information purposes only, the following is a list of all the database migra
 The migration script files can be viewed at {{< external-link "github.com/gchq/stroom" "https://github.com/gchq/stroom" >}}.
 
 <!-- This list was produced by stroom.db.migration.TestListDbMigrations#listDbMigrationsByVersion -->
+
 ```text
 7.1.0
   stroom-config

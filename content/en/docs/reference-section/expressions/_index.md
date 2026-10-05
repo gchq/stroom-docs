@@ -34,14 +34,14 @@ The arguments to functions can either be other functions, literal values, or the
   * [Joining](aggregate#joining)
   * [Max](aggregate#max)
   * [Min](aggregate#min)
-  * [Standard Deviation](aggregate#standard-deviation)
+  * [Period](aggregate#period)
+  * [Standard Deviation](aggregate#stdev-standard-deviation)
   * [Sum](aggregate#sum)
   * [Variance](aggregate#variance)
   {{< /card >}}
 
   {{< card header="String Functions" >}}
   * [Concat](string#concat)
-  * [Current User](string#current-user)
   * [Decode](string#decode)
   * [DecodeUrl](string#decodeurl)
   * [EncodeUrl](string#encodeurl)
@@ -49,17 +49,19 @@ The arguments to functions can either be other functions, literal values, or the
   * [Hash](string#hash)
   * [Include](string#include)
   * [Index Of](string#index-of)
+  * [Jq](string#jq)
   * [Last Index Of](string#last-index-of)
   * [Lower Case](string#lower-case)
   * [Match](string#match)
-  * [Query Param](string#query-param)
-  * [Query Params](string#query-params)
+  * [Param](string#param)
+  * [Params](string#params)
   * [Replace](string#replace)
   * [String Length](string#string-length)
   * [Substring](string#substring)
   * [Substring After](string#substring-after)
   * [Substring Before](string#substring-before)
   * [Upper Case](string#upper-case)
+  * [XPath](string#xpath)
   {{< /card >}}
 
   {{< card header="Mathematics Functions" >}}
@@ -95,6 +97,7 @@ The arguments to functions can either be other functions, literal values, or the
 {{< cardpane >}}
   {{< card header="Link Functions" >}}
   * [Annotation](link#annotation)
+  * [Create Annotation](link#create-annotation)
   * [Dashboard](link#dashboard)
   * [Data](link#data)
   * [Link](link#link)
@@ -104,6 +107,7 @@ The arguments to functions can either be other functions, literal values, or the
   {{< card header="Cast Functions" >}}
   * [To Boolean](cast#to-boolean)
   * [To Double](cast#to-double)
+  * [To Float](cast#to-float)
   * [To Integer](cast#to-integer)
   * [To Long](cast#to-long)
   * [To String](cast#to-string)
@@ -112,9 +116,16 @@ The arguments to functions can either be other functions, literal values, or the
   {{< card header="Date Functions" >}}
   * [Format Date](date#format-date)
   * [Parse Date](date#parse-date)
-  * [Ceiling Functions](date#ceiling-yearmonthdayhourminutesecond)
-  * [Floor Functions](date#floor-yearmonthdayhourminutesecond)
-  * [Round Functions](date#round-yearmonthdayhourminutesecond)
+  * [Ceiling Functions](date#ceiling-yearmonthweekdayhourminutesecond)
+  * [Floor Functions](date#floor-yearmonthweekdayhourminutesecond)
+  * [Round Functions](date#round-yearmonthweekdayhourminutesecond)
+  * [Is Weekend](date#is-weekend)
+  * [Now](date#now)
+  * [Current Period Functions](date#current-period-functions)
+  * [Parse Duration](date#parse-duration)
+  * [Format Duration](date#format-duration)
+  * [Parse ISO Duration](date#parse-iso-duration)
+  * [Format ISO Duration](date#format-iso-duration)
   {{< /card >}}
 
   {{< card header="Logic Functions" >}}
@@ -126,6 +137,8 @@ The arguments to functions can either be other functions, literal values, or the
   * [Less Than or Equal To](logic#less-than-or-equal-to)
   * [Not](logic#not)
   * [Case](logic#case)
+  * [InRange](logic#inrange)
+  * [Not Equals](logic#not-equals)
   {{< /card >}}
 
 {{< /cardpane >}}
@@ -133,9 +146,9 @@ The arguments to functions can either be other functions, literal values, or the
 {{< cardpane >}}
 
   {{< card header="Rounding Functions" >}}
-  * [Ceiling](rounding#ceiling)
-  * [Floor](rounding#floor)
-  * [Round](rounding#round)
+  * [Ceiling](mathematics#rounding-functions)
+  * [Floor](mathematics#rounding-functions)
+  * [Round](mathematics#rounding-functions)
   {{< /card >}}
 
   {{< card header="Selection Functions" >}}
@@ -159,9 +172,23 @@ The arguments to functions can either be other functions, literal values, or the
   * [extractUserInfoFromUri](uri#extractuserinfofromuri)
   {{< /card >}}
 
+  {{< card header="Param Functions" >}}
+  * [Current User](param#current-user)
+  * [Current User Display Name](param#current-user-display-name)
+  * [Current User Full Name](param#current-user-full-name)
+  * [Current User Subject Id](param#current-user-subject-id)
+  * [Current User Uuid](param#current-user-uuid)
+  {{< /card >}}
+
+  {{< card header="Lookup Functions" >}}
+  * [Get State](lookup#get-state)
+  {{< /card >}}
+
   {{< card header="Value Functions" >}}
   * [Err](value#err)
   * [False](value#false)
+  * [Format IEC Byte Size](value#format-iec-byte-size)
+  * [Format Metric Byte Size](value#format-metric-byte-size)
   * [Null](value#null)
   * [True](value#true)
   {{< /card >}}

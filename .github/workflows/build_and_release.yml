@@ -26,7 +26,7 @@ jobs:
 
       - name: Checkout code
         id: checkout_code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v7
         with:
           submodules: recursive
         #with:
@@ -59,19 +59,19 @@ jobs:
         shell: bash
 
       - name: Cache Hugo Docker layers
-        uses: actions/cache@v3
+        uses: actions/cache@v6
         with:
           path: /tmp/stroom_hugo_buildx_caches
           key: ${{ runner.os }}-hugo-buildx-${{ steps.generate_buildx_cache_key.outputs.cache_key }}
 
       - name: Cache Puppeteer Docker layers
-        uses: actions/cache@v3
+        uses: actions/cache@v6
         with:
           path: /tmp/stroom_puppeteer_buildx_caches
           key: ${{ runner.os }}-puppeteer-buildx-${{ steps.generate_buildx_cache_key.outputs.cache_key }}
 
       - name: Cache PUML Docker layers
-        uses: actions/cache@v3
+        uses: actions/cache@v6
         with:
           path: /tmp/stroom_puml_buildx_caches
           key: ${{ runner.os }}-puml-buildx-${{ steps.generate_buildx_cache_key.outputs.cache_key }}

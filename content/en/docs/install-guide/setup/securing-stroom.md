@@ -12,11 +12,12 @@ description: >
 
 > *NOTE* This document was written for stroom v4/5. Some parts may not be applicable for v6+.
 
+
 ## Firewall
 
 The following firewall configuration is recommended:
 
-* Outside cluster drop all access except ports HTTP 80, HTTPS 443, and any other system ports your require SSH, etc
+* Outside cluster drop all access except ports HTTP 80, HTTPS 443, and any other system ports your require SSH, etc.
 * Within cluster allow all access
 
 This will enable nodes within the cluster to communicate on:
@@ -34,13 +35,16 @@ This will enable nodes within the cluster to communicate on:
 Update this for MySQL 8
 {{% /todo %}}
 
-It is recommended that you run mysql_secure_installation to set a root password and remove test database:
+It is recommended that you run `mysql_secure_installation` to set a root password and remove the test database:
 
-```bash
-mysql_secure_installation (provide a root password)
-- Set root password? [Y/n] Y
-- Remove anonymous users? [Y/n] Y 
-- Disallow root login remotely? [Y/n] Y
-- Remove test database and access to it? [Y/n] Y
-- Reload privilege tables now? [Y/n] Y
-```
+{{< command-line >}}
+mysql_secure_installation
+{{< /command-line >}}
+
+When prompted, answer as follows (providing a root password when asked):
+
+- Set root password? → **Y**
+- Remove anonymous users? → **Y**
+- Disallow root login remotely? → **Y**
+- Remove test database and access to it? → **Y**
+- Reload privilege tables now? → **Y**

@@ -55,6 +55,7 @@ divide(100, 4, 3)
 > 8.33
 ```
 
+
 ## Max
 
 Determines the maximum value given in the args
@@ -74,6 +75,7 @@ max(max(${val}), 40, 67, 89)
 ${val} = [20, 1002]
 > 1002
 ```
+
 
 ## Min
 
@@ -98,12 +100,15 @@ ${val} = [20, 1002]
 > 20
 ```
 
+
 ## Modulo
 
 Determines the modulus of the dividend divided by the divisor.
 
 ```clike
+dividend % divisor
 modulo(dividend, divisor)
+mod(dividend, divisor)
 ```
 
 Examples
@@ -112,6 +117,7 @@ Examples
 modulo(100, 30)
 > 10
 ```
+
 
 ## Multiply
 
@@ -136,6 +142,7 @@ multiply(4, 5, 2, 6)
 > 240
 ```
 
+
 ## Negate
 
 Multiplies arg1 by -1
@@ -154,6 +161,7 @@ negate(23.33)
 negate(-9.5)
 > 9.5
 ```
+
 
 ## Power
 
@@ -178,6 +186,7 @@ power(2, 4, 3)
 > 4096
 ```
 
+
 ## Random
 
 Generates a random number between 0.0 and 1.0
@@ -195,6 +204,7 @@ random()
 > 0.89
 ...you get the idea
 ```
+
 
 ## Subtract
 
@@ -217,6 +227,7 @@ subtract(100, 20, 34, 2)
 > 44
 ```
 
+
 ## Sum
 
 Sums all the arguments together
@@ -237,6 +248,7 @@ sum(89, 12, 3, 45)
 
 These functions require a value, and an optional decimal places.
 If the decimal places are not given it will give you nearest whole number.
+
 
 ### Ceiling
 

@@ -15,6 +15,7 @@ Evaluates if `arg1` is equal to `arg2`
 ```clike
 arg1 = arg2
 equals(arg1, arg2)
+eq(arg1, arg2)
 ```
 
 Examples
@@ -50,6 +51,7 @@ Evaluates if `arg1` is greater than to `arg2`
 ```clike
 arg1 > arg2
 greaterThan(arg1, arg2)
+gt(arg1, arg2)
 ```
 
 Examples
@@ -71,13 +73,14 @@ greaterThan(49, 50)
 ```
 
 
-## Greater Than or Equal To
+## Greater than or Equal To
 
 Evaluates if `arg1` is greater than or equal to `arg2`
 
 ```clike
 arg1 >= arg2
 greaterThanOrEqualTo(arg1, arg2)
+gte(arg1, arg2)
 ```
 
 Examples
@@ -95,6 +98,31 @@ greaterThanOrEqualTo(51, 50)
 greaterThanOrEqualTo(50, 50)
 > true
 greaterThanOrEqualTo(49, 50)
+> false
+```
+
+
+## Not Equals
+
+Evaluates if `arg1` is not equal to `arg2`
+
+```clike
+arg1 != arg2
+notEquals(arg1, arg2)
+ne(arg1, arg2)
+```
+
+Examples
+
+```clike
+'foo' != 'bar'
+> true
+'foo' != 'foo'
+> false
+
+notEquals('foo', 'bar')
+> true
+notEquals('foo', 'foo')
 > false
 ```
 
@@ -126,6 +154,7 @@ Evaluates if `arg1` is less than to `arg2`
 ```clike
 arg1 < arg2
 lessThan(arg1, arg2)
+lt(arg1, arg2)
 ```
 
 Examples
@@ -147,13 +176,14 @@ lessThan(49, 50)
 ```
 
 
-## Less Than or Equal To
+## Less than or Equal To
 
 Evaluates if `arg1` is less than or equal to `arg2`
 
 ```clike
 arg1 <= arg2
 lessThanOrEqualTo(arg1, arg2)
+lte(arg1, arg2)
 ```
 
 Examples
@@ -236,5 +266,32 @@ ${val}=2
 > two
 ${val}=4
 > unknown // falls back to the 'otherwise' value
+```
+
+
+## InRange
+
+Returns true if the value is between lower and upper (inclusive).
+All parameters must be either numbers or ISO date strings.
+
+1. The input value to test
+1. The lower bound (inclusive)
+1. The upper bound (inclusive)
+
+```clike
+inRange(value, lower, upper)
+```
+
+Example
+
+```clike
+inRange(5, 2, 6)
+> true
+inRange(5, 5, 5)
+> true
+inRange(5, 6, 7)
+> false
+inRange(5, 3, 4)
+> false
 ```
 

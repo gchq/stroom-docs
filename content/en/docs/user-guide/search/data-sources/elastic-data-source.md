@@ -15,14 +15,14 @@ Stroom can integrate with external Elasticsearch indexes to allow querying using
 These indexes may have been populated using a Stroom pipeline (See [here]({{< relref "docs/user-guide/indexing/elasticsearch" >}})).
 
 
-## Searching using a Stroom dashboard
+## Searching Using a Stroom Dashboard
 
 Searching an Elasticsearch index (or data stream) using a Stroom dashboard is conceptually similar to the process described in [Dashboards]({{< relref "docs/quick-start-guide/dashboard" >}}).
 
 Before you set the dashboard's data source, you must first create an Elastic Index document to tell Stroom which index (or indices) you wish to query.
 
 
-### Create an Elastic Index document
+### Create an Elastic Index Document
 
 1. Right-click a folder in the Stroom Explorer pane ({{< stroom-icon "folder-tree.svg" "Explorer" >}}).
 1. Select:  
@@ -43,7 +43,7 @@ Before you set the dashboard's data source, you must first create an Elastic Ind
 1. Click {{< stroom-icon "save.svg" "Save" >}}.
 
 
-### Set the Elastic Index document as the dashboard data source
+### Set the Elastic Index Document as the Dashboard Data Source
 
 1. Open or create a dashboard.
 1. Click {{< stroom-icon "settings.svg" "Settings" >}} in the `Query` panel.
@@ -54,7 +54,7 @@ Before you set the dashboard's data source, you must first create an Elastic Ind
 1. [Configure the table]({{< relref "docs/quick-start-guide/dashboard#configuring-the-table" >}}).
 
 
-## Query expression tips
+## Query Expression Tips
 
 Certain Elasticsearch field mapping types support special syntax when used in a Stroom dashboard query expression.
 
@@ -69,7 +69,7 @@ After you identify the field mapping type, move the mouse cursor over the mappin
 A tooltip appears, explaining various types of queries you can perform against that particular field's type.
 
 
-## Searching multiple indices
+## Searching Multiple Indices
 
 Using data view (index pattern) syntax, you can create powerful dashboards that query multiple indices at a time.
 An example of this is where you have multiple indices covering different types of email systems.

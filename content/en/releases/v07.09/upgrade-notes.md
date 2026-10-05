@@ -12,6 +12,7 @@ description: >
 Please read this section carefully in case any of it is relevant to your Stroom instance.
 {{% /warning %}}
 
+
 ## Java Version
 
 Stroom v7.9 requires Java 21.
@@ -28,6 +29,7 @@ new_ver=7.7
 git diff origin/${old_ver}..origin/${new_ver} stroom-config/stroom-config-app/src/test/resources/stroom/config/app/expected.yaml
 git diff origin/${old_ver}..origin/${new_ver} stroom-proxy/stroom-proxy-app/src/test/resources/stroom/dist/proxy-expected.yaml
 -->
+
 
 ### Stroom's `config.yml`
 
@@ -93,6 +95,7 @@ appConfig:
     - "schema"
     - "schemaversion"
 ```
+
 
 #### Data Formats
 
@@ -235,9 +238,6 @@ proxyConfig:
 Proxy uses the same data receipt config structure as Stroom, so see [above]({{< relref "#data-receipt" >}}) for details of the changes.
 
 
-
-
-
 ## Database Migrations
 
 When Stroom boots for the first time with a new version it will run any required database migrations to bring the database schema up to the correct version.
@@ -253,14 +253,15 @@ This will be the node that reaches that point in the boot process first.
 All other nodes will wait until that is complete before proceeding with the boot process.
 
 It is recommended however to use a single node to execute the migration.
-To avoid Stroom starting up and beginning processing you can use the `migrage` command to just migrate the database and not fully boot Stroom.
-See [`migrage` command]({{< relref "/docs/user-guide/tools/command-line#migrate" >}}) for more details.
+To avoid Stroom starting up and beginning processing you can use the `migrate` command to just migrate the database and not fully boot Stroom.
+See [`migrate` command]({{< relref "/docs/user-guide/tools/command-line#migrate" >}}) for more details.
 
 
 <!-- 
 Run stroom.db.migration.TestListDbMigrations.listDbMigrationsForLatestVersion() to generate the content for
 this section
 -->
+
 
 ### Migration Scripts
 
@@ -275,6 +276,7 @@ this section
 For information purposes only, the following are the database migrations that will be run when upgrading to 7.9.0 from the previous minor version.
 
 Note, the `legacy` module will run first (if present) then the other module will run in no particular order.
+
 
 #### Module `stroom-annotation`
 

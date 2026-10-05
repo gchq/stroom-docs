@@ -1,7 +1,7 @@
 ---
 title: "Pipelines"
 linkTitle: "Pipelines"
-weight: 90
+weight: 100
 date: 2021-07-27
 tags: 
   - pipeline
@@ -54,10 +54,10 @@ Input data is converted into XML {{< external-link "SAX" "https://en.wikipedia.o
 ## Forks
 
 Pipelines can also be forked at any point in the pipeline.
-This allows the same data to processed in different ways.
+This allows the same data to be processed in different ways.
 
 {{% note %}}
-Rather than creating complicated pipelines with forks, it is sometimes better to create multiple pipelines as this makes it easer to handle errors in one fork of the processing.
+Rather than creating complicated pipelines with forks, it is sometimes better to create multiple pipelines as this makes it easier to handle errors in one fork of the processing.
 It also makes it easier to re-use common simple pipelines.
 For example if you have a pipeline to transform CSV events into normalised XML then index it and forward it to a remote server, it may be better to have a pipeline to cook the events, then a common one to index those XML events and one to forward XML events.
 {{% /note %}}
@@ -83,7 +83,7 @@ Stroom has a number of categories of pipeline element.
 ### Reader
 
 Readers are responsible for reading the raw bytes of the input data and converting it to character data using the Feed's character encoding.
-They also provide functionality to modify the data before or after it is decoded to characters, e.g. {{< glossary "Bye Order Mark" >}} removal, or doing find/replace on the character data.
+They also provide functionality to modify the data before or after it is decoded to characters, e.g. {{< glossary "Byte Order Mark" >}} removal, or doing find/replace on the character data.
 You can chain multiple Readers.
 
 

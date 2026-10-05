@@ -15,7 +15,9 @@ The tool is contained within the core Stroom Java library and can be accessed vi
 
 *Note the classpath may need to be altered depending on your installation.*
 
-The above command will export all content from Stroom and output it to a directory called `output`. Data is exported to zip files in the same format as zip files in proxy repositories. The structure of the exported data is `${feed}/${pathId}/${id}` by default with a `.zip` extension.
+The above command will export all content from Stroom and output it to a directory called `output`.
+Data is exported to zip files in the same format as zip files in proxy repositories.
+The structure of the exported data is `${feed}/${pathId}/${id}` by default with a `.zip` extension.
 
 To provide greater control over what is exported and how the following additional parameters can be used:
 
@@ -31,6 +33,7 @@ To provide greater control over what is exported and how the following additiona
 
 `format` - The format of the output data directory and file structure (`${feed}/${pathId}/${id}` by default).
 
+
 ## Format
 
 The format parameter can include several replacement variables:
@@ -41,6 +44,6 @@ The format parameter can include several replacement variables:
 
 `streamId` - The id of the data being exported.
 
-`pathId` - A incrementing numeric id that creates sub directories when required to ensure no directory ends up containing too many files.
+`pathId` - An incrementing numeric id that creates sub directories when required to ensure no directory ends up containing too many files.
 
-`id` - A incrementing numeric id similar to `pathId` but without sub directories.
+`id` - An incrementing numeric id similar to `pathId` but without sub directories.

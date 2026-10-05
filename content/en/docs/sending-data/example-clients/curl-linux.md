@@ -15,11 +15,11 @@ In the following examples -H is used to specify the header arguments required by
 Notes:
 
 * The `@` character must be used in front of the file being posted.
-    If it is not then curl will post the file name instead of it's contents.
+    If it is not then curl will post the file name instead of its contents.
 * The `--data-binary` argument must always be used even for text formats, in order to prevent data corruption by curl stripping out newlines.
 
 
-## Example HTTPS post without authentication:
+## Example HTTPS Post without Authentication:
 
 {{< command-line "user" "localhost" >}}
 curl -k --data-binary @file.dat "https://<Stroom_HOST>/stroom/datafeed" \
@@ -32,7 +32,7 @@ In the above example -k is required to stop curl from authenticating the server.
 The next example must be used to supply the necessary CA to authenticate the server if this is required.
 
 
-## Example HTTPS With 1 way SSL authentication:
+## Example HTTPS with 1 Way SSL Authentication:
 
 {{< command-line "user" "localhost" >}}
 curl --cacert root_ca.crt --data-binary @file.dat "https://<Stroom_HOST>/stroom/datafeed" \
@@ -47,7 +47,7 @@ The CA is provided to curl using the '--cacert root_ca.crt' parameter.
 For step by step instructions for creating, configuring and testing the PKI authentication, see the [SSL Guide]({{< relref "ssl.md" >}})
 
 
-## Example HTTPS With 2 way SSL authentication:
+## Example HTTPS with 2 Way SSL Authentication:
 
 {{< command-line "user" "localhost" >}}
 curl --cert example.pem --cacert root_ca.crt --data-binary @file.dat "https://<Stroom_HOST>/stroom/datafeed" \
@@ -81,7 +81,7 @@ The hostname being sent as a header argument may be resolved upon execution usin
 
 ## SSL Notes
 
-To create a .pem format key simply append the private key and certifcate.
+To create a .pem format key simply append the private key and certificate.
 
 {{< command-line "user" "localhost" >}}
 cat <NAME>.key >> <NAME>.pem

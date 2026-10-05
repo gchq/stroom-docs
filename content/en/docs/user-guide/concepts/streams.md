@@ -35,6 +35,7 @@ Although all streams conform to the above hierarchy there are three main types o
 
 Segmented means that the data has been demarcated into segments or records.
 
+
 ### Child Stream Types
 
 #### Data
@@ -71,7 +72,7 @@ Each part will have its own context and meta data child streams, if applicable.
 
 ### Segmented Stream
 
-The following is a representation of a segmented stream that contains three records (i.e events) and the Meta Data.
+The following is a representation of a segmented stream that contains three records (i.e. events) and the Meta Data.
 
 {{< image "user-guide/concepts/streams/segmented-stream.puml.svg" >}}Segmented Stream{{< /image >}}
 

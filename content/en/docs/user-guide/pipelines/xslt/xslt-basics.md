@@ -197,7 +197,7 @@ You can insert this identity skeleton into an XSLT editor using this editor [sni
 ## `<xsl:message>`
 
 Stroom supports the standard `<xsl:message>` element from the {{< external-link "http://www.w3.org/1999/XSL/Transform" "http://www.w3.org/1999/XSL/Transform" >}}.
-This element behaves in a similar way to the [`stroom:log()`]({{< relref "./xslt-functions#log" >}}) XSLT function.
+This element behaves in a similar way to the [`stroom:log()`]({{< relref "./xslt-functions/output-and-logging#log" >}}) XSLT function.
 The element text is logged to the Error stream with a default severity of `ERROR`.
 
 A child element can optionally be used to set the severity level (one of `FATAL|ERROR|WARN|INFO`).

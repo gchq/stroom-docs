@@ -12,7 +12,8 @@ description: >
 
 Stroom and Stroom Proxy should be run under a processing user (we assume _stroomuser_ below).
 
-## Create user
+
+## Create User
 
 {{< command-line "root" "localhost" >}}
 /usr/sbin/adduser --system stroomuser
@@ -20,7 +21,8 @@ Stroom and Stroom Proxy should be run under a processing user (we assume _stroom
 
 You may want to allow normal accounts to sudo to this account for maintenance (visudo).
 
-## Create service script
+
+## Create Service Script
 
 Create a service script to start/stop on server startup (as root).  
 
@@ -65,7 +67,7 @@ Now initialise the script.
 {{</ command-line >}}
 
 
-### Setup user's environment
+### Setup User's Environment
 
 
 Setup `env.sh` to include `JAVA_HOME` to point to the installed directory of the JDK (this will be platform specific).
@@ -82,20 +84,21 @@ export JAVA_HOME=/usr/lib/jvm/java-1.8.0
 export PATH=${JAVA_HOME}/bin:${PATH}
 ```
 
-Setup the user's profile to include source the env script.
+Setup the user's profile to source the env script.
 
 {{< command-line "stroomuser" "localhost" >}}
 vi ~/.bashrc
 {{</ command-line >}}
- 
+
 In vi add the following lines.
 
-``` bash
+```bash
 # User specific aliases and functions
 . ~/env.sh
-```	 
+```
 
-### Verify Java installation
+
+### Verify Java Installation
 
 Assuming you are using Stroom without using docker and have installed Java, verify that the processing user can use the Java installation.
 

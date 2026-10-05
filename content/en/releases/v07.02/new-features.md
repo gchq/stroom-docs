@@ -125,13 +125,13 @@ The document and folder permissions screens have been re-designed with a better 
 {{< image "releases/07.02/folder-permissions.png" "300" />}}
 
 
-### Editor Completion snippets
+### Editor Completion Snippets
 
 The number of available [editor completion snippets]({{< relref "docs/user-guide/content/editing-text#auto-completion-and-snippets" >}}) has increased.
 For a list of the available completion snippets see the [Completion Snippet Reference]({{< relref "docs/reference-section/snippet-reference" >}}).
 
 {{% note %}}
-Completion snippets are an evolving feature so if you have an requests for generic completion snippets then raise an issue on GitHub and we will consider adding them in.
+Completion snippets are an evolving feature so if you have any requests for generic completion snippets then raise an issue on GitHub and we will consider adding them in.
 {{% /note %}}
 
 
@@ -154,7 +154,7 @@ See the [upgrade notes]({{< relref "upgrade-notes#reference-data-store" >}}) for
 ## Improved OAuth2.0/OpenID Connect Support
 
 The support for Open ID Connect (OIDC) authentication has been improved in v7.2.
-Stroom can be integrated with AWS Cognito, MS Azure AD, KeyCloak and other OIDC {{< glossary "identity provider idp" "Identity Providers">}}.
+Stroom can be integrated with AWS Cognito, MS Azure AD, KeyCloak and other OIDC {{< glossary "idp" "Identity Providers">}}.
 
 Data receipt in Stroom and Stroom-Proxy can now enforce OIDC token authentication as well as certificate authentication.
 The data receipt authentication is configured via the properties:
@@ -223,9 +223,10 @@ It can be useful to populate them initially to make it easier for the administra
 Once the user(s) are created, the appropriate permissions/groups can be assigned to them so that when they log in for the first time they will be able to see the required content and be able to use Stroom.
 
 
-## New Document types
+## New Document Types
 
 The following new types of document can be created and managed in the explorer tree.
+
 
 ### _Documentation_
 
@@ -387,7 +388,7 @@ See the migration task [Tagging Entities]({{< relref "upgrade-notes#tagging-enti
 
 ### Copy Link to Clipboard
 
-It is not possible to easily copy a direct link to a Document from the explorer tree.
+It is now possible to easily copy a direct link to a Document from the explorer tree.
 Direct links are useful if for example you want to share a link to a particular stroom dashboard.
 
 To create a direct link, right click on the document you want a link for in the explorer tree and select:
@@ -399,7 +400,7 @@ You can then paste the link into a browser to jump directly to that document (au
 
 ### Dependencies
 
-It is not possible to jump to the Dependencies screen to see the dependencies or dependants of a particular document.
+It is now possible to jump to the Dependencies screen to see the dependencies or dependants of a particular document.
 In the explorer tree right click on a document and select one of:
 
  {{< stroom-menu "Dependencies" >}}
@@ -524,7 +525,7 @@ Disabling it is useful when you want to delete a task, as it will stop the table
 ### Line Wrapping
 
 You can now enable/disable line wrapping in the Name and Info cells using the {{< stroom-icon "text-wrap.svg" "Turn Cell Line Wrapping On/Off">}} button.
-Line wrapping is disable by default.
+Line wrapping is disabled by default.
 Enabling this is useful to see long Info cell values.
 
 

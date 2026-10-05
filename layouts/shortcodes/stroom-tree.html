@@ -1,0 +1,91 @@
+<!-- 
+Short code to add a stroom icon (from /assets/images/stroom-ui/) to the page 
+with an optional hover title. If you don't supply a title it will make one from the
+filename.
+Usage:
+stroom-icon filename [title] [enabled|disabled] [colour variant]
+e.g
+stroom-icon add.svg "Add"
+stroom-icon add.svg
+stroom-icon save.svg "Save" "disabled"
+stroom-icon save.svg "Save" "disabled" "green"
+stroom-icon name="save.svg" colour="green"
+
+Wraps a partial so the partial can be re-used in other shortcodes.
+-->
+
+{{- $name := "" -}}
+{{- $text := "" -}}
+
+{{- if .IsNamedParams -}}
+  {{- $name = (.Get "name" ) -}}
+  {{- $text = (.Get "text") -}}
+{{- else -}}
+  {{- $name = (.Get 0) -}}
+  {{- $text = (.Get 1) -}}
+{{- end -}}
+
+
+{{- $filename := "" -}}
+{{- $title := "" -}}
+{{- $colour := "" -}}
+{{- $class := "" -}}
+{{- if eq $name "System" -}}
+  {{- $filename = "document/System.svg" -}}
+  {{- $title = "System" -}}
+  {{- $class = "exp-tree-branch-root" -}}
+{{- else -}}
+  {{- $filename = "folder.svg" -}}
+  {{- $title = "Folder" -}}
+  {{- $colour = "blue" -}}
+  {{- $class = "exp-tree-branch-folder" -}}
+{{- end -}}
+
+{{- if not .Parent -}}
+  {{- $class = printf "%s exp-tree-branch-outer" $class -}}
+{{- end -}}
+
+{{- $arror_filename := "" -}}
+{{- $arror_title := "" -}}
+{{- if .Inner -}}
+  {{- $arror_filename = "arrow-down.svg" -}}
+  {{- $arror_title = "Open folder" -}}
+{{- else -}}
+  {{- $arror_filename = "arrow-right.svg" -}}
+  {{- $arror_title = "Closed folder" -}}
+{{- end -}}
+
+{{- /* Now call the partial to render the icon */ -}}
+
+<div class="exp-tree exp-tree-branch {{ $class }}">
+
+<span class="exp-tree-branch-arrow">
+{{- partial "stroom-icon.partial.html" (dict 
+    "context" . 
+    "file" $arror_filename
+    "title" $arror_title
+    "enabled" "false"
+    "colour" "" ) -}}
+{{- /* Strip trailing newline. */ -}}
+</span>
+
+{{- partial "stroom-icon.partial.html" (dict 
+    "context" . 
+    "file" $filename 
+    "title" $title
+    "enabled" "true"
+    "colour" $colour ) -}}
+{{- /* Strip trailing newline. */ -}}
+<span class="exp-tree-branch-name">{{ $name }}</span>
+
+{{- if $text -}}
+  <span class="exp-tree-branch-text">{{ $text }}</span>
+{{- end -}}
+
+{{- if .Inner -}}
+  <!--<div class="exp-tree-branch-content">-->
+    {{ .Inner }}
+  <!--</div>-->
+{{- end -}}
+
+</div>

@@ -13,6 +13,7 @@ Dashboard queries are created with the query expression builder.
 The expression builder allows for complex boolean logic to be created across multiple index fields.
 The way in which different index fields may be queried depends on the type of data that the index field contains.
 
+
 ## Date Time Fields
 
 Time fields can be queried for times equal, greater than, greater than or equal, less than, less than or equal or between two times.
@@ -26,13 +27,14 @@ Times can be specified in two ways:
 
 ### Absolute Times
 
-An absolute time is specified in ISO 8601 date time format, e.g.  `2016-01-23T12:34:11.844Z`
+An absolute time is specified in ISO 8601 date time format, e.g. `2016-01-23T12:34:11.844Z`
+
 
 ### Relative Times
 
 In addition to absolute times it is possible to specify times using expressions.
 Relative time expressions create a date time that is relative to the execution time of the query.
-Supported expressons are as follows:
+Supported expressions are as follows:
 
 * `now()` - The current execution time of the query.
 * `second()` - The current execution time of the query rounded down to the nearest second.
@@ -58,7 +60,8 @@ Multiple durations can be combined in the expression, e.g.
 
 `now() + 2w - 1d10h`
 
-Durations consist of a number and duration unit. Supported duration units are:
+Durations consist of a number and duration unit.
+Supported duration units are:
 
 * `s` - Seconds
 * `m` - Minutes
@@ -68,7 +71,7 @@ Durations consist of a number and duration unit. Supported duration units are:
 * `M` - Months
 * `y` - Years
 
-Using these durations a query to get the last weeks data could be as follows:
+Using these durations a query to get the last week's data could be as follows:
 
 `between now() - 1w and now()`
 

@@ -1,7 +1,7 @@
 ---
 title: "Documenting content"
 linkTitle: "Documenting content"
-weight: 30
+weight: 40
 date: 2023-06-07
 tags: 
   - content
@@ -23,7 +23,7 @@ Stroom uses the {{< external-link "Showdown" "https://github.com/showdownjs/show
 This link is the definitive source for supported markdown syntax.
 
 {{% note %}}
-The _Showdown_ markdown processor used in stroom is **not** the same as the markdown processor used within this  documentation site (*stroom-docs*), so there may be some subtle differences in syntax.
+The _Showdown_ markdown processor used in stroom is **not** the same as the markdown processor used within this documentation site (*stroom-docs*), so there may be some subtle differences in syntax.
 {{% /note %}}
 
 
@@ -69,7 +69,7 @@ Use four spaces to indent a sub-item.
 ## Numbered Lists
 
 Use four spaces to indent a sub-item.
-Using `1` for all items means the makrdown processor will replace them with the correct number, making it easier to re-order items.
+Using `1` for all items means the markdown processor will replace them with the correct number, making it easier to re-order items.
 
 1. Item 1
     1. Item 1a
@@ -166,27 +166,33 @@ Only certain languages are supported in Stroom.
 
 **JSON**
 ```json
+
 {
   "key1": "some text",
   "key2": 123
 }
+
 ```
 
 **XML**
 ```xml
+
   <record>
     <data name="dateTime" value="2020-09-28T14:30:33.476" />
     <data name="machineIp" value="19.141.201.14" />
   </record>
+
 ```
 
 **bash**
 ```bash
+
 #!/bin/bash
 now="$(date)"
 computer_name="$(hostname)"
 echo "Current date and time : $now"
 echo "Computer name : $computer_name"
+
 ```
 ````
 
@@ -196,23 +202,25 @@ echo "Computer name : $computer_name"
 Long paragraphs will be wrapped
 
 
-
 ## Code Syntax Highlighting
 
 This is an example of a fenced code block.
 
 ````markdown
 ```xml
+
   <record>
     <data name="dateTime" value="2020-09-28T14:30:33.476" />
   </record>
+
 ```
 ````
 
 In this example, `xml` defines the language used within the fenced block.
 
 Stroom supports the following languages for fenced code blocks.
-If you require additional languages then please raised a ticket {{< external-link "here" "https://github.com/gchq/stroom/issues" >}}. If your language is not currently supported or is just plain text then use `text`.
+If you require additional languages then please raised a ticket {{< external-link "here" "https://github.com/gchq/stroom/issues" >}}.
+If your language is not currently supported or is just plain text then use `text`.
 
 * text
 * sh
@@ -235,13 +243,14 @@ Fenced blocks with content that is wider than the pane will result in the fenced
 ## Escaping Characters
 
 It is common to use `_` characters in {{< glossary "Feed" >}} names, however if there are two of these in a word then the markdown processor will interpret them as _italic_ markup.
-To prevent this, either surround the word with back ticks to be rendered as code or escape each underscore with a `\`, i.e. `THIS\_IS\_MY\_FEED`. THIS_IS_MY_FEED.
+To prevent this, either surround the word with back ticks to be rendered as code or escape each underscore with a `\`, i.e. `THIS\_IS\_MY\_FEED`.
+THIS_IS_MY_FEED.
 
 
 ## HTML
 
-While it is possible to use HTML in the documentation, its use is not recomended as it increases the complexity of the documentation content and requires that other users have knowledge of HTML.
-Markdown should be sufficient for most cases, with the possible exception of complex tables where HTML may be prefereable.
+While it is possible to use HTML in the documentation, its use is not recommended as it increases the complexity of the documentation content and requires that other users have knowledge of HTML.
+Markdown should be sufficient for most cases, with the possible exception of complex tables where HTML may be preferable.
 
 {{% note %}}
 No form of HTML scripting (i.e. Javascript) is supported within the documentation content.

@@ -38,7 +38,7 @@ This guide will walk you through configuring a Stroom indexing pipeline, creatin
 1. You have a feed containing `Event` streams to index.
 
 
-## Key differences
+## Key Differences
 
 Indexing data with Elasticsearch differs from Solr and built-in Lucene methods in a number of ways:
 

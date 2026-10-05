@@ -18,7 +18,7 @@ Complete this page.
 {{% /todo %}}
 
 
-## Field configuration
+## Field Configuration
 
 ### Field Types
 
@@ -35,15 +35,15 @@ Complete this page.
 * `Number` - An alias for `Long`.
 
 
-### Stored fields
+### Stored Fields
 
 If a field is _Stored_ then it means the complete field value will be stored in the index.
 This means the value can be retrieved from the index when building search results rather than using the slower [Search Extraction]({{< relref "extraction.md" >}}) process.
-Storing field values comes at the cost of hight storage requirements for the index.
+Storing field values comes at the cost of high storage requirements for the index.
 If storage space is not an issue then storing all fields that you want to return in search results is the optimum.
 
 
-### Indexed fields
+### Indexed Fields
 
 An _Indexed_ field is one that will be processed by Lucene so that the field can be queried.
 How the field is indexed will depend on the Field type and the Analyser used.
@@ -58,10 +58,10 @@ A non-indexed field would either need to be _Stored_ in the index or added via S
 If _Positions_ is selected then Lucene will store the positions of all the field terms in the document.
 
 
-### Analyser types
+### Analyser Types
 
 The Analyser determines how Lucene reads the fields value and extracts tokens from it.
-The choice of Analyser will depend on the date in the field and how you want to search it.
+The choice of Analyser will depend on the data in the field and how you want to search it.
 
 * `Keyword` - Treats the whole field value as one token.
   Useful for things like IDs and post codes.
@@ -69,12 +69,12 @@ The choice of Analyser will depend on the date in the field and how you want to 
 * `Alpha` - Tokenises on any non-letter characters, e.g. `one1 two2 three 3` => `one` `two` `three`.
   Strips non-letter characters.
   Supports the _Case Sensitivity setting_.
-* `Numeric` - 
+* `Numeric` -
 * `Alpha numeric` - Tokenises on any non-letter/digit characters, e.g. `one1 two2 three 3` => `one1` `two2` `three` `3`.
   Supports the _Case Sensitivity setting_.
 * `Whitespace` - Tokenises only on white space.
   Not affected by the _Case Sensitivity setting_, case sensitive.
-* `Stop words` - Tokenises bases on non-letter characters and removes [Stop Words]({{< relref "#stop-words" >}}), e.g. `and`.
+* `Stop words` - Tokenises based on non-letter characters and removes [Stop Words]({{< relref "#stop-words" >}}), e.g. `and`.
   Not affected by the _Case Sensitivity setting_.
   Case insensitive.
 * `Standard` - The most common analyser.
@@ -85,7 +85,7 @@ The choice of Analyser will depend on the date in the field and how you want to 
   e.g. `Find Stroom at github.com/stroom` => `Find` `Stroom` `at` `github.com/stroom`.
 
 
-#### Stop words
+#### Stop Words
 
 Some of the Analysers use a set of stop words for the tokenisers.
 This is the list of stop words that will not be indexed.
@@ -93,7 +93,7 @@ This is the list of stop words that will not be indexed.
 `a`, `an`, `and`, `are`, `as`, `at`, `be`, `but`, `by`, `for`, `if`, `in`, `into`, `is`, `it`, `no`, `not`, `of`, `on`, `or`, `such`, `that`, `the`, `their`, `then`, `there`, `these`, `they`, `this`, `to`, `was`, `will`, `with`
 
 
-### Case sensitivity
+### Case Sensitivity
 
 Some of the Analyser types support case (in)sensitivity.
 For example if the Analyser supports it the value `TWO two` would either be tokenised as `TWO` `two` or `two` `two`.

@@ -1,7 +1,7 @@
 ---
 title: "Users and Groups"
 linkTitle: "Users and Groups"
-weight: 30
+weight: 40
 date: 2024-11-01
 tags:
   - user
@@ -24,8 +24,8 @@ See [Accounts vs Users]({{< relref "docs/install-guide/setup/open-id/accounts-us
 
 ## User
 
-A Stroom User represents a human user and is linked to either a User Account in Stroom or to a user account in an external {{< glossary "Identity Provider IDP" "Identity Provider" >}}.
-It can also represent  non-human processing user, e.g. where a Stroom User is created and has an {{< glossary "API Key" >}} created for it to allow a client system to use Stroom's {{< glossary "API" >}}.
+A Stroom User represents a human user and is linked to either a User Account in Stroom or to a user account in an external {{< glossary "idp" >}}.
+It can also represent a non-human processing user, e.g. where a Stroom User is created and has an {{< glossary "API Key" >}} created for it to allow a client system to use Stroom's {{< glossary "API" >}}.
 
 All audited activity in Stroom will be attributed to a Stroom User and their unique identifier will be included in the audit events.
 
@@ -34,6 +34,28 @@ A User can have the following:
 * Membership of one or more Groups.
 * One or more {{< glossary "Application Permission" "Application Permissions" >}} granted to it.
 * One or more {{< glossary "Document Permission" "Document Permissions" >}} granted to it.
+
+
+## Enabling and Disabling a User
+
+A User can be enabled or disabled using the _Enabled_ tick box on the user, reached by selecting
+
+{{< stroom-menu "Security" "Users" >}}
+
+from the main menu and opening the user.
+This requires the `Manage Users` or `Administrator` {{< glossary "Application Permission" >}}.
+
+Disabling a User is the strongest single action available against a person.
+It takes effect at once and does three things:
+
+* Every session they hold is ended, across every node in the cluster.
+* Every token issued to them is revoked.
+* They are refused at authentication from then on, whether signing in interactively or presenting a token.
+
+This is distinct from disabling their _Account_, which only prevents them signing in and leaves any session already running untouched.
+An Account exists only where Stroom is its own {{< glossary "idp" >}}, whereas every person has a Stroom User whichever {{< glossary "idp" >}} is in use, so disabling the User is the action that works in all deployments.
+
+See [Sessions and Tokens]({{< relref "sessions-and-tokens" >}}) for how this compares with simply ending someone's sessions, and [User Accounts]({{< relref "user-accounts" >}}) for the Account states.
 
 
 ## Group

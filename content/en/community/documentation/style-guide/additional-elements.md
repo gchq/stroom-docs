@@ -15,9 +15,9 @@ While links can be added using standard markdown link syntax you should use Hugo
 The advantage of the shortcode is that Hugo will check for broken links when building the site.
 
 
-### External links
+### External Links
 
-As this site is deployed to environments with no internet connect and is also released in PDF form it is important that any links to locations outside of the this site (i.e. on the internet) are clearly marked.
+As this site is deployed to environments with no internet connection and is also released in PDF form it is important that any links to locations outside of the this site (i.e. on the internet) are clearly marked.
 To include an external link do the following:
 
 * This is a link to {{< external-link "Stroom on Github" "https://github.com/gchq/stroom" >}} with a title.
@@ -51,7 +51,6 @@ This will not work for version `legacy` as that is not an actual Stroom version.
 {{% /warning %}}
 
 
-
 ### Anchors
 
 You can link to headings on a page using its anchor.
@@ -67,7 +66,7 @@ For example the heading `Mr O'Neil's 1st Event (something)` becomes as an anchor
 See The link examples below that use anchors.
 
 
-#### Duplicate anchors
+#### Duplicate Anchors
 
 If you have two headings on the same page then Hugo will suffix the anchors with a sequential number to ensure uniqueness of the anchor.
 For example, with the following markdown:
@@ -101,10 +100,10 @@ If you want to avoid confusion and removed the risk of anchors breaking if new h
 ### Example {#oranges-example}
 ```
 
-This is only worth doing if you want to link to these heading.
+This is only worth doing if you want to link to these headings.
 
 
-### Shortcode internal page link examples
+### Shortcode Internal Page Link Examples
 
 Shortcode links are slightly more verbose to type but are preferable to markdown style links as the link target will be checked at site build time so you know all the links are correct.
 
@@ -114,7 +113,7 @@ Use only `relref` as this will be translated into a relative path when the site 
 The following are some example of different links to internal content.
 
 
-#### Heading anchor
+#### Heading Anchor
 
 * A [link]({{< relref "#alerts" >}}) to a heading anchor on this page.
 
@@ -123,7 +122,7 @@ The following are some example of different links to internal content.
   ```
 
 
-#### Absolute path
+#### Absolute Path
 
 * A [link]({{< relref "community/documentation/style-guide/using-images#captions" >}}) to a heading anchor on another page, using an absolute path.
 
@@ -132,7 +131,7 @@ The following are some example of different links to internal content.
   ```
 
 
-#### Relative path
+#### Relative Path
 
 * A [link]({{< relref "../versions" >}}) to a heading anchor on page above this one, using a relative path.
 
@@ -141,7 +140,7 @@ The following are some example of different links to internal content.
   ```
 
 
-#### Unique page name
+#### Unique Page Name
 
 * A [link]({{< relref "running#basic-configuration" >}}) to a heading anchor on another page, using only the unique page name.
   This is quicker to type and won't break if pages are moved but will not work if the page name is not unique.
@@ -151,7 +150,7 @@ The following are some example of different links to internal content.
   ```
 
 
-#### Section link
+#### Section Link
 
 * A [link]({{< relref "docs/HOWTOs" >}}) to a branch/section in the document tree, i.e. to the `\_index.md`.
 
@@ -160,7 +159,7 @@ The following are some example of different links to internal content.
   ```
 
 
-#### Next page in section link
+#### Next Page in Section Link
 
 * A link to the next page in the current section.
   If the current page is the last page in the section then no link will be displayed.
@@ -177,7 +176,7 @@ The following are some example of different links to internal content.
   ```
 
 
-#### Previous page in section link
+#### Previous Page in Section Link
 
 * A link to the previous page in the current section.
   If the current page is the last page in the section then no link will be displayed.
@@ -194,7 +193,7 @@ The following are some example of different links to internal content.
   ```
 
 
-### Markdown page link examples
+### Markdown Page Link Examples
 
 {{% warning %}}
 Don't use markdown style links for internal page links as they can't be verified at site build time like the short code links can.
@@ -234,23 +233,24 @@ in the rendered site.
 
 * A [link](#alerts) to a heading anchor on this page.
 
-  ```markdown
+  ```text
   [link](#alerts)
   ```
 
 * A [link](../using-images#captions) to a heading anchor on another page, using a relative link.
 
-  ```markdown
+  ```text
   [link](../using-images#captions)
   ```
 
 * A [link](/docs/style-guide/using-images#captions) to a heading anchor on another page, using an absolute link.
 
-  ```markdown
+  ```text
   [link](/docs/style-guide/using-images#captions)
   ```
 
-### Download file links
+
+### Download File Links
 
 You can create a link to download a file, like these:
 
@@ -267,26 +267,70 @@ You can create a link to download a file, like these:
 All paths are relative to `/assets/files/`.
 
 
-### Glossary links
+### Glossary Links
 
 If you need to create a link to an item in the [Glossary]({{< relref "docs/glossary" >}}) you can use the `glossary` shortcode.
-E.g.
 
-* A {{< glossary "feed" >}} is something you should know about, and so are {{< glossary "stream" "streams" >}}.
+
+**Arguments**:
+
+* `term` - The glossary term.
+  This must match the front matter `title` in the glossary page, e.g. `Stream Type`.
+  This is case-insensitive.
+* `display_text` - Optional.
+  The text to display in line, e.g. `Feeds` if referring to something plural.
+  If this argument is not supplied, the page `title` will be displayed in-line.
+
+**Examples:**
+
+* A {{< glossary "feed" >}} is something you should know about, and so are {{< glossary "stream" "Streams" >}}.
 
   ```markdown
-  A {{</* glossary "feed" */>}} is something you should know about, and so are {{</* glossary "stream" "streams" */>}}.
+  A {{</* glossary "feed" */>}} is something you should know about, and so are {{</* glossary "stream" "Streams" */>}}.
   ```
 
-The argument to the shortcode is the glossary term.
+The argument to the shortcode is the glossary term (c.
 This should match the heading text on the Glossary page exactly, ignoring case.
 It will be converted to an HTML anchor so that you can link directly to the heading for the term in question.
 
 
+#### Creating a Glossary Entry
+
+To create a glossary entry, create a file like this:
+
+```text
+---
+title: "Example Term"
+linkTitle: "Example"
+description: >
+  A short description of the term that will be shown in the tooltip.
+  Simple inline _markdown_ only, **no** bullets or shortcodes.
+---
+
+Optional additional detail about the term that can contain all markdown and shortcodes.
+
+{{%/* see-also */%}}
+* {{</* glossary "Another Term" */>}}
+* {{</* glossary "And Another Term" */>}}
+{{%/* /see-also */%}}
+```
+
+* `title` - Will be used as the tooltip title and inline text (unless overridden).
+* `linkTitle` - If title is quite long, use an abbreviated form for the sidebar menus.
+* `description` - This will form the content of the tooltip so don't make it too long.
+  Simple inline markdown only, no bullets or shortcodes.
+  Line breaks are ignored.
+
+The file name must be of the form `glossary-xxx.md`, where `xxx` is the page title in anchor form, e.g. `glossary-example-term`.
+
+Place the file in the directory `content/en/docs/glossary/X/` where `X` is the letter of the alphabet corresponding to the first letter of the first word of the term, e.g. `content/en/docs/glossary/e/`.
+
+
 ## Code
 
+### Inline Code
 
-### Inline code
+When you need to include chunks of code, filenames, or input/output values in-line in text, e.g. `config.yml`, you can surround it with single backticks.
 
 {{< cardpane >}}
   {{< card header="Rendered" >}}
@@ -300,7 +344,7 @@ Inline code `looks like this`.
 {{< /cardpane >}}
 
 
-### Code blocks (simple)
+### Code Blocks (Simple)
 
 Code blocks should be surrounded with fences `` ```language-type `` and `` ``` `` with the [language]({{< relref "#supported-languages" >}}) type **always** specified to ensure correct syntax highlighting.
 If the language type is not supplied then styling will be different to fenced blocks with a language.
@@ -318,9 +362,11 @@ This is a markdown example of a fenced code block containing XML content.
   {{< card header="Markdown" >}}
 ````markdown
 ```xml
+
 <root>
   <child attr="xxx">some val</child>
 </root>
+
 ```
 ````
   {{< /card >}}
@@ -367,7 +413,7 @@ echo "${VAR}"
 {{< /cardpane >}}
 
 
-### code blocks (advanced)
+### Code Blocks (Advanced)
 
 If you need to show line numbers or to highlight sections of a code block then you can use the `code-block` shortcode.
 This shortcode takes the following named arguments:
@@ -376,7 +422,7 @@ This shortcode takes the following named arguments:
   Defaults to `text`.
 * **lines** - Whether to display line numbers or not (`true`|`false`).
   Defaults to `true`.
-* **highlight** - A comma separate list of lines to highlight.
+* **highlight** - A comma-separated list of lines to highlight.
   Ranges of line numbers can be specified, e.g. `2-8,13,25-30`.
   Defaults to no line highlighting.
 * **start** - The line number to start at.
@@ -489,7 +535,7 @@ The following is an example of how to use the shortcode.
 {{< /code-block >}}
 
 
-### Command line blocks
+### Command Line Blocks
 
 To demonstrate commands being run on the command line you can use the `command-line` shortcode.
 This results in a code block with the shell prompt displayed on the left of each line.
@@ -507,7 +553,7 @@ To display a blank line with no prompt then have a line with just `(out)` in it.
 
 If your shell command is very long then you can split it into multiple lines using the shell line continuation character `\` which must be the last character on the line.
 If this character is present then it will be rendered with a different prompt to indicate it is a continuation.
-Readers can then copy/past the muli-line command into a shell and run it.
+Readers can then copy/paste the multi-line command into a shell and run it.
 
 {{< cardpane >}}
   {{< card header="Rendered" >}}
@@ -533,7 +579,7 @@ id
 {{< /cardpane >}}
 
 
-### MySQL shell blocks
+### MySQL Shell Blocks
 
 To demonstrate commands being run in a MySQL shell you can use the `sql-shell` shortcode.
 This works in a similar way to the `command-line` shortcode but has a different prompt and no shortcode arguments.
@@ -596,7 +642,54 @@ select database();
 {{< /cardpane >}}
 
 
-### Inline files
+### Directory Listings
+
+Using the unix `tree` command you can produce directory listings to use with the `treeview` code block language.
+
+The following is an example of how to produce the directory tree in ASCII form.
+
+{{< command-line >}}
+tree -n -F -L 1 --charset=ascii
+{{</ command-line >}}
+
+{{< cardpane >}}
+  {{< card header="Rendered" >}}
+```treeview
+./
+|-- ACTIVE_SERVICES.txt
+|-- ALL_SERVICES.txt
+|-- backup_databases.sh*
+|-- certs/
+|-- command.sh*
+|-- start.sh*
+|-- status.sh*
+|-- stop.sh*
+`-- volumes/
+```
+  {{< /card >}}
+
+  {{< card header="Markdown" >}}
+````mardown
+```treeview
+
+./
+|-- ACTIVE_SERVICES.txt
+|-- ALL_SERVICES.txt
+|-- backup_databases.sh*
+|-- certs/
+|-- command.sh*
+|-- start.sh*
+|-- status.sh*
+|-- stop.sh*
+`-- volumes/
+
+```
+````
+  {{< /card >}}
+{{< /cardpane >}}
+
+
+### Inline Files
 
 Some code or text examples may be too large for a fenced block so you can put the content in a separate file and include it in-line like so.
 
@@ -613,10 +706,50 @@ Examples of how to use in-line files are:
   ```
 
 
-### Supported languages
+### Placeholders
 
-This site uses {{< external-link "Prismjs" "https://prismjs.com/index.html" >}} for syntax highlighing code blocks.
-PrismJs supports a large number of different languages however only certain languages have been included with this site.
+Where a reader has to substitute their own value into an example, use a placeholder named in `UPPER_SNAKE_CASE` that describes the value, e.g. `TENANT_ID`, `CLIENT_SECRET`, `STROOM_HOST`.
+Use the same name for the same value everywhere on a page, and in the prose that refers to it.
+
+How the placeholder is written depends on where it appears:
+
+* In commands, wrap it in angle brackets, e.g. `<TENANT_ID>`, so it is obviously not literal.
+* In YAML, JSON, properties and other configuration file content, use it bare, e.g. `clientId: "CLIENT_ID"`.
+  Angle brackets in a configuration file look like markup and are not valid in every format, and an example that is copied as-is should at least be syntactically valid.
+* In a shell snippet that assigns to variables, put the placeholder on the right hand side so that the variable name can match the placeholder name, e.g. `TENANT_ID="<TENANT_ID>"`.
+* In prose, use whichever form the example being discussed uses, so a reader can match the text to the block.
+  A URL quoted from a configuration block is written bare, e.g. `https://login.microsoftonline.com/TENANT_ID/v2.0`, while a value from a command keeps its brackets.
+
+Do not prefix placeholders with `THE_` or `YOUR_`, and do not use a realistic looking fake value, such as a made up UUID, in place of a named placeholder, as readers cannot tell it needs replacing.
+
+After the first block on a page that introduces a placeholder, say what it should be replaced with, e.g.
+
+```markdown
+Replace `TENANT_ID` with the Directory (tenant) ID and `CLIENT_ID` with the Application (client) ID.
+```
+
+{{< cardpane >}}
+  {{< card header="Configuration" >}}
+```yaml
+openId:
+  openIdConfigurationEndpoint: "https://login.microsoftonline.com/TENANT_ID/v2.0/.well-known/openid-configuration"
+  clientId: "CLIENT_ID"
+  clientSecret: "CLIENT_SECRET"
+```
+  {{< /card >}}
+  {{< card header="Command" >}}
+{{< command-line >}}
+TENANT_ID="<TENANT_ID>"; \
+curl "https://login.microsoftonline.com/${TENANT_ID}/v2.0/.well-known/openid-configuration"
+{{</ command-line >}}
+  {{< /card >}}
+{{< /cardpane >}}
+
+
+### Supported Languages
+
+This site uses {{< external-link "Prismjs" "https://prismjs.com/index.html" >}} for syntax highlighting code blocks.
+_PrismJs_ supports a large number of different languages however only certain languages have been included with this site.
 The language specified in the markdown code fence or in the `command-line` shortcode must be in the list of included languages.
 
 The list of included language names are:
@@ -631,20 +764,22 @@ The list of included language names are:
 `javascript`  
 `jq`  
 `json`  
+`properties` (Use for Stroom metadata)
 `python`  
 `regex`  
 `scss`  
 `sql`  
 `text`  
 `toml`  
+`treeview`  
 `xml`  
 `yaml`  
 
 To include extra languages in this site you need to build a new version of the `prism.js` and `prism.css` files.
 This can be done {{< external-link "here" "https://prismjs.com/index.html#supported-languages" >}}.
-When creating new versions of these file you must include the languages and plugins already included else you may break this site.
+When creating new versions of these files you must include the languages and plugins already included else you may break this site.
 The generated files are then copied over the top of `/static/css/prism.css` and `/static/js/prism.js`.
-Both files include a comment at the top with the link to the PrismJs download page with the currently included items selected.
+Both files include a comment at the top with the link to the _PrismJs_ download page with the currently included items selected.
 Use this link then add any additional items, bearing in mind the size of the download and its impact on page load times.
 
 An example of the download link is {{< external-link "https://prismjs.com/download.html#themes=prism&languages=markup+css+clike+javascript+bash+csv+groovy+java+jq+json+markdown+python+regex+scss+sql+toml+yaml&plugins=line-highlight+line-numbers+command-line+toolbar+copy-to-clipboard+treeview */" >}}
@@ -663,7 +798,7 @@ Using shortcodes, e.g. `{{</* pipe-elm "SplitFilter" */>}}` inside an of these a
 {{% /warning %}}
 
 
-### Warning block Quote
+### Warning Block Quote
 
 {{% warning %}}
 This is a warning that can contain _markdown_.
@@ -678,7 +813,7 @@ This is a warning that can contain _markdown_.
 ```
 
 
-### Page level warning
+### Page Level Warning
 
 {{% page-warning %}}
 This is a warning that can contain _markdown_.
@@ -693,7 +828,7 @@ This is a warning that can contain _markdown_.
 ```
 
 
-### Note block Quote
+### Note Block Quote
 
 {{% note %}}
 This is a note that can contain **markdown**.
@@ -708,7 +843,7 @@ This is a note that can contain **markdown**.
 ```
 
 
-### See also block Quote
+### See Also Block Quote
 
 Useful for linking to other areas of the documentation or to external sites.
 
@@ -727,7 +862,7 @@ The markdown for this is:
 ```
 
 
-### Page level info
+### Page Level Info
 
 {{% pageinfo %}}
 This is some info that can contain **markdown**.
@@ -742,7 +877,7 @@ This is some info that can contain **markdown**.
 ```
 
 
-### TODO block Quote
+### TODO Block Quote
 
 Used to indicate areas of the documentation that are unfinished or incorrect.
 
@@ -786,25 +921,35 @@ root:
 
 The markdown for this is:
 
-````marckdown
+<!-- spell-checker: disable -->
+
+````text
 {{</* cardpane */>}}
   {{</* card header="YAML" */>}}
 ```yaml
+
 ---
 root:
   someKey: "value"
+
 ```
   {{</* /card */>}}
   {{</* card header="XML" */>}}
 ```xml
+
 <root>
   <child attr="xxx">some val</child>
 </root>
+
 ```
   {{</* /card */>}}
 {{</* /cardpane */>}}
 ````
 
-## Tabbed panes
 
-Hugo/Docsy have shortcodes for {{< external-link "tabbed panes" "https://www.docsy.dev/docs/adding-content/shortcodes/#tabbed-panes" >}} however these mean only one tab will be printed or visible in the generated PDF so their use should be avoided.
+<!-- spell-checker: enable -->
+
+
+## Tabbed Panes
+
+Hugo/Docsy have shortcodes for {{< external-link "tabbed panes" "https://www.docsy.dev/docs/content/shortcodes/#tabbed-panes" >}} however these mean only one tab will be printed or visible in the generated PDF so their use should be avoided.

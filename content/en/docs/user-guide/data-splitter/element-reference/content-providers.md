@@ -11,11 +11,13 @@ description: >
 Content providers take some content from the input source or elsewhere (see [fixed strings]({{< relref "use-of-fixed-strings.md" >}}) and provide it to one or more expressions.
 Both the root element `<dataSplitter>` and `<group>` elements are content providers.
 
-## Root element `<dataSplitter>`
+
+## Root Element `<dataSplitter>`
 
 The root element of a Data Splitter configuration is `<dataSplitter>`.
 It supplies content from the input source to one or more expressions defined within it.
 The way that content is buffered is controlled by the root element and the way that errors are handled as a result of child expressions not matching all of the content it supplies.
+
 
 ### Attributes
 
@@ -23,6 +25,7 @@ The following attributes can be added to the `<dataSplitter>` root element:
 
 * [`ignoreErrors`]({{< relref "#datasplitter-ignoreerrors" >}})
 * [`bufferSize`]({{< relref "#buffersize-advanced" >}})
+
 
 #### `ignoreErrors` {#datasplitter-ignoreerrors}
 
@@ -96,6 +99,7 @@ Sub-expressions of 'body' could use match group 1 and ignore the comment.
 However as previously stated it might often be difficult to write expressions that will just match content that is to be discarded.
 In these cases `ignoreErrors` can be used to suppress errors caused by unmatched content.
 
+
 #### `bufferSize` (Advanced)
 
 This is an optional attribute used to tune the size of the character buffer used by Data Splitter.
@@ -103,7 +107,8 @@ The default size is 20000 characters and should be fine for most translations.
 The minimum value that this can be set to is 20000 characters and the maximum is 1000000000.
 The only reason to specify this attribute is when individual records are bigger than 10000 characters which is rarely the case.
 
-## Group element `<group>`
+
+## Group Element `<group>`
 
 Groups behave in a similar way to the root element in that they provide content for one or more inner expressions to deal with, e.g.
 
@@ -115,6 +120,7 @@ Groups behave in a similar way to the root element in that they provide content 
   ...
 ```
 
+
 ### Attributes
 
 As the `<group>` element is a content provider it also includes the same `ignoreErrors` attribute which behaves in the same way.
@@ -125,6 +131,7 @@ The complete list of attributes for the `<group>` element is as follows:
 * [`ignoreErrors`]({{< relref "#group-ignoreerrors" >}})
 * [`matchOrder`]({{< relref "#matchorder" >}})
 * [`reverse`]({{< relref "#reverse" >}})
+
 
 #### `id`
 
@@ -141,6 +148,7 @@ To make identification easier you can add an 'id' attribute to any element in th
 DSParser [2:1] ERROR: Expressions failed to match all of the content provided by group: regex[0]/group[0]/regex[3]/group[1] : <group id="myGroupId">
 ```
 
+
 #### `value`
 
 This attribute determines what content to present to child expressions.
@@ -156,6 +164,7 @@ In addition to this content can be composed in the same way as it is for data na
 #### `ignoreErrors` {#group-ignoreerrors}
 
 This behaves in the same way as for the root element.
+
 
 #### `matchOrder`
 
@@ -205,9 +214,11 @@ If the attribute is omitted by default the match order will be sequential.
 This is the default behaviour as tokens are most often in sequence and consuming content in this way is more efficient as content does not need to be copied by the parser to chop out sections as is required for matching in any order.
 It is only necessary to use this feature when fields that are identifiable with a specific match can occur in any order.
 
+
 #### `reverse`
 
-Occasionally it is desirable to reverse the content presented by a group to child expressions. This is because it is sometimes easier to form a pattern by matching content in reverse.
+Occasionally it is desirable to reverse the content presented by a group to child expressions.
+This is because it is sometimes easier to form a pattern by matching content in reverse.
 
 Take the following example content of name, value pairs delimited by `=` but with no spaces between names, multiple spaces between values and only a space between subsequent pairs:
 
@@ -227,9 +238,11 @@ This would match the following:
 ipAddress=123.123.123.123 zones=
 ```
 
-Here we are capturing the name and value for each pair in separate groups but the pattern has to also match the name from the next name value pair to find the end of the value. By default Data Splitter will move the content buffer to the end of the match ready for subsequent matches so the next name will not be available for matching.
+Here we are capturing the name and value for each pair in separate groups but the pattern has to also match the name from the next name value pair to find the end of the value.
+By default Data Splitter will move the content buffer to the end of the match ready for subsequent matches so the next name will not be available for matching.
 
-In addition to matching too much content the above example also uses a reluctant qualifier `.+?`. Use of reluctant qualifiers almost always impacts performance so they are to be avoided if at all possible.
+In addition to matching too much content the above example also uses a reluctant qualifier `.+?`.
+Use of reluctant qualifiers almost always impacts performance so they are to be avoided if at all possible.
 
 A better way to match the example content is to match the input in reverse, reading characters from right to left.
 
@@ -243,9 +256,11 @@ The following example demonstrates this:
 </group>
 ```
 
-Using the reverse attribute on the parent group causes content to be supplied to all child expressions in reverse order. In the above example this allows the pattern to match values followed by names which enables us to cope with the fact that values have multiple spaces but names have no spaces.
+Using the reverse attribute on the parent group causes content to be supplied to all child expressions in reverse order.
+In the above example this allows the pattern to match values followed by names which enables us to cope with the fact that values have multiple spaces but names have no spaces.
 
-Content is only presented to child regular expressions in reverse. When referencing values from match groups the content is returned in the correct order, e.g. the above example would return:
+Content is only presented to child regular expressions in reverse.
+When referencing values from match groups the content is returned in the correct order, e.g. the above example would return:
 
 ```xml
 <data name="ipAddress" value="123.123.123.123" />
@@ -257,4 +272,6 @@ Content is only presented to child regular expressions in reverse. When referenc
 
 The reverse feature isn't needed very often but there are a few cases where it really helps produce the desired output without the complexity and performance overhead of a reluctant match.
 
-An alternative to using the reverse attribute is to use the original reluctant expression example but tell Data Splitter to make the subsequent name available for the next match by not advancing the content beyond the end of the previous value. This is done by using the [advance attribute]({{< relref "expressions.md#regex-advance" >}}) on the `<regex>`. However, the reverse attribute represents a better way to solve this particular problem and allows a simpler and more efficient regular expression to be used.
+An alternative to using the reverse attribute is to use the original reluctant expression example but tell Data Splitter to make the subsequent name available for the next match by not advancing the content beyond the end of the previous value.
+This is done by using the [advance attribute]({{< relref "expressions.md#regex-advance" >}}) on the `<regex>`.
+However, the reverse attribute represents a better way to solve this particular problem and allows a simpler and more efficient regular expression to be used.

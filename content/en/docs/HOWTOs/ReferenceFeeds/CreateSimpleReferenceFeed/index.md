@@ -20,8 +20,8 @@ For example, an XML Event.
 A Reference Feed is temporal, in that, each time a new set of reference data is loaded into Stroom, the effective date (for the data) is also recorded.
 Thus by using a timestamp field with the subject data, the appropriate batch of reference data can be accessed.
 
-A typical reference data set to support the Stroom XML Event schema might be on that relates to devices.
-Such a data set can contain the device logical identifiers such as fully qualified domain name and ip address and their geographical location information such as country, site, building, room and timezone.
+A typical reference data set to support the Stroom XML Event schema might be one that relates to devices.
+Such a data set can contain the device logical identifiers such as fully qualified domain name and ip address and their geographical location information such as country, site, building, room and time zone.
 
 The following example will describe how to create a reference feed for such device data.
 We will call the reference feed `GeoHost-V1.0-REFERENCE`.
@@ -29,20 +29,20 @@ We will call the reference feed `GeoHost-V1.0-REFERENCE`.
 
 ## Reference Data
 
-Our reference data will be supplied in a <TAB> separated file containing the fields
+Our reference data will be supplied in a `TAB` separated file containing the fields
 
 * the device Fully Qualified Domain Name
 * the device IP Address
 * the device Country location (using ISO 3166-1 alpha-3 codes)
 * the device Site location
 * the device Building location
-* the device TimeZone location (both standard then daylight timezone offsets from UTC)
+* the device Time Zone location (both standard then daylight time zone offsets from UTC)
 
 For simplicity, our example will use a file with just 5 entries
 
 {{< screenshot "HOWTOs/v6/UI-CreateReferenceFeed-75.png" >}}Stroom UI CreateReferenceFeed - Raw Data{{< /screenshot >}}
 
-A copy of this sample data source can be found [here](GeoHostReference.log "GeoHost REFERENCE  sample logs").
+A copy of this sample data source can be found [here](GeoHostReference.log "GeoHost REFERENCE sample logs").
 Save a copy of this data to your local environment for use later in this HOWTO.
 Save this file as a text document with ANSI encoding.
 
@@ -53,7 +53,7 @@ To create our Reference Event stream we need to create:
 
 * the **Feed**
 * a **Pipeline** to automatically process and store the Reference data
-* a **Text Parser** to convert the text file into simple XML record format, and 
+* a **Text Parser** to convert the text file into simple XML record format, and
 * a **Translation** to create reference data maps
 
 
@@ -87,7 +87,7 @@ The save icon becomes ghosted and our feed configuration has been saved.
 {{< screenshot "HOWTOs/v6/UI-CreateReferenceFeed-05.png" >}}New Feed Settings window configuration{{< /screenshot >}}
 
 
-### Load sample Reference data
+### Load Sample Reference Data
 
 At this point we want to load our sample reference data, in order to develop our reference feed.
 We can do this two ways - posting the file to our Stroom web server, or directly upload the data using the user interface.
@@ -115,7 +115,7 @@ Click on the blue Previous Month icon (a less than symbol `<`) on the Year/Month
 {{< screenshot "HOWTOs/v6/UI-CreateReferenceFeed-09.png" >}}Calendar Effective Date Selection{{< /screenshot >}}
 
 Select the 1st (clicking on 1) at which point the calendar selection window will disappear and a time of 2019-12-01T00:00:00.000Z is displayed.
-This is the default whenever  using the calendar selection window in Stroom - the resultant timestamp is that of the day selected at 00:00:00 (Zulu time).
+This is the default whenever using the calendar selection window in Stroom - the resultant timestamp is that of the day selected at 00:00:00 (Zulu time).
 To get the calendar selection window to disappear, click anywhere outside of the timestamp entry box.
 
 {{< screenshot "HOWTOs/v6/UI-CreateReferenceFeed-10.png" >}}Upload data choose file{{< /screenshot >}}
@@ -133,7 +133,7 @@ This file contains a header and five lines of reference data as per
 When we construct the pipeline for this reference feed, we will see how to make use of the header line.
 
 So, click on the **Choose File** button to bring up a file selector window.
-Navigate within the selector window to the location on your location machine where you have saved the GeoHostReference.log file.
+Navigate within the selector window to the location on your local machine where you have saved the GeoHostReference.log file.
 On clicking **Open** we return to the **Upload** window with the file selected.
 
 {{< screenshot "HOWTOs/v6/UI-CreateReferenceFeed-12.png" >}}Upload Reference Data - File chosen{{< /screenshot >}}
@@ -144,7 +144,7 @@ On clicking {{< stroom-btn "Ok" >}} we get an Alert dialog window to advise a fi
 
 at which point we press **Close**.
 
-At this point, the **Upload** selection window closes, and we see our file displayed  in the `GeoHost-V1.0-REFERENCE` **Data** stream table.
+At this point, the **Upload** selection window closes, and we see our file displayed in the `GeoHost-V1.0-REFERENCE` **Data** stream table.
 
 {{< screenshot "HOWTOs/v6/UI-CreateReferenceFeed-14.png" >}}Upload Display raw reference stream{{< /screenshot >}}
 
@@ -200,7 +200,7 @@ You can find further information about the Template Pipelines {{< external-link 
 {{< screenshot "HOWTOs/v6/UI-CreateReferenceFeed-21.png" >}}New Pipeline - Reference Data pipeline inherited{{< /screenshot >}}
 
 Then press {{< stroom-btn "Ok" >}}.
-At this we will see the inherited pipeline structure of 
+At this point we will see the inherited pipeline structure of
 
 {{< screenshot "HOWTOs/v6/UI-CreateReferenceFeed-22.png" >}}New Pipeline - Inherited set{{< /screenshot >}}
 
@@ -215,7 +215,8 @@ We need to author the feed's translation.
 ### Create Text Converter
 
 To turn our tab delimited data in Stroom reference data, we first need to convert the text into simple XML.
-We do this using a _Text Converter_. _Test Converters_ use a _Stroom Data Splitter_ to convert text into simple XML.
+We do this using a _Text Converter_.
+_Test Converters_ use a _Stroom Data Splitter_ to convert text into simple XML.
 
 Within the Explorer pane, and having selected the `Event Sources` system group, right click to bring up the object context menu.
 Navigate to the {{< stroom-icon "pipeline/text.svg" "Text converter">}} item and left click to select.
@@ -261,7 +262,7 @@ The following is our Data Splitter code (see **Data Splitter** documentation for
   * the device Site location
   * the device Building location
   * the device Room location
-  *the device TimeZone location (both standard then daylight timezone offsets from UTC)
+  *the device TimeZone location (both standard then daylight time zone offsets from UTC)
   
   The data is a TAB delimited file with the first line providing headings.
   
@@ -318,7 +319,7 @@ We leave the Property **Source:** as _Inherit_ but we need to change the Propert
 {{< screenshot "HOWTOs/v6/UI-CreateReferenceFeed-29.png" >}}textConverter select GeoHost-V1.0-REFERENCE{{< /screenshot >}}
 
 then press {{< stroom-btn "Ok" >}}.
-At this we will see the Property _Value_ set
+At this point we will see the Property _Value_ set
 
 {{< screenshot "HOWTOs/v6/UI-CreateReferenceFeed-30.png" >}}textConverter set Property Value{{< /screenshot >}}
 
@@ -389,7 +390,7 @@ Move back to the Explorer tree, right click on {{< stroom-icon "document/Folder.
 
 {{< stroom-menu "New" "XSL Translation" >}}
 
-When the **New XSLT** selection window comes up, navigate to the `Event Sources` system group and enter the name of the reference feed - GeoHost-V1.0-REFERENCE into the **Name:** text entry box as per 
+When the **New XSLT** selection window comes up, navigate to the `Event Sources` system group and enter the name of the reference feed - GeoHost-V1.0-REFERENCE into the **Name:** text entry box as per
 
 {{< screenshot "HOWTOs/v6/UI-CreateReferenceFeed-41.png" >}}New xslt Translation selection window{{< /screenshot >}}
 
@@ -406,11 +407,11 @@ This is to demonstrate there are a number of ways to _develop a translation_.
 
 So, to start, save the XSLT by clicking on the {{< stroom-tab "Pipeline.svg" "GeoHost-V1.0-REFERENCE Pipeline" >}} tab to raise the GeoHost-V1.0-REFERENCE pipeline.
 Then select the **Structure** sub-item followed by selecting the {{< pipe-elm "XSLTFilter" "translationFilter" >}} element.
-We now see the  **XSL translationFilter** Property Table for our pipeline in the middle pane.
+We now see the **XSL translationFilter** Property Table for our pipeline in the middle pane.
 
 {{< screenshot "HOWTOs/v6/UI-CreateReferenceFeed-45.png" >}}xslt translation element - property pane{{< /screenshot >}}
 
-To associate our new translation with the pipeline, move the cursor to the _Property Table_, click on the grayed out _xslt_ Property Name and then click on the Edit Property {{< stroom-icon "edit.svg" >}} icon to allow you to edit the property as per
+To associate our new translation with the pipeline, move the cursor to the _Property Table_, click on the greyed out _xslt_ Property Name and then click on the Edit Property {{< stroom-icon "edit.svg" >}} icon to allow you to edit the property as per
 
 {{< screenshot "HOWTOs/v6/UI-CreateReferenceFeed-46.png" >}}xslt -property editor{{< /screenshot >}}
 
@@ -461,7 +462,7 @@ The top one is the XSLT Translation.
 The bottom right window displays the _output_ from the XSLT Translation for the given input.
 
 We now click on the pipeline Step Forward button {{< stroom-icon name="step-forward.svg" title="Step Forward" colour="green" >}} to single step the Raw reference data through our translation.
-We see that the Stepping function has displayed the first _records_ XML entry in the _input_ sub-pane and the same data is displayed in the _output_ sub-pane. 
+We see that the Stepping function has displayed the first _records_ XML entry in the _input_ sub-pane and the same data is displayed in the _output_ sub-pane.
 
 {{< screenshot "HOWTOs/v6/UI-CreateReferenceFeed-52.png" >}}xslt Translation - editor 1st record{{< /screenshot >}}
 
@@ -537,7 +538,7 @@ version="2.0">
   * the device Site location
   * the device Building location
   * the device Room location
-  *the device TimeZone location (both standard then daylight timezone offsets from UTC)  
+  *the device TimeZone location (both standard then daylight time zone offsets from UTC)  
   
   The reference maps are
   FQDN_TO_IP - Fully Qualified Domain Name to IP Address
@@ -583,11 +584,11 @@ version="2.0">
 </xsl:stylesheet>
 ```
 
-and when we refresh, by pressing the _Refresh Current Step_ button {{< stroom-icon name="refresh.svg" title="Refresh Step" colour="green"  >}} we see that the _output_ window now has _Reference_ elements within the parent _ReferenceData_ element
+and when we refresh, by pressing the _Refresh Current Step_ button {{< stroom-icon name="refresh.svg" title="Refresh Step" colour="green" >}} we see that the _output_ window now has _Reference_ elements within the parent _ReferenceData_ element
 
 {{< screenshot "HOWTOs/v6/UI-CreateReferenceFeed-55.png" >}}xslt Translation - basic translation{{< /screenshot >}}
 
-If we press the Step Forward button {{< stroom-icon name="step-forward.svg" title="Step Forward" colour="green"  >}} we see the second _record_ of our raw reference data in the _input_ sub-pane and the resultant _Reference_ elements
+If we press the Step Forward button {{< stroom-icon name="step-forward.svg" title="Step Forward" colour="green" >}} we see the second _record_ of our raw reference data in the _input_ sub-pane and the resultant _Reference_ elements
 
 {{< screenshot "HOWTOs/v6/UI-CreateReferenceFeed-56.png" >}}xslt Translation - basic translation next record{{< /screenshot >}}
 
@@ -621,7 +622,7 @@ version="2.0">
   * the device Site location
   * the device Building location
   * the device Room location
-  *the device TimeZone location (both standard then daylight timezone offsets from UTC)  
+  *the device TimeZone location (both standard then daylight time zone offsets from UTC)  
   
   The reference maps are
   FQDN_TO_IP - Fully Qualified Domain Name to IP Address
@@ -698,6 +699,7 @@ version="2.0">
 </xsl:template>
 </xsl:stylesheet>
 ```
+
 and our second ReferenceData element would now look like
 
 {{< screenshot "HOWTOs/v6/UI-CreateReferenceFeed-57.png" >}}xslt Translation - complete translation 2nd record{{< /screenshot >}}
@@ -742,8 +744,8 @@ Once you have clicked here a drop-down box will appear as per
 
 {{< screenshot "HOWTOs/v6/UI-CreateReferenceFeed-61.png" >}}pipeline Processors - Choose Stream Type{{< /screenshot >}}
 
-at which point, select the _Stream Type_ of **Raw Reference**and then press {{< stroom-btn "Ok" >}}.
-At this we return to the **Add Processor** selection window to see that the _Raw Reference_ stream type has been added.
+at which point, select the _Stream Type_ of **Raw Reference** and then press {{< stroom-btn "Ok" >}}.
+At this point we return to the **Add Processor** selection window to see that the _Raw Reference_ stream type has been added.
 
 {{< screenshot "HOWTOs/v6/UI-CreateReferenceFeed-62.png" >}}pipeline Processors - pipeline criteria set{{< /screenshot >}}
 
@@ -915,6 +917,7 @@ The complete ReferenceData for this stream is
   </reference>
 </referenceData>
 ```
+
 If we go back to the reference feed itself (and click on the {{< stroom-icon "refresh.svg" >}} button on the far right of the top and middle panes), we now see both the _Reference_ and _Raw Reference_ streams in the _Streams Table_ pane.
 
 {{< screenshot "HOWTOs/v6/UI-CreateReferenceFeed-68.png" >}}reference feed - Data tab{{< /screenshot >}}

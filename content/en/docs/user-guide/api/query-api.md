@@ -26,8 +26,10 @@ However they all share the same API definition.
 
 The detailed documentation for the request/responses is contained in the _Swagger_ definition linked to above.
 
+If you simply want to run a _Stroom Query Language_ query and get the rows back as CSV, without building a _SearchRequest_ model, see the [CSV Search API]({{< relref "csv-search-api" >}}).
 
-## Common endpoints
+
+## Common Endpoints
 
 The standard query endpoints are
 
@@ -54,12 +56,12 @@ The SearchRequest model is fairly complicated and contains not only the query te
 A single SearchRequest can include multiple ResultRequest sections to return the queried data in multiple ways, e.g. as flat data and in an alternative aggregated form.
 
 
-#### _Stroom_ as a query builder
+#### _Stroom_ as a Query Builder
 
 _Stroom_ is able to export the json form of a SearchRequest model from its dashboards.
 This makes the dashboard a useful tool for building a query and the table settings to go with it.
-You can use the dashboard to defined the data source, define the query terms tree and build a table definition (or definitions) to describe how the data should be returned.
-The, clicking the download icon on the query pane of the dashboard will generate the SearchRequest json which can be immediately used with the /search API or modified to suit.
+You can use the dashboard to define the data source, define the query terms tree and build a table definition (or definitions) to describe how the data should be returned.
+Then, clicking the download icon on the query pane of the dashboard will generate the SearchRequest json which can be immediately used with the /search API or modified to suit.
 
 
 ### Destroy
@@ -67,9 +69,9 @@ The, clicking the download icon on the query pane of the dashboard will generate
 This endpoint is used to kill an active query by supplying the _queryKey_ for query in question.
 
 
-### Keep alive
+### Keep Alive
 
-Stroom will only hold search results from completed queries for a certain lenght of time.
+Stroom will only hold search results from completed queries for a certain length of time.
 It will also terminate running queries that are too old.
 In order to prevent queries being aged off you can hit this endpoint to indicate to Stroom that you still have an interest in a particular query by supplying the query key.
 

@@ -47,7 +47,7 @@ You can monitor its progress by watching the Pod named `stroom-operator-controll
 Once it reaches `Ready` state, you can deploy a Stroom cluster.
 
 
-## Allocating more resources
+## Allocating More Resources
 
 If the Operator Pod is killed due to running out of memory, you may want to increase the amount allocated to it.
 
@@ -62,7 +62,7 @@ In very large deployments, this may cause it to run out of memory.
 {{% /note %}}
 
 
-## Next steps
+## Next Steps
 
 [Configure]({{< relref "configure-database-server" >}}) a Stroom database server  
 [Upgrade]({{< relref "upgrade-operator" >}})  

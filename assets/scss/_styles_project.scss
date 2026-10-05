@@ -212,10 +212,27 @@ html {
   }
 }
 
+
+////////////////////////
+//  Definition Lists  //
+////////////////////////
+
 .td-content {
-  // Inline code
-  p code, li > code, table code {
-    background-color: $stroom-inline-code-background;
+  dl {
+    dt {
+      font-style: italic;
+    }
+    dd {
+      // Slightly indent the definition list defintion, so it can be distinguished from the body text after
+      // the definition list.
+      padding-left: 0.5em;
+
+      // If <dd> contains multiple paragraphs, the first one is not wrapped in a <p> so doesn't get the
+      // margin-top that is normally applied to all <p> elements.
+      p:first-child {
+        margin-top: 1em;
+      }
+    }
   }
 }
 
@@ -229,6 +246,118 @@ html {
   td {
     // Default is 0.75rem which makes them too big
     //padding: 0.3rem 0.6rem;
+  }
+}
+
+//////////////////////
+//  Bulleted Lists  //
+//////////////////////
+
+.td-content {
+  ul li p {
+    // Default is 1em which is a bit spacey.
+    // Numbered lists use 0.25em, <p> use 1rem for reference.
+    margin-bottom: 0.8em;
+  }
+  
+  // If you have something like 
+  // * `foo`
+  //   * Some words
+  // The Top bullet will be in a <p>, so we need to dial down the margin a bit
+  ul li p:has( + ul) {
+    margin-bottom: 0.25em;
+  }
+  
+  // When you have nested bullets that don't get a <p>, we need to add a bit of space
+  // above the first child as our other css doesn't cover that.
+  // * Some plain text.
+  //   * Some plain text.
+  ul > li:first-child {
+    margin-top: 0.25em;
+  }
+}
+
+
+///////////////////
+//  Inline Code  //
+///////////////////
+
+// The default Docsy theme styles inline code as black text with a light grey
+// box behind. This is inconsistent with the styling of inline text
+// that appears as a Definition List definition, which is brownish text with
+// no background.
+// We have opted to do all inline code as bold brownish text with no background colour.
+.td-content {
+  // Inline code
+  p code, li > code, table code, dt code, dd code, div.alert code, h1 code, h2 code, h3 code, h4 code, h5 code, h6 code {
+    background-color: unset !important;
+    color: $stroom-inline-code-colour !important;
+    font-size: 86%;
+    font-weight: bold;
+    padding: unset !important;
+    margin: unset !important;
+    // We don't want it being broken up if near the end of the line
+    white-space: pre;
+  }
+
+  dl dt code {
+    font-size: 100%;
+    font-weight: bolder;
+  }
+
+  dl dd {
+    padding-left: 0.5em;
+  }
+}
+
+
+//////////////////
+//  hyperlinks  //
+//////////////////
+
+.td-content {
+  // Make sure inline code get styled the same as the <a> tag
+  a, a > code {
+    color: $link-color !important;
+    // Hide the underline when not hovered
+    text-decoration: none;
+    // Make the underline start a bit lighter than the text
+    text-decoration-color: rgba($link-hover-color, 0.5) !important;
+  }
+
+  // Make sure inline code get styled the same as the <a> tag
+  a:hover, a:hover > code {
+    color: $link-hover-color !important;
+  }
+
+  a:hover, a:hover:has( > code) {
+    text-decoration-line: underline;
+    text-underline-offset: 4px; 
+    text-decoration-thickness: 2px; 
+    text-decoration-color: rgba($link-hover-color, 0.2) !important;
+    transition: text-decoration-color 0.8s ease-in-out;
+  }
+
+  // Style external links with a different hover underline colour to match
+  // the colour of the external link icon. However, style the <span>
+  // not the <a> as the <i> tag messes it up.
+  a.external-link {
+    text-decoration: none;
+  }
+  a:hover.external-link {
+    text-decoration: none;
+  }
+  a.external-link > span {
+    text-decoration: none;
+    text-decoration-color: rgba($secondary, 0.6) !important;
+  }
+
+  a:hover.external-link > span {
+    text-decoration-line: underline;
+    text-underline-offset: 4px; 
+    text-decoration-thickness: 2px; 
+    text-decoration-color: rgba($secondary, 0.3) !important;
+    transition: text-decoration-color 0.8s ease-in-out;
   }
 }
 
@@ -256,7 +385,6 @@ html {
     background-color: rgba(153, 122, 102, 1);
   }
 }
-
 
 // Restyle the content of the fenced code blocks
 
@@ -340,8 +468,95 @@ pre[class*=language-] {
   overflow-wrap: anywhere;
 }
 
+
+/////////////////////////////////
+//  Glossary Links & Tooltips  //
+/////////////////////////////////
+
 .glossary-link-icon {
   opacity: 0.8;
+}
+
+.glossary-link {
+  position: relative;
+  display: inline-block; /* Helps with bounding box calculations */
+}
+
+.glossary-tooltip-title {
+  color: $primary;
+  font-weight: bold;
+  font-size: 1rem;
+}
+
+.glossary-tooltip {
+  position: absolute;
+  bottom: 125%; /* Position it above the text */
+  left: 50%;
+  transform: translateX(-50%); /* Center it horizontally */
+  z-index: 100; /* Ensure it floats above other content */
+  pointer-events: none; /* Prevents the tooltip itself from triggering hover glitches */
+
+  //background-color: #333;
+  background-color: white;
+  //color: #fff;
+  //color: #fff;
+  padding: 6px 12px;
+  border-radius: 9px;
+  border-color: $primary;
+  border-style: solid;
+  border-width: 3px;
+  font-size: 0.85rem;
+  //white-space: nowrap; [> Keeps the heading on a single line <]
+  box-shadow: 5px 5px 4px rgba(0, 0, 0, 0.2);
+
+  /* Hide it and set up the transition properties */
+  opacity: 0;
+  visibility: hidden;
+  
+  /* Transition for a smooth fade out when mouse leaves (no delay) */
+  transition: opacity 0.2s ease, visibility 0.2s ease;
+  transition-delay: 0s; 
+
+  text-wrap: wrap;
+  width: 600px;
+}
+
+/* 3. Show the tooltip on hover with a delay */
+.glossary-link:hover .glossary-tooltip {
+  opacity: 1;
+  visibility: visible;
+  
+  /* Adds a 0.5 second delay ONLY when hovering */
+  transition-delay: 0.3s; 
+}
+
+.glossary-tooltip-title, .glossary-tooltip-summary, .glossary-tooltip-truncated {
+  display: block;
+}
+
+/* Optional: Add a small triangle pointing down to the link */
+.glossary-tooltip::after {
+  content: "";
+  position: absolute;
+  top: 100%; /* At the bottom of the tooltip */
+  left: 50%;
+  margin-left: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: #333 transparent transparent transparent;
+}
+
+span.glossary-tooltip {
+  visibility: hidden;
+}
+
+span.glossary-tooltip-summary {
+  margin-top: 0.15em;
+}
+
+span.glossary-tooltip-truncated {
+  margin-top: 0.15em;
+  font-size: 90%;
 }
 
 
@@ -591,6 +806,9 @@ div.pipeline-element-demo {
   min-width: 100px;
   line-height: 1.3em;
 
+  // The colours ought to come from stroom's css files, but means pulling in a lot of
+  // different css files.
+
   &.stroom-button-primary {
     background-color: $stroom-button-primary-background;
     //background-color: var(--button-contained-primary__background-color);
@@ -605,6 +823,12 @@ div.pipeline-element-demo {
     border: solid 1px $stroom-button-secondary-border;
     //border: solid 1px var(--button-contained-secondary__background-color);
     color: $stroom-button-secondary-text-colour;
+  }
+
+  &.stroom-button-green {
+    background-color: $stroom-button-green-background;
+    border: solid 1px $stroom-button-green-border;
+    color: $stroom-button-green-text-colour;
   }
 
   .stroom-icon svg {
@@ -777,6 +1001,59 @@ span.key-bind {
     white-space: nowrap;
   }
 }
+
+///////////////////////////////////////
+//  exp-tree/exp-tree-doc shortcode  //
+///////////////////////////////////////
+
+div.exp-tree-branch {
+
+  &.exp-tree-branch-outer {
+    // Add
+    margin-bottom: 1em;
+  }
+
+  &.exp-tree-branch-root {
+  }
+
+  &.exp-tree-branch-folder {
+    margin-left: 15px;
+  }
+
+  span.exp-tree-branch-arrow {
+    .stroom-icon svg {
+      width: 12px;
+      height: 12px;
+      color: #a9a9a9;
+    }
+  }
+
+  span.exp-tree-branch-name {
+    padding-left: 3px;
+  }
+
+  span.exp-tree-branch-text {
+    padding-left: 1em;
+    color: grey;
+  }
+
+  div.exp-tree-branch-content {
+  }
+}
+
+div.exp-tree-doc {
+  
+  // Bigger margin as there is no arrow icon for a doc
+  margin-left: 33px;
+
+  span.exp-tree-doc-name {
+  }
+  span.exp-tree-doc-text {
+    padding-left: 1em;
+    color: grey;
+  }
+}
+
 
 
 /* Function signatures used in xslt-functions page for example */

@@ -17,9 +17,10 @@ These *HOWTOs* will match the development of Stroom and as a result, various ele
 In some instances, screen captures will contain timestamps and so you may note inconsistent date or time movements within a complete HOWTO, although if a sequence of captures is contained within a section of a document, they all will be replaced.
 {{% /note %}}
 
+
 ## General
 
-[Raw Source Tracking]({{< relref "General/RawSourceTracking.md" >}}) show how to associate a processed Event with the source line that generated it.
+[Raw Source Tracking]({{< relref "General/RawSourceTracking.md" >}}) shows how to associate a processed Event with the source line that generated it.
 
 Other topics in this section are
 1. [Feed Management]({{< relref "General/TasksHowTo.md" >}}).

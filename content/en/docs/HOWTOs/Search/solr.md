@@ -16,11 +16,13 @@ description: >
 1. You are familiar with Lucene indexing within Stroom
 1. You have some data to index
 
-## Points to note
+
+## Points to Note
 
 1. A Solr core is the home for exactly one Stroom index.
 1. Cores must initially be created in Solr.
 1. It is good practice to name your Solr core the same as your Stroom Index.
+
 
 ## Method
 
@@ -29,7 +31,8 @@ description: >
    docker run -d -p 8983:8983 --name my_solr solr
    {{</ command-line >}}
 
-1. Check your Solr node. Point your browser at http://yourSolrHost:8983
+1. Check your Solr node.
+   Point your browser at http://yourSolrHost:8983
 1. Create a core in Solr using the CLI.
 
    {{< command-line "user" "localhost" >}}

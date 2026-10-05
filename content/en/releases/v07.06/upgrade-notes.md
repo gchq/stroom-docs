@@ -12,6 +12,7 @@ description: >
 Please read this section carefully in case any of it is relevant to your Stroom instance.
 {{% /warning %}}
 
+
 ## Java Version
 
 Stroom v7.6 requires Java 21.
@@ -26,6 +27,7 @@ Check changes using something like this:
 git diff origin/7.5..origin/7.6 stroom-config/stroom-config-app/src/test/resources/stroom/config/app/expected.yaml
 git diff origin/7.5..origin/7.6 stroom-proxy/stroom-proxy-app/src/test/resources/stroom/dist/proxy-expected.yaml
 -->
+
 
 ### Stroom's `config.yml`
 
@@ -70,8 +72,8 @@ This will be the node that reaches that point in the boot process first.
 All other nodes will wait until that is complete before proceeding with the boot process.
 
 It is recommended however to use a single node to execute the migration.
-To avoid Stroom starting up and beginning processing you can use the `migrage` command to just migrate the database and not fully boot Stroom.
-See [`migrage` command]({{< relref "/docs/user-guide/tools/command-line#migrate" >}}) for more details.
+To avoid Stroom starting up and beginning processing you can use the `migrate` command to just migrate the database and not fully boot Stroom.
+See [`migrate` command]({{< relref "/docs/user-guide/tools/command-line#migrate" >}}) for more details.
 
 
 {{% warning %}}
@@ -113,6 +115,7 @@ Note, the `legacy` module will run first (if present) then the other module will
 
 It is not possible to display the content here.
 The file can be viewed on : {{< external-link "GitHub" "https://github.com/gchq/stroom/tree/7.6/stroom-activity/stroom-activity-impl-db/src/main/java/stroom/activity/impl/db/migration/V07_06_00_200__activity_pre_migration_checks.java" >}}
+
 
 ##### Script `V07_06_00_205__activity_user_uuid.sql`
 
@@ -282,6 +285,7 @@ SET SQL_NOTES=@OLD_SQL_NOTES;
 It is not possible to display the content here.
 The file can be viewed on : {{< external-link "GitHub" "https://github.com/gchq/stroom/tree/7.6/stroom-annotation/stroom-annotation-impl-db/src/main/java/stroom/annotation/impl/db/migration/V07_06_00_100__annotation_pre_migration_checks.java" >}}
 
+
 ##### Script `V07_06_00_105__annotation_uuid.sql`
 
 **Path**: `stroom-annotation/stroom-annotation-impl-db/src/main/resources/stroom/annotation/impl/db/migration/V07_06_00_105__annotation_uuid.sql`
@@ -446,6 +450,7 @@ SET SQL_NOTES=@OLD_SQL_NOTES;
 
 It is not possible to display the content here.
 The file can be viewed on : {{< external-link "GitHub" "https://github.com/gchq/stroom/tree/7.6/stroom-processor/stroom-processor-impl-db/src/main/java/stroom/processor/impl/db/migration/V07_06_00_300__processor_filter_pre_migration_checks.java" >}}
+
 
 ##### Script `V07_06_00_305__processor_filter_run_as_user_uuid.sql`
 

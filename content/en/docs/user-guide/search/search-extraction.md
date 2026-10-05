@@ -18,7 +18,7 @@ This involves combining the data stored in the index document with data extracte
 Extracting data in this way is slower but reduces the data stored in the index, so it is a trade off between performance and storage space consumed.
 
 Search Extraction relies on the StreamId and EventId being stored in the Index.
-Stroom can then used these two fields to locate the event in the stream store and process it with the search extraction pipeline.
+Stroom can then use these two fields to locate the event in the stream store and process it with the search extraction pipeline.
 
 {{% todo %}}
 Add more detail

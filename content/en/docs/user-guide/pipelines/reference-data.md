@@ -10,7 +10,7 @@ description: >
 
 {{% see-also %}}
 * [HOWTO - Creating a Simple Reference Feed]({{< relref "/docs/HOWTOs/ReferenceFeeds/CreateSimpleReferenceFeed" >}})  
-* [XSLT Functions]({{< relref "./xslt/xslt-functions.md" >}})
+* [XSLT Functions]({{< relref "./xslt/xslt-functions" >}})
 {{% /see-also %}}
 
 In Stroom reference data is primarily used to decorate events using `stroom:lookup()` calls in XSLTs.
@@ -23,7 +23,8 @@ You can then perform a `stroom:lookup()` in the XSLT to decorate an event with t
 Reference data can come from two different sources:
 
 * Reference stream - A separate Feed containing _Raw Reference_ streams that have been translated into _Reference_ streams conforming to `reference-data:2` XML.
-* [Context sub-stream]({{< relref "/docs/user-guide/concepts/streams#context" >}}) - A _Context_ stream that is a sub-stream of the _Events_ stream. This sub-stream contains contextual data relevant to the events in the _Events_ stream.
+* [Context sub-stream]({{< relref "/docs/user-guide/concepts/streams#context" >}}) - A _Context_ stream that is a sub-stream of the _Events_ stream.
+  This sub-stream contains contextual data relevant to the events in the _Events_ stream.
 
 
 ### Reference Stream
@@ -32,8 +33,8 @@ Reference data is often time sensitive, e.g. an employee's job title will change
 This allows reference data lookups to be performed using the date of the event to ensure the reference data that was actually effective at the time of the event is used.
 
 {{% warning %}}
-There is currently no mechanism in Stroom to place dependencies between Feeds, i.e. an _Events_ Feed being dependant on a _Reference_ Feed.
-When performing a lookup Stroom can only uses the _Reference_ streams that it has available.
+There is currently no mechanism in Stroom to place dependencies between Feeds, i.e. an _Events_ Feed being dependent on a _Reference_ Feed.
+When performing a lookup Stroom can only use the _Reference_ streams that it has available.
 If a _Reference_ stream has been delayed (in receipt or translation), then Stroom will have to use the most recent one it has.
 {{% /warning %}}
 
@@ -81,7 +82,7 @@ As the _Context_ sub-stream sits alongside the _Events_ stream, there is no conc
 
 Using _Context_ sub-stream based reference data involves the following steps/processes:
 
-* Creating a context loader pipeline with to transform the raw context data into `reference-data:2` XML and pass that into a {{< pipe-elm "ReferenceDataFilter" >}} element.
+* Creating a context loader pipeline to transform the raw context data into `reference-data:2` XML and pass that into a {{< pipe-elm "ReferenceDataFilter" >}} element.
   This pipeline does not need any processors or processor filters as it is used on demand when the first lookup call is made in an _Events_ stream.
 * Adding reference pipeline/feeds to an XSLT Filter in your event pipeline.
   The _Pipeline_ is set to the context loader pipeline created above.
@@ -111,7 +112,7 @@ The ReferenceDataFilter requires the reference data to be XML that conforms to t
 
 A reference data entry essentially consists of the following:
 
-* **Effective time** - The data/time that the entry was effective from, i.e the time the raw reference data was received.
+* **Effective time** - The data/time that the entry was effective from, i.e. the time the raw reference data was received.
 * **Map name** - A unique name for the key/value map that the entry will be stored in.
   The name only needs to be unique within all map names that may be loaded within an XSLT Filter.
   In practice it makes sense to keep map names globally unique.
@@ -227,7 +228,7 @@ The namespacing can also be achieved like this:
 </referenceData>
 ```
 
-This reference data will be injected into event XML exactly as it, i.e.:
+This reference data will be injected into event XML exactly as is, i.e.:
 
 ``` xml
       <Location xmlns="event-logging:3">
@@ -252,12 +253,12 @@ While this will result in duplicate data being held by nodes it makes the storag
 
 The On-Heap store is the reference data store that is held in memory in the Java Heap.
 This store is volatile and will be lost on shut down of the node.
-The On-Heap store is only used for storage of context data which is is destroyed once processing of the _Events_ stream is complete.
+The On-Heap store is only used for storage of context data which is destroyed once processing of the _Events_ stream is complete.
 
 
 ### Off-Heap Store
 
-The Off-Heap store is the reference data store that is held in memory outside of the Java Heap and is persisted to to local disk.
+The Off-Heap store is the reference data store that is held in memory outside of the Java Heap and is persisted to local disk.
 As the store is also persisted to local disk it means the reference data will survive the shutdown of the stroom instance.
 Storing the data off-heap means Stroom can run with a much smaller Java Heap size.
 
@@ -294,7 +295,7 @@ There can only be one write transaction at a time so if there are a number of co
 Read transactions, i.e. lookups, are not blocked by each other but may be blocked by a write transaction depending on the value of the system property `stroom.pipeline.referenceData.lmdb.readerBlockedByWriter`.
 LMDB can operate such that readers are not blocked by writers but if there is an open read transaction while a write transaction is writing data to the store then it is unable to make use of free space (from previous deletes, see [Store Size & Compaction]({{< relref "#store-size--compaction" >}})) so will result in the store increasing in size.
 If read transactions are likely while writes are taking place then this can lead to excessive growth of the store.
-Setting  `stroom.pipeline.referenceData.lmdb.readerBlockedByWriter` to `true` will block all reads while a load is happening so any free space can be re-used, at the cost of making all lookups wait for the load to complete.
+Setting `stroom.pipeline.referenceData.lmdb.readerBlockedByWriter` to `true` will block all reads while a load is happening so any free space can be re-used, at the cost of making all lookups wait for the load to complete.
 Use of this setting will depend on how likely it is that loads will clash with lookups and the store size should be monitored.
 
 
@@ -315,7 +316,7 @@ If non-ASCII characters are in the key then these will take up more than one byt
 This is a limitation inherent to LMDB.
 
 
-#### Commit intervals
+#### Commit Intervals
 
 The property `stroom.pipeline.referenceData.maxPutsBeforeCommit` controls the number of entries that are put into the store between each commit.
 As there can be only one transaction writing to the store at a time, committing periodically allows other process to jump in and make writes.
@@ -325,7 +326,7 @@ This however means all other processes wanting to write to the store will need t
 Low values (e.g. in the hundreds) mean very frequent commits so will hamper performance.
 
 
-#### Cloning The Off Heap Store
+#### Cloning the Off Heap Store
 
 If you are provisioning a new stroom node it is possible to copy the off heap store from another node.
 Stroom should not be running on the node being copied from.
@@ -336,7 +337,7 @@ The new node will use the copied store and have access to its reference data.
 #### Store Size & Compaction
 
 Due to the way LMDB works the store can only grow in size, it will **never** shrink, even if reference data is deleted.
-Deleted data frees up space for new writes to the store so will be reused but will never be freed back to the operating system. 
+Deleted data frees up space for new writes to the store so will be reused but will never be freed back to the operating system.
 If there is a regular process of purging old data and adding new reference data then this should not be an issue as the new reference data will use the space made available by the purged data.
 
 If store size becomes an issue then it is possible to _compact_ the store.
@@ -493,7 +494,7 @@ To rectify this you can clear the cache `Reference Data - Effective Stream Cache
 ### Standard Key/Value Lookups
 
 Standard key/value lookups consist of a simple string key and a value that is either a simple string or an XML fragment.
-Standard lookups are performed using the various forms of the [`stroom:lookup()`]({{< relref "./xslt/xslt-functions.md#lookup" >}}) XSLT function.
+Standard lookups are performed using the various forms of the [`stroom:lookup()`]({{< relref "./xslt/xslt-functions/reference-data.md#lookup" >}}) XSLT function.
 
 {{% note %}}
 If the key is not found and the key is an integer then it will attempt a range lookup using the same key.
@@ -504,7 +505,7 @@ This is to allow for maps that contain a mixture of key/value pairs and range/va
 ### Range Lookups
 
 Range lookups consist of a key that is an integer and a value that is either a simple string or an XML fragment.
-For more detail on range lookups see the XSLT function [`stroom:lookup()`]({{< relref "./xslt/xslt-functions.md#range-lookups" >}}).
+For more detail on range lookups see the XSLT function [`stroom:lookup()`]({{< relref "./xslt/xslt-functions/reference-data.md#range-lookups" >}}).
 
 {{% note %}}
 The lookup will initially look for a single key that matches the lookup key.
@@ -516,18 +517,18 @@ This is to allow for maps that contain a mixture of key/value pairs and range/va
 ### Nested Map Lookups
 
 Nested map lookups involve chaining a number of lookups with the value of each map being used as the key for the next.
-For more detail on nested lookups see the XSLT function [`stroom:lookup()`]({{< relref "./xslt/xslt-functions.md#nested-maps" >}}).
+For more detail on nested lookups see the XSLT function [`stroom:lookup()`]({{< relref "./xslt/xslt-functions/reference-data.md#nested-maps" >}}).
 
 
 ### Bitmap Lookups
 
 A bitmap lookup is a special kind of lookup that actually performs a lookup for each enabled bit position of the passed bitmap value.
-For more detail on bitmap lookups see the XSLT function [`stroom:bitmap-lookup()`]({{< relref "./xslt/xslt-functions.md#bitmap-lookup" >}}).
+For more detail on bitmap lookups see the XSLT function [`stroom:bitmap-lookup()`]({{< relref "./xslt/xslt-functions/reference-data.md#bitmap-lookup" >}}).
 
 Values can either be a simple string or an XML fragment.
 
 
-### Context data lookups
+### Context Data Lookups
 
 Some event streams have a Context stream associated with them.
 Context streams allow the system sending the events to Stroom to supply an additional stream of data that provides context to the raw event stream.

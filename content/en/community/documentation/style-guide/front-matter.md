@@ -31,11 +31,15 @@ description: >
 
 Hugo supports front matter in YAML, JSON and TOML, however for consistency all front matter in stroom-docs should be in YAML format.
 
-## Title and link title
+
+## Title and Link Title
 
 This is the section/page title and will become the `h1` heading (in HTML/Markdown terms) on the section/page.
 The `linkTitle` is the text that is displayed in the left hand navigation sidebar.
 It should be the same as `title` unless the title is quite long, in which case a shorter version should be used so it fits in the sidebar.
+
+Both should use title case, in the same way as [headings]({{< relref "markdown-style#heading-capitalisation" >}}).
+
 
 ## Weight
 
@@ -46,15 +50,15 @@ If no weight is provided then Hugo will use `date`, then `linkTitle`, then the f
 To assist with re-ordering pages you can use the script `change_weights.sh` in the root of the repo.
 E.g. to change the order of the child items of the user-guide section do the following:
 
-```bash
+{{< command-line >}}
 ./change_weight.sh content/en/docs/user-guide
-```
+{{< /command-line >}}
 
 
 ## Date
 
 The date should be set/updated to the current date when a page/section is created or modified.
-This data is show at the bottom of the page and tells the reader when the page was last updated.
+This data is shown at the bottom of the page and tells the reader when the page was last updated.
 
 
 ## Tags
@@ -66,13 +70,14 @@ Tag names should conform to the following conventions:
 * The only exception to the case rule is `TODO`, which is always upper case.
 * Singular, i.e. `pipeline` rather than `pipelines`.
 
-Avoid using too many unique tag names as it will make the list of tags in the sidebar to large to be useful.
+Avoid using too many unique tag names as it will make the list of tags in the sidebar too large to be useful.
 When setting a tag on a document consult the list of existing tags to ensure consistency and to see if a more applicable tag already exists.
 
 Add the `TODO` tag to a page when the page is incomplete.
 This makes it easy to find areas of the documentation that are in need of attention.
 
-### Cascading tags
+
+### Cascading Tags
 
 If you want to apply a tag to all descendant pages of a section you can add this to the front matter of the section:
 

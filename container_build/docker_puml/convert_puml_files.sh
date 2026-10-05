@@ -73,8 +73,7 @@ convert_file() {
 
   if [[ -f "${renamed_svg_file}" ]]; then
     if [[ -f "${sha1_file}" ]]; then
-      # Busybox version of sha1sum so -s instead of --quiet
-      if sha1sum -c -s "${sha1_file}" >/dev/null 2>&1; then
+      if sha1sum -c --quiet "${sha1_file}" >/dev/null 2>&1; then
         echo -e "${GREEN}PUML file has not changed since last conversion${NC}"
       else
         echo -e "${GREEN}PUML file has changed, conversion required${NC}"

@@ -10,7 +10,7 @@ description: >
 
 When data is sent to Stroom the character encoding of the data should be configured for the [Feed]({{< relref "docs/user-guide/feeds" >}}).
 This tells Stroom how to decode the data that has been sent.
-All data sent to a feed must be encoded in the character encode configured for that Feed.
+All data sent to a feed must be encoded in the character encoding configured for that Feed.
 
 
 ## Supported Character Encodings
@@ -20,7 +20,7 @@ The currently supported character encodings are:
 
 ### UTF-8
 
-This is the default character encoding 
+This is the default character encoding
 A variable width character encoding consisting of one to four bytes per 'character'.
 UTF-8 is supported with or without a [Byte Order Mark]({{< relref "#byte-order-mark-bom" >}}).
 

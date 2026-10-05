@@ -11,6 +11,7 @@ description: >
 This section contains the significant new features or changes in Stroom.
 For a full list of changes see [Change Log]({{< relref "./change-log" >}}).
 
+
 ## User Interface
 
 ### Jobs Screen
@@ -67,7 +68,7 @@ For a full list of changes see [Change Log]({{< relref "./change-log" >}}).
 * The column _Build Version_ has been added to show the version of Stroom that the node is running.
   This is to highlight any nodes running the wrong version.
 
-* The column _Up Date_ have been added to the Nodes screen to show the time that Stroom was last booted on that node.
+* The column _Up Date_ has been added to the Nodes screen to show the time that Stroom was last booted on that node.
 
 * The _Ping_ column screen has been changed so an enabled node with no ping stands out while a disabled node does not.
 
@@ -109,7 +110,7 @@ If there is an authentication error during user login, e.g. the account is disab
 
 The content of the lower part of the dialog is configurable via the property `stroom.ui.authErrorMessage`.
 This property accepts HTML content.
-This the message to contain details of how to contact the appropriate Stroom admin team.
+This allows the message to contain details of how to contact the appropriate Stroom admin team.
 
 
 ### Queries
@@ -170,9 +171,11 @@ When using a List Input pane on a Dashboard {{< stroom-icon "document/Dashboard.
 * Document deletion will now also delete all associated document permissions granted to user/groups.
   This previously did not happen on document delete so orphaned document permissions would build up in the database.
 
-  The DB migration `V07_04_00_005__Orphaned_Doc_Perms` which will delete all document permissions (in table `doc_permission`) for docs that are not a folder, not the System doc, are not a valid doc (i.e. in the `doc` table) and are not a pipeline filter. Deleted document permission records will first be copied to a backup table `doc_permission_backup_V07_04_00_005`.
+  The DB migration `V07_04_00_005__Orphaned_Doc_Perms` which will delete all document permissions (in table `doc_permission`) for docs that are not a folder, not the System doc, are not a valid doc (i.e. in the `doc` table) and are not a pipeline filter.
+  Deleted document permission records will first be copied to a backup table `doc_permission_backup_V07_04_00_005`.
 
-* Document Copy and Move has been changed to check that the user has Owner permission (or admin) on the document being copied/moved if the permissions mode is None, Destination or Combined. This is because those modes will change the permissions which is something only an Owner/admin can do.
+* Document Copy and Move has been changed to check that the user has Owner permission (or admin) on the document being copied/moved if the permissions mode is None, Destination or Combined.
+  This is because those modes will change the permissions which is something only an Owner/admin can do.
 
 {{% note %}}
 Significant changes to document permissions are coming in v7.6.

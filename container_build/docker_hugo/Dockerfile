@@ -14,7 +14,11 @@
 # limitations under the License.
 #**********************************************************************
 
-FROM klakegg/hugo:0.95.0-ext-alpine
+FROM klakegg/hugo:0.95.0-ext-alpine@sha256:5bd78a81d105aa68c208f6d0acc3ad4b93d3a37d258a4dea041034e03c2cf8b8
+
+# The behaviour of shortcode commenting seems to have changed in 0.111.3.
+# Also this repo seems dead so should consider another
+#FROM klakegg/hugo:0.111.3-ext-alpine
 
 # Run separately so docker can cache the layer to speed up image creation
 RUN true \

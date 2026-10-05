@@ -3,12 +3,12 @@
 # See https://gohugo.io/content-management/front-matter/
 
 # The top of page title.
-# Each word capitalised.
+# Title case, i.e. each principal word capitalised.
 title: "Documentation Style Guide"
 
 # The link title in the left menu. Often the same as the title but if the title
 # is long then it is better to shorten/abbreviate the link title
-# Each word capitalised.
+# Title case, i.e. each principal word capitalised.
 linkTitle: "Style Guide"
 
 # Optional priority in the left menu bar, lower number = higher position
@@ -51,6 +51,18 @@ You should consult the _Docsy_ documentation in the first instance.
 To maintain a degree of consistency in the documentation you should use this section as a reference for how to layout your content.
 
 
+## Language
+
+For consistency, the documentation should be written in English (i.e. British English).
+
+For example, the word `color` is not allowed by the spell checker, if used in normal text.
+If you need to refer to the CSS property then surround it with back ticks or use it in a code block, .e.g.
+
+```markdown
+Set the CSS property `color` to `red`.
+```
+
+
 ## Shortcodes
 
 The documentation makes heavy use of Hugo _shortcodes_ for adding page elements such as links, icons, images, etc.
@@ -59,7 +71,7 @@ Shortcodes are a compact way of inserting reusable content into a page and make 
 There are numerous shortcodes available to use:
 
 * {{< external-link "Hugo built in shortcodes" "https://gohugo.io/content-management/shortcodes/" >}}
-* {{< external-link "Docsy theme shortcodes" "https://www.docsy.dev/docs/adding-content/shortcodes/" >}}
+* {{< external-link "Docsy theme shortcodes" "https://www.docsy.dev/docs/content/shortcodes/" >}}
 * [Bespoke _stroom-docs_ shortcodes]({{< relref "./using-images/#stroom-user-interface-components" >}}).
   These can be found in `layouts/shortcodes/`.
 
@@ -81,7 +93,7 @@ Click the {{</* stroom-icon name="settings.svg" colour="red" */>}} icon.
 Check the documentation for specific shortcode to see how to call it.
 
 
-### Editor snippets and shortcodes
+### Editor Snippets and Shortcodes
 
 To make your life much easier when editing the documentation it is highly recommended to use a text editor that supports text snippets.
 Snippets make it very quick to add shortcodes into the documentation.

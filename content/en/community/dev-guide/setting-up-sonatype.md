@@ -8,13 +8,13 @@ description: >
   This is a rough guide to what was done to set it up.  Some bits may be missing.
 ---
 
-## Create a Sonatype account
+## Create a Sonatype Account
 
 You need to create an account on Sonatype and you will need to raise a jira ticket on Sonatype's jira to get approved on the uk.gov.gchq group.
 This will require an existing user approved for the group to approve you on the ticket.
 
 
-## Setting up a GPG key
+## Setting up a GPG Key
 
 You can use the following commands for setting up a GPG2 key for signing.
 
@@ -32,14 +32,18 @@ gpg2  --list-secret-keys | grep "\[SC\]" | tr -s ' ' | cut -d' ' -f2 | cut -d'/'
 gpg2 --keyserver hkp://pool.sks-keyservers.net --send-keys <key id>
 gpg2 --keyserver hkp://keyserver.ubuntu.com --send-keys <key id>
 gpg2 --keyserver hkp://pgp.mit.edu --send-keys <key id>
+{{</ command-line >}}
 
-# To display the secret key in base64 form, for use in GH actions
+To display the secret key in base64 form, for use in GH actions:
+
+```bash
 key="$(gpg2 --armor --export-secret-keys <key id> | base64 -w0)"; \
 echo -e "-------\n$key\n-------"; \
 key=""
-{{</ command-line >}}
+```
 
-## Setting up the gradle build
+
+## Setting up the Gradle Build
 
 The signing and release to Sonatype is done by various gradle plugins.
 
@@ -51,10 +55,10 @@ id "maven-publish"
 
 See the _root_ and _event-logging-api_ gradle build files (in the _event-logging_ repo) for an example of how to set up gradle.
 
-The credentials can be passed to the gradle build using special gradle env vars [Project Properties (external)](https://docs.gradle.org/current/userguide/build_environment.html#sec:project_properties).
+The credentials can be passed to the gradle build using special Gradle environment variables [Project Properties (external)](https://docs.gradle.org/current/userguide/build_environment.html#sec:project_properties).
 The credentials required are:
 
-* `ORG_GRADLE_PROJECT_SIGNINGKEY` - The key as produced by the `gpg2 --armor` command.
+* `ORG_GRADLE_PROJECT_SIGNINGKEY` - The key as produced by the `gpg2 --armorxxx` command.
 * `ORG_GRADLE_PROJECT_SIGNINGPASSWORD` - The password for the GPG key.
 * `ORG_GRADLE_PROJECT_SONATYPEUSERNAME` - The account username on Sonatype.
 * `ORG_GRADLE_PROJECT_SONATYPEPASSWORD` - The account password on Sonatype.

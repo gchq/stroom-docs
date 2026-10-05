@@ -9,7 +9,23 @@ description: >
 ---
 
 {{% warning %}}
-Please read this section carefully in case any of it is relevant to your Stroom instance.
+Please read this section carefully in case any of it is relevant to your Stroom/Stroom-Proxy instance.
+{{% /warning %}}
+
+
+## Upgrade Path
+
+You can upgrade to v7.10.x from any v7.x release that is older than the version being upgraded to.
+
+If you want to upgrade to v7.10.x from v5.x or v6.x we recommend you do the following:
+
+1. Upgrade v5.x to the latest patch release of v6.0.
+1. Upgrade v6.x to the latest patch release of v7.0.
+1. Upgrade v7.x to the latest patch release of v7.10.
+
+{{% warning %}}
+v7.10 **cannot** migrate content in legacy formats, i.e. content created in v5/v6.
+You must therefore upgrade to v7.0.x first to migrate this content, before upgrading to v7.10.x.
 {{% /warning %}}
 
 
@@ -43,6 +59,7 @@ appConfig:
     localDir: "git_repo"
 ```
 
+
 #### X509 Certificate Extraction
 
 A new property `x509CertificateDnFormat` has been added to define the format of the certificate Distinguished Name (DN).
@@ -55,9 +72,10 @@ appConfig:
     x509CertificateDnFormat: "LDAP"
 ```
 
+
 #### Open ID Connect Authentication
 
-Two new properties have been added for controlling validation of the `aud` claim.
+The property `stroom.security.authentication.openid.validateAudience` has been replaced by two new properties for controlling validation of the `aud` claim.
 The `allowedAudiences` property allows you to supply a list of valid values for the `aud` claim.
 If this list is not empty then if the `aud` claim is present, Stroom will ensure that it matches one of these values.
 
@@ -124,8 +142,8 @@ This will be the node that reaches that point in the boot process first.
 All other nodes will wait until that is complete before proceeding with the boot process.
 
 It is recommended however to use a single node to execute the migration.
-To avoid Stroom starting up and beginning processing you can use the `migrage` command to just migrate the database and not fully boot Stroom.
-See [`migrage` command]({{< relref "/docs/user-guide/tools/command-line#migrate" >}}) for more details.
+To avoid Stroom starting up and beginning processing you can use the `migrate` command to just migrate the database and not fully boot Stroom.
+See [`migrate` command]({{< relref "/docs/user-guide/tools/command-line#migrate" >}}) for more details.
 
 
 <!-- 
@@ -147,6 +165,7 @@ this section
 For information purposes only, the following are the database migrations that will be run when upgrading to 7.10.0 from the previous minor version.
 
 Note, the `legacy` module will run first (if present) then the other module will run in no particular order.
+
 
 #### Module `stroom-index`
 
@@ -173,6 +192,7 @@ SET SQL_NOTES=@OLD_SQL_NOTES;
 
 It is not possible to display the content here.
 The file can be viewed on : {{< external-link "GitHub" "https://github.com/gchq/stroom/tree/7.10/stroom-processor/stroom-processor-impl-db/src/main/java/stroom/processor/impl/db/migration/V07_10_00_999__processor_filter_data.java" >}}
+
 
 #### Module `stroom-security`
 

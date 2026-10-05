@@ -106,7 +106,7 @@ This section needs some explanation.
 ```
 
 
-### Main XSLT (Note the use of the context lookup):
+### Main XSLT (Note the Use of the Context lookup):
 
 ```xml
 <?xml version="1.0" encoding="UTF-8" ?>

@@ -7,7 +7,7 @@ tags:
   - content
   - TODO
 description: >
-  This section covers the development of shared content within Stroom, e.g. content packs for processing common log file formats or or useful dashboards.
+  This section covers the development of shared content within Stroom, e.g. content packs for processing common log file formats or useful dashboards.
 ---
 
 {{% todo %}}

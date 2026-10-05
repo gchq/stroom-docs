@@ -14,10 +14,11 @@ The content matched by an expression depends on the type of expression and how i
 The `<split>`, `<regex>` and `<all>` elements are all expressions and match content as described below.
 
 
-## The `<split>` element
+## The `<split>` Element
 
 The `<split>` element directs Data Splitter to break up content using a specified character sequence as a delimiter.
 In addition to this it is possible to specify characters that are used to escape the delimiter as well as characters that contain or "quote" a value that may include the delimiter sequence but allow it to be ignored.
+
 
 ### Attributes
 
@@ -32,20 +33,24 @@ The `<split>` element has the following attributes:
 * [`minMatch`]({{< relref "#split-minmatch" >}})
 * [`onlyMatch`]({{< relref "#split-onlymatch" >}})
 
+
 #### `id` {#split-id}
 
 Optional attribute used to debug the location of expressions causing errors, see [id]({{< relref "content-providers.md#id" >}}).
+
 
 #### `delimiter` {#split-delimiter}
 
 A required attribute used to specify the character string that will be used as a delimiter to split the supplied content unless it is preceded by an escape character or within a container if specified.
 Several of the previous examples use this attribute.
 
+
 #### `escape` {#split-escape}
 
 An optional attribute used to specify a character sequence that is used to escape the delimiter.
 Many delimited text formats have an escape character that is used to tell any parser that the following delimiter should be ignored, e.g. often a character such as '\' is used to escape the character that follows it so that it is not treated as a delimiter.
 When specified this escape sequence also applies to any container characters that may be specified.
+
 
 #### `containerStart` {#split-containerstart}
 
@@ -54,6 +59,7 @@ If the character is preceded by the specified escape sequence then this containe
 
 If used `containerEnd` must also be specified.
 If the container characters are to be ignored from the match then match group 1 must be used instead of 0.
+
 
 #### `containerEnd` {#split-containerend}
 
@@ -72,6 +78,7 @@ If specified Data Splitter will stop matching the supplied content when it has m
 
 This attribute is used in the ['CSV with header line']({{< relref "simple-csv-example-with-heading.md" >}}) example to ensure that only the first line is treated as a header line.
 
+
 #### `minMatch` {#split-minmatch}
 
 An optional attribute used to specify the minimum number of times this expression should match the supplied content.
@@ -80,16 +87,18 @@ If specified Data Splitter will generate an error if the expression does not mat
 
 Unlike `maxMatch`, `minMatch` does not control the matching process but instead controls the production of error messages generated if the parser is not seeing the expected input.
 
+
 #### `onlyMatch` {#split-onlymatch}
 
 Optional attribute to use this expression only for specific instances of a match of the parent expression, e.g. on the 4th, 5th and 8th matches of the parent expression specified by '4,5,8'.
 This is used when this expression should only be used to subdivide content from certain parent matches.
 
 
-## The `<regex>` element
+## The `<regex>` Element
 
 The `<regex>` element directs Data Splitter to match content using the specified regular expression pattern.
 In addition to this the same match control attributes that are available on the `<split>` element are also present as well as attributes to alter the way the pattern works.
+
 
 ### Attributes
 
@@ -104,14 +113,17 @@ The `<regex>` element has the following attributes:
 * [`onlyMatch`]({{< relref "#regex-onlymatch" >}})
 * [`advance`]({{< relref "#regex-advance" >}})
 
+
 #### `id` {#regex-id}
 
 Optional attribute used to debug the location of expressions causing errors, see [id]({{< relref "content-providers.md#id" >}}).
+
 
 #### `pattern` {#regex-pattern}
 
 This is a required attribute used to specify a regular expression to use to match on the supplied content.
 The pattern is used to match the content multiple times until the end of the content is reached while the `maxMatch` and `onlyMatch` conditions are satisfied.
+
 
 #### `dotAll` {#regex-dotall}
 
@@ -121,23 +133,28 @@ If this attribute is not specified it defaults to 'false' and will only match up
 
 This attribute is used in many of the multi-line examples above.
 
+
 #### `caseInsensitive` {#regex-caseinsensitive}
 
 An optional attribute used to specify if the supplied pattern should match content in a case insensitive way.
 If 'true' the expression will match content in a case insensitive manner, if 'false' it will match the content in a case sensitive manner.
 If this attribute is not specified it defaults to 'false' and will match the content in a case sensitive manner.
 
+
 #### `maxMatch` {#regex-maxmatch}
 
 This is used in the same way it is on the `<split>` element, see [`maxMatch`]({{< relref "#split-maxmatch" >}}).
+
 
 #### `minMatch` {#regex-minmatch}
 
 This is used in the same way it is on the `<split>` element, see [`minMatch`]({{< relref "#split-minmatch" >}}).
 
+
 #### `onlyMatch` {#regex-onlymatch}
 
 This is used in the same way it is on the `<split>` element, see [`onlyMatch`]({{< relref "#split-onlymatch" >}}).
+
 
 #### `advance` {#regex-advance}
 
@@ -193,7 +210,8 @@ Reluctant matches are discouraged for performance reasons so this feature should
 A better way to tackle the above example would be to present the content in [reverse]({{< relref "content-providers.md#reverse" >}}), however this is only possible if the expression is within a group, i.e. is not a root expression.
 There may also be more complex cases where reversal is not an option and the use of a reluctant match is the only option.
 
-## The `<all>` element
+
+## The `<all>` Element
 
 The `<all>` element matches the entire content of the parent group and makes it available to child groups or `<data>` elements.
 The purpose of `<all>` is to act as a catch all expression to deal with content that is not handled by a more specific expression, e.g. to output some other unknown, unrecognised or unexpected data.
@@ -214,11 +232,13 @@ The purpose of `<all>` is to act as a catch all expression to deal with content 
 The `<all>` element provides the same functionality as using `.*` as a pattern in a `<regex>` element and where `dotAll` is set to true, e.g. `<regex pattern=".*" dotAll="true">`.
 However it performs much faster as it doesn't require pattern matching logic and is therefore always preferred.
 
+
 ### Attributes
 
 The `<all>` element has the following attributes:
 
 * [`id`]({{< relref "#all-id" >}})
+
 
 #### `id`
 

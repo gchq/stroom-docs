@@ -16,6 +16,7 @@ Both the user interface and underlying data model has changed.
 The legacy screens for managing users, groups and their permissions were often very confusing to use.
 The new screens attempt to make it much more intuitive.
 
+
 ### Terminology
 
 * _Explicit_ / _Direct_ - This means a permission is specifically granted to the User/Group in question.
@@ -80,7 +81,7 @@ It can be used to add/remove members, be they Users or Groups.
 
 ### Application Permissions Screen
 
-This screen has been added to manages the application level permissions that are granted to Users/Groups.
+This screen has been added to manage the application level permissions that are granted to Users/Groups.
 It replaces the previous modal dialog screen.
 It is accessible from:
 
@@ -109,7 +110,7 @@ This screen is split into three panes.
   If a permission is inherited from the membership of a Group, the user may make grant the permission explicitly, but they cannot remove the inherited grant except by modifying the explicit grants of the ancestor group.
 
 * Bottom pane - Provides the detail for the currently selected permission in the middle pane.
-  If the currently selected User/Group holds the permission indirectly, it will details which of the ancestor groups have been granted that permission explicitly.
+  If the currently selected User/Group holds the permission indirectly, it will detail which of the ancestor groups have been granted that permission explicitly.
 
 
 ### Document Permissions
@@ -268,7 +269,7 @@ The following sub-tabs are available:
 
 {{< image "releases/07.06/User_DocPerms.png" "500x" >}}The Document Permissions sub-tab on the User/Group Profile screen{{</ image >}}
 
-* **Dependencies** - This list various dependencies on the User/Group, e.g. a  that is configured to [_Run As_]({{< relref "#pipeline-_run-as-user_" >}}) this user.
+* **Dependencies** - This lists various dependencies on the User/Group, e.g. a Pipeline that is configured to [_Run As_]({{< relref "#pipeline-_run-as-user_" >}}) this user.
   It is useful in cases where a User is leaving the organisation and administrator needs to see what Stroom content depends on that user.
   Currently the following things can appear in the Dependencies sub-tab:
   * Pipelines {{< stroom-icon "document/Pipeline.svg">}} that _Run As_ the User/Group.
@@ -286,7 +287,7 @@ The following sub-tabs are available:
 It is now possible to change the enabled state of a Stroom User.
 This is as distinct from changing the enabled state of an Account.
 
-This is mostly useful for cases where Stroom is configured to use an external {{< glossary "identity-provider-idp" "Identity Provider" >}} and an administrator wants to create the Stroom User associated with an IDP user but does not want to allow them to log in yet.
+This is mostly useful for cases where Stroom is configured to use an external {{< glossary "idp" "Identity Provider" >}} and an administrator wants to create the Stroom User associated with an IDP user but does not want to allow them to log in yet.
 
 A disabled user will be unable to log in and anything running as the User (e.g. a Pipeline processor filter) will fail.
 
@@ -301,7 +302,7 @@ It is not possible to delete a User/Group where dependencies exist on that User/
 The Dependencies sub-tab of the User Profile screen can be used to track down these dependencies prior to deletion.
 
 
-### Pipeline _Run As User_
+### Pipeline _Run as User_
 
 The permissions that a Pipeline {{< stroom-icon "document/Pipeline.svg" >}} runs with are now controlled by setting a _Run As_ User/Group on the processor filter.
 It is advised to use a Group for this as it mitigates against having to change processor filters when a User leaves the organisation.
@@ -317,7 +318,7 @@ Now the User only needs `View` permission to see the dependences/dependants.
 
 When a Stroom User Account is created it will now create the corresponding Stroom User record.
 Previously this was a two step process.
-This is only applicable when using the internal {{< glossary "identity-provider-idp" "Identity Provider">}}.
+This is only applicable when using the internal {{< glossary "idp" "Identity Provider">}}.
 
 
 ## Analytic Email Notifications

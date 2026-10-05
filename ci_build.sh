@@ -219,6 +219,32 @@ build_version_from_source() {
       remove_unwanted_sections "${repo_root}"
   fi
 
+  # Do the spelling/link checking before we build the site so we
+  # can fail faster
+
+  echo "::group::Checking for broken links"
+  echo -e "${GREEN}Checking all .md files for broken links${NC}"
+  ./broken_links.sh
+  echo "::endgroup::"
+
+  # Older branches don't have spelling set up, so only check if present
+  if [[ -f ./check_spelling.sh ]]; then
+    echo "::group::Checking spelling"
+    echo -e "${GREEN}Checking the spelling in all .md files${NC}"
+    ./check_spelling.sh
+    echo "::endgroup::"
+  fi
+
+  # Older branches don't have the style check set up, so only check if present.
+  # Reporting only for now. Change this to '--ratchet' to fail the build when a
+  # change adds style-guide findings above those in style-baseline.tsv.
+  if [[ -f ./check_style.sh ]]; then
+    echo "::group::Checking style"
+    echo -e "${GREEN}Checking all .md files against the style guide${NC}"
+    ./check_style.sh
+    echo "::endgroup::"
+  fi
+
   echo "::group::PUML conversion"
   echo -e "${GREEN}Converting all .puml files to .puml.svg${NC}"
   ./container_build/runInPumlDocker.sh SVG
@@ -900,11 +926,6 @@ main() {
     # branch
     build_version_from_source "${BUILD_BRANCH}" "${BUILD_DIR}"
   fi
-
-  echo "::group::Checking for broken links"
-  echo -e "${GREEN}Checking all .md files for broken links${NC}"
-  ./broken_links.sh
-  echo "::endgroup::"
 
   pushd "${GIT_WORK_DIR}"
 

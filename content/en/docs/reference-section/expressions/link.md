@@ -12,7 +12,10 @@ Links can be inserted into dashboard tables using the `link` function.
 All link types described in [Internal Links]({{< relref "docs/user-guide/search/dashboards/internal-links" >}}) can be added to dashboard tables using the `link` function.
 In addition to the `link` function there are convenience functions such as `annotation`, `dashboard`, `data` and `stepping` that make it easier to supply the required link parameters.
 
+
 ## Annotation
+
+DEPRECATED - replaced by fully integrated Stroom annotation functionality and `createAnnotation`
 
 {{% see-also %}}
 [Annotation Links]({{< relref "docs/user-guide/search/dashboards/internal-links#annotation" >}}).
@@ -48,6 +51,29 @@ Example
 ```clike
 annotation('Create suspect event annotation', null(), 123, 456, 'Suspect Event', null(), 'assigned', 'jbloggs')
 > [Create suspect event annotation](?streamId=123&eventId=456&title=Suspect%20Event&assignedTo=jbloggs){annotation}
+```
+
+
+## Create Annotation
+
+{{% see-also %}}
+[Annotation Links]({{< relref "docs/user-guide/search/dashboards/internal-links#annotation" >}}).
+{{% /see-also %}}
+
+Since annotation editing is now performed as a primary Stroom feature via a button and context menu on dashboard and query tables we no longer need to create or edit annotations via a hyperlink.
+There are some remaining use cases where users want to create and initialise some annotation values based on some table row content.
+The `createAnnotation` function can be used for this purpose and shows a hyperlink that will open the annotation edit screen pre-populated with the supplied values ready to create a new annotation.
+
+The function takes the arguments:
+
+```
+createAnnotation(text, title, subject, status, assignedTo, comment, eventIdList)
+```
+
+Example:
+
+```
+createAnnotation('Create Annotation', 'My Annotation Title', ${SubjectField}, 'New', 'UserA', 'Look at this thing', '123:2,123444:3')
 ```
 
 
@@ -117,6 +143,7 @@ Example of a single event metadata record from a segmented stream, viewed in a p
 data('View Cooked', ${StreamId}, 1, ${eventId}, null(), null(), null(), null(), 'info')
 ```
 
+
 ## Link
 
 {{% see-also %}}
@@ -143,6 +170,7 @@ link('Click Here','https://www.somehost.com/somepath', 'dialog')
 link('Click Here','https://www.somehost.com/somepath', 'dialog|Dialog Title')
 > [Click Here](https://www.somehost.com/somepath){dialog|Dialog Title}
 ```
+
 
 ## Stepping
 

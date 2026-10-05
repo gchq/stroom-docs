@@ -12,6 +12,7 @@ description: >
 Please read this section carefully in case any of it is relevant to your Stroom instance.
 {{% /warning %}}
 
+
 ## Java Version
 
 Stroom v7.8 requires Java 21.
@@ -28,6 +29,7 @@ new_ver=7.7
 git diff origin/${old_ver}..origin/${new_ver} stroom-config/stroom-config-app/src/test/resources/stroom/config/app/expected.yaml
 git diff origin/${old_ver}..origin/${new_ver} stroom-proxy/stroom-proxy-app/src/test/resources/stroom/dist/proxy-expected.yaml
 -->
+
 
 ### Stroom's `config.yml`
 
@@ -61,6 +63,7 @@ appConfig:
       refreshAfterWrite: null
 ```
 
+
 #### Reporting
 
 The following block of config has been added for the new reporting feature.
@@ -80,7 +83,7 @@ appConfig:
 
 #### OpenID HTTP Client
 
-Added the property `httpClient` for configuring the HTTP client used to fetch the {{< glossary "identity-provider-idp" "IDP's">}} configuration.
+Added the property `httpClient` for configuring the HTTP client used to fetch the {{< glossary "idp" "IDP's">}} configuration.
 
 ```yml
   security:
@@ -110,14 +113,15 @@ This will be the node that reaches that point in the boot process first.
 All other nodes will wait until that is complete before proceeding with the boot process.
 
 It is recommended however to use a single node to execute the migration.
-To avoid Stroom starting up and beginning processing you can use the `migrage` command to just migrate the database and not fully boot Stroom.
-See [`migrage` command]({{< relref "/docs/user-guide/tools/command-line#migrate" >}}) for more details.
+To avoid Stroom starting up and beginning processing you can use the `migrate` command to just migrate the database and not fully boot Stroom.
+See [`migrate` command]({{< relref "/docs/user-guide/tools/command-line#migrate" >}}) for more details.
 
 
 <!-- 
 Run stroom.db.migration.TestListDbMigrations.listDbMigrationsForLatestVersion() to generate the content for
 this section
 -->
+
 
 ### Migration Scripts
 

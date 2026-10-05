@@ -76,7 +76,8 @@ Year         | NO        | empty, 1970-2099 | , - * /
   Note that if you specify `#5` and there is not 5 of the given day-of-week in the month, then no firing will occur that month.
 
   {{% note %}}
-  The legal characters and the names of months and days of the week are not case sensitive. MON is the same as mon.
+  The legal characters and the names of months and days of the week are not case sensitive.
+  MON is the same as mon.
   {{% /note %}}
 
 
@@ -97,7 +98,7 @@ Expression                 | Meaning
 `0 15 10 ? * MON-FRI`      | Fire at 10:15am every Monday, Tuesday, Wednesday, Thursday and Friday
 `0 15 10 15 * ?`           | Fire at 10:15am on the 15th day of every month
 `0 15 10 L * ?`            | Fire at 10:15am on the last day of every month
-`0 15 10 L-2 * ?`          | Fire at 10:15am on the 2nd-to-last last day of every month
+`0 15 10 L-2 * ?`          | Fire at 10:15am on the 2nd-to-last day of every month
 `0 15 10 ? * 6L`           | Fire at 10:15am on the last Friday of every month
 `0 15 10 ? * 6L`           | Fire at 10:15am on the last Friday of every month
 `0 15 10 ? * 6L 2002-2005` | Fire at 10:15am on every last friday of every month during the years 2002, 2003, 2004 and 2005

@@ -13,6 +13,6 @@ The documentation is now versioned so that you are only reading documentation ap
 
 Other improvements:
 
-* Addtion of News and Releases sections
+* Addition of News and Releases sections
 * Better site and page navigation with the left and right hand menus
 * Tagging of content to help find related material

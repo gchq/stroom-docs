@@ -13,7 +13,7 @@ This page can be used as a reference for finding icons and their filenames to us
 See [here]({{< ref "using-images#stroom-icons" >}}) for how to add icons to pages.
 
 
-## General icons
+## General Icons
 
 General icons used in Stroom.
 
@@ -22,7 +22,7 @@ General icons used in Stroom.
 {{< stroom-icons-gallery "images/stroom-ui/" >}}
 
 
-## Pipeline element icons
+## Pipeline Element Icons
 
 Icons used for the different pipeline elements.
 
@@ -32,7 +32,7 @@ Icons used for the different pipeline elements.
 {{< stroom-icons-gallery "images/stroom-ui/pipeline/" >}}
 
 
-## Document type icons
+## Document Type Icons
 
 Icons used for the different _document_ entity types, i.e. those seen in the explorer tree.
 
@@ -42,7 +42,7 @@ Icons used for the different _document_ entity types, i.e. those seen in the exp
 {{< stroom-icons-gallery "images/stroom-ui/document/" >}}
 
 
-## Table column icons
+## Table Column Icons
 
 Icons used on the Dashboard and Query table columns.
 
@@ -51,21 +51,21 @@ Icons used on the Dashboard and Query table columns.
 {{< stroom-icons-gallery "images/stroom-ui/fields/" >}}
 
 
-## Menu items
+## Menu Items
 
 Menu items with icons that are available for use with the [`stroom-menu` shortcode]({{< relref "using-images#stroom-selected-menu-items" >}}).
 
 {{< stroom-menu "menu_demo" >}}
 
 
-## Pipeline elements
+## Pipeline Elements
 
 Pipeline elements that are available for use with the [`pipe-elm`]({{< relref "using-images#pipeline-elements" >}}) and [`pipe`]({{< relref "using-images#pipelines" >}}) shortcodes.
 
 {{< pipe-elm "pipe_elm_demo" >}}
 
 
-## Updating this gallery
+## Updating This Gallery
 
 ### Icons
 
@@ -88,6 +88,6 @@ e.g.
 To update the available [menu items]({{< relref "#menu-items" >}}) edit the shortcode file `layouts/shortcodes/stroom-menu.html` and modify the `icon_map` variable.
 
 
-### Pipeline elements
+### Pipeline Elements
 
 To update the available [pipeline elements]({{< relref "#pipeline-elements" >}}) edit the shortcode file `layouts/shortcodes/pipe-elm.html` and modify the `element_map` variable.
