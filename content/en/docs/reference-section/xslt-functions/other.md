@@ -13,3 +13,21 @@ The xslt-func shortcode outputs all the XsltFunctionDef annotation content for t
 You can add any additional content for the function (e.g. examples) underneath the shortcode call.
 -->
 
+## ask-ai
+
+{{< xslt-func "ask-ai" >}}
+
+
+## cosine-similarity
+
+{{< xslt-func "cosine-similarity" >}}
+
+
+## pointIsInsideXYPolygon
+
+{{< xslt-func "pointIsInsideXYPolygon" >}}
+
+
+## split-document
+
+{{< xslt-func "split-document" >}}

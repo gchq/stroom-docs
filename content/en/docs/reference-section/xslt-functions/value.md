@@ -13,5 +13,18 @@ The xslt-func shortcode outputs all the XsltFunctionDef annotation content for t
 You can add any additional content for the function (e.g. examples) underneath the shortcode call.
 -->
 
+## current-user
+
+{{< xslt-func "current-user" >}}
+
+
 ## random
+
 {{< xslt-func "random" >}}
+
+
+## random-integer
+
+{{< xslt-func "random-integer" >}}
+
+

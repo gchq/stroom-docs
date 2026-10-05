@@ -13,3 +13,6 @@ The xslt-func shortcode outputs all the XsltFunctionDef annotation content for t
 You can add any additional content for the function (e.g. examples) underneath the shortcode call.
 -->
 
+## link
+
+{{< xslt-func "link" >}}

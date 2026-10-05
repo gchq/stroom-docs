@@ -13,3 +13,17 @@ The xslt-func shortcode outputs all the XsltFunctionDef annotation content for t
 You can add any additional content for the function (e.g. examples) underneath the shortcode call.
 -->
 
+## decode-url
+
+{{< xslt-func "decode-url" >}}
+
+
+## encode-url
+
+{{< xslt-func "encode-url" >}}
+
+
+## parse-uri
+
+{{< xslt-func "parse-uri" >}}
+

@@ -14,7 +14,8 @@
 
       {{/*
       {{ with .commonCategory }}
-        <p><strong>Categories:</strong>
+        <p>
+        <strong>Categories:</strong>
         {{ delimit . ", " }}
         </p>
       {{ end }}
@@ -22,13 +23,17 @@
 
       {{/*
       {{ if gt $sigCount 1 }}
-        <p><strong>Function Signatures:</strong></p>
+        <p>
+        <strong>Function Signatures:</strong>
+        </p>
       {{ end }}
       */}}
 
       {{ range $sigIdx, $sig := .signatures }}
         {{ $argReturnType := default (index $func.commonReturnType 0) (index $sig.returnType 0)}}
         {{ $argReturnDesc := default $func.commonReturnDescription $sig.returnDescription }}
+
+        {{- if gt $sigIdx 0 -}}<hr>{{- end -}}
 
         {{/* e.g. hash( String value, String algorithm ) ➡ String */}}
         <p class="function-definition-signature"><span><code>
@@ -40,7 +45,7 @@
           <span class="function-definition-signature-arg">{{- .name -}}</span>
         {{- end -}}
 
-        )&emsp14;➡&emsp14;{{ $argReturnType }}</code></span></p>
+        )<span class="function-definition-signature-arrow">➡</span>{{ $argReturnType }}</code></span></p>
 
 
         {{/* description */}}
@@ -101,8 +106,8 @@
             <td>{{ $argReturnDesc | markdownify }}</td>
           </tr>
         </table>
-        </div>
       {{ end }}
+      </div>
     {{ end }}
   {{ else }}
     {{ errorf "The %q shortcode was unable to find %s. See %s" $.Name $funcName $.Position }}

@@ -41,7 +41,7 @@
 
   // Make the search input more visible in the top nav bar
   .form-control {
-    border:1px solid #ffffff8c; 
+    border:1px solid #ffffff8c;
   }
 }
 
@@ -95,7 +95,7 @@
 }
 
 // Add + icons to the left nav sidebar
-// 
+//
 li.td-sidebar-nav__section-title {
   span {
     // With deep nesting we need a bit more room
@@ -259,15 +259,15 @@ html {
     // Numbered lists use 0.25em, <p> use 1rem for reference.
     margin-bottom: 0.8em;
   }
-  
-  // If you have something like 
+
+  // If you have something like
   // * `foo`
   //   * Some words
   // The Top bullet will be in a <p>, so we need to dial down the margin a bit
   ul li p:has( + ul) {
     margin-bottom: 0.25em;
   }
-  
+
   // When you have nested bullets that don't get a <p>, we need to add a bit of space
   // above the first child as our other css doesn't cover that.
   // * Some plain text.
@@ -332,8 +332,8 @@ html {
 
   a:hover, a:hover:has( > code) {
     text-decoration-line: underline;
-    text-underline-offset: 4px; 
-    text-decoration-thickness: 2px; 
+    text-underline-offset: 4px;
+    text-decoration-thickness: 2px;
     text-decoration-color: rgba($link-hover-color, 0.2) !important;
     transition: text-decoration-color 0.8s ease-in-out;
   }
@@ -354,8 +354,8 @@ html {
 
   a:hover.external-link > span {
     text-decoration-line: underline;
-    text-underline-offset: 4px; 
-    text-decoration-thickness: 2px; 
+    text-underline-offset: 4px;
+    text-decoration-thickness: 2px;
     text-decoration-color: rgba($secondary, 0.3) !important;
     transition: text-decoration-color 0.8s ease-in-out;
   }
@@ -374,7 +374,7 @@ html {
     margin-right: 7px;
     width: unset !important;
     box-shadow: 0px 0px 5px rgba(129, 129, 129, 1) !important;
-    border-radius: 5px !important; 
+    border-radius: 5px !important;
   }
 
   .line-highlight::before {
@@ -419,7 +419,7 @@ pre[class*=language-] {
     .code-toolbar {
       // The code box is normally 80% but as it is inside a card that is also
       // 80% width we need to bring it back up to 100% so it fills the card.
-      //max-width: 100%; 
+      //max-width: 100%;
     }
   }
 }
@@ -512,10 +512,10 @@ pre[class*=language-] {
   /* Hide it and set up the transition properties */
   opacity: 0;
   visibility: hidden;
-  
+
   /* Transition for a smooth fade out when mouse leaves (no delay) */
   transition: opacity 0.2s ease, visibility 0.2s ease;
-  transition-delay: 0s; 
+  transition-delay: 0s;
 
   text-wrap: wrap;
   width: 600px;
@@ -525,9 +525,9 @@ pre[class*=language-] {
 .glossary-link:hover .glossary-tooltip {
   opacity: 1;
   visibility: visible;
-  
+
   /* Adds a 0.5 second delay ONLY when hovering */
-  transition-delay: 0.3s; 
+  transition-delay: 0.3s;
 }
 
 .glossary-tooltip-title, .glossary-tooltip-summary, .glossary-tooltip-truncated {
@@ -670,7 +670,7 @@ div.pipeline-element-demo {
 ////////////////////////////
 
 // Copied from stroom-button.css
-.icon-button .face {    
+.icon-button .face {
   color: var(--icon-button__color);
 }
 
@@ -965,8 +965,8 @@ span.key-bind {
     }
   }
 
-  span.key-bind-plus, 
-      span.key-bind-comma, 
+  span.key-bind-plus,
+      span.key-bind-comma,
       span.key-bind-key {
     float: left;
     display: inline-flex;
@@ -974,7 +974,7 @@ span.key-bind {
     font-size: 90%;
   }
 
-  span.key-bind-plus, 
+  span.key-bind-plus,
       span.key-bind-comma {
     letter-spacing:0px;
     color: dimgrey;
@@ -1042,7 +1042,7 @@ div.exp-tree-branch {
 }
 
 div.exp-tree-doc {
-  
+
   // Bigger margin as there is no arrow icon for a doc
   margin-left: 33px;
 
@@ -1068,9 +1068,18 @@ p.function-definition-signature {
       background: unset;
       padding-left: unset;
       letter-spacing: -0.04em;
+      // Strip any whitespace the shortcode introduces as this is just a one liner so we don't care
+      // about indentation and the like
+      white-space-collapse: collapse;
 
       span.function-definition-signature-arg {
         font-weight: 500;
+        color: var(--blue-900);
+      }
+
+      span.function-definition-signature-arrow {
+        padding-left: 0.6em;
+        padding-right: 0.6em;
         color: var(--blue-900);
       }
     }
@@ -1101,10 +1110,10 @@ h3 {counter-reset: h4}
 h4 {counter-reset: h5}
 h5 {counter-reset: h6}
 
-h2[id]::before, 
-h3[id]::before, 
-h4[id]::before, 
-h5[id]::before, 
+h2[id]::before,
+h3[id]::before,
+h4[id]::before,
+h5[id]::before,
 h6[id]::before {
   display: inline;
   visibility: visible;
@@ -1116,37 +1125,37 @@ h6[id]::before {
 
 // prepend the counter value before the heading
 h2[id]::before {
-  counter-increment: h2; 
+  counter-increment: h2;
   content: var(--base-section-num,"") counter(h2) " ";
 }
 
 h3[id]::before {
-  counter-increment: h3; 
+  counter-increment: h3;
   content: var(--base-section-num,"") counter(h2) "." counter(h3) " ";
 }
 
 h4[id]::before {
-  counter-increment: h4; 
+  counter-increment: h4;
   content: var(--base-section-num,"") counter(h2) "." counter(h3) "." counter(h4) " ";
 }
 
 h5[id]::before {
-  counter-increment: h5; 
+  counter-increment: h5;
   content: var(--base-section-num,"") counter(h2) "." counter(h3) "." counter(h4) "." counter(h5) " ";
 }
 
 h6[id]::before {
-  counter-increment: h6; 
+  counter-increment: h6;
   content: var(--base-section-num,"") counter(h2) "." counter(h3) "." counter(h4) "." counter(h5) "." counter(h6) " ";
 }
 
 // Reset the counter for the right hand TOC items
-.td-toc ul { 
+.td-toc ul {
   counter-reset: item ;
 }
 
-.td-toc li a:before { 
-  content: counters(item, ".") " "; 
+.td-toc li a:before {
+  content: counters(item, ".") " ";
   counter-increment: item ;
 
   // Make the heading number more subdued than the heading

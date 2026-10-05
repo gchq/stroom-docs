@@ -15,3 +15,24 @@ You can add any additional content for the function (e.g. examples) underneath t
 
 ## hash
 {{< xslt-func "hash" >}}
+
+
+## hex-to-dec
+
+{{< xslt-func "hex-to-dec" >}}
+
+
+## hex-to-oct
+
+{{< xslt-func "hex-to-oct" >}}
+
+
+## hex-to-string
+
+{{< xslt-func "hex-to-string" >}}
+
+
+## json-to-xml
+
+{{< xslt-func "json-to-xml" >}}
+

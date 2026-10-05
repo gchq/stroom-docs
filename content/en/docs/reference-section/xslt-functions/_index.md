@@ -55,19 +55,51 @@ XSLT functions can return the following data types:
 {{< cardpane >}}
 
   {{< card header="Conversion Functions" >}}
-  * [hash](conversion#hash)
+  * [`hash`]({{< relref "conversion#hash" >}})
+  * [`hex-to-dec`]({{< relref "conversion#hex-to-dec" >}})
+  * [`hex-to-oct`]({{< relref "conversion#hex-to-oct" >}})
+  * [`hex-to-string`]({{< relref "conversion#hex-to-string" >}})
+  * [`json-to-xml`]({{< relref "conversion#json-to-xml" >}})
   {{< /card >}}
 
   {{< card header="Date Functions" >}}
-  * [](date#)
+  * [`current-time`]({{< relref "date#current-time" >}})
+  * [`current-unixTime`]({{< relref "date#current-unixTime" >}})
+  * [`format-dateTime`]({{< relref "date#format-dateTime" >}})
+  * [`format-date`]({{< relref "date#format-date" >}})
+  * [`from-unixTime`]({{< relref "date#from-unixTime" >}})
+  * [`parse-dateTime`]({{< relref "date#parse-dateTime" >}})
+  * [`to-unixTime`]({{< relref "date#to-unixTime" >}})
+  {{< /card >}}
+
+  {{< card header="String Functions" >}}
+  * [`link`]({{< relref "string#link" >}})
+  {{< /card >}}
+
+{{< /cardpane >}}
+
+{{< cardpane >}}
+
+  {{< card header="Value Functions" >}}
+  * [`current-user`]({{< relref "value#current-user" >}})
+  * [`random-integer`]({{< relref "value#random-integer" >}})
+  * [`random`]({{< relref "value#random" >}})
+  {{< /card >}}
+
+  {{< card header="URI Functions" >}}
+  * [`decode-url`]({{< relref "uri#decode-url" >}})
+  * [`encode-url`]({{< relref "uri#encode-url" >}})
+  * [`parse-uri`]({{< relref "uri#parse-uri" >}})
   {{< /card >}}
 
   {{< card header="Network Functions" >}}
-  * [](network#)
-  {{< /card >}}
-
-  {{< card header="Other Functions" >}}
-  * [](other#)
+  * [`cidr-to-numeric-ip-range`]({{< relref "network#cidr-to-numeric-ip-range" >}})
+  * [`fetch-json`]({{< relref "network#fetch-json" >}})
+  * [`host-address`]({{< relref "network#host-address" >}})
+  * [`host-name`]({{< relref "network#host-name" >}})
+  * [`http-call`]({{< relref "network#http-call" >}})
+  * [`ip-in-cidr`]({{< relref "network#ip-in-cidr" >}})
+  * [`numeric-ip`]({{< relref "network#numeric-ip" >}})
   {{< /card >}}
 
 {{< /cardpane >}}
@@ -75,19 +107,41 @@ XSLT functions can return the following data types:
 {{< cardpane >}}
 
   {{< card header="Stroom Pipeline Functions" >}}
-  * [](pipeline#)
+  * [`add-meta`]({{< relref "pipeline#add-meta" >}})
+  * [`bitmap-lookup`]({{< relref "pipeline#bitmap-lookup" >}})
+  * [`classification`]({{< relref "pipeline#classification" >}})
+  * [`col-from`]({{< relref "pipeline#col-from" >}})
+  * [`col-to`]({{< relref "pipeline#col-to" >}})
+  * [`dictionary`]({{< relref "pipeline#dictionary" >}})
+  * [`feed-name`]({{< relref "pipeline#feed-name" >}})
+  * [`get`]({{< relref "pipeline#get" >}})
+  * [`line-from`]({{< relref "pipeline#line-from" >}})
+  * [`line-to`]({{< relref "pipeline#line-to" >}})
+  * [`log`]({{< relref "pipeline#log" >}})
+  * [`lookup`]({{< relref "pipeline#lookup" >}})
+  * [`manifest`]({{< relref "pipeline#manifest" >}})
+  * [`meta-attribute`]({{< relref "pipeline#meta-attribute" >}})
+  * [`meta-keys`]({{< relref "pipeline#meta-keys" >}})
+  * [`meta-stream`]({{< relref "pipeline#meta-stream" >}})
+  * [`meta`]({{< relref "pipeline#meta" >}})
+  * [`parent-for-id`]({{< relref "pipeline#parent-for-id" >}})
+  * [`parent-id`]({{< relref "pipeline#parent-id" >}})
+  * [`part-no`]({{< relref "pipeline#part-no" >}})
+  * [`pipeline-name`]({{< relref "pipeline#pipeline-name" >}})
+  * [`put`]({{< relref "pipeline#put" >}})
+  * [`record-no`]({{< relref "pipeline#record-no" >}})
+  * [`search-id`]({{< relref "pipeline#search-id" >}})
+  * [`source-id`]({{< relref "pipeline#source-id" >}})
+  * [`source`]({{< relref "pipeline#source" >}})
   {{< /card >}}
 
-  {{< card header="String Functions" >}}
-  * [](string#)
-  {{< /card >}}
-
-  {{< card header="URI Functions" >}}
-  * [](uri#)
-  {{< /card >}}
-
-  {{< card header="Value Functions" >}}
-  * [random](value#random)
+  {{< card header="Other Functions" >}}
+  * [`ask-ai`]({{< relref "other#ask-ai" >}})
+  * [`cosine-similarity`]({{< relref "other#cosine-similarity" >}})
+  * [`pointIsInsideXYPolygon`]({{< relref "other#pointIsInsideXYPolygon" >}})
+  * [`split-document`]({{< relref "other#split-document" >}})
   {{< /card >}}
 
 {{< /cardpane >}}
+
+
