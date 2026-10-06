@@ -4,6 +4,7 @@
     {{ with . | transform.Unmarshal }}
       {{ $func := . }}
       {{ $sigCount := .signatures | len }}
+      {{ $aliasCount := .aliases | len }}
       <div class="function-definition">
 
       {{ if gt $sigCount 1 }}
@@ -29,6 +30,17 @@
       {{ end }}
       */}}
 
+      {{ if gt $aliasCount 0 }}
+      <p class="function-definition-signature-aliases">
+        <strong>Function Name Aliases:</strong>
+        <ul>
+        {{ range $aliasIdx, $alias := .aliases }}
+          <li><code><span class="function-definition-signature-alias">{{ $alias }}</span></code></li>
+        {{ end }}
+        </ul>
+      </p>
+      {{ end }}
+
       {{ range $sigIdx, $sig := .signatures }}
         {{ $argReturnType := default (index $func.commonReturnType 0) (index $sig.returnType 0)}}
         {{ $argReturnDesc := default $func.commonReturnDescription $sig.returnDescription }}
@@ -42,7 +54,12 @@
         -->{{- $argCount := $sig.args | len -}}
         {{- range $idx, $arg := $sig.args -}}
           {{- if gt $idx 0 -}},&thinsp;{{- end -}}
-          <span class="function-definition-signature-arg">{{- .name -}}</span>
+          <span class="function-definition-signature-arg">
+          {{- if .isOptional -}}[{{- end -}}
+          {{- .name -}}
+          {{- if .isVarargs -}}...{{- end -}}
+          {{- if .isOptional -}}]{{- end -}}
+          </span>
         {{- end -}}
 
         )<span class="function-definition-signature-arrow">➡</span>{{ $argReturnType }}</code></span></p>
@@ -58,34 +75,34 @@
           <p><strong>Function Arguments:</strong></p>
           <table class="function-signature-args">
             <tr>
-              <th>Param</th>
-              <th>Type</th>
-              <th>Mandatory</th>
-              <th>Default Value</th>
-              <th>Allowed Values</th>
-              <th>Multiple</th>
-              <th>Min Count</th>
-              <th>Description</th>
+              <th title="The name of the argument.">Param</th>
+              <th title="The data type of the argument.">Type</th>
+              <th title="Whether this argument is mandatory or optional.">Mandatory</th>
+              <th title="The default value of the argument if not provided.">Default Value</th>
+              <th title="The allowed values of the argument.">Allowed Values</th>
+              <th title="Whether this argument can be repeated multiple times.">Multiple</th>
+              <th title="The minimum number of times this argument must be repeated.">Min Count</th>
+              <th title="Description of the argument.">Description</th>
             </tr>
           {{ range . }}
             <tr>
               <td><code>{{ .name }}</code></td>
               <td>{{ .argType }}</td>
               {{ with .isOptional }}
-                <td>Optional</td>
+              <td><i class="fa-solid fa-xmark"></i></td>
               {{ else }}
-                <td>Mandatory</td>
+              <td><i class="fa-solid fa-check"></i></td>
               {{ end }}
               {{ with .defaultValue }}
-                <td><code>{{ . }}</code></td>
+              <td><code>{{ . }}</code></td>
               {{ else }}
-                <td>-</td>
+              <td>-</td>
               {{ end }}
               <td>{{ default "-" (delimit (apply .allowedValues "fmt.Printf" "<code>%s</code>" ".") ", " )}}</td>
               {{ with .isVarargs }}
-                <td>True</td>
+                <td><i class="fa-solid fa-check"></i></td>
               {{ else }}
-                <td>False</td>
+              <td><i class="fa-solid fa-xmark"></i></td>
               {{ end }}
               <td>{{ default "-" .minVarargsCount }}</td>
               <td>{{ .description | markdownify }}</td>
@@ -98,8 +115,8 @@
         <p><strong>Return Value:</strong></p>
         <table class="function-signature-return">
           <tr>
-            <th>Type</th>
-            <th>Description</th>
+            <th title="The data type of the return value.">Type</th>
+            <th title="The description of the return value.">Description</th>
           </tr>
           <tr>
             <td>{{ $argReturnType }}</td>
