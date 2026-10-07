@@ -23,6 +23,7 @@ You can add any additional content for the function (e.g. examples) underneath t
 
 {{< xslt-func "bitmap-lookup" >}}
 
+
 ### Examples
 
 For the purposes of these examples, the reference data store map contains:
@@ -68,6 +69,11 @@ The following are example lookups using the above reference data:
 {{< xslt-func "dictionary" >}}
 
 
+## feed-attribute
+
+{{< xslt-func "feed-attribute" >}}
+
+
 ## feed-name
 
 {{< xslt-func "feed-name" >}}
@@ -76,6 +82,39 @@ The following are example lookups using the above reference data:
 ## get
 
 {{< xslt-func "get" >}}
+
+{{% see-also %}}
+[`put()`]({{< relref "#put" >}})
+{{% /see-also %}}
+
+### Example
+
+An example of how to count records is shown below:
+
+```xml
+<!-- Get the current record count -->
+<xsl:variable name="currentCount" select="number(stroom:get('count'))" />
+
+<!-- Increment the record count -->
+<xsl:variable name="count">
+  <xsl:choose>
+    <xsl:when test="$currentCount">
+      <xsl:value-of select="$currentCount + 1" />
+    </xsl:when>
+    <xsl:otherwise>
+      <xsl:value-of select="1" />
+    </xsl:otherwise>
+  </xsl:choose>
+</xsl:variable>
+
+<!-- Store the count for future retrieval -->
+<xsl:value-of select="stroom:put('count', $count)" />
+
+<!-- Output the new count -->
+<data name="Count">
+  <xsl:attribute name="Value" select="$count" />
+</data>
+```
 
 
 ## line-from
@@ -178,6 +217,11 @@ The last map in the chain can either contain string values or XML fragment value
 {{< xslt-func "manifest" >}}
 
 
+## manifest-for-id
+
+{{< xslt-func "manifest-for-id" >}}
+
+
 ## meta
 
 {{< xslt-func "meta" >}}
@@ -232,6 +276,11 @@ The following fragment is an example of using `meta-keys()` to emit all meta val
 {{< xslt-func "meta-stream" >}}
 
 
+## meta-stream-for-id
+
+{{< xslt-func "meta-stream-for-id" >}}
+
+
 ## parent-for-id
 
 {{< xslt-func "parent-for-id" >}}
@@ -256,6 +305,10 @@ The following fragment is an example of using `meta-keys()` to emit all meta val
 
 {{< xslt-func "put" >}}
 
+{{% see-also %}}
+[`get()`]({{< relref "#get" >}}) for an example of how to use `put()`.
+{{% /see-also %}}
+
 
 ## record-no
 
@@ -275,4 +328,9 @@ The following fragment is an example of using `meta-keys()` to emit all meta val
 ## source-id
 
 {{< xslt-func "source-id" >}}
+
+
+## stream-id
+
+{{< xslt-func "stream-id" >}}
 

@@ -42,106 +42,19 @@ The following is an example of calling the `hash` custom XSLT function to produc
 
 XSLT functions can return the following data types:
 
-* Boolean - True/false.
-* Date - A date value (`xs:date`).
-* Date-Time - A date and time value (`xs:datetime`).
-* Decimal - A decimal or floating point value (`xs:decimal`).
-* Integer - A number with no decimal part (`xs:integer`).
-* String - A simple string value (`xs:string`).
-* Sequence - Any sequence of nodes or atomic values, e.g. a single node, a list of nodes or a list of strings.
+* _Boolean_ - True/false.
+* _Date_ - A date value (`xs:date`).
+* _Date-Time_ - A date and time value (`xs:datetime`).
+* _Decimal_ - A decimal or floating point value (`xs:decimal`).
+* _Integer_ - A number with no decimal part (`xs:integer`).
+* _String_ - A simple string value (`xs:string`).
+* _Sequence_ - Any sequence of nodes or atomic values, e.g. a single node, a list of nodes or a list of strings.
+
 
 ## Functions
 
-{{< cardpane >}}
+The following table lists all the Stroom XSLT functions.
 
-  {{< card header="Conversion Functions" >}}
-  * [`hash`]({{< relref "conversion#hash" >}})
-  * [`hex-to-dec`]({{< relref "conversion#hex-to-dec" >}})
-  * [`hex-to-oct`]({{< relref "conversion#hex-to-oct" >}})
-  * [`hex-to-string`]({{< relref "conversion#hex-to-string" >}})
-  * [`json-to-xml`]({{< relref "conversion#json-to-xml" >}})
-  {{< /card >}}
-
-  {{< card header="Date Functions" >}}
-  * [`current-time`]({{< relref "date#current-time" >}})
-  * [`current-unixTime`]({{< relref "date#current-unixTime" >}})
-  * [`format-dateTime`]({{< relref "date#format-dateTime" >}})
-  * [`format-date`]({{< relref "date#format-date" >}})
-  * [`from-unixTime`]({{< relref "date#from-unixTime" >}})
-  * [`parse-dateTime`]({{< relref "date#parse-dateTime" >}})
-  * [`to-unixTime`]({{< relref "date#to-unixTime" >}})
-  {{< /card >}}
-
-  {{< card header="String Functions" >}}
-  * [`link`]({{< relref "string#link" >}})
-  {{< /card >}}
-
-{{< /cardpane >}}
-
-{{< cardpane >}}
-
-  {{< card header="Value Functions" >}}
-  * [`current-user`]({{< relref "value#current-user" >}})
-  * [`random-integer`]({{< relref "value#random-integer" >}})
-  * [`random`]({{< relref "value#random" >}})
-  {{< /card >}}
-
-  {{< card header="URI Functions" >}}
-  * [`decode-url`]({{< relref "uri#decode-url" >}})
-  * [`encode-url`]({{< relref "uri#encode-url" >}})
-  * [`parse-uri`]({{< relref "uri#parse-uri" >}})
-  {{< /card >}}
-
-  {{< card header="Network Functions" >}}
-  * [`cidr-to-numeric-ip-range`]({{< relref "network#cidr-to-numeric-ip-range" >}})
-  * [`fetch-json`]({{< relref "network#fetch-json" >}})
-  * [`host-address`]({{< relref "network#host-address" >}})
-  * [`host-name`]({{< relref "network#host-name" >}})
-  * [`http-call`]({{< relref "network#http-call" >}})
-  * [`ip-in-cidr`]({{< relref "network#ip-in-cidr" >}})
-  * [`numeric-ip`]({{< relref "network#numeric-ip" >}})
-  {{< /card >}}
-
-{{< /cardpane >}}
-
-{{< cardpane >}}
-
-  {{< card header="Stroom Pipeline Functions" >}}
-  * [`add-meta`]({{< relref "pipeline#add-meta" >}})
-  * [`bitmap-lookup`]({{< relref "pipeline#bitmap-lookup" >}})
-  * [`classification`]({{< relref "pipeline#classification" >}})
-  * [`col-from`]({{< relref "pipeline#col-from" >}})
-  * [`col-to`]({{< relref "pipeline#col-to" >}})
-  * [`dictionary`]({{< relref "pipeline#dictionary" >}})
-  * [`feed-name`]({{< relref "pipeline#feed-name" >}})
-  * [`get`]({{< relref "pipeline#get" >}})
-  * [`line-from`]({{< relref "pipeline#line-from" >}})
-  * [`line-to`]({{< relref "pipeline#line-to" >}})
-  * [`log`]({{< relref "pipeline#log" >}})
-  * [`lookup`]({{< relref "pipeline#lookup" >}})
-  * [`manifest`]({{< relref "pipeline#manifest" >}})
-  * [`meta-attribute`]({{< relref "pipeline#meta-attribute" >}})
-  * [`meta-keys`]({{< relref "pipeline#meta-keys" >}})
-  * [`meta-stream`]({{< relref "pipeline#meta-stream" >}})
-  * [`meta`]({{< relref "pipeline#meta" >}})
-  * [`parent-for-id`]({{< relref "pipeline#parent-for-id" >}})
-  * [`parent-id`]({{< relref "pipeline#parent-id" >}})
-  * [`part-no`]({{< relref "pipeline#part-no" >}})
-  * [`pipeline-name`]({{< relref "pipeline#pipeline-name" >}})
-  * [`put`]({{< relref "pipeline#put" >}})
-  * [`record-no`]({{< relref "pipeline#record-no" >}})
-  * [`search-id`]({{< relref "pipeline#search-id" >}})
-  * [`source-id`]({{< relref "pipeline#source-id" >}})
-  * [`source`]({{< relref "pipeline#source" >}})
-  {{< /card >}}
-
-  {{< card header="Other Functions" >}}
-  * [`ask-ai`]({{< relref "other#ask-ai" >}})
-  * [`cosine-similarity`]({{< relref "other#cosine-similarity" >}})
-  * [`pointIsInsideXYPolygon`]({{< relref "other#pointIsInsideXYPolygon" >}})
-  * [`split-document`]({{< relref "other#split-document" >}})
-  {{< /card >}}
-
-{{< /cardpane >}}
-
+<!-- This generates a table of all the functions and their categories ordered by func name -->
+{{< xslt-functions-table >}}
 

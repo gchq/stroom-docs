@@ -1,3 +1,8 @@
+<!--
+Generates the function definition content for the given function name.
+It uses the data in data/xslt-functions/<funcName>.json which is generated
+by stroom.app.docs.GenerateXsltFunctionDefinitions.
+-->
 {{ with $funcName := .Get 0 }}
   {{ $file := printf "data/xslt-functions/%s.json" . }}
   {{ with resources.Get $file }}
@@ -29,16 +34,34 @@
         </p>
       {{ end }}
       */}}
-
-      {{ if gt $aliasCount 0 }}
-      <p class="function-definition-signature-aliases">
-        <strong>Function Name Aliases:</strong>
+      {{ if .aliasOf }}
+        <!-- This func is an alias of something, so show the aliasOf -->
+        <p class="function-definition-signature-alias-of-section">
+          {{- $target := printf "#%s" .aliasOf -}}
+          <span>
+          <strong>Is Alias of:&thinsp;</strong>
+          <a href="{{ relref $.Page $target }}">
+            <code><span class="function-definition-signature-alias-of">
+              {{- .aliasOf -}}
+            </span></code>
+          </a>
+            </span>
+        </p>
+      {{ else if gt $aliasCount 0 }}
+        <!-- This func has aliases, so show the aliases list -->
+        <p class="function-definition-signature-aliases">
+          <strong>Aliases:</strong>
+        </p>
         <ul>
         {{ range $aliasIdx, $alias := .aliases }}
-          <li><code><span class="function-definition-signature-alias">{{ $alias }}</span></code></li>
+          {{- $target := printf "#%s" $alias -}}
+          <li><a href="{{ relref $.Page $target }}">
+            <code><span class="function-definition-signature-alias">
+              {{- $alias -}}
+            </span></code>
+          </a></li>
         {{ end }}
         </ul>
-      </p>
       {{ end }}
 
       {{ range $sigIdx, $sig := .signatures }}

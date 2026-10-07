@@ -32,6 +32,21 @@ You can add any additional content for the function (e.g. examples) underneath t
 {{< xslt-func "hex-to-string" >}}
 
 
+### Example
+
+**XSLT:**
+
+```xml
+<string><xsl:value-of select="stroom:hex-to-string('74 65 73 74 69 6e 67 20 31 32 33', 'UTF-8')" /></string>
+```
+
+**XML:**
+
+```xml
+<string>testing 123</string>
+```
+
+
 ## json-to-xml
 
 {{< xslt-func "json-to-xml" >}}

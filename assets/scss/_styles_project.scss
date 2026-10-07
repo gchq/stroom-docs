@@ -289,15 +289,21 @@ html {
 // We have opted to do all inline code as bold brownish text with no background colour.
 .td-content {
   // Inline code
-  p code, li > code, table code, dt code, dd code, div.alert code, h1 code, h2 code, h3 code, h4 code, h5 code, h6 code {
-    background-color: unset !important;
-    color: $stroom-inline-code-colour !important;
-    font-size: 86%;
-    font-weight: bold;
-    padding: unset !important;
-    margin: unset !important;
-    // We don't want it being broken up if near the end of the line
-    white-space: pre;
+  //p code, li code, table code, dt code, dd code, div.alert code, h1 code, h2 code, h3 code, h4 code, h5 code, h6 code {
+    p, li, table, dt, dd, div.alert, h1, h2, h3, h4, h5, h6 {
+      code {
+        background-color: unset !important;
+        font-size: 86%;
+        font-weight: bold;
+        padding: unset !important;
+        margin: unset !important;
+        // We don't want it being broken up if near the end of the line
+        white-space: pre;
+      }
+      // Don't mess with the colour in links
+      code:not(a *) {
+        color: $stroom-inline-code-colour !important;
+      }
   }
 
   dl dt code {
