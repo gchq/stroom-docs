@@ -91,10 +91,10 @@ lookup(String map, String key, String time, Boolean ignoreWarnings, Boolean trac
 * `ignoreWarnings` - If true, any lookup failures will be ignored, else they will be reported as warnings.
 * `trace` - If true, additional trace information is output as INFO messages.
 
-If the look up fails no result will be returned.
+If the lookup fails no result will be returned.
 By testing the result a default value may be output if no result is returned.
 
-E.g. Look up a SID given a PF
+E.g. Lookup a SID given a PF
 
 ```xml
 <xsl:variable name="pf" select="PFNumber"/>
