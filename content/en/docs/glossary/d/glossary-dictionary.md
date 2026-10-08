@@ -6,7 +6,8 @@ description: >
   They can also be used to hold arbitrary text for use in _XSLT_ with the `dictionary` function.
 ---
 
+
 {{% see-also %}}
-* {{< glossary "XSLT">}}
-* [dictionary()]({{< relref "docs/user-guide/pipelines/xslt/xslt-functions/reference-data#dictionary" >}})
+* {{< glossary "XSLT" >}}
+* {{< xslt-func-link "dictionary" >}}
 {{% /see-also %}}

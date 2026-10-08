@@ -4,7 +4,7 @@ It uses the data in data/xslt-functions/<funcName>.json which is generated
 by stroom.app.docs.GenerateXsltFunctionDefinitions.
 -->
 {{ with $funcName := .Get 0 }}
-  {{ $file := printf "data/xslt-functions/%s.json" . }}
+  {{ $file := printf "data/xslt-function-reference/%s.json" . }}
   {{ with resources.Get $file }}
     {{ with . | transform.Unmarshal }}
       {{ $func := . }}

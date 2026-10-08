@@ -41,17 +41,17 @@ or plain text only.
   {{- $url := printf "/docs/glossary/%s/glossary-%s" $letter $slug -}}
   {{- $url = $url | relURL -}}
   
-  <span class="glossary-link">
+  <span class="glossary-link link-with-hover-tooltip">
     <a href="{{- $url -}}">
       <span>{{- $display_text -}}</span>
       <i class="glossary-link-icon fas fa-book fa-sm text-primary"></i>
     </a>
   {{- if $summary -}}
-    <span class="glossary-tooltip">
-      <span class="glossary-tooltip-title">{{- $title -}}</span>
-      <span class="glossary-tooltip-summary">{{- $summary -}}</span>
+    <span class="glossary-tooltip hover-tooltip">
+      <span class="hover-tooltip-title">{{- $title -}}</span>
+      <span class="hover-tooltip-summary">{{- $summary -}}</span>
       {{- if $gloss_page.RawContent -}}
-        <span class="glossary-tooltip-truncated">Click to see more details...</span>
+        <span class="hover-tooltip-more-details">Click to see more details...</span>
       {{- end -}}
     </span>
   {{- end -}}

@@ -323,7 +323,7 @@ html {
 
 .td-content {
   // Make sure inline code get styled the same as the <a> tag
-  a, a > code {
+  a, a code {
     color: $link-color !important;
     // Hide the underline when not hovered
     text-decoration: none;
@@ -474,6 +474,16 @@ pre[class*=language-] {
   overflow-wrap: anywhere;
 }
 
+//////////////////////
+//  XSLT Functions  //
+//////////////////////
+
+table.xslt-functions {
+  // Docsy sets overflow-x: auto which means our hover-tooltip stuff gets clipped on the left
+  // side. This stops that.
+  overflow-x: visible;
+}
+
 
 /////////////////////////////////
 //  Glossary Links & Tooltips  //
@@ -483,18 +493,18 @@ pre[class*=language-] {
   opacity: 0.8;
 }
 
-.glossary-link {
+.link-with-hover-tooltip {
   position: relative;
   display: inline-block; /* Helps with bounding box calculations */
 }
 
-.glossary-tooltip-title {
+.hover-tooltip-title {
   color: $primary;
   font-weight: bold;
   font-size: 1rem;
 }
 
-.glossary-tooltip {
+.hover-tooltip {
   position: absolute;
   bottom: 125%; /* Position it above the text */
   left: 50%;
@@ -524,11 +534,29 @@ pre[class*=language-] {
   transition-delay: 0s;
 
   text-wrap: wrap;
+  //width: 600px;
+
   width: 600px;
+  max-width: calc(100vw - 2rem);
+  box-sizing: border-box;
+}
+
+// Use this when the link is on the left side of the page
+.hover-tooltip.hover-tooltip--left {
+  left: 0;
+  right: auto;
+  transform: none;
+}
+
+// Use this when the link is on the right side of the page
+.hover-tooltip.hover-tooltip--right {
+  left: auto;
+  right: 0;
+  transform: none;
 }
 
 /* 3. Show the tooltip on hover with a delay */
-.glossary-link:hover .glossary-tooltip {
+.link-with-hover-tooltip:hover .hover-tooltip {
   opacity: 1;
   visibility: visible;
 
@@ -536,12 +564,12 @@ pre[class*=language-] {
   transition-delay: 0.3s;
 }
 
-.glossary-tooltip-title, .glossary-tooltip-summary, .glossary-tooltip-truncated {
+.hover-tooltip-title, .hover-tooltip-summary, .hover-tooltip-more-details {
   display: block;
 }
 
 /* Optional: Add a small triangle pointing down to the link */
-.glossary-tooltip::after {
+.hover-tooltip::after {
   content: "";
   position: absolute;
   top: 100%; /* At the bottom of the tooltip */
@@ -552,15 +580,15 @@ pre[class*=language-] {
   border-color: #333 transparent transparent transparent;
 }
 
-span.glossary-tooltip {
+span.hover-tooltip {
   visibility: hidden;
 }
 
-span.glossary-tooltip-summary {
+span.hover-tooltip-summary, p.hover-tooltip-summary {
   margin-top: 0.15em;
 }
 
-span.glossary-tooltip-truncated {
+span.hover-tooltip-more-details {
   margin-top: 0.15em;
   font-size: 90%;
 }
