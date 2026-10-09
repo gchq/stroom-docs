@@ -158,22 +158,22 @@ li.td-sidebar-nav__section-title {
 
 .article-teaser {
   &.card {
-      padding: 1.0em;
-      margin-bottom: 1.5em;
+    padding: 1.0em;
+    margin-bottom: 1.5em;
   }
 
   .breadcrumb {
-      margin-bottom: 0em;
-      font-size: 0.85rem;
+    margin-bottom: 0em;
+    font-size: 0.85rem;
 
-      // Hide the leaf item
-      .breadcrumb-item.active > span {
-        visibility: hidden;
-      }
+    // Hide the leaf item
+    .breadcrumb-item.active > span {
+      visibility: hidden;
+    }
   }
 
   .article-meta {
-      margin-bottom: 0em;
+    margin-bottom: 0em;
   }
 }
 
@@ -290,20 +290,20 @@ html {
 .td-content {
   // Inline code
   //p code, li code, table code, dt code, dd code, div.alert code, h1 code, h2 code, h3 code, h4 code, h5 code, h6 code {
-    p, li, table, dt, dd, div.alert, h1, h2, h3, h4, h5, h6 {
-      code {
-        background-color: unset !important;
-        font-size: 86%;
-        font-weight: bold;
-        padding: unset !important;
-        margin: unset !important;
-        // We don't want it being broken up if near the end of the line
-        white-space: pre;
-      }
-      // Don't mess with the colour in links
-      code:not(a *) {
-        color: $stroom-inline-code-colour !important;
-      }
+  p, li, table, dt, dd, div.alert, h1, h2, h3, h4, h5, h6 {
+    code {
+      background-color: unset !important;
+      font-size: 86%;
+      font-weight: bold;
+      padding: unset !important;
+      margin: unset !important;
+      // We don't want it being broken up if near the end of the line
+      white-space: pre;
+    }
+    // Don't mess with the colour in links
+    code:not(a *) {
+      color: $stroom-inline-code-colour !important;
+    }
   }
 
   dl dt code {
@@ -401,7 +401,7 @@ pre[class*=language-] {
 
 // Stop selection of command line output
 .command-line span.token.output {
-	user-select: none;
+  user-select: none;
 }
 
 // Fenced blocks of in-line files
@@ -412,7 +412,7 @@ pre[class*=language-] {
 // Not sure if we want card decks to have the same width as the paragraphs
 // as it limits them a bit when there are two or more across.
 //.card-deck {
-  //max-width: 80%; // Bring the width in line with the paragraph text
+//max-width: 80%; // Bring the width in line with the paragraph text
 //}
 
 // It is open for debate whether we want the fenced blocks and in line files
@@ -437,12 +437,12 @@ pre[class*=language-] {
     max-width: unset !important;
   }
   .col-md-9 {
-      flex: unset !important;
-      max-width: unset !important;
+    flex: unset !important;
+    max-width: unset !important;
   }
   .col-12 {
-      flex: unset !important;
-      max-width: unset !important;
+    flex: unset !important;
+    max-width: unset !important;
   }
 }
 
@@ -466,7 +466,7 @@ pre[class*=language-] {
 // when using prism.js.
 // See https://github.com/PrismJS/prism/issues/3274
 .token.operator, .token.entity, .token.url, .language-css .token.string, .style .token.string {
-    background: unset !important;
+  background: unset !important;
 }
 
 .external-link {
@@ -485,113 +485,140 @@ table.xslt-functions {
 }
 
 
-/////////////////////////////////
-//  Glossary Links & Tooltips  //
-/////////////////////////////////
+//////////////////////
+//  Hover Tooltips  //
+//////////////////////
 
 .glossary-link-icon {
   opacity: 0.8;
 }
 
 .link-with-hover-tooltip {
-  position: relative;
-  display: inline-block; /* Helps with bounding box calculations */
+  display: inline-block;
 }
 
-.hover-tooltip-title {
-  color: $primary;
-  font-weight: bold;
-  font-size: 1rem;
-}
-
+// The hover tooltip is a single element that assets/js/hover-tooltip.js appends to
+// <body>, fills from the link's <template class="hover-tooltip-content"> and
+// positions next to the link. top/left are set by the script.
 .hover-tooltip {
-  position: absolute;
-  bottom: 125%; /* Position it above the text */
-  left: 50%;
-  transform: translateX(-50%); /* Center it horizontally */
-  z-index: 100; /* Ensure it floats above other content */
-  pointer-events: none; /* Prevents the tooltip itself from triggering hover glitches */
+  // Used by the arrow (::after) so it always matches the border colour. The
+  // script sets --tooltip-arrow-left so the arrow points at the link.
+  --tooltip-border-colour: #{$primary};
+  --tooltip-arrow-left: 50%;
 
-  //background-color: #333;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 1100; // Above the fixed top navbar
+  pointer-events: none; // Stops the tooltip itself causing hover flicker
+
   background-color: white;
-  //color: #fff;
-  //color: #fff;
   padding: 6px 12px;
   border-radius: 9px;
-  border-color: $primary;
-  border-style: solid;
-  border-width: 3px;
-  font-size: 0.85rem;
-  //white-space: nowrap; [> Keeps the heading on a single line <]
+  border: 3px solid var(--tooltip-border-colour);
   box-shadow: 5px 5px 4px rgba(0, 0, 0, 0.2);
+  box-sizing: border-box;
 
-  /* Hide it and set up the transition properties */
+  color: $body-color;
+  font-size: 0.85rem;
+  line-height: 1.4;
+  text-align: left;
+
+  // Size to the content, up to 600px, and never wider than the viewport.
+  // unquote() stops Sass trying to evaluate min() itself.
+  width: max-content;
+  max-width: unquote("min(600px, calc(100vw - 2rem))");
+
+  // Hidden until the script adds .is-visible
   opacity: 0;
   visibility: hidden;
-
-  /* Transition for a smooth fade out when mouse leaves (no delay) */
   transition: opacity 0.2s ease, visibility 0.2s ease;
-  transition-delay: 0s;
 
-  text-wrap: wrap;
-  //width: 600px;
+  &.is-visible {
+    opacity: 1;
+    visibility: visible;
+  }
 
-  width: 600px;
-  max-width: calc(100vw - 2rem);
-  box-sizing: border-box;
+  // Arrow pointing down at the link. It sits just outside the 3px border.
+  &::after {
+    content: "";
+    position: absolute;
+    top: calc(100% + 3px);
+    left: calc(var(--tooltip-arrow-left) - 3px);
+    margin-left: -7px;
+    border-width: 7px;
+    border-style: solid;
+    border-color: var(--tooltip-border-colour) transparent transparent transparent;
+  }
+
+  // Used when there is no room above the link
+  &.hover-tooltip--below::after {
+    top: auto;
+    bottom: calc(100% + 3px);
+    border-color: transparent transparent var(--tooltip-border-colour) transparent;
+  }
+
+  .hover-tooltip-title,
+  .hover-tooltip-summary,
+  .hover-tooltip-more-details {
+    display: block;
+  }
+
+  .hover-tooltip-title {
+    color: $primary;
+    font-weight: bold;
+    font-size: 1rem;
+  }
+
+  .hover-tooltip-more-details {
+    margin-top: 0.15em;
+    font-size: 90%;
+  }
+
+  // The description is rendered markdown so can contain block elements. The tooltip
+  // is outside .td-content so none of its styling applies; replicate what we need.
+  .hover-tooltip-summary {
+    margin-top: 0.15em;
+
+    > :first-child { margin-top: 0; }
+    > :last-child { margin-bottom: 0; }
+
+    p { margin: 0.5em 0 0; }
+
+    ul, ol {
+      margin: 0.4em 0 0;
+      padding-left: 1.3em;
+    }
+
+    pre {
+      font-size: 85%;
+      margin: 0.5em 0 0;
+    }
+
+    code {
+      font-size: 86%;
+      font-weight: bold;
+      color: $stroom-inline-code-colour;
+    }
+
+    pre code {
+      font-weight: normal;
+      color: inherit;
+    }
+  }
 }
 
-// Use this when the link is on the left side of the page
-.hover-tooltip.hover-tooltip--left {
-  left: 0;
-  right: auto;
-  transform: none;
-}
 
-// Use this when the link is on the right side of the page
-.hover-tooltip.hover-tooltip--right {
-  left: auto;
-  right: 0;
-  transform: none;
-}
+////////////////////////////////////
+//  XSLT Function Hover Tooltips  //
+////////////////////////////////////
 
-/* 3. Show the tooltip on hover with a delay */
-.link-with-hover-tooltip:hover .hover-tooltip {
-  opacity: 1;
-  visibility: visible;
+//.xslt-func-link-tooltip {
+  //& .hover-tooltip-title {
 
-  /* Adds a 0.5 second delay ONLY when hovering */
-  transition-delay: 0.3s;
-}
 
-.hover-tooltip-title, .hover-tooltip-summary, .hover-tooltip-more-details {
-  display: block;
-}
-
-/* Optional: Add a small triangle pointing down to the link */
-.hover-tooltip::after {
-  content: "";
-  position: absolute;
-  top: 100%; /* At the bottom of the tooltip */
-  left: 50%;
-  margin-left: -5px;
-  border-width: 5px;
-  border-style: solid;
-  border-color: #333 transparent transparent transparent;
-}
-
-span.hover-tooltip {
-  visibility: hidden;
-}
-
-span.hover-tooltip-summary, p.hover-tooltip-summary {
-  margin-top: 0.15em;
-}
-
-span.hover-tooltip-more-details {
-  margin-top: 0.15em;
-  font-size: 90%;
-}
+  //}
+//}
 
 
 //////////////////////////
@@ -710,7 +737,7 @@ div.pipeline-element-demo {
 
 // Copied from stroom-button.css
 .icon-button.disabled {
-    opacity: .4;
+  opacity: .4;
 }
 
 .stroom-icon span {
@@ -973,18 +1000,18 @@ div.stroom-menu-demo {
 //////////////////////////
 
 span.key-bind {
-    margin: 0 0.1em;
-    //margin-bottom: 0.5em;
-    display: inline-flex;
-    align-items: center;
+  margin: 0 0.1em;
+  //margin-bottom: 0.5em;
+  display: inline-flex;
+  align-items: center;
 
-    &.key-bind-multiple {
-      padding: 0.05em 0.1em;
-      border-style: solid;
-      border-color: #dbdbdb;
-      border-radius: 6px;
-      border-width: 1px;
-    }
+  &.key-bind-multiple {
+    padding: 0.05em 0.1em;
+    border-style: solid;
+    border-color: #dbdbdb;
+    border-radius: 6px;
+    border-width: 1px;
+  }
 
   span.key-bind-group {
     display: flex;
@@ -1000,8 +1027,8 @@ span.key-bind {
   }
 
   span.key-bind-plus,
-      span.key-bind-comma,
-      span.key-bind-key {
+  span.key-bind-comma,
+  span.key-bind-key {
     float: left;
     display: inline-flex;
     font-family: monospace;
@@ -1009,7 +1036,7 @@ span.key-bind {
   }
 
   span.key-bind-plus,
-      span.key-bind-comma {
+  span.key-bind-comma {
     letter-spacing:0px;
     color: dimgrey;
     font-weight: 900;
@@ -1092,31 +1119,31 @@ div.exp-tree-doc {
 
 /* Function signatures used in xslt-functions page for example */
 p.function-definition-signature {
-    margin-top: 1.5em;
+  margin-top: 1.5em;
 
-    span code {
-      font-size: 1.2em;
-      font-weight: 900;
-      //line-height: 2em;
-      color: $code-color;
-      background: unset;
-      padding-left: unset;
-      letter-spacing: -0.04em;
-      // Strip any whitespace the shortcode introduces as this is just a one liner so we don't care
-      // about indentation and the like
-      white-space-collapse: collapse;
+  span code {
+    font-size: 1.2em;
+    font-weight: 900;
+    //line-height: 2em;
+    color: $code-color;
+    background: unset;
+    padding-left: unset;
+    letter-spacing: -0.04em;
+    // Strip any whitespace the shortcode introduces as this is just a one liner so we don't care
+    // about indentation and the like
+    white-space-collapse: collapse;
 
-      span.function-definition-signature-arg {
-        font-weight: 500;
-        color: var(--blue-900);
-      }
-
-      span.function-definition-signature-arrow {
-        padding-left: 0.6em;
-        padding-right: 0.6em;
-        color: var(--blue-900);
-      }
+    span.function-definition-signature-arg {
+      font-weight: 500;
+      color: var(--blue-900);
     }
+
+    span.function-definition-signature-arrow {
+      padding-left: 0.6em;
+      padding-right: 0.6em;
+      color: var(--blue-900);
+    }
+  }
 }
 
 // Styling for tick/cross in table cells, e.g. in XSLT function signatures

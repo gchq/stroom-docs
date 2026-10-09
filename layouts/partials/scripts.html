@@ -1,4 +1,4 @@
-<!-- 
+<!--
   This is a modified copy of themes/docsy/layouts/partials/scripts.html
   to add in conditions based on .Site.Params.offline_site
 -->
@@ -29,6 +29,11 @@
       crossorigin="anonymous"></script>
   {{ end }}
 {{ end -}}
+
+<!-- Load the js for showing the hover tooltips used by glossary and xslt funcs -->
+{{ with resources.Get "js/hover-tooltip.js" }}
+  <script src="{{ .RelPermalink }}" defer></script>
+{{ end }}
 
 {{ if .Site.Params.markmap.enable }}
 <style>
@@ -69,7 +74,7 @@ window.markmap = {
 {{ end }}
 <!-- To automatically render math in text elements, include the auto-render extension: -->
 <script defer src='https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/contrib/auto-render.min.js'
-    integrity='sha512-ZA/RPrAo88DlwRnnoNVqKINnQNcWERzRK03PDaA4GIJiVZvGFIWQbdWCsUebMZfkWohnfngsDjXzU6PokO4jGw==' crossorigin='anonymous' 
+    integrity='sha512-ZA/RPrAo88DlwRnnoNVqKINnQNcWERzRK03PDaA4GIJiVZvGFIWQbdWCsUebMZfkWohnfngsDjXzU6PokO4jGw==' crossorigin='anonymous'
     {{ printf "onload='renderMathInElement(%s, %s);'" (( .Site.Params.katex.html_dom_element | default "document.body" ) | safeJS ) ( printf "%s" ( $.Site.Params.katex.options | jsonify )) | safeHTMLAttr }}></script>
 {{ end }}
 

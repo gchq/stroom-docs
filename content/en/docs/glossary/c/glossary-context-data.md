@@ -10,8 +10,6 @@ This can be useful where the sending system has no control over the data in the 
 
 The contextual information (such as hostname, FQDN, physical location, etc.) can be sent in a Context Stream so that the two can be combined together during pipeline processing using `stroom:lookup()`.
 
-* {{< xslt-func-link "lookup" >}}
-
 {{% see-also %}}
 * [Context Data]({{< relref "context-data" >}})
 * [Stream Concepts]({{< relref "docs/user-guide/concepts/streams" >}})

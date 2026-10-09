@@ -1,33 +1,30 @@
-<!-- 
-{{/*
-
-Creates a link to an item in the Glossay page.
+<!--{{- /*
+Creates a link to an item in the Glossary page.
 
 Arguments:
 
 term - The file name of the glossary file without the extension, e.g. "api-key".
-title - An optional title for the glossary link text and tooltip title. If not provided
-        the title will be optained from the page title. Generaly you should not need this arg.
+title - An optional title for the glossary link text. If not provided the title
+will be obtained from the glossary page title. Generally you should not
+need this arg.
 
 e.g. {{< glossary "Feed" >}}
-e.g. {{< glossary "Feed" "Feeds">}}
+e.g. {{< glossary "Feed" "Feeds" >}}
 
+Use {{< >}}, not {{% %}}.
 
-NOTE: This shortcode takes the page's summary, see https://gohugo.io/content-management/summaries/
-To ensure the summary is treated as markdown and not plain text, you must include
+The tooltip content comes from the glossary page's front matter 'description',
+which is rendered as markdown. It may contain several paragraphs, lists, etc.
+because it is written into an inert <template> rather than directly into the page.
+assets/js/hover-tooltip.js copies it into a floating tooltip on hover/focus.
 
-<#!--more--#>   (remove the hashes)
+NOTE: Don't include any shortcodes in the description (e.g. no links to other
+glossary terms) as they are not rendered by markdownify. Keep the description to
+markdown or plain text only.
+*/ -}}-->
 
-between the first couple of lines and the rest of the page content.
-If the glossary item is very short, then put it right at the end.
-
-NOTE: Don't include any shortcodes in the lines that form the summary (e.g. no links to other 
-glossary terms as this behaves strangely when rendered. Thus, keep the summary to markdown
-or plain text only.
-*/}}
--->
-{{- $term := strings.Trim (strings.Trim (.Get 0) " ") " " -}}
-{{- $display_text_arg := strings.Trim (strings.Trim (.Get 1) " ") " " -}}
+{{- $term := strings.Trim (.Get 0) " " -}}
+{{- $display_text_arg := strings.Trim (.Get 1) " " -}}
 {{- $slug := anchorize $term -}}
 {{- $letter := substr $slug 0 1 -}}
 {{- $page_file := printf "/docs/glossary/%s/glossary-%s.md" $letter $slug -}}
@@ -37,25 +34,25 @@ or plain text only.
   {{- $display_text := $display_text_arg | default ($gloss_page.Title) -}}
   {{- $title := $gloss_page.Title -}}
   {{- $summary := $gloss_page.Description | markdownify -}}
-  
+
   {{- $url := printf "/docs/glossary/%s/glossary-%s" $letter $slug -}}
   {{- $url = $url | relURL -}}
-  
+
   <span class="glossary-link link-with-hover-tooltip">
-    <a href="{{- $url -}}">
-      <span>{{- $display_text -}}</span>
+    <a href="{{ $url }}">
+      <span>{{ $display_text }}</span>
       <i class="glossary-link-icon fas fa-book fa-sm text-primary"></i>
     </a>
-  {{- if $summary -}}
-    <span class="glossary-tooltip hover-tooltip">
-      <span class="hover-tooltip-title">{{- $title -}}</span>
-      <span class="hover-tooltip-summary">{{- $summary -}}</span>
-      {{- if $gloss_page.RawContent -}}
+    {{- with $summary -}}
+      <template class="hover-tooltip-content">
+        <span class="hover-tooltip-title">{{ $title }}</span>
+        <div class="hover-tooltip-summary">{{ . }}</div>
+        {{- if $gloss_page.RawContent }}
         <span class="hover-tooltip-more-details">Click to see more details...</span>
-      {{- end -}}
-    </span>
-  {{- end -}}
+        {{- end }}
+      </template>
+    {{- end -}}
   </span>
 {{- else -}}
-  {{ errorf "stroom-glossary - Unable to find page %q" $page_file }}
+  {{- errorf "The %q shortcode was unable to find page %q. See %s" $.Name $page_file $.Position -}}
 {{- end -}}
