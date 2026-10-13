@@ -8,4 +8,4 @@ description: >
   A glossary of common terms used in this documentation.
 ---
 
-
+{{< glosssary-index >}}

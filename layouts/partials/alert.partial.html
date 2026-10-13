@@ -1,0 +1,23 @@
+{{/*
+Renders a see-also/note/warning 
+The following dict is passed in
+  context
+  className
+  heading
+*/}}
+{{ $_hugo_config := `{ "version": 1 }` }}
+<div class="alert {{ .className -}}" role="alert">
+  <h4 class="alert-heading">{{- .heading -}}</h4>
+  <div class="alert-content">
+
+{{/* Nasty hack because htmlEscape then htmlUnescape breaks the url */}}
+{{ if strings.Contains .context.Inner "class=\"external-link\"" }}
+{{  strings.Trim .context.Inner "\n " | .context.Page.RenderString | htmlUnescape | safeHTML }}
+{{ else }}
+{{/* An attempt to get see-also to play nice when shortcodes that produce html, like xslt-func-link and glossary,
+are mixed in with markdown. There must be a better way! */}}
+{{  strings.Trim ( .context.Inner | htmlEscape) "\n " | .context.Page.RenderString | htmlUnescape | safeHTML }}
+{{ end }}
+
+  </div>
+</div>

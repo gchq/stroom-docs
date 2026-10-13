@@ -862,6 +862,118 @@ The markdown for this is:
 ```
 
 
+{{% see-also %}}
+* This is bold **1**
+* This is italic _2_
+{{% /see-also %}}
+
+{{% see-also %}}
+{{< glossary "idp" >}}
+{{% /see-also %}}
+
+{{% see-also %}}
+{{% glossary "idp" %}}
+{{% /see-also %}}
+
+{{% see-also %}}
+{{< xslt-func-link "cosine-similarity" >}}
+{{% /see-also %}}
+
+{{% see-also %}}
+{{% xslt-func-link "cosine-similarity" %}}
+{{% /see-also %}}
+
+{{% see-also %}}
+* This is bold **1001**
+* {{< xslt-func-link "cosine-similarity" >}}
+* This is italic _2_
+{{% /see-also %}}
+
+{{% see-also %}}
+* This is bold **1002**
+* {{% xslt-func-link "cosine-similarity" %}}
+* This is italic _2_
+{{% /see-also %}}
+
+{{% see-also %}}
+* This is bold **1003**
+* xxx {{< xslt-func-link "cosine-similarity" >}} yyy
+* This is italic _2_
+{{% /see-also %}}
+
+{{% see-also %}}
+* This is bold **1004**
+* xxx {{% xslt-func-link "cosine-similarity" %}} yyy
+* This is italic _2_
+{{% /see-also %}}
+
+{{% see-also %}}
+* This is bold **1005**
+* {{< glossary "idp" >}}
+* This is italic _2_
+{{% /see-also %}}
+
+{{% see-also %}}
+* This is bold **1006**
+* {{% glossary "idp" %}}
+* This is italic _2_
+{{% /see-also %}}
+
+{{% see-also %}}
+* This is bold **1007**
+* xxx {{< glossary "idp" >}} yyy
+* This is italic _2_
+{{% /see-also %}}
+
+{{% see-also %}}
+* This is bold **1008**
+* xxx {{% glossary "idp" %}} yyy
+* This is italic _2_
+{{% /see-also %}}
+
+{{% see-also %}}
+This is bold **1009**
+
+{{< xslt-func-link "cosine-similarity" >}}
+
+{{< glossary "idp" >}}
+{{% /see-also %}}
+
+{{% see-also %}}
+This is bold **1010**
+
+{{% xslt-func-link "cosine-similarity" %}}
+
+{{% glossary "idp" %}}
+{{% /see-also %}}
+
+{{% see-also %}}
+* This is bold **1011**
+* {{< xslt-func-link "cosine-similarity" >}}
+* {{< glossary "idp" >}}
+{{% /see-also %}}
+
+{{< see-also >}}
+* This is bold **1012**
+* {{% xslt-func-link "cosine-similarity" %}}
+* {{% glossary "idp" %}}
+{{< /see-also >}}
+
+{{% see-also %}}
+* This is bold **1013**
+* {{< glossary "idp" >}}
+* {{< xslt-func-link "cosine-similarity" >}}
+{{% /see-also %}}
+
+{{% see-also %}}
+* This is bold **1014**
+* {{% glossary "idp" %}}
+* {{% xslt-func-link "cosine-similarity" %}}
+{{% /see-also %}}
+
+This is {{< xslt-func-link "cosine-similarity" >}} inline {{< glossary "idp" >}} text.
+
+
 ### Page Level Info
 
 {{% pageinfo %}}
