@@ -13,17 +13,18 @@ The xslt-func shortcode outputs all the XsltFunctionDef annotation content for t
 You can add any additional content for the function (e.g. examples) underneath the shortcode call.
 -->
 
-## current-time
+
+## `current-time`
 
 {{< xslt-func "current-time" >}}
 
 
-## current-unixTime
+## `current-unixTime`
 
 {{< xslt-func "current-unixTime" >}}
 
 
-## format-date
+## `format-date`
 
 {{< xslt-func "format-date" >}}
 
@@ -314,8 +315,7 @@ The reference date is the first of these values that is non-null
 For example for a call of `stroom:format-date('28 Oct', 'dd MMM')` and a stream create time of `2024`, it will return `2024-10-28T00:00:00.000Z`.
 
 
-
-## format-dateTime
+## `format-dateTime`
 
 {{< xslt-func "format-dateTime" >}}
 
@@ -412,12 +412,12 @@ stroom:format-dateTime(xs:dateTime('2009-02-02T04:34:11Z'), 'yyyy/MM/dd HH:mm:ss
 ```
 
 
-## from-unixTime
+## `from-unixTime`
 
 {{< xslt-func "from-unixTime" >}}
 
 
-## parse-dateTime
+## `parse-dateTime`
 
 {{< xslt-func "parse-dateTime" >}}
 
@@ -515,7 +515,7 @@ stroom:parse-dateTime('2001/08/01 01:00:00', 'yyyy/MM/dd HH:mm:ss', '+01:00')
 ```
 
 
-## to-unixTime
+## `to-unixTime`
 
 {{< xslt-func "to-unixTime" >}}
 

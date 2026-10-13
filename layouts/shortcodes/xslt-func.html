@@ -1,8 +1,8 @@
-<!--
+{{/*
 Generates the function definition content for the given function name.
 It uses the data in data/xslt-functions/<funcName>.json which is generated
 by stroom.app.docs.GenerateXsltFunctionDefinitions.
--->
+*/}}
 {{ with $funcName := .Get 0 }}
   {{ $file := printf "data/xslt-function-reference/%s.json" . }}
   {{ with resources.Get $file }}
@@ -14,6 +14,9 @@ by stroom.app.docs.GenerateXsltFunctionDefinitions.
 
       {{ if gt $sigCount 1 }}
         {{ with .commonDescription }}
+          <p>{{ . | markdownify }}</p>
+        {{ end }}
+        {{ with .extendedCommonDescription }}
           <p>{{ . | markdownify }}</p>
         {{ end }}
       {{ end }}
@@ -35,7 +38,7 @@ by stroom.app.docs.GenerateXsltFunctionDefinitions.
       {{ end }}
       */}}
       {{ if .aliasOf }}
-        <!-- This func is an alias of something, so show the aliasOf -->
+        {{/* This func is an alias of something, so show the aliasOf */}}
         <p class="function-definition-signature-alias-of-section">
           {{- $target := printf "#%s" .aliasOf -}}
           <span>
@@ -48,7 +51,7 @@ by stroom.app.docs.GenerateXsltFunctionDefinitions.
             </span>
         </p>
       {{ else if gt $aliasCount 0 }}
-        <!-- This func has aliases, so show the aliases list -->
+        {{/* This func has aliases, so show the aliases list */}}
         <p class="function-definition-signature-aliases">
           <strong>Aliases:</strong>
         </p>

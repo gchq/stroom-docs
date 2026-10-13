@@ -1,2 +1,6 @@
 {{ $_hugo_config := `{ "version": 1 }` }}
-{{- partial "alert.partial.html" (dict "context" . "className" "alert-warning" "heading" "Warning" ) -}}
+{{/*
+Hugo moans if the shortcode doesn't user .Inner, even though the partial uses it, so
+explicitly pass it to the partial.
+*/}}
+{{- partial "alert.partial.html" (dict "context" . "inner" .Inner "className" "alert-warning" "heading" "Warning" ) -}}

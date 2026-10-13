@@ -14,12 +14,12 @@ You can add any additional content for the function (e.g. examples) underneath t
 -->
 
 
-## add-meta
+## `add-meta`
 
 {{< xslt-func "add-meta" >}}
 
 
-## bitmap-lookup
+## `bitmap-lookup`
 
 {{< xslt-func "bitmap-lookup" >}}
 
@@ -49,43 +49,44 @@ The following are example lookups using the above reference data:
 | `96`                 | `0x60`           | `1100000` | `Delete_Data Manage_Volumes`            |
 
 
-## classification
+## `classification`
 
 {{< xslt-func "classification" >}}
 
 
-## col-from
+## `col-from`
 
 {{< xslt-func "col-from" >}}
 
 
-## col-to
+## `col-to`
 
 {{< xslt-func "col-to" >}}
 
 
-## dictionary
+## `dictionary`
 
 {{< xslt-func "dictionary" >}}
 
 
-## feed-attribute
+## `feed-attribute`
 
 {{< xslt-func "feed-attribute" >}}
 
 
-## feed-name
+## `feed-name`
 
 {{< xslt-func "feed-name" >}}
 
 
-## get
+## `get`
 
 {{< xslt-func "get" >}}
 
 {{% see-also %}}
 [`put()`]({{< relref "#put" >}})
 {{% /see-also %}}
+
 
 ### Example
 
@@ -117,19 +118,20 @@ An example of how to count records is shown below:
 ```
 
 
-## line-from
+## `line-from`
 
 {{< xslt-func "line-from" >}}
 
 
-## line-to
+## `line-to`
 
 {{< xslt-func "line-to" >}}
 
 
-## log
+## `log`
 
 {{< xslt-func "log" >}}
+
 
 ### Example
 
@@ -146,7 +148,7 @@ This call will warn if a SID is not the correct length.
 The same functionality can also be achieved using the standard `xsl:message` element, see [`<xsl:message>`]({{< relref "xslt-basics#xslmessage" >}}).
 
 
-## lookup
+## `lookup`
 
 {{< xslt-func "lookup" >}}
 
@@ -212,17 +214,17 @@ In order to use nested map lookups each intermediate map must contain simple str
 The last map in the chain can either contain string values or XML fragment values.
 
 
-## manifest
+## `manifest`
 
 {{< xslt-func "manifest" >}}
 
 
-## manifest-for-id
+## `manifest-for-id`
 
 {{< xslt-func "manifest-for-id" >}}
 
 
-## meta
+## `meta`
 
 {{< xslt-func "meta" >}}
 
@@ -234,7 +236,7 @@ This is not the same as `meta-attribute()`.
 {{% /note %}}
 
 
-## meta-attribute
+## `meta-attribute`
 
 {{< xslt-func "meta-attribute" >}}
 
@@ -246,7 +248,7 @@ This is not the same as `meta()`.
 {{% /note %}}
 
 
-## meta-keys
+## `meta-keys`
 
 {{< xslt-func "meta-keys" >}}
 
@@ -271,37 +273,37 @@ The following fragment is an example of using `meta-keys()` to emit all meta val
 ```
 
 
-## meta-stream
+## `meta-stream`
 
 {{< xslt-func "meta-stream" >}}
 
 
-## meta-stream-for-id
+## `meta-stream-for-id`
 
 {{< xslt-func "meta-stream-for-id" >}}
 
 
-## parent-for-id
+## `parent-for-id`
 
 {{< xslt-func "parent-for-id" >}}
 
 
-## parent-id
+## `parent-id`
 
 {{< xslt-func "parent-id" >}}
 
 
-## part-no
+## `part-no`
 
 {{< xslt-func "part-no" >}}
 
 
-## pipeline-name
+## `pipeline-name`
 
 {{< xslt-func "pipeline-name" >}}
 
 
-## put
+## `put`
 
 {{< xslt-func "put" >}}
 
@@ -310,27 +312,27 @@ The following fragment is an example of using `meta-keys()` to emit all meta val
 {{% /see-also %}}
 
 
-## record-no
+## `record-no`
 
 {{< xslt-func "record-no" >}}
 
 
-## search-id
+## `search-id`
 
 {{< xslt-func "search-id" >}}
 
 
-## source
+## `source`
 
 {{< xslt-func "source" >}}
 
 
-## source-id
+## `source-id`
 
 {{< xslt-func "source-id" >}}
 
 
-## stream-id
+## `stream-id`
 
 {{< xslt-func "stream-id" >}}
 

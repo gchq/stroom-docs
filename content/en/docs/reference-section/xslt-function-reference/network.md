@@ -13,7 +13,8 @@ The xslt-func shortcode outputs all the XsltFunctionDef annotation content for t
 You can add any additional content for the function (e.g. examples) underneath the shortcode call.
 -->
 
-## cidr-to-numeric-ip-range
+
+## `cidr-to-numeric-ip-range`
 
 {{< xslt-func "cidr-to-numeric-ip-range" >}}
 
@@ -21,6 +22,7 @@ You can add any additional content for the function (e.g. examples) underneath t
 ### Example
 
 **XSLT:**
+
 ```xml
 <xsl:variable name="range" select="stroom:cidr-to-numeric-ip-range('192.168.1.0/24')" as="xs:string*" />
 <Range>
@@ -39,22 +41,22 @@ You can add any additional content for the function (e.g. examples) underneath t
 ```
 
 
-## fetch-json
+## `fetch-json`
 
 {{< xslt-func "fetch-json" >}}
 
 
-## host-address
+## `host-address`
 
 {{< xslt-func "host-address" >}}
 
 
-## host-name
+## `host-name`
 
 {{< xslt-func "host-name" >}}
 
 
-## http-call
+## `http-call`
 
 {{< xslt-func "http-call" >}}
 
@@ -186,14 +188,12 @@ It is recommended to place the `clientConfig` JSON in a {{< glossary "Dictionary
 ```
 
 
-## ip-in-cidr
+## `ip-in-cidr`
 
 {{< xslt-func "ip-in-cidr" >}}
 
 
-
-
-## numeric-ip
+## `numeric-ip`
 
 {{< xslt-func "numeric-ip" >}}
 

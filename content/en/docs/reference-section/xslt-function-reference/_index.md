@@ -38,7 +38,8 @@ The following is an example of calling the `hash` custom XSLT function to produc
   </xsl:template>
 ```
 
-## Return values
+
+## Return Values
 
 XSLT functions can return the following data types:
 
