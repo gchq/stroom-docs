@@ -7,7 +7,7 @@ description: >
   Typically a Feed will contain _Streams_ of data that are all from one system and have a common data format.
 ---
 
-{{% see-also %}}
+{{< see-also >}}
 * {{< glossary "stream">}}
 * {{< glossary "Pipeline">}}
-{{% /see-also %}}
+{{< /see-also >}}

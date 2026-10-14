@@ -59,10 +59,10 @@ Every response therefore carries two headers to resolve that ambiguity.
 | `X-Stroom-Search-Incremental` | Whether the search ran incrementally, i.e. the value of the `incremental` parameter. |
 | `X-Stroom-Search-Complete` | Whether the search finished. `false` means the CSV holds only the rows found so far, so it is a subset of the matching data. |
 
-{{% note %}}
+{{< note >}}
 Always check `X-Stroom-Search-Complete` before treating the CSV as the full result set.
 A truncated result and a complete one are otherwise indistinguishable.
-{{% /note %}}
+{{< /note >}}
 
 An **incremental** search (the default) returns whatever rows have been found when the timeout expires.
 This gets you a quick answer at the cost of it probably being partial, and is the right choice when you want to see something immediately.
@@ -103,10 +103,10 @@ Either raise `timeout` or switch to an incremental search, which returns the row
 The bodies of the above are `text/plain`.
 Any other failure is a fault in _Stroom_ rather than a problem with the request, and returns a `500` whose body is a JSON object with `code`, `message` and `details` fields.
 
-{{% note %}}
+{{< note >}}
 The `X-Stroom-Search-Incremental` and `X-Stroom-Search-Complete` headers are only present on a successful response.
 A client that reads them should check the status code first, as an error carries neither header.
-{{% /note %}}
+{{< /note >}}
 
 
 ### Examples

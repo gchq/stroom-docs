@@ -17,10 +17,10 @@ Nodes and Stroom-Proxy check that signature to satisfy themselves that a token r
 This screen exists so that a key believed to have been exposed can be withdrawn.
 It is not needed for day to day running, because keys are replaced automatically.
 
-{{% note %}}
+{{< note >}}
 This screen requires the `Administrator` {{< glossary "Application Permission" >}}, rather than `Manage Users` which is enough for most other security screens.
 Withdrawing a signing key affects everybody using Stroom at once, so it is treated as an application wide action.
-{{% /note %}}
+{{< /note >}}
 
 Reach the screen by selecting
 
@@ -67,13 +67,13 @@ There are two actions.
 Both actions ask for confirmation first, and the confirmation says what that particular key will cost, because the effect differs enormously between them.
 Revoking a retired key usually affects a handful of people, while revoking the active key affects everyone.
 
-{{% warning %}}
+{{< warning >}}
 Revoking cannot be undone.
 There is no way to restore trust in a key that has been withdrawn.
 
 Revoke a key only if you believe it may have been exposed.
 A key revoked by mistake costs everybody a fresh sign in, but no data is lost.
-{{% /warning %}}
+{{< /warning >}}
 
 
 ### What to Expect after Revoking the Active Key
@@ -87,7 +87,7 @@ This resolves itself and needs no intervention, but it is worth expecting rather
 
 Revoking a retired or expired key has no such effect, as nothing is signing with it.
 
-{{% see-also %}}
+{{< see-also >}}
 [Sessions and Tokens]({{< relref "sessions-and-tokens" >}})
 [Internal IDP]({{< relref "docs/install-guide/setup/open-id/internal-idp" >}})
-{{% /see-also %}}
+{{< /see-also >}}

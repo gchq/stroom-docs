@@ -8,7 +8,7 @@ description: >
   Using Stroom's statistic stores as a data source.
 ---
 
-{{% todo %}}
+{{< todo >}}
 Complete this section
-{{% /todo %}}
+{{< /todo >}}
 

@@ -1,7 +1,7 @@
 ---
 title: "external-link"
 linkTitle: "external-link"
-#weight:
+weight: 10
 date: 2026-10-12
 tags: 
 description: >

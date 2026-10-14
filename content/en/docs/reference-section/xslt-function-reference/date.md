@@ -236,12 +236,12 @@ stroom:format-date('2009/02/01 23:34:11', 'yyyy/MM/dd HH:mm:ss', 'US/Eastern')
 ```
 
 
-{{% note %}}
+{{< note >}}
 Parsing is done in lenient mode so, the count of each symbol is not critical, e.g. you can parse the year `2024` with `y`, `yy`, `yyy` or `yyyy`.
 Despite this, it is advisable to use a pattern that matches the known format of the input dates, e.g. in this example `yyyy`, to avoid confusing with anyone else reading your XSLT.
 
 The count of each symbol is however critical when it comes to formatting.
-{{% /note %}}
+{{< /note >}}
 
 
 ### Formatting Examples

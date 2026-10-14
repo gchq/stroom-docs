@@ -13,9 +13,9 @@ description: >
 Stroom uses {{< external-link "Apache Lucene" "https://lucene.apache.org" >}} for its built-in indexing solution.
 Index documents are stored in a {{< glossary "Volume" >}}.
 
-{{% todo %}}
+{{< todo >}}
 Complete this page.
-{{% /todo %}}
+{{< /todo >}}
 
 
 ## Field Configuration

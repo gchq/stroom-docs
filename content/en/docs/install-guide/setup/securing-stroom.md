@@ -31,9 +31,9 @@ This will enable nodes within the cluster to communicate on:
 
 ## MySQL
 
-{{% todo %}}
+{{< todo >}}
 Update this for MySQL 8
-{{% /todo %}}
+{{< /todo >}}
 
 It is recommended that you run `mysql_secure_installation` to set a root password and remove the test database:
 

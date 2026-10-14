@@ -26,9 +26,9 @@ The proxy's mechanism determines most of the Stroom configuration; the provider 
 This is common in cloud and government estates where a policy requires that unauthenticated traffic never reaches the application.
 Stroom supports it as a first class deployment model.
 
-{{% note %}}
+{{< note >}}
 This model requires the `edgeAuthentication` configuration, available from Stroom 7.13.
-{{% /note %}}
+{{< /note >}}
 
 
 ## The One Rule: Exactly One Relying Party
@@ -47,11 +47,11 @@ Stroom then:
 * Treats the injected credential as needing Cross-Site Request Forgery (CSRF) protection on browser requests, because the browser attaches the *proxy's* session cookie automatically, even to cross site requests.
 * Can end the proxy's session on logout, not just its own.
 
-{{% warning %}}
+{{< warning >}}
 With `edgeAuthentication.enabled` set, **all browser access must go through the proxy**.
 A browser that reaches Stroom directly (an internal load balancer, a port forward) has no way to sign in, because Stroom will not start a flow.
 Direct machine access is unaffected: API keys and bearer tokens work as they always have.
-{{% /warning %}}
+{{< /warning >}}
 
 
 ## The Flow
@@ -115,10 +115,10 @@ The sign out endpoint will normally return the browser to a **post logout landin
 The deployment has to supply it, as a page the proxy serves without authentication.
 The worked examples use a `/signed-out` page served by the proxy itself.
 
-{{% warning %}}
+{{< warning >}}
 The page the user lands on after signing out must be on a path the proxy does **not** authenticate, otherwise the sign in flow simply restarts and the user never sees that they signed out.
 Most IDPs also require the landing page's URL to be registered against the client.
-{{% /warning %}}
+{{< /warning >}}
 
 
 ### `csrf.protectBrowserOriginatedRequests`
@@ -129,10 +129,10 @@ Browsers do not let a cross site page attach an `Authorization` header, so such 
 
 Non browser clients are unaffected, as they send none of the browser fetch metadata this check relies on.
 
-{{% note %}}
+{{< note >}}
 One visible consequence of edge mode: an **in-browser** tool that attaches its own bearer token (for example Swagger UI's *try it out*) must send an `X-CSRF: 1` header on state changing requests.
 Scripts, `curl` and other non browser automation are unaffected.
-{{% /note %}}
+{{< /note >}}
 
 
 ## What the Proxy Must and Must Not Authenticate
@@ -189,9 +189,9 @@ Exactly as with any [external IDP]({{< relref "docs/install-guide/setup/open-id/
 A Stroom user record is created automatically the first time a verified identity is seen, with no permissions.
 Anyone the IDP will authenticate can therefore reach an empty Stroom UI, so if that is not wanted, restrict who can authenticate at the IDP or proxy (for example, limit the Cognito app client to a group, or require assignment on the Entra ID enterprise application).
 
-{{% see-also %}}
+{{< see-also >}}
 [Accounts and Users]({{< relref "docs/install-guide/setup/open-id/accounts-users" >}}) for how identities map to Stroom users and permissions.
-{{% /see-also %}}
+{{< /see-also >}}
 
 
 ## What Depends on the IDP

@@ -9,7 +9,7 @@ description: >
   Analytic Rules are queries that can be run against the data either as it is ingested or on a scheduled basis.
 ---
 
-{{% todo %}}
+{{< todo >}}
 Complete this section.
-{{% /todo %}}
+{{< /todo >}}
 

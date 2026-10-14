@@ -46,9 +46,9 @@ This saves you from having to update the URL on each release of Stroom.
   This is a versioned URL {{</* external-link "https://gchq.github.io/stroom/v@@VERSION@@" */>}} 
   ```
 
-{{% warning %}}
+{{< warning >}}
 This will not work for version `legacy` as that is not an actual Stroom version.
-{{% /warning %}}
+{{< /warning >}}
 
 
 ### Anchors
@@ -195,9 +195,9 @@ The following are some example of different links to internal content.
 
 ### Markdown Page Link Examples
 
-{{% warning %}}
+{{< warning >}}
 Don't use markdown style links for internal page links as they can't be verified at site build time like the short code links can.
-{{% /warning %}}
+{{< /warning >}}
 
 Markdown style links should not contain the `.md` extension as this will be stripped when the site is generated, e.g. for the following content:
 
@@ -309,10 +309,10 @@ description: >
 
 Optional additional detail about the term that can contain all markdown and shortcodes.
 
-{{%/* see-also */%}}
+{{</* see-also */>}}
 * {{</* glossary "Another Term" */>}}
 * {{</* glossary "And Another Term" */>}}
-{{%/* /see-also */%}}
+{{</* /see-also */>}}
 ```
 
 * `title` - Will be used as the tooltip title and inline text (unless overridden).
@@ -372,11 +372,11 @@ This is a markdown example of a fenced code block containing XML content.
   {{< /card >}}
 {{< /cardpane >}}
 
-{{% note %}}
+{{< note >}}
 The fenced code block **MUST** have a language specified.
 This ensures the correct default styling is used and makes it explicitly clear to anyone editing the markdown what the content of the block is.
 If the content of the fenced block has no supported language or is just plain text then use language `text`.
-{{% /note %}}
+{{< /note >}}
 
 The following are some example of rendered code blocks:
 
@@ -784,32 +784,32 @@ Use this link then add any additional items, bearing in mind the size of the dow
 
 An example of the download link is {{< external-link "https://prismjs.com/download.html#themes=prism&languages=markup+css+clike+javascript+bash+csv+groovy+java+jq+json+markdown+python+regex+scss+sql+toml+yaml&plugins=line-highlight+line-numbers+command-line+toolbar+copy-to-clipboard+treeview */" >}}
 
-{{% warning %}}
+{{< warning >}}
 The css/js downloaded from the Prism site is taken from the head of their master branch so even though the css/js mention a Prism version number this may be the same for downloads done at different times.
-{{% /warning %}}
+{{< /warning >}}
 
 
 ## Alerts
 
 Various page/block level quotes for drawing attention to things.
 
-{{% warning %}}
+{{< warning >}}
 Using shortcodes, e.g. `{{</* pipe-elm "SplitFilter" */>}}` inside an of these alerts is currently not fully supported so may not work.
-{{% /warning %}}
+{{< /warning >}}
 
 
 ### Warning Block Quote
 
-{{% warning %}}
+{{< warning >}}
 This is a warning that can contain _markdown_.
-{{% /warning %}}
+{{< /warning >}}
 
 The markdown for this is:
 
 ```markdown
-{{%/* warning */%}}
+{{</* warning */>}}
 This is a warning that can contain _markdown_.
-{{%/* /warning */%}}
+{{</* /warning */>}}
 ```
 
 
@@ -830,16 +830,16 @@ This is a warning that can contain _markdown_.
 
 ### Note Block Quote
 
-{{% note %}}
+{{< note >}}
 This is a note that can contain **markdown**.
-{{% /note %}}
+{{< /note >}}
 
 The markdown for this is:
 
 ```markdown
-{{%/* note */%}}
+{{</* note */>}}
 This is a note that can contain **markdown**.
-{{%/* /note */%}}
+{{</* /note */>}}
 ```
 
 
@@ -847,131 +847,19 @@ This is a note that can contain **markdown**.
 
 Useful for linking to other areas of the documentation or to external sites.
 
-{{% see-also %}}
+{{< see-also >}}
 [Note block quote]({{< relref "#note-block-quote" >}})  
 [Warning block quote]({{< relref "#warning-block-quote" >}})
-{{% /see-also %}}
+{{< /see-also >}}
 
 The markdown for this is:
 
 ```markdown
-{{%/* see-also */%}}
+{{</* see-also */>}}
 [Note block quote]({{</* relref "#note-block-quote" */>}})  
 [Warning block quote]({{</* relref "#warning-block-quote" */>}})
-{{%/* /see-also */%}}
+{{</* /see-also */>}}
 ```
-
-
-{{% see-also %}}
-* This is bold **1**
-* This is italic _2_
-{{% /see-also %}}
-
-{{% see-also %}}
-{{< glossary "idp" >}}
-{{% /see-also %}}
-
-{{% see-also %}}
-{{% glossary "idp" %}}
-{{% /see-also %}}
-
-{{% see-also %}}
-{{< xslt-func-link "cosine-similarity" >}}
-{{% /see-also %}}
-
-{{% see-also %}}
-{{% xslt-func-link "cosine-similarity" %}}
-{{% /see-also %}}
-
-{{% see-also %}}
-* This is bold **1001**
-* {{< xslt-func-link "cosine-similarity" >}}
-* This is italic _2_
-{{% /see-also %}}
-
-{{% see-also %}}
-* This is bold **1002**
-* {{% xslt-func-link "cosine-similarity" %}}
-* This is italic _2_
-{{% /see-also %}}
-
-{{% see-also %}}
-* This is bold **1003**
-* xxx {{< xslt-func-link "cosine-similarity" >}} yyy
-* This is italic _2_
-{{% /see-also %}}
-
-{{% see-also %}}
-* This is bold **1004**
-* xxx {{% xslt-func-link "cosine-similarity" %}} yyy
-* This is italic _2_
-{{% /see-also %}}
-
-{{% see-also %}}
-* This is bold **1005**
-* {{< glossary "idp" >}}
-* This is italic _2_
-{{% /see-also %}}
-
-{{% see-also %}}
-* This is bold **1006**
-* {{% glossary "idp" %}}
-* This is italic _2_
-{{% /see-also %}}
-
-{{% see-also %}}
-* This is bold **1007**
-* xxx {{< glossary "idp" >}} yyy
-* This is italic _2_
-{{% /see-also %}}
-
-{{% see-also %}}
-* This is bold **1008**
-* xxx {{% glossary "idp" %}} yyy
-* This is italic _2_
-{{% /see-also %}}
-
-{{% see-also %}}
-This is bold **1009**
-
-{{< xslt-func-link "cosine-similarity" >}}
-
-{{< glossary "idp" >}}
-{{% /see-also %}}
-
-{{% see-also %}}
-This is bold **1010**
-
-{{% xslt-func-link "cosine-similarity" %}}
-
-{{% glossary "idp" %}}
-{{% /see-also %}}
-
-{{% see-also %}}
-* This is bold **1011**
-* {{< xslt-func-link "cosine-similarity" >}}
-* {{< glossary "idp" >}}
-{{% /see-also %}}
-
-{{< see-also >}}
-* This is bold **1012**
-* {{% xslt-func-link "cosine-similarity" %}}
-* {{% glossary "idp" %}}
-{{< /see-also >}}
-
-{{% see-also %}}
-* This is bold **1013**
-* {{< glossary "idp" >}}
-* {{< xslt-func-link "cosine-similarity" >}}
-{{% /see-also %}}
-
-{{% see-also %}}
-* This is bold **1014**
-* {{% glossary "idp" %}}
-* {{% xslt-func-link "cosine-similarity" %}}
-{{% /see-also %}}
-
-This is {{< xslt-func-link "cosine-similarity" >}} inline {{< glossary "idp" >}} text.
 
 
 ### Page Level Info
@@ -993,16 +881,16 @@ This is some info that can contain **markdown**.
 
 Used to indicate areas of the documentation that are unfinished or incorrect.
 
-{{% todo %}}
+{{< todo >}}
 This is a TODO that can contain `markdown`.
-{{% /todo %}}
+{{< /todo >}}
 
 The markdown for this is:
 
 ```markdown
-{{%/* todo */%}}
+{{</* todo */>}}
 This is a TODO that can contain `markdown`.
-{{%/* /todo */%}}
+{{</* /todo */>}}
 ```
 
 

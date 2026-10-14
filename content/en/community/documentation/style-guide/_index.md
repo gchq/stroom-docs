@@ -145,6 +145,6 @@ endsnippet
 {{< /cardpane >}}
 
 
-{{% todo %}}
+{{< todo >}}
 Add section on naming, i.e. what names we use for things, e.g. data/meta/stream, config/properties, job/task, etc.
-{{% /todo %}}
+{{< /todo >}}

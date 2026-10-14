@@ -9,6 +9,6 @@ description: >
   Stroom's logical storage volumes for storing event and index data.
 ---
 
-{{% todo %}}
+{{< todo >}}
 Describe volumes
-{{% /todo %}}
+{{< /todo >}}

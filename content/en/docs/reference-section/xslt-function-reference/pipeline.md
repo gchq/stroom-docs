@@ -83,9 +83,9 @@ The following are example lookups using the above reference data:
 
 {{< xslt-func "get" >}}
 
-{{% see-also %}}
+{{< see-also >}}
 [`put()`]({{< relref "#put" >}})
-{{% /see-also %}}
+{{< /see-also >}}
 
 
 ### Example
@@ -228,33 +228,33 @@ The last map in the chain can either contain string values or XML fragment value
 
 {{< xslt-func "meta" >}}
 
-{{% note %}}
+{{< note >}}
 This is not the same as `meta-attribute()`.
 
 `meta-attribute()` - reads the manifest of the whole stream from the data store, so it will open the stream's source.  
 `meta()` - reads the meta data of the part currently being processed, and is what most translations want.
-{{% /note %}}
+{{< /note >}}
 
 
 ## `meta-attribute`
 
 {{< xslt-func "meta-attribute" >}}
 
-{{% note %}}
+{{< note >}}
 This is not the same as `meta()`.
 
 `meta()` - reads the meta data of the part currently being processed, and is what most translations want.  
 `meta-attribute()` - reads the manifest of the whole stream from the data store, so it will open the stream's source.
-{{% /note %}}
+{{< /note >}}
 
 
 ## `meta-keys`
 
 {{< xslt-func "meta-keys" >}}
 
-{{% warning %}}
+{{< warning >}}
 When calling this function and assigning the result to a variable, you must specify the variable data type of `xs:string*` (array of strings).
-{{% /warning %}}
+{{< /warning >}}
 
 
 ### Example
@@ -307,9 +307,9 @@ The following fragment is an example of using `meta-keys()` to emit all meta val
 
 {{< xslt-func "put" >}}
 
-{{% see-also %}}
+{{< see-also >}}
 [`get()`]({{< relref "#get" >}}) for an example of how to use `put()`.
-{{% /see-also %}}
+{{< /see-also >}}
 
 
 ## `record-no`

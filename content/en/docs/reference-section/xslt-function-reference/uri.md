@@ -29,9 +29,9 @@ You can add any additional content for the function (e.g. examples) underneath t
 {{< xslt-func "parse-uri" >}}
 
 
-{{% see-also %}}
+{{< see-also >}}
 See either [RFC 2306: Uniform Resource Identifiers (URI): Generic Syntax](http://www.ietf.org/rfc/rfc2396.txt) or Java's java.net.URI Class for details regarding the components.
-{{% /see-also %}}
+{{< /see-also >}}
 
 
 ### Example Usage

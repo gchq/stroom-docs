@@ -9,9 +9,9 @@ description: >
   
 ---
 
-{{% todo %}}
+{{< todo >}}
 This is out of date for stroom 7.
-{{% /todo %}}
+{{< /todo >}}
 
 
 In order that the java process communicates over https (for example Stroom Proxy forwarding onto Stroom) the JVM requires relevant keystore's setting up.

@@ -36,11 +36,11 @@ The basic structure of the shell command for starting one of stroom's commands d
 In either case, `COMMAND` is the name of the stroom command to run, as specified by the various headings on this page.
 Each command value is described in its own section and may take no arguments or a mixture of mandatory and optional arguments.
 
-{{% note %}}
+{{< note >}}
 These commands are very powerful and potentially dangerous in the wrong hands, e.g. they allow the changing of user's passwords.
 Access to these commands should be strictly limited.
 Also, each command will run in its own JVM so are not really intended to be run when Stroom is running on the node.
-{{% /note %}}
+{{< /note >}}
 
 
 ### Running Commands with the Zip Distribution
@@ -70,9 +70,9 @@ reset_password \
 
 Commands are run in a Docker stack using the `command.sh` script found in the root of the stack directory structure.
 
-{{% note %}}
+{{< note >}}
 You do not specify the config file location as the script does this for you.
-{{% /note %}}
+{{< /note >}}
 
 {{< command-line "stroomuser" "localhost" >}}
 ./command.sh COMMAND [COMMAND_ARG...]
@@ -101,17 +101,17 @@ Several of the commands below only make sense once you understand that Stroom ke
 So when using the internal IDP, a person needs **both** an account (to authenticate) and a Stroom user with the same identifier (to be authorised).
 When using an external IDP they need only a Stroom user.
 
-{{% see-also %}}
+{{< see-also >}}
 See [Accounts vs Users]({{< relref "docs/install-guide/setup/open-id/accounts-users" >}}) for a fuller description.
-{{% /see-also %}}
+{{< /see-also >}}
 
 
 ## Command Reference
 
-{{% note %}}
+{{< note >}}
 All the examples below assume you are running stroom as part of the zip distribution.
 If you are running a Docker stack then you will need to use the `command.sh` script (as described above) with the same arguments but omitting the config file path.
-{{% /note %}}
+{{< /note >}}
 
 
 ### `server`
@@ -166,12 +166,12 @@ Where the named arguments are:
 This command creates an {{< glossary "Account" >}} in the internal identity provider within Stroom.
 Stroom is able to use an external OpenID identity provider such as Google or AWS Cognito but by default will use its own.
 
-{{% warning %}}
+{{< warning >}}
 A fresh installation using the internal IDP does **not** create an `admin` account unless `stroom.security.identity.autoCreateAdminAccountOnBoot` is set to `true` before first boot, and that property defaults to `false`.
 Most new installations therefore need this command.
 
 See [Creating the First Administrator]({{< relref "docs/install-guide/setup/create-first-admin" >}}).
-{{% /warning %}}
+{{< /warning >}}
 
 This command creates an account for authentication only.
 A Stroom user with the same username is also needed before that person has any permissions, see [Accounts and Stroom Users](#accounts-and-stroom-users) and [`manage_users`](#manage_users).
@@ -230,11 +230,11 @@ Where the named arguments are:
 This command creates Stroom users and groups and manages their permissions.
 It works regardless of whether the internal identity provider or an external one is used, and is the only way to give a brand new installation an administrator.
 
-{{% warning %}}
+{{< warning >}}
 This command does **not** create an account for authentication.
 When using the internal IDP you need [`create_account`]({{< relref "#create_account" >}}) as well, and the username must match exactly.
 See [Accounts and Stroom Users](#accounts-and-stroom-users).
-{{% /warning %}}
+{{< /warning >}}
 
 This command is not intended for automation of user management tasks on a running Stroom instance that you can authenticate with.
 It is only intended for cases where you cannot authenticate with Stroom, i.e. when setting up a new Stroom or when scripting the creation of a test environment.
@@ -273,9 +273,9 @@ It can be run multiple times with the same value with no error.
 The `manage_users` command is particularly useful for provisioning a new Stroom installation.
 It allows you to automate the setup of some or all Stroom users and their group membership and application permissions.
 
-{{% see-also %}}
+{{< see-also >}}
 See [Creating the First Administrator]({{< relref "docs/install-guide/setup/create-first-admin" >}}) for worked examples of bootstrapping a new installation with both the internal and an external IDP.
-{{% /see-also %}}
+{{< /see-also >}}
 
 
 #### `USER_IDENTIFIER`
@@ -383,6 +383,6 @@ The most common use of these commands is bootstrapping a brand new installation 
 
 That task is documented as a step by step procedure, covering both the internal and an external identity provider, and both the zip and Docker forms of each command:
 
-{{% see-also %}}
+{{< see-also >}}
 See [Creating the First Administrator]({{< relref "docs/install-guide/setup/create-first-admin" >}}).
-{{% /see-also %}}
+{{< /see-also >}}

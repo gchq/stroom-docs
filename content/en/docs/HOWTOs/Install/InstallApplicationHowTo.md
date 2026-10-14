@@ -8,9 +8,9 @@ description: >
   This HOWTO describes the installation and initial configuration of the Stroom Application.
 ---
 
-{{% todo %}}
+{{< todo >}}
 This section was written for Stroom v5, so some parts are out of date.
-{{% /todo %}}
+{{< /todo >}}
 
 
 ## Assumptions

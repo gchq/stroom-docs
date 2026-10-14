@@ -308,10 +308,10 @@ Stroom-Proxy will scan into all sub-directories within the ingest directory, reg
 The `.meta` sidecar file is optional, but if provided will be used to provide meta values equivalent to HTTP headers when sending to `/datafeed`.
 For a `.meta` file to be consumed, it must have the same base-name as the ZIP file, e.g. `data.zip` and `data.meta`, and be in the same directory as the ZIP file.
 
-{{% warning %}}
+{{< warning >}}
 Stroom-Proxy may be scanning at the same time as you are moving files in to the `zip_file_ingest` directory.
 
 Therefore, it is important that if you are supplying sidecar files that you move a parent directory rather than the files themselves (as is shown in the above `mv` example).
 This will ensure that the move happens atomically, so all files will be visible to the scanner.
-{{% /warning %}}
+{{< /warning >}}
 

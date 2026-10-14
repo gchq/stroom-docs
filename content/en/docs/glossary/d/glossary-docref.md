@@ -13,6 +13,6 @@ It is comprised of the following parts:
 
 Doc Refs are used heavily in the [REST API]({{< relref "docs/user-guide/api" >}}) for identifying the document/entity to be acted on.
 
-{{% see-also %}}
+{{< see-also >}}
 {{< glossary "Document">}}
-{{% /see-also %}}
+{{< /see-also >}}

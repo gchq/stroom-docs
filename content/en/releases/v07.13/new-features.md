@@ -23,9 +23,9 @@ and
 
 Task creation now takes profiles into account, so tasks that no node is allowed to process are no longer queued, and each profile is given a share of the tasks that are created.
 
-{{% see-also %}}
+{{< see-also >}}
 [Node Groups and Processing Profiles]({{< relref "docs/user-guide/processing-profiles" >}})
-{{% /see-also %}}
+{{< /see-also >}}
 
 
 ## Document History and Safe Delete
@@ -35,10 +35,10 @@ Stroom now keeps a proper audit trail for every document, recording who changed 
 Document dependencies are also now held in the database, which makes it possible to ask what a document depends on and what depends on it.
 This powers the new _Safe Delete_ feature, which tells you what would break before you delete something, and shows you what a folder contains before you delete it.
 
-{{% see-also %}}
+{{< see-also >}}
 * [Document History]({{< relref "docs/user-guide/content/document-history" >}})
 * [Deleting Content]({{< relref "docs/user-guide/content/deleting-content" >}})
-{{% /see-also %}}
+{{< /see-also >}}
 
 
 ## Data Generator
@@ -46,9 +46,9 @@ This powers the new _Safe Delete_ feature, which tells you what would break befo
 A new _DataGen_ document type sends a defined block of data into a {{< glossary "Feed" >}} on a schedule.
 It is intended for generating test data, for example to exercise an analytic rule.
 
-{{% see-also %}}
+{{< see-also >}}
 [Data Generator]({{< relref "docs/reference-section/documents#data-generator" >}})
-{{% /see-also %}}
+{{< /see-also >}}
 
 
 ## Tab Sessions
@@ -95,9 +95,9 @@ The `link` function now accepts a title, and a new XSLT function computes the si
 Administrators can now see the sessions a user holds and end them, and revoke the tokens issued to that user.
 Any user can end all of their own sessions other than the one they are using.
 
-{{% see-also %}}
+{{< see-also >}}
 [Sessions and Tokens]({{< relref "docs/user-guide/security/sessions-and-tokens" >}})
-{{% /see-also %}}
+{{< /see-also >}}
 
 
 ## Account Self Service
@@ -105,11 +105,11 @@ Any user can end all of their own sessions other than the one they are using.
 An account locked by repeated failed sign-ins now unlocks itself after a period rather than needing an administrator, and the 'Forgot password' flow has been rebuilt so that a user can complete a reset from an emailed link.
 The three account states, _Enabled_, _Locked_ and _Inactive_, are now independent of one another, each with a single owner.
 
-{{% see-also %}}
+{{< see-also >}}
 * [User Accounts]({{< relref "docs/user-guide/security/user-accounts" >}})
 * [Signing In]({{< relref "docs/user-guide/security/signing-in" >}})
 * [Breaking Changes]({{< relref "./breaking-changes" >}})
-{{% /see-also %}}
+{{< /see-also >}}
 
 
 ## Authenticating Edge Proxies
@@ -117,9 +117,9 @@ The three account states, _Enabled_, _Locked_ and _Inactive_, are now independen
 Stroom can now sit behind a proxy that has already authenticated the user, such as an AWS Application Load Balancer with Cognito, or NGINX with `oauth2-proxy`.
 In this arrangement the proxy is the OpenID Connect relying party and Stroom trusts the identity it passes on, rather than running a sign-in flow of its own.
 
-{{% see-also %}}
+{{< see-also >}}
 [Authenticating Edge Proxy]({{< relref "docs/install-guide/setup/open-id/edge-proxy" >}})
-{{% /see-also %}}
+{{< /see-also >}}
 
 
 ## Other Authentication Changes
@@ -129,28 +129,28 @@ In this arrangement the proxy is the OpenID Connect relying party and Stroom tru
 * An optional `requiredAccessTokenType` setting refuses a token of the wrong type on the API, so that an `id_token` cannot be used in place of an access token.
 * The Stroom user interface no longer needs redirects to authenticate, so it can be served from another location by a backend for frontend proxy.
 
-{{% see-also %}}
+{{< see-also >}}
 * [Signing Keys]({{< relref "docs/user-guide/security/signing-keys" >}})
 * [Stroom Configuration]({{< relref "docs/install-guide/setup/open-id/external-idp/stroom-configuration" >}})
-{{% /see-also %}}
+{{< /see-also >}}
 
 
 ## Visualisation Assets
 
 A Visualisation now has an _Assets_ tab holding the files it is built from, e.g. JavaScript, CSS, HTML and images, in a folder structure that can be edited and uploaded to through the user interface.
 
-{{% see-also %}}
+{{< see-also >}}
 [Visualisation Assets]({{< relref "docs/user-guide/content/visualisation-assets" >}})
-{{% /see-also %}}
+{{< /see-also >}}
 
 
 ## Git Repositories
 
 Git repositories can now be given HTTP and TLS configuration, so that Stroom can reach a repository through a proxy or one that presents a private certificate.
 
-{{% see-also %}}
+{{< see-also >}}
 [Git Repo]({{< relref "docs/user-guide/content/git-repo" >}})
-{{% /see-also %}}
+{{< /see-also >}}
 
 
 ## Content Index
@@ -163,10 +163,10 @@ It can now be held locally on each node for performance, or on shared storage, c
 
 The `JSONParser` pipeline element now streams string values to the downstream elements rather than reading each one into memory, and has new properties to protect Stroom from very large or deeply nested documents.
 
-{{% see-also %}}
+{{< see-also >}}
 * [JSONParser]({{< relref "docs/reference-section/pipeline-elements#jsonparser" >}})
 * [Breaking Changes]({{< relref "./breaking-changes" >}})
-{{% /see-also %}}
+{{< /see-also >}}
 
 
 ## Smaller Changes

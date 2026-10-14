@@ -12,7 +12,7 @@ Tokens may contain information, e.g. a {{< external-link "JSON Web Tokens (JWT)"
 Tokens are associated with a Stroom User so have the same or less permissions than that user.
 Tokens also typically have an expiry time after which they will no longer work.
 
-{{% see-also %}}
+{{< see-also >}}
 {{< glossary "API Key" >}}
-{{% /see-also %}}
+{{< /see-also >}}
 

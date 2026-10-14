@@ -12,10 +12,10 @@ description: >
   Assigning document level permissions (such as 'View') to users or groups.
 ---
 
-{{% todo %}}
+{{< todo >}}
 The Users, Groups and Permissions screens are undergoing significant change in Stroom v7.6.
 Therefore this section will be updated with more detail in v7.6.
-{{% /todo %}}
+{{< /todo >}}
 
 Document Permissions are permissions that are granted to [Users or Groups]({{< relref "users-and-groups" >}}) for a specific {{< glossary "Document" >}}.
 They control what documents a user/group can see and what they can do to those documents.
@@ -166,7 +166,7 @@ The move/copy dialog offers the following choices:
     of the destination folder.
     You will be the owner of the moved document if not already.
 
-{{% note %}}
+{{< note >}}
 You must have `Owner` permission on the source document/folder (or `Administrator` {{< glossary "Application Permission" >}}) if you wish to use _None_, _Destination_ or _Combined_ as these all involve a change of permissions.
-{{% /note %}}
+{{< /note >}}
 

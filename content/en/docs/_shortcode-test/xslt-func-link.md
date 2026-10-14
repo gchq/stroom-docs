@@ -1,7 +1,7 @@
 ---
 title: "xlst-func-link"
 linkTitle: "xlst-func-link"
-#weight:
+weight: 70
 date: 2026-10-12
 tags: 
 description: >

@@ -11,6 +11,6 @@ It can also be used to control the access permissions of entities and folders.
 The tree can be filtered using the quick filter, see [Finding Things]({{< relref "finding-things.md" >}}) for more details.
 
 
-{{% see-also %}}
+{{< see-also >}}
 {{< glossary "Document">}}
-{{% /see-also %}}
+{{< /see-also >}}

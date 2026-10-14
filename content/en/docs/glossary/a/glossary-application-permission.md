@@ -11,7 +11,7 @@ A lot of the application permissions tend to be more applicable to system admini
 
 Examples of application permissions are `Manage Users`, `Pipeline Stepping` and `Data - View`.
 
-{{% see-also %}}
+{{< see-also >}}
 [Application Permissions]({{< relref "docs/user-guide/security/app-permissions" >}})
-{{% /see-also %}}
+{{< /see-also >}}
 

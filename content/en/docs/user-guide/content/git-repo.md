@@ -43,9 +43,9 @@ Git Repo instances can be created by:
 
 ## Settings
 
-{{% note %}}
+{{< note >}}
 Git Repo instances created from Content Packs have a slightly different appearance.
-{{% /note %}}
+{{< /note >}}
 
 This page describes Git Repo instances created by adding them manually.
 
@@ -133,6 +133,6 @@ This button will determine whether there are any newer versions available in the
 
 This button will pull down any newer version from the remote Git repository.
 
-{{% warning %}}
+{{< warning >}}
 Note that any local changes may be deleted or overridden.
-{{% /warning %}}
+{{< /warning >}}

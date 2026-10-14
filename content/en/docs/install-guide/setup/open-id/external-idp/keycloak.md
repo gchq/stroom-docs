@@ -13,14 +13,14 @@ description: >
 This is a guide to setting up a new Stroom instance or cluster with {{< external-link "KeyCloak" "https://www.keycloak.org/" >}} as the 3rd party {{< glossary "idp" >}}.
 It assumes you have deployed a new instance or cluster of Stroom and have **not** yet started it.
 
-{{% see-also %}}
+{{< see-also >}}
 Read [External IDP]({{< relref "docs/install-guide/setup/open-id/external-idp" >}}) first for what Stroom needs from any provider, and [Stroom Configuration]({{< relref "stroom-configuration" >}}) for what each setting does.
-{{% /see-also %}}
+{{< /see-also >}}
 
-{{% note %}}
+{{< note >}}
 This page covers Stroom itself being the OIDC client of the realm.
 If an authenticating reverse proxy (e.g. NGINX with oauth2-proxy) in front of Stroom does the sign in against KeyCloak instead, see [NGINX, oauth2-proxy and KeyCloak]({{< relref "docs/install-guide/setup/open-id/edge-proxy/nginx-oauth2-proxy" >}}).
-{{% /note %}}
+{{< /note >}}
 
 
 ## Running KeyCloak
@@ -59,11 +59,11 @@ If you want to run KeyCloak on a different port then delete the container and cr
 Log into KeyCloak using the username `admin` and password `admin` as specified in the environment variables set in the container creation command above.
 You should see the admin console.
 
-{{% note %}}
+{{< note >}}
 The admin console layout and the names of some settings vary between KeyCloak versions.
 The steps below were written against the version above.
 On a newer version the same settings may sit under differently named tabs, and the bootstrap admin environment variables have been renamed.
-{{% /note %}}
+{{< /note >}}
 
 
 ## Creating a Realm
@@ -95,13 +95,13 @@ Open the new _Client_ and on the _Settings_ tab set:
 
 Where `STROOM_FQDN` is the public address of Stroom, i.e. what you have set as `appConfig.publicUri`.
 
-{{% warning %}}
+{{< warning >}}
 The redirect URI is a single exact value.
 Do not use a wildcard such as `https://STROOM_FQDN/*` for it.
 
 Earlier versions of Stroom sent the user's current page as the redirect URI and so did need a wildcard here.
 If you are upgrading, replace it with the exact URI above.
-{{% /warning %}}
+{{< /warning >}}
 
 The post logout redirect URI does use a wildcard, because Stroom appends a `state` parameter to it.
 
@@ -153,11 +153,11 @@ Select the _Credentials_ tab and click _Set password_.
 
 Set the password to `admin` and set _Temporary_ to off.
 
-{{% note %}}
+{{< note >}}
 Standard practice would be for there to be a number of administrators where each has their own identity (in their own name) on the IDP.
 Each would be granted the `Administrator` application permission (directly or via a group).
 For this example we are calling our administrator `admin`.
-{{% /note %}}
+{{< /note >}}
 
 Repeat this process for the following user:
 
@@ -206,10 +206,10 @@ Setting the above values assumes KeyCloak is running on `localhost:9999` and the
 The claim defaults suit KeyCloak, so there is nothing to set for them.
 KeyCloak issues `preferred_username`, which Stroom uses as the display name, and issues `name` where the user has a first and last name, which satisfies the default `fullNameClaimTemplate` of `${name}`.
 
-{{% note %}}
+{{< note >}}
 Before setting `requiredAccessTokenType`, confirm the value your KeyCloak version actually uses by decoding the header of a real access token.
 Leave it unset if in doubt; it is a hardening measure rather than a requirement.
-{{% /note %}}
+{{< /note >}}
 
 
 ## Setting up the Admin User in Stroom
@@ -237,9 +237,9 @@ java -jar /absolute/path/to/stroom-app-all.jar \
 Where `XXX` is the user ID copied from the IDP as described above.
 This command is repeatable as it will skip any users/groups/memberships that already exist.
 
-{{% see-also %}}
+{{< see-also >}}
 See [Command Line Tools]({{< relref "docs/user-guide/tools/command-line" >}}) for more details on using the `manage_users` command.
-{{% /see-also %}}
+{{< /see-also >}}
 
 This command will do the following:
 
@@ -248,13 +248,13 @@ This command will do the following:
 * Add the `admin` user to the group `Administrators`.
 * Grant the application permission `Administrator` to the group `Administrators`.
 
-{{% note %}}
+{{< note >}}
 This process is only required to bootstrap the admin user, to allow them to log in with administrator rights and manage the permissions and group memberships of everyone else.
 It does not need to be done for every user.
 Whenever a user successfully logs in via the IDP, Stroom will automatically create an entry in the `stroom_user` table for that user.
 The user will have no permissions or group memberships, so these will need to be applied by the administrator.
 This does mean that new users will need to log in before the administrator can manage their permissions and memberships.
-{{% /note %}}
+{{< /note >}}
 
 
 ## Logging into Stroom
@@ -265,10 +265,10 @@ Now that the user and permissions have been set up in Stroom, the administrator 
 
 First start the Stroom instance or cluster.
 
-{{% warning %}}
+{{< warning >}}
 If the `manage_users` command is run while Stroom is running you will likely not see the effect when logging in, as the user permissions are cached.
 Without Administrator rights you will not be able to clear the caches, so you will need to wait for the cache entries to expire or restart Stroom.
-{{% /warning %}}
+{{< /warning >}}
 
 Navigate to _https://STROOM_FQDN_ and Stroom should re-direct you to the IDP (KeyCloak) to authenticate.
 Enter the username `admin` and password `admin`.

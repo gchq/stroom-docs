@@ -116,9 +116,9 @@ ${val} = ['bill', 'bill', 'bob', 'fred', 'bill']
 > 'bill|bob'
 ```
 
-{{% see-also %}}
+{{< see-also >}}
 [Selection Functions]({{< relref "./selection" >}}) that work in a similar way to `distinct()`.
-{{% /see-also %}}
+{{< /see-also >}}
 
 
 ## Joining
@@ -143,9 +143,9 @@ ${val} = ['bill', 'bob', 'fred', 'bill']
 > 'bill, bob, fred, bill'
 ```
 
-{{% see-also %}}
+{{< see-also >}}
 [Selection Functions]({{< relref "./selection" >}}) that work in a similar way to `joining()`.
-{{% /see-also %}}
+{{< /see-also >}}
 
 
 ## Max

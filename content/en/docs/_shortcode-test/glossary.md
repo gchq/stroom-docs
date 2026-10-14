@@ -1,7 +1,7 @@
 ---
 title: "glossary"
 linkTitle: "glossary"
-#weight:
+weight: 20
 date: 2026-10-12
 tags: 
 description: >

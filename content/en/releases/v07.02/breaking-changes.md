@@ -8,9 +8,9 @@ description: >
   Changes in Stroom version 7.2 that may break existing processing or ways of working.
 ---
 
-{{% warning %}}
+{{< warning >}}
 Please read this section carefully in case any of the changes affect you.
-{{% /warning %}}
+{{< /warning >}}
 
 
 ## Quoted Strings in Dashboard Table Expressions

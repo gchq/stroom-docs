@@ -59,9 +59,9 @@ Use the example {{< external-link "stroom-cluster.yaml" "https://github.com/p-ki
 
 If you chose to create an Operator-managed `DatabaseServer`, the `StroomCluster.spec.databaseServerRef` should point to the name of the `DatabaseServer`.
 
-{{% see-also %}}
+{{< see-also >}}
 See the `StroomCluster` Custom Resource Definition (CRD) {{< external-link "API documentation" "https://doc.crds.dev/github.com/p-kimberley/stroom-k8s-operator/stroom.gchq.github.io/StroomCluster/v1" >}} for an explanation of the various CRD fields
-{{% /see-also %}}
+{{< /see-also >}}
 
 
 ### Provision a `PersistentVolume` for Each Stroom Node
@@ -82,10 +82,10 @@ kubectl apply -f stroom-cluster.yaml
 If the `StroomCluster` configuration is valid, the Operator will deploy a `StatefulSet` for each `NodeSet` defined in `StroomCluster.spec.nodeSets`.
 Once these `StatefulSet`s reach `Ready` state, you are ready to access the Stroom UI.
 
-{{% note %}}
+{{< note >}}
 If the `StatefulSet`s don't deploy, there is probably something wrong with your configuration.
 Check the logs of the pod `stroom-operator-system/stroom-operator-controller-manager` for any errors.
-{{% /note %}}
+{{< /note >}}
 
 
 ### Log into Stroom

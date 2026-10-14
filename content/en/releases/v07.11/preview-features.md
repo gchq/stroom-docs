@@ -64,11 +64,11 @@ This allows for the use of custom headers to aid in the filtering of data into S
 Dictionaries are supported for use with the `in dictionary` condition.
 The contents of the dictionary and any of the dictionaries that it inherits will be included in the data fetched by Stroom Proxy.
 
-{{% note %}}
+{{< note >}}
 You cannot use the same dictionary for multiple fields if any one of those fields is obfuscated.
 
 Should you need to use the same dictionary for an obfuscated and a non-obfuscated field, you can create one empty dictionary for each and make them both import from the same source dictionary.
-{{% /note %}}
+{{< /note >}}
 
 
 ### Stroom Configuration
@@ -159,19 +159,19 @@ For example, in the default configuration, `Feed` is an obfuscated field.
 Thus a term like `Feed != FEED_XYZ` would have its value obfuscated when fetched by Stroom Proxy.
 Stroom Proxy is able to similarly obfuscated meta data values for obfuscated fields in the same way to allow it to test the rule expression.
 
-{{% warning %}}
+{{< warning >}}
 Due to the way obfuscation works, you are limited by the expression conditions that can be used, e.g. `contains`, `>`, `<` etc. are not allowed, but `==` and `!=` are.
 Stroom will tell you if you are using an unsupported condition for the field.
-{{% /warning %}}
+{{< /warning >}}
 
 This prevents the Stroom Proxy administrator from being able to see the values used in the rules as they are not in plain text.
 Each value is salted with its own unique salt then hashed.
 The hash algorithm can be configured using `stroom.receiptPolicy.obfuscationHashAlgorithm`.
 
-{{% note %}}
+{{< note >}}
 Obfuscation is not encryption.
 The fetched data includes the salt values and given enough compute/time it would be possible to brute force the reversal of the hashing.
 Strong hashing algorithms such as BCrypt or Argon2 can mitigate against this but not remove the risk.
 If the rule values are too sensitive then you will have to let the Stroom Proxy accept the data and have Stroom do the full rule based checking.
-{{% /note %}}
+{{< /note >}}
 

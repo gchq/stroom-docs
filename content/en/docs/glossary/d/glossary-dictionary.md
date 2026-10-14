@@ -7,7 +7,7 @@ description: >
 ---
 
 
-{{% see-also %}}
+{{< see-also >}}
 * {{< glossary "XSLT" >}}
 * {{< xslt-func-link "dictionary" >}}
-{{% /see-also %}}
+{{< /see-also >}}

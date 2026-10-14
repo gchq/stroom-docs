@@ -17,7 +17,7 @@ AND (
 
 Expression Trees are used in {{< glossary "Processor Filter" "Processor Filters" >}} and {{< glossary "Query" >}} expressions.
 
-{{% see-also %}}
+{{< see-also >}}
 * {{< glossary "Query">}}
 * [Expression functions]({{< relref "docs/reference-section/expressions" >}})
-{{% /see-also %}}
+{{< /see-also >}}

@@ -182,10 +182,10 @@ Images can be located in a {{< external-link "page bundle" "https://gohugo.io/co
 This is where the page is defined as a named directory (rather than a `.md` file) with an associated `index.md` file for the markdown content.
 All other items in the directory are page resources that can be used by the page, i.e. image files.
 
-{{% warning %}}
+{{< warning >}}
 Whilst you can structure your site using page resources the preferred approach for stroom-docs is to use the common assets directory.
 This keeps all the images in one place and means pages can have a named markdown file rather than all being called `index.md`.
-{{% /warning %}}
+{{< /warning >}}
 
 Use the `image` short code to display an image file that is located in the same directory as the page.
 For the short code to work the page must be a leaf bundle (`index.md`) or a branch bundle (`_index.md`), i.e:
@@ -244,9 +244,9 @@ Stroom UI icons such as {{< stroom-icon "add.svg" >}} or {{< stroom-icon "explor
 
 The full list of available icons can be found in the [Icon Gallery]({{< relref "icon-gallery" >}}).
 
-{{% warning %}}
+{{< warning >}}
 The icon filenames and paths are case sensitive so ensure you have the correct case, e.g. most `document` icons are in upper sentence case.
-{{% /warning %}}
+{{< /warning >}}
 
 **Examples:**
 
@@ -305,9 +305,9 @@ To display a user interface button you can use the shortcode `stroom-btn` with t
 * `filename` - Optional.
   Filename of an icon to use next to the text, e.g. `undo.svg`.
 
-{{% note %}}
+{{< note >}}
 If the _title_ is `OK`, `Close` or `Cancel` then the type and filename do not need to be set as they will be set automatically.
-{{% /note %}}
+{{< /note >}}
 
 **Examples:**
 

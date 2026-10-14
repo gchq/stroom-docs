@@ -13,8 +13,8 @@ description: >
 Stroom-Proxy has been re-written to fundamentally change the way it works internally.
 This is to improve performance over previous Stroom-Proxy implementations and to make it more robust.
 
-{{% todo %}}
-{{% /todo %}}
+{{< todo >}}
+{{< /todo >}}
 
 
 ## Reporting

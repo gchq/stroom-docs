@@ -18,7 +18,7 @@ The order below is the one that most installations will want to follow.
 1. [Creating the First Administrator]({{< relref "create-first-admin" >}}) - giving the new installation somebody who can log in and administer it.
 1. [Securing Stroom]({{< relref "securing-stroom" >}}) - hardening the deployment.
 
-{{% note %}}
+{{< note >}}
 Creating the first administrator is easily missed.
 A new installation normally has no administrator at all, so until that step is done nobody can log in and configure Stroom.
-{{% /note %}}
+{{< /note >}}

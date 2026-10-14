@@ -62,7 +62,7 @@ Example output:
 {"discoverTime":"2022-02-16T17:28:37.710Z","buildInfo":{"buildDate":"2022-01-19T15:27:25.024677714Z","buildVersion":"7.0-beta.175","upDate":"2022-02-16T09:28:11.733Z"},"nodeName":"node1a","endpointUrl":"http://192.168.1.64:8080","itemList":[{"nodeName":"node1a","active":true,"master":true}],"ping":2}
 ```
 
-{{% warning %}}
+{{< warning >}}
 The `--insecure` argument is used in this example which means certificate verification will not take place.
 It is recommended not to use this argument and instead supply curl with client and certificate authority certificates to make a secure connection.
 
@@ -77,7 +77,7 @@ curl \
   https://stroom-fqdn/api/some/path
 {{</ command-line >}}
 
-{{% /warning %}}
+{{< /warning >}}
 
 You can either call the API via Nginx (or similar reverse proxy) at `https://stroom-fqdn/api/some/path` or if you are making the call from one of the stroom hosts you can go direct using `http://localhost:8080/api/some/path`.
 The former is preferred as it is more secure.
@@ -126,7 +126,7 @@ curl \
 
 This API method returns plain text or XML depending on the reference data value.
 
-{{% note %}}
+{{< note >}}
 This assumes you are using `curl` version `7.82.0` or later that supports the `--json` argument.
 If not you will need to replace `--json` with `--data` and add these arguments:
 
@@ -134,7 +134,7 @@ If not you will need to replace `--json` with `--data` and add these arguments:
 --header "Content-Type: application/json"
 --header "Accept: application/json"
 ```
-{{% /note %}}
+{{< /note >}}
 
 
 ## Handling JSON

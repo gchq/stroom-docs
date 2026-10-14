@@ -20,8 +20,8 @@ For example, in this snippet of an XML document, the aliases are: `stroom`, `evt
   version="2.0">
 ```
 
-{{% see-also %}}
+{{< see-also >}}
 * {{< external-link "XML Namespace" "https://www.w3schools.com/xml/xml_namespaces.asp" >}}
 * {{< glossary "XSLT" >}}
-{{% /see-also %}}
+{{< /see-also >}}
 

@@ -161,10 +161,10 @@ Note also, that Standalone or Forwarding Stroom Proxy deployments do __NOT__ nee
 
 ### Entropy Issues in Virtual Environments
 
-{{% todo %}}
+{{< todo >}}
 This section is likely out of date due to changes in the Linux kernel and how _SecureRandom_ is implemented.
 Unless you are experiencing delays, there is no need to install `haveged`.
-{{% /todo %}}
+{{< /todo >}}
 
 Both the Stroom Application and Stroom Proxy currently run on Tomcat (Version 7) which relies on the Java SecureRandom class to provide
 random values for any generated session identifiers as well as other components.

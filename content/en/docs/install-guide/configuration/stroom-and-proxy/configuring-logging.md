@@ -23,11 +23,11 @@ Typical _Appenders_ are:
 * Console - appends messages to `stdout`.
 * Syslog - appends messages to `syslog`.
 
-{{% see-also %}}
+{{< see-also >}}
 Dropwizard's logging configuration reference can be found {{< external-link "here" "https://www.dropwizard.io/en/stable/manual/core.html#logging" >}}.
 
 Logback documentation can be found {{< external-link "here" "https://logback.qos.ch/manual/appenders.html" >}}.
-{{% /see-also %}}
+{{< /see-also >}}
 
 
 ## Types of Logging
@@ -105,9 +105,9 @@ A logger defines what will be logged.
 It is essentially a combination of an identity and a log level.
 The identity can be a Class name (e.g. `stroom.security.impl.SecurityFilter`), a package name (e.g. `stroom.security`) or a custom logger name (e.g. `event-logging`).
 
-{{% note %}}
+{{< note >}}
 It is likely that you will not need to change the log settings unless specifically asked to by one of the developers or you have a good understanding of the underlying application code.
-{{% /note %}}
+{{< /note >}}
 
 The following is an example of logging configuration:
 
@@ -186,9 +186,9 @@ logging:
 ```
 
 
-{{% see-also %}}
+{{< see-also >}}
 For a detailed description of the logging configuration, see {{< external-link "Dropwizard Logging Configuration" "https://www.dropwizard.io/en/stable/manual/configuration.html#logging" >}}.
-{{% /see-also %}}
+{{< /see-also >}}
 
 
 ### Console Appender
@@ -285,11 +285,11 @@ Setting a file extension of `.zip` will also instruct the file appender to compr
   * `logs/app/app-%i.log.gz` - Size rolled files.
     See warning below.
 
-{{% warning %}}
+{{< warning >}}
 Rolling based on size alone is not recommended as this involves renaming all the existing rolled files on each roll event.
 From the Logback documentation:
 >Given that file renaming is a relatively slow process and is fraught with problems, we consider FixedWindowRollingPolicy as a deprecated policy and do not recommend its use.
-{{% /warning %}}
+{{< /warning >}}
 
 
 #### `archivedFileCount`
@@ -320,13 +320,13 @@ logs/app/app-4.log.gz
 logs/app/app-5.log.gz
 ```
 
-{{% warning %}}
+{{< warning >}}
 Log file rolling is event based, so a file will only roll when a new message arrives that would require a roll to happen.
 This means that if the application is idle for a long period with no log output then the un-rolled file will remain active until a new message arrives to trigger it to roll.
 For example, if Stroom is unused overnight, then the last log message from the night before will not be rolled until a new messages arrive in the morning.
 
 For this reason, `archivedFileCount` should be set to a value that is greater than the maximum time the application may be idle, else rolled log files may be deleted as soon as they are rolled.
-{{% /warning %}}
+{{< /warning >}}
 
 
 #### `totalSizeCap`
@@ -359,13 +359,13 @@ The format for an access/request log.
 
 `%h %l "%u" [%t] "%r" %s %b "%i{Referer}" "%i{User-Agent}" %D`
 
-{{% note %}}
+{{< note >}}
 If the value of `%msg` contains new line characters then a log message can span multiple lines.
-{{% /note %}}
+{{< /note >}}
 
-{{% see-also %}}
+{{< see-also >}}
 For details of the pattern variables used in `logFormat` value, see {{< external-link "Logback Pattern Layout" "https://logback.qos.ch/manual/layouts.html#ClassicPatternLayout" >}}.
-{{% /see-also %}}
+{{< /see-also >}}
 
 
 ### JSON Logging

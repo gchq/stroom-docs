@@ -9,6 +9,6 @@ description: >
 
 Typically in Stroom an _Events_ stream will contain data conforming to the {{< external-link "event-logging XML Schema" "https://github.com/gchq/event-logging-schema" >}} which provides a normalised form for all {{< glossary "Raw Events" >}} to be transformed into.
 
-{{% see-also %}}
+{{< see-also >}}
 {{< glossary "Stream Type">}}
-{{% /see-also %}}
+{{< /see-also >}}

@@ -13,9 +13,9 @@ Upgrading the Operator can be performed without disrupting any resources it cont
 
 To perform the upgrade, follow the same steps in [Installing the Stroom K8s Operator]({{< relref "install-operator" >}}).
 
-{{% warning %}}
+{{< warning >}}
 Ensure you do NOT delete the operator first (i.e. `kubectl delete ...`)
-{{% /warning %}}
+{{< /warning >}}
 
 Once you have initiated the update (by executing `kubectl apply -f all-in-one.yaml`), an instance of the new Operator version will be created.
 Once it starts up successfully, the old instance will be removed.

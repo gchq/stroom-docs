@@ -11,10 +11,10 @@ description: >
 
 ---
 
-{{% see-also %}}
+{{< see-also >}}
 [MySQL Server Setup]({{< relref "../setup/mysql-server-setup.md" >}})
 {{< external-link "MySQL Server Administration" "https://dev.mysql.com/doc/refman/8.0/en/server-administration.html" >}}
-{{% /see-also %}}
+{{< /see-also >}}
 
 
 ## General Configuration
@@ -47,9 +47,9 @@ MySQL is configured via the `.cnf` file which is typically located in one of the
   _Note_: `innodb_buffer_pool_size` must be set to a value that is equal to or a multiple of `innodb_buffer_pool_chunk_size * innodb_buffer_pool_instances`.
   See also {{< external-link "Configuring InnoDB Buffer Pool Size" "https://dev.mysql.com/doc/refman/8.0/en/innodb-buffer-pool-resize.html" >}}
 
-{{% todo %}}
+{{< todo >}}
 Add additional key configuration items
-{{% /todo %}}
+{{< /todo >}}
 
 
 ## Deploying without Docker

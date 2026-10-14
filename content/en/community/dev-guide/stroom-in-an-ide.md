@@ -144,13 +144,13 @@ The pros/cons of using the embedded instance are:
 
 If you need to work from a clean slate and you are using the container based MySQL you can run the following:
 
-{{% warning %}}
+{{< warning >}}
 This script will delete ALL containers running/stopped whether related to Stroom or not.
 It is essentially a clean slate for your docker environment.
 If you are running other unrelated containers, don't run this.
 
 It will also delete all stroom state held on the filesystem, i.e. the stream store and lucene index shards.
-{{% /warning %}}
+{{< /warning >}}
 
 {{< command-line "dev" "localhost" >}}
 pwd
@@ -230,11 +230,11 @@ You can now interact with Stroom and set breakpoints in Java code.
 Note that setting breakpoints in any of the java code in modules suffixed with `-client` (i.e. client side GWT Java code) does not have any effect, as these components are compiled to static JavaScript.
 Breakpoints in modules ending `-shared` will only have an effect **if** you are debugging server side code.
 
-{{% note %}}
+{{< note >}}
 Stroom has been written with Google's Chrome browser in mind so has only been tested on Chrome.
 Behaviour in other browsers may vary.
 We would like to improve cross-browser support so please let us know about any browser incompatibilities that you find.
-{{% /note %}}
+{{< /note >}}
 
 
 ### Starting the Super Dev Mode Compiler

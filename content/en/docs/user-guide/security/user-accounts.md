@@ -11,10 +11,10 @@ description: >
   User accounts for authentication when using Stroom's internal identity provider.
 ---
 
-{{% note %}}
+{{< note >}}
 If Stroom is configured to use an external {{< glossary "idp" >}} (e.g. Azure Active Directory or AWS Cognito) then all user accounts are managed within that {{< glossary "idp" >}} and the Manage Accounts screen in Stroom will not be available.
 For more details about external Identity Providers, see [Open ID Connect]({{< relref "docs/install-guide/setup/open-id" >}}).
-{{% /note %}}
+{{< /note >}}
 
 
 ## Accounts vs Stroom Users
@@ -65,14 +65,14 @@ A disabled account cannot be recovered by the user under any circumstances.
 Waiting will not release it and a password reset will not release it.
 This makes disabling the right action whenever someone must be prevented from signing in, whether temporarily, for example while they are on extended leave, or permanently.
 
-{{% warning %}}
+{{< warning >}}
 Disabling an account stops that person signing in again.
 It does not end the sessions they already hold, nor revoke the tokens they are already using, so somebody who is signed in at the time may carry on working.
 
 To end access that is already in progress, disable the corresponding Stroom {{< glossary "user" >}} rather than, or as well as, the account.
 Disabling a user ends their sessions across the cluster and revokes their tokens.
 See [Sessions and Tokens]({{< relref "sessions-and-tokens" >}}) for how the two differ and when each is appropriate.
-{{% /warning %}}
+{{< /warning >}}
 
 
 ### Locked
@@ -145,7 +145,7 @@ Those two states are applied by Stroom in response to something it has observed,
 Requiring a password change at the next sign in can safely be combined with setting a password in the same save.
 The requirement is kept rather than being cleared by the password change.
 
-{{% see-also %}}
+{{< see-also >}}
 [Signing In]({{< relref "signing-in" >}})
 [Sessions and Tokens]({{< relref "sessions-and-tokens" >}})
-{{% /see-also %}}
+{{< /see-also >}}

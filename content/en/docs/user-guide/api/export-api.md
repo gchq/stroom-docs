@@ -41,9 +41,9 @@ curl \
   https://stroom-fqdn/api/export/v1/
 {{</ command-line >}}
 
-{{% note %}}
+{{< note >}}
 If you encounter problems then replace `--silent` with `--verbose` to get more information.
-{{% /note %}}
+{{< /note >}}
 
 
 ## Export Zip Format

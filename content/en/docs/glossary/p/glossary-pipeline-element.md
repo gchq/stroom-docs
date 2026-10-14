@@ -5,8 +5,8 @@ description: >
   An element within a _Pipeline_ that performs some action on the data flowing through it.
 ---
 
-{{% see-also %}}
+{{< see-also >}}
 * [Pipeline Element Reference]({{< relref "docs/reference-section/pipeline-elements" >}})
 * {{< glossary "Pipeline" >}}
-{{% /see-also %}}
+{{< /see-also >}}
 

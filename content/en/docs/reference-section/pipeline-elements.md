@@ -130,10 +130,10 @@ If no Reader is used before the Parser, the Parser will also do the job of a sim
 The original general-purpose reader/parser that covers all source data types but provides less flexibility than the source format-specific parsers such as dsParser.
 It effectively combines a BOMRemovalFilterInput, an InvalidCharFilterReader and Parser (based on the `type` property.
 
-{{% warning %}}
+{{< warning >}}
 It is strongly recommended to instead use a combination of Readers and one of the type specific Parsers.
 This will make the intent of the pipeline much clearer and allow for much greater control.
-{{% /warning %}}
+{{< /warning >}}
 
 
 **Element properties:**

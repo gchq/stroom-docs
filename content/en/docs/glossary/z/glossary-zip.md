@@ -6,7 +6,7 @@ description: >
   Stroom and Stroom Proxy use the ZIP format for exporting content and data as well as its Proxy ZIP format for holding multiple streams of data with associated meta data.
 ---
 
-{{% see-also %}}
+{{< see-also >}}
 [Stroom ZIP Format]({{< relref "docs/sending-data/payloads#stroom-zip-format" >}})
-{{% /see-also %}}
+{{< /see-also >}}
 

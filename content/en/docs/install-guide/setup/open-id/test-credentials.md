@@ -11,13 +11,13 @@ description: >
 Stroom offers an optional shared secret that allows Stroom-Proxy, or a test script, to authenticate to Stroom as the internal processing user without an identity provider being involved.
 It exists so that a test or demonstration stack can function without standing up a real {{< glossary "idp" >}}.
 
-{{% warning %}}
+{{< warning >}}
 This is totally insecure.
 Anything holding the secret is treated as Stroom's own processing user, which is the most privileged identity in the system.
 
 It must never be enabled in production.
 To configure secure authentication see [Internal IDP]({{< relref "internal-idp" >}}) or [External IDP]({{< relref "external-idp" >}}).
-{{% /warning %}}
+{{< /warning >}}
 
 
 ## Enabling the Test Credential

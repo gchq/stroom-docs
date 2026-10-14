@@ -6,9 +6,9 @@ description: >
   It is sometimes referred to as just _Meta_.
 ---
 
-{{% see-also %}}
+{{< see-also >}}
 * {{< glossary "Stream" >}}
 * [Metadata]({{< relref "docs/user-guide/concepts/streams#meta-data" >}})
-{{% /see-also %}}
+{{< /see-also >}}
 
 

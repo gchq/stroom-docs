@@ -66,19 +66,19 @@ Year         | NO        | empty, 1970-2099 | , - * /
   However if you specify `1W` as the value for day-of-month, and the 1st is a Saturday, the trigger will fire on Monday the 3rd, as it will not ‘jump’ over the boundary of a month’s days.
   The ‘W’ character can only be specified when the day-of-month is a single day, not a range or list of days.
 
-  {{% note %}}
+  {{< note >}}
   The 'L' and 'W' characters can also be combined in the day-of-month field to yield 'LW', which translates to *"last weekday of the month"*.
-  {{% /note %}}
+  {{< /note >}}
 
 * `#` - used to specify _the nth_ XXX day of the month.
   For example, the value of `6#3` in the day-of-week field means _the third Friday of the month_ (day 6 = Friday and `#3` = the 3rd one in the month).
   Other examples: `2#1` = the first Monday of the month and `4#5` = the fifth Wednesday of the month.
   Note that if you specify `#5` and there is not 5 of the given day-of-week in the month, then no firing will occur that month.
 
-  {{% note %}}
+  {{< note >}}
   The legal characters and the names of months and days of the week are not case sensitive.
   MON is the same as mon.
-  {{% /note %}}
+  {{< /note >}}
 
 
 ## Examples

@@ -6,7 +6,7 @@ description: >
   Content can be created/modified by Stroom users and imported/exported for sharing between different Stroom instances.
 ---
 
-{{% see-also %}}
+{{< see-also >}}
 [User Content]({{< relref "docs/user-guide/content/" >}})
-{{% /see-also %}}
+{{< /see-also >}}
 

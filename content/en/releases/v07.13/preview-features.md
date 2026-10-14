@@ -22,9 +22,9 @@ Ask Stroom AI, introduced as a preview feature in v7.11, has been substantially 
 
 The chat history is held in the database, which is why a new `ai` configuration branch appears in this release.
 
-{{% see-also %}}
+{{< see-also >}}
 [Upgrade Notes]({{< relref "./upgrade-notes" >}})
-{{% /see-also %}}
+{{< /see-also >}}
 
 
 ## Dense Vector Search

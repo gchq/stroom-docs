@@ -57,9 +57,9 @@ Array of strings
 </map>
 ```
 
-{{% note %}}
+{{< note >}}
 It is recommended to insert a schema validation filter into your pipeline XML (with schema group `JSON`), to make it easier to diagnose JSON conversion errors.
-{{% /note %}}
+{{< /note >}}
 
 We will now explore how to create an Elasticsearch *index template*, which specifies field mappings and settings for one or more indices.
 
@@ -71,10 +71,10 @@ For information on what index and component templates are, consult the Elastic {
 When Elasticsearch first receives a document from Stroom targeting an index, whose name matches any of the `index_patterns` entries in the index template, it will create a new index / data stream using the `settings` and `mappings` properties from the template.
 In this way, the index does _not_ need to be manually created in advance.
 
-{{% note %}}
+{{< note >}}
 If an index doesn't match a template when it is created, data will still be indexed - with default mappings and settings.
 This may be appropriate for small indices, but with a default shard count of `5`, the indexing and search performance will likely be inadequate for large indices.
-{{% /note %}}
+{{< /note >}}
 
 The following example creates a basic index template `stroom-events-v1` in a local Elasticsearch cluster, with the following explicit field mappings:
 
@@ -87,11 +87,11 @@ The following example creates a basic index template `stroom-events-v1` in a loc
    Supports full-text search.
    Nested field `wildcard` {{< external-link "supports regexp queries" "https://www.elastic.co/guide/en/elasticsearch/reference/current/keyword.html#wildcard-field-type" >}}.
 
-{{% note %}}
+{{< note >}}
 Elasticsearch does not have a dedicated `array` field mapping data type.
 An Elasticsearch field may contain zero or more values by default.
 See: {{< external-link "Arrays" "https://www.elastic.co/guide/en/elasticsearch/reference/current/array.html" >}} in the Elastic documentation.
-{{% /note %}}
+{{< /note >}}
 
 In Kibana Dev Tools, execute the following query:
 
@@ -218,10 +218,10 @@ There are cases however, where indices may contain significant volumes of data s
 As Elasticsearch data stream indices roll over based on the current time (not event time), it is helpful to be able to partition data streams by user-defined properties such as year.
 This use case is met by Stroom's dynamic index naming.
 
-{{% note %}}
+{{< note >}}
 An Elasticsearch {{< external-link "data stream" "https://www.elastic.co/guide/en/elasticsearch/reference/current/data-streams.html" >}} consists of one or more backing indices, which automatically roll over once a size or date threshold are met.
 This abstraction assists with the lifecycle management of time-series log data, enabling users to define time and sized-based rules that can for instance, delete indices after they reach a certain age - or move older indices to different data tiers (e.g. cold storage).
-{{% /note %}}
+{{< /note >}}
 
 
 #### Single Named Index or Data Stream
@@ -231,10 +231,10 @@ Whether data is written to an actual _index_ or _data stream_ depends on your in
 If this property exists in the index template matching `indexName`, a data stream is created when the first document is indexed.
 Data streams, amongst many other features, provide the option to use Elasticsearch {{< external-link "Index Lifecycle Management (ILM) policies" "https://www.elastic.co/guide/en/elasticsearch/reference/current/index-lifecycle-management.html" >}} to manage their lifecycle.
 
-{{% note %}}
+{{< note >}}
 When indexing to a data stream, ensure to include a `string` field named `@timestamp` in the output JSON XML.
 This is mandatory and indexing will fail if this field isn't a valid `date` value.
-{{% /note %}}
+{{< /note >}}
 
 
 #### Dynamic Data Stream Names
@@ -261,14 +261,14 @@ For example, if the JSON XML representation of an event consists of the followin
 This is due to the value of `/map/number[@key='year']` being `2022`.
 This approach can be useful when you need to apply different ILM policies, such as maintaining older data on slower storage tiers.
 
-{{% warning %}}
+{{< warning >}}
 Any element names defined in `indexName` _must_ exist in the JSON XML (unless it is an empty document).
 If a blank value is desired, output an empty `string` element.
-{{% /warning %}}
+{{< /warning >}}
 
-{{% note %}}
+{{< note >}}
 If an element name begins with `_` (underscore), its value is _only_ used for `indexName` interpolation, and it is **not** included in the final JSON.
-{{% /note %}}
+{{< /note >}}
 
 
 ##### Other Applications for Dynamic Data Stream Names
@@ -411,10 +411,10 @@ You can monitor indexing status via your Elasticsearch monitoring tool of choice
 If any errors occur while a stream is being indexed, an `Error` stream is created, containing details of each failure.
 `Error` streams can be found under the `Data` tab of either the indexing pipeline or receiving `Feed`.
 
-{{% note %}}
+{{< note >}}
 You can filter the selected pipeline or feed to list only `Error` streams.
 Click {{< stroom-icon "filter.svg" "Filter" >}} then add a condition `Type` `=` `Error`.
-{{% /note %}}
+{{< /note >}}
 
 Once you have addressed the underlying cause for a particular type of error (such as an incorrect field mapping), reprocess affected streams:
 
@@ -476,7 +476,7 @@ This approach involves the following steps:
 If you created a data view in Kibana, you'll also want to update this to point to the new index / data stream.
 
 
-{{% see-also %}}
+{{< see-also >}}
 1. [Searching an Elasticsearch index in a Dashboard]({{< relref "elastic-data-source.md" >}})
 1. [Exploring data with Kibana]({{< relref "kibana.md" >}})
-{{% /see-also %}}
+{{< /see-also >}}

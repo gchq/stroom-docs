@@ -150,7 +150,7 @@ Pipelines can be linear or branching and support inheritance of other pipelines 
 The Pipeline Document defines the structure of the pipeline and the configuration of each of the elements in that pipeline.
 It also defines the filter(s) that will be used to control what data is passed through the pipeline and the priority of processing.
 The Pipeline Document can be used to view the data produced by the pipeline and to monitor its processing state and progress.
-{{% see-also %}}[Pipelines]({{< relref "docs/user-guide/pipelines" >}}){{% /see-also %}}
+{{< see-also >}}[Pipelines]({{< relref "docs/user-guide/pipelines" >}}){{< /see-also >}}
 
 
 ## Indexing
@@ -166,7 +166,7 @@ Documents relating to the process of adding data into an index, such as Lucene o
 Defines an index that exists within an Elasticsearch cluster.
 This Document is used in the configuration of the {{< pipe-elm "ElasticIndexingFilter" >}} pipeline element.
 
-{{% see-also %}}[Elasticsearch]({{< relref "docs/user-guide/indexing/elasticsearch" >}}){{% /see-also %}}
+{{< see-also >}}[Elasticsearch]({{< relref "docs/user-guide/indexing/elasticsearch" >}}){{< /see-also >}}
  
 
 ### Lucene Index
@@ -184,7 +184,7 @@ It also allows for configuration of the way the data in the index will be stored
 
 The Lucene Index Document is used by the {{< pipe-elm \"IndexingFilter\" >}} and {{< pipe-elm "DynamicIndexingFilter" >}} pipeline elements.
 
-{{% see-also %}}[Lucene Indexes]({{< relref "docs/user-guide/indexing/lucene" >}}){{% /see-also %}}
+{{< see-also >}}[Lucene Indexes]({{< relref "docs/user-guide/indexing/lucene" >}}){{< /see-also >}}
  
 
 ### Pathways
@@ -216,7 +216,7 @@ Defines a place to store state
 Solr Index represents an index on a Solr cluster.
 It defines the connection details for connecting to that cluster and the structure of the index.
 It is used by the {{< pipe-elm "SolrIndexingFilter" >}} pipeline element.
-{{% see-also %}}[Solr Integration]({{< relref "docs/user-guide/indexing/solr" >}}){{% /see-also %}}
+{{< see-also >}}[Solr Integration]({{< relref "docs/user-guide/indexing/solr" >}}){{< /see-also >}}
  
 
 ### Statistic Store

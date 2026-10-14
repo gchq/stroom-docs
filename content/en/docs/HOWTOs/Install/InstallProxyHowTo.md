@@ -10,9 +10,9 @@ description: >
   This HOWTO describes the installation and configuration of the Stroom Proxy software.
 ---
 
-{{% todo %}}
+{{< todo >}}
 This section was written for Stroom-Proxy v5, so is out of date.
-{{% /todo %}}
+{{< /todo >}}
 
 
 ## Assumptions

@@ -9,9 +9,9 @@ description: >
 
 ---
 
-{{% note %}}
+{{< note >}}
 This page is currently work in progress and will evolve with further testing of v5 => v7 migrations.
-{{% /note %}}
+{{< /note >}}
 
 {{% page-warning %}}
 Before commencing an upgrade to v7 you must upgrade Stroom to the latest minor and patch version of v5.  
@@ -156,9 +156,9 @@ The following table shows the key configuration properties that need to be set t
 | -                                           | _appConfig.ui.helpUrl_                                      | Set this to the URL of your locally published stroom-docs site.                                                                                                                                                |
 | _stroom.contentPackImportEnabled_           | _appConfig.contentPackImport.enabled_                       |
 
-{{% note %}}
+{{< note >}}
 In the `config.yml` file, properties have a root of `appConfig.` which corresponds to a root of `stroom.` in the UI Properties screen.
-{{% /note %}}
+{{< /note >}}
 
 Some v5 properties, such as connection pool settings cannot be migrated to v7 equivalents.
 It is recommended to review the default values for v7 `appConfig.commonDbDetails.connectionPool.*` and `appConfig.statistics.sql.db.connectionPool.*` properties to ensure they are suitable for your environment.

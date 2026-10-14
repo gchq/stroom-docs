@@ -54,7 +54,7 @@ You will not be asked to change this password again until it reaches the age set
 Load your personal PKI certificate into your browser, selecting it if you hold more than one, then go to the Stroom UI URL.
 Provided you have an account, you are logged in without being asked for a password.
 
-{{% see-also %}}
+{{< see-also >}}
 [Signing In]({{< relref "docs/user-guide/security/signing-in" >}})
 [User Accounts]({{< relref "docs/user-guide/security/user-accounts" >}})
-{{% /see-also %}}
+{{< /see-also >}}

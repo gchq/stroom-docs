@@ -13,14 +13,14 @@ description: >
 This page covers using {{< external-link "Microsoft Entra ID" "https://learn.microsoft.com/en-us/entra/identity-platform/v2-protocols-oidc" >}} as Stroom's {{< glossary "idp" >}}.
 Entra ID is the current name for what was Azure Active Directory, and much of the tooling and documentation still says Azure AD.
 
-{{% see-also %}}
+{{< see-also >}}
 Read [External IDP]({{< relref "docs/install-guide/setup/open-id/external-idp" >}}) first for what Stroom needs from any provider, and [Stroom Configuration]({{< relref "stroom-configuration" >}}) for what each setting does.
-{{% /see-also %}}
+{{< /see-also >}}
 
-{{% note %}}
+{{< note >}}
 This page covers Stroom itself being the OIDC client of Entra ID.
 If an authenticating proxy in front of Stroom does the sign in instead, the proxy is the client and much of this page does not apply - see [AWS Application Load Balancer]({{< relref "docs/install-guide/setup/open-id/edge-proxy/aws-alb#microsoft-entra-id" >}}) or [NGINX and oauth2-proxy]({{< relref "docs/install-guide/setup/open-id/edge-proxy/nginx-oauth2-proxy#entra-id-instead-of-keycloak" >}}).
-{{% /note %}}
+{{< /note >}}
 
 Entra ID has two generations of endpoint, v1.0 and v2.0, which issue tokens with different issuers and different formats.
 Two of the three things most likely to go wrong here come from mixing them up, so it is worth being deliberate: **use the v2.0 endpoints throughout**.
@@ -39,25 +39,25 @@ In the {{< external-link "Microsoft Entra admin centre" "https://entra.microsoft
 
 Where `STROOM_FQDN` is the public address of Stroom, i.e. what you have set as `appConfig.publicUri`.
 
-{{% warning %}}
+{{< warning >}}
 Entra ID matches redirect URIs exactly and does not accept wildcards.
 It also requires `https`, other than for `http://localhost`.
 
 Register the single exact URI above.
 Earlier versions of Stroom sent the user's current page as the redirect URI; if you are upgrading, remove whatever was registered for that.
-{{% /warning %}}
+{{< /warning >}}
 
 Then, still in the app registration:
 
 1. Under _Authentication_, add a **Front-channel logout URL** of `https://STROOM_FQDN/`, and add the same value under _Redirect URIs_ if your tenant requires post logout redirect URIs to be registered.
 1. Under _Certificates & secrets_ => _Client secrets_, create a new secret and copy its **Value** immediately, as it is only shown once.
 
-{{% warning %}}
+{{< warning >}}
 Entra ID client secrets **expire**, with a maximum lifetime of 24 months.
 When the secret expires Stroom will stop being able to exchange authorization codes for tokens and nobody will be able to sign in.
 
 Record the expiry date and plan the rotation, or use certificate credentials instead.
-{{% /warning %}}
+{{< /warning >}}
 
 Entra ID supports PKCE, and Stroom always sends an `S256` challenge, so there is nothing to configure for it.
 
@@ -77,13 +77,13 @@ To get an access token that Stroom can validate, the app registration has to exp
 1. Click _Add a scope_, name it something like `user_impersonation`, and choose who can consent.
 1. Under _Manifest_, set `accessTokenAcceptedVersion` to `2`.
 
-{{% note %}}
+{{< note >}}
 `accessTokenAcceptedVersion` defaults to `null`, which means v1.0.
 A v1.0 access token has an issuer of `https://sts.windows.net/TENANT_ID/`, which does not match the v2.0 issuer that Stroom obtains from the v2.0 discovery document, so such tokens are refused.
 
 Setting it to `2` is the clean fix.
 See [Issuers](#issuers) if you have a reason to stay on v1.0.
-{{% /note %}}
+{{< /note >}}
 
 Callers then request that scope, e.g. `api://CLIENT_ID/user_impersonation`, and the resulting access token carries an `aud` claim that Stroom can be configured to accept.
 
@@ -151,7 +151,7 @@ If you must use v1.0, or you have v1.0 access tokens in circulation from an app 
 
 Stroom then accepts tokens carrying either issuer, so v1.0 and v2.0 tokens can be in use at the same time.
 
-{{% warning %}}
+{{< warning >}}
 When `validIssuers` is set, the issuer advertised by the discovery document must be one of the values in it; the parent path check described above is no longer applied.
 Listing only the v1.0 issuer against the v2.0 discovery endpoint will stop Stroom starting with:
 
@@ -159,14 +159,14 @@ Listing only the v1.0 issuer against the v2.0 discovery endpoint will stop Stroo
 
 Always include the v2.0 issuer alongside the v1.0 one.
 The values must match exactly, including the `/v2.0` suffix on one and the trailing `/` on the other.
-{{% /warning %}}
+{{< /warning >}}
 
 Using the v2.0 endpoints and `accessTokenAcceptedVersion: 2` is much the better answer, in which case `validIssuers` can be omitted altogether.
 
-{{% note %}}
+{{< note >}}
 Do not use the `common` or `organizations` endpoints in place of a tenant id.
 Their discovery documents report an issuer containing a literal `{tenantid}` placeholder rather than a real value, and they allow sign in from any tenant, which is unlikely to be what you want.
-{{% /note %}}
+{{< /note >}}
 
 
 ### Audience Validation
@@ -176,10 +176,10 @@ An Entra ID **id_token** carries `aud` set to the Application (client) ID, so in
 An **access token** for your exposed API carries `aud` set to either the Application ID URI or the client id, depending on `accessTokenAcceptedVersion` and how the scope was requested.
 Listing both in `allowedAudiences`, as above, covers either.
 
-{{% warning %}}
+{{< warning >}}
 Do not simply set `audienceClaimRequired: false` to make a rejection go away.
 Entra ID does populate the audience claim, so an absent one means the token is not the one you think it is, most likely a Microsoft Graph token, and loosening the check hides that rather than fixing it.
-{{% /warning %}}
+{{< /warning >}}
 
 Leave `validateAudience` at its default of `true`.
 
@@ -203,12 +203,12 @@ For `uniqueIdentityClaim` you have a choice:
 `sub` is fine if you are confident the app registration will not be recreated.
 The example above uses `oid`; remove that line to keep the default of `sub`.
 
-{{% warning %}}
+{{< warning >}}
 Whichever you choose, decide before the first user signs in.
 Changing it later means every existing Stroom user is orphaned, and their permissions and group memberships have to be reapplied to the new identities.
 
 Do not use `preferred_username`, `email` or `upn`; all can be reassigned to a different person, who would then inherit the Stroom user.
-{{% /warning %}}
+{{< /warning >}}
 
 
 ### Group and Role Claims
@@ -247,9 +247,9 @@ java -jar /absolute/path/to/stroom-app-all.jar \
 The command is repeatable and will skip anything that already exists, so running it against a user who has already signed in is fine.
 Restart Stroom afterwards if it was running, as permissions are cached.
 
-{{% see-also %}}
+{{< see-also >}}
 See [KeyCloak]({{< relref "keycloak#setting-up-the-admin-user-in-stroom" >}}) for a fuller description of what this command does, and [Command Line Tools]({{< relref "docs/user-guide/tools/command-line" >}}) for its options.
-{{% /see-also %}}
+{{< /see-also >}}
 
 
 ## Stroom-Proxy with Entra ID
@@ -278,10 +278,10 @@ Entra ID's client credentials flow uses the `.default` scope of the target API:
           - "api://CLIENT_ID/.default"
 ```
 
-{{% note %}}
+{{< note >}}
 Stroom's default for `clientCredentialsScopes` is `openid`, and its configuration description suggests setting `openid` alongside the `.default` scope.
 Entra ID's v2.0 client credentials flow generally accepts a `.default` scope on its own and rejects it being combined with others, so start with just the `.default` scope as above and add `openid` only if your tenant requires it.
-{{% /note %}}
+{{< /note >}}
 
 The destination the proxy forwards to must accept the audience these tokens carry, which will be the Application ID URI or client id of the Stroom app registration, so make sure it appears in that destination's `allowedAudiences`.
 
@@ -364,9 +364,9 @@ curl \
 
 Tokens are short lived, typically around an hour, so a sender must request a fresh token when `expires_in` has elapsed or a request is refused with a `401`, rather than caching one indefinitely.
 
-{{% see-also %}}
+{{< see-also >}}
 See [curl (Linux)]({{< relref "docs/sending-data/example-clients/curl-linux" >}}) for more on sending data with curl.
-{{% /see-also %}}
+{{< /see-also >}}
 
 
 ### Checking the Token
