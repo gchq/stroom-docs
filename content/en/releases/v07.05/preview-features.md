@@ -11,8 +11,8 @@ description: >
 
 ## State Store
 
-{{% todo %}}
+{{< todo >}}
 Work in progress
-{{% /todo %}}
+{{< /todo >}}
 
 * Issue **{{< external-link "#2126" "https://github.com/gchq/stroom/issues/2126" >}}** : Add experimental state store.

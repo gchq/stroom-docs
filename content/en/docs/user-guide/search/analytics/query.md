@@ -17,9 +17,9 @@ It is the same query editor used by the [Query]({{< relref "docs/user-guide/sear
 This is the single most important thing to understand about a rule.
 A query that returns a million rows will raise a million detections, so it is worth running the query and looking at the row count before enabling the rule.
 
-{{% see-also %}}
+{{< see-also >}}
 [Stroom Query Language]({{< relref "docs/user-guide/search/queries/stroom-query-language" >}})
-{{% /see-also %}}
+{{< /see-also >}}
 
 
 ## Choosing a Data Source
@@ -29,9 +29,9 @@ A rule query can use any data source that a Query document can use, but the choi
 * A _Scheduled Query_ rule can query anything, including {{< glossary "Searchable" "Searchables" >}} and Lucene indexes.
 * A _Streaming_ rule must query a View {{< stroom-icon "document/View.svg" >}}, because the View's filter is what decides which streams are fed through the rule.
 
-{{% see-also %}}
+{{< see-also >}}
 [Data Sources]({{< relref "docs/user-guide/search/data-sources" >}})
-{{% /see-also %}}
+{{< /see-also >}}
 
 
 ## Time Ranges and Relative Times
@@ -45,16 +45,16 @@ This is what makes it possible for a rule to work through history.
 A rule whose query says `where EventTime >= day() - 1d` will, when it runs for an effective time of last Tuesday, select last Monday's data.
 The same query run for an effective time of today selects yesterday's data.
 
-{{% note %}}
+{{< note >}}
 The effective execution time is not the same as the wall clock time at which the rule ran.
 The difference matters whenever a rule is catching up, being replayed, or running over a historic period.
 Both times are recorded on every detection, as `effectiveExecutionTime` and `executionTime`.
-{{% /note %}}
+{{< /note >}}
 
-{{% see-also %}}
+{{< see-also >}}
 [Date Expressions]({{< relref "docs/reference-section/dates#date-expressions" >}})
 [Execution]({{< relref "execution" >}})
-{{% /see-also %}}
+{{< /see-also >}}
 
 
 ## Columns
@@ -72,14 +72,14 @@ Column     | Treatment
 Including `StreamId` and `EventId` in the query is what allows a detection to link back to the {{< glossary "Event" >}} that caused it.
 Without them the detection still carries all its other values, but there is nothing to click through to.
 
-{{% warning %}}
+{{< warning >}}
 Column names become keys in the email template context, so it pays to choose names that are easy to reference.
 A column named `Source IP` has to be written as `values['Source IP']` in a template, whereas `SourceIp` can be written as `values.SourceIp`.
-{{% /warning %}}
+{{< /warning >}}
 
-{{% see-also %}}
+{{< see-also >}}
 [Detections]({{< relref "detections" >}})
-{{% /see-also %}}
+{{< /see-also >}}
 
 
 ## Table Preferences

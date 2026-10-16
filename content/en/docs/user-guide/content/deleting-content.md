@@ -42,10 +42,10 @@ When you delete something that nothing else depends on, Stroom simply asks you t
 When it does have dependants, the confirmation becomes a warning telling you that the item is used by other items and that deleting it may break them.
 The dependants are listed so that you can see what would be affected before deciding.
 
-{{% note %}}
+{{< note >}}
 The list only names the dependants you have permission to see.
 If others exist that you cannot see, you are told that they exist without being told what they are, so the warning is never misleadingly short.
-{{% /note %}}
+{{< /note >}}
 
 If Stroom cannot work out what would be affected, it says so rather than implying that nothing would be, and leaves the decision with you.
 
@@ -66,7 +66,7 @@ Deleting a document does not immediately remove it from the database.
 It is marked as deleted, and physically removed later by the _Doc Store - Physical Delete_ job once it has been in that state for longer than `stroom.docstore.physicalDeleteAge`, which defaults to 30 days.
 
 
-{{% see-also %}}
+{{< see-also >}}
 * [Document History]({{< relref "document-history" >}})
 * [Import and Export]({{< relref "import-export" >}})
-{{% /see-also %}}
+{{< /see-also >}}

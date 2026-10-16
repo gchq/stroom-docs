@@ -16,9 +16,9 @@ The provider specific pages give the values to put in it for a given {{< glossar
 All of these settings live under `security.authentication.openId` in the `config.yml` file, beneath `appConfig` for Stroom and `proxyConfig` for Stroom-Proxy.
 The structure is identical for both.
 
-{{% note %}}
+{{< note >}}
 `identityProviderType` cannot be changed at runtime; the application must be restarted for a change to take effect.
-{{% /note %}}
+{{< /note >}}
 
 
 ## A Minimal Configuration
@@ -69,10 +69,10 @@ identityProviderType: EXTERNAL_IDP
 
 Setting this to `EXTERNAL_IDP` makes `openIdConfigurationEndpoint` mandatory; Stroom will refuse to start without it.
 
-{{% note %}}
+{{< note >}}
 A `TEST_CREDENTIALS` value existed in earlier versions and has been removed, along with the hard coded credentials behind it.
 The replacement is described in [Insecure Test Credential]({{< relref "docs/install-guide/setup/open-id/test-credentials" >}}).
-{{% /note %}}
+{{< /note >}}
 
 
 ## Endpoints
@@ -115,10 +115,10 @@ The client, sometimes called an application, registered at the provider.
 
 `clientSecret` may be left unset when the provider authenticates Stroom by mutual TLS instead of a secret.
 
-{{% warning %}}
+{{< warning >}}
 The client secret is a credential.
 Supply it through an environment variable or your secret management system rather than committing it to `config.yml`, and rotate it if it is ever exposed.
-{{% /warning %}}
+{{< /warning >}}
 
 
 ### `requestScopes`
@@ -174,10 +174,10 @@ validateAudience: true
 On by default.
 The audience is checked against `allowedAudiences`, or against `clientId` when `allowedAudiences` is empty.
 
-{{% warning %}}
+{{< warning >}}
 Setting this to `false` disables audience checking altogether and is not recommended.
 Any token that any application at the same provider can obtain would then be accepted by Stroom.
-{{% /warning %}}
+{{< /warning >}}
 
 With `identityProviderType: EXTERNAL_IDP` and `validateAudience` left on, at least one of `allowedAudiences` or `clientId` must be set.
 Stroom refuses to start otherwise, rather than letting mandatory validation quietly become a no-op.
@@ -206,7 +206,7 @@ On by default: a token with no `aud` claim at all is refused.
 Set it to `false` only for a provider that omits the claim from its access tokens, Cognito being the obvious example.
 Doing so does not disable validation; an `aud` claim, where one is present, still has to match.
 
-{{% warning %}}
+{{< warning >}}
 The default changed from `false` to `true`, and an empty `allowedAudiences` used to mean no audience checking rather than checking against the client id.
 
 On upgrade, a deployment whose provider does not put the Stroom client id in the `aud` claim of its access tokens will start rejecting API calls that previously worked.
@@ -214,7 +214,7 @@ Interactive sign in is unaffected, because `id_token`s always carry the client i
 
 The fix is either to make the provider issue the right audience, which is preferable, or to list what it does issue in `allowedAudiences`.
 See the provider pages for which applies to you.
-{{% /warning %}}
+{{< /warning >}}
 
 
 ## Token Validation
@@ -294,9 +294,9 @@ fullNameClaimTemplate: '${name}'
 Builds the user's full name from claim values, for example `'${given_name} ${family_name}'`.
 Claim names are case sensitive.
 
-{{% note %}}
+{{< note >}}
 Use single quotes in the YAML file, otherwise the `${...}` variables are expanded when the configuration file is loaded rather than when a user signs in.
-{{% /note %}}
+{{< /note >}}
 
 
 ## AWS Load Balancer Authentication
@@ -362,9 +362,9 @@ Where the proxy forwards data to another proxy or to Stroom, it can attach a tok
 The client used by the proxy needs the client credentials grant enabled at the provider, and the destination must be willing to accept the audience that grant produces.
 Not every provider supports issuing an OIDC token for a client credentials grant, so check the provider page.
 
-{{% see-also %}}
+{{< see-also >}}
 See [Common Configuration]({{< relref "docs/install-guide/configuration/stroom-and-proxy/common-configuration#open-id-configuration" >}}) for this configuration block in the context of the whole file.
-{{% /see-also %}}
+{{< /see-also >}}
 
 
 ## Troubleshooting

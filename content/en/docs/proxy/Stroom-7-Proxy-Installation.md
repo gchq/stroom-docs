@@ -23,13 +23,13 @@ Stroom-Proxy can be installed in 4 main ways:
 
 The document will cover the installation and configuration of the Stroom-Proxy software for both the 'app' and Docker stack deployments.
 
-{{% note %}}
+{{< note >}}
 Older versions of Stroom-Proxy 'sent' data to Stroom by being co-located with Stroom and using a shared repository location.
 Stroom-Proxy would write to the repository and Stroom would retrieve data from there.
 
 This method is no longer used.
 Current versions of Stroom-Proxy forward data to Stroom over HTTP so do not need to be co-located with Stroom.
-{{% /note %}}
+{{< /note >}}
 
 
 ## Typical Deployments
@@ -39,7 +39,7 @@ This abstracts Stroom from the clients sending the data and ensures that receive
 
 For a production Stroom cluster, it is likely that you will want multiple Stroom-Proxy instances behind a load balancer for resiliency and load management.
 
-{{% note %}}
+{{< note >}}
 Stroom-Proxy instances are independent and cannot form a coherent cluster.
 If you have a 'cluster' of Stroom-Proxy instances for resilience, each Stroom-Proxy instance can only work with the data it has received and loss of an instance means the loss of any data it was in the process of aggregating.
 
@@ -47,7 +47,7 @@ Also if you have a large 'cluster' of Stroom-Proxy instances, this can have an i
 For low volume Feeds, this can mean smaller aggregates than is preferred.
 
 To mitigate against this, you can use sticky sessions when load balancing or ideally use a load balancer that allows selection of the upstream instance using HTTP headers, i.e. `Feed`.
-{{% /note %}}
+{{< /note >}}
 
 
 ## Assumptions
@@ -213,9 +213,9 @@ The pre-requisites for this deployment are:
 
 For details about which Java distribution and version to use, and how to install it, see [Java]({{< relref "docs/install-guide/java" >}}).
 
-{{% note %}}
+{{< note >}}
 Disable _selinux_ to avoid issues with access and file permissions. 
-{{% /note %}}
+{{< /note >}}
 
 
 ### Download and Install Stroom v7 (app version)

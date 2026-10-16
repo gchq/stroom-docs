@@ -21,10 +21,10 @@ It does however aim to document aspects of XSLT that are specific to the use of 
 Here is an example XSLT document that transforms XML data in the `records:2` {{< glossary "namespace" >}} (which is the output of the {{< pipe-elm "DSParser" >}} element) into event XML in the `event-logging:3` namespace.
 It is an example of event normalisation from a bespoke format.
 
-{{% warning %}}
+{{< warning >}}
 This example aims to show some typical uses of XSLT in a typical Stroom use case.
 It does not necessarily represent best practice in terms of creation of a normalised event.
-{{% /warning %}}
+{{< /warning >}}
 
 
 ```xml
@@ -189,15 +189,15 @@ If you want an XSLT to decorate an Events XML document with some additional data
 This XSLT will copy every node and attribute as they are, returning the input document completely un-changed.
 You can then add additional templates to match on specific elements and modify them, for example decorating a user's `UserDetails` elements with value obtained from a reference data lookup on a user ID.
 
-{{% note %}}
+{{< note >}}
 You can insert this identity skeleton into an XSLT editor using this editor [snippet]({{< relref "snippet-reference#events-identity-skeleton" >}}).
-{{% /note %}}
+{{< /note >}}
 
 
 ## `<xsl:message>`
 
 Stroom supports the standard `<xsl:message>` element from the {{< external-link "http://www.w3.org/1999/XSL/Transform" "http://www.w3.org/1999/XSL/Transform" >}}.
-This element behaves in a similar way to the [`stroom:log()`]({{< relref "./xslt-functions/output-and-logging#log" >}}) XSLT function.
+This element behaves in a similar way to the {{< xslt-func-link "log" >}}) XSLT function.
 The element text is logged to the Error stream with a default severity of `ERROR`.
 
 A child element can optionally be used to set the severity level (one of `FATAL|ERROR|WARN|INFO`).
@@ -205,10 +205,10 @@ The namespace of this element does not matter.
 You can also set the attribute `terminate="yes"` to log the message at severity `FATAL` and halt processing of that stream part.
 If the stream is multi-part then processing will continue with the next part.
 
-{{% note %}}
+{{< note >}}
 Setting `terminate="yes"` will trump any severity defined by a child element.
 It will always be logged at `FATAL`.
-{{% /note %}}
+{{< /note >}}
 
 The following are some examples of using `<xsl:message>`.
 

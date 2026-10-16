@@ -16,10 +16,10 @@ Keyboard shortcuts can take two forms:
 * **Combination** - Multiple keys pressed at the same time, e.g. {{< key-bind "ctrl+enter" >}}.
 * **Sequence** - Multiple keys pressed in sequence with only one key pressed at a time, e.g. {{< key-bind "g" "t" >}}, press
 
-{{% warning %}}
+{{< warning >}}
 Currently these keyboard shortcuts will not work if a visualisation or documentation preview pane has focus.
 This is a known issue that will be addressed in the future.
-{{% /warning %}}
+{{< /warning >}}
 
 
 ## General Shortcuts

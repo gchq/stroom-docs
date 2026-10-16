@@ -679,10 +679,10 @@ sudo firewall-cmd --reload
 sudo firewall-cmd --zone=public --list-all
 {{< /command-line >}}
 
-{{% note %}}
+{{< note >}}
 That this allows ANY node to connect to your databases.
 You should give consideration to restricting this to only allowing processing node access.
-{{% /note %}}
+{{< /note >}}
 
 
 ### Debugging of Mariadb for Stroom

@@ -25,9 +25,9 @@ The ALB can authenticate against an Amazon Cognito user pool (an `authenticate-c
 Stroom does not care which: the token it verifies is minted and signed by the ALB either way.
 What the IDP changes is covered in [What Depends on the IDP](#what-depends-on-the-idp), with worked examples for [Cognito](#amazon-cognito) and [Entra ID](#microsoft-entra-id) below.
 
-{{% see-also %}}
+{{< see-also >}}
 Read [Edge Proxy RP]({{< relref "docs/install-guide/setup/open-id/edge-proxy" >}}) first for the model, the path scoping rules and the trust prerequisites.
-{{% /see-also %}}
+{{< /see-also >}}
 
 
 ## How the ALB Builds the Token
@@ -155,9 +155,9 @@ Two things must be true of it:
 
 ## Amazon Cognito
 
-{{% see-also %}}
+{{< see-also >}}
 The [Amazon Cognito]({{< relref "docs/install-guide/setup/open-id/external-idp/cognito" >}}) page covers creating the user pool; this section covers what is different when the ALB, not Stroom, is the client.
-{{% /see-also %}}
+{{< /see-also >}}
 
 
 ### Cognito Setup
@@ -205,10 +205,10 @@ The default `uniqueIdentityClaim` of `sub` is correct and stable.
 
 ## Microsoft Entra ID
 
-{{% see-also %}}
+{{< see-also >}}
 The [Microsoft Entra ID]({{< relref "docs/install-guide/setup/open-id/external-idp/azure-ad" >}}) page covers Entra ID generally; this section covers what is different when the ALB, not Stroom, is the client.
 Much of that page does not apply here, as explained below.
-{{% /see-also %}}
+{{< /see-also >}}
 
 
 ### App Registration
@@ -284,12 +284,12 @@ The full configuration is under [Using the v1.0 Endpoints](#using-the-v10-endpoi
 Whichever generation you pick, check what actually arrives before the first user signs in, with the `DEBUG` logging described under [Setting up the Admin User](#setting-up-the-admin-user), and decide the identity claim then.
 Changing it later orphans every user.
 
-{{% warning %}}
+{{< warning >}}
 Moving an existing Stroom from being Entra ID's client itself to sitting behind the ALB on the **v2.0** endpoints **changes every user's identity**: they were known by `oid` (or by the `sub` pairwise to Stroom's own app registration) and are now known by the `sub` pairwise to the ALB's.
 None of the existing Stroom users will match, so their permissions and group memberships have to be reapplied to the new identities.
 Plan this before switching, rather than discovering it when the administrator signs in to an empty UI.
 Using the v1.0 endpoints with `uniqueIdentityClaim: "oid"` avoids this for a Stroom that was already keyed on `oid`.
-{{% /warning %}}
+{{< /warning >}}
 
 
 ### Stroom Configuration for Entra ID

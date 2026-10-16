@@ -37,6 +37,6 @@ Two consequences worth knowing when sending to a Stroom-Proxy:
   That file survives a restart of the proxy.
   A key used for the **first** time during an outage cannot be verified and is refused, though it is not remembered as invalid and will be verified once the downstream returns.
 
-{{% see-also %}}
+{{< see-also >}}
 See [Data Feed Identities]({{< relref "docs/user-guide/data-receipt/data-feed-identities" >}}) for _Data Feed Keys_, a similar credential that Stroom-Proxy can check locally with no downstream call, and which also sets meta data on the received data.
-{{% /see-also %}}
+{{< /see-also >}}

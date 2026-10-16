@@ -44,13 +44,13 @@ The rest are documented {{< external-link "here" "https://doc.crds.dev/github.co
 * `minTaskLimit` and `maxTaskLimit` are considered safeguards to avoid nodes ever being allocated an unreasonable number of task.
    Setting `maxTaskLimit` to be equal to the number of assigned CPUs would be a reasonable starting point.
 
-{{% note %}}
+{{< note >}}
 A node's task limits will only be adjusted while its task queue is full.
 That is, unless a node is fully-committed, it will not be scaled.
 This is to avoid continually downscaling each node to the minimum during periods of inactivity.
 Because of this, be realistic with setting `maxTaskLimit` to ensure the node is actually capable of hitting that maximum.
 If it can't, the autoscaler will continue adjusting upwards, potentially causing the node to become unresponsive.
-{{% /note %}}
+{{< /note >}}
 
 
 ### Deploy the Resource Manifest

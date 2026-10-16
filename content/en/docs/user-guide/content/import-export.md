@@ -38,10 +38,10 @@ On clicking {{< stroom-btn "OK" >}} a confirmation dialog will be displayed conf
 
 The export will be written to a file called `StroomConfig.zip` that will typically be located in the `Downloads` directory on the users computer.
 
-{{% warning %}}
+{{< warning >}}
 The import/export file format has changed across different versions of Stroom.
 Stroom aims to support the import of older formats but older versions of Stroom may not be able to import a file exported by a newer version of Stroom.
-{{% /warning %}}
+{{< /warning >}}
 
 
 ## Importing Content

@@ -28,10 +28,10 @@ You do **not** need to do this if either of the following applies:
 
 Everyone else needs to create an administrator manually.
 
-{{% note %}}
+{{< note >}}
 `autoCreateAdminAccountOnBoot` only has an effect on a fresh database.
 Setting it on an installation that has already started will not retrospectively create the account, so use this page instead.
-{{% /note %}}
+{{< /note >}}
 
 
 ## Which Procedure Do You Need?
@@ -52,9 +52,9 @@ The two cases differ because Stroom separates *authentication* from *authorisati
 * A **Stroom user** is the entity that holds group memberships and permissions.
   One is always needed, whichever IDP is in use.
 
-{{% see-also %}}
+{{< see-also >}}
 See [Accounts vs Users]({{< relref "open-id/accounts-users" >}}) for a fuller description of this distinction.
-{{% /see-also %}}
+{{< /see-also >}}
 
 
 ## Before You Start
@@ -74,9 +74,9 @@ Use whichever matches your installation:
 * **Docker stack** - `./command.sh COMMAND [ARGS]` run from the root of the stack directory.
   The script supplies the config file path for you, so do **not** pass one.
 
-{{% see-also %}}
+{{< see-also >}}
 See [Command Line Tools]({{< relref "docs/user-guide/tools/command-line" >}}) for the full reference for each command used here.
-{{% /see-also %}}
+{{< /see-also >}}
 
 
 ## Internal IDP
@@ -141,10 +141,10 @@ manage_users \
 --grantPermission Administrators "Administrator"
 {{</ command-line >}}
 
-{{% warning %}}
+{{< warning >}}
 The username must match **exactly** between `--user` (in `create_account`), `--createUser` and `--addToGroup` (in `manage_users`).
 A mismatch produces an account that can log in but has no permissions.
-{{% /warning %}}
+{{< /warning >}}
 
 To set up more than one administrator, repeat the `create_account` command for each person and pass the extra `--createUser`/`--addToGroup` arguments in a single `manage_users` command:
 
@@ -166,9 +166,9 @@ path/to/config.yml
 Where a 3rd party identity provider holds the accounts, you only need to create the Stroom user, not an account.
 The provider is responsible for the credentials.
 
-{{% warning %}}
+{{< warning >}}
 Do **not** run `create_account` or `reset_password` when using an external IDP.
-{{% /warning %}}
+{{< /warning >}}
 
 
 ### Finding the User's Identifier on an External IDP
@@ -207,11 +207,11 @@ They are there so the Stroom user interface shows something more human friendly 
 They are only initial values and are overwritten with the values from the provider when the user first logs in.
 See [`USER_IDENTIFIER`]({{< relref "docs/user-guide/tools/command-line#user_identifier" >}}) for the format of this argument.
 
-{{% note %}}
+{{< note >}}
 Ideally run this **before** the administrator first logs in.
 If they have already logged in then Stroom will have created a user for them automatically, and `--createUser` will leave that user alone, other than re-enabling it if it had been disabled.
 The `--addToGroup` and `--grantPermission` arguments are what actually give them access.
-{{% /note %}}
+{{< /note >}}
 
 
 ## Verifying it Worked
@@ -228,10 +228,10 @@ If you can log in but see nothing and the _Security_ menu is missing or sparse, 
 Re-check that the identifiers matched exactly, then re-run the `manage_users` command.
 It is idempotent, so it is safe to run again.
 
-{{% warning %}}
+{{< warning >}}
 If `manage_users` was run while Stroom was running, the new permissions may not take effect immediately because user permissions are cached.
 Without Administrator rights you cannot clear the caches from the user interface, so either wait for the cache entries to expire or restart Stroom.
-{{% /warning %}}
+{{< /warning >}}
 
 
 ## What to Do Next

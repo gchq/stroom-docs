@@ -9,8 +9,8 @@ description: >
 Stroom uses a scheduler called Quartz which supports cron expressions for scheduling.
 The full details of the cron syntax supported by Quartz can be found {{< external-link "here" "https://www.quartz-scheduler.org/documentation/quartz-2.3.0/tutorials/crontrigger.html" >}}.
 
-{{% see-also %}}
+{{< see-also >}}
 * {{< external-link "cron" "https://en.wikipedia.org/wiki/Cron" >}}
 * [Cron Syntax]({{< relref "docs/reference-section/cron" >}})
-{{% /see-also %}}
+{{< /see-also >}}
 

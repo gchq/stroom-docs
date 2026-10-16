@@ -177,9 +177,9 @@ When using a List Input pane on a Dashboard {{< stroom-icon "document/Dashboard.
 * Document Copy and Move has been changed to check that the user has Owner permission (or admin) on the document being copied/moved if the permissions mode is None, Destination or Combined.
   This is because those modes will change the permissions which is something only an Owner/admin can do.
 
-{{% note %}}
+{{< note >}}
 Significant changes to document permissions are coming in v7.6.
-{{% /note %}}
+{{< /note >}}
 
 
 ## Content Search

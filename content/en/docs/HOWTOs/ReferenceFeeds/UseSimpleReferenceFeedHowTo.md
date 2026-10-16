@@ -11,9 +11,9 @@ description: >
 
 <!-- Created with Stroom v6.1-beta.16  -->
 
-{{% see-also %}}
+{{< see-also >}}
 [HOWTO - Creating a Simple Reference Feed]({{< relref "../ReferenceFeeds/CreateSimpleReferenceFeed" >}})
-{{% /see-also %}}
+{{< /see-also >}}
 
 
 ## Introduction

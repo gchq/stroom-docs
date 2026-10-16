@@ -21,14 +21,14 @@ Like Ask Stroom AI itself, these remain preview features and are subject to brea
 
 A translation can now ask a model a question with `stroom:ask-ai()`, passing the model to use, the message to ask, and optionally a system prompt.
 
-{{% warning %}}
+{{< warning >}}
 The model is asked once per call, so a pipeline that calls this for every record will make one request per record.
 Repeated identical questions are served from a cache, but a translation that asks something different of every record will be slow.
-{{% /warning %}}
+{{< /warning >}}
 
-{{% see-also %}}
-[`ask-ai()`]({{< relref "docs/user-guide/pipelines/xslt/xslt-functions/ai" >}})
-{{% /see-also %}}
+{{< see-also >}}
+{{< xslt-func-link "ask-ai" >}}
+{{< /see-also >}}
 
 
 ### The `askAi()` StroomQL Function
@@ -36,9 +36,9 @@ Repeated identical questions are served from a cache, but a translation that ask
 Queries and dashboards gain a matching `askAi()` expression function, under a new _AI_ function category.
 As with the XSLT function the model is asked once per value, so it is best used on a grouped or otherwise small set of rows.
 
-{{% see-also %}}
+{{< see-also >}}
 [AI Functions]({{< relref "docs/reference-section/expressions/ai" >}})
-{{% /see-also %}}
+{{< /see-also >}}
 
 
 ### AI Summaries on Reports
@@ -62,12 +62,12 @@ However the report is delivered, the summary is also available in two other plac
 Large reports are summarised in batches which are then merged, so a report bigger than the model's context window still produces a summary.
 Where only some batches succeed, the summary says how much of the data it covers.
 
-{{% note %}}
+{{< note >}}
 The report is what the recipient is waiting for, so a model that is unavailable, slow or misconfigured costs the summary and nothing else.
 The failure is logged and the report is sent without a summary.
-{{% /note %}}
+{{< /note >}}
 
-{{% see-also %}}
+{{< see-also >}}
 * [Report Settings]({{< relref "docs/user-guide/search/reports/settings#ai-summary" >}})
 * [Report Delivery]({{< relref "docs/user-guide/search/reports/delivery" >}})
-{{% /see-also %}}
+{{< /see-also >}}

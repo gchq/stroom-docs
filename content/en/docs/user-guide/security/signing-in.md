@@ -14,11 +14,11 @@ description: >
 
 This page describes what a user experiences when signing in to Stroom using its internal {{< glossary "idp" >}}.
 
-{{% note %}}
+{{< note >}}
 None of this applies when Stroom is configured to use an external {{< glossary "idp" >}}.
 In that case sign in, password policy and account recovery are all handled by that provider.
 See [Open ID Connect]({{< relref "docs/install-guide/setup/open-id" >}}).
-{{% /note %}}
+{{< /note >}}
 
 
 ## Signing in with a Password
@@ -115,7 +115,7 @@ The user id is taken from the certificate's common name using `stroom.security.i
 A valid certificate is treated in exactly the same way as a correct password.
 The same account states apply in the same order, so a disabled or locked account is still refused, and an inactive account is either reactivated or refused depending on `stroom.security.identity.reactivateInactiveAccountsOnLogin`.
 
-{{% see-also %}}
+{{< see-also >}}
 [User Accounts]({{< relref "user-accounts" >}})
 [Sessions and Tokens]({{< relref "sessions-and-tokens" >}})
-{{% /see-also %}}
+{{< /see-also >}}

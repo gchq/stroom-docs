@@ -56,10 +56,10 @@ This can be done by:
 1. Editing the `resources.limits` settings of the controller Pod in `all-in-one.yaml`
 1. `kubectl apply -f all-in-one.yaml`
 
-{{% note %}}
+{{< note >}}
 The Operator retains CPU and memory metrics for all `StroomCluster` Pods for a 60-minute window.
 In very large deployments, this may cause it to run out of memory.
-{{% /note %}}
+{{< /note >}}
 
 
 ## Next Steps

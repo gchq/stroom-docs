@@ -7,6 +7,6 @@ description: >
 ---
 
 
-{{% see-also %}}
+{{< see-also >}}
 {{< glossary "Document">}}
-{{% /see-also %}}
+{{< /see-also >}}

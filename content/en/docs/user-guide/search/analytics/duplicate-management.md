@@ -58,10 +58,10 @@ For the misconfigured device example, choosing just the device name means the ru
 
 Column names are case sensitive and must match the names in the query.
 
-{{% warning %}}
+{{< warning >}}
 Changing which columns are used for de-duplication requires the duplicate check store to be cleared.
 The stored entries were built from the old set of columns and cannot be compared against the new one, so until the store is cleared the results will not be what you expect.
-{{% /warning %}}
+{{< /warning >}}
 
 
 ## The Duplicate Check Store
@@ -71,7 +71,7 @@ Each rule has its own store, held on the processing node and configured by the `
 The store is keyed on the rule, so it survives the rule being edited.
 It is deleted when the rule is deleted.
 
-{{% note %}}
+{{< note >}}
 Because suppression is based on what the rule has already raised, replaying an execution will not re-deliver its detections while suppression is on.
 Where you are deliberately re-running something and want the detections again, clear the store first.
-{{% /note %}}
+{{< /note >}}

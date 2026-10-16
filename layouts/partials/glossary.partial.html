@@ -1,0 +1,57 @@
+{{- /*
+Creates a link to an item in the Glossary page.
+
+Arguments:
+
+term - The file name of the glossary file without the extension, e.g. "api-key".
+title - An optional title for the glossary link text. If not provided the title
+will be obtained from the glossary page title. Generally you should not
+need this arg.
+
+e.g. {{< glossary "Feed" >}}
+e.g. {{< glossary "Feed" "Feeds" >}}
+
+Use {{< >}}, not {{% %}}.
+
+The tooltip content comes from the glossary page's front matter 'description',
+which is rendered as markdown. It may contain several paragraphs, lists, etc.
+because it is written into an inert <template> rather than directly into the page.
+assets/js/hover-tooltip.js copies it into a floating tooltip on hover/focus.
+
+NOTE: Don't include any shortcodes in the description (e.g. no links to other
+glossary terms) as they are not rendered by markdownify. Keep the description to
+markdown or plain text only.
+*/ -}}
+{{- /*
+{{- warnf "term: %s, displayText: %s" .term .displayText -}}
+*/ -}}
+{{- $term := strings.Trim .term " " -}}
+{{- $display_text_arg := strings.Trim .displayText " " -}}
+{{- $slug := anchorize $term -}}
+{{- $letter := substr $slug 0 1 -}}
+{{- $page_file := printf "/docs/glossary/%s/glossary-%s" $letter $slug -}}
+{{- with .context.Site.GetPage $page_file -}}
+  {{- $gloss_page := . -}}
+  {{- $display_text := $display_text_arg | default ($gloss_page.Title) -}}
+  {{- $title := $gloss_page.Title -}}
+  {{- $summary := $gloss_page.Description | markdownify -}}
+  {{- $url := printf "/docs/glossary/%s/glossary-%s" $letter $slug -}}
+  {{- $url = $url | relURL -}}
+  <span class="glossary-link link-with-hover-tooltip">
+    <a href="{{ $url }}">
+      <span>{{ $display_text }}</span>
+      <i class="glossary-link-icon fas fa-book fa-sm text-primary"></i>
+    </a>
+    {{- with $summary -}}
+      <template class="hover-tooltip-content">
+        <span class="hover-tooltip-title">{{ $title }}</span>
+        <div class="hover-tooltip-summary">{{ . }}</div>
+        {{- if $gloss_page.RawContent -}}
+        <span class="hover-tooltip-more-details">Click to see more details...</span>
+        {{- end -}}
+      </template>
+    {{- end -}}
+  </span>
+{{- else -}}
+  {{- errorf "The %q shortcode was unable to find page %q. See %s" $.Name $page_file $.Position -}}
+{{- end -}}

@@ -13,10 +13,10 @@ description: >
 You may be running Stroom in an environment with an existing {{< glossary "idp" >}} (KeyCloak, Cognito, Google, Active Directory, etc.) and want to use that for authenticating users.
 Stroom supports 3rd party IDPs that conform to the {{< external-link "Open ID Connect" "https://openid.net/connect/" >}} specification.
 
-{{% note %}}
+{{< note >}}
 On this page and its children, **Stroom itself signs the user in** at the provider.
 If a load balancer or reverse proxy in front of Stroom performs the sign in instead - an AWS ALB with an `authenticate-cognito` or `authenticate-oidc` rule, NGINX with oauth2-proxy - you want [Edge Proxy RP]({{< relref "docs/install-guide/setup/open-id/edge-proxy" >}}), not this page.
-{{% /note %}}
+{{< /note >}}
 
 This page describes what Stroom needs from any such provider.
 It applies whichever provider you use, so read it before following one of the provider specific pages.
@@ -36,9 +36,9 @@ Stroom is the Open ID Connect client, or Relying Party, and runs the authorizati
 
 The requirements in the rest of this page are all steps in that sequence: the [redirect URI](#the-redirect-uri) the IDP sends the code to, the [PKCE](#pkce) challenge and verifier, the [claims](#claims) Stroom reads from the ID token, and the [token validation](#token-validation) it performs before creating the session.
 
-{{% see-also %}}
+{{< see-also >}}
 If a proxy in front of Stroom performs this flow instead, see [Edge Proxy RP]({{< relref "docs/install-guide/setup/open-id/edge-proxy#the-flow" >}}).
-{{% /see-also %}}
+{{< /see-also >}}
 
 
 ## What Stroom Needs from the Provider
@@ -73,11 +73,11 @@ Register that exact value.
 It does not vary with the page the user was trying to reach, so there is no need to register a wildcard, and you should not do so.
 The page the user came from is remembered separately by Stroom and does not travel through the provider.
 
-{{% warning %}}
+{{< warning >}}
 Earlier versions of Stroom sent the user's current page as the redirect URI, which meant registering a wildcard such as `https://STROOM_FQDN/*` at the provider.
 That is no longer how it works.
 If you are upgrading, replace any such wildcard with the single exact URI above, otherwise sign in will be refused by the provider.
-{{% /warning %}}
+{{< /warning >}}
 
 If Stroom is served under a path prefix, i.e. `appConfig.publicUri.pathPrefix` is set, that prefix comes before `/api`.
 
@@ -117,10 +117,10 @@ Stroom reads three things about a user from the token.
 
 Not every provider issues `preferred_username`, so check the provider page before assuming the defaults will do.
 
-{{% warning %}}
+{{< warning >}}
 Do not set `uniqueIdentityClaim` to an email address or a username.
 Both can be reassigned to a different person at the provider, and whoever holds it next would inherit the Stroom user, along with its permissions.
-{{% /warning %}}
+{{< /warning >}}
 
 
 ## Token Validation
@@ -134,10 +134,10 @@ The issuer must match what the provider advertised, and the audience must match 
 Audience validation is the part most likely to need attention, because providers differ in what they put in the `aud` claim of an **access** token.
 See [Audience validation]({{< relref "stroom-configuration#audience-validation" >}}).
 
-{{% note %}}
+{{< note >}}
 `id_token`s carry an `aud` claim holding the client id at every provider, so interactive sign in works with the default settings.
 It is API authentication with access tokens where providers differ.
-{{% /note %}}
+{{< /note >}}
 
 
 ## Users and Permissions
@@ -152,6 +152,6 @@ This does mean a new user has to sign in once before an administrator can do any
 The very first administrator is a chicken and egg problem, since there is nobody able to grant permissions yet.
 That is solved with the `manage_users` command, described on each provider page.
 
-{{% see-also %}}
+{{< see-also >}}
 See [Creating the First Administrator]({{< relref "docs/install-guide/setup/create-first-admin" >}}) for the full procedure, and [Accounts and Users]({{< relref "docs/install-guide/setup/open-id/accounts-users" >}}) for how identities at the provider relate to Stroom users.
-{{% /see-also %}}
+{{< /see-also >}}

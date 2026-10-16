@@ -8,10 +8,10 @@ description: >
   A _Parser_ in a pipeline is required to provide the demarcation between records/events.
 ---
 
-{{% see-also %}}
+{{< see-also >}}
 {{< glossary "Stream" >}}
 {{< glossary "Stream Type" >}}
 {{< glossary "Parser" >}}
-{{% /see-also %}}
+{{< /see-also >}}
 
 

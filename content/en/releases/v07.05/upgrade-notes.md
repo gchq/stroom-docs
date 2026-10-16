@@ -8,9 +8,9 @@ description: >
   Required actions and information relating to upgrading to Stroom version 7.5.
 ---
 
-{{% warning %}}
+{{< warning >}}
 Please read this section carefully in case any of it is relevant to your Stroom instance.
-{{% /warning %}}
+{{< /warning >}}
 
 
 ## Java Version
@@ -83,9 +83,9 @@ The value of this property has changed from `https://gchq.github.io/stroom-docs/
 Stroom presents various servlets.
 The paths to these servlets have changed but the existing paths remain.
 
-{{% warning %}}
+{{< warning >}}
 While the old paths still work, they will be removed in a future version of Stroom so you are advised to change any scripts or similar that point to these servlets.
-{{% /warning %}}
+{{< /warning >}}
 
 * `/stroom/noauth/datafeed` => `/datafeed` 
 * `/stroom/noauth/debug` => `/debug` 
@@ -94,10 +94,10 @@ While the old paths still work, they will be removed in a future version of Stro
 * `/stroom/noauth/swagger-ui` => `/swagger-ui` 
 * `/stroom/sessionList` => `/sessionList` 
 
-{{% note %}}
+{{< note >}}
 These servlet paths are those presented by the stroom application itself.
 Stroom may be fronted by nginx in which case that may already be doing path mapping to abstract the end client from Stroom's servlet paths.
-{{% /note %}}
+{{< /note >}}
 
 
 
@@ -108,11 +108,11 @@ The `/sessionList` (and `/stroom/sessionList`) servlet has been changed to requi
 
 When Stroom boots for the first time with a new version it will run any required database migrations to bring the database schema up to the correct version.
 
-{{% warning %}}
+{{< warning >}}
 It is highly recommended to ensure you have a database backup in place before booting stroom with a new version.
 This is to mitigate against any problems with the migration.
 It is also recommended to test the migration against a copy of your database to ensure that there are no problems when you do it for real.
-{{% /warning %}}
+{{< /warning >}}
 
 On boot, Stroom will ensure that the migrations are only run by a single node in the cluster.
 This will be the node that reaches that point in the boot process first.
@@ -123,7 +123,7 @@ To avoid Stroom starting up and beginning processing you can use the `migrate` c
 See [`migrate` command]({{< relref "/docs/user-guide/tools/command-line#migrate" >}}) for more details.
 
 
-{{% warning %}}
+{{< warning >}}
 If you are upgrading a v7.5 Stroom instance that has a version less than or equal to **v7.5-beta.9** to a version higher than **v7.5-beta.9** then you must run the following SQL on the database to correct the renaming of a migration script.
 If you don't, Stroom will not boot as it will detect a mismatch in the DB migration scripts.
 
@@ -134,7 +134,7 @@ script = 'stroom.app.db.migration.V07_05_00_005__Orphaned_Doc_Perms'
 where version = '07.04.00.005'
 and script = 'stroom.app.db.migration.V07_04_00_005__Orphaned_Doc_Perms';
 {{< /sql-shell >}}
-{{% /warning %}}
+{{< /warning >}}
 
 
 ### Migration Scripts

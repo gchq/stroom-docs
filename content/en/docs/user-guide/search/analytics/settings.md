@@ -42,10 +42,10 @@ Testing      | More mature than an experimental rule. Actively being validated i
 Stable       | Considered production-ready. Has been thoroughly tested across multiple environments. Expect a reasonable false positive rate.
 Deprecated   | An outdated or superseded rule that may rely on old techniques or assumptions. Generally avoid using these in production.
 
-{{% note %}}
+{{< note >}}
 _Level_ and _Status_ describe the rule, not the individual detection, so every detection a rule produces carries the same values.
 Raising the level of a rule affects only the detections it produces from that point on.
-{{% /note %}}
+{{< /note >}}
 
 
 ## Include Rule Documentation
@@ -57,9 +57,9 @@ Include Rule Documentation | Whether the rule's documentation is included in the
 The content of the rule's _Documentation_ tab is written to each detection as `detailedDescription`, which means it leaves Stroom with the detection, for example by email.
 Untick this where the documentation is for whoever maintains the rule rather than for whoever receives its detections.
 
-{{% see-also %}}
+{{< see-also >}}
 [How a Detection is Built]({{< relref "detections#how-a-detection-is-built" >}})
-{{% /see-also %}}
+{{< /see-also >}}
 
 
 ## Feed for Errors
@@ -68,9 +68,9 @@ Field           | Description
 --------------- | ------------
 Feed For Errors | The {{< glossary "Feed" >}} that errors occurring during execution are written to. Use _Set Default_ to use the feed configured for the system.
 
-{{% see-also %}}
+{{< see-also >}}
 [Error Feed]({{< relref "execution#error-feed" >}})
-{{% /see-also %}}
+{{< /see-also >}}
 
 
 ## Reports
@@ -79,6 +79,6 @@ A [Report]({{< relref "docs/user-guide/search/reports" >}}) {{< stroom-icon "doc
 
 A report has no _Level_, _Status_ or _Include Rule Documentation_, because it delivers a file rather than detections.
 
-{{% see-also %}}
+{{< see-also >}}
 [Report Settings]({{< relref "docs/user-guide/search/reports/settings" >}})
-{{% /see-also %}}
+{{< /see-also >}}

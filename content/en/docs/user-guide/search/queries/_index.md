@@ -8,7 +8,7 @@ description: >
   A Query document defines a search query in text form using the Stroom Query Language and displays the results as a table or a visualisation.
 ---
 
-{{% todo %}}
+{{< todo >}}
 Complete this section.
-{{% /todo %}}
+{{< /todo >}}
 

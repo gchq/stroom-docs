@@ -11,9 +11,9 @@ description: >
 
 Stroom has two main types of schedule, a simple frequency schedule that runs the job at a fixed time interval or a more complex {{< glossary "cron" >}} schedule.
 
-{{% note %}}
+{{< note >}}
 This scheduler and its syntax are also used for Analytic Rules {{< stroom-icon "document/AnalyticRule.svg" >}}.
-{{% /note %}}
+{{< /note >}}
 
 
 ## Frequency Schedules

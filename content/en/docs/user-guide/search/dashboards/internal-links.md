@@ -21,9 +21,9 @@ In dashboard tables links can be inserted using the [`link()`]({{< relref "docs/
 
 In dashboard text panes, links can be inserted into the HTML as `link` attributes on elements.
 
-{{% note %}}
+{{< note >}}
 The text pane must be set to `Show As HTML` for links to operate.
-{{% /note %}}
+{{< /note >}}
 
 ```html
   <div style="padding: 5px;">
@@ -56,9 +56,9 @@ Dialog links look something like this in HTML:
 </div>
 ```
 
-{{% note %}}
+{{< note >}}
 The dialog title can be controlled by adding a `|` and required title after the type, e.g.
-{{% /note %}}
+{{< /note >}}
 
 ```clike
 {dialog|Embedded In Stroom}
@@ -79,9 +79,9 @@ Tab links look something like this in HTML:
 </div>
 ```
 
-{{% note %}}
+{{< note >}}
 The tab title can be controlled by adding a `|` and required title after the type, e.g.
-{{% /note %}}
+{{< /note >}}
 
 ```clike
 {tab|Embedded In Stroom}
@@ -104,9 +104,9 @@ In a dashboard text pane the HTML could look like this:
 </div>
 ```
 
-{{% note %}}
+{{< note >}}
 Unlike the other link types there is no way to control the browser tab title.
-{{% /note %}}
+{{< /note >}}
 
 
 ## Dashboard
@@ -125,9 +125,9 @@ The parameters for dashboard links are:
 * `params` - A URL encoded list of params to supply to the dashboard, e.g. `params=user%3Duser1`.
 * `title` - An optional URL encoded title to better identify the specific instance of the dashboard, e.g. `title=Details%20For%20user1`.
 
-{{% note %}}
+{{< note >}}
 Parameter values can be URL encoded in XSLT using the `encode-for-uri` function.
-{{% /note %}}
+{{< /note >}}
 
 An example of this type of link in HTML:
 
@@ -140,9 +140,9 @@ An example of this type of link in HTML:
 </div>
 ```
 
-{{% note %}}
+{{< note >}}
 By using a pipeline with the appropriate XSLT it is possible to dynamically generate links in dashboard text panes that will be specific to the data being displayed.
-{{% /note %}}
+{{< /note >}}
 
 
 ## Data
@@ -151,9 +151,9 @@ A link can be created to open a sub-set of a source of data (i.e. part of a stre
 The data can either be opened in a popup dialog (`dialog`) or in another stroom tab (`tab`).
 It can also be display in `preview` form (with formatting and syntax highlighting) or unaltered `source` form.
 
-{{% note %}}
-To make full use of data links for viewing raw data, you need to use the `stroom:source()` [XSLT Function]({{< relref "docs/user-guide/pipelines/xslt/xslt-functions/stream-and-source#source" >}}) to decorate an event with the details of the source location it derived from.
-{{% /note %}}
+{{< note >}}
+To make full use of data links for viewing raw data, you need to use the {{< xslt-func-link "source" >}} to decorate an event with the details of the source location it derived from.
+{{< /note >}}
 
 The format for a data link is as follows:
 
@@ -185,10 +185,10 @@ The parameters for data links are:
 In `preview` mode the line and column positions will limit the data displayed to the specified selection.
 In `source` mode the line and column positions define a highlight block of text within the part/record.
 
-{{% warning %}}
+{{< warning >}}
 The `displayType` value `tab` is not supported if the dashboard is viewed via a [Direct URL]({{< relref "direct-urls" >}}).
 This is because a direct URL displays only the dashboard without Stroom's top level tab bar so it is not possible to open it as a top level tab.
-{{% /warning %}}
+{{< /warning >}}
 
 An example of this type of link in HTML:
 

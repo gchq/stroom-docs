@@ -29,6 +29,6 @@ Stroom or Stroom-Proxy verifies that token against the IDP's published signing k
 
 Tokens are short lived, typically around an hour, so a sender must obtain a fresh one when the old one expires rather than caching one indefinitely.
 
-{{% see-also %}}
+{{< see-also >}}
 See [Tokens for API Use]({{< relref "docs/install-guide/setup/open-id/tokens-for-api" >}}) for creating the client credentials a sender uses, and [Microsoft Entra ID]({{< relref "docs/install-guide/setup/open-id/external-idp/azure-ad#obtaining-a-token-to-send-data" >}}) for a worked example with one provider.
-{{% /see-also %}}
+{{< /see-also >}}

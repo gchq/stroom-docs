@@ -8,9 +8,9 @@ description: >
   Changes in Stroom version 7.5 that may break existing processing or ways of working.
 ---
 
-{{% warning %}}
+{{< warning >}}
 Please read this section carefully in case any of the changes affect you.
-{{% /warning %}}
+{{< /warning >}}
 
 There are no breaking changes in v7.5.
 

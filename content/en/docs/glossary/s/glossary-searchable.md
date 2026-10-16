@@ -8,7 +8,7 @@ description: >
 ---
 
 
-{{% see-also %}}
+{{< see-also >}}
 {{< glossary "Index" >}}
-{{% /see-also %}}
+{{< /see-also >}}
 

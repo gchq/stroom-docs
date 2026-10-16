@@ -1,0 +1,160 @@
+{{/*
+Generates the function definition content for the given function name.
+It uses the data in data/xslt-functions/<funcName>.json which is generated
+by stroom.app.docs.GenerateXsltFunctionDefinitions.
+*/}}
+{{ with $funcName := .Get 0 }}
+  {{ $file := printf "data/xslt-function-reference/%s.json" . }}
+  {{ with resources.Get $file }}
+    {{ with . | transform.Unmarshal }}
+      {{ $func := . }}
+      {{ $sigCount := .signatures | len }}
+      {{ $aliasCount := .aliases | len }}
+      <div class="function-definition">
+
+      {{ if gt $sigCount 1 }}
+        {{ with .commonDescription }}
+          <p>{{ . | markdownify }}</p>
+        {{ end }}
+        {{ with .extendedCommonDescription }}
+          <p>{{ . | markdownify }}</p>
+        {{ end }}
+      {{ end }}
+
+      {{/*
+      {{ with .commonCategory }}
+        <p>
+        <strong>Categories:</strong>
+        {{ delimit . ", " }}
+        </p>
+      {{ end }}
+      */}}
+
+      {{/*
+      {{ if gt $sigCount 1 }}
+        <p>
+        <strong>Function Signatures:</strong>
+        </p>
+      {{ end }}
+      */}}
+      {{ if .aliasOf }}
+        {{/* This func is an alias of something, so show the aliasOf */}}
+        <p class="function-definition-signature-alias-of-section">
+          {{- $target := printf "#%s" .aliasOf -}}
+          <span>
+          <strong>Is Alias of:&thinsp;</strong>
+          <a href="{{ relref $.Page $target }}">
+            <code><span class="function-definition-signature-alias-of">
+              {{- .aliasOf -}}
+            </span></code>
+          </a>
+            </span>
+        </p>
+      {{ else if gt $aliasCount 0 }}
+        {{/* This func has aliases, so show the aliases list */}}
+        <p class="function-definition-signature-aliases">
+          <strong>Aliases:</strong>
+        </p>
+        <ul>
+        {{ range $aliasIdx, $alias := .aliases }}
+          {{- $target := printf "#%s" $alias -}}
+          <li><a href="{{ relref $.Page $target }}">
+            <code><span class="function-definition-signature-alias">
+              {{- $alias -}}
+            </span></code>
+          </a></li>
+        {{ end }}
+        </ul>
+      {{ end }}
+
+      {{ range $sigIdx, $sig := .signatures }}
+        {{ $argReturnType := default (index $func.commonReturnType 0) (index $sig.returnType 0)}}
+        {{ $argReturnDesc := default $func.commonReturnDescription $sig.returnDescription }}
+
+        {{- if gt $sigIdx 0 -}}<hr>{{- end -}}
+
+        {{/* e.g. hash( String value, String algorithm ) ➡ String */}}
+        <p class="function-definition-signature"><span><code>
+        <span class="function-definition-signature-name">{{ $func.name -}}(</span><!-- comment to stop space between spans
+        {{/* {{- delimit (apply $sig.args "collections.Index" "." "name") ", " -}}) */}}
+        -->{{- $argCount := $sig.args | len -}}
+        {{- range $idx, $arg := $sig.args -}}
+          {{- if gt $idx 0 -}},&thinsp;{{- end -}}
+          <span class="function-definition-signature-arg">
+          {{- if .isOptional -}}[{{- end -}}
+          {{- .name -}}
+          {{- if .isVarargs -}}...{{- end -}}
+          {{- if .isOptional -}}]{{- end -}}
+          </span>
+        {{- end -}}
+
+        )<span class="function-definition-signature-arrow">➡</span>{{ $argReturnType }}</code></span></p>
+
+
+        {{/* description */}}
+        {{ with default $func.commonDescription .description }}
+          <p>{{ . | markdownify }}</p>
+        {{ end }}
+
+        {{/* Args table */}}
+        {{ with $sig.args }}
+          <p><strong>Function Arguments:</strong></p>
+          <table class="function-signature-args">
+            <tr>
+              <th title="The name of the argument.">Param</th>
+              <th title="The data type of the argument.">Type</th>
+              <th title="Whether this argument is mandatory or optional.">Mandatory</th>
+              <th title="The default value of the argument if not provided.">Default Value</th>
+              <th title="The allowed values of the argument.">Allowed Values</th>
+              <th title="Whether this argument can be repeated multiple times.">Multiple</th>
+              <th title="The minimum number of times this argument must be repeated.">Min Count</th>
+              <th title="Description of the argument.">Description</th>
+            </tr>
+          {{ range . }}
+            <tr>
+              <td><code>{{ .name }}</code></td>
+              <td>{{ .argType }}</td>
+              {{ with .isOptional }}
+              <td><i class="fa-solid fa-xmark"></i></td>
+              {{ else }}
+              <td><i class="fa-solid fa-check"></i></td>
+              {{ end }}
+              {{ with .defaultValue }}
+              <td><code>{{ . }}</code></td>
+              {{ else }}
+              <td>-</td>
+              {{ end }}
+              <td>{{ default "-" (delimit (apply .allowedValues "fmt.Printf" "<code>%s</code>" ".") ", " )}}</td>
+              {{ with .isVarargs }}
+                <td><i class="fa-solid fa-check"></i></td>
+              {{ else }}
+              <td><i class="fa-solid fa-xmark"></i></td>
+              {{ end }}
+              <td>{{ default "-" .minVarargsCount }}</td>
+              <td>{{ .description | markdownify }}</td>
+            </tr>
+          {{ end }}
+          </table>
+        {{ end }}
+
+        {{/* Return type table */}}
+        <p><strong>Return Value:</strong></p>
+        <table class="function-signature-return">
+          <tr>
+            <th title="The data type of the return value.">Type</th>
+            <th title="The description of the return value.">Description</th>
+          </tr>
+          <tr>
+            <td>{{ $argReturnType }}</td>
+            <td>{{ $argReturnDesc | markdownify }}</td>
+          </tr>
+        </table>
+      {{ end }}
+      </div>
+    {{ end }}
+  {{ else }}
+    {{ errorf "The %q shortcode was unable to find %s. See %s" $.Name $funcName $.Position }}
+  {{ end }}
+{{ else }}
+  {{ errorf "The %q shortcode requires one positional argument, the name of the XSLT function. See %s" .Name .Position }}
+{{ end }}

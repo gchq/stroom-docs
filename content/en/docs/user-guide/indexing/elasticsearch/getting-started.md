@@ -30,11 +30,11 @@ Each cluster connection is defined by an `Elastic Cluster` document within the S
    Otherwise, error details will be displayed.
 1. Click {{< stroom-icon "save.svg" "Save" >}} to commit changes.
 
-{{% warning %}}
+{{< warning >}}
 Ensure you restrict permissions to the `Elastic Cluster` document.
 The `Read` privilege permits retrieval of the Elasticsearch API key and secret, granting the holder the same level of privilege as Stroom.
 Users authorised to search Elasticsearch indices via Stroom dashboards should only be assigned the `Use` privilege.
-{{% /warning %}}
+{{< /warning >}}
 
 
 ## Elastic Cluster Document Fields

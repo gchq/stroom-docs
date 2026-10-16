@@ -8,9 +8,9 @@ description: >
   Required actions and information relating to upgrading to Stroom version 7.10.
 ---
 
-{{% warning %}}
+{{< warning >}}
 Please read this section carefully in case any of it is relevant to your Stroom/Stroom-Proxy instance.
-{{% /warning %}}
+{{< /warning >}}
 
 
 ## Upgrade Path
@@ -23,10 +23,10 @@ If you want to upgrade to v7.10.x from v5.x or v6.x we recommend you do the foll
 1. Upgrade v6.x to the latest patch release of v7.0.
 1. Upgrade v7.x to the latest patch release of v7.10.
 
-{{% warning %}}
+{{< warning >}}
 v7.10 **cannot** migrate content in legacy formats, i.e. content created in v5/v6.
 You must therefore upgrade to v7.0.x first to migrate this content, before upgrading to v7.10.x.
-{{% /warning %}}
+{{< /warning >}}
 
 
 ## Java Version
@@ -131,11 +131,11 @@ The changes described above in [Stroom - Open ID Connect Authentication]({{< rel
 
 When Stroom boots for the first time with a new version it will run any required database migrations to bring the database schema up to the correct version.
 
-{{% warning %}}
+{{< warning >}}
 It is highly recommended to ensure you have a database backup in place before booting stroom with a new version.
 This is to mitigate against any problems with the migration.
 It is also recommended to test the migration against a copy of your database to ensure that there are no problems when you do it for real.
-{{% /warning %}}
+{{< /warning >}}
 
 On boot, Stroom will ensure that the migrations are only run by a single node in the cluster.
 This will be the node that reaches that point in the boot process first.

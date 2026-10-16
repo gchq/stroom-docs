@@ -24,9 +24,9 @@ Destination | The feed or email address that detections go to.
 Limit      | Whether the number of notifications is limited.
 Max        | The limit, where one is set.
 
-{{% note %}}
+{{< note >}}
 A rule with no notifications at all will fail when it runs, because there is nowhere for its detections to go.
-{{% /note %}}
+{{< /note >}}
 
 Everything on this page applies to [Reports]({{< relref "docs/user-guide/search/reports" >}}) {{< stroom-icon "document/Report.svg" >}} as well, except that a report delivers a file rather than a detection.
 The differences are covered in [Report Delivery]({{< relref "docs/user-guide/search/reports/delivery" >}}).
@@ -44,14 +44,14 @@ Use Source Feed If Possible | Writes detections to the feed the source data came
 
 _Use Source Feed If Possible_ is useful for a [streaming]({{< relref "streaming" >}}) rule that runs across many feeds and whose detections are best kept alongside the data that produced them.
 
-{{% note %}}
+{{< note >}}
 The option only applies to streaming rules, and is disabled for any other processing type.
 A scheduled rule looks across many streams and so has no single source feed to write back to, and a rule that is not streaming always uses the _Destination Feed_.
-{{% /note %}}
+{{< /note >}}
 
-{{% see-also %}}
+{{< see-also >}}
 [Detections]({{< relref "detections" >}})
-{{% /see-also %}}
+{{< /see-also >}}
 
 
 ## Email Destinations
@@ -68,11 +68,11 @@ Email Body Template    | A template for the body.
 
 Each field accepts more than one address.
 
-{{% note %}}
+{{< note >}}
 Email will not work until an SMTP server has been configured for the installation.
 The _from_ address and name also come from that configuration rather than from the rule.
 See [Email Setup]({{< relref "docs/install-guide/setup/email-setup" >}}).
-{{% /note %}}
+{{< /note >}}
 
 
 ### Templates
@@ -83,10 +83,10 @@ The values from the detection are put into the template context before the templ
 
 If the rendered body looks like HTML it is sent as an HTML email, otherwise it is sent as plain text.
 
-{{% see-also %}}
+{{< see-also >}}
 [Templating]({{< relref "docs/reference-section/templating" >}})
 [Rule Detections Context]({{< relref "docs/reference-section/templating#rule-detections-context" >}})
-{{% /see-also %}}
+{{< /see-also >}}
 
 
 ### Testing
@@ -111,11 +111,11 @@ Resume Notifications After  | How long to wait before allowing notifications aga
 Once _Maximum Notifications_ have been sent the notification switches itself off and nothing further is delivered through it.
 It comes back on when _Resume Notifications After_ has elapsed since the last notification was sent, at which point the count starts again from zero.
 
-{{% warning %}}
+{{< warning >}}
 Detections suppressed by a limit are discarded, not queued.
 A rule that hits its limit will not deliver the detections it raised while switched off, even after it resumes.
 
 Where the aim is to avoid being told the same thing repeatedly rather than to bound the volume, [Duplicate Management]({{< relref "duplicate-management" >}}) is usually the better tool, because it suppresses repeats of a detection you have already seen while still delivering new ones.
-{{% /warning %}}
+{{< /warning >}}
 
 The count is held per notification and is not persisted, so restarting the node resets it.

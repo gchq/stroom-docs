@@ -11,10 +11,10 @@ description: >
 Stroom can support multiple payload formats with different compression applied.
 However all data once uncompressed must be text and not binary.
 
-{{% note %}}
+{{< note >}}
 This section covers the payload format rather than the format of the text based event/context data itself.
 For details on the format of the actual event/context data and details about character encoding, see [Event Data Formats]({{< relref "data-formats" >}}).
-{{% /note %}}
+{{< /note >}}
 
 Stroom can receive data in the following formats:
 
@@ -131,7 +131,7 @@ While it is very much preferred for all files to be given the appropriate reserv
 `-- 023-11-16.0002.ctx
 ```
 
-{{% warning %}}
+{{< warning >}}
 If you had the following files:
 
 ```treeview
@@ -143,7 +143,7 @@ If you had the following files:
 Then `001.data1` and `001.data2` would both be considered event data files for the base name `001` and Stroom does not allow multiple files of the same type for the same base name.
 Therefore the ZIP would be rejected with a _duplicate file_ error.
 
-{{% /warning %}}
+{{< /warning >}}
 
 
 #### File Order
@@ -249,7 +249,7 @@ Raw Size:35
 Type:Raw Events
 ```
 
-{{% warning %}}
+{{< warning >}}
 If you download a stream (or streams) in Stroom, the Manifest file for each stream will contain the Feed that it came from in Stroom.
 If you upload this ZIP file into a different Feed in Stroom, Stroom will respect the `Feed` in the Manifest file so the data will be uploaded into its original Feed.
 To prevent this, you can remove the Manifest file from the zip as follows:
@@ -266,5 +266,5 @@ unzip -t "StroomData (20)".zip
 zip -d 001.mf "StroomData (20)".zip
 {{</ command-line >}}
 
-{{% /warning %}}
+{{< /warning >}}
 

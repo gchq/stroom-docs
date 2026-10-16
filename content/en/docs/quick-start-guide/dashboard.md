@@ -30,10 +30,10 @@ On the query pane click the settings {{< stroom-icon name="settings.svg" title="
 1. Select the index you created earlier:  
    {{< stroom-icon "folder.svg">}} _Stroom 101_ / {{< stroom-icon "document/Index.svg">}} _Stroom 101_
 
-{{% note %}}
+{{< note >}}
 Dashboards can be made to automatically run all queries when they are opened and/or to keep refreshing the query every N seconds.
 This can be done in the Query settings dialog you used above.
-{{% /note %}}
+{{< /note >}}
 
 
 ## Configuring the Query Expression
@@ -61,12 +61,12 @@ We want a count of records grouped by _Application_.
 * _Application_
 * _Count_
 
-{{% note %}}
+{{< note >}}
 _Count_ is a special column (not in the index) that applies the aggregate function `count()`.
 All columns are actually just an expression which may be a simple field like `${Application}` or a function.
 Stroom has a rich library of functions for aggregating and mutating query results.
 See [Expressions]({{< relref "/docs/reference-section/expressions" >}}).
-{{% /note %}}
+{{< /note >}}
 
 To group our data by _Application_ we need to apply a group level to the _Application_ column.
 

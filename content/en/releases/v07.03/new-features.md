@@ -123,12 +123,12 @@ The screens for creating a new API Key are as follows:
   {{< image "releases/07.03/create-api-key-2.png" "400x" >}}Create API Key (part 2){{< /image >}}
 {{< /cardpane >}}
 
-{{% warning %}}
+{{< warning >}}
 Note that the actual API Key is **ONLY** visible on the second dialog.
 Once that dialog is closed Stroom cannot show you the API Key string as it does not store it.
 This is for security reasons.
 You must copy the created key and give it to the recipient at this point.
-{{% /warning %}}
+{{< /warning >}}
 
 
 #### Key Format

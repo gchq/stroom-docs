@@ -11,9 +11,9 @@ description: >
 Selection functions are a form of aggregate function operating on grouped data.
 They select a sub-set of the child values.
 
-{{% see-also %}}
+{{< see-also >}}
 Aggregate functions [`joining()`]({{< relref "./aggregate#joining" >}}) and [`distinct()`]({{< relref "./aggregate#distinct" >}}) that work in a similar way to these selection functions.
-{{% /see-also %}}
+{{< /see-also >}}
 
 
 ## Any

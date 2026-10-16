@@ -8,10 +8,10 @@ description: >
   Performing temporal reference data lookups to decorate event data.
 ---
 
-{{% see-also %}}
+{{< see-also >}}
 * [HOWTO - Creating a Simple Reference Feed]({{< relref "/docs/HOWTOs/ReferenceFeeds/CreateSimpleReferenceFeed" >}})  
-* [XSLT Functions]({{< relref "./xslt/xslt-functions" >}})
-{{% /see-also %}}
+* [XSLT Functions]({{< relref "xslt-function-reference" >}})
+{{< /see-also >}}
 
 In Stroom reference data is primarily used to decorate events using `stroom:lookup()` calls in XSLTs.
 For example you may have reference data feed that associates the FQDN of a device to the details of its physical location, or reference data that associates usernames with employee details such as name and job title.
@@ -32,11 +32,11 @@ Reference data can come from two different sources:
 Reference data is often time sensitive, e.g. an employee's job title will change over time, so each stream of reference data has an Effective Date set against it.
 This allows reference data lookups to be performed using the date of the event to ensure the reference data that was actually effective at the time of the event is used.
 
-{{% warning %}}
+{{< warning >}}
 There is currently no mechanism in Stroom to place dependencies between Feeds, i.e. an _Events_ Feed being dependent on a _Reference_ Feed.
 When performing a lookup Stroom can only use the _Reference_ streams that it has available.
 If a _Reference_ stream has been delayed (in receipt or translation), then Stroom will have to use the most recent one it has.
-{{% /warning %}}
+{{< /warning >}}
 
 Using _Reference_ stream based reference data involves the following steps/processes:
 
@@ -61,11 +61,11 @@ The following is an example of a reference loader pipeline:
 
 The process of creating a reference data pipeline is described in the HOWTO linked at the top of this document.
 
-{{% note %}}
+{{< note >}}
 It is possible to not eagerly convert the _Raw Reference_ streams into _Reference_ streams and instead do this as part of the reference loader pipeline.
 While this saves having to store all the cooked _Reference_ streams, it means every node that uses a _Raw Reference_ stream for a lookup will have to do the transformation before it can go into the reference data store.
 This can result in a lot of duplicated work on a multi-node Stroom.
-{{% /note %}}
+{{< /note >}}
 
 
 ### Context Sub-Stream
@@ -277,13 +277,13 @@ The location of the store is set using the property `stroom.pipeline.referenceDa
 Using LMDB on remote storage is NOT advised, see http://www.lmdb.tech/doc.
 Using the fastest storage (i.g. fast SSDs) is advised to reduce load times and lookups of data that is not in memory.
 
-{{% warning %}}
+{{< warning >}}
 If you are running stroom on AWS EC2 instances then you will need to attach some local instance storage to the host, e.g. SSD, to use for the reference data store.
 In tests EBS storage was found to be VERY slow.
 
 It should be noted that AWS instance storage is not persistent between instance stops, terminations and hardware failure.
 However any loss of the reference data store will mean that the next time Stroom boots a new store will be created and reference data will be loaded on demand as normal.
-{{% /warning %}}
+{{< /warning >}}
 
 
 #### Transactions
@@ -457,9 +457,9 @@ The following is an example of making a `lookup()` call in an XSLT that will ret
 </xsl:if>
 ```
 
-{{% note %}}
+{{< note >}}
 The above examples are equally applicable for a `bitmap-lookup()` call.
-{{% /note %}}
+{{< /note >}}
 
 
 ### Reference Feeds & Loaders
@@ -494,36 +494,36 @@ To rectify this you can clear the cache `Reference Data - Effective Stream Cache
 ### Standard Key/Value Lookups
 
 Standard key/value lookups consist of a simple string key and a value that is either a simple string or an XML fragment.
-Standard lookups are performed using the various forms of the [`stroom:lookup()`]({{< relref "./xslt/xslt-functions/reference-data.md#lookup" >}}) XSLT function.
+Standard lookups are performed using the various forms of the {{< xslt-func-link "lookup" >}} XSLT function.
 
-{{% note %}}
+{{< note >}}
 If the key is not found and the key is an integer then it will attempt a range lookup using the same key.
 This is to allow for maps that contain a mixture of key/value pairs and range/value pairs.
-{{% /note %}}
+{{< /note >}}
 
 
 ### Range Lookups
 
 Range lookups consist of a key that is an integer and a value that is either a simple string or an XML fragment.
-For more detail on range lookups see the XSLT function [`stroom:lookup()`]({{< relref "./xslt/xslt-functions/reference-data.md#range-lookups" >}}).
+For more detail on range lookups see the XSLT function {{< xslt-func-link "lookup" >}}.
 
-{{% note %}}
+{{< note >}}
 The lookup will initially look for a single key that matches the lookup key.
 If an exact match is not found then it will look for a range that contains the key.
 This is to allow for maps that contain a mixture of key/value pairs and range/value pairs.
-{{% /note %}}
+{{< /note >}}
 
 
 ### Nested Map Lookups
 
 Nested map lookups involve chaining a number of lookups with the value of each map being used as the key for the next.
-For more detail on nested lookups see the XSLT function [`stroom:lookup()`]({{< relref "./xslt/xslt-functions/reference-data.md#nested-maps" >}}).
+For more detail on nested lookups see the XSLT function {{< xslt-func-link "lookup" >}}.
 
 
 ### Bitmap Lookups
 
 A bitmap lookup is a special kind of lookup that actually performs a lookup for each enabled bit position of the passed bitmap value.
-For more detail on bitmap lookups see the XSLT function [`stroom:bitmap-lookup()`]({{< relref "./xslt/xslt-functions/reference-data.md#bitmap-lookup" >}}).
+For more detail on bitmap lookups see the XSLT function {{< xslt-func-link "lookup" >}}.
 
 Values can either be a simple string or an XML fragment.
 

@@ -7,6 +7,6 @@ description: >
 ---
 
 
-{{% see-also %}}
+{{< see-also >}}
 {{< external-link "Extended Log File Format" "https://www.w3.org/TR/WD-logfile.html" >}}
-{{% /see-also %}}
+{{< /see-also >}}

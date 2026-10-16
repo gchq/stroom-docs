@@ -11,10 +11,10 @@ description: >
   The Stroom user and group entities that can be granted application and document permissions.
 ---
 
-{{% todo %}}
+{{< todo >}}
 The Users, Groups and Permissions screens are undergoing significant change in Stroom v7.6.
 Therefore this section will be updated with more detail in v7.6.
-{{% /todo %}}
+{{< /todo >}}
 
 
 ## Accounts vs Stroom Users

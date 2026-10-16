@@ -8,9 +8,9 @@ description: >
   Changes in Stroom version 7.13 that may break existing processing or ways of working.
 ---
 
-{{% warning %}}
+{{< warning >}}
 Please read this section carefully in case any of the changes affect you.
-{{% /warning %}}
+{{< /warning >}}
 
 Most of the breaking changes in this release relate to authentication.
 If you use an external identity provider, read [Audience Validation Is Now on by Default](#audience-validation-is-now-on-by-default) and [External Identity Provider Redirect URI](#external-identity-provider-redirect-uri) before upgrading.
@@ -66,9 +66,9 @@ This removes a denial of service in which a few failed sign-ins could lock any n
 Set the duration to `"PT0S"` if you need locks to be permanent.
 Note that the duration governs locks that are already held rather than only new ones, so shortening it releases people who are already locked.
 
-{{% see-also %}}
+{{< see-also >}}
 [User Accounts]({{< relref "docs/user-guide/security/user-accounts" >}})
-{{% /see-also %}}
+{{< /see-also >}}
 
 
 #### Administrators Can No Longer Lock Accounts
@@ -182,9 +182,9 @@ If your provider issues tokens to Stroom whose audience is not the `clientId`, e
 
 Stroom also now refuses to start with an external identity provider unless one of `allowedAudiences` or `clientId` is configured, so that validation cannot be silently skipped for lack of anything to validate against.
 
-{{% see-also %}}
+{{< see-also >}}
 [Audience Validation]({{< relref "docs/install-guide/setup/open-id/external-idp/stroom-configuration#audience-validation" >}})
-{{% /see-also %}}
+{{< /see-also >}}
 
 
 #### An Audience Claim is Now Required
@@ -203,6 +203,6 @@ Use `INTERNAL_IDP` for Stroom, and `NO_IDP` or `EXTERNAL_IDP` for Stroom-Proxy.
 
 A replacement is available for test and demonstration environments, but it is off unless deliberately enabled at runtime and must never be used in production.
 
-{{% see-also %}}
+{{< see-also >}}
 [Insecure Test Credential]({{< relref "docs/install-guide/setup/open-id/test-credentials" >}})
-{{% /see-also %}}
+{{< /see-also >}}

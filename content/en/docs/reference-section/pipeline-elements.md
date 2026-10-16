@@ -46,7 +46,6 @@ Removes the Byte Order Mark (if present) from the stream.
 
 Escapes the content of a configured list of named XML elements that are known to potentially contain un-escaped XML reserved characters.
 For example the element `<Expression>$time < now()</Expression>` would be transformed to `<Expression>$time &lt; now()</Expression>` if property `leafList` is set to `Expression`.
-
 **Element properties:**
 
 | Name | Description                                                                                                                                | Default Value | Value Type |
@@ -59,8 +58,6 @@ For example the element `<Expression>$time < now()</Expression>` would be transf
 {{< pipe-elm "FindReplaceFilter" >}}&nbsp;
 
 Replaces strings or regexes with new strings.
-
-
 **Element properties:**
 
 | Name                 | Description                                                                        | Default Value | Value Type |
@@ -82,8 +79,6 @@ Replaces strings or regexes with new strings.
 
 Removes any characters that are not in the standard XML character set.
 The version of XML (e.g. 1.0 or 1.1) can be set using the 'xmlVersion' property.
-
-
 **Element properties:**
 
 | Name          | Description                                                              | Default Value | Value Type |
@@ -98,8 +93,6 @@ The version of XML (e.g. 1.0 or 1.1) can be set using the 'xmlVersion' property.
 
 Replaces any characters that are not in the standard XML character set with a '�'.
 The version of XML (e.g. 1.0 or 1.1) can be set using the 'xmlVersion' property.
-
-
 **Element properties:**
 
 | Name              | Description                                                             | Default Value | Value Type |
@@ -134,8 +127,6 @@ It effectively combines a BOMRemovalFilterInput, an InvalidCharFilterReader and 
 It is strongly recommended to instead use a combination of Readers and one of the type specific Parsers.
 This will make the intent of the pipeline much clearer and allow for much greater control.
 {{% /warning %}}
-
-
 **Element properties:**
 
 | Name                             | Description                                                                        | Default Value | Value Type |
@@ -153,8 +144,6 @@ This will make the intent of the pipeline much clearer and allow for much greate
 
 A parser for handling structured plain text data (e.g. CSV or fixed width fields) using the Data Splitter domain specific language.
 For more details see [Data Splitter]({{< relref "docs/user-guide/data-splitter" >}}).
-
-
 **Element properties:**
 
 | Name                             | Description                                                                       | Default Value | Value Type |
@@ -170,8 +159,6 @@ For more details see [Data Splitter]({{< relref "docs/user-guide/data-splitter" 
 
 A built-in parser for parsing JSON source data (in JSON fragment format) into an XML representation of the JSON.
 The Resulting XML will conform to the http://www.w3.org/2013/XSL/json namespace.
-
-
 **Element properties:**
 
 | Name                               | Description                                                                                                                                                                                                                                                                          | Default Value | Value Type |
@@ -206,7 +193,6 @@ For example the data may contain:
 
 i.e. with no root element, so not valid XML.
 The XMLFragmentParser will wrap the fragments with a root element as defined in the TextConverter document configured with the `textConverterRef` property.
-
 **Element properties:**
 
 | Name                             | Description                                                                        | Default Value | Value Type |
@@ -235,8 +221,6 @@ Multiple filters can be used one after another with each using the output from t
 {{< pipe-elm "DynamicIndexingFilter" >}}&nbsp;
 
 A filter to send source data to an index.
-
-
 **Element properties:**
 
 | Name  | Description                   | Default Value | Value Type |
@@ -258,8 +242,6 @@ Consumes XML events in the `index-documents:1` namespace to convert them into a 
 
 A filter consuming XML events in the `records:2` namespace to index/store the fields
 and their values in an Elasticsearch Index.
-
-
 **Element properties:**
 
 | Name                  | Description                                                                                                                                                                                                                                                                  | Default Value | Value Type |
@@ -278,8 +260,6 @@ and their values in an Elasticsearch Index.
 
 This element is deprecated, you should instead use the much more flexible {{< pipe-elm "HTTPAppender" >}}.
 This element will simply POST the output of the XML events to the configured URL.
-
-
 **Element properties:**
 
 | Name            | Description                   | Default Value | Value Type |
@@ -302,8 +282,6 @@ It assumes that an record/event is an XML element at the first level below the r
 
 A filter consuming XML events in the `records:2` namespace to index/store the fields
 and their values in a Lucene Index.
-
-
 **Element properties:**
 
 | Name  | Description                   | Default Value | Value Type |
@@ -315,9 +293,7 @@ and their values in a Lucene Index.
 
 {{< pipe-elm "MergeFilter" >}}&nbsp;
 
- Merges XML that has been split into separate XML instances.
-
-
+Merges XML that has been split into separate XML instances.
 **Element properties:**
 
 | Name       | Description                            | Default Value | Value Type |
@@ -339,7 +315,6 @@ Reference data values can be either simple strings or XML fragments.
 
 Counts events/records in the stream.
 An event/record is taken to be an XML element that is at the first level below the root element, i.e. for 'event-logging:3' XML this means the `<Event>` element.
-
 **Element properties:**
 
 | Name        | Description                                              | Default Value | Value Type |
@@ -364,7 +339,6 @@ for 'event-logging:3' XML this means the `<Event>` element.""",
 
 Takes XML input (conforming to the reference-data:2 schema) and loads the data into the Reference Data Store.
 Reference data values can be either simple strings or XML fragments.
-
 **Element properties:**
 
 | Name                   | Description                                                   | Default Value | Value Type |
@@ -387,8 +361,6 @@ All other characters are replaced by `~NNN`, where `NNN` is a three digit codepo
 
 Checks the format of the source data against one of a number of XML schemas.
 This ensures that if non-compliant data is generated, it will be flagged as in error and will not be passed to any subsequent processing elements.
-
-
 **Element properties:**
 
 | Name             | Description                                                                                      | Default Value                    | Value Type |
@@ -413,8 +385,6 @@ Consumes XML events in the `records:2` namespace to convert them into a form so 
 {{< pipe-elm "SolrIndexingFilter" >}}&nbsp;
 
 Delivers source data to the specified index in an external Solr instance/cluster.
-
-
 **Element properties:**
 
 | Name           | Description                                                                                                           | Default Value | Value Type |
@@ -431,8 +401,6 @@ Delivers source data to the specified index in an external Solr instance/cluster
 
 Splits multi-record source data into smaller groups of records prior to delivery to an XSLT.
 This allows the XSLT to process data more efficiently than loading a potentially huge input stream into memory.
-
-
 **Element properties:**
 
 | Name           | Description                                                                 | Default Value | Value Type |
@@ -442,13 +410,18 @@ This allows the XSLT to process data more efficiently than loading a potentially
 | storeLocations | Should this split filter store processing locations.                        | true          | Boolean    |
 
 
+### SqlStoreFilter
+
+{{< pipe-elm "SqlStoreFilter" >}}&nbsp;
+
+Takes XML input (conforming to the reference-data:2 schema) and loads the data into the SQL Updatable Temporal Store.
+
+
 ### StatisticsFilter
 
 {{< pipe-elm "StatisticsFilter" >}}&nbsp;
 
 An element to allow the source data (conforming to the `statistics` XML Schema) to be sent to the MySQL based statistics data store.
-
-
 **Element properties:**
 
 | Name                 | Description                                              | Default Value | Value Type |
@@ -461,7 +434,6 @@ An element to allow the source data (conforming to the `statistics` XML Schema) 
 {{< pipe-elm "XPathExtractionOutputFilter" >}}&nbsp;
 
 > TODO - Add description
-
 **Element properties:**
 
 | Name                   | Description                                   | Default Value | Value Type |
@@ -475,8 +447,6 @@ An element to allow the source data (conforming to the `statistics` XML Schema) 
 
 An element used to transform XML data from one form to another using XSLT.
 The specified XSLT can be used to transform the input XML into XML conforming to another schema or into other forms such as JSON, plain text, etc.
-
-
 **Element properties:**
 
 | Name                         | Description                                                                                   | Default Value | Value Type |
@@ -499,8 +469,6 @@ The output data can then be fed to a Destination.
 {{< pipe-elm "JSONWriter" >}}&nbsp;
 
 Writer to convert XML data conforming to the http://www.w3.org/2013/XSL/json XML Schema into JSON format.
-
-
 **Element properties:**
 
 | Name         | Description                                                            | Default Value | Value Type |
@@ -514,8 +482,6 @@ Writer to convert XML data conforming to the http://www.w3.org/2013/XSL/json XML
 {{< pipe-elm "TextWriter" >}}&nbsp;
 
 Writer to convert XML character data events into plain text output.
-
-
 **Element properties:**
 
 | Name     | Description                                               | Default Value | Value Type |
@@ -530,8 +496,6 @@ Writer to convert XML character data events into plain text output.
 {{< pipe-elm "XMLWriter" >}}&nbsp;
 
 Writer to convert XML events data into XML output in the specified character encoding.
-
-
 **Element properties:**
 
 | Name                         | Description                                                                                                                | Default Value | Value Type |
@@ -563,7 +527,6 @@ Allows for the annotating of events that meet some criteria.
 {{< pipe-elm "DictionaryAppender" >}}&nbsp;
 
 A destination used to write the output stream to a dictionary overwriting all previous data.
-
 **Element properties:**
 
 | Name       | Description                                           | Default Value | Value Type |
@@ -577,8 +540,6 @@ A destination used to write the output stream to a dictionary overwriting all pr
 
 A destination used to write an output stream to a file on the file system.
 If multiple paths are specified in the 'outputPaths' property it will pick one at random to write to.
-
-
 **Element properties:**
 
 | Name                   | Description                                                                                                                                                       | Default Value | Value Type |
@@ -598,8 +559,6 @@ If multiple paths are specified in the 'outputPaths' property it will pick one a
 
 A destination used to write an output stream to a file on a Hadoop Distributed File System.
 If multiple paths are specified in the 'outputPaths' property it will pick one at random.
-
-
 **Element properties:**
 
 | Name                   | Description                                                                                                                              | Default Value | Value Type |
@@ -619,8 +578,6 @@ If multiple paths are specified in the 'outputPaths' property it will pick one a
 A destination used to write an output stream to a remote HTTP(S) server.
 
 This element should be preferred over the deprecated {{< pipe-elm "HttpPostFilter" >}}.
-
-
 **Element properties:**
 
 | Name                               | Description                                                                                                                                                                                                                                                                                                                                                                            | Default Value                                                   | Value Type |
@@ -667,8 +624,6 @@ If multiple paths are specified in the 'outputPaths' property it will pick one a
 This is distinct from the FileAppender in that when the `rollSize` is reached it will move the current file to the path specified in `rolledFileName` and resume writing to the original path.
 This allows other processes to follow the changes to a single file path, e.g. when using `tail`.
 On system shutdown all active files will be rolled.
-
-
 **Element properties:**
 
 | Name              | Description                                                                                                                                                       | Default Value | Value Type |
@@ -691,8 +646,6 @@ On system shutdown all active files will be rolled.
 A destination used to write one or more output streams to a new stream which is then rolled when it reaches a certain size or age.
 A new stream will be created after the size or age criteria has been met.
 On system shutdown all active streams will be rolled.
-
-
 **Element properties:**
 
 | Name          | Description                                                                                                           | Default Value | Value Type |
@@ -711,8 +664,6 @@ On system shutdown all active streams will be rolled.
 {{< pipe-elm "S3Appender" >}}&nbsp;
 
 A destination used to write an output stream to an S3 bucket.
-
-
 **Element properties:**
 
 | Name                   | Description                                                                                                                                                       | Default Value                                                    | Value Type |
@@ -737,7 +688,6 @@ A destination used to write an output stream to an S3 bucket.
 
 Consumes XML documents in the `kafka-records:2` namespace.
 For each `<kafkaRecord>` element converts it into a Kafka message that is passed to the Kafka producer defined by the `kafkaConfig` property
-
 **Element properties:**
 
 | Name        | Description                                                                                                                                                 | Default Value | Value Type |
@@ -752,7 +702,6 @@ For each `<kafkaRecord>` element converts it into a Kafka message that is passed
 
 A destination used to write the output stream to a new stream in the stream store.
 The configuration allows for starting a new stream once a size threshold is reached.
-
 **Element properties:**
 
 | Name                   | Description                                                                                                           | Default Value | Value Type |
@@ -764,4 +713,3 @@ The configuration allows for starting a new stream once a size threshold is reac
 | splitRecords           | Choose if you want to split individual records into separate output streams.                                          | false         | Boolean    |
 | streamType             | The stream type that the output stream should be written as. This must be specified.                                  | -             | String     |
 | volumeGroup            | Optionally override the default volume group of the destination feed.                                                 | -             | String     |
-

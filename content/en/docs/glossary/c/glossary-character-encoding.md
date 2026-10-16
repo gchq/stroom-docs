@@ -11,7 +11,7 @@ Common examples of character encodings are `ASCII`, `UTF-8` and `UTF-16`.
 Each {{< glossary "feed" >}} has a defined character encoding for the data and {{< glossary "context data" "context">}}.
 This allows Stroom to decode the data sent into that Feed.
 
-{{% see-also %}}
+{{< see-also >}}
 {{< external-link "Character encoding" "https://en.wikipedia.org/wiki/Character_encoding" >}}
-{{% /see-also %}}
+{{< /see-also >}}
 

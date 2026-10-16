@@ -9,11 +9,11 @@ description: >
   How to create and use tokens for making API calls.
 ---
 
-{{% note %}}
+{{< note >}}
 We strongly recommend you install _jq_ if you are working with JSON responses from the IDP.
 It allows you to parse and extract parts of the JSON response.
 {{< external-link "https://stedolan.github.io/jq/" >}}
-{{% /note %}}
+{{< /note >}}
 
 
 ## Creating a User Access Token
@@ -97,10 +97,10 @@ To create a new Client ID, assuming the client system is called _System X_, do t
 1. Enable _Service accounts roles_.
 1. Click _Save_.
 
-{{% note %}}
+{{< note >}}
 By enabling _Service accounts role_, KeyCloak will create a service account user called `service-account-system-x`.
 Tokens will be created under this non-human user identity.
-{{% /note %}}
+{{< /note >}}
 
 Open the _Credentials_ tab and copy the _Client secret_ for use later.
 

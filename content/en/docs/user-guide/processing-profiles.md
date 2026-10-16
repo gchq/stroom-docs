@@ -72,12 +72,12 @@ Periods are evaluated in order and the first one that matches the current day an
 
 ### When No Period Matches
 
-{{% warning %}}
+{{< warning >}}
 A filter that has been given a profile is processed **only** during the periods in that profile.
 
 If no period matches the current day and time then no tasks are created for that filter.
 The same is true if the profile has no periods at all, if its node group is disabled, or if the node asking for work is not in the group.
-{{% /warning %}}
+{{< /warning >}}
 
 This is the behaviour you want for confining processing to a window, but it does mean a profile with an incomplete schedule will quietly stop a filter from processing.
 A filter with no profile set is not restricted in this way.
@@ -91,7 +91,7 @@ Task creation takes profiles into account, so tasks that no node is currently al
 Each profile is given a share of the tasks that are created, so that one busy profile does not starve the others.
 
 
-{{% see-also %}}
+{{< see-also >}}
 * [Nodes]({{< relref "nodes" >}})
 * [Jobs]({{< relref "jobs" >}})
-{{% /see-also %}}
+{{< /see-also >}}

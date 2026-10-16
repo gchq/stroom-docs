@@ -156,9 +156,9 @@ By default the entire content matched by a group’s parent expression is passed
 If required, content from a specific match group in the parent expression can be passed to child expressions using the value attribute, e.g. `value="$1"`.
 In addition to this content can be composed in the same way as it is for data names and values.
 
-{{% see-also %}}
+{{< see-also >}}
 [Match references]({{< relref "../match-reference" >}}) for a full description of match references.
-{{% /see-also %}}
+{{< /see-also >}}
 
 
 #### `ignoreErrors` {#group-ignoreerrors}

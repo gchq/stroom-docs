@@ -9,7 +9,7 @@ description: >
 The {{< external-link "event-logging XML Schema" "https://github.com/gchq/event-logging-schema" >}} is an example of an XML Schema.
 
 
-{{% see-also %}}
+{{< see-also >}}
 {{< external-link "XML Schema" "https://en.wikipedia.org/wiki/XML_schema" >}}
-{{% /see-also %}}
+{{< /see-also >}}
 

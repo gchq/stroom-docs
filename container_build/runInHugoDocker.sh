@@ -102,8 +102,16 @@ main() {
         "-c"  \
         "hugo server" \
       )
-        #"hugo server --cleanDestinationDir --watch" \
-        #"hugo server --baseURL 'localhost:1313/stroom-docs'" \
+      if [[ $# -eq 2 ]] && [[ "${2}" = "detach" ]]; then
+        extra_docker_args=( "--detach" )
+      fi
+    elif [[ $# -ge 1 ]] && [[ "$1" = "server-draft" ]]; then
+      # Run the site in memory and serve on localhost:1313
+      run_cmd=( \
+        "bash" \
+        "-c"  \
+        "hugo server --buildDrafts" \
+      )
       if [[ $# -eq 2 ]] && [[ "${2}" = "detach" ]]; then
         extra_docker_args=( "--detach" )
       fi

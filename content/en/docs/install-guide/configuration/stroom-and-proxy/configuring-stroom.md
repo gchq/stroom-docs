@@ -8,10 +8,10 @@ description: >
   Describes how the Stroom application is configured.
 ---
 
-{{% see-also %}}
+{{< see-also >}}
 [Stroom and Stroom-Proxy Common Configuration]({{< relref "common-configuration" >}})  
 [Stroom Properties]({{< relref "/docs/user-guide/properties.md" >}})
-{{% /see-also %}}
+{{< /see-also >}}
 
 
 ## General Configuration

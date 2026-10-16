@@ -20,7 +20,7 @@ Extracting data in this way is slower but reduces the data stored in the index, 
 Search Extraction relies on the StreamId and EventId being stored in the Index.
 Stroom can then use these two fields to locate the event in the stream store and process it with the search extraction pipeline.
 
-{{% todo %}}
+{{< todo >}}
 Add more detail
-{{% /todo %}}
+{{< /todo >}}
 

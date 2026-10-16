@@ -19,10 +19,10 @@ The reference data store has an API to allow other systems to access the referen
 The `/lookup` endpoint requires the caller to provide details of the reference feed and loader pipeline so if the effective stream is not in the store it can be loaded prior to performing the lookup.
 It is useful for forcing a reference load into the store and for performing ad-hoc lookups.
 
-{{% note %}}
+{{< note >}}
 As reference data stores are local to a node, it is best to send the request to a node that does processing as it is more likely to have already loaded the data.
 If you send it to a UI node that does not do processing, it is likely to trigger a load as the data will not be there.
-{{% /note %}}
+{{< /note >}}
 
 Below is an example of a lookup request file `req.json`.
 

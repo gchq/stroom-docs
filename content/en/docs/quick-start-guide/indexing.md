@@ -13,10 +13,10 @@ description: >
 
 Before you can visualise your data with dashboards you have to {{< glossary "index" >}} the data.
 
-{{% note %}}
+{{< note >}}
 Stroom uses Apache Lucene for indexing its data but can also integrate with Solr and {{< glossary "Elasticsearch" >}}.
 For this Quick Start Guide we are going to use Stroom's internal Lucene indexing.
-{{% /note %}}
+{{< /note >}}
 
 
 ## Create the Index
@@ -70,11 +70,11 @@ FromIp       | Text   | Yes    | Yes    | No         | Keyword        | false
 ToIp         | Text   | Yes    | Yes    | No         | Keyword        | false
 Application  | Text   | Yes    | Yes    | Yes        | Alpha numeric  | false
 
-{{% note %}}
+{{< note >}}
 There are two mandatory fields that need to be added: `StreamId` and `EventId`.
 These are not in the source records but are assigned to cooked events/records by Stroom.
 You will see later how these fields get populated.
-{{% /note %}}
+{{< /note >}}
 
 You should now have:
 

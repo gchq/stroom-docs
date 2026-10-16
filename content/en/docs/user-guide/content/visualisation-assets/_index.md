@@ -46,14 +46,14 @@ However, you can create a directory structure if necessary.
 * {{< stroom-icon "eye.svg" "View in browser">}} View the asset in the browser in a new window.
   This also allows you to see the URL or path of that asset, if you need the path for another asset.
 * {{< stroom-icon "edit.svg" "Rename">}} Edit the name of an asset.
-   {{% note %}}
+   {{< note >}}
    Note that the extension of the file is significant as it is used for:
 
    * The mimetype reported to the browser, and thus how the browser will present that file;
    * The editor mode used for the file.
 
    See [Configuration]({{< relref "#configuration" >}}) below to find out how to customise these settings. 
-   {{% /note %}}
+   {{< /note >}}
 
 
 ### Editing Assets
@@ -70,13 +70,13 @@ There are two restrictions:
 Note that the file's extension isn't considered when attempting to load a file. 
 As long as it is small enough and can be converted to UTF-8 text, it can be edited.
 
-{{% note %}}
+{{< note >}}
 Due to the potentially large size of assets, the user-interface implements a staged save where the asset is first saved to a staging area in the database. 
 When you click {{< stroom-icon "save.svg" "Save">}} the data is copied across to the live area of the database, where the asset can be downloaded.
 Generally this doesn't make any difference to how you use the user-interface; however you will find that unsaved changes persist even though you've closed a tab or the browser.
 
 To get back to the current live state and remove any unsaved changes, click the {{< stroom-icon "refresh.svg" "Revert changes">}} icon.
-{{% /note %}}
+{{< /note >}}
 
 
 ### Import and Export, GitRepo Structure
@@ -198,12 +198,12 @@ There is a cache on each Stroom node to reduce database load.
 `clearAssetCacheOnStartup`
 : If `true` then clear the asset cache each time Stroom starts up.
 
-{{% note %}}
+{{< note >}}
 Stroom does not clear assets from the cache by default. 
 This could lead to a situation where the asset has been deleted within the UI, but is still available via HTTP/HTTPS. 
 If this causes a problem you need to set this value to `true` and restart Stroom. 
 The cache will then be recreated from valid content in the database.
-{{% /note %}}
+{{< /note >}}
 
 `default`
 : The mimetype to send to the browser for an asset where the asset's extension is not recognised. 

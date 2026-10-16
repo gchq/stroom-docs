@@ -7,6 +7,6 @@ description: >
 ---
 
 
-{{% see-also %}}
+{{< see-also >}}
 {{< external-link "Elasticsearch" "https://www.elastic.co/elasticsearch/" >}}
-{{% /see-also %}}
+{{< /see-also >}}

@@ -40,9 +40,9 @@ appConfig|proxyConfig: # applicable to both appConfig: and proxyConfig:
     feedNameTemplate: "${accountid}-${component}-${format}-${schema}"
 ```
 
-{{% see-also %}}
+{{< see-also >}}
 For more explanation of the `receive` configuration branch, see [Receive Configuration]({{< relref "common-configuration#receive-configuration" >}}).
-{{% /see-also %}}
+{{< /see-also >}}
 
 Assuming the above default configuration and that the client sends the following headers:
 
@@ -55,8 +55,8 @@ Schema: event-logging
 
 This will result in an auto-generated Feed name of `1234-AV_SCANNER-XML-EVENT_LOGGING`.
 
-{{% note %}}
+{{< note >}}
 When a template variable is replaced with a value from the headers, it is converted to upper case and any characters that are NOT in the regular expression character class `[A-Z0-9_]`, will be replaced by a `_` character.
 
 Any static text in the template will also be converted to upper case and the supported characters for static text are `[A-Z0-9_-]`, with all other characters being replaced with a `_`.
-{{% /note %}}
+{{< /note >}}

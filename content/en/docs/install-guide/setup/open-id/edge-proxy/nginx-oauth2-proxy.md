@@ -16,10 +16,10 @@ NGINX asks it to authorise each request (`auth_request`); oauth2-proxy completes
 Unlike the ALB, nothing here mints its own token: Stroom receives the **IDP's own token** and verifies it against the IDP's published keys, exactly as it would verify a token presented by an API client.
 That is why this pattern works unchanged with KeyCloak, Cognito or Entra ID behind the proxy; the page is written for KeyCloak, and [Entra ID](#entra-id-instead-of-keycloak) at the end lists what differs.
 
-{{% see-also %}}
+{{< see-also >}}
 Read [Edge Proxy RP]({{< relref "docs/install-guide/setup/open-id/edge-proxy" >}}) first for the model, the path scoping rules and the trust prerequisites.
 The [KeyCloak]({{< relref "docs/install-guide/setup/open-id/external-idp/keycloak" >}}) page covers setting up the realm and client; here the client belongs to oauth2-proxy rather than to Stroom.
-{{% /see-also %}}
+{{< /see-also >}}
 
 
 ## KeyCloak Setup
@@ -47,10 +47,10 @@ set_authorization_header = true
 cookie_refresh = "4m"
 ```
 
-{{% note %}}
+{{< note >}}
 `set_authorization_header` forwards the **ID token**, not the access token.
 Stroom verifies either happily, but this means the `requiredAccessTokenType` Stroom setting must be left unset — an ID token does not carry an access token's `typ` header and would be rejected.
-{{% /note %}}
+{{< /note >}}
 
 
 ## NGINX Setup
@@ -141,11 +141,11 @@ appConfig:
 
 No `clientSecret` is needed; Stroom runs no flow of its own.
 
-{{% note %}}
+{{< note >}}
 oauth2-proxy can also run in a mode that forwards only plain headers such as `X-Forwarded-User` or `X-Auth-Request-Email` rather than a token.
 Stroom does **not** support that: there is no signature to verify, so trusting those headers would mean trusting every hop unconditionally.
 Always configure `set_authorization_header` so a verifiable token reaches Stroom.
-{{% /note %}}
+{{< /note >}}
 
 
 ## Logout
@@ -173,9 +173,9 @@ Either way the landing page must not be behind `auth_request`, or the sign in fl
 
 ## Entra ID Instead of KeyCloak
 
-{{% see-also %}}
+{{< see-also >}}
 The [Microsoft Entra ID]({{< relref "docs/install-guide/setup/open-id/external-idp/azure-ad" >}}) page covers the app registration; here it belongs to oauth2-proxy rather than to Stroom.
-{{% /see-also %}}
+{{< /see-also >}}
 
 The NGINX configuration and the Stroom `edgeAuthentication` settings are unchanged.
 What differs:

@@ -1,13 +1,6 @@
 {{ $_hugo_config := `{ "version": 1 }` }}
-<div class="alert alert-warning" role="alert">
-<h4 class="alert-heading">Warning</h4>
-{{ if or (strings.Contains .Inner "</span>") (strings.Contains .Inner "</a>") }}
-<!-- {{/* Nasty hack to cope with the html of external links in notes */}}-->
-    {{ .Inner | htmlUnescape | safeHTML }}
-{{ else if eq .Page.File.Ext "md" }}
-    {{ .Inner | markdownify }}
-{{ else }}
-    {{ .Inner | htmlUnescape | safeHTML }}
-{{ end }}
-</div>
-
+{{/*
+Hugo moans if the shortcode doesn't user .Inner, even though the partial uses it, so
+explicitly pass it to the partial.
+*/}}
+{{- partial "alert.partial.html" (dict "context" . "inner" .Inner "className" "alert-warning" "heading" "Warning" ) -}}

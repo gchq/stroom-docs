@@ -30,6 +30,6 @@ Not sure which you have?
 Whichever you use, authorisation is always handled by Stroom.
 The provider establishes who a user is; Stroom decides what they are allowed to do.
 
-{{% see-also %}}
+{{< see-also >}}
 See [Accounts and Users]({{< relref "accounts-users" >}}) for how identities at the provider relate to Stroom users, and [Tokens for API use]({{< relref "tokens-for-api" >}}) for authenticating machine to machine.
-{{% /see-also %}}
+{{< /see-also >}}

@@ -6,10 +6,10 @@ description: >
   In Stroom, Fields can be the Fields in an _Index_ (or other queryable _Data Source_ or the fields of _Metadata_ associated with a _Stream_, e.g. Stream ID, _Feed_, creation time, etc.
 ---
 
-{{% see-also %}}
+{{< see-also >}}
 * {{< glossary "Data Source">}}
 * {{< glossary "Feed">}}
 * {{< glossary "Index">}}
 * {{< glossary "Metadata">}}
 * {{< glossary "Stream">}}
-{{% /see-also %}}
+{{< /see-also >}}

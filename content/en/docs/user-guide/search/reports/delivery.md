@@ -42,15 +42,15 @@ Variable                 | Description
 
 `aiSummary` is always present so that a template using it renders whether or not a summary was produced.
 
-{{% note %}}
+{{< note >}}
 None of the detection variables, such as `detectTime`, `headline` or `values`, are available to a report template.
 A template written for an Analytic Rule will not work on a Report.
-{{% /note %}}
+{{< /note >}}
 
-{{% see-also %}}
+{{< see-also >}}
 [Templating]({{< relref "docs/reference-section/templating" >}})
 [Report Context]({{< relref "docs/reference-section/templating#report-context" >}})
-{{% /see-also %}}
+{{< /see-also >}}
 
 
 ## Feed Delivery
@@ -70,10 +70,10 @@ Meta Key                 | Description
 
 Writing reports to a feed is how you retain a record of what was reported and when, independently of whoever received the email.
 
-{{% note %}}
+{{< note >}}
 _Use Source Feed If Possible_ has no effect on a Report, as it only applies to streaming Analytic Rules.
 Reports are always written to the _Destination Feed_.
-{{% /note %}}
+{{< /note >}}
 
 
 ## Limiting
@@ -82,6 +82,6 @@ The _Limit Notifications_, _Maximum Notifications_ and _Resume Notifications Aft
 
 They are far less likely to matter for a report, because a report produces one file per run rather than one notification per matching row.
 
-{{% see-also %}}
+{{< see-also >}}
 [Limiting Notifications]({{< relref "docs/user-guide/search/analytics/notifications#limiting-notifications" >}})
-{{% /see-also %}}
+{{< /see-also >}}

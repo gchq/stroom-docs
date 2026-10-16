@@ -9,8 +9,8 @@ description: >
 ---
 
 
-{{% see-also %}}
+{{< see-also >}}
 [Users and Groups]({{< relref "docs/user-guide/security/users-and-groups" >}})
-{{% /see-also %}}
+{{< /see-also >}}
 
 

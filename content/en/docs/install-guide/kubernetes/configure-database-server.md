@@ -82,19 +82,19 @@ This may be desirable if you have for instance, a replication-enabled MySQL Inno
 
 ### Provision the Server and Stroom Databases
 
-{{% todo %}}
+{{< todo >}}
 Complete this section.
-{{% /todo %}}
+{{< /todo >}}
 
 
 ### Store Credentials in a `Secret`
 
 Create a `Secret` in the same namespace as the `StroomCluster`, containing the key `stroomuser`, with the value set to the password of that user.
 
-{{% warning %}}
+{{< warning >}}
 If at any time the MySQL password is updated, the value of the `Secret` must also be changed.
 Otherwise, Stroom will stop functioning.
-{{% /warning %}}
+{{< /warning >}}
 
 
 ## Upgrading or Removing a `DatabaseServer`

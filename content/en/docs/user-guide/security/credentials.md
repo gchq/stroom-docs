@@ -71,10 +71,10 @@ If no key is provided then Stroom will accept any server.
 This can be useful when getting things working but is not recommended for production use.
 To enable this setting, check {{< stroom-icon "ok.svg" >}} the checkbox "Verify Hosts" and add the entry from your `~/.ssh/known_hosts` file.
 
-{{% note %}}
+{{< note >}}
 Note that some systems hash the values in `~/.ssh/known_hosts`.
 This format is not currently supported.
-{{% /note %}}
+{{< /note >}}
 
 
 ### Key Store

@@ -73,12 +73,12 @@ Disabling the account, which only applies when Stroom is its own {{< glossary "i
 It does not disturb a session that is already running.
 See [User Accounts]({{< relref "user-accounts" >}}).
 
-{{% warning %}}
+{{< warning >}}
 This matters most when Stroom is configured to use an external {{< glossary "idp" >}}.
 Revoking a user's sessions and tokens does not touch the session they hold with that provider, so their next request is likely to sign them straight back in automatically, without their even being asked for a password.
 
 To prevent access when using an external {{< glossary "idp" >}}, disable the account at that provider, in Stroom, or both.
-{{% /warning %}}
+{{< /warning >}}
 
 
 ## Token Lifetimes
@@ -95,8 +95,8 @@ These are the defaults, and are configurable under `stroom.security.identity.tok
 Refresh tokens can be used only once, and each use issues a replacement.
 If a refresh token is presented a second time, which suggests it has been copied, Stroom withdraws that token and every token descended from it.
 
-{{% see-also %}}
+{{< see-also >}}
 [User Accounts]({{< relref "user-accounts" >}})
 [Signing In]({{< relref "signing-in" >}})
 [Signing Keys]({{< relref "signing-keys" >}})
-{{% /see-also %}}
+{{< /see-also >}}

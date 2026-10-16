@@ -9,13 +9,13 @@ description: >
 
 ---
 
-{{% todo %}}
+{{< todo >}}
 * Feature branches
   * Branch name
 * Change log
 * Checkstyle
 * PR conventions
   * Link to issue
-{{% /todo %}}
+{{< /todo >}}
 
 

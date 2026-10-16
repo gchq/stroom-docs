@@ -10,9 +10,9 @@ description: >
 
 ---
 
-{{% see-also %}}
+{{< see-also >}}
 {{< external-link "Nginx documentation" "https://nginx.org/en/docs/" >}}
-{{% /see-also %}}
+{{< /see-also >}}
 
 Nginx is the standard web server used by stroom.
 Its primary role is SSL termination and reverse proxying for stroom and stroom-proxy that sit behind it.

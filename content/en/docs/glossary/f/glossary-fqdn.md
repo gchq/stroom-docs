@@ -6,7 +6,7 @@ description: >
   For example `server57.some.domain.com`.
 ---
 
-{{% see-also %}}
+{{< see-also >}}
 {{< external-link "Fully Qualified Domain Name" "https://en.wikipedia.org/wiki/Fully_qualified_domain_name" >}}
-{{% /see-also %}}
+{{< /see-also >}}
 

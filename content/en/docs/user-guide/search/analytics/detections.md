@@ -15,12 +15,12 @@ One is raised for each row the rule's query returns, and it is the detection, ra
 Detections written to a {{< glossary "Feed" >}} are XML in the `detection:1` namespace, so they can be indexed and searched like any other data in Stroom.
 Detections sent by email are rendered through a template that has access to the same fields.
 
-{{% warning %}}
+{{< warning >}}
 A rule's detections do not currently validate against the published `detection:1` {{< glossary "XML Schema" >}} in the core content pack.
 Stroom writes `detectorUuid`, `executionSchedule`, `executionTime`, `effectiveExecutionTime`, `level`, `status` and `feedName`, none of which that schema declares, and the schema requires a `headline` element that a rule does not produce.
 This affects validation only, for example an XML Schema filter in a pipeline.
 Indexing, searching and delivery are unaffected.
-{{% /warning %}}
+{{< /warning >}}
 
 
 ## How a Detection is Built
@@ -50,10 +50,10 @@ It is worth writing it for whoever receives the detection rather than for whoeve
 Whether it is included is controlled by _Include Rule Documentation_ on the [Settings]({{< relref "settings" >}}) tab, which applies to every processing type.
 Where it is unticked, `detailedDescription` is left empty.
 
-{{% note %}}
+{{< note >}}
 `detectorVersion` is the version of the rule document, which changes every time the rule is saved.
 It is not a version you set yourself.
-{{% /note %}}
+{{< /note >}}
 
 
 ## Values
@@ -65,9 +65,9 @@ The two exceptions are `StreamId` and `EventId`.
 Rather than appearing in `values`, they are used to build a linked event, which records the {{< glossary "Stream" >}} and {{< glossary "Event" >}} the detection relates to.
 A detection whose query selects neither will have no linked events.
 
-{{% see-also %}}
+{{< see-also >}}
 [Columns]({{< relref "query#columns" >}})
-{{% /see-also %}}
+{{< /see-also >}}
 
 
 ## Fields a Rule Does Not Set
@@ -83,9 +83,9 @@ Field               | Purpose
 
 These exist because the same schema is used by detections produced outside Stroom, for example by an XSLT in a translation pipeline or by an external processing framework, which can set them.
 
-{{% see-also %}}
+{{< see-also >}}
 [Rule Detections Context]({{< relref "docs/reference-section/templating#rule-detections-context" >}})
-{{% /see-also %}}
+{{< /see-also >}}
 
 
 ## Detections as a Data Source

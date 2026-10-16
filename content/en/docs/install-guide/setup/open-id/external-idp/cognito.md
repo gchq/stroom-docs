@@ -12,14 +12,14 @@ description: >
 
 This page covers using an {{< external-link "Amazon Cognito" "https://docs.aws.amazon.com/cognito/latest/developerguide/what-is-amazon-cognito.html" >}} user pool as Stroom's {{< glossary "idp" >}}.
 
-{{% see-also %}}
+{{< see-also >}}
 Read [External IDP]({{< relref "docs/install-guide/setup/open-id/external-idp" >}}) first for what Stroom needs from any provider, and [Stroom Configuration]({{< relref "stroom-configuration" >}}) for what each setting does.
-{{% /see-also %}}
+{{< /see-also >}}
 
-{{% note %}}
+{{< note >}}
 This page covers Stroom itself being the OIDC client of the user pool.
 If Stroom sits behind an AWS Application Load Balancer whose listener rule does the authentication, the load balancer is the client instead - see [AWS Application Load Balancer]({{< relref "docs/install-guide/setup/open-id/edge-proxy/aws-alb#amazon-cognito" >}}).
-{{% /note %}}
+{{< /note >}}
 
 Cognito differs from a typical OIDC provider in two ways that directly affect the Stroom configuration, so they are worth knowing before you start.
 
@@ -45,10 +45,10 @@ In the AWS console, under Cognito:
 
 Where `STROOM_FQDN` is the public address of Stroom, i.e. what you have set as `appConfig.publicUri`.
 
-{{% note %}}
+{{< note >}}
 Cognito requires callback URLs to use `https`, other than for `http://localhost`.
 It matches them exactly and does not accept wildcards, so register the single URI above rather than anything broader.
-{{% /note %}}
+{{< /note >}}
 
 Cognito supports PKCE, and Stroom always sends an `S256` challenge, so there is nothing to configure for it.
 
@@ -75,10 +75,10 @@ Set `authEndpoint` and `tokenEndpoint` explicitly to your pool's domain, since t
 * `https://YOUR_PREFIX.auth.REGION.amazoncognito.com/oauth2/authorize`
 * `https://YOUR_PREFIX.auth.REGION.amazoncognito.com/oauth2/token`
 
-{{% note %}}
+{{< note >}}
 Compare these against what your pool's discovery document advertises.
 Where the two agree you can leave `authEndpoint` and `tokenEndpoint` unset and let the discovery document supply them; setting them explicitly is the reliable option.
-{{% /note %}}
+{{< /note >}}
 
 
 ## Configuring Stroom
@@ -121,11 +121,11 @@ A Cognito **id_token**, used by interactive sign in, carries `aud` set to the ap
 A Cognito **access token**, used for API calls, carries no `aud` claim at all; the equivalent information is in a `client_id` claim, which is not something Stroom validates against.
 With the default of `audienceClaimRequired: true` those tokens are refused, so set it to `false`.
 
-{{% warning %}}
+{{< warning >}}
 `audienceClaimRequired` defaults to `true`, having previously defaulted to `false`.
 If you are upgrading an existing Cognito deployment, add `audienceClaimRequired: false` before you upgrade, otherwise API calls made with Cognito access tokens will start being refused.
 Interactive sign in is unaffected.
-{{% /warning %}}
+{{< /warning >}}
 
 Leave `validateAudience` at its default of `true`.
 Setting it to `false` would switch off audience checking for the `id_token` as well, which Cognito populates perfectly well.
@@ -138,10 +138,10 @@ Use `cognito:username`, or `email` where every user has one.
 
 `uniqueIdentityClaim` should be left as `sub`, which for Cognito is a UUID that is stable for the life of the user.
 
-{{% warning %}}
+{{< warning >}}
 Do not be tempted to use `email` or `cognito:username` as the `uniqueIdentityClaim`.
 Both can be changed or reassigned to another person, who would then inherit the Stroom user and its permissions.
-{{% /warning %}}
+{{< /warning >}}
 
 For `fullNameClaimTemplate` to resolve, the corresponding attributes must be populated on the user and included in the token.
 Add `profile` to `requestScopes` if you need `name`, `given_name` or `family_name`.
@@ -184,9 +184,9 @@ java -jar /absolute/path/to/stroom-app-all.jar \
   ../local.yml
 {{</ command-line >}}
 
-{{% see-also %}}
+{{< see-also >}}
 See [KeyCloak]({{< relref "keycloak#setting-up-the-admin-user-in-stroom" >}}) for a fuller description of what this command does, and [Command Line Tools]({{< relref "docs/user-guide/tools/command-line" >}}) for its options.
-{{% /see-also %}}
+{{< /see-also >}}
 
 
 ## Stroom-Proxy with Cognito

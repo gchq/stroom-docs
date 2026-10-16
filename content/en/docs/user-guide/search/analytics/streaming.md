@@ -26,9 +26,9 @@ Its filter determines which streams are selected for processing, and its extract
 A rule whose query names anything other than a View, or whose View has no pipeline, fails when it is processed rather than when it is saved.
 The error is reported against the rule, so a streaming rule that raises nothing at all is worth checking here first.
 
-{{% see-also %}}
+{{< see-also >}}
 [Views]({{< relref "docs/reference-section/documents#view" >}})
-{{% /see-also %}}
+{{< /see-also >}}
 
 
 ## Processing
@@ -44,9 +44,9 @@ Because streaming rules use the normal stream processing machinery, they behave 
 * Their progress can be tracked, and they can be reprocessed, from the _Processors_ screen.
 * Their priority competes with other processing on the node.
 
-{{% see-also %}}
+{{< see-also >}}
 [HOWTO - Enabling Processors]({{< relref "docs/HOWTOs/General/EnablingProcessorsHowTo" >}})
-{{% /see-also %}}
+{{< /see-also >}}
 
 
 ## Differences from a Scheduled Rule
@@ -58,7 +58,7 @@ It also has no [Duplicate Management]({{< relref "duplicate-management" >}}) tab
 
 Streaming rules are the only type that can use _Use Source Feed If Possible_ on a stream notification, which writes each detection to the feed the source data came from rather than to the destination feed, see [Stream Destinations]({{< relref "notifications#stream-destinations" >}}).
 
-{{% note %}}
+{{< note >}}
 A streaming rule sees one stream at a time.
 A query that needs to compare data across streams, or count over a period, will not work as a streaming rule and should be a scheduled one.
-{{% /note %}}
+{{< /note >}}

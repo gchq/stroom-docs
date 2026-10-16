@@ -17,9 +17,9 @@ In order to build and contribute to the documentation you will need the followin
 * {{< external-link "Docker" "https://docs.docker.com/get-docker/" >}} 
 * {{< external-link "docker-buildx" "https://github.com/docker/buildx#installing" >}}
 
-{{% note %}}
+{{< note >}}
 If you cannot or do not want to install Docker and `buildx` on your local machine see [Developing Stroom-Docs on GitHub Codespaces]({{< relref "#developing-stroom-docs-on-github-codespaces" >}}) below.
-{{% /note %}}
+{{< /note >}}
 
 Docker or Docker Desktop is required as all the build steps are performed in docker containers to ensure a consistent and known build environment.
 It also ensures that the local build environment matches that used in GitHub actions.
@@ -121,16 +121,16 @@ This will execute the following steps:
 
 If you cannot or do not want to install docker and `buildx` on your local machine but need to work on the documentation then you can do it from within {{< external-link "GitHub Codespaces" "https://github.com/features/codespaces" >}}.
 
-{{% note %}}
+{{< note >}}
 Codespaces is a paid feature on GitHub, however it comes with 60hrs of free use per month so if you are only using it for stroom-docs development this should be ample.
-{{% /note %}}
+{{< /note >}}
 
 To develop Stroom-Docs with Codespaces do the following:
 
 1. Visit Stroom-Docs' GitHub site at the desired version branch, e.g. {{< external-link "https://github.com/gchq/stroom-docs/tree/7.2" >}} (or visit {{< external-link "https://github.com/gchq/stroom-docs" >}} and switch branch using the branch/tag drop-down button).
-  {{% note %}}
+  {{< note >}}
   If you are developing on a fork then replace `gchq` in the URL with your github username.
-  {{% /note %}}
+  {{< /note >}}
 1. Click on the green _Code_ drop-down button.
 1. On the Codespaces tab click on _Create Codespace on <branch>_
    {{< image "documenting-stroom/github-codespaces.png" "300x" />}}
@@ -149,10 +149,10 @@ Within the Codespace you can use all the git commands to pull/push/commit change
 
 To stop the code space hit `ctrl+shift+p`, enter `stop` and then select _Codespaces: Stop current Codespace_.
 
-{{% warning %}}
+{{< warning >}}
 When editing the documentation using Codespaces you need to manually refresh the browser tab with the served site.
 It does not auto-refresh like it does when running `./serve-site.sh` on your local machine.
-{{% /warning %}}
+{{< /warning >}}
 
 
 ## Additional Commands
@@ -163,11 +163,11 @@ _stroom-docs_ makes use of {{< external-link "PlantUML" "https://plantuml.com" >
 These are stored in the repository as `.puml` text files.
 In order that they can be rendered in the site they need to be converted into SVGs first.
 
-{{% note %}}
+{{< note >}}
 Docsy has the capability to render PlantUML content in fenced code blocks on the fly.
 This capability makes use of internet based servers to do the conversion therefore it is not suitable for this site as this site needs to available for deployment in environments with no internet access.
 All PlantUML content should be authored in `.puml` files and converted at build time.
-{{% /note %}}
+{{< /note >}}
 
 To convert all `.puml` files into sibling `.puml.svg` files, run this from the repository root:
 
@@ -180,7 +180,7 @@ It only needs to be run on first clone of the repo or when `.puml` files are add
 The generated `.puml.svg` files are ignored by git.
 This command will be run as part of the GitHub Actions automated build.
 
-{{% warning %}}
+{{< warning >}}
 If `runInPumlDocker.sh SVG` is not run having added links to PlantUML images in the documentation, then when you build or serve the site you will see errors like this:
 
 ```text
@@ -190,12 +190,12 @@ failed to process shortcode: "/builder/shared/layouts/shortcodes/image.html:54:2
 execute of template failed: template: shortcodes/image.html:54:21:
 executing "shortcodes/image.html" at <$image.Name>: nil pointer evaluating resource.Resource.Name
 ```
-{{% /warning %}}
+{{< /warning >}}
 
 
-{{% note %}}
+{{< note >}}
 In the build docker containers your local _stroom-docs_ repository is mounted into the container as `/builder/shared/`, so if you see this path mentioned in the logs this is referring to your local repository.
-{{% /note %}}
+{{< /note >}}
 
 
 ### Running a Local Hugo Server
@@ -212,9 +212,9 @@ When any source files are changed or added Hugo will detect this and rebuild the
 
 Once the server is running the site is available at [localhost:1313](http://localhost:1313).
 
-{{% warning %}}
+{{< warning >}}
 Sometimes changes made to the site source will not be re-loaded correctly so it may be necessary to stop and re-start the server.
-{{% /warning %}}
+{{< /warning >}}
 
 
 ### Building the Site Locally

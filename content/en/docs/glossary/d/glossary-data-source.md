@@ -19,9 +19,9 @@ Each Field will have:
 * A flag to indicate if it is queryable or not.
   I.e. a queryable field could be referenced in the query expression tree and in a {{< glossary "Dashboard" >}} table, but a non-queryable field could only be referenced in the Dashboard table.
 
-{{% see-also %}}
+{{< see-also >}}
 * {{< glossary "Query">}}
 * {{< glossary "Dashboard">}}
 * {{< glossary "Field">}}
-{{% /see-also %}}
+{{< /see-also >}}
 

@@ -6,8 +6,8 @@ description: >
   REST APIs typically use _JSON_ to send data between the client and the server, and the HTTP methods GET, PUT, PATCH, POST and DELETE.
 ---
 
-{{% see-also %}}
+{{< see-also >}}
 * {{< glossary "JSON" >}}
 * {{< external-link "REST" "https://en.wikipedia.org/wiki/Representational_state_transfer" >}}
-{{% /see-also %}}
+{{< /see-also >}}
 

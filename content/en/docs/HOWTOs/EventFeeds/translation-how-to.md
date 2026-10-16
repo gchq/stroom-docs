@@ -12,9 +12,9 @@ description: >
 
 <!-- Created with Stroom v6.1-beta.16 -->
 
-{{% see-also %}}
+{{< see-also >}}
 [HOWTO - Event Processing]({{< relref "ProcessingHowTo" >}})
-{{% /see-also %}}
+{{< /see-also >}}
 
 
 ## Introduction

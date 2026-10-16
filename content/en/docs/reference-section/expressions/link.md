@@ -17,9 +17,9 @@ In addition to the `link` function there are convenience functions such as `anno
 
 DEPRECATED - replaced by fully integrated Stroom annotation functionality and `createAnnotation`
 
-{{% see-also %}}
+{{< see-also >}}
 [Annotation Links]({{< relref "docs/user-guide/search/dashboards/internal-links#annotation" >}}).
-{{% /see-also %}}
+{{< /see-also >}}
 
 A helper function to make forming links to annotations easier than using [Link](#link).
 The Annotation function allows you to create a link to open the Annotation editor, either to view an existing annotation or to begin creating one with pre-populated values.
@@ -56,9 +56,9 @@ annotation('Create suspect event annotation', null(), 123, 456, 'Suspect Event',
 
 ## Create Annotation
 
-{{% see-also %}}
+{{< see-also >}}
 [Annotation Links]({{< relref "docs/user-guide/search/dashboards/internal-links#annotation" >}}).
-{{% /see-also %}}
+{{< /see-also >}}
 
 Since annotation editing is now performed as a primary Stroom feature via a button and context menu on dashboard and query tables we no longer need to create or edit annotations via a hyperlink.
 There are some remaining use cases where users want to create and initialise some annotation values based on some table row content.
@@ -79,9 +79,9 @@ createAnnotation('Create Annotation', 'My Annotation Title', ${SubjectField}, 'N
 
 ## Dashboard
 
-{{% see-also %}}
+{{< see-also >}}
 [Dashboard Links]({{< relref "docs/user-guide/search/dashboards/internal-links#dashboard" >}}).
-{{% /see-also %}}
+{{< /see-also >}}
 
 A helper function to make forming links to dashboards easier than using [Link](#link).
 
@@ -102,9 +102,9 @@ dashboard('Click Here','e177cf16-da6c-4c7d-a19c-09a201f5a2da', 'userId=user1')
 
 ## Data
 
-{{% see-also %}}
+{{< see-also >}}
 [Data Links]({{< relref "docs/user-guide/search/dashboards/internal-links#data" >}}).
-{{% /see-also %}}
+{{< /see-also >}}
 
 A helper function to make forming links to data easier than using [Link](#link).
 
@@ -146,9 +146,9 @@ data('View Cooked', ${StreamId}, 1, ${eventId}, null(), null(), null(), null(), 
 
 ## Link
 
-{{% see-also %}}
+{{< see-also >}}
 [Internal Links]({{< relref "docs/user-guide/search/dashboards/internal-links" >}}).
-{{% /see-also %}}
+{{< /see-also >}}
 
 Create a string that represents a hyperlink for display in a dashboard table.
 
@@ -174,9 +174,9 @@ link('Click Here','https://www.somehost.com/somepath', 'dialog|Dialog Title')
 
 ## Stepping
 
-{{% see-also %}}
+{{< see-also >}}
 [Stepping Links]({{< relref "docs/user-guide/search/dashboards/internal-links#stepping" >}}).
-{{% /see-also %}}
+{{< /see-also >}}
 
 Open the _Stepping_ tab for the requested data source.
 
