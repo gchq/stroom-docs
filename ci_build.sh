@@ -241,7 +241,7 @@ build_version_from_source() {
   if [[ -f ./check_style.sh ]]; then
     echo "::group::Checking style"
     echo -e "${GREEN}Checking all .md files against the style guide${NC}"
-    ./check_style.sh
+    ./check_style.sh --strict
     echo "::endgroup::"
   fi
 
