@@ -88,6 +88,11 @@ Giving the model a role with a system prompt.
 <!-- TODO add example XSLT -->
 
 
+## `send-email`
+
+{{< xslt-func "send-email" >}}
+
+
 ## `split-document`
 
 {{< xslt-func "split-document" >}}

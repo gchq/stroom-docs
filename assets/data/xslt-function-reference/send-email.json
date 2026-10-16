@@ -1,0 +1,64 @@
+{
+  "name" : "send-email",
+  "helpAnchor" : "",
+  "aliases" : [ ],
+  "commonCategory" : [ "Other" ],
+  "commonSubCategories" : [ "Email" ],
+  "commonDescription" : "Sends an email using the SMTP server and from address configured in\n`stroom.analytics.emailConfig`.\nEach address argument is a `;` separated list of email addresses, and there must be at least\none recipient across `to`, `cc` and `bcc`.\nIf the body contains HTML tags it is sent as HTML, otherwise as plain text.\n\nAn email is sent every time the function is called, so calling it for every record will send\nan email for every record.\nNo email is sent while stepping. Instead an INFO message shows the email that would have\nbeen sent.\n\nAs the function returns an empty sequence, call it somewhere its result is used, e.g.\n`<xsl:sequence select=\"stroom:send-email(...)\"/>`, otherwise the XSLT processor may not call it.",
+  "extendedCommonDescription" : "",
+  "commonReturnType" : [ "Empty Sequence" ],
+  "commonReturnDescription" : "An empty sequence.",
+  "signatures" : [ {
+    "args" : [ {
+      "allowedValues" : [ ],
+      "argType" : "String",
+      "defaultValue" : "",
+      "description" : "The `;` separated addresses to send the email to.",
+      "isOptional" : false,
+      "isVarargs" : false,
+      "minVarargsCount" : 0,
+      "name" : "to"
+    }, {
+      "allowedValues" : [ ],
+      "argType" : "String",
+      "defaultValue" : "",
+      "description" : "The subject of the email. It must be a single line.",
+      "isOptional" : false,
+      "isVarargs" : false,
+      "minVarargsCount" : 0,
+      "name" : "subject"
+    }, {
+      "allowedValues" : [ ],
+      "argType" : "String",
+      "defaultValue" : "",
+      "description" : "The body of the email, as plain text or HTML.",
+      "isOptional" : false,
+      "isVarargs" : false,
+      "minVarargsCount" : 0,
+      "name" : "body"
+    }, {
+      "allowedValues" : [ ],
+      "argType" : "String",
+      "defaultValue" : "",
+      "description" : "The `;` separated addresses to copy the email to.",
+      "isOptional" : true,
+      "isVarargs" : false,
+      "minVarargsCount" : 0,
+      "name" : "cc"
+    }, {
+      "allowedValues" : [ ],
+      "argType" : "String",
+      "defaultValue" : "",
+      "description" : "The `;` separated addresses to blind copy the email to.",
+      "isOptional" : true,
+      "isVarargs" : false,
+      "minVarargsCount" : 0,
+      "name" : "bcc"
+    } ],
+    "category" : [ ],
+    "description" : "",
+    "returnDescription" : "",
+    "returnType" : [ ],
+    "subCategories" : [ ]
+  } ]
+}
