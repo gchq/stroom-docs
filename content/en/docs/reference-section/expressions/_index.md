@@ -180,6 +180,10 @@ The arguments to functions can either be other functions, literal values, or the
   * [Current User Uuid](param#current-user-uuid)
   {{< /card >}}
 
+  {{< card header="AI Functions" >}}
+  * [Ask AI](ai#ask-ai)
+  {{< /card >}}
+
   {{< card header="Lookup Functions" >}}
   * [Get State](lookup#get-state)
   {{< /card >}}

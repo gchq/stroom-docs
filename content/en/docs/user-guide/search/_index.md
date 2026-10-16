@@ -8,7 +8,7 @@ tags:
   - query
   - dashboard
 description: >
-  Searching the data held in Stroom using Dashboards, Queries, Views and Analytic Rules.
+  Searching the data held in Stroom using Dashboards, Queries, Views, Analytic Rules and Reports.
 ---
 
 Data in stroom (and in external Elastic indexes) can be searched using a number of ways:
@@ -21,3 +21,6 @@ Data in stroom (and in external Elastic indexes) can be searched using a number 
 
 * [Analytic Rule]({{< relref "analytics" >}}) {{< stroom-icon "document/AnalyticRule.svg">}}
   Executes a {{< glossary "StroomQL" >}} search query either against data as it is ingested into Stroom or on a scheduled basis.
+
+* [Report]({{< relref "reports" >}}) {{< stroom-icon "document/Report.svg">}}
+  Executes a {{< glossary "StroomQL" >}} search query on a scheduled basis and delivers the results as a file by email or to a feed.

@@ -22,16 +22,16 @@ In a bulleted list
 * This is an glossary link {{< glossary "stream" >}} and so is this {{< glossary "idp" >}}.
 {{< /see-also >}}
 
-{{% warning %}}
+{{< warning >}}
 * {{< glossary "stream" >}}
 * {{< glossary "idp" >}}
 * This is an glossary link {{< glossary "stream" >}} and so is this {{< glossary "idp" >}}.
-{{% /warning %}}
+{{< /warning >}}
 
-{{% note %}}
+{{< note >}}
 * {{< glossary "stream" >}}
 * {{< glossary "idp" >}}
 * This is an glossary link {{< glossary "stream" >}} and so is this {{< glossary "idp" >}}.
-{{% /note %}}
+{{< /note >}}
 
 
