@@ -8,9 +8,9 @@ description: >
   Required actions and information relating to upgrading to Stroom version 7.13.
 ---
 
-{{% warning %}}
+{{< warning >}}
 Please read this section carefully in case any of it is relevant to your Stroom/Stroom-Proxy instance.
-{{% /warning %}}
+{{< /warning >}}
 
 
 ## Upgrade Path
@@ -23,19 +23,19 @@ If you want to upgrade to v7.13.x from v5.x or v6.x we recommend you do the foll
 1. Upgrade v6.x to the latest patch release of v7.0.
 1. Upgrade v7.x to the latest patch release of v7.13.
 
-{{% warning %}}
+{{< warning >}}
 v7.13 **cannot** migrate content in legacy formats, i.e. content created in v5/v6.
 You must therefore upgrade to v7.0.x first to migrate this content, before upgrading to v7.13.x.
-{{% /warning %}}
+{{< /warning >}}
 
 
 ## Java Version
 
 Stroom v7.13 requires Java 25.
 
-{{% warning %}}
+{{< warning >}}
 This is different to the java version required for Stroom v7.9 (Java 21).
-{{% /warning %}}
+{{< /warning >}}
 
 Ensure the Stroom and Stroom-Proxy hosts are running the latest patch release of Java v25.
 
@@ -83,9 +83,9 @@ https://<stroom-host>/
 
 The internal identity provider needs no configuration for this.
 
-{{% see-also %}}
+{{< see-also >}}
 [External Identity Provider]({{< relref "docs/install-guide/setup/open-id/external-idp" >}})
-{{% /see-also %}}
+{{< /see-also >}}
 
 
 ### Upgrading from a 7.13 Beta Release
@@ -114,9 +114,9 @@ An administrator can no longer lock an account, so two kinds of account are conv
 
 This fails closed, i.e. access stays barred until an administrator acts, so review the accounts list after upgrading and re-enable anything that was disabled in error.
 
-{{% see-also %}}
+{{< see-also >}}
 [User Accounts]({{< relref "docs/user-guide/security/user-accounts" >}})
-{{% /see-also %}}
+{{< /see-also >}}
 
 
 ## Configuration File Changes
@@ -608,11 +608,11 @@ appConfig:
 
 When Stroom boots for the first time with a new version it will run any required database migrations to bring the database schema up to the correct version.
 
-{{% warning %}}
+{{< warning >}}
 It is highly recommended to ensure you have a database backup in place before booting stroom with a new version.
 This is to mitigate against any problems with the migration.
 It is also recommended to test the migration against a copy of your database to ensure that there are no problems when you do it for real.
-{{% /warning %}}
+{{< /warning >}}
 
 On boot, Stroom will ensure that the migrations are only run by a single node in the cluster.
 This will be the node that reaches that point in the boot process first.

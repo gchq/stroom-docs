@@ -6,9 +6,9 @@ description: >
   A Stroom User is primarily concerned with authorisation (i.e. application/document permissions and group memberships) rather than authentication, though disabling one also refuses that person at authentication and ends any access they currently hold.
 ---
 
-{{% see-also %}}
+{{< see-also >}}
 * {{< glossary "Account" >}}
 * {{< glossary "IDP" >}}
 * [Users and Groups]({{< relref "docs/user-guide/security/users-and-groups" >}})
-{{% /see-also %}}
+{{< /see-also >}}
 

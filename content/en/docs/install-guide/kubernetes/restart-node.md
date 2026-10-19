@@ -22,10 +22,10 @@ This will attempt to drain tasks for the node.
 After the termination grace period has elapsed, the Pod will be killed and a new one will automatically re-spawn to take its place.
 Once the new Pod finishes starting up, if functioning correct it should begin responding to cluster ping.
 
-{{% note %}}
+{{< note >}}
 Prior to a Stroom node being stopped (for whatever reason), task processing for that node is disabled and it is drained of all active tasks.
 Task processing is resumed once the node starts up again.
-{{% /note %}}
+{{< /note >}}
 
 
 ## Force Deletion

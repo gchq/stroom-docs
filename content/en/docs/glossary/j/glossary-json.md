@@ -7,8 +7,8 @@ description: >
   Stroom accepts data in JSON format and can output to JSON.
 ---
 
-{{% see-also %}}
+{{< see-also >}}
 {{< external-link "Wikipedia" "https://en.wikipedia.org/wiki/JSON" >}}
 [JSON Parser]({{< relref "pipeline-elements#jsonparser" >}})
-{{% /see-also %}}
+{{< /see-also >}}
 

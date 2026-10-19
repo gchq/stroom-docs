@@ -16,9 +16,9 @@ Using Docker means you don't need to install the right versions of dependencies 
 
 This section details how to install single instances of of Stroom and Stroom-Proxy using Docker.
 
-{{% note %}}
+{{< note >}}
 If you want to deploy a Stroom cluster using containers then you should use Kubernetes, see [Kubernetes Cluster]({{< relref "docs/install-guide/kubernetes" >}}).
-{{% /note %}}
+{{< /note >}}
 
 
 ## Stroom Docker Stacks
@@ -97,9 +97,9 @@ In order to run Stroom using Docker you will need the following installed on the
 * curl
 * A non-root user to perform the install as, e.g. `stroomuser`
 
-{{% note %}}
+{{< note >}}
 `jq` is not a hard requirement but improves the functionality of the health checks and is a useful thing to have, e.g. for using Stroom's REST API.
-{{% /note %}}
+{{< /note >}}
 
 
 ## Install Steps
@@ -149,12 +149,12 @@ Open a browser (preferably Chrome) at [https://localhost](https://localhost) and
 * username: _admin_
 * password: _admin_
 
-{{% note %}}
+{{< note >}}
 The `admin`/`admin` login above only exists in the `stroom_core_test` stack.
 
 If you have installed the `stroom_core` stack then no user accounts are created by default and nobody can log in until you create one.
 See [Creating the First Administrator]({{< relref "docs/install-guide/setup/create-first-admin" >}}).
-{{% /note %}}
+{{< /note >}}
 
 
 The stroom stack comes supplied with self-signed certificates so you may need to accept a prompt warning you about visiting an untrusted site.

@@ -276,10 +276,10 @@ appConfig / proxyConfig:
 Multiple configuration branches in both Stroom and Stroom-Proxy have one or more properties for configuring a cache.
 Each of these share the same structure and will typically be named `xxxCache`, e.g. `feedStatusCache` or `metaTypeCache`.
 
-{{% warning %}}
+{{< warning >}}
 The default values for each property within the cache config will be specific to the cache.
 Care needs to be taken when changing the cache properties to avoid changing the behaviour of the cache, e.g. changing from having a `expireAfterWrite` value to having a `expireAfterAccess` value may prevent items from aging off as expected.
-{{% /warning %}}
+{{< /warning >}}
 
 
 ```yaml
@@ -442,9 +442,9 @@ appConfig / proxyConfig:
         validateAudience: true
 ```
 
-{{% see-also %}}
+{{< see-also >}}
 See [External IDP]({{< relref "docs/install-guide/setup/open-id/external-idp" >}}) for how to set these values up for a given identity provider, and [Stroom Configuration]({{< relref "docs/install-guide/setup/open-id/external-idp/stroom-configuration" >}}) for what each one does.
-{{% /see-also %}}
+{{< /see-also >}}
 
 
 ## Jersey HTTP Client Configuration
@@ -465,10 +465,10 @@ The client names are as follows:
 * `OPEN_ID` - Connections to an Open ID Connect identity provider, e.g. Cognito, Azure AD, KeyCloak, etc.
 * `STROOM` - Inter-node communications within the Stroom cluster (**Stroom only**).
 
-{{% note %}}
+{{< note >}}
 If a named configuration does not exist then the configuration for `DEFAULT` will be used.
 If `DEFAULT` is not defined in the configuration then the Dropwizard defaults will be used.
-{{% /note %}}
+{{< /note >}}
 
 The following is an example of how the clients are configured in the YAML file:
 
@@ -543,17 +543,17 @@ jerseyClients:
 ```
 
 
-{{% note %}}
+{{< note >}}
 Duration values in the Jersey client configuration blocks are different to [Stroom Durations]({{< relref "#stroom-duration-data-type" >}}) defined in Stroom properties.
 They are defined as a numeric value and a unit suffix.
 Typical suffixes are (in ascending order): `ns`, `us`, `ms`, `s`, `m`, `h`, `d`.
 ISO 8601 duration strings are NOT supported, nor are values without a suffix.
 {{< external-link "Full list of duration suffixes and their aliases" "https://github.com/dropwizard/dropwizard/blob/master/dropwizard-util/src/main/java/io/dropwizard/util/Duration.java" >}}
-{{% /note %}}
+{{< /note >}}
 
-{{% note %}}
+{{< note >}}
 The paths used for the key and trust stores will be treated in the same way as Stroom property paths, i.e. relative to `stroom.home` if relative and supporting variable substitution.
-{{% /note %}}
+{{< /note >}}
 
 
 ## Logging Configuration

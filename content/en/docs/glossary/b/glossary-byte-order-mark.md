@@ -6,9 +6,9 @@ description: >
 ---
 
 
-{{% see-also %}}
+{{< see-also >}}
 [Byte Order Mark]({{< relref "docs/sending-data/data-formats/character-encoding" >}}).
-{{% /see-also %}}
+{{< /see-also >}}
 
 
 

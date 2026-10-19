@@ -22,9 +22,9 @@ There are many variants of markdown that all have subtly different features or s
 Stroom uses the {{< external-link "Showdown" "https://github.com/showdownjs/showdown/wiki/Showdown's-Markdown-syntax" >}} markdown converter to render users' markdown content into formatted text.
 This link is the definitive source for supported markdown syntax.
 
-{{% note %}}
+{{< note >}}
 The _Showdown_ markdown processor used in stroom is **not** the same as the markdown processor used within this documentation site (*stroom-docs*), so there may be some subtle differences in syntax.
-{{% /note %}}
+{{< /note >}}
 
 
 ## Example Markdown Content
@@ -252,7 +252,7 @@ THIS_IS_MY_FEED.
 While it is possible to use HTML in the documentation, its use is not recommended as it increases the complexity of the documentation content and requires that other users have knowledge of HTML.
 Markdown should be sufficient for most cases, with the possible exception of complex tables where HTML may be preferable.
 
-{{% note %}}
+{{< note >}}
 No form of HTML scripting (i.e. Javascript) is supported within the documentation content.
-{{% /note %}}
+{{< /note >}}
 

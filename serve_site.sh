@@ -79,7 +79,7 @@ main() {
 
   echo -e "${GREEN}Running the Hugo server on localhost:1313${NC}"
 
-  ./container_build/runInHugoDocker.sh server
+  ./container_build/runInHugoDocker.sh server-draft
 }
 
 main "$@"

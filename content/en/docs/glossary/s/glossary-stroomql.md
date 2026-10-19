@@ -7,7 +7,7 @@ description: >
   StroomQL is sometimes referred to as _sQL_ to distinguish it from _SQL_.
 ---
 
-{{% see-also %}}
+{{< see-also >}}
 [Stroom Query Language]({{< relref "stroom-query-language" >}})
-{{% /see-also %}}
+{{< /see-also >}}
 

@@ -6,7 +6,7 @@ description: >
   A Pipeline can have many elements within it to read, process or transform the data flowing through it.
 ---
 
-{{% see-also %}}
+{{< see-also >}}
 [Pipelines]({{< relref "docs/user-guide/pipelines" >}})
-{{% /see-also %}}
+{{< /see-also >}}
 

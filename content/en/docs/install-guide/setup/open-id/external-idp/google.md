@@ -12,11 +12,11 @@ description: >
 
 This page covers using {{< external-link "Google Identity" "https://developers.google.com/identity/openid-connect/openid-connect" >}} as Stroom's {{< glossary "idp" >}}, whether for consumer Google accounts or for a Google Workspace domain.
 
-{{% see-also %}}
+{{< see-also >}}
 Read [External IDP]({{< relref "docs/install-guide/setup/open-id/external-idp" >}}) first for what Stroom needs from any provider, and [Stroom Configuration]({{< relref "stroom-configuration" >}}) for what each setting does.
-{{% /see-also %}}
+{{< /see-also >}}
 
-{{% warning %}}
+{{< warning >}}
 Google is a more limited choice than KeyCloak or Cognito, in three respects.
 
 * **Its access tokens are opaque, not JWTs.**
@@ -29,7 +29,7 @@ Google is a more limited choice than KeyCloak or Cognito, in three respects.
 
 Interactive sign in to the Stroom UI works perfectly well.
 It is the machine to machine paths that Google does not serve.
-{{% /warning %}}
+{{< /warning >}}
 
 
 ## Creating the OAuth Client
@@ -47,13 +47,13 @@ In the {{< external-link "Google Cloud Console" "https://console.cloud.google.co
 
 Where `STROOM_FQDN` is the public address of Stroom, i.e. what you have set as `appConfig.publicUri`.
 
-{{% warning %}}
+{{< warning >}}
 Google matches redirect URIs exactly and **does not accept wildcards** of any kind.
 It also requires `https`, other than for `http://localhost`.
 
 This means that older Stroom guidance to register something like `https://STROOM_FQDN/*` could never have worked with Google.
 Stroom now uses the single fixed callback URI above, which Google accepts.
-{{% /warning %}}
+{{< /warning >}}
 
 Google supports PKCE, and Stroom always sends an `S256` challenge, so there is nothing to configure for it.
 
@@ -103,11 +103,11 @@ Without it the default `fullNameClaimTemplate` of `${name}` will not resolve.
 Leave `uniqueIdentityClaim` as `sub`.
 Google's `sub` is stable for a given account, unlike the email address.
 
-{{% warning %}}
+{{< warning >}}
 Do not set `uniqueIdentityClaim` to `email`.
 A Workspace administrator can reassign an address to a different person, who would then inherit the Stroom user and all of its permissions.
 Google's own guidance is to key on `sub` for exactly this reason.
-{{% /warning %}}
+{{< /warning >}}
 
 
 ### Signing Out
@@ -166,9 +166,9 @@ java -jar /absolute/path/to/stroom-app-all.jar \
 
 The command is repeatable and will skip anything that already exists, so running it against a user that signed in earlier is fine.
 
-{{% see-also %}}
+{{< see-also >}}
 See [KeyCloak]({{< relref "keycloak#setting-up-the-admin-user-in-stroom" >}}) for a fuller description of what this command does, and [Command Line Tools]({{< relref "docs/user-guide/tools/command-line" >}}) for its options.
-{{% /see-also %}}
+{{< /see-also >}}
 
 
 ## Data Receipt and the API
@@ -183,9 +183,9 @@ Because Google's access tokens are opaque rather than JWTs, Stroom cannot valida
 
 Use Stroom {{< glossary "API Key" "API Keys" >}} for API clients and for feed status checks, or client certificates for data receipt.
 
-{{% see-also %}}
+{{< see-also >}}
 See [Tokens for API use]({{< relref "docs/install-guide/setup/open-id/tokens-for-api" >}}).
-{{% /see-also %}}
+{{< /see-also >}}
 
 
 ## Stroom-Proxy with Google

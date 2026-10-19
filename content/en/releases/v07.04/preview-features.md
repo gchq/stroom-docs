@@ -35,9 +35,9 @@ The time window can be absolute or relative to when the scheduled query fires.
 
 #### Table Builder
 
-{{% todo %}}
+{{< todo >}}
 Complete
-{{% /todo %}}
+{{< /todo >}}
 
 
 ### Multiple Notifications

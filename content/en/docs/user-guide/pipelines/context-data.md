@@ -9,9 +9,9 @@ description: >
   Context data is additional contextual data Stream that is sent alongside the main event data Stream.
 ---
 
-{{% todo %}}
+{{< todo >}}
 This section needs some explanation.
-{{% /todo %}}
+{{< /todo >}}
 
 
 ## Context File

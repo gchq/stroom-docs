@@ -1,7 +1,7 @@
 {
   "analyticrule" : {
     "type" : "AnalyticRule",
-    "description" : "Defines an analytic rule which can be run to alert on events meeting a criteria.\nThe criteria is defined using a StroomQL query.\nThe analytic can be processed in different ways:\n* Streaming\n* Table Builder\n* Scheduled Query\n",
+    "description" : "Defines an analytic rule which can be run to alert on events meeting a criteria.\nThe criteria is defined using a StroomQL query.\nThe analytic can be processed in different ways:\n* Streaming\n* Table Builder\n* Scheduled Query",
     "typeDisplayName" : "Analytic Rule",
     "icon" : "DOCUMENT_ANALYTIC_RULE",
     "iconRelativePathStr" : "document/AnalyticRule.svg",
@@ -13,7 +13,7 @@
   },
   "annotation" : {
     "type" : "Annotation",
-    "description" : "An annotation records notes and workflow state against one or more events, typically while investigating them.\nAnnotations are created from a table of search results rather than from the explorer tree.\nEach one has a subject, a status, an optional assignee and a history of the changes made to it, and can be given comments, labels and collections to organise it.\nA retention period controls how long it is kept.\n",
+    "description" : "An annotation records notes and workflow state against one or more events, typically while investigating them.\nAnnotations are created from a table of search results rather than from the explorer tree.\nEach one has a subject, a status, an optional assignee and a history of the changes made to it, and can be given comments, labels and collections to organise it.\nA retention period controls how long it is kept.",
     "typeDisplayName" : "Annotation",
     "icon" : "EDIT",
     "iconRelativePathStr" : "edit.svg",
@@ -37,10 +37,10 @@
   },
   "datagen" : {
     "type" : "DataGen",
-    "description" : "Defines a data generator which can be used to send data into a Stroom Feed.\nThe data is defined as a String.\nThe schedule on which the data is sent into the feed can be customised.\n",
+    "description" : "Defines a data generator which can be used to send data into a Stroom Feed.\nThe data is defined as a String.\nThe schedule on which the data is sent into the feed can be customised.",
     "typeDisplayName" : "Data Generator",
     "icon" : "DOCUMENT_DATA_GEN",
-    "iconRelativePathStr" : "document/Feed.svg",
+    "iconRelativePathStr" : "document/DataGen.svg",
     "iconClassName" : "svg-image__document-data-gen",
     "group" : "SEARCH",
     "groupPriority" : 4,
@@ -107,6 +107,29 @@
     "groupDisplayName" : "Data Processing",
     "groupDescription" : "Documents relating to the processing of data."
   },
+  "floormap" : {
+    "type" : "FloorMap",
+    "description" : "Defines a floor map document which can be used to visualise data over time.",
+    "typeDisplayName" : "Floor Map",
+    "icon" : "DOCUMENT_FLOOR_MAP",
+    "iconRelativePathStr" : "document/FloorMap.svg",
+    "iconClassName" : "svg-image__document-floor-map",
+    "group" : "SEARCH",
+    "groupPriority" : 4,
+    "groupDisplayName" : "Search",
+    "groupDescription" : "Documents relating to searching for data in Stroom."
+  },
+  "floormapeventstore" : {
+    "type" : "FloorMapEventStore",
+    "typeDisplayName" : "FloorMap Event Store",
+    "icon" : "DOCUMENT_FLOOR_MAP_EVENT_STORE",
+    "iconRelativePathStr" : "document/FloorMapEventStore.svg",
+    "iconClassName" : "svg-image__document-floor-map-event-store",
+    "group" : "INDEXING",
+    "groupPriority" : 5,
+    "groupDisplayName" : "Indexing",
+    "groupDescription" : "Documents relating to the process of adding data into an index, such as Lucene or Elasticsearch."
+  },
   "gitrepo" : {
     "type" : "GitRepo",
     "description" : "Contains the configuration for a connection to a Git repository.",
@@ -157,7 +180,7 @@
   },
   "pathways" : {
     "type" : "Pathways",
-    "description" : "Analyses trace logs held in a Plan B store to learn the paths that traces take between services, e.g. A -> B -> C.\nEach distinct path is remembered, so that a new or changed path can be reported as soon as it appears.\nFor each span on a path it also learns constraints on the span's duration, kind, flags and attributes, held as an exact value, a set, a range or a regular expression, and widens them as further traces are seen.\nWhether new paths and constraints may be added, and whether those already learnt may be widened, is controlled per document, so Pathways can be left learning or fixed so that anything deviating from what it has learnt is reported instead of absorbed.\nFindings are written to a nominated Feed for analytic rules to act on.\nPathways makes no judgement about the changes it reports.\n",
+    "description" : "Analyses trace logs held in a Plan B store to learn the paths that traces take between services, e.g. A -> B -> C.\nEach distinct path is remembered, so that a new or changed path can be reported as soon as it appears.\nFor each span on a path it also learns constraints on the span's duration, kind, flags and attributes, held as an exact value, a set, a range or a regular expression, and widens them as further traces are seen.\nWhether new paths and constraints may be added, and whether those already learnt may be widened, is controlled per document, so Pathways can be left learning or fixed so that anything deviating from what it has learnt is reported instead of absorbed.\nFindings are written to a nominated Feed for analytic rules to act on.\nPathways makes no judgement about the changes it reports.",
     "typeDisplayName" : "Pathways",
     "icon" : "DOCUMENT_PATHWAYS",
     "iconRelativePathStr" : "document/Pathways.svg",
@@ -251,6 +274,17 @@
     "groupDisplayName" : "Indexing",
     "groupDescription" : "Documents relating to the process of adding data into an index, such as Lucene or Elasticsearch."
   },
+  "sqltemporalstore" : {
+    "type" : "SqlTemporalStore",
+    "typeDisplayName" : "SQL Temporal Store",
+    "icon" : "DOCUMENT_SQL_TEMPORAL_STORE",
+    "iconRelativePathStr" : "document/SqlTemporalStore.svg",
+    "iconClassName" : "svg-image__document-sql-temporal-store",
+    "group" : "INDEXING",
+    "groupPriority" : 5,
+    "groupDisplayName" : "Indexing",
+    "groupDescription" : "Documents relating to the process of adding data into an index, such as Lucene or Elasticsearch."
+  },
   "statisticstore" : {
     "type" : "StatisticStore",
     "description" : "Defines a logical statistic store used to hold statistical data of a particular type and aggregation window.\nStatistics in Stroom is a way to capture counts or values from events and record how they change over time, with the counts/values aggregated (sum/mean) across time windows.\n\nThe Statistic Store Document configures the type of the statistic (Count or Value), the tags that are used to qualify a statistic event and the size of the aggregation windows.\nIt also supports the definition of roll-ups that allow for aggregation over all values of a tag.\nTags can be things like `user`, `node`, `feed`, etc. and can be used to filter data when querying the statistic store in a Dashboard/Query.\n\nIt is used by the {{< pipe-elm \"StatisticsFilter\" >}} pipeline element.",
@@ -274,6 +308,17 @@
     "groupPriority" : 3,
     "groupDisplayName" : "Transformation",
     "groupDescription" : "Documents relating to the transformation of data."
+  },
+  "traces" : {
+    "type" : "Traces",
+    "typeDisplayName" : "Traces",
+    "icon" : "DOCUMENT_TRACES",
+    "iconRelativePathStr" : "document/traces.svg",
+    "iconClassName" : "svg-image__document-traces",
+    "group" : "INDEXING",
+    "groupPriority" : 5,
+    "groupDisplayName" : "Indexing",
+    "groupDescription" : "Documents relating to the process of adding data into an index, such as Lucene or Elasticsearch."
   },
   "view" : {
     "type" : "View",

@@ -11,9 +11,9 @@ description: >
 
 <!-- Created with Stroom v6.1-beta.16 -->
 
-{{% see-also %}}
+{{< see-also >}}
 [HOWTO - Apache HTTPD Event Feed]({{< relref "../EventFeeds/CreateApacheHTTPDEventFeed" >}})
-{{% /see-also %}}
+{{< /see-also >}}
 
 
 ## Introduction

@@ -28,11 +28,11 @@ This is an alternative to the `/datafeed` API and is for sending individual even
 
 For more details see [Event Store API]({{< relref "proxy-functions#event-store-api" >}}).
 
-{{% note %}}
+{{< note >}}
 `/api/event` differs from the other `/api/...` endpoints in how requests are authenticated.
 It does not use the same authentication as the other endpoints.
 Its authentication is performed in the same way as `/datafeed` and is configured using [Event Store Configuration]({{< relref "common-configuration#receive-configuration" >}}).
-{{% /note %}}
+{{< /note >}}
 
 
 ### `/ui`
@@ -112,9 +112,9 @@ That is why the three REST endpoints above exist on Stroom-Proxy as well as on S
 Stroom-Proxy authenticates these calls with the {{< glossary "API Key" >}} in `downstreamHost.apiKey`.
 If that property is not set, it instead obtains a bearer token for its own service user from the {{< glossary "idp" >}} using the client credentials grant, which requires `identityProviderType` to be `EXTERNAL_IDP`.
 
-{{% see-also %}}
+{{< see-also >}}
 See [Downstream Host Configuration]({{< relref "docs/install-guide/configuration/stroom-and-proxy/configuring-stroom-proxy#downstream-host-configuration" >}}) for these properties, and [API Key Authentication]({{< relref "docs/sending-data/api-key-authentication#the-flow" >}}) for the sequence Stroom-Proxy follows when a client presents an API Key to `/datafeed`.
-{{% /see-also %}}
+{{< /see-also >}}
 
 
 ## Admin APIs
@@ -125,11 +125,11 @@ These APIs are presented on the administration port/path which by default is:
 
 More details about the admin APIs (with the exception of the Prometheus endpoint) can be found here {{< external-link "Metrics Servlets" "https://www.dropwizard.io/projects/metrics/en/stable/manual/servlets/" >}}.
 
-{{% warning %}}
+{{< warning >}}
 It is important that access to the administration port/path is tightly controlled as it potentially allows access to destructive actions or exposes information about the Stroom-Proxy that should not be public.
 
 Typically the APIs on the admin path/port should only be accessible to an administrator of the Stroom-Proxy instance.
-{{% /warning %}}
+{{< /warning >}}
 
 
 ### Metrics

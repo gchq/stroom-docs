@@ -10,10 +10,10 @@ description: >
   Assigning application level permissions (such as 'Manage Users') to users or groups.
 ---
 
-{{% todo %}}
+{{< todo >}}
 The Users, Groups and Permissions screens are undergoing significant change in Stroom v7.6.
 Therefore this section will be updated with more detail in v7.6.
-{{% /todo %}}
+{{< /todo >}}
 
 An Application Permission is a permission to perform an action that is not associated with a single {{< glossary "Document" >}} or is unrelated to Documents.
 Application Permissions can be granted to [Users or Groups]({{< relref "users-and-groups" >}}).

@@ -8,8 +8,8 @@ description: >
 
 When Stroom is writing data to a Volume Group it will choose which of the Volumes in the group to write to using a volume selector as configured by the {{< glossary "Property" >}} `stroom.volumes.volumeSelector`.
 
-{{% see-also %}}
+{{< see-also >}}
 {{< glossary "Volume" >}}:w
 [User Guide]({{< relref "docs/user-guide/volumes" >}})
-{{% /see-also %}}
+{{< /see-also >}}
 

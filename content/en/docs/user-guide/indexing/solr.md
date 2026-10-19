@@ -11,7 +11,7 @@ description: >
 
 ---
 
-{{% todo %}}
+{{< todo >}}
 Complete this section.
-{{% /todo %}}
+{{< /todo >}}
 

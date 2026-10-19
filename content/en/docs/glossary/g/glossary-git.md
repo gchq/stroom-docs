@@ -10,7 +10,7 @@ description: >
 The source code for the Stroom software is stored in a Git repository.
 Stroom also uses Git for managing user content that is held in one or more Git repositories.
 
-{{% see-also %}}
+{{< see-also >}}
 {{< external-link "Git" "https://git-scm.com" >}}
-{{% /see-also %}}
+{{< /see-also >}}
 

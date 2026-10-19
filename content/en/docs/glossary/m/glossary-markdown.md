@@ -9,15 +9,15 @@ description: >
 
 Stroom uses the {{< external-link "Showdown" "https://github.com/showdownjs/showdown/wiki/Showdown's-Markdown-syntax" >}} markdown converter to render users' markdown content into formatted text.
 
-{{% note %}}
+{{< note >}}
 Markdown is a somewhat loose standard so different markdown processors support different amounts of markdown syntax.
 For a definitive guide to the syntax supported in Stroom, see the above link.
-{{% /note %}}
+{{< /note >}}
 
-{{% see-also %}}
+{{< see-also >}}
 * {{< external-link "Markup" "https://en.wikipedia.org/wiki/Markup_language" >}}
 * [Documents]({{< relref "docs/reference-section/documents" >}})
 * [Documentation Document]({{< relref "docs/reference-section/documents#documentation" >}})
-{{% /see-also %}}
+{{< /see-also >}}
 
 

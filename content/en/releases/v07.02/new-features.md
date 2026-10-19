@@ -69,10 +69,10 @@ It can now be personalised with the following options:
 You can now change the format used for displaying the date and time in the user interface.
 You can also set the time zone used for displaying the date and time in the user interface.
 
-{{% note %}}
+{{< note >}}
 Stroom works in {{< glossary "UTC" >}} time internally.
 Changing the time zone only affects display of dates/times, not how data is stored or the dates/times in events.
-{{% /note %}}
+{{< /note >}}
 
 
 ### Dashboard Changes
@@ -130,9 +130,9 @@ The document and folder permissions screens have been re-designed with a better 
 The number of available [editor completion snippets]({{< relref "docs/user-guide/content/editing-text#auto-completion-and-snippets" >}}) has increased.
 For a list of the available completion snippets see the [Completion Snippet Reference]({{< relref "docs/reference-section/snippet-reference" >}}).
 
-{{% note %}}
+{{< note >}}
 Completion snippets are an evolving feature so if you have any requests for generic completion snippets then raise an issue on GitHub and we will consider adding them in.
-{{% /note %}}
+{{< /note >}}
 
 
 ## Partitioned Reference Data Stores
@@ -146,9 +146,9 @@ Performance is still limited by the file system that the stores are hosted on.
 
 All reference data stores are stored in the directory defined by `stroom.pipeline.referenceData.lmdb.localDir`.
 
-{{% see-also %}}
+{{< see-also >}}
 See the [upgrade notes]({{< relref "upgrade-notes#reference-data-store" >}}) for the reference data stores.
-{{% /see-also %}}
+{{< /see-also >}}
 
 
 ## Improved OAuth2.0/OpenID Connect Support
@@ -235,9 +235,9 @@ This is designed to hold any text or documentation that the user chooses to writ
 These can be useful for providing documentation within a folder in the tree to collectively describe all the items in that folder, or to provide a useful README type document.
 It is not possible to add documentation to a folder entity itself, so this is useful substitute.
 
-{{% see-also %}}
+{{< see-also >}}
 See [Documenting Content]({{< relref "/docs/user-guide/content/documentation" >}}) for details on the Markdown syntax.
-{{% /see-also %}}
+{{< /see-also >}}
 
 
 ### _Elastic Cluster_
@@ -248,9 +248,9 @@ It defines the location and authentication details for connecting to an elastic 
 
 {{< image "releases/07.02/elastic-cluster.png" "200x" />}}
 
-{{% see-also %}}
+{{< see-also >}}
 [Using Elasticsearch to index data]({{< relref "/docs/user-guide/indexing/elasticsearch" >}}) and [searching an Elasticsearch index]({{< relref "/docs/user-guide/search/data-sources/elastic-data-source" >}})
-{{% /see-also %}}
+{{< /see-also >}}
 
 Thanks to Pete K for his help adding the new Elasticsearch integration features.
 
@@ -261,9 +261,9 @@ An _Elastic Index_ {{< stroom-icon "document/ElasticIndex.svg">}} document is a 
 
 {{< image "releases/07.02/elastic-index.png" "200x" />}}
 
-{{% see-also %}}
+{{< see-also >}}
 [Searching an Elasticsearch index]({{< relref "/docs/user-guide/search/data-sources/elastic-data-source" >}})
-{{% /see-also %}}
+{{< /see-also >}}
 
 
 ## New Searchables
@@ -302,9 +302,9 @@ These discovered field are then available for the user to pick from in the _Dash
 
 _ElasticIndexingFilter_ is used to pass fields from an event to an Elasticsearch cluster to index.
 
-{{% see-also %}}
+{{< see-also >}}
 [Using Elasticsearch to index data]({{< relref "/docs/user-guide/indexing/elasticsearch" >}}).
-{{% /see-also %}}
+{{< /see-also >}}
 
 
 ## Explorer Tree
@@ -381,9 +381,9 @@ The following properties control the tags used to pre-populate tree picker filte
 * `stroom.ui.query.viewPipelineSelectorIncludedTags`
 * `stroom.ui.referencePipelineSelectorIncludedTags`
 
-{{% see-also %}}
+{{< see-also >}}
 See the migration task [Tagging Entities]({{< relref "upgrade-notes#tagging-entities" >}}) for details on how to set up these pre-configured tags.
-{{% /see-also %}}
+{{< /see-also >}}
 
 
 ### Copy Link to Clipboard
@@ -434,9 +434,9 @@ Each entity now has a _Documentation_ sub-tab where the user can enter any docum
 The documentation is written in {{< glossary "Markdown" >}} syntax.
 It is not possible to add documentation to a _Folder_ but you can create one or more a _Documentation_ entities as a child item of that folder, see [Documentation]({{< relref "#_documentation_" >}}).
 
-{{% see-also %}}
+{{< see-also >}}
 See [Documenting Content]({{< relref "/docs/user-guide/content/documentation" >}}) for details on the Markdown syntax.
-{{% /see-also %}}
+{{< /see-also >}}
 
 
 ## Find Content
@@ -538,9 +538,9 @@ The Info {{< stroom-icon "info.svg" >}} popup has been changed to include the va
 
 Stroom-Proxy v7.2 has undergone a significant re-write in an attempt to address certain performance issues, make it more flexible and to allow data to be forked to many destinations.
 
-{{% warning %}}
+{{< warning >}}
 There are some known performance issues with Stroom-Proxy v7.2 so it is not yet production ready, therefore until these are addressed you are advised to continue using Stroom-Proxy v7.0.
-{{% /warning %}}
+{{< /warning >}}
 
 
 

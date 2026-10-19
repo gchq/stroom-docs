@@ -16,10 +16,10 @@ Neither will work until an SMTP server has been configured.
 This step is only needed if you intend to use email notifications.
 An installation whose rules only write detections to a {{< glossary "Feed" >}} does not need it.
 
-{{% note %}}
+{{< note >}}
 There is no email configuration in the user interface.
 It is set in `config.yml` and applies to the whole installation, so rule authors cannot configure it themselves.
-{{% /note %}}
+{{< /note >}}
 
 
 ## Configuration
@@ -62,10 +62,10 @@ Value   | Meaning
 `TLS`   | SMTP over TLS.
 `SSL`   | SMTP over TLS. Treated identically to `TLS`.
 
-{{% warning %}}
+{{< warning >}}
 Any value other than `TLS` or `SSL` is treated as `plain`, including a misspelling.
 A typo here will silently send mail unencrypted rather than failing, so it is worth confirming the setting took effect by checking the traffic or the mail server's logs.
-{{% /warning %}}
+{{< /warning >}}
 
 
 ## Testing
@@ -81,8 +81,8 @@ This sends an example detection through the whole path, so a message arriving pr
 Where it fails, the error is reported in the user interface.
 Errors from real rule executions go to the rule's error feed instead.
 
-{{% see-also %}}
+{{< see-also >}}
 [Rule Notifications]({{< relref "docs/user-guide/search/analytics/notifications" >}})
 [Report Delivery]({{< relref "docs/user-guide/search/reports/delivery" >}})
 [Stroom Configuration]({{< relref "docs/install-guide/configuration/stroom-and-proxy/configuring-stroom#analytics" >}})
-{{% /see-also %}}
+{{< /see-also >}}

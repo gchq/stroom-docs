@@ -1,8 +1,9 @@
-<!-- 
+<!--
 Short code to display all stroom icons
 -->
 
 {{ $pathPrefix := (.Get 0) }}
+{{ $context := . }}
 {{ with resources.Match (printf "%s*" $pathPrefix) }}
   <div class="row bg-light stroom-icon-gallery">
   {{ range . }}
@@ -14,14 +15,14 @@ Short code to display all stroom icons
       (eq $filename "tabmiddle.png")
       (eq $filename "tabright.png")
       (eq $filename "tableft.png")))
-    (or 
-      (eq (path.Ext $filename) ".svg") 
+    (or
+      (eq (path.Ext $filename) ".svg")
       (eq (path.Ext $filename) ".png")) }}
     <!--{{ printf "%s %s" .Name $filename }}-->
     <div style="" class="col-md-4 stroom-icon-gallery-row">
       {{/* This partial renders the icon */}}
-      {{ partial "stroom-icon.partial.html" (dict 
-          "context" . 
+      {{ partial "stroom-icon.partial.html" (dict
+          "context" $context
           "file" $rel_path ) }}
       <span class="stroom-icon-galler-text" style="">
         {{ strings.TrimPrefix $pathPrefix .Name }}

@@ -1,4 +1,4 @@
-<!-- 
+<!--
 {{/*
 Renders a selected menu item hierarchy.
 Takes as many args as there are levels in the hierarchy.
@@ -88,7 +88,6 @@ TODO Maybe hold the map in some kind of resource bundle file?
   "Script" "document/Script.svg"
   "Solr Index" "document/SolrIndex.svg"
   "Statistic Store" "document/StatisticStore.svg"
-  "Stroom-Stats Store" "document/StroomStatsStore.svg"
   "Text Converter" "document/TextConverter.svg"
   "Visualisation" "document/Visualisation.svg"
   "XML Schema" "document/XMLSchema.svg"
@@ -139,16 +138,17 @@ TODO Maybe hold the map in some kind of resource bundle file?
 }}
 
 {{ $param_count := len .Params }}
+{{ $context := . }}
 
 {{- if eq (.Get 0) "menu_demo" }}
   <div class="stroom-theme-dark stroom-menu stroom-menu-demo row">
     {{- range $item_name, $item_icon := $icon_map }}
       <div class="stroom-menu-demo-item col-md-4">
-      {{ partial "stroom-menu-item.html" (dict 
-        "context" . 
-        "item_name" $item_name 
-        "icon_map" $icon_map 
-        "item_idx" 0 
+      {{ partial "stroom-menu-item.html" (dict
+        "context" $context
+        "item_name" $item_name
+        "icon_map" $icon_map
+        "item_idx" 0
         "is_leaf" false ) }}
       </div>
     {{- end }}
@@ -169,11 +169,11 @@ TODO Maybe hold the map in some kind of resource bundle file?
 
 
       {{/* Call the locally declared partial to render a single menu item */}}
-      {{- partial "stroom-menu-item.html" (dict 
-          "context" . 
-          "item_name" $item_name 
-          "icon_map" $icon_map 
-          "item_idx" $item_idx 
+      {{- partial "stroom-menu-item.html" (dict
+          "context" $context
+          "item_name" $item_name
+          "icon_map" $icon_map
+          "item_idx" $item_idx
           "is_leaf" $is_leaf ) }}
 
     {{- end }}
@@ -194,8 +194,8 @@ TODO Maybe hold the map in some kind of resource bundle file?
 
       {{- if $item_icon }}
         <div class="stroom-menu-item-icon">
-          {{ partial "stroom-icon.partial.html" (dict 
-              "context" . 
+          {{ partial "stroom-icon.partial.html" (dict
+              "context" .context
               "file" $item_icon ) }}
         </div>
       {{- end }}
@@ -203,11 +203,11 @@ TODO Maybe hold the map in some kind of resource bundle file?
       <div class="stroom-menu-item-text">
         {{- $item_name }}
       </div>
-      
+
       {{- if not .is_leaf }}
         <div class="stroom-menu-item-arrow">
-          {{ partial "stroom-icon.partial.html" (dict 
-              "context" . 
+          {{ partial "stroom-icon.partial.html" (dict
+              "context" .context
               "file" "arrow-right.svg" ) }}
         </div>
       {{- end }}

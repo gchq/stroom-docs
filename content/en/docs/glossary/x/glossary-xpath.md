@@ -6,8 +6,8 @@ description: >
   It is used heavily in _XSLT_ to define the match criteria for templates and to select values.
 ---
 
-{{% see-also %}}
+{{< see-also >}}
 {{< glossary "XSLT" >}}
 {{< external-link "XPath" "https://en.wikipedia.org/wiki/XPath" >}}
-{{% /see-also %}}
+{{< /see-also >}}
 

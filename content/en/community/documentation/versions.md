@@ -39,11 +39,11 @@ If a change needs to be made to a feature that was introduced in v7.6 say, then 
 
 The configuration file `config.toml` in each branch defines such things as what version the branch is and what constitutes the latest version of the documentation.
 
-{{% note %}}
+{{< note >}}
 This section is for reference only.
 The build script `ci_build.sh` will amend the various version property values prior to building the site.
 Therefore when creating a new version branch you do not need to edit the `config.toml` file.
-{{% /note %}}
+{{< /note >}}
 
 This example is from the _7.1_ branch and is based on there being versions _legacy_, _7.0_ and _7.1_, with _7.1_ being the latest.
 

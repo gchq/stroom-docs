@@ -10,8 +10,8 @@ The parsers and translations can be edited while in the Stepper with the element
 The stepper will not write data to the file system or stream stores.
 
 
-{{% see-also %}}
+{{< see-also >}}
 {{< glossary "Pipeline" >}}
 {{< glossary "Stream" >}}
-{{% /see-also %}}
+{{< /see-also >}}
 

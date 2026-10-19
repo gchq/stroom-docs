@@ -9,9 +9,9 @@ description: >
   
 ---
 
-{{% todo %}}
+{{< todo >}}
 Update this for Stroom 7.
-{{% /todo %}}
+{{< /todo >}}
 
 
 ## Running on a Single Box

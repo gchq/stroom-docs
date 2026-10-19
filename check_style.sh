@@ -5,6 +5,7 @@
 #
 # Usage:
 #   ./check_style.sh                       # summary of all findings
+#   ./check_style.sh --strict              # exit non-zero if there are any findings
 #   ./check_style.sh --detail              # list every finding
 #   ./check_style.sh --rule title-case     # one rule only
 #   ./check_style.sh content/en/docs/**/*.md

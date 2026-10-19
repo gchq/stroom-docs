@@ -174,10 +174,10 @@ filter obscure_field = "some value"
 Add boolean logic with `and`, `or` and `not` to build complex criteria as supported by the `where` clause.
 Use brackets to group logical sub expressions as supported by the `where` clause.
 
-{{% note %}}
+{{< note >}}
 As filters do not make use of the index they can be considerably slower than a `where` clause, however they allow filtering on fields that have not been indexed for some reason.
 Frequent use of `filter` on a field suggests you may want to consider including that field in an index.
-{{% /note %}}
+{{< /note >}}
 
 
 ### Eval

@@ -47,9 +47,9 @@ Suppressing them avoids a stream of empty files for a report that is usually qui
 Only emptiness suppresses delivery.
 A report that returned rows is always delivered however this is set, and a report that is suppressed is still recorded in the [execution history]({{< relref "docs/user-guide/search/analytics/execution#execution-history" >}}) as having run.
 
-{{% note %}}
+{{< note >}}
 The default is to deliver empty reports.
-{{% /note %}}
+{{< /note >}}
 
 
 ## AI Summary
@@ -72,19 +72,19 @@ CSV, TSV  | A separate Markdown file delivered alongside the report.
 
 The summary is also available to email templates as `aiSummary` and is recorded as a `ReportAiSummary` entry in the stream meta where the report is delivered to a feed.
 
-{{% note %}}
+{{< note >}}
 The report is what the recipient is waiting for, so a model that is unavailable, slow or misconfigured costs the summary and nothing else.
 The failure is logged and the report is delivered without a summary.
-{{% /note %}}
+{{< /note >}}
 
-{{% warning %}}
+{{< warning >}}
 AI summaries are a preview feature and are subject to breaking changes in future releases.
 Using a model requires the `Use` permission on the model document rather than the ability to read it.
-{{% /warning %}}
+{{< /warning >}}
 
-{{% see-also %}}
+{{< see-also >}}
 [AI Summaries on Reports]({{< relref "releases/v07.14/preview-features#ai-summaries-on-reports" >}})
-{{% /see-also %}}
+{{< /see-also >}}
 
 
 ## Feed for Errors
@@ -93,6 +93,6 @@ Field           | Description
 --------------- | ------------
 Feed For Errors | The {{< glossary "Feed" >}} that errors occurring during execution are written to. Use _Set Default_ to use the feed configured for the system.
 
-{{% see-also %}}
+{{< see-also >}}
 [Error Feed]({{< relref "docs/user-guide/search/analytics/execution#error-feed" >}})
-{{% /see-also %}}
+{{< /see-also >}}

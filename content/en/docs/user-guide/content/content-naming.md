@@ -14,12 +14,12 @@ This sections aims to provide some guidelines on how to name and organise your c
 These are not hard rules and you do not have to follow them, however it may help when it comes to sharing content.
 
 
-{{% see-also %}}
+{{< see-also >}}
 [Naming Feeds]({{< relref "docs/user-guide/feeds#feed-identifiers" >}})
-{{% /see-also %}}
+{{< /see-also >}}
 
 
-{{% todo %}}
+{{< todo >}}
 Complete this section
-{{% /todo %}}
+{{< /todo >}}
 

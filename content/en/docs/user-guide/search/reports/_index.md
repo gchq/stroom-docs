@@ -43,9 +43,9 @@ What you see in the results table while developing the query is therefore what t
 
 Relative date expressions resolve against the report's effective execution time rather than the current clock time, which is what allows a report for last month to be produced correctly today.
 
-{{% see-also %}}
+{{< see-also >}}
 [Rule Queries]({{< relref "docs/user-guide/search/analytics/query" >}})
-{{% /see-also %}}
+{{< /see-also >}}
 
 
 ## Jobs
@@ -55,9 +55,9 @@ A report will not run until that job has been enabled in {{< stroom-menu "Monito
 
 The job controls how often Stroom looks for report schedules that are due, not how often a report is produced.
 
-{{% see-also %}}
+{{< see-also >}}
 [Jobs]({{< relref "docs/user-guide/jobs" >}})
-{{% /see-also %}}
+{{< /see-also >}}
 
 
 ## Configuration

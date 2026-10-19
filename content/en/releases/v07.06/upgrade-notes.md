@@ -8,9 +8,9 @@ description: >
   Required actions and information relating to upgrading to Stroom version 7.6.
 ---
 
-{{% warning %}}
+{{< warning >}}
 Please read this section carefully in case any of it is relevant to your Stroom instance.
-{{% /warning %}}
+{{< /warning >}}
 
 
 ## Java Version
@@ -61,11 +61,11 @@ No changes have been made configuration file.
 
 When Stroom boots for the first time with a new version it will run any required database migrations to bring the database schema up to the correct version.
 
-{{% warning %}}
+{{< warning >}}
 It is highly recommended to ensure you have a database backup in place before booting stroom with a new version.
 This is to mitigate against any problems with the migration.
 It is also recommended to test the migration against a copy of your database to ensure that there are no problems when you do it for real.
-{{% /warning %}}
+{{< /warning >}}
 
 On boot, Stroom will ensure that the migrations are only run by a single node in the cluster.
 This will be the node that reaches that point in the boot process first.
@@ -76,7 +76,7 @@ To avoid Stroom starting up and beginning processing you can use the `migrate` c
 See [`migrate` command]({{< relref "/docs/user-guide/tools/command-line#migrate" >}}) for more details.
 
 
-{{% warning %}}
+{{< warning >}}
 If you are upgrading from a previous v7.6 beta release you will need to run the following SQL.
 
 {{< sql-shell >}}
@@ -85,7 +85,7 @@ update analytics_schema_history set checksum = '-86554219' where version = '07.0
 {{< sql-shell >}}
 update processor_schema_history set checksum = '-175036745' where version = '07.06.00.305';
 {{</ sql-shell >}}
-{{% /warning %}}
+{{< /warning >}}
 
 This release migrates all the existing document and application permission grants into new tables (prefixed by `permission_`).
 The legacy tables `doc_permission` and `app_permission` have been left untouched to allow migrated permissions to be compared against the previous state.

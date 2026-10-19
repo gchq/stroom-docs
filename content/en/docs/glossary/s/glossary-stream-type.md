@@ -18,11 +18,11 @@ Additional Stream Types can be added however the list of Stream Types must inclu
 
 Some Stream Types, such as `Meta` and `Context` only exist as [child streams]({{< relref "docs/user-guide/concepts/streams#child-stream-types" >}}) within another Stream.
 
-{{% see-also %}}
+{{< see-also >}}
 * [Streams Concept]({{< relref "docs/user-guide/concepts/streams" >}})
 * {{< glossary "Stream" >}}
 * {{< glossary "Events" >}}
 * {{< glossary "Raw Events" >}}
 * {{< glossary "Property" >}}
-{{% /see-also %}}
+{{< /see-also >}}
 

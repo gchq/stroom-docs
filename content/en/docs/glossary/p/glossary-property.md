@@ -6,7 +6,7 @@ description: >
   Properties can be set in the user interface or via the `config.yml` configuration file.
 ---
 
-{{% see-also %}}
+{{< see-also >}}
 [Properties]({{< relref "Properties" >}})
-{{% /see-also %}}
+{{< /see-also >}}
 

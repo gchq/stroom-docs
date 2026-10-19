@@ -7,8 +7,11 @@ description: >
 ---
 
 
-{{% see-also %}}
+{{< see-also >}}
 * [User Accounts]({{< relref "docs/user-guide/security/user-accounts" >}}).
-* {{< glossary "idp">}}
-{{% /see-also %}}
+
+* yyy {{< xslt-func-link "hash" >}} yyy
+
+* xxx {{% glossary "idp" %}} xxx
+{{< /see-also >}}
 

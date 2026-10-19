@@ -26,16 +26,16 @@ This document covers minor and patch upgrades only.
 
 ## Docker Stack Deployments
 
-{{% todo %}}
+{{< todo >}}
 Complete this
-{{% /todo %}}
+{{< /todo >}}
 
 
 ## Non-docker Deployments
 
-{{% todo %}}
+{{< todo >}}
 Complete this
-{{% /todo %}}
+{{< /todo >}}
 
 
 ## Major Version Upgrades

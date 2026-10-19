@@ -9,10 +9,10 @@ description: >
   Describes how the Stroom-Proxy application is configured.
 ---
 
-{{% see-also %}}
+{{< see-also >}}
 [Stroom and Stroom-Proxy Common Configuration]({{< relref "common-configuration" >}})  
 [Stroom Properties]({{< relref "/docs/user-guide/properties.md" >}})
-{{% /see-also %}}
+{{< /see-also >}}
 
 
 The configuration of Stroom-proxy is very much the same as for Stroom with the only difference being the structure of the application specific part of the `config.yml` file.
@@ -156,14 +156,14 @@ proxyConfig:
     aggregationFrequency: "PT10M"
 ```
 
-{{% note %}}
+{{< note >}}
 The `aggregator` settings apply to **all** forwarders.
 It is not possible for forwarders to to use different aggregation settings.
 
 If you need to forward to a HTTP destination but also want to forward to a file destination using different aggregator settings, e.g. to keep a local archive of the data, you would need to employ a second Stroom-Proxy.
 Stroom-Proxy A would forward to the HTTP downstream and forward to Stroom-Proxy B over HTTP.
 Stroom-Proxy B would forward to a file destination, using much larger aggregator thresholds.
-{{% /note %}}
+{{< /note >}}
 
 
 ### Directory Scanner Configuration

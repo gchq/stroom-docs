@@ -1,0 +1,12 @@
+{{- $items := sort .Page.RegularPagesRecursive "Title" -}}
+{{- $content := "" -}}
+{{- range $items -}}
+  {{- $term := strings.TrimPrefix "glossary-" .File.ContentBaseName -}}
+
+  <p class="glossary-index">
+  {{- partial "glossary.partial.html" (dict
+    "context" .
+    "term" $term) -}}
+  </p>
+
+{{- end -}}

@@ -36,10 +36,10 @@ Table Builder     | Experimental, see below.                                 | N
 
 Changing the processing type changes which tabs the rule shows, because some settings only apply to one type.
 
-{{% note %}}
+{{< note >}}
 Whichever processing type you choose, the rule does nothing until the corresponding background job is enabled.
 These jobs are all disabled by default, see [Jobs]({{< relref "#jobs" >}}) below.
-{{% /note %}}
+{{< /note >}}
 
 
 ### Scheduled Query
@@ -50,9 +50,9 @@ Each run covers a window of data, and the rule keeps track of which windows it h
 This is the type to use for most rules.
 It is also the only type available to Reports.
 
-{{% see-also %}}
+{{< see-also >}}
 [Execution]({{< relref "execution" >}})
-{{% /see-also %}}
+{{< /see-also >}}
 
 
 ### Streaming
@@ -60,18 +60,18 @@ It is also the only type available to Reports.
 A _Streaming_ rule is run by a {{< glossary "Processor Filter" >}}, in the same way as a translation pipeline.
 Each stream that matches the filter is passed through the rule as it is processed, so detections are raised without waiting for a schedule to come round.
 
-{{% see-also %}}
+{{< see-also >}}
 [Streaming Rules]({{< relref "streaming" >}})
-{{% /see-also %}}
+{{< /see-also >}}
 
 
 ### Table Builder
 
 _Table Builder_ is an experimental feature and should not be used.
 
-{{% see-also %}}
+{{< see-also >}}
 [Table Builder Rules]({{< relref "table-builder" >}})
-{{% /see-also %}}
+{{< /see-also >}}
 
 
 ## Anatomy of a Rule
@@ -110,9 +110,9 @@ Streaming rules are run by the normal stream processing jobs rather than by a jo
 The job frequency controls how often Stroom looks for schedules that are due, not how often a rule runs.
 A rule scheduled to run every ten minutes will not do so if the job that looks for due schedules only runs hourly.
 
-{{% see-also %}}
+{{< see-also >}}
 [Jobs]({{< relref "docs/user-guide/jobs" >}})
-{{% /see-also %}}
+{{< /see-also >}}
 
 
 ## Configuration
@@ -127,6 +127,6 @@ Property                                     | Purpose
 `stroom.analytics.duplicateCheckStore`        | The store behind [Duplicate Management]({{< relref "duplicate-management" >}}).
 `stroom.ui.analyticUiDefaultConfig`           | The defaults offered in the UI for processing node, error feed and destination feed.
 
-{{% see-also %}}
+{{< see-also >}}
 [Properties]({{< relref "docs/user-guide/properties" >}})
-{{% /see-also %}}
+{{< /see-also >}}

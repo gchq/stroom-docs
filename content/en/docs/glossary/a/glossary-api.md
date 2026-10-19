@@ -8,6 +8,6 @@ description: >
 ---
 
 
-{{% see-also %}}
+{{< see-also >}}
 {{< glossary "REST">}}
-{{% /see-also %}}
+{{< /see-also >}}

@@ -127,9 +127,9 @@ The permission names have changed as follows:
   A document can have more than one owner.
   `Owner` will automatically be granted to a user when they create a document.
 
-{{% note %}}
+{{< note >}}
 Each permission in the list above inherits the permissions of the one above it in the list.
-{{% /note %}}
+{{< /note >}}
 
 A document now has only one permission granted per user (excluding the create permissions).
 Previously a User/Group could be granted multiple, e.g. `Use` and `Read`.
@@ -170,9 +170,9 @@ The options for making batch changes are as follows:
 
 When you click {{< stroom-btn "ok" >}} Stroom will present a confirmation dialog telling you how many documents will be affected by the change, giving you the opportunity to cancel.
 
-{{% warning %}}
+{{< warning >}}
 Batch changes cannot be undone.
-{{% /warning %}}
+{{< /warning >}}
 
 
 #### Document Permissions Sub-Tab

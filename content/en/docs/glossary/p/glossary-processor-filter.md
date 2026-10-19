@@ -12,11 +12,11 @@ A filter could also select a single Stream by its ID, e.g. when {{< glossary "Re
 A Pipeline can have multiple Processor Filters.
 Filters can be enabled/disabled independently of their parent Processor to control processing.
 
-{{% see-also %}}
+{{< see-also >}}
 * {{< glossary "Expression Tree" >}}
 * {{< glossary "Feed" >}}
 * {{< glossary "Pipeline" >}}
 * {{< glossary "Re-Processing" >}}
 * {{< glossary "Stream" >}}
-{{% /see-also %}}
+{{< /see-also >}}
 

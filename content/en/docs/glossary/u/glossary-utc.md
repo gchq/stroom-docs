@@ -10,7 +10,7 @@ description: >
 
 Stroom currently works internally in _UTC_, though it is possible to change the display time zone via User Preferences to display times in another time zone.
 
-{{% see-also %}}
+{{< see-also >}}
 {{< external-link "UTC (Coordinated Universal Time)" "https://en.wikipedia.org/wiki/Coordinated_Universal_Time" >}}
-{{% /see-also %}}
+{{< /see-also >}}
 

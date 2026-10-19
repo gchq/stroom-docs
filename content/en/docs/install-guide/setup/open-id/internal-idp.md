@@ -11,9 +11,9 @@ description: >
 
 By default a new Stroom instance/cluster will use its own internal {{< glossary "idp" >}} for authentication.
 
-{{% note %}}
+{{< note >}}
 The `_test` variant of the Stroom Docker stack also uses the internal {{< glossary "idp" >}}, with the addition of an [Insecure Test Credential]({{< relref "test-credentials" >}}) so that Stroom-Proxy can authenticate without further setup.
-{{% /note %}}
+{{< /note >}}
 
 In this configuration, Stroom acts as its own Open ID Connect Identity Provider and manages both the user accounts for authentication and the user/group permissions, (see [Accounts and Users]({{< relref "accounts-users" >}})).
 
@@ -26,9 +26,9 @@ The password is deliberately weak, and by default Stroom requires it to be chang
 Without that property, no account is created and nobody will be able to log in to a new installation.
 You must instead create the first administrator from the command line.
 
-{{% see-also %}}
+{{< see-also >}}
 See [Creating the First Administrator]({{< relref "docs/install-guide/setup/create-first-admin" >}}).
-{{% /see-also %}}
+{{< /see-also >}}
 
 Additional user accounts are created and maintained using
 
@@ -44,9 +44,9 @@ It hosts its own authorization, token and key endpoints under `/oauth2/v1`, chec
 
 {{< image "install-guide/open-id/internal-idp-flow.puml.svg" >}}Internal IDP sign in flow{{< /image >}}
 
-{{% see-also %}}
+{{< see-also >}}
 See [Signing In]({{< relref "docs/user-guide/security/signing-in" >}}) for what the user experiences at the sign in screen, including locked and disabled accounts.
-{{% /see-also %}}
+{{< /see-also >}}
 
 
 ## Configuration for the Internal IDP

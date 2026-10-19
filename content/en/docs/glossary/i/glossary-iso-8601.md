@@ -16,7 +16,7 @@ Valid examples of _ISO 8601_ dates/times are:
 2010-01-01T23:59:59.123+02
 ```
 
-{{% see-also %}}
+{{< see-also >}}
 {{< external-link "ISO_8601" "https://en.wikipedia.org/wiki/ISO_8601" >}}
-{{% /see-also %}}
+{{< /see-also >}}
 

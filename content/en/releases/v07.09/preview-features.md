@@ -87,10 +87,10 @@ Data Feed Keys are used in the same way as API Keys or OAuth2 tokens, i.e. using
 In an effort to streamline the process of getting client systems to send data to Stroom we have added auto-generation of content and removed the need to supply a feed name.
 The aim is that client systems can provide a number of mandatory headers with their data that will then be used to auto-generate a feed name, create the feed and create content from a template to process that feed's data.
 
-{{% note %}}
+{{< note >}}
 This feature is optional and controlled with configuration.
 If not enabled, the Feed header will be mandatory as before.
-{{% /note %}}
+{{< /note >}}
 
 The default Stroom configuration for controlling Data Feed Keys, auto content creation and feed name generation is:
 

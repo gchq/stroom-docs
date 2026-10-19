@@ -19,9 +19,9 @@ They are also available in the list of data sources when editing a Query {{< str
 
 ## Analytics
 
-{{% todo %}}
+{{< todo >}}
 Complete
-{{% /todo %}}
+{{< /todo >}}
 
 
 ## Annotations
@@ -134,9 +134,9 @@ Field                       | Type    | Description
 
 ## Reference Data Store
 
-{{% warning %}}
+{{< warning >}}
 This data source is for advanced users only and is primarily aimed at debugging issues with reference data.
-{{% /warning %}}
+{{< /warning >}}
 
 Reference data is written to a persistent cache on storage local to the node.
 This data source exposes the data held in the store on the local node only.

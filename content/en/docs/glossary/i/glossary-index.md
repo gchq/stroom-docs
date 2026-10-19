@@ -6,7 +6,7 @@ description: >
 ---
 
 
-{{% see-also %}}
+{{< see-also >}}
 [Lucene Indexes]({{< relref "docs/user-guide/indexing/lucene" >}})
-{{% /see-also %}}
+{{< /see-also >}}
 

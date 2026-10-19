@@ -56,11 +56,11 @@ Input data is converted into XML {{< external-link "SAX" "https://en.wikipedia.o
 Pipelines can also be forked at any point in the pipeline.
 This allows the same data to be processed in different ways.
 
-{{% note %}}
+{{< note >}}
 Rather than creating complicated pipelines with forks, it is sometimes better to create multiple pipelines as this makes it easier to handle errors in one fork of the processing.
 It also makes it easier to re-use common simple pipelines.
 For example if you have a pipeline to transform CSV events into normalised XML then index it and forward it to a remote server, it may be better to have a pipeline to cook the events, then a common one to index those XML events and one to forward XML events.
-{{% /note %}}
+{{< /note >}}
 
 
 ## Pipeline Inheritance

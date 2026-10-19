@@ -13,9 +13,9 @@ Stroom has two types of Volume; Index Volumes and Data Volumes.
 * _Data Volume_ - Where streams are written to.
   When writing {{< glossary "Stream" >}} data Stroom will pick a data volume using a volume selector as configured by the {{< glossary "Property" >}} `stroom.data.filesystemVolume.volumeSelector`.
 
-{{% see-also %}}
+{{< see-also >}}
 {{< glossary "Volume Group" >}}
 [User Guide]({{< relref "docs/user-guide/volumes" >}})
-{{% /see-also %}}
+{{< /see-also >}}
 
 

@@ -19,9 +19,9 @@ All nodes in a Stroom cluster must be configured correctly for them to communica
 Open Monitoring/Nodes from the top menu.
 The nodes screen looks like this:
 
-{{% todo %}}
+{{< todo >}}
 Screenshot
-{{% /todo %}}
+{{< /todo >}}
 
 You need to edit each line by selecting it and then clicking the edit {{< stroom-icon "edit.svg" "Edit" >}} icon at the bottom.
 The URL for each node needs to be set as above but obviously substituting in the host name of the individual node, e.g. `http://<HOST_NAME>:8080/stroom/clustercall.rpc`

@@ -209,9 +209,9 @@ In this case the data is being written to disk using a file appender.
  {{< pipe-elm "FileAppender" >}}
 {{< /pipe >}}
 
-{{% note %}}
+{{< note >}}
 Be careful when specifying the directory structure for the _FileAppender_ so that you don’t end up with too many files in one folder, which can cause some OS issues.
-{{% /note %}}
+{{< /note >}}
 
 
 ## Indexing

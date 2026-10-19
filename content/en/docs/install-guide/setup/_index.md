@@ -19,7 +19,7 @@ The order below is the one that most installations will want to follow.
 1. [Securing Stroom]({{< relref "securing-stroom" >}}) - hardening the deployment.
 1. [Email Setup]({{< relref "email-setup" >}}) - the SMTP server used by Analytic Rule and Report emails, only needed if you intend to use email.
 
-{{% note %}}
+{{< note >}}
 Creating the first administrator is easily missed.
 A new installation normally has no administrator at all, so until that step is done nobody can log in and configure Stroom.
-{{% /note %}}
+{{< /note >}}

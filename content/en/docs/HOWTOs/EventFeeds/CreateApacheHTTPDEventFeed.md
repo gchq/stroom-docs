@@ -13,9 +13,9 @@ description: >
 
 <!-- Created with Stroom v6.1-beta.16 -->
 
-{{% see-also %}}
+{{< see-also >}}
 [HOWTO - Enabling Processors for a Pipeline]({{< relref "../General/EnablingProcessorsHowTo" >}})
-{{% /see-also %}}
+{{< /see-also >}}
 
 
 ## Introduction

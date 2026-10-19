@@ -10,8 +10,8 @@ In a {{< glossary "Raw Events" >}} an event is typically represented as block of
 In an {{< glossary "Events" >}} {{< glossary "Stream" >}} an event is identified by its `Event ID` which its position in that stream (as a one-based number).
 The `Event ID` combined with a `Stream ID` provide a unique identifier for an event within a Stroom instance.
 
-{{% see-also %}}
+{{< see-also >}}
 * {{< glossary "Stream">}}
 * {{< glossary "Raw Events">}}
 * {{< glossary "Events">}}
-{{% /see-also %}}
+{{< /see-also >}}

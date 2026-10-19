@@ -32,9 +32,9 @@ Start Time      | The effective time of the first run, see [How Time Works]({{< 
 End Time        | An optional effective time after which the schedule stops running.
 Run As User     | The {{< glossary "User" >}} whose permissions the query runs with.
 
-{{% see-also %}}
+{{< see-also >}}
 [Scheduler]({{< relref "docs/user-guide/jobs/scheduler" >}})
-{{% /see-also %}}
+{{< /see-also >}}
 
 Having more than one schedule on a rule is useful when you want the same query run over different periods.
 A common pattern is a frequent schedule that keeps up with new data, plus a second schedule with a start and end time that is used once to work back over history.
@@ -45,10 +45,10 @@ A common pattern is a frequent schedule that keeps up with new data, plus a seco
 The query runs with the permissions of the _Run As User_, not those of whoever created the rule.
 If that user cannot see some of the data, the rule will silently detect nothing in it.
 
-{{% note %}}
+{{< note >}}
 Changing what a user can see changes what the rules running as that user will detect.
 Stroom records these dependencies so that a user cannot be deleted while schedules still run as them.
-{{% /note %}}
+{{< /note >}}
 
 
 ## How Time Works
@@ -95,10 +95,10 @@ Once enabled, the schedule runs the rule once for that effective time and then h
 Replay works on a single history row at a time.
 To re-run a range of executions, add an ordinary schedule with the start and end times you want instead.
 
-{{% warning %}}
+{{< warning >}}
 Re-running an execution will raise its detections again.
 Where this is not what you want, use [Duplicate Management]({{< relref "duplicate-management" >}}) to suppress the repeats.
-{{% /warning %}}
+{{< /warning >}}
 
 
 ## Execution History
@@ -114,14 +114,14 @@ Message                  | The error message where the run failed.
 
 History is kept for the period set by the `stroom.analytics.executionHistoryRetention` property and is deleted by the _Analytic Execution History Retention_ job.
 
-{{% warning %}}
+{{< warning >}}
 **A schedule that fails is disabled.**
 When a run fails with an error, Stroom disables that execution schedule rather than letting it fail repeatedly.
 The rule then stops running, and stays stopped until someone notices and re-enables it.
 
 This is the most common reason for a rule that appears to have quietly stopped working.
 Check the _Enabled_ state of the schedule and the last row of the execution history, then look at the rule's error feed for the detail.
-{{% /warning %}}
+{{< /warning >}}
 
 
 ## The Execution Schedule Manager
@@ -141,13 +141,13 @@ Delete Schedules       | Delete the selected schedules.
 
 _Run Schedules Now_ and _Batch Edit Schedules_ can be applied either to the schedules you have selected or to everything matching the current filter.
 
-{{% warning %}}
+{{< warning >}}
 _Run Schedules Now_ does not run a schedule once.
 It forces the selected schedules to process **until they are up to date**, which for a contiguous schedule that is well behind means working through every window between where it had got to and now.
 This can take a long time and raise a great many detections, so check what is selected before confirming.
 
 Disabled schedules are not run, and Stroom warns you when the selection contains any.
-{{% /warning %}}
+{{< /warning >}}
 
 
 ## Error Feed

@@ -8,7 +8,7 @@ description: >
   _YAML_ files will typically have the file extension `.yaml` or `.yml`.
 ---
 
-{{% see-also %}}
+{{< see-also >}}
 {{< external-link "yaml.org" "https://yaml.org" >}}
-{{% /see-also %}}
+{{< /see-also >}}
 

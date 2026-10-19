@@ -6,9 +6,9 @@ description: >
   The Query is constructed using an _Expression Tree_ of terms.
 ---
 
-{{% see-also %}}
+{{< see-also >}}
 [User Guide]({{< relref "docs/user-guide/search/dashboards/queries" >}})
 {{< glossary "Dashboard" >}}
 {{< glossary "Expression Tree" >}}
-{{% /see-also %}}
+{{< /see-also >}}
 

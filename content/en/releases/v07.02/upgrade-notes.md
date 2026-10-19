@@ -8,9 +8,9 @@ description: >
   Required actions and information relating to upgrading to Stroom version 7.2.
 ---
 
-{{% warning %}}
+{{< warning >}}
 Please read this section carefully in case any of it is relevant to your Stroom instance.
-{{% /warning %}}
+{{< /warning >}}
 
 
 ## Java Version
@@ -85,7 +85,7 @@ The legacy store exists in the directory configured by `stroom.pipeline.referenc
 Each feed specific store will be in a sub-directory with a name like `USER-DETAILS-REFERENCE___309e1ca0-7a5f-4f05-847b-b706805d758c` (i.e. a file system safe version of the _Feed_ name and the _Feed's_ {{< glossary "UUID" >}}.
 
 The migration happens on an as-needed basis.
-When a [lookup]({{< relref "/docs/user-guide/pipelines/xslt/xslt-functions/reference-data#lookup" >}}) is called from an XSLT, if the required reference stream is found to exist in the legacy store then it will be copied into the appropriate _Feed_ specific store (creating the store if required).
+When a {{< xslt-func-link "lookup" >}} is called from an XSLT, if the required reference stream is found to exist in the legacy store then it will be copied into the appropriate _Feed_ specific store (creating the store if required).
 After being copied, the stream in the legacy store will be marked as available for purge so will get purged on the next run of the job _Ref Data Off-heap Store Purge_.
 
 When Stroom boots it will delete a legacy store if it is found to be empty, so eventually the legacy store will cease to exist.
@@ -103,11 +103,11 @@ With the store deleted, stroom will simply load all reference streams as require
 
 When Stroom boots for the first time with a new version it will run any required database migrations to bring the database schema up to the correct version.
 
-{{% warning %}}
+{{< warning >}}
 It is highly recommended to ensure you have a database backup in place before booting stroom with a new version.
 This is to mitigate against any problems with the migration.
 It is also recommended to test the migration against a copy of your database to ensure that there are no problems when you do it for real.
-{{% /warning %}}
+{{< /warning >}}
 
 On boot, Stroom will ensure that the migrations are only run by a single node in the cluster.
 This will be the node that reaches that point in the boot process first.

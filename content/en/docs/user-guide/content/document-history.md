@@ -44,7 +44,7 @@ Documents that existed before upgrading to v7.13 have their audit trail seeded f
 Changes made before the upgrade other than the most recent one were never recorded, so they cannot appear.
 
 
-{{% see-also %}}
+{{< see-also >}}
 * [Deleting Content]({{< relref "deleting-content" >}})
 * [Import and Export]({{< relref "import-export" >}})
-{{% /see-also %}}
+{{< /see-also >}}

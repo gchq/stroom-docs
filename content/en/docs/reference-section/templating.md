@@ -25,11 +25,11 @@ Jinja templating is very powerful and has a rich language so this is a quick gui
 Stroom uses the {{< external-link "JinJava" "https://github.com/HubSpot/jinjava" >}} templating engine that is based on Jinja templating.
 Not all feature
 
-{{% see-also %}}
+{{< see-also >}}
 HubSpot's Hubl language also uses the JinJava engine, its {{< external-link "documentation" "https://developers.hubspot.com/docs/cms/reference/hubl/overview" >}} may be helpful.
 
 Another reference for jinja templating is {{< external-link "here" "https://jinja.palletsprojects.com/en/stable/templates/" >}}.
-{{% /see-also %}}
+{{< /see-also >}}
 
 
 ### Data Types
@@ -196,13 +196,13 @@ weight: 320
   {{< /card >}}
 {{< /cardpane >}}
 
-{{% note %}}
+{{< note >}}
 Note, the filter `dictsort` is used here to sort the dictionary by its keys.
-{{% /note %}}
+{{< /note >}}
 
-{{% note %}}
+{{< note >}}
 Note the use of `-` to prevent an additional line break appearing in the rendered output, see [White Space]({{< relref "#white-space" >}}) below.
-{{% /note %}}
+{{< /note >}}
 
 
 ### Filters
@@ -245,9 +245,9 @@ The detection time is 2024-05-03T09:15:13.454Z.
   {{< /card >}}
 {{< /cardpane >}}
 
-{{% note %}}
+{{< note >}}
 Note the use of `-` to prevent an additional line break appearing in the rendered output, see [White Space]({{< relref "#white-space" >}}) below.
-{{% /note %}}
+{{< /note >}}
 
 
 ### White Space
@@ -323,10 +323,10 @@ streamId                | String                       | The ID of the {{< gloss
 eventId                 | String                       | The ID of the {{< glossary "Event" >}} that is associated with this detection.
 
 
-{{% warning %}}
+{{< warning >}}
 When choosing the names of the columns in your rule it may be beneficial to use `snake_case` or `UpperCamelCase` to make it easier to reference those columns in the detection template (see [Accessing Collection Items]({{< relref "#accessing-collection-items" >}}) above).
 E.g. `myDict.some_key` vs `myDict['some key']`.
-{{% /warning %}}
+{{< /warning >}}
 
 
 ### Report Context
@@ -348,7 +348,7 @@ aiSummary              | String  | The AI summary of the report's data, or an em
 
 `aiSummary` is always present in the context, so that a template using it renders whether or not a summary was produced.
 
-{{% note %}}
+{{< note >}}
 None of the fields from the [Rule Detections Context]({{< relref "#rule-detections-context" >}}) are available to a Report template, and none of the fields above are available to an Analytic Rule template.
 A template written for one will not render against the other.
-{{% /note %}}
+{{< /note >}}

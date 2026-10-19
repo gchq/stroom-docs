@@ -8,9 +8,9 @@ description: >
   Details how to install Stroom and its assocatied services.
 ---
 
-{{% todo %}}
+{{< todo >}}
 This section is not yet complete.
-{{% /todo %}}
+{{< /todo >}}
 
 
 ## Typical Deployments
@@ -58,11 +58,11 @@ Some may need to be opened to allow access to the ports from outside the host.
 * `8091` - Stroom-Proxy listens on port `8091` for its administration APIs.
   Access to this port should probably be carefully controlled.
 
-{{% note %}}
+{{< note >}}
 A lot of the default Stroom configuration assumes MySQL is listening on `3307`.
 This is for historic reasons.
 You can either change the Stroom configuration to use `3306` or change MySQL to listen on `3307`.
-{{% /note %}}
+{{< /note >}}
 
 Which ports you open on a host will depend on what service is running on that host.
 Typically Stroom will be running on different hosts to Nginx, MySQL and Stroom-Proxy, so Stroom's `8080` port will need to be opened for traffic from Stroom-Proxy and Nginx.
@@ -127,7 +127,7 @@ See [Stroom Configuration]({{< relref "docs/install-guide/configuration/stroom-a
 A newly installed Stroom has no administrator, so nobody will be able to log in and set it up until you create one.
 This is done from the command line and must be done for every new installation, whether it uses Stroom's own identity provider or an external one.
 
-{{% see-also %}}
+{{< see-also >}}
 See [Creating the First Administrator]({{< relref "docs/install-guide/setup/create-first-admin" >}}).
-{{% /see-also %}}
+{{< /see-also >}}
 
