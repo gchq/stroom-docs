@@ -57,284 +57,219 @@ git diff origin/${old_ver}..origin/${new_ver} stroom-proxy/stroom-proxy-app/src/
 
 <!-- Comparison of the latest v7.12 release => v7.13 -->
 
-```
-@@ -17,6 +17,12 @@ appConfig:
-         prepStmtCacheSize: 25
-         prepStmtCacheSqlLimit: 256
-   ai:
-+    chatResponseCache:
-+      expireAfterAccess: null
-+      expireAfterWrite: "PT10M"
-+      maximumSize: 1000
-+      refreshAfterWrite: null
-+      statisticsMode: "INTERNAL"
-     db:
-       connection:
-         jdbcDriverClassName: null
-@@ -309,6 +315,12 @@ appConfig:
-         Reference: "ref"
-         Test Events: "tevt"
-         Test Reference: "tref"
-+      s3VolumeCache:
-+        expireAfterAccess: null
-+        expireAfterWrite: "PT10M"
-+        maximumSize: 1000
-+        refreshAfterWrite: null
-+        statisticsMode: "INTERNAL"
-       typePathCache:
-         expireAfterAccess: "PT10M"
-         expireAfterWrite: null
-@@ -453,6 +465,55 @@ appConfig:
-       refreshAfterWrite: null
-       statisticsMode: "INTERNAL"
-     physicalDeleteAge: "P30D"
-+  documentAsset:
-+    aceEditorModes:
-+      css: "CSS"
-+      htm: "HTML"
-+      html: "HTML"
-+      js: "JAVASCRIPT"
-+      svg: "XML"
-+      txt: "TEXT"
-+      xml: "XML"
-+    assetCacheDir: "asset_cache"
-+    clearAssetCacheOnStartup: false
-+    default: "application/octet-stream"
-+    defaultAceEditorMode: "TEXT"
-+    maxUploadSize: "50M"
-+    mimetypes:
-+      apng: "image/apng"
-+      avif: "image/avif"
-+      bmp: "image/bmp"
-+      css: "text/css"
-+      gif: "image/gif"
-+      htm: "text/html"
-+      html: "text/html"
-+      ico: "image/vnd.microsoft.icon"
-+      jpeg: "image/jpeg"
-+      jpg: "image/jpeg"
-+      js: "text/javascript"
-+      png: "image/png"
-+      svg: "image/svg+xml"
-+      tif: "image/tiff"
-+      tiff: "image/tiff"
-+      txt: "text/plain"
-+      webp: "image/webp"
-+      xml: "application/xml"
-+  documentAssetDb:
-+    connection:
-+      jdbcDriverClassName: null
-+      jdbcDriverPassword: null
-+      jdbcDriverUrl: null
-+      jdbcDriverUsername: null
-+    connectionPool:
-+      cachePrepStmts: false
-+      connectionTimeout: "PT30S"
-+      idleTimeout: "PT10M"
-+      leakDetectionThreshold: "PT0S"
-+      maxLifetime: "PT30M"
-+      maxPoolSize: 30
-+      minimumIdle: 10
-+      prepStmtCacheSize: 25
-+      prepStmtCacheSqlLimit: 256
-   elastic:
-     client:
-       maxConnections: 30
-@@ -749,6 +810,19 @@ appConfig:
-         maxStoreSize: "10G"
-         readAheadEnabled: true
-         readerBlockedByWriter: false
-+    stepping:
-+      eagerMaterialisationRecords: 5000
-+      filteredScanWindow: 50
-+      maxBytesPerStream: 2147483648
-+      maxRecordSizeBytes: 104857600
-+      maxRecordsPerStream: 1000000
-+      maxRetainedFingerprintsPerElement: 3
-+      maxSessionIdleTime: "PT10M"
-+      maxSweptStreamsPerSession: 10
-+      orphanMaxAge: "PT1H"
-+      prefetchWindow: 10
-+      skeletonSweep: true
-+      storeSubDir: "stepping"
-     xmlSchema:
-       cache:
-         expireAfterAccess: "PT10M"
-@@ -765,13 +839,25 @@ appConfig:
-         statisticsMode: "INTERNAL"
-       maxElements: 1000000
-   planb:
-+    defaultShardCounts:
-+      STATE: 16
-+      TEMPORAL_STATE: 32
-+      RANGED_STATE: 16
-+      TEMPORAL_RANGED_STATE: 32
-+      SESSION: 32
-+      HISTOGRAM: 16
-+      METRIC: 16
-+      TRACE: 64
-     mergeStatusRetention: "P30D"
-+    mergedCheckpointCacheTtl: "PT10M"
-     minTimeToKeepSnapshotEnv: "PT20M"
-     minTimeToKeepSnapshots: "PT10M"
-+    minTimeToKeepStoreShardEnv: "PT1H"
-     nodeList: []
-     path: "planb"
-     sendPartAttempts: 3
-     sendPartRetryDelay: "PT10S"
-+    shardMergeThreadCount: 4
-     snapshotRetryFetchInterval: "PT1M"
-     stateDocCache:
-       expireAfterAccess: null
-@@ -781,6 +867,7 @@ appConfig:
-       statisticsMode: "INTERNAL"
-   processor:
-     assignTasks: true
-+    claimTasksOnWorker: false
-     createTasksBeyondProcessLimit: true
-     databaseMultiInsertMaxBatchSize: 500
-     db:
-@@ -800,7 +887,6 @@ appConfig:
-         prepStmtCacheSize: 25
-         prepStmtCacheSqlLimit: 256
-     deleteAge: "P1D"
--    disownDeadTasksAfter: "PT10M"
-     fillTaskQueue: true
-     processorCache:
-       expireAfterAccess: "PT10S"
-@@ -833,9 +919,14 @@ appConfig:
-       refreshAfterWrite: "PT10S"
-       statisticsMode: "INTERNAL"
-     queueSize: 1000
-+    skipEmptyFilterFetchDuration: "PT10S"
-     skipNonProducingFiltersDuration: "PT10S"
-+    skipNonProducingFiltersMaxDuration: "PT1M"
-+    taskAvailabilityInterval: "PT5S"
-     taskCreationThreadCount: 5
-+    taskLeaseTimeout: "PT10M"
-     tasksToCreate: 1000
-+    useMaxMetaIdFromPreviousPoll: true
-     waitToQueueTasksDuration: "PT10S"
-   properties:
-     db:
-@@ -974,6 +1065,33 @@ appConfig:
-     - "Test Events"
-     - "Test Reference"
-     receiptCheckMode: "FEED_STATUS"
-+    s3Event:
-+      rePollDuration: "PT5M"
-+      sleepDurationPostFailure: "PT1M"
-+      sqs:
-+        assumeRole: null
-+        awsRegionName: null
-+        credentials: null
-+        deadLetterQueueUrl: null
-+        httpClient:
-+          connectionRequestTimeout: "PT3M"
-+          connectionTimeout: "PT3M"
-+          cookiesEnabled: false
-+          followRedirects: true
-+          keepAlive: "PT0S"
-+          maxConnections: 1024
-+          maxConnectionsPerRoute: 1024
-+          proxy: null
-+          retries: 0
-+          timeToLive: "PT1H"
-+          timeout: "PT3M"
-+          tls: null
-+          userAgent: null
-+          validateAfterInactivityPeriod: "PT0S"
-+        maxNumberOfMessages: 1000
-+        pollMaxWaitTime: "PT10S"
-+        queueUrl: null
-+        visibilityTimeout: "PT3M"
-     x509CertificateDnFormat: "LDAP"
-     x509CertificateDnHeader: "X-SSL-CLIENT-S-DN"
-     x509CertificateHeader: "X-SSL-CERT"
-@@ -1234,6 +1352,23 @@ appConfig:
-     search:
-       maxBooleanClauseCount: 1024
-       maxStoredDataQueueSize: 1000
-+  sqlStore:
-+    db:
-+      connection:
-+        jdbcDriverClassName: null
-+        jdbcDriverPassword: null
-+        jdbcDriverUrl: null
-+        jdbcDriverUsername: null
-+      connectionPool:
-+        cachePrepStmts: false
-+        connectionTimeout: "PT30S"
-+        idleTimeout: "PT10M"
-+        leakDetectionThreshold: "PT0S"
-+        maxLifetime: "PT30M"
-+        maxPoolSize: 30
-+        minimumIdle: 10
-+        prepStmtCacheSize: 25
-+        prepStmtCacheSqlLimit: 256
-   statistics:
-     internal:
-       benchmarkCluster:
-@@ -1425,52 +1560,6 @@ appConfig:
-     pathPrefix: null
-     port: null
-     scheme: "https"
--  visualisationAsset:
--    aceEditorModes:
--      css: "CSS"
--      htm: "HTML"
--      html: "HTML"
--      js: "JAVASCRIPT"
--      svg: "XML"
--      txt: "TEXT"
--      xml: "XML"
--    assetCacheDir: "asset_cache"
--    clearAssetCacheOnStartup: false
--    default: "application/octet-stream"
--    defaultAceEditorMode: "TEXT"
--    mimetypes:
--      apng: "image/apng"
--      bmp: "image/bmp"
--      css: "text/css"
--      gif: "image/jpeg"
--      htm: "text/html"
--      html: "text/html"
--      jpeg: "image/jpeg"
--      jpg: "image/jpeg"
--      js: "text/javascript"
--      png: "image/png"
--      svg: "image/svg+xml"
--      tif: "image/tiff"
--      tiff: "image/tiff"
--      txt: "text/plain"
--      webp: "image/webp"
--      xml: "application/xml"
--  visualisationAssetDb:
--    connection:
--      jdbcDriverClassName: null
--      jdbcDriverPassword: null
--      jdbcDriverUrl: null
--      jdbcDriverUsername: null
--    connectionPool:
--      cachePrepStmts: false
--      connectionTimeout: "PT30S"
--      idleTimeout: "PT10M"
--      leakDetectionThreshold: "PT0S"
--      maxLifetime: "PT30M"
--      maxPoolSize: 30
--      minimumIdle: 10
--      prepStmtCacheSize: 25
--      prepStmtCacheSqlLimit: 256
-   volumes:
-     createDefaultIndexVolumesOnStart: true
-     defaultIndexVolumeFilesystemUtilisation: 0.9
+The following changes have been made to Stroom's configuration.
+Most of the new properties have suitable defaults and do not need to be set unless you need to change the default behaviour.
+
+
+#### New `ai.chatResponseCache` Property
+
+The `ai()` XSLT and StroomQL functions now cache answers for identical combinations of model, system prompt and message.
+This avoids repeated calls to the model for the same question.
+Set `maximumSize` to `0` to disable the cache.
+
+```yaml
+appConfig:
+  ai:
+    chatResponseCache:
+      expireAfterAccess: null
+      expireAfterWrite: "PT10M"
+      maximumSize: 1000
+      refreshAfterWrite: null
+      statisticsMode: "INTERNAL"
 ```
 
 
+#### New `data.s3VolumeCache` Property
+
+The data store now caches S3 volume details.
+Cache entries expire 10 minutes after they are written and the cache holds up to 1,000 entries.
+
+```yaml
+appConfig:
+  data:
+    s3VolumeCache:
+      expireAfterAccess: null
+      expireAfterWrite: "PT10M"
+      maximumSize: 1000
+      refreshAfterWrite: null
+      statisticsMode: "INTERNAL"
+```
 
 
+#### `visualisationAsset` Renamed to `documentAsset`
+
+The `visualisationAsset` branch has been replaced by `documentAsset`, which provides asset management for documents as well as visualisations.
+Rename existing `visualisationAsset` configuration to `documentAsset`, and `visualisationAssetDb` to `documentAssetDb`.
+
+The new configuration supports AVIF and ICO MIME types, corrects the default MIME type for GIF files, and adds `maxUploadSize`.
+This limits the size of an asset upload before it is streamed into the database; it is separate from the 512 KiB limit for editing asset content in the UI.
+
+```yaml
+appConfig:
+  documentAsset:
+    aceEditorModes:
+      css: "CSS"
+      htm: "HTML"
+      html: "HTML"
+      js: "JAVASCRIPT"
+      svg: "XML"
+      txt: "TEXT"
+      xml: "XML"
+    assetCacheDir: "asset_cache"
+    clearAssetCacheOnStartup: false
+    default: "application/octet-stream"
+    defaultAceEditorMode: "TEXT"
+    maxUploadSize: "50M"
+    mimetypes:
+      apng: "image/apng"
+      avif: "image/avif"
+      bmp: "image/bmp"
+      css: "text/css"
+      gif: "image/gif"
+      ico: "image/vnd.microsoft.icon"
+      jpeg: "image/jpeg"
+      jpg: "image/jpeg"
+      js: "text/javascript"
+      png: "image/png"
+      svg: "image/svg+xml"
+      tif: "image/tiff"
+      tiff: "image/tiff"
+      txt: "text/plain"
+      webp: "image/webp"
+      xml: "application/xml"
+  documentAssetDb:
+    connection:
+      jdbcDriverClassName: null
+      jdbcDriverPassword: null
+      jdbcDriverUrl: null
+      jdbcDriverUsername: null
+    connectionPool:
+      cachePrepStmts: false
+      connectionTimeout: "PT30S"
+      idleTimeout: "PT10M"
+      leakDetectionThreshold: "PT0S"
+      maxLifetime: "PT30M"
+      maxPoolSize: 30
+      minimumIdle: 10
+      prepStmtCacheSize: 25
+      prepStmtCacheSqlLimit: 256
+```
 
 
+#### New `data.stepping` Properties
+
+The `data.stepping` branch controls the persisted I/O used when stepping through streams.
+The default `skeletonSweep` setting performs a cheaper initial capture and materialises data below the record boundary as it is visited.
+The limits prevent a stepping session from consuming excessive disk space or processing too many records.
+
+```yaml
+appConfig:
+  data:
+    stepping:
+      eagerMaterialisationRecords: 5000
+      filteredScanWindow: 50
+      maxBytesPerStream: 2147483648
+      maxRecordSizeBytes: 104857600
+      maxRecordsPerStream: 1000000
+      maxRetainedFingerprintsPerElement: 3
+      maxSessionIdleTime: "PT10M"
+      maxSweptStreamsPerSession: 10
+      orphanMaxAge: "PT1H"
+      prefetchWindow: 10
+      skeletonSweep: true
+      storeSubDir: "stepping"
+```
+
+`maxBytesPerStream` and `maxRecordsPerStream` stop stepping with an error when the persisted I/O or captured records for a stream exceed the configured limit.
+`maxSessionIdleTime` controls when an idle session and its persisted I/O are removed, while `orphanMaxAge` controls cleanup of abandoned session directories.
+
+
+#### Changes to the `planb` Branch
+
+The following properties have been added to control Plan B shard allocation, caching and merging. `defaultShardCounts` defines the default number of shards for each state type.
+
+```yaml
+appConfig:
+  planb:
+    defaultShardCounts:
+      STATE: 16
+      TEMPORAL_STATE: 32
+      RANGED_STATE: 16
+      TEMPORAL_RANGED_STATE: 32
+      SESSION: 32
+      HISTOGRAM: 16
+      METRIC: 16
+      TRACE: 64
+    mergedCheckpointCacheTtl: "PT10M"
+    minTimeToKeepStoreShardEnv: "PT1H"
+    shardMergeThreadCount: 4
+```
+
+`mergedCheckpointCacheTtl` controls how long an in-memory merged checkpoint index is retained. `minTimeToKeepStoreShardEnv` controls how long an unused local copy of a shared store shard is retained before it is re-synchronised on next use. `shardMergeThreadCount` limits concurrent shard merges.
+
+
+#### Changes to the `processor` Branch
+
+The processor has new controls for task assignment, polling and task leases.
+
+* `claimTasksOnWorker` is experimental and defaults to `false`. When enabled, worker nodes claim their own tasks directly from the database. It must have the same value on every node, and changing it requires stopping the whole cluster before changing the value and restarting it.
+* `skipEmptyFilterFetchDuration` sets how long an idle filter is left alone after no tasks are found for it.
+* `skipNonProducingFiltersMaxDuration` caps the increasing delay before retrying filters that produce no tasks.
+* `taskAvailabilityInterval` controls how often a node refreshes its summary of available work.
+* `taskLeaseTimeout` controls when a task with no heartbeat is considered dead and returned to the `CREATED` state. It should be comfortably longer than the Processor Task Heartbeat job interval.
+* `useMaxMetaIdFromPreviousPoll` avoids missing data that was inserted but not yet committed when the current maximum meta ID was read.
+
+The obsolete `disownDeadTasksAfter` property has been removed. Task leases are now controlled by `taskLeaseTimeout`.
+
+
+#### New `receive.s3Event` Properties
+
+S3 event processing can now be configured to poll an AWS SQS queue. The queue URL, polling limits, visibility timeout and optional dead-letter queue are configured under `receive.s3Event.sqs`.
+
+```yaml
+appConfig:
+  receive:
+    s3Event:
+      rePollDuration: "PT5M"
+      sleepDurationPostFailure: "PT1M"
+      sqs:
+        assumeRole: null
+        awsRegionName: null
+        credentials: null
+        deadLetterQueueUrl: null
+        maxNumberOfMessages: 1000
+        pollMaxWaitTime: "PT10S"
+        queueUrl: null
+        visibilityTimeout: "PT3M"
+```
+
+`rePollDuration` limits how long a scheduled execution polls before waiting for the next execution. `sleepDurationPostFailure` sets the delay after a polling failure. `visibilityTimeout` should be longer than the time needed to process a message; successfully processed messages are deleted from the queue.
+
+
+#### New `sqlStore` Database Configuration
+
+The SQL statistics store has a new database connection branch. These values can be left unset when the connection is supplied through common database details.
+
+```yaml
+appConfig:
+  sqlStore:
+    db:
+      connection:
+        jdbcDriverClassName: null
+        jdbcDriverPassword: null
+        jdbcDriverUrl: null
+        jdbcDriverUsername: null
+      connectionPool:
+        cachePrepStmts: false
+        connectionTimeout: "PT30S"
+        idleTimeout: "PT10M"
+        leakDetectionThreshold: "PT0S"
+        maxLifetime: "PT30M"
+        maxPoolSize: 30
+        minimumIdle: 10
+        prepStmtCacheSize: 25
+        prepStmtCacheSqlLimit: 256
+```
 
 
 ### Stroom-Proxy's `config.yml`
