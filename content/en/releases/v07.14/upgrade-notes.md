@@ -186,7 +186,8 @@ appConfig:
 
 #### Changes to the `planb` Branch
 
-The following properties have been added to control Plan B shard allocation, caching and merging. `defaultShardCounts` defines the default number of shards for each state type.
+The following properties have been added to control Plan B shard allocation, caching and merging.
+`defaultShardCounts` defines the default number of shards for each state type.
 
 ```yaml
 appConfig:
@@ -205,26 +206,33 @@ appConfig:
     shardMergeThreadCount: 4
 ```
 
-`mergedCheckpointCacheTtl` controls how long an in-memory merged checkpoint index is retained. `minTimeToKeepStoreShardEnv` controls how long an unused local copy of a shared store shard is retained before it is re-synchronised on next use. `shardMergeThreadCount` limits concurrent shard merges.
+`mergedCheckpointCacheTtl` controls how long an in-memory merged checkpoint index is retained.
+`minTimeToKeepStoreShardEnv` controls how long an unused local copy of a shared store shard is retained before it is re-synchronised on next use.
+`shardMergeThreadCount` limits concurrent shard merges.
 
 
 #### Changes to the `processor` Branch
 
 The processor has new controls for task assignment, polling and task leases.
 
-* `claimTasksOnWorker` is experimental and defaults to `false`. When enabled, worker nodes claim their own tasks directly from the database. It must have the same value on every node, and changing it requires stopping the whole cluster before changing the value and restarting it.
+* `claimTasksOnWorker` is experimental and defaults to `false`.
+  When enabled, worker nodes claim their own tasks directly from the database.
+  It must have the same value on every node, and changing it requires stopping the whole cluster before changing the value and restarting it.
 * `skipEmptyFilterFetchDuration` sets how long an idle filter is left alone after no tasks are found for it.
 * `skipNonProducingFiltersMaxDuration` caps the increasing delay before retrying filters that produce no tasks.
 * `taskAvailabilityInterval` controls how often a node refreshes its summary of available work.
-* `taskLeaseTimeout` controls when a task with no heartbeat is considered dead and returned to the `CREATED` state. It should be comfortably longer than the Processor Task Heartbeat job interval.
+* `taskLeaseTimeout` controls when a task with no heartbeat is considered dead and returned to the `CREATED` state.
+  It should be comfortably longer than the Processor Task Heartbeat job interval.
 * `useMaxMetaIdFromPreviousPoll` avoids missing data that was inserted but not yet committed when the current maximum meta ID was read.
 
-The obsolete `disownDeadTasksAfter` property has been removed. Task leases are now controlled by `taskLeaseTimeout`.
+The obsolete `disownDeadTasksAfter` property has been removed.
+Task leases are now controlled by `taskLeaseTimeout`.
 
 
 #### New `receive.s3Event` Properties
 
-S3 event processing can now be configured to poll an AWS SQS queue. The queue URL, polling limits, visibility timeout and optional dead-letter queue are configured under `receive.s3Event.sqs`.
+S3 event processing can now be configured to poll an AWS SQS queue.
+The queue URL, polling limits, visibility timeout and optional dead-letter queue are configured under `receive.s3Event.sqs`.
 
 ```yaml
 appConfig:
@@ -243,12 +251,15 @@ appConfig:
         visibilityTimeout: "PT3M"
 ```
 
-`rePollDuration` limits how long a scheduled execution polls before waiting for the next execution. `sleepDurationPostFailure` sets the delay after a polling failure. `visibilityTimeout` should be longer than the time needed to process a message; successfully processed messages are deleted from the queue.
+`rePollDuration` limits how long a scheduled execution polls before waiting for the next execution.
+`sleepDurationPostFailure` sets the delay after a polling failure.
+`visibilityTimeout` should be longer than the time needed to process a message; successfully processed messages are deleted from the queue.
 
 
 #### New `sqlStore` Database Configuration
 
-The SQL statistics store has a new database connection branch. These values can be left unset when the connection is supplied through common database details.
+The SQL statistics store has a new database connection branch.
+These values can be left unset when the connection is supplied through common database details.
 
 ```yaml
 appConfig:
@@ -273,8 +284,6 @@ appConfig:
 
 
 ### Stroom-Proxy's `config.yml`
-
-
 
 
 ## Database Migrations
@@ -317,8 +326,9 @@ this section
 
 For information purposes only, the following are the database migrations that will be run when upgrading to 7.14.0 from the previous minor version.
  
-Note, the `legacy` module will run first (if present) then the other module will run in no particular order. 
+Note, the `legacy` module will run first (if present) then the other module will run in no particular order.
  
+
 #### Module `stroom-cluster` 
  
 ##### Script `V07_14_00_001__cluster_lock_time.sql`
