@@ -285,6 +285,68 @@ appConfig:
 
 ### Stroom-Proxy's `config.yml`
 
+#### New `forwardS3Destinations` Property
+
+Stroom-Proxy can now forward proxy-format ZIP files to S3 destinations.
+
+The `forwardS3Destinations` property is an empty list by default and should be configured with one or more S3 destinations if S3 forwarding is required.
+
+```yaml
+proxyConfig:
+  forwardS3Destinations: []
+```
+
+
+#### New `receive.s3Event` Properties
+
+Stroom-Proxy has a new configuration section for polling an AWS SQS queue for S3 event notifications.
+This configuration section is shared with Stroom.
+
+{{< note >}}
+SQQ polling is not currently implemented in Stroom-Proxy.
+{{< /note >}}
+
+
+The queue URL, polling limits, visibility timeout, optional dead-letter queue and AWS HTTP client settings are configured under `proxyConfig.receive.s3Event.sqs`.
+
+```yaml
+proxyConfig:
+  receive:
+    s3Event:
+      rePollDuration: "PT5M"
+      sleepDurationPostFailure: "PT1M"
+      sqs:
+        assumeRole: null
+        awsRegionName: null
+        credentials: null
+        deadLetterQueueUrl: null
+        httpClient:
+          connectionRequestTimeout: "PT3M"
+          connectionTimeout: "PT3M"
+          cookiesEnabled: false
+          followRedirects: true
+          keepAlive: "PT0S"
+          maxConnections: 1024
+          maxConnectionsPerRoute: 1024
+          proxy: null
+          retries: 0
+          timeToLive: "PT1H"
+          timeout: "PT3M"
+          tls: null
+          userAgent: null
+          validateAfterInactivityPeriod: "PT0S"
+        maxNumberOfMessages: 1000
+        pollMaxWaitTime: "PT10S"
+        queueUrl: null
+        visibilityTimeout: "PT3M"
+```
+
+`rePollDuration` limits how long a scheduled execution polls before waiting for the next execution.
+
+`sleepDurationPostFailure` sets the delay after a polling failure.
+
+`visibilityTimeout` should be longer than the time needed to process a message because successfully processed messages are deleted from the queue.
+
 
 ## Database Migrations
 
