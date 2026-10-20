@@ -19,16 +19,12 @@ Like Ask Stroom AI itself, these remain preview features and are subject to brea
 
 ### The `ask-ai()` XSLT Function
 
-A translation can now ask a model a question with `stroom:ask-ai()`, passing the model to use, the message to ask, and optionally a system prompt.
+A translation can now ask a model a question with {{< xslt-func-link "ask-ai" >}}, passing the model to use, the message to ask, and optionally a system prompt.
 
 {{< warning >}}
 The model is asked once per call, so a pipeline that calls this for every record will make one request per record.
 Repeated identical questions are served from a cache, but a translation that asks something different of every record will be slow.
 {{< /warning >}}
-
-{{< see-also >}}
-{{< xslt-func-link "ask-ai" >}}
-{{< /see-also >}}
 
 
 ### The `askAi()` StroomQL Function

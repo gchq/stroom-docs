@@ -28,12 +28,6 @@ The site is build using Hugo and the [Docsy](https://www.docsy.dev/docs/) Hugo t
   Reuse existing project utilities first.
 
 
-## Structure
-
-* The server-side code follows a layered architecture: resource -> services -> DAOs.
-  Respect this separation.
-
-
 ## Commands
 
 You will need docker available to run some of these commands.
@@ -49,7 +43,7 @@ You will need docker available to run some of these commands.
 * Check for style breaches: `./check_style.sh --detail`
 
 
-## Coding conventions
+## Documentation/Coding Conventions
 
 * New pages must have front matter added at the top.
   e.g.
@@ -70,6 +64,10 @@ You will need docker available to run some of these commands.
   `linkTitle` should be the same as `title` unless `title` is very long.
 
 * Documentation must adhere to the [Style Guide](https://gchq.github.io/stroom-docs/community/documentation/style-guide/).
+
+* Only one sentence is allowed per line.
+
+* No hard line breaks.
 
 
 ## Contributing
