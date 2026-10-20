@@ -28,11 +28,19 @@
 &lt;p&gt;Open Monitoring/Nodes from the top menu.
 The nodes screen looks like this:&lt;/p&gt;
 
+
+
 &lt;div class=&#34;alert alert-warning&#34; role=&#34;alert&#34;&gt;
-&lt;h4 class=&#34;alert-heading&#34;&gt;TODO&lt;/h4&gt;
+  &lt;h4 class=&#34;alert-heading&#34;&gt;TODO&lt;/h4&gt;
+  &lt;div class=&#34;alert-content&#34;&gt;
 
-    Screenshot
 
+
+
+Screenshot
+
+
+  &lt;/div&gt;
 &lt;/div&gt;
 
 &lt;p&gt;You need to edit each line by selecting it and then clicking the edit &lt;span class=&#34;stroom-icon inline-svg-button icon-button  &#34; &gt;
@@ -61,13 +69,13 @@ If you do not get ping results for each node then they are not configured correc
       <description>
         
         
-        &lt;p&gt;By default a &lt;span class=&#34;glossary-link&#34;&gt;
+        &lt;p&gt;By default a &lt;span class=&#34;glossary-link link-with-hover-tooltip&#34;&gt;
     &lt;a href=&#34;../../docs/glossary/p/glossary-processor-filter&#34;&gt;
       &lt;span&gt;Processor filter&lt;/span&gt;
       &lt;i class=&#34;glossary-link-icon fas fa-book fa-sm text-primary&#34;&gt;&lt;/i&gt;
-    &lt;/a&gt;&lt;span class=&#34;glossary-tooltip&#34;&gt;
-      &lt;span class=&#34;glossary-tooltip-title&#34;&gt;Processor filter&lt;/span&gt;
-      &lt;span class=&#34;glossary-tooltip-summary&#34;&gt;A Processor Filter is used to used to find Streams to process through the &lt;em&gt;Pipeline&lt;/em&gt; associated with the Processor Filter. A Processor Filter consists of an expression tree to select which &lt;em&gt;Streams&lt;/em&gt; to process and a tracker to track the what &lt;em&gt;Streams&lt;/em&gt; have been processed.&lt;/span&gt;&lt;span class=&#34;glossary-tooltip-truncated&#34;&gt;Click to see more details...&lt;/span&gt;&lt;/span&gt;&lt;/span&gt; may be processed by any node in the cluster, at any time, up to the limits set on the filter itself.
+    &lt;/a&gt;&lt;template class=&#34;hover-tooltip-content&#34;&gt;
+        &lt;span class=&#34;hover-tooltip-title&#34;&gt;Processor filter&lt;/span&gt;
+        &lt;div class=&#34;hover-tooltip-summary&#34;&gt;A Processor Filter is used to used to find Streams to process through the &lt;em&gt;Pipeline&lt;/em&gt; associated with the Processor Filter. A Processor Filter consists of an expression tree to select which &lt;em&gt;Streams&lt;/em&gt; to process and a tracker to track the what &lt;em&gt;Streams&lt;/em&gt; have been processed.&lt;/div&gt;&lt;span class=&#34;hover-tooltip-more-details&#34;&gt;Click to see more details...&lt;/span&gt;&lt;/template&gt;&lt;/span&gt; may be processed by any node in the cluster, at any time, up to the limits set on the filter itself.
 &lt;em&gt;Node Groups&lt;/em&gt; and &lt;em&gt;Processing Profiles&lt;/em&gt; let you be more selective than that.&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;A &lt;strong&gt;Node Group&lt;/strong&gt; is a named set of nodes.&lt;/li&gt;
@@ -77,6 +85,7 @@ If you do not get ping results for each node then they are not configured correc
 &lt;p&gt;Together these let you keep heavy processing off the nodes that serve the user interface, hold it back until a quiet time of day, or give it more of the cluster at the weekend.&lt;/p&gt;
 &lt;h2 id=&#34;node-groups&#34;&gt;Node Groups&lt;/h2&gt;
 &lt;p&gt;Node groups are managed from&lt;/p&gt;
+
 
 
 
@@ -147,6 +156,7 @@ Choosing &lt;em&gt;exclude&lt;/em&gt; means the group is everything except the n
 Choosing &lt;em&gt;include&lt;/em&gt; means only the ticked nodes are in the group, and a new node has to be added deliberately.&lt;/p&gt;
 &lt;h2 id=&#34;processing-profiles&#34;&gt;Processing Profiles&lt;/h2&gt;
 &lt;p&gt;Processing profiles are managed from&lt;/p&gt;
+
 
 
 
@@ -225,16 +235,23 @@ An end time that is not after the start time is treated as running into the foll
 &lt;p&gt;Periods are evaluated in order and the first one that matches the current day and time is used.&lt;/p&gt;
 &lt;h3 id=&#34;when-no-period-matches&#34;&gt;When No Period Matches&lt;/h3&gt;
 
-&lt;div class=&#34;alert alert-warning&#34; role=&#34;alert&#34;&gt;
-&lt;h4 class=&#34;alert-heading&#34;&gt;Warning&lt;/h4&gt;
 
-    &lt;p&gt;A filter that has been given a profile is processed &lt;strong&gt;only&lt;/strong&gt; during the periods in that profile.&lt;/p&gt;
+
+&lt;div class=&#34;alert alert-warning&#34; role=&#34;alert&#34;&gt;
+  &lt;h4 class=&#34;alert-heading&#34;&gt;Warning&lt;/h4&gt;
+  &lt;div class=&#34;alert-content&#34;&gt;
+
+
+
+
+&lt;p&gt;A filter that has been given a profile is processed &lt;strong&gt;only&lt;/strong&gt; during the periods in that profile.&lt;/p&gt;
 &lt;p&gt;If no period matches the current day and time then no tasks are created for that filter.
 The same is true if the profile has no periods at all, if its node group is disabled, or if the node asking for work is not in the group.&lt;/p&gt;
 
 
-&lt;/div&gt;
 
+  &lt;/div&gt;
+&lt;/div&gt;
 
 &lt;p&gt;This is the behaviour you want for confining processing to a window, but it does mean a profile with an incomplete schedule will quietly stop a filter from processing.
 A filter with no profile set is not restricted in this way.&lt;/p&gt;
@@ -243,16 +260,23 @@ A filter with no profile set is not restricted in this way.&lt;/p&gt;
 &lt;p&gt;Task creation takes profiles into account, so tasks that no node is currently allowed to process are not added to the queue, and are released again if a profile stops allowing them.
 Each profile is given a share of the tasks that are created, so that one busy profile does not starve the others.&lt;/p&gt;
 
+
+
 &lt;div class=&#34;alert alert-primary&#34; role=&#34;alert&#34;&gt;
-&lt;h4 class=&#34;alert-heading&#34;&gt;See Also&lt;/h4&gt;
-&lt;div class=&#34;alert-content&#34;&gt;
-  
-  &lt;ul&gt;
+  &lt;h4 class=&#34;alert-heading&#34;&gt;See Also&lt;/h4&gt;
+  &lt;div class=&#34;alert-content&#34;&gt;
+
+
+
+
+&lt;ul&gt;
 &lt;li&gt;&lt;a href=&#34;../../docs/user-guide/nodes/&#34;&gt;Nodes&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href=&#34;../../docs/user-guide/jobs/&#34;&gt;Jobs&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;/div&gt;
+
+
+  &lt;/div&gt;
 &lt;/div&gt;
 
 

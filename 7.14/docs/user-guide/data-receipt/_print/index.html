@@ -1,0 +1,1462 @@
+<!doctype html>
+<html itemscope itemtype="http://schema.org/WebPage" lang="en" class="no-js">
+  <head>
+    
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="generator" content="Hugo 0.95.0" />
+<link rel="canonical" type="text/html" href="../../../../docs/user-guide/data-receipt/">
+<meta name="robots" content="noindex, nofollow">
+
+<link rel="preload" href="../../../../fonts/google_open_sans_300.ttf" as="font" type="font/ttf" crossorigin >
+<link rel="preload" href="../../../../fonts/google_open_sans_300i.ttf" as="font" type="font/ttf" crossorigin >
+<link rel="preload" href="../../../../fonts/google_open_sans_400.ttf" as="font" type="font/ttf" crossorigin >
+<link rel="preload" href="../../../../fonts/google_open_sans_400i.ttf" as="font" type="font/ttf" crossorigin >
+<link rel="preload" href="../../../../fonts/google_open_sans_700.ttf" as="font" type="font/ttf" crossorigin >
+<link rel="preload" href="../../../../fonts/google_open_sans_700i.ttf" as="font" type="font/ttf" crossorigin >
+<link rel="preload" href="../../../../webfonts/fa-brands-400.ttf" as="font" type="font/ttf" crossorigin >
+<link rel="preload" href="../../../../webfonts/fa-brands-400.woff2" as="font" type="font/woff2" crossorigin >
+
+
+<link rel="preload" href="../../../../webfonts/fa-solid-900.ttf" as="font" type="font/ttf" crossorigin >
+<link rel="preload" href="../../../../webfonts/fa-solid-900.woff2" as="font" type="font/woff2" crossorigin >
+
+
+
+
+
+
+<link rel="shortcut icon" href="../../../../favicons/favicon.ico" >
+<link rel="apple-touch-icon" href="../../../../favicons/apple-touch-icon-180x180.png" sizes="180x180">
+<link rel="icon" type="image/png" href="../../../../favicons/favicon-16x16.png" sizes="16x16">
+<link rel="icon" type="image/png" href="../../../../favicons/favicon-32x32.png" sizes="32x32">
+<link rel="icon" type="image/png" href="../../../../favicons/android-36x36.png" sizes="36x36">
+<link rel="icon" type="image/png" href="../../../../favicons/android-48x48.png" sizes="48x48">
+<link rel="icon" type="image/png" href="../../../../favicons/android-72x72.png" sizes="72x72">
+<link rel="icon" type="image/png" href="../../../../favicons/android-96x96.png" sizes="96x96">
+<link rel="icon" type="image/png" href="../../../../favicons/android-144x144.png" sizes="144x144">
+<link rel="icon" type="image/png" href="../../../../favicons/android-192x192.png" sizes="192x192">
+
+<title>Data Receipt | Stroom</title>
+<meta name="description" content="Describes the varisous aspects of Stroom (&amp; Stroom Proxy) receiving data via its /datafeed or event endpoints.
+">
+<meta property="og:title" content="Data Receipt" />
+<meta property="og:description" content="Describes the varisous aspects of Stroom (&amp; Stroom Proxy) receiving data via its /datafeed or event endpoints.
+" />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="/docs/user-guide/data-receipt/" /><meta property="og:site_name" content="Stroom" />
+
+<meta itemprop="name" content="Data Receipt">
+<meta itemprop="description" content="Describes the varisous aspects of Stroom (&amp; Stroom Proxy) receiving data via its /datafeed or event endpoints.
+"><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Data Receipt"/>
+<meta name="twitter:description" content="Describes the varisous aspects of Stroom (&amp; Stroom Proxy) receiving data via its /datafeed or event endpoints.
+"/>
+
+
+
+
+<link rel="preload" href="../../../../scss/main.min.e88dbdcc11536c32758367027850973cba7b125793b45a9a421989bcdc0ce239.css" as="style">
+<link href="../../../../scss/main.min.e88dbdcc11536c32758367027850973cba7b125793b45a9a421989bcdc0ce239.css" rel="stylesheet" integrity="">
+
+
+<script src='../../../../js/jquery-3.6.0.min.js'></script>
+
+
+
+
+<link rel="stylesheet" href="../../../../css/prism.css"/>
+
+
+<link rel="stylesheet" href="../../../../css/stroom-ui/icon-colours.min.c7f7492721ac22f5e69eb7c9e66ec2d6dda4fbb93805fdb5f383e323f347838d.css" integrity="sha256-x/dJJyGsIvXmnrfJ5m7C1t2k&#43;7k4Bf2184PjI/NHg40=">
+
+<link rel="stylesheet" href="../../../../css/stroom-ui/material_design_colors.min.ab1318fe69a1013ff756090954c02c5364ff48d150dcc94468a73d2e3efd3fc0.css" integrity="sha256-qxMY/mmhAT/3VgkJVMAsU2T/SNFQ3MlEaKc9Lj79P8A=">
+
+<link rel="stylesheet" href="../../../../css/stroom-ui/theme-root.min.e4f410f95b5e1796bfe81465105eecf7ad66a8b0a4c15da0147e1c641b821e17.css" integrity="sha256-5PQQ&#43;VteF5a/6BRlEF7s961mqLCkwV2gFH4cZBuCHhc=">
+
+<link rel="stylesheet" href="../../../../css/stroom-ui/theme-dark.min.9754c7f8f115669862cd3465c6d7938e668838a638e0712d65af7520041f9678.css" integrity="sha256-l1TH&#43;PEVZphizTRlxteTjmaIOKY44HEtZa91IAQflng=">
+
+
+
+
+  </head>
+  <body class="td-section">
+    <header>
+      <nav class="js-navbar-scroll navbar navbar-expand navbar-dark flex-column flex-md-row td-navbar">
+  <a class="navbar-brand" href="../../../../"><span class="navbar-brand__logo navbar-logo"><svg xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:svg="http://www.w3.org/2000/svg" xmlns="http://www.w3.org/2000/svg" xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape" width="110.61089" height="30.000004" viewBox="0 0 88.488641 23.999957" id="svg2" inkscape:version="0.91 r13725" sodipodi:docname="logo.svg"><defs id="defs20"/><sodipodi:namedview pagecolor="#989898" bordercolor="#666666" borderopacity="1" objecttolerance="10" gridtolerance="10" guidetolerance="10" inkscape:pageopacity="0" inkscape:pageshadow="2" inkscape:window-width="1920" inkscape:window-height="1137" id="namedview18" showgrid="false" fit-margin-top="0" fit-margin-left="0" fit-margin-right="0" fit-margin-bottom="0" inkscape:zoom="5.5951814" inkscape:cx="55.451414" inkscape:cy="16.275348" inkscape:window-x="0" inkscape:window-y="0" inkscape:window-maximized="1" inkscape:current-layer="svg2"/><g id="g4150" style="opacity:.97000002" transform="matrix(0.03883584,0,0,0.03883584,0,-3.1155874e-4)"><path id="path6" d="M121.99991 205.98497C54.999958 205.98497.0 259.98493.0 327.98487c0 66.99994 54.999958 121.99989 121.99991 121.99989h167.99987c24.99998.0 44.99996 20.99998 44.99996 44.99996.0 24.99998-19.99998 44.99996-44.99996 44.99996H109.20929C65.984126 553.87219 27.100843 581.57313.01093599 617.98462H289.99978c66.99994.0 121.99991-54.99996 121.99991-122.9999.0-66.99994-54.99997-121.99989-121.99991-121.99989H121.99991c-24.999984.0-44.999969-19.99999-44.999969-44.99996.0-24.99998 19.999985-44.99996 44.999969-44.99996h228.79045c26.9905-35.88325 65.47093-63.18547 108.21554-76.99994H121.99991z" style="fill:#fff" inkscape:connector-curvature="0"/><path id="path8" d="M601.44485-.00077860649C572.6583 8.3697982 546.49491 22.822962 524.44491 41.902305V205.78969l.002.19528h-.002c-65.11 48e-5-123.03145 30.0199-160.74675 76.99994h160.74675v334.99971h76.99994V282.98491h144.85298c27.16134-36.05885 65.96411-63.39275 109.02184-76.99994H601.44485v-205.98574860649z" style="fill:#fff" inkscape:connector-curvature="0"/><path id="path10" d="m919.42586 205.98497c-113.99519.0-205.99537 92.00648-206.00296 205.99982-15e-5 68.67178.0 137.32749.0 205.99983h77.99994c-.012-68.6493.0176-137.46869.0-205.99983.0846-70.92785 57.05747-128.99988 128.00462-128.99988 5.28623.0 10.49823.32864 15.62183.95311 18.2219-24.51229 41.78461-45.0838 68.42501-60.15146-25.65065-11.43799-54.08662-17.80159-84.04684-17.80159z" style="fill:#fff" inkscape:connector-curvature="0"/><path id="path12" d="m1109.4153 205.98457c-113.99994.0-205.99983 91.99993-205.99983 205.99984.0 112.9999 91.99989 205.9998 205.99983 205.9998 114 0 205.9999-92.9999 205.9999-205.9998.0-113.99991-91.9999-205.99984-205.9999-205.99984zm0 333.99974c-70.9999.0-128.99994-56.99996-128.99994-127.9999.0-70.99995 58.00004-128.9999 128.99994-128.9999 71 0 128.9999 57.99995 128.9999 128.9999.0 70.99994-57.9999 127.9999-128.9999 127.9999z" style="fill:#fff" inkscape:connector-curvature="0"/><path id="path14" d="m1444.4737 205.98457c-113.9999.0-205.9998 91.99993-205.9998 205.99984.0 112.9999 91.9999 205.9998 205.9998 205.9998s205.9999-92.9999 205.9999-205.9998c0-113.99991-92-205.99984-205.9999-205.99984zm0 333.99974c-70.9999.0-128.9999-56.99996-128.9999-127.9999.0-70.99995 58-128.9999 128.9999-128.9999 71 0 128.9999 57.99995 128.9999 128.9999.0 70.99994-57.9999 127.9999-128.9999 127.9999z" style="fill:#fff" inkscape:connector-curvature="0"/><path id="path16" d="m1738.5308 379.98447c0-53 43-97 95.9999-97 53 0 97 44 97 97v237.9997h76.9999v-237.9997c0-53 43-97 96.9999-97 53 0 95.9999 44 95.9999 97v237.9997h77v-237.9997c0-96-77-173.9999-172.9999-173.9999-54.9999.0-103.9999 24.99998-135.9999 64.99995-31.9999-39.99997-79.9999-64.99995-134.9999-64.99995-95.9999.0-173.9998 77.9999-173.9998 173.9999v237.9997h77.9999z" style="fill:#fff" inkscape:connector-curvature="0"/></g></svg></span><span class="navbar-brand__name">Stroom</span></a>
+  <div class="td-navbar-nav-scroll ml-md-auto" id="main_navbar">
+    <ul class="navbar-nav mt-2 mt-lg-0">
+      <li class="nav-item mr-4 mb-2 mb-lg-0">
+        <a class="nav-link" href="../../../../about/about/"><span>About</span></a>
+      </li>
+      <li class="nav-item mr-4 mb-2 mb-lg-0">
+        <a class="nav-link active" href="../../../../docs/"><span class="active">Documentation</span></a>
+      </li>
+      <li class="nav-item mr-4 mb-2 mb-lg-0">
+        <a class="nav-link" href="../../../../releases/"><span>Releases Notes</span></a>
+      </li>
+      <li class="nav-item mr-4 mb-2 mb-lg-0">
+        <a class="nav-link" href="../../../../community/"><span>Community</span></a>
+      </li>
+      <li class="nav-item mr-4 mb-2 mb-lg-0">
+        <a class="nav-link" href="../../../../news/"><span>News</span></a>
+      </li>
+      <li class="nav-item dropdown mr-4 d-none d-lg-block">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+	Stroom Version (7.14)
+</a>
+<div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+	
+	
+	
+	<a class="dropdown-item" href="../../../../">7.14 (Latest)</a>
+	
+	<a class="dropdown-item" href="../../../../7.13">7.13</a>
+	
+	<a class="dropdown-item" href="../../../../7.12">7.12</a>
+	
+	<a class="dropdown-item" href="../../../../7.11">7.11</a>
+	
+	<a class="dropdown-item" href="../../../../7.10">7.10</a>
+	
+	<a class="dropdown-item" href="../../../../7.9">7.9</a>
+	
+	<a class="dropdown-item" href="../../../../7.8">7.8</a>
+	
+	<a class="dropdown-item" href="../../../../7.7">7.7</a>
+	
+	<a class="dropdown-item" href="../../../../7.6">7.6</a>
+	
+	<a class="dropdown-item" href="../../../../7.5">7.5</a>
+	
+	<a class="dropdown-item" href="../../../../7.4">7.4</a>
+	
+	<a class="dropdown-item" href="../../../../7.3">7.3</a>
+	
+	<a class="dropdown-item" href="../../../../7.2">7.2</a>
+	
+	<a class="dropdown-item" href="../../../../7.1">7.1</a>
+	
+	<a class="dropdown-item" href="../../../../7.0">7.0</a>
+	
+</div>
+</li>
+      </ul>
+  </div>
+  <div class="navbar-nav d-none d-lg-block">
+    <div class="td-search td-search--offline">
+  <div class="td-search__icon"></div>
+  <input
+    type="search"
+    class="td-search__input form-control"
+    placeholder="Search this site…"
+    aria-label="Search this site…"
+    autocomplete="off"
+    
+    data-offline-search-index-json-src="../../../../offline-search-index.cfd63d01b0ef498d3946ddaeed6323c3.json"
+    data-offline-search-base-href="../../../../"
+    data-offline-search-max-results="50"
+  >
+</div>
+
+  </div>
+</nav>
+    </header>
+    <div class="container-fluid td-outer">
+      <div class="td-main">
+        <div class="row flex-xl-nowrap">
+          <main class="col-12 col-md-9 col-xl-8 pl-md-5" role="main">
+            
+
+
+
+
+<div class="td-content">
+<div class="pageinfo pageinfo-primary d-print-none">
+<p>
+This is the multi-page printable view of this section.
+<a href="#" onclick="print();return false;">Click here to print</a>.
+</p><p>
+<a href="../../../../docs/user-guide/data-receipt/">Return to the regular view of this page</a>.
+</p>
+</div>
+
+
+
+<h1 class="title">Data Receipt</h1>
+<div class="lead">Describes the varisous aspects of Stroom (&amp; Stroom Proxy) receiving data via its /datafeed or event endpoints.</div>
+
+
+
+
+    <ul>
+    
+  
+  
+  
+  
+
+  
+    
+    
+	
+<li>1: <a href="#pg-94cc8bf01b6d96fcfd8ba217d143fb57">Feed Status Checking</a></li>
+
+
+    
+  
+    
+    
+	
+<li>2: <a href="#pg-2b101b5ca1288ab24caf691e9e36fd07">Data Receipt Rules</a></li>
+
+
+    
+  
+    
+    
+	
+<li>3: <a href="#pg-ea6806d32925b61b89f74585765e5d33">Feed Name Generation</a></li>
+
+
+    
+  
+    
+    
+	
+<li>4: <a href="#pg-092469d05ec4c5bce53b3b6430376fce">Content Templates</a></li>
+
+
+    
+  
+    
+    
+	
+<li>5: <a href="#pg-d46f3dc5e68bb8a34915859fec7fde72">Data Feed Identities</a></li>
+
+
+    
+  
+
+    </ul>
+
+
+<div class="content">
+      
+</div>
+</div>
+
+
+  
+  
+  
+  
+
+  
+  
+
+  
+    
+    
+	
+    
+
+
+
+<div class="td-content" style="--base-section-num: '1.'; ">
+    
+  <h1 id="pg-94cc8bf01b6d96fcfd8ba217d143fb57">1 - Feed Status Checking</h1>
+    <div class="lead">The process of checking a Feed&rsquo;s status on data receipt to determine what to do with that data.</div>
+	<p>Feed status checking is Stroom&rsquo;s legacy method for controlling data receipt.
+For a richer method of controlling data receipt, see <a href="../../../../docs/user-guide/data-receipt/data-receipt-rules/">Data Receipt Rules</a></p>
+<p>If the property <code>stroom.receive.receiptCheckMode</code> is set to <code>FEED_STATUS</code>, the <em>Feed Status</em> value that has been set on the <span class="stroom-icon inline-svg-button icon-button  " >
+    <span class="face" title="Feed"><svg xmlns="http://www.w3.org/2000/svg" width="1792" height="1792" viewBox="0 0 1792 1792"><path style="fill:var(--icon-colour__green)" d="m 938.50195,211.41007 c -5.56299,0.0388 -11.74705,1.29983 -18.55468,3.7832 -18.1537,6.6223 -30.41561,18.62426 -36.78321,36.00781 L 781.2832,529.3378 l -636.59961,0 c -11.58903,0 -22.47327,3.72569 -32.65234,11.17578 -10.17907,7.4501 -17.391684,16.96956 -21.636719,28.5586 L 3.0683594,807.47452 c -4.2450584,11.5891 -4.00823944,21.10849 0.7128906,28.55859 4.72114,7.4501 12.877765,11.17578 24.466797,11.17578 358.940143,-0.86657 728.661783,-0.53744 1037.093753,-0.52148 l 192.0293,-132.33789 c 11.3101,-8.27788 19.0869,-18.21175 23.332,-29.80078 3.9418,-10.76125 3.2906,-20.28072 -1.9551,-28.5586 L 961.13086,221.4003 c -5.81425,-6.72578 -13.35726,-10.05491 -22.62891,-9.99023 z m 509.37505,415.625 c -5.563,0.0388 -11.7471,1.29983 -18.5547,3.7832 -18.1537,6.6223 -30.4156,18.62426 -36.7832,36.00781 l -101.8809,278.13672 -762.55273,0 c -11.58903,0 -22.47327,3.72569 -32.65235,11.17578 -10.17906,7.4501 -17.39165,16.96957 -21.63671,28.5586 l -87.32618,238.40232 c -4.24506,11.5891 -4.00824,21.1085 0.71289,28.5586 4.72113,7.4501 12.87777,11.1758 24.4668,11.1758 l 762.55278,0 -101.8809,278.1367 c -6.0644,16.5558 -2.5987,28.5577 10.4004,36.0078 13.3022,6.6223 28.6997,4.1399 46.1894,-7.4492 l 637.8145,-439.5547 c 11.3101,-8.2779 19.0869,-18.2117 23.332,-29.8008 3.9418,-10.7612 3.2906,-20.2807 -1.9551,-28.5586 L 1470.5059,637.0253 c -5.8143,-6.72578 -13.3573,-10.05491 -22.6289,-9.99023 z"/></svg></span>
+  </span> Feed is used to determine the action to perform on that data.</p>
+<h2 id="feed-status-values">Feed Status Values</h2>
+<p>A <span class="stroom-icon inline-svg-button icon-button  " >
+    <span class="face" title="Feed"><svg xmlns="http://www.w3.org/2000/svg" width="1792" height="1792" viewBox="0 0 1792 1792"><path style="fill:var(--icon-colour__green)" d="m 938.50195,211.41007 c -5.56299,0.0388 -11.74705,1.29983 -18.55468,3.7832 -18.1537,6.6223 -30.41561,18.62426 -36.78321,36.00781 L 781.2832,529.3378 l -636.59961,0 c -11.58903,0 -22.47327,3.72569 -32.65234,11.17578 -10.17907,7.4501 -17.391684,16.96956 -21.636719,28.5586 L 3.0683594,807.47452 c -4.2450584,11.5891 -4.00823944,21.10849 0.7128906,28.55859 4.72114,7.4501 12.877765,11.17578 24.466797,11.17578 358.940143,-0.86657 728.661783,-0.53744 1037.093753,-0.52148 l 192.0293,-132.33789 c 11.3101,-8.27788 19.0869,-18.21175 23.332,-29.80078 3.9418,-10.76125 3.2906,-20.28072 -1.9551,-28.5586 L 961.13086,221.4003 c -5.81425,-6.72578 -13.35726,-10.05491 -22.62891,-9.99023 z m 509.37505,415.625 c -5.563,0.0388 -11.7471,1.29983 -18.5547,3.7832 -18.1537,6.6223 -30.4156,18.62426 -36.7832,36.00781 l -101.8809,278.13672 -762.55273,0 c -11.58903,0 -22.47327,3.72569 -32.65235,11.17578 -10.17906,7.4501 -17.39165,16.96957 -21.63671,28.5586 l -87.32618,238.40232 c -4.24506,11.5891 -4.00824,21.1085 0.71289,28.5586 4.72113,7.4501 12.87777,11.1758 24.4668,11.1758 l 762.55278,0 -101.8809,278.1367 c -6.0644,16.5558 -2.5987,28.5577 10.4004,36.0078 13.3022,6.6223 28.6997,4.1399 46.1894,-7.4492 l 637.8145,-439.5547 c 11.3101,-8.2779 19.0869,-18.2117 23.332,-29.8008 3.9418,-10.7612 3.2906,-20.2807 -1.9551,-28.5586 L 1470.5059,637.0253 c -5.8143,-6.72578 -13.3573,-10.05491 -22.6289,-9.99023 z"/></svg></span>
+  </span> Feed can have the following <em>Feed Status</em> values:</p>
+<ul>
+<li>
+<p><strong>Receive</strong> - All data for this Feed will be received into Stroom / Stroom Proxy.</p>
+</li>
+<li>
+<p><strong>Reject</strong> - All data for this feed will be rejected.
+The client will get HTTP <code>406</code> error with the message <code>110 - Feed is not set to receive data</code>.</p>
+</li>
+<li>
+<p><strong>Drop</strong> - All data for this Feed will be silently dropped by Stroom / Stroom Proxy, i.e. discarded and not stored.
+The client will receive a HTTP <code>200</code> response as if the data had been successfully received.
+This is for use if you do not want the client to know their data is being discarded.</p>
+</li>
+</ul>
+<h2 id="stroom-proxy">Stroom Proxy</h2>
+<p>Stroom Proxy is also able to perform Feed status checking.
+Stroom Proxy does not have direct access to the Feed settings so has to perform the Feed status check by making a request to a downstream Stroom Proxy or Stroom.
+If a Stroom Proxy receives a Feed status check it will proxy that request to its own downstream Stroom / Stroom Proxy.</p>
+<p>Stroom Proxy will cache the response it gets from the downstream, so that it doesn&rsquo;t need to make a call for every stream received.</p>
+<p>To configure Stroom Proxy for Feed status checking you need to set the following properties:</p>
+<pre><code class="language-yaml">proxyConfig:
+
+  receive:
+    # The action to take if there is a problem with the data receipt rules, e.g.
+    # Stroom Proxy has been unable to contact Stroom to fetch the rules.
+    fallbackReceiveAction: &quot;RECEIVE&quot;
+    receiptCheckMode: &quot;FEED_STATUS&quot;
+
+  downstreamHost:
+    # The API key to use for authentication (unless OpenID Connect is being used)
+    apiKey: null
+    # The hostname of the downstream
+    hostname: null
+    # The port to connect to the downstream on
+    # If not set, will default to 80/443 depending on scheme.
+    port: null
+    # The scheme to connect to the downstream on
+    scheme: &quot;https&quot;
+</code></pre>
+
+</div>
+
+
+
+
+    
+	
+  
+    
+    
+	
+    
+
+
+
+<div class="td-content" style="--base-section-num: '2.'; page-break-before: always">
+    
+  <h1 id="pg-2b101b5ca1288ab24caf691e9e36fd07">2 - Data Receipt Rules</h1>
+    <div class="lead">Describes the process of creating Data Receipt Rules to control whether data received by Stroom or Stroom Proxy is Accepted, Rejected or Dropped.</div>
+	<p>Data Receipt Rules serves as an alternative to the legacy <a href="../../../../docs/user-guide/data-receipt/feed-status/">Feed status</a> checking performed by Stroom Proxy and Stroom.
+It provides a much richer mechanism for controlling which received data streams are Received, Rejected or Dropped.
+It allows anyone with the <em>Manage Data Receipt Rules</em> Application Permission to create one or more rules to controls the receipt of data.</p>
+<p>Data Receipt Rules can be accessed as follows:</p>
+
+
+
+
+
+
+  <div class="stroom-theme-dark stroom-menu">
+    
+    
+
+      
+
+      
+      
+
+
+      
+
+  
+  
+  <div class="stroom-menu-item-background" style="margin-top: 0px;">
+    
+    <div class="stroom-menu-item " >
+
+      <div class="stroom-menu-item-text">Administration
+      </div>
+        <div class="stroom-menu-item-arrow">
+          <span class="stroom-icon inline-svg-button icon-button  " >
+    <span class="face" title="Arrow right"><svg xmlns="http://www.w3.org/2000/svg" width="1427.7665" height="1427.7665" viewBox="0 0 1427.7665 1427.7665"><g style="stroke:currentColor;stroke-width:167.567"><path d="m 415.05387,83.70929 c -39.92654,0.4303 -75.41463,48.3887 -40.0468,81.9121 C 567.552,348.69899 760.75555,531.15431 953.73208,713.82391 760.75555,896.49341 567.552,1078.9486 375.00707,1262.0262 c -46.19471,43.7855 28.48812,112.1966 76.0571,67.1681 195.93558,-185.823 392.95261,-370.82479 587.98693,-557.52749 5.6117,-4.8034 10.4633,-10.2473 14.4855,-16.1231 9.643,-12.4844 13.9638,-27.0796 13.6909,-41.7198 0.2729,-14.6402 -4.0479,-29.2354 -13.6909,-41.7198 -4.0222,-5.8758 -8.8738,-11.3198 -14.4855,-16.1231 C 844.01678,469.27821 646.99975,284.27629 451.06417,98.45319 439.91519,87.89979 427.27628,83.57749 415.05387,83.70929 Z"/></g></svg> </span>
+  </span>
+        </div>
+    </div>
+  </div>
+
+      
+
+      
+      
+        
+      
+
+
+      
+
+  
+  
+  <div class="stroom-menu-item-background" style="margin-top: 7px;">
+    
+    <div class="stroom-menu-item stroom-menu-item-leaf" >
+        <div class="stroom-menu-item-icon">
+          <span class="stroom-icon inline-svg-button icon-button  " >
+    <span class="face" title="Shield"><svg xmlns="http://www.w3.org/2000/svg" width="1792" height="1792" viewBox="0 0 1792 1792" ><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><path style="fill:currentColor" d="m 896.00002,44.728762 c 15.38039,0 30.76078,3.343564 44.80375,9.696335 L 1570.3968,321.57582 c 73.5583,31.09514 128.3928,103.65046 128.0584,191.25183 -1.6717,331.68149 -138.0891,938.53835 -714.1851,1214.38225 -55.83751,26.7485 -120.70265,26.7485 -176.54016,0 C 231.63396,1451.366 95.216565,844.50914 93.544783,512.82765 93.210427,425.22628 148.04487,352.67096 221.60327,321.57582 L 851.53063,54.425097 c 13.70861,-6.352771 29.089,-9.696335 44.46939,-9.696335 z m 0,223.350038 v 1263.867 C 1357.4118,1308.5958 1481.458,814.08272 1484.4672,517.50864 Z" /></svg> </span>
+  </span>
+        </div>
+
+      <div class="stroom-menu-item-text">Data Receipt Rules
+      </div>
+    </div>
+  </div>
+  </div>
+
+
+
+<p>Each rule is defined by a boolean expression (as used in Dashboards and Stream filtering) and the <em>Action</em> (Receive, Reject, Drop_ that will be performed if the data matches the rule.
+Rules are evaluated in ascending order by Rule Number.
+The action is taken from the first rule to match.</p>
+<p>If no rules match then the data will be rejected by default, i.e. the rules are include rather than exclude filters.
+If you want data to be received if no rules match then you can create a rule at the end of the list with an <em>Action</em> of <code>Receive</code> and no expression terms.</p>
+<p>If a stream matches a rule that has an <code>Accept</code> action, it will still be subject to a check to see if the <em>Feed</em> actually exists.
+This means that the rules do not need to contain an <code>Accept</code> rule to cover all of the Feeds in the system.
+They only need to cover
+The client will receive a <code>101</code> <code>Feed is not defined</code> error if it does not exist.</p>
+
+
+
+
+
+
+
+  
+  
+  
+  
+  
+
+
+
+
+
+
+
+  
+  
+
+
+
+<div class="card rounded shadow-stroom p-2 td-post-card mb-4 mt-4" style="max-width: 710px">
+
+  <a title="images/user-guide/data-receipt/ReceiptRules.png" href="../../../../images/user-guide/data-receipt/ReceiptRules.png">
+    <figure style="margin-block-end: 0px" >
+      
+      <img class="card-img-top" src="../../../../images/user-guide/data-receipt/ReceiptRules.png" style="max-width:700" alt="images/user-guide/data-receipt/ReceiptRules.png">
+      
+
+      
+    </figure>
+  </a>
+</div>
+
+<p>The screen operates in a similar way to Data Retention Rules in that rules can be moved up/down to change their importance, or enabled/disabled.</p>
+<h2 id="fields">Fields</h2>
+<p>The fields available to use in the expression terms can be defined in the <em>Fields</em> tab.
+The terms will be evaluated against the stream&rsquo;s meta data, i.e. a combination of the HTTP headers sent by the client and any that have been populated by Stroom Proxy or Stroom.
+This allows for the use of custom headers to aid in the filtering of data into Stroom.</p>
+
+
+
+
+
+
+
+  
+  
+  
+  
+  
+
+
+
+
+
+
+
+  
+  
+
+
+
+<div class="card rounded shadow-stroom p-2 td-post-card mb-4 mt-4" style="max-width: 310px">
+
+  <a title="images/user-guide/data-receipt/ReceiptRuleFields.png" href="../../../../images/user-guide/data-receipt/ReceiptRuleFields.png">
+    <figure style="margin-block-end: 0px" >
+      
+      <img class="card-img-top" src="../../../../images/user-guide/data-receipt/ReceiptRuleFields.png" style="max-width:300" alt="images/user-guide/data-receipt/ReceiptRuleFields.png">
+      
+
+      
+    </figure>
+  </a>
+</div>
+
+<p>Dictionaries are supported for use with the <code>in dictionary</code> condition.
+The contents of the dictionary and any of the dictionaries that it inherits will be included in the data fetched by Stroom Proxy.</p>
+
+
+
+<div class="alert alert-primary" role="alert">
+  <h4 class="alert-heading">Note</h4>
+  <div class="alert-content">
+
+
+
+
+<p>You cannot use the same dictionary for multiple fields if any one of those fields is obfuscated.</p>
+<p>Should you need to use the same dictionary for an obfuscated and a non-obfuscated field, you can create one empty dictionary for each and make them both import from the same source dictionary.</p>
+
+
+
+  </div>
+</div>
+
+<h2 id="stroom-configuration">Stroom Configuration</h2>
+<p>Data Receipt Rules are controlled by the following configuration:</p>
+<pre><code class="language-yaml">appConfig:
+  receiptPolicy:
+    # List of fields whose values will be obfuscated when the rules
+    # are fetched by Stroom Proxy
+    obfuscatedFields:
+    - &quot;AccountId&quot;
+    - &quot;AccountName&quot;
+    - &quot;Component&quot;
+      # ... truncated
+    - &quot;UploadUserId&quot;
+    - &quot;UploadUsername&quot;
+    - &quot;X-Forwarded-For&quot;
+    # The hash algorithm used to hash obfuscated values, one of:
+    # * SHA3_256
+    # * SHA2_256
+    # * BCRYPT
+    # * ARGON_2
+    # * SHA2_512
+    obfuscationHashAlgorithm: &quot;SHA2_512&quot;
+    # The initial list of fields to bootstrap a Stroom environment.
+    # Changing this has no effect one an environment has been started up.
+    receiptRulesInitialFields:
+      AccountId: &quot;Text&quot;
+      Component: &quot;Text&quot;
+      Compression: &quot;Text&quot;
+      content-length: &quot;Text&quot;
+      # ... truncated
+      Type: &quot;Text&quot;
+      UploadUsername: &quot;Text&quot;
+      UploadUserId: &quot;Text&quot;
+      user-agent: &quot;Text&quot;
+      X-Forwarded-For: &quot;Text&quot;
+  receive:
+    # The action to take if there is a problem with the data receipt rules, e.g.
+    # Stroom Proxy has been unable to contact Stroom to fetch the rules.
+    fallbackReceiveAction: &quot;RECEIVE&quot;
+    # The data receipt checking mode, one of:
+    # * FEED_STATUS - Use the legacy Feed Status Check method
+    # * RECEIPT_POLICY - Use the new Data Receipt Rules
+    # * RECEIVE_ALL - Receive ALL data with no checks
+    # * DROP_ALL - Drop ALL data with no checks
+    # * REJECT_ALL - Reject ALL data with no checks
+    receiptCheckMode: &quot;RECEIPT_POLICY&quot;
+</code></pre>
+<h2 id="stroom-proxy-configuration">Stroom Proxy Configuration</h2>
+<pre><code class="language-yaml">appConfig:
+  receiptPolicy:
+    # Only set this if you need to supply a non-standard full url
+    # By default Proxy will use the known path for the Data Receipt Rules resource
+    # combined with the host/port/scheme from the `downstreamHost` config property.
+    receiveDataRulesUrl: null
+    # The frequency that the rules will be fetched from the downstream Stroom instance.
+    syncFrequency: &quot;PT1M&quot;
+
+  # Identical configuration to Stroom as described above.
+  # Stroom and Stroom Proxy can use different `receiptCheckMode` values, but typically
+  # they will be the same.
+  receiptPolicy:
+</code></pre>
+<h2 id="stroom-proxy-rule-synchronisation">Stroom Proxy Rule Synchronisation</h2>
+<p>If Stroom Proxy is configured with <code>receiptCheckMode</code> set to <code>RECEIPT_POLICY</code> and has <code>downstreamHost</code> configured, then it will periodically send a request to Stroom to fetch the latest copy of the Data Receipt Rules.
+If Stroom Proxy is unable to contact Stroom it will use the latest copy of the rules that it has.</p>
+<p>Given that Stroom Proxy will only synchronise periodically, once a change is made to the rule set, there will be a delay before the new rules take effect.</p>
+<h3 id="term-value-obfuscation">Term Value Obfuscation</h3>
+<p>As a Stroom administrator you may not want the values used in the Data Receipt Rule expression terms to be visible when they are fetched by a remote Stroom Proxy (that may be maintained by another team).
+It is therefore possible to obfuscate the values used for the expression terms for certain configured fields.
+The fields that are obfuscated are controlled by the property <code>stroom.receiptPolicy.obfuscatedFields</code>.</p>
+<p>For example, in the default configuration, <code>Feed</code> is an obfuscated field.
+Thus a term like <code>Feed != FEED_XYZ</code> would have its value obfuscated when fetched by Stroom Proxy.
+Stroom Proxy is able to similarly obfuscate meta data values for obfuscated fields in the same way to allow it to test the rule expression.</p>
+
+
+
+<div class="alert alert-warning" role="alert">
+  <h4 class="alert-heading">Warning</h4>
+  <div class="alert-content">
+
+
+
+
+Due to the way obfuscation works, you are limited by the expression conditions that can be used, e.g. <code>contains</code>, <code>&gt;</code>, <code>&lt;</code> etc. are not allowed, but <code>==</code> and <code>!=</code> are.
+Stroom will tell you if you are using an unsupported condition for the field.
+
+
+  </div>
+</div>
+
+<p>This prevents the Stroom Proxy administrator from being able to see the values used in the rules as they are not in plain text.
+Each value is salted with its own unique salt then hashed.
+The hash algorithm can be configured using <code>stroom.receiptPolicy.obfuscationHashAlgorithm</code>.</p>
+
+
+
+<div class="alert alert-primary" role="alert">
+  <h4 class="alert-heading">Note</h4>
+  <div class="alert-content">
+
+
+
+
+Obfuscation is not encryption.
+The fetched data includes the salt values and given enough compute/time it would be possible to brute force the reversal of the hashing.
+Strong hashing algorithms such as BCrypt or Argon2 can mitigate against this but not remove the risk.
+If the rule values are too sensitive then you will have to let the Stroom Proxy accept the data and have Stroom do the full rule based checking.
+
+
+  </div>
+</div>
+
+
+</div>
+
+
+
+
+    
+	
+  
+    
+    
+	
+    
+
+
+
+<div class="td-content" style="--base-section-num: '3.'; page-break-before: always">
+    
+  <h1 id="pg-ea6806d32925b61b89f74585765e5d33">3 - Feed Name Generation</h1>
+    <div class="lead">The auto-generation of Feed names using a Feed name template and various header values.</div>
+	<p>Auto-generation of Feed names allows Stroom and Stroom Proxy to generate the Feed name based on a configured template and the values of various mandatory and optional headers.
+This feature was conceived for <a href="../../../../docs/user-guide/data-receipt/data-feed-identities/">Data Feed Identities</a> but can be used in isolation if required.</p>
+<p>When the property <code>(app|proxy)Config.receive.feedNameGenerationEnabled</code> is set to <code>true</code>, the <code>Feed</code> header is no longer required on data receipt and auto-generation of a Feed name will be attempted.</p>
+<p>When data is supplied without the <code>Feed</code> header, the meta keys specified in <code>(app|proxy)Config.receive.feedNameGenerationMandatoryHeaders</code> become mandatory.
+If the mandatory headers are not supplied, the data will be rejected.</p>
+<p>The property <code>(app|proxy)Config.receive.feedNameTemplate</code> is used to control the format of the generated Feed <span class="stroom-icon inline-svg-button icon-button  " >
+    <span class="face" title="Feed"><svg xmlns="http://www.w3.org/2000/svg" width="1792" height="1792" viewBox="0 0 1792 1792"><path style="fill:var(--icon-colour__green)" d="m 938.50195,211.41007 c -5.56299,0.0388 -11.74705,1.29983 -18.55468,3.7832 -18.1537,6.6223 -30.41561,18.62426 -36.78321,36.00781 L 781.2832,529.3378 l -636.59961,0 c -11.58903,0 -22.47327,3.72569 -32.65234,11.17578 -10.17907,7.4501 -17.391684,16.96956 -21.636719,28.5586 L 3.0683594,807.47452 c -4.2450584,11.5891 -4.00823944,21.10849 0.7128906,28.55859 4.72114,7.4501 12.877765,11.17578 24.466797,11.17578 358.940143,-0.86657 728.661783,-0.53744 1037.093753,-0.52148 l 192.0293,-132.33789 c 11.3101,-8.27788 19.0869,-18.21175 23.332,-29.80078 3.9418,-10.76125 3.2906,-20.28072 -1.9551,-28.5586 L 961.13086,221.4003 c -5.81425,-6.72578 -13.35726,-10.05491 -22.62891,-9.99023 z m 509.37505,415.625 c -5.563,0.0388 -11.7471,1.29983 -18.5547,3.7832 -18.1537,6.6223 -30.4156,18.62426 -36.7832,36.00781 l -101.8809,278.13672 -762.55273,0 c -11.58903,0 -22.47327,3.72569 -32.65235,11.17578 -10.17906,7.4501 -17.39165,16.96957 -21.63671,28.5586 l -87.32618,238.40232 c -4.24506,11.5891 -4.00824,21.1085 0.71289,28.5586 4.72113,7.4501 12.87777,11.1758 24.4668,11.1758 l 762.55278,0 -101.8809,278.1367 c -6.0644,16.5558 -2.5987,28.5577 10.4004,36.0078 13.3022,6.6223 28.6997,4.1399 46.1894,-7.4492 l 637.8145,-439.5547 c 11.3101,-8.2779 19.0869,-18.2117 23.332,-29.8008 3.9418,-10.7612 3.2906,-20.2807 -1.9551,-28.5586 L 1470.5059,637.0253 c -5.8143,-6.72578 -13.3573,-10.05491 -22.6289,-9.99023 z"/></svg></span>
+  </span> name.
+The template uses values from the headers, so should be configured in tandem with <code>.receive.feedNameGenerationMandatoryHeaders</code>, though can use optional headers that the client may or may not supply.</p>
+<p>If the template parameter is not in the headers, then it will be replaced with nothing.
+The variables in the template (e.g. <code>${accountId}</code>) are case-insensitive.</p>
+<p>If enabled, Feed name generation happens on data receipt in both Stroom-Proxy and Stroom.
+You should therefore ensure the configuration for this feature is identical in Stroom and Stroom-Proxy.</p>
+<p>The default configuration for Feed name generation is:</p>
+<pre><code class="language-yaml">appConfig|proxyConfig: # applicable to both appConfig: and proxyConfig:
+  receive: 
+    ...
+    feedNameGenerationEnabled: false
+    feedNameGenerationMandatoryHeaders:
+    - &quot;AccountId&quot; # A unique identifier for the owner of the system sending the data.
+    - &quot;Component&quot; # The system/component that is sending the data (an account may have multiple).
+    - &quot;Format&quot; # The data format (e.g. XML, JSON, etc.).
+    - &quot;Schema&quot; # The schema that the data conforms to (e.g. event-logging).
+    feedNameTemplate: &quot;${accountid}-${component}-${format}-${schema}&quot;
+</code></pre>
+
+
+
+<div class="alert alert-primary" role="alert">
+  <h4 class="alert-heading">See Also</h4>
+  <div class="alert-content">
+
+
+
+
+For more explanation of the <code>receive</code> configuration branch, see <a href="../../../../docs/install-guide/configuration/stroom-and-proxy/common-configuration/#receive-configuration">Receive Configuration</a>.
+
+
+  </div>
+</div>
+
+<p>Assuming the above default configuration and that the client sends the following headers:</p>
+<pre><code class="language-properties">AccountId: 1234
+Component: av-scanner
+Format: XML
+Schema: event-logging
+</code></pre>
+<p>This will result in an auto-generated Feed name of <code>1234-AV_SCANNER-XML-EVENT_LOGGING</code>.</p>
+
+
+
+<div class="alert alert-primary" role="alert">
+  <h4 class="alert-heading">Note</h4>
+  <div class="alert-content">
+
+
+
+
+<p>When a template variable is replaced with a value from the headers, it is converted to upper case and any characters that are NOT in the regular expression character class <code>[A-Z0-9_]</code>, will be replaced by a <code>_</code> character.</p>
+<p>Any static text in the template will also be converted to upper case and the supported characters for static text are <code>[A-Z0-9_-]</code>, with all other characters being replaced with a <code>_</code>.</p>
+
+
+
+  </div>
+</div>
+
+
+</div>
+
+
+
+
+    
+	
+  
+    
+    
+	
+    
+
+
+
+<div class="td-content" style="--base-section-num: '4.'; page-break-before: always">
+    
+  <h1 id="pg-092469d05ec4c5bce53b3b6430376fce">4 - Content Templates</h1>
+    <div class="lead">Describes how Stroom can auto-generate content (i.e. Feeds and Pipelines) upon receipt of new data.</div>
+	<p>The aim of the Content Templates feature is to simplify the process of client systems sending data into Stroom.
+Instead of having to pre-create a Feed <span class="stroom-icon inline-svg-button icon-button  " >
+    <span class="face" title="Feed"><svg xmlns="http://www.w3.org/2000/svg" width="1792" height="1792" viewBox="0 0 1792 1792"><path style="fill:var(--icon-colour__green)" d="m 938.50195,211.41007 c -5.56299,0.0388 -11.74705,1.29983 -18.55468,3.7832 -18.1537,6.6223 -30.41561,18.62426 -36.78321,36.00781 L 781.2832,529.3378 l -636.59961,0 c -11.58903,0 -22.47327,3.72569 -32.65234,11.17578 -10.17907,7.4501 -17.391684,16.96956 -21.636719,28.5586 L 3.0683594,807.47452 c -4.2450584,11.5891 -4.00823944,21.10849 0.7128906,28.55859 4.72114,7.4501 12.877765,11.17578 24.466797,11.17578 358.940143,-0.86657 728.661783,-0.53744 1037.093753,-0.52148 l 192.0293,-132.33789 c 11.3101,-8.27788 19.0869,-18.21175 23.332,-29.80078 3.9418,-10.76125 3.2906,-20.28072 -1.9551,-28.5586 L 961.13086,221.4003 c -5.81425,-6.72578 -13.35726,-10.05491 -22.62891,-9.99023 z m 509.37505,415.625 c -5.563,0.0388 -11.7471,1.29983 -18.5547,3.7832 -18.1537,6.6223 -30.4156,18.62426 -36.7832,36.00781 l -101.8809,278.13672 -762.55273,0 c -11.58903,0 -22.47327,3.72569 -32.65235,11.17578 -10.17906,7.4501 -17.39165,16.96957 -21.63671,28.5586 l -87.32618,238.40232 c -4.24506,11.5891 -4.00824,21.1085 0.71289,28.5586 4.72113,7.4501 12.87777,11.1758 24.4668,11.1758 l 762.55278,0 -101.8809,278.1367 c -6.0644,16.5558 -2.5987,28.5577 10.4004,36.0078 13.3022,6.6223 28.6997,4.1399 46.1894,-7.4492 l 637.8145,-439.5547 c 11.3101,-8.2779 19.0869,-18.2117 23.332,-29.8008 3.9418,-10.7612 3.2906,-20.2807 -1.9551,-28.5586 L 1470.5059,637.0253 c -5.8143,-6.72578 -13.3573,-10.05491 -22.6289,-9.99023 z"/></svg></span>
+  </span> and Pipeline <span class="stroom-icon inline-svg-button icon-button  " >
+    <span class="face" title="Pipeline"><svg xmlns="http://www.w3.org/2000/svg" width="1792" height="1792" viewBox="0 0 1792 1792"><path style="fill:var(--icon-colour__blue)" d="m 1440,95.339844 c -9.3333,0 -17,2.999997 -23,8.999996 -6,6 -9,13.66667 -9,23 l 0,192 -256,0 c -45.3333,0 -88,5.5 -128,16.5 -40.00001,11 -75.50001,25 -106.50001,42 -31,17 -61,39.83333 -90,68.5 -29,28.66667 -53.66667,56.33333 -74,83 -20.33333,26.66667 -41.66667,60 -64,100 -19.99699,35.8155 -36.49225,67.59036 -49.54102,95.38868 -0.27492,0.10932 -0.53471,0.21669 -0.81054,0.32617 -16,30.66667 -31,56.5 -45,77.5 -14,21 -31,41.5 -51,61.5 -20,20 -43,35 -69,45 -26,10 -55,15 -87,15 l -355.148435,0 c -9.333333,0 -17,3 -23.0000004,9 -6,6 -9.0000000375455,13.66667 -9.0000000375455,23 l 0,192.00001 c 0,9.3333 3.0000000375455,17 9.0000000375455,23 6.0000004,6 13.6666674,9 23.0000004,9 l 355.148435,0 c 45.33333,0 88,-5.5 128,-16.5 40,-11 75.5,-25 106.5,-42 31,-17 61,-39.8333 90,-68.5 29,-28.6667 53.66667,-56.33334 74,-83.00001 20.33333,-26.66667 41.66667,-60 64,-100 19.8569,-35.56461 36.26775,-67.15315 49.27344,-94.8125 0.36178,-0.305 0.71557,-0.5961 1.07812,-0.90235 16,-30.66667 31,-56.5 45,-77.5 14,-21 31,-41.5 51,-61.5 20.00001,-20 43.00001,-35 69.00001,-45 26,-10 55,-15 87,-15 l 256,0 0,192 c 0,8.66667 3.1667,16.16667 9.5,22.5 6.3333,6.33333 13.8333,9.5 22.5,9.5 9.3333,0 17,-3 23,-9 l 320,-320 c 6,-6 9,-13.66667 9,-23 0,-9.33333 -3,-17 -9,-23 l -319,-319 c -8,-6.666666 -16,-9.999996 -24,-9.999996 z"/><path style="fill:var(--icon-colour__green)" d="M 32 608.88672 C 22.666667 608.88672 15 611.88672 9 617.88672 C 3.0000001 623.88672 0 631.55342 0 640.88672 L 0 832.88672 C -2.3684758e-15 842.22005 3.0000001 849.88672 9 855.88672 C 14.999999 861.88672 22.666667 864.88672 32 864.88672 L 387.14844 864.88672 C 389.01484 864.88672 390.86885 864.90739 392.71484 864.94141 C 424.84023 863.54598 455.12074 854.70213 477.65234 838.51562 C 513.22947 811.0071 542.31317 769.76507 567.46094 723.21289 A 59.082625 59.082625 0 0 1 567.88281 722.44336 C 577.24508 705.7116 585.95748 689.48787 593.56641 673.41992 A 59.082625 59.082625 0 0 1 594.40625 671.7168 C 596.87369 666.9118 599.36286 662.08644 601.86719 657.25195 C 575.79127 644.74345 546.89263 634.11637 515.14844 625.38672 C 475.14844 614.38672 432.48177 608.88672 387.14844 608.88672 L 32 608.88672 z M 870.56641 957.2793 C 853.49205 984.29535 834.72449 1010.8834 813.4375 1036.3711 A 59.082625 59.082625 0 0 1 813.08984 1036.7852 C 777.58172 1078.5162 737.58032 1121.5966 687.80664 1156.543 C 688.3781 1157.5702 688.9227 1158.5676 689.5 1159.6016 C 711.83333 1199.6016 733.16667 1232.9349 753.5 1259.6016 C 773.83333 1286.2683 798.5 1313.9349 827.5 1342.6016 C 856.5 1371.2683 886.5 1394.1016 917.5 1411.1016 C 948.5 1428.1016 983.99999 1442.1016 1024 1453.1016 C 1064 1464.1016 1106.6667 1469.6016 1152 1469.6016 L 1408 1469.6016 L 1408 1661.6016 C 1408 1670.9349 1411 1678.6016 1417 1684.6016 C 1423 1690.6016 1430.6667 1693.6016 1440 1693.6016 C 1448 1693.6016 1456 1690.2683 1464 1683.6016 L 1783 1364.6016 C 1789 1358.6016 1792 1350.9349 1792 1341.6016 C 1792 1332.2683 1789 1324.6016 1783 1318.6016 L 1463 998.60156 C 1457 992.60156 1449.3333 989.60156 1440 989.60156 C 1431.3333 989.60156 1423.8333 992.76823 1417.5 999.10156 C 1411.1667 1005.4348 1408 1012.9349 1408 1021.6016 L 1408 1213.6016 L 1152 1213.6016 C 1120 1213.6016 1091 1208.6016 1065 1198.6016 C 1039 1188.6016 1016 1173.6016 996 1153.6016 C 976 1133.6016 959 1113.1016 945 1092.1016 C 931 1071.1016 916 1045.2683 900 1014.6016 C 899.63745 1014.2954 899.28365 1014.0042 898.92188 1013.6992 C 890.80126 996.429 881.35206 977.6246 870.56641 957.2793 z "/></svg></span>
+  </span> before a client can send data, Content Templates can be created to auto-create the content on receipt of the first <span class="glossary-link link-with-hover-tooltip">
+    <a href="../../../../docs/glossary/s/glossary-stream">
+      <span>Stream</span>
+      <i class="glossary-link-icon fas fa-book fa-sm text-primary"></i>
+    </a><template class="hover-tooltip-content">
+        <span class="hover-tooltip-title">Stream</span>
+        <div class="hover-tooltip-summary">A Stream is the unit of data that Stroom works with and will typically contain many <em>Events</em>.</div><span class="hover-tooltip-more-details">Click to see more details...</span></template></span>.</p>
+<p>Content Templates are a set of expression rules with associated template content to generate when the rule matches on incoming data.
+If a client has used the correct headers and a Content Template matches, all the content required to process the data will be created and the data will be processed without any further involvement from the Stroom administrator.</p>
+<p>In order to use Content Templates, the property <code>appConfig.autoContentCreation.enable</code> must be set to <code>true</code>.</p>
+<h2 id="content-templates-screen">Content Templates Screen</h2>
+<p>Content Templates can be managed in the Content Templates screen that is accessed from the main menu:</p>
+
+
+
+
+
+
+  <div class="stroom-theme-dark stroom-menu">
+    
+    
+
+      
+
+      
+      
+
+
+      
+
+  
+  
+  <div class="stroom-menu-item-background" style="margin-top: 0px;">
+    
+    <div class="stroom-menu-item " >
+
+      <div class="stroom-menu-item-text">Administration
+      </div>
+        <div class="stroom-menu-item-arrow">
+          <span class="stroom-icon inline-svg-button icon-button  " >
+    <span class="face" title="Arrow right"><svg xmlns="http://www.w3.org/2000/svg" width="1427.7665" height="1427.7665" viewBox="0 0 1427.7665 1427.7665"><g style="stroke:currentColor;stroke-width:167.567"><path d="m 415.05387,83.70929 c -39.92654,0.4303 -75.41463,48.3887 -40.0468,81.9121 C 567.552,348.69899 760.75555,531.15431 953.73208,713.82391 760.75555,896.49341 567.552,1078.9486 375.00707,1262.0262 c -46.19471,43.7855 28.48812,112.1966 76.0571,67.1681 195.93558,-185.823 392.95261,-370.82479 587.98693,-557.52749 5.6117,-4.8034 10.4633,-10.2473 14.4855,-16.1231 9.643,-12.4844 13.9638,-27.0796 13.6909,-41.7198 0.2729,-14.6402 -4.0479,-29.2354 -13.6909,-41.7198 -4.0222,-5.8758 -8.8738,-11.3198 -14.4855,-16.1231 C 844.01678,469.27821 646.99975,284.27629 451.06417,98.45319 439.91519,87.89979 427.27628,83.57749 415.05387,83.70929 Z"/></g></svg> </span>
+  </span>
+        </div>
+    </div>
+  </div>
+
+      
+
+      
+      
+        
+      
+
+
+      
+
+  
+  
+  <div class="stroom-menu-item-background" style="margin-top: 7px;">
+    
+    <div class="stroom-menu-item stroom-menu-item-leaf" >
+        <div class="stroom-menu-item-icon">
+          <span class="stroom-icon inline-svg-button icon-button  " >
+    <span class="face" title="Stamp"><!--!Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2025 Fonticons, Inc.--><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path style="fill:currentColor" d="m 302.83409,210.6713 c 0,-14.55202 7.69416,-27.76592 16.64281,-39.30718 10.53767,-13.63206 16.81009,-30.69304 16.81009,-49.17578 0,-44.325112 -35.96188,-80.286995 -80.287,-80.286995 -44.32511,0 -80.28699,35.961883 -80.28699,80.286995 0,18.48274 6.27242,35.54372 16.81009,49.17578 8.94865,11.54126 16.64282,24.75516 16.64282,39.30718 0,25.00605 -20.32264,45.32869 -45.3287,45.32869 h -28.2677 c -51.768389,0 -93.668165,41.89978 -93.668165,93.66818 0,17.47914 11.206726,32.36569 26.762332,37.88541 v 42.40157 c 0,22.16256 17.980942,40.1435 40.143503,40.1435 h 294.38564 c 22.16256,0 40.1435,-17.98093 40.1435,-40.1435 v -42.40157 c 15.55561,-5.51972 26.76233,-20.40627 26.76233,-37.88541 C 470.09865,297.89977 428.19887,256 376.43049,256 h -28.26772 c -25.00605,0 -45.32868,-20.32265 -45.32868,-45.3287 z m 86.97757,179.14035 v 26.76234 H 122.18834 v -26.76234 z"/></svg> </span>
+  </span>
+        </div>
+
+      <div class="stroom-menu-item-text">Content Templates
+      </div>
+    </div>
+  </div>
+  </div>
+
+
+
+
+
+
+
+
+
+
+  
+  
+  
+  
+  
+
+
+
+
+
+
+
+  
+  
+
+
+
+<div class="card rounded shadow-stroom p-2 td-post-card mb-4 mt-4" style="max-width: 910px">
+
+  <a title="images/user-guide/data-receipt/ContentTemplates.png" href="../../../../images/user-guide/data-receipt/ContentTemplates.png">
+    <figure style="margin-block-end: 0px" >
+      
+      <img class="card-img-top" src="../../../../images/user-guide/data-receipt/ContentTemplates.png" style="max-width:900" alt="images/user-guide/data-receipt/ContentTemplates.png">
+      
+
+      
+      <div class="card-body px-0 pt-2 pb-0">
+        <hr style="border-top: 1px solid #ddd; margin-top: 0px; margin-bottom:4px;">
+        <figcaption class="card-text" style="font-size: smaller; text-align: center;">The Content Templates screen</figcaption>
+      </div>
+      
+    </figure>
+  </a>
+</div>
+
+<p>This screen allows a user with the <em>Manage Content Templates</em> application permission to create a number of content templates.</p>
+<p>The settings available on a Content Template are as follows:</p>
+<dl>
+<dt>Template Name</dt>
+<dd>A name for the template to aid the administrator when looking through a list of different templates.</dd>
+<dt>Descriptions</dt>
+<dd>An optional and more detailed description of the purpose of the template.</dd>
+<dt>Template Type</dt>
+<dd>Determines how the Pipeline specified by the  <em>Pipeline</em> setting is used.
+<ul>
+<li>
+<p><code>INHERIT_PIPELINE</code> - A new pipeline will be created that inherits from the pipeline specified by <em>Pipeline</em>.
+The new pipeline will be created in the explorer tree folder defined by <code>(app|proxy)Config.receive.destinationExplorerPathTemplate</code>.</p>
+</li>
+<li>
+<p><code>PROCESSOR_FILTER</code> - A new processor filter will be added to the existing pipeline specified in the template.
+No new documents will be created.</p>
+</li>
+</ul>
+</dd>
+<dt>Copy Pipeline Element Dependencies</dt>
+<dd>If <em>Copy Pipeline Element Dependencies</em> is ticked and the <em>Template Type</em> is <code>INHERIT_PIPELINE</code>, any documents that are direct dependencies of the specified Pipeline (e.g. Text Converter <span class="stroom-icon inline-svg-button icon-button  " >
+    <span class="face" title="Text converter"><svg xmlns="http://www.w3.org/2000/svg" width="1792" height="1792" viewBox="0 0 1792 1792"><path style="fill:var(--icon-colour__black)" d="m 1522.1543,129.30336 16.9536,359.41707 -42.9492,0 q -12.4327,-94.94036 -33.9073,-135.62908 -35.0375,-65.55406 -93.8101,-96.0706 -57.6424,-31.64679 -152.5827,-31.64679 l -215.8763,0 0,1170.93104 q 0,141.2803 30.5165,176.3178 42.9492,47.4702 132.2384,47.4702 l 53.1214,0 0,41.819 -649.88937,0 0,-41.819 54.25164,0 q 97.20084,0 137.88956,-58.7726 24.86533,-36.1677 24.86533,-165.0154 l 0,-1170.93104 -184.2295,0 q -107.37302,0 -152.58272,15.8234 -58.7726,21.4746 -100.59156,82.50769 -41.81897,61.03308 -49.73067,165.01538 l -42.94921,0 18.08388,-359.41707 1251.17832,0 z"/></svg></span>
+  </span> or XSLT <span class="stroom-icon inline-svg-button icon-button  " >
+    <span class="face" title="Xslt"><svg xmlns="http://www.w3.org/2000/svg" width="1792" height="1792" viewBox="0 0 1792 1792"><path style="fill:var(--icon-colour__xsl-background)" d="M 684.30664 211.38672 C 672.42766 211.38672 661.91891 215.95413 652.78125 225.0918 L 14.058594 863.81641 C 4.9209141 872.95409 0.3515625 883.46088 0.3515625 895.33984 C 0.3515625 907.21882 4.9209142 917.72756 14.058594 926.86523 L 652.78125 1565.5898 C 661.91891 1574.7275 672.42766 1579.2949 684.30664 1579.2949 C 696.1856 1579.2949 706.69435 1574.7275 715.83203 1565.5898 L 784.36523 1497.0566 C 793.5029 1487.9191 798.07031 1477.4102 798.07031 1465.5312 C 798.07031 1453.6524 793.5029 1443.1436 784.36523 1434.0059 L 245.69922 895.33984 L 784.36523 356.67578 C 793.5029 347.53811 798.07031 337.02937 798.07031 325.15039 C 798.07031 313.27142 793.5029 302.76268 784.36523 293.625 L 715.83203 225.0918 C 706.69435 215.95413 696.1856 211.38672 684.30664 211.38672 z M 1107.9082 211.38672 C 1096.0293 211.38672 1085.5225 215.95414 1076.3848 225.0918 L 1007.8516 293.625 C 998.71402 302.76268 994.14453 313.27142 994.14453 325.15039 C 994.14453 337.02937 998.71402 347.53811 1007.8516 356.67578 L 1546.5176 895.33984 L 1007.8516 1434.0059 C 998.71402 1443.1436 994.14453 1453.6523 994.14453 1465.5312 C 994.14453 1477.4102 998.71402 1487.9191 1007.8516 1497.0566 L 1076.3848 1565.5898 C 1085.5225 1574.7275 1096.0293 1579.2949 1107.9082 1579.2949 C 1119.7872 1579.2949 1130.2959 1574.7275 1139.4336 1565.5898 L 1778.1582 926.86523 C 1787.2959 917.72756 1791.8633 907.21882 1791.8633 895.33984 C 1791.8633 883.46088 1787.2959 872.95409 1778.1582 863.81641 L 1139.4336 225.0918 C 1130.2959 215.95414 1119.7872 211.38672 1107.9082 211.38672 z "/><path style="fill:var(--icon-colour__black)" d="M 914.01562 609.75391 C 846.69543 609.75391 793.7585 624.0295 755.20508 652.58203 C 716.65166 681.13457 697.375 720.39439 697.375 770.36133 C 697.375 809.25185 709.09092 840.2669 732.51953 863.4043 C 755.94815 886.29555 800.72934 908.20094 866.86328 929.12305 L 931.36523 949.42969 C 953.90415 956.5678 971.1042 966.4135 982.9668 978.9668 C 994.82939 991.27392 1000.7617 1005.6745 1000.7617 1022.166 C 1000.7617 1044.0727 991.86421 1061.1792 974.07031 1073.4863 C 956.27643 1085.5473 931.21618 1091.5781 898.89062 1091.5781 C 866.86163 1091.5781 834.38939 1086.5313 801.4707 1076.4395 C 768.84858 1066.3477 735.03956 1050.9651 700.04492 1030.2891 L 700.04492 1142.8984 C 730.88766 1155.6978 762.76881 1165.2975 795.6875 1171.6973 C 828.90275 1178.3431 861.96998 1181.666 894.88867 1181.666 C 974.96115 1181.666 1034.719 1168.0054 1074.1621 1140.6836 C 1113.9018 1113.1156 1133.7715 1071.5169 1133.7715 1015.8887 C 1133.7715 975.02903 1121.167 941.18506 1095.959 914.35547 C 1070.751 887.52595 1031.4559 865.98759 978.07422 849.74219 L 921.57812 832.01953 C 882.43158 819.95854 856.6315 809.00586 844.17578 799.16016 C 832.01663 789.06832 825.93555 776.3917 825.93555 761.13086 C 825.93555 741.43946 834.38878 726.30288 851.29297 715.71875 C 868.19716 705.13462 892.51562 699.8418 924.24805 699.8418 C 952.71826 699.8418 981.4855 704.14869 1010.5488 712.76367 C 1039.6122 721.37867 1068.2307 733.93228 1096.4043 750.42383 L 1096.4043 644.08984 C 1066.4513 632.76728 1036.2005 624.27651 1005.6543 618.61523 C 975.10813 612.70782 944.56179 609.75391 914.01562 609.75391 z M 109.28711 619.72266 L 298.79297 891.09375 L 103.94922 1170.959 L 239.62891 1170.959 L 365.96484 988.56641 L 492.74609 1170.959 L 628.42383 1170.959 L 434.4707 891.09375 L 623.08594 619.72266 L 487.4082 619.72266 L 365.96484 795.09961 L 244.9668 619.72266 L 109.28711 619.72266 z M 1288.1328 619.72266 L 1288.1328 1170.959 L 1700.0605 1170.959 L 1700.0605 1074.9629 L 1419.3633 1074.9629 L 1419.3633 619.72266 L 1288.1328 619.72266 z "/></svg></span>
+  </span>) will be copied into the destination folder.
+The new Pipeline will have its dependencies changed to use the copied dependencies, allowing them to be edited without affecting the parent Pipeline.</dd>
+<dt>Pipeline</dt>
+<dd>An existing Pipeline to either inherit from or add a processor filter to, depending on the <em>Template Type</em>.</dd>
+<dt>Processor Priority</dt>
+<dd>The priority to assign to the pipeline processor when created.
+The higher the number the higher the priority.
+Value must be between 1 and 100.
+The default priority is 10.</dd>
+<dt>Processor Max Concurrent Tasks</dt>
+<dd>The maximum number of concurrent tasks to assign to the pipeline processor when created.
+Zero means un-bounded.</dd>
+<dt>Expression</dt>
+<dd>Each template has an expression that will be used to match on the headers when auto-generation of content has been triggered.
+The template expressions are evaluated in order from the top, the first to match the data is used.
+<p>If a template&rsquo;s expression matches, content will be created according to settings in the template.</p>
+</dd>
+</dl>
+<h2 id="configuration">Configuration</h2>
+<p>The configuration for the Content Templates can be found <a href="../../../../docs/install-guide/configuration/stroom-and-proxy/configuring-stroom/#autocontentcreation">here</a>.</p>
+<h2 id="content-auto-creation">Content Auto-Creation</h2>
+<p>Depending on the configuration and the settings in the Content Template that matches on the data, the following will happen if the feed does not already exist.
+If the feed already exists then it is assumed the content creation has already happened or has been done manually, so nothing will happen.</p>
+<h3 id="inherit_pipeline-mode"><code>INHERIT_PIPELINE</code> Mode</h3>
+<ul>
+<li>
+<p>Create a stroom user for the authenticated identity that has sent the data.</p>
+</li>
+<li>
+<p>Create a stroom user group using the template defined by property <code>groupTemplate</code>.</p>
+<ul>
+<li>Add the created stroom user to this group.</li>
+<li>Add this group to the group defined by <code>groupParentGroupName</code>.</li>
+</ul>
+</li>
+<li>
+<p>If <em>Copy Pipeline Element Dependencies</em> is ticked:</p>
+<ul>
+<li>Create a stroom user group using the template defined by property <code>additionalGroupTemplate</code>.
+<ul>
+<li>Add the created stroom user to this group.</li>
+</ul>
+</li>
+<li>If <code>additionalGroupParentGroupName</code> is defined and doesn&rsquo;t exist:
+<ul>
+<li>Create the Stroom user group specified in this property.</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p>Create an explorer tree folder using the template defined by property <code>destinationExplorerPathTemplate</code>.</p>
+<ul>
+<li>Grant <code>VIEW</code> permission to the created group.</li>
+<li>Grant <code>VIEW</code> permission to the created additional group.</li>
+</ul>
+</li>
+<li>
+<p>If <em>Copy Pipeline Element Dependencies</em> is ticked:</p>
+<ul>
+<li>Create an explorer tree sub folder using the template defined by property <code>destinationExplorerSubPathTemplate</code>.
+<ul>
+<li>Grant <code>VIEW</code> permission to the created group.</li>
+<li>Grant <code>EDIT</code> permission to the created additional group.</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p>Create a Feed <span class="stroom-icon inline-svg-button icon-button  " >
+    <span class="face" title="Feed"><svg xmlns="http://www.w3.org/2000/svg" width="1792" height="1792" viewBox="0 0 1792 1792"><path style="fill:var(--icon-colour__green)" d="m 938.50195,211.41007 c -5.56299,0.0388 -11.74705,1.29983 -18.55468,3.7832 -18.1537,6.6223 -30.41561,18.62426 -36.78321,36.00781 L 781.2832,529.3378 l -636.59961,0 c -11.58903,0 -22.47327,3.72569 -32.65234,11.17578 -10.17907,7.4501 -17.391684,16.96956 -21.636719,28.5586 L 3.0683594,807.47452 c -4.2450584,11.5891 -4.00823944,21.10849 0.7128906,28.55859 4.72114,7.4501 12.877765,11.17578 24.466797,11.17578 358.940143,-0.86657 728.661783,-0.53744 1037.093753,-0.52148 l 192.0293,-132.33789 c 11.3101,-8.27788 19.0869,-18.21175 23.332,-29.80078 3.9418,-10.76125 3.2906,-20.28072 -1.9551,-28.5586 L 961.13086,221.4003 c -5.81425,-6.72578 -13.35726,-10.05491 -22.62891,-9.99023 z m 509.37505,415.625 c -5.563,0.0388 -11.7471,1.29983 -18.5547,3.7832 -18.1537,6.6223 -30.4156,18.62426 -36.7832,36.00781 l -101.8809,278.13672 -762.55273,0 c -11.58903,0 -22.47327,3.72569 -32.65235,11.17578 -10.17906,7.4501 -17.39165,16.96957 -21.63671,28.5586 l -87.32618,238.40232 c -4.24506,11.5891 -4.00824,21.1085 0.71289,28.5586 4.72113,7.4501 12.87777,11.1758 24.4668,11.1758 l 762.55278,0 -101.8809,278.1367 c -6.0644,16.5558 -2.5987,28.5577 10.4004,36.0078 13.3022,6.6223 28.6997,4.1399 46.1894,-7.4492 l 637.8145,-439.5547 c 11.3101,-8.2779 19.0869,-18.2117 23.332,-29.8008 3.9418,-10.7612 3.2906,-20.2807 -1.9551,-28.5586 L 1470.5059,637.0253 c -5.8143,-6.72578 -13.3573,-10.05491 -22.6289,-9.99023 z"/></svg></span>
+  </span> in the folder defined by <code>destinationExplorerPathTemplate</code>.</p>
+<ul>
+<li>Grant <code>VIEW</code> permission to the created group.</li>
+<li>Grant <code>VIEW</code> permission to the created additional group (if <em>Copy Pipeline Dependencies</em> is ticked).</li>
+</ul>
+</li>
+<li>
+<p>Create a Pipeline <span class="stroom-icon inline-svg-button icon-button  " >
+    <span class="face" title="Pipeline"><svg xmlns="http://www.w3.org/2000/svg" width="1792" height="1792" viewBox="0 0 1792 1792"><path style="fill:var(--icon-colour__blue)" d="m 1440,95.339844 c -9.3333,0 -17,2.999997 -23,8.999996 -6,6 -9,13.66667 -9,23 l 0,192 -256,0 c -45.3333,0 -88,5.5 -128,16.5 -40.00001,11 -75.50001,25 -106.50001,42 -31,17 -61,39.83333 -90,68.5 -29,28.66667 -53.66667,56.33333 -74,83 -20.33333,26.66667 -41.66667,60 -64,100 -19.99699,35.8155 -36.49225,67.59036 -49.54102,95.38868 -0.27492,0.10932 -0.53471,0.21669 -0.81054,0.32617 -16,30.66667 -31,56.5 -45,77.5 -14,21 -31,41.5 -51,61.5 -20,20 -43,35 -69,45 -26,10 -55,15 -87,15 l -355.148435,0 c -9.333333,0 -17,3 -23.0000004,9 -6,6 -9.0000000375455,13.66667 -9.0000000375455,23 l 0,192.00001 c 0,9.3333 3.0000000375455,17 9.0000000375455,23 6.0000004,6 13.6666674,9 23.0000004,9 l 355.148435,0 c 45.33333,0 88,-5.5 128,-16.5 40,-11 75.5,-25 106.5,-42 31,-17 61,-39.8333 90,-68.5 29,-28.6667 53.66667,-56.33334 74,-83.00001 20.33333,-26.66667 41.66667,-60 64,-100 19.8569,-35.56461 36.26775,-67.15315 49.27344,-94.8125 0.36178,-0.305 0.71557,-0.5961 1.07812,-0.90235 16,-30.66667 31,-56.5 45,-77.5 14,-21 31,-41.5 51,-61.5 20.00001,-20 43.00001,-35 69.00001,-45 26,-10 55,-15 87,-15 l 256,0 0,192 c 0,8.66667 3.1667,16.16667 9.5,22.5 6.3333,6.33333 13.8333,9.5 22.5,9.5 9.3333,0 17,-3 23,-9 l 320,-320 c 6,-6 9,-13.66667 9,-23 0,-9.33333 -3,-17 -9,-23 l -319,-319 c -8,-6.666666 -16,-9.999996 -24,-9.999996 z"/><path style="fill:var(--icon-colour__green)" d="M 32 608.88672 C 22.666667 608.88672 15 611.88672 9 617.88672 C 3.0000001 623.88672 0 631.55342 0 640.88672 L 0 832.88672 C -2.3684758e-15 842.22005 3.0000001 849.88672 9 855.88672 C 14.999999 861.88672 22.666667 864.88672 32 864.88672 L 387.14844 864.88672 C 389.01484 864.88672 390.86885 864.90739 392.71484 864.94141 C 424.84023 863.54598 455.12074 854.70213 477.65234 838.51562 C 513.22947 811.0071 542.31317 769.76507 567.46094 723.21289 A 59.082625 59.082625 0 0 1 567.88281 722.44336 C 577.24508 705.7116 585.95748 689.48787 593.56641 673.41992 A 59.082625 59.082625 0 0 1 594.40625 671.7168 C 596.87369 666.9118 599.36286 662.08644 601.86719 657.25195 C 575.79127 644.74345 546.89263 634.11637 515.14844 625.38672 C 475.14844 614.38672 432.48177 608.88672 387.14844 608.88672 L 32 608.88672 z M 870.56641 957.2793 C 853.49205 984.29535 834.72449 1010.8834 813.4375 1036.3711 A 59.082625 59.082625 0 0 1 813.08984 1036.7852 C 777.58172 1078.5162 737.58032 1121.5966 687.80664 1156.543 C 688.3781 1157.5702 688.9227 1158.5676 689.5 1159.6016 C 711.83333 1199.6016 733.16667 1232.9349 753.5 1259.6016 C 773.83333 1286.2683 798.5 1313.9349 827.5 1342.6016 C 856.5 1371.2683 886.5 1394.1016 917.5 1411.1016 C 948.5 1428.1016 983.99999 1442.1016 1024 1453.1016 C 1064 1464.1016 1106.6667 1469.6016 1152 1469.6016 L 1408 1469.6016 L 1408 1661.6016 C 1408 1670.9349 1411 1678.6016 1417 1684.6016 C 1423 1690.6016 1430.6667 1693.6016 1440 1693.6016 C 1448 1693.6016 1456 1690.2683 1464 1683.6016 L 1783 1364.6016 C 1789 1358.6016 1792 1350.9349 1792 1341.6016 C 1792 1332.2683 1789 1324.6016 1783 1318.6016 L 1463 998.60156 C 1457 992.60156 1449.3333 989.60156 1440 989.60156 C 1431.3333 989.60156 1423.8333 992.76823 1417.5 999.10156 C 1411.1667 1005.4348 1408 1012.9349 1408 1021.6016 L 1408 1213.6016 L 1152 1213.6016 C 1120 1213.6016 1091 1208.6016 1065 1198.6016 C 1039 1188.6016 1016 1173.6016 996 1153.6016 C 976 1133.6016 959 1113.1016 945 1092.1016 C 931 1071.1016 916 1045.2683 900 1014.6016 C 899.63745 1014.2954 899.28365 1014.0042 898.92188 1013.6992 C 890.80126 996.429 881.35206 977.6246 870.56641 957.2793 z "/></svg></span>
+  </span> in the folder defined by <code>destinationExplorerPathTemplate</code> and set it to inherit from the Pipeline defined in the Content Template.</p>
+<ul>
+<li>
+<p>Grant <code>VIEW</code> permission to the created group.</p>
+</li>
+<li>
+<p>If <em>Copy Pipeline Element Dependencies</em> is ticked:</p>
+<ul>
+<li>Copy the dependency documents of the parent Pipeline into this folder.</li>
+<li>Grant <code>VIEW</code> permission to the created additional group.</li>
+</ul>
+</li>
+<li>
+<p>Create a Processor Filter on the new Pipeline (using the priority and concurrency setting taken from the Content Template) with the following expression:</p>
+<p>Feed <code>is</code> <em>X</em> AND Type <code>=</code> <em>Y</em></p>
+<p>[Where <em>X</em> is the Feed created above and <em>Y</em> is the stream type of the received data.]</p>
+</li>
+</ul>
+</li>
+<li>
+<p>If <code>groupParentGroupName</code> is defined:</p>
+<ul>
+<li>Create the Stroom user group specified in this property if it doesn&rsquo;t exist.</li>
+<li>Add the group defined by <code>groupTemplate</code> to this group.</li>
+</ul>
+</li>
+<li>
+<p>If <em>Copy Pipeline Element Dependencies</em> is ticked and <code>additionalGroupParentGroupName</code> is defined:</p>
+<ul>
+<li>Create the Stroom user group specified in this property if it doesn&rsquo;t exist.</li>
+<li>Add the group defined by <code>additionalGroupTemplate</code> to this group.</li>
+</ul>
+</li>
+</ul>
+<h4 id="copy-dependencies-example">Copy Dependencies Example</h4>
+<p>The following is an example of the content that will be created with the following assumptions:</p>
+<ul>
+<li>The Feed name is <code>1234-AV_SCANNER-XML-EVENT_LOGGING</code>.</li>
+<li><code>AccountId: 1234</code> in the Meta data.</li>
+<li><em>Copy Pipeline Element Dependencies</em> is ticked on the Content Template.</li>
+<li>Default <code>autoContentCreation</code> configuration.</li>
+</ul>
+<div class="exp-tree exp-tree-branch exp-tree-branch-root exp-tree-branch-outer">
+
+<span class="exp-tree-branch-arrow"><span class="stroom-icon inline-svg-button icon-button  " >
+    <span class="face" title="Open folder"><svg xmlns="http://www.w3.org/2000/svg" width="1427.7665" height="1427.7665" viewBox="0 0 1427.7665 1427.7665"><g style="stroke:currentColor;stroke-width:167.567"><path d="m 1343.9812,415.01091 c -0.4303,-39.92654 -48.3887,-75.41463 -81.9121,-40.0468 C 1078.9915,567.50904 896.53618,760.71259 713.86658,953.68912 531.19708,760.71259 348.74187,567.50904 165.6643,374.96411 121.87875,328.7694 53.467698,403.45223 98.496155,451.02121 284.31914,646.95679 469.32098,843.97382 656.02368,1039.0081 c 4.8034,5.6117 10.2473,10.4633 16.1231,14.4855 12.4844,9.643 27.0796,13.9638 41.7198,13.6909 14.6402,0.2729 29.2354,-4.0479 41.7198,-13.6909 5.8758,-4.0222 11.3198,-8.8738 16.1231,-14.4855 186.7028,-195.03428 371.70472,-392.05131 557.52782,-587.98689 10.5534,-11.14898 14.8757,-23.78789 14.7439,-36.0103 z"/></g></svg> </span>
+  </span></span><span class="stroom-icon inline-svg-button icon-button  " >
+    <span class="face" title="System"><svg xmlns="http://www.w3.org/2000/svg" width="1792" height="1792" viewBox="0 0 1792 1792"><path style="fill:var(--icon-colour__dirty-amber)" d="m 224,128 c -26.66667,0 -49.33333,9.33333 -68,28 -18.66667,18.66667 -28,41.33333 -28,68 l 0,1344 c 0,26.6667 9.33333,49.3333 28,68 18.66667,18.6667 41.33333,28 68,28 l 1344,0 c 26.6667,0 49.3333,-9.3333 68,-28 18.6667,-18.6667 28,-41.3333 28,-68 l 0,-1344 c 0,-26.66667 -9.3333,-49.33333 -28,-68 -18.6667,-18.66667 -41.3333,-28 -68,-28 z"/><path style="fill:#fff" d="m 592.51802,522.82793 c -206.51277,0 -373.17209,166.65939 -373.17209,373.17211 0,204.70116 166.65932,373.17206 373.17209,373.17206 206.51288,0 373.17222,-168.4709 373.17222,-373.17206 0,-206.51272 -166.65934,-373.17211 -373.17222,-373.17211 z m 0,605.04607 c -128.61749,0 -233.68552,-103.2564 -233.68552,-231.87396 0,-128.61758 105.06803,-233.68545 233.68552,-233.68545 128.61767,0 233.68545,105.06787 233.68545,233.68545 0,128.61756 -105.06778,231.87396 -233.68545,231.87396 z"/><path style="fill:#fff" d="m 1199.4818,522.82793 c -206.51266,0 -373.172,166.65939 -373.172,373.17211 0,204.70116 166.65934,373.17206 373.172,373.17206 206.5127,0 373.1723,-168.4709 373.1723,-373.17206 0,-206.51272 -166.6596,-373.17211 -373.1723,-373.17211 z m 0,605.04607 c -128.6174,0 -233.68541,-103.2564 -233.68541,-231.87396 0,-128.61758 105.06801,-233.68545 233.68541,-233.68545 128.6177,0 233.6855,105.06787 233.6855,233.68545 0,128.61756 -105.0678,231.87396 -233.6855,231.87396 z"/></svg> </span>
+  </span><span class="exp-tree-branch-name">System</span>
+    
+  <div class="exp-tree exp-tree-branch exp-tree-branch-folder">
+
+<span class="exp-tree-branch-arrow"><span class="stroom-icon inline-svg-button icon-button  " >
+    <span class="face" title="Open folder"><svg xmlns="http://www.w3.org/2000/svg" width="1427.7665" height="1427.7665" viewBox="0 0 1427.7665 1427.7665"><g style="stroke:currentColor;stroke-width:167.567"><path d="m 1343.9812,415.01091 c -0.4303,-39.92654 -48.3887,-75.41463 -81.9121,-40.0468 C 1078.9915,567.50904 896.53618,760.71259 713.86658,953.68912 531.19708,760.71259 348.74187,567.50904 165.6643,374.96411 121.87875,328.7694 53.467698,403.45223 98.496155,451.02121 284.31914,646.95679 469.32098,843.97382 656.02368,1039.0081 c 4.8034,5.6117 10.2473,10.4633 16.1231,14.4855 12.4844,9.643 27.0796,13.9638 41.7198,13.6909 14.6402,0.2729 29.2354,-4.0479 41.7198,-13.6909 5.8758,-4.0222 11.3198,-8.8738 16.1231,-14.4855 186.7028,-195.03428 371.70472,-392.05131 557.52782,-587.98689 10.5534,-11.14898 14.8757,-23.78789 14.7439,-36.0103 z"/></g></svg> </span>
+  </span></span><span class="stroom-icon inline-svg-button icon-button  icon-colour__blue" >
+    <span class="face" title="Folder"><svg xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns="http://www.w3.org/2000/svg" height="1792" width="1792" version="1.1" xmlns:cc="http://creativecommons.org/ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" viewBox="0 0 1792 1792"><path fill="var(--icon-colour__blue)" d="m1617.9 701.64v610.84q0 79.825-57.266 137.09-57.266 57.266-137.09 57.266h-1055.1q-79.825 0-137.09-57.266-57.266-57.266-57.266-137.09v-832.96q0-79.825 57.266-137.09 57.266-57.266 137.09-57.266h277.65q79.825 0 137.09 57.266 57.266 57.266 57.266 137.09v27.765h583.07q79.825 0 137.09 57.266 57.266 57.266 57.266 137.09z"/></svg> </span>
+  </span><span class="exp-tree-branch-name">Feeds</span><span class="exp-tree-branch-text">(Administrators: OWNER)</span>
+    
+    <div class="exp-tree exp-tree-branch exp-tree-branch-folder">
+
+<span class="exp-tree-branch-arrow"><span class="stroom-icon inline-svg-button icon-button  " >
+    <span class="face" title="Open folder"><svg xmlns="http://www.w3.org/2000/svg" width="1427.7665" height="1427.7665" viewBox="0 0 1427.7665 1427.7665"><g style="stroke:currentColor;stroke-width:167.567"><path d="m 1343.9812,415.01091 c -0.4303,-39.92654 -48.3887,-75.41463 -81.9121,-40.0468 C 1078.9915,567.50904 896.53618,760.71259 713.86658,953.68912 531.19708,760.71259 348.74187,567.50904 165.6643,374.96411 121.87875,328.7694 53.467698,403.45223 98.496155,451.02121 284.31914,646.95679 469.32098,843.97382 656.02368,1039.0081 c 4.8034,5.6117 10.2473,10.4633 16.1231,14.4855 12.4844,9.643 27.0796,13.9638 41.7198,13.6909 14.6402,0.2729 29.2354,-4.0479 41.7198,-13.6909 5.8758,-4.0222 11.3198,-8.8738 16.1231,-14.4855 186.7028,-195.03428 371.70472,-392.05131 557.52782,-587.98689 10.5534,-11.14898 14.8757,-23.78789 14.7439,-36.0103 z"/></g></svg> </span>
+  </span></span><span class="stroom-icon inline-svg-button icon-button  icon-colour__blue" >
+    <span class="face" title="Folder"><svg xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns="http://www.w3.org/2000/svg" height="1792" width="1792" version="1.1" xmlns:cc="http://creativecommons.org/ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" viewBox="0 0 1792 1792"><path fill="var(--icon-colour__blue)" d="m1617.9 701.64v610.84q0 79.825-57.266 137.09-57.266 57.266-137.09 57.266h-1055.1q-79.825 0-137.09-57.266-57.266-57.266-57.266-137.09v-832.96q0-79.825 57.266-137.09 57.266-57.266 137.09-57.266h277.65q79.825 0 137.09 57.266 57.266 57.266 57.266 137.09v27.765h583.07q79.825 0 137.09 57.266 57.266 57.266 57.266 137.09z"/></svg> </span>
+  </span><span class="exp-tree-branch-name">1234</span><span class="exp-tree-branch-text">(Administrators: OWNER, grp-1234: VIEW, grp-1234-dev: VIEW)</span>
+    
+      <div class="exp-tree exp-tree-branch exp-tree-branch-folder">
+
+<span class="exp-tree-branch-arrow"><span class="stroom-icon inline-svg-button icon-button  " >
+    <span class="face" title="Open folder"><svg xmlns="http://www.w3.org/2000/svg" width="1427.7665" height="1427.7665" viewBox="0 0 1427.7665 1427.7665"><g style="stroke:currentColor;stroke-width:167.567"><path d="m 1343.9812,415.01091 c -0.4303,-39.92654 -48.3887,-75.41463 -81.9121,-40.0468 C 1078.9915,567.50904 896.53618,760.71259 713.86658,953.68912 531.19708,760.71259 348.74187,567.50904 165.6643,374.96411 121.87875,328.7694 53.467698,403.45223 98.496155,451.02121 284.31914,646.95679 469.32098,843.97382 656.02368,1039.0081 c 4.8034,5.6117 10.2473,10.4633 16.1231,14.4855 12.4844,9.643 27.0796,13.9638 41.7198,13.6909 14.6402,0.2729 29.2354,-4.0479 41.7198,-13.6909 5.8758,-4.0222 11.3198,-8.8738 16.1231,-14.4855 186.7028,-195.03428 371.70472,-392.05131 557.52782,-587.98689 10.5534,-11.14898 14.8757,-23.78789 14.7439,-36.0103 z"/></g></svg> </span>
+  </span></span><span class="stroom-icon inline-svg-button icon-button  icon-colour__blue" >
+    <span class="face" title="Folder"><svg xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns="http://www.w3.org/2000/svg" height="1792" width="1792" version="1.1" xmlns:cc="http://creativecommons.org/ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" viewBox="0 0 1792 1792"><path fill="var(--icon-colour__blue)" d="m1617.9 701.64v610.84q0 79.825-57.266 137.09-57.266 57.266-137.09 57.266h-1055.1q-79.825 0-137.09-57.266-57.266-57.266-57.266-137.09v-832.96q0-79.825 57.266-137.09 57.266-57.266 137.09-57.266h277.65q79.825 0 137.09 57.266 57.266 57.266 57.266 137.09v27.765h583.07q79.825 0 137.09 57.266 57.266 57.266 57.266 137.09z"/></svg> </span>
+  </span><span class="exp-tree-branch-name">Content</span><span class="exp-tree-branch-text">(Administrators: OWNER, grp-1234: VIEW, grp-1234-dev: EDIT)</span>
+    
+        
+  
+  
+  <div class="exp-tree exp-tree-doc"><span class="stroom-icon inline-svg-button icon-button  " >
+    <span class="face" title="Text Converter"><svg xmlns="http://www.w3.org/2000/svg" width="1792" height="1792" viewBox="0 0 1792 1792"><path style="fill:var(--icon-colour__black)" d="m 1522.1543,129.30336 16.9536,359.41707 -42.9492,0 q -12.4327,-94.94036 -33.9073,-135.62908 -35.0375,-65.55406 -93.8101,-96.0706 -57.6424,-31.64679 -152.5827,-31.64679 l -215.8763,0 0,1170.93104 q 0,141.2803 30.5165,176.3178 42.9492,47.4702 132.2384,47.4702 l 53.1214,0 0,41.819 -649.88937,0 0,-41.819 54.25164,0 q 97.20084,0 137.88956,-58.7726 24.86533,-36.1677 24.86533,-165.0154 l 0,-1170.93104 -184.2295,0 q -107.37302,0 -152.58272,15.8234 -58.7726,21.4746 -100.59156,82.50769 -41.81897,61.03308 -49.73067,165.01538 l -42.94921,0 18.08388,-359.41707 1251.17832,0 z"/></svg></span>
+  </span><span class="exp-tree-doc-name">1234-AV_SCANNER-XML-EVENT_LOGGING-dsParser</span><span class="exp-tree-doc-text">(Administrators: OWNER, grp-1234: VIEW, grp-1234-dev: EDIT)</span></div>
+
+
+        
+  
+  
+  <div class="exp-tree exp-tree-doc"><span class="stroom-icon inline-svg-button icon-button  " >
+    <span class="face" title="XSL Translation"><svg xmlns="http://www.w3.org/2000/svg" width="1792" height="1792" viewBox="0 0 1792 1792"><path style="fill:var(--icon-colour__xsl-background)" d="M 684.30664 211.38672 C 672.42766 211.38672 661.91891 215.95413 652.78125 225.0918 L 14.058594 863.81641 C 4.9209141 872.95409 0.3515625 883.46088 0.3515625 895.33984 C 0.3515625 907.21882 4.9209142 917.72756 14.058594 926.86523 L 652.78125 1565.5898 C 661.91891 1574.7275 672.42766 1579.2949 684.30664 1579.2949 C 696.1856 1579.2949 706.69435 1574.7275 715.83203 1565.5898 L 784.36523 1497.0566 C 793.5029 1487.9191 798.07031 1477.4102 798.07031 1465.5312 C 798.07031 1453.6524 793.5029 1443.1436 784.36523 1434.0059 L 245.69922 895.33984 L 784.36523 356.67578 C 793.5029 347.53811 798.07031 337.02937 798.07031 325.15039 C 798.07031 313.27142 793.5029 302.76268 784.36523 293.625 L 715.83203 225.0918 C 706.69435 215.95413 696.1856 211.38672 684.30664 211.38672 z M 1107.9082 211.38672 C 1096.0293 211.38672 1085.5225 215.95414 1076.3848 225.0918 L 1007.8516 293.625 C 998.71402 302.76268 994.14453 313.27142 994.14453 325.15039 C 994.14453 337.02937 998.71402 347.53811 1007.8516 356.67578 L 1546.5176 895.33984 L 1007.8516 1434.0059 C 998.71402 1443.1436 994.14453 1453.6523 994.14453 1465.5312 C 994.14453 1477.4102 998.71402 1487.9191 1007.8516 1497.0566 L 1076.3848 1565.5898 C 1085.5225 1574.7275 1096.0293 1579.2949 1107.9082 1579.2949 C 1119.7872 1579.2949 1130.2959 1574.7275 1139.4336 1565.5898 L 1778.1582 926.86523 C 1787.2959 917.72756 1791.8633 907.21882 1791.8633 895.33984 C 1791.8633 883.46088 1787.2959 872.95409 1778.1582 863.81641 L 1139.4336 225.0918 C 1130.2959 215.95414 1119.7872 211.38672 1107.9082 211.38672 z "/><path style="fill:var(--icon-colour__black)" d="M 914.01562 609.75391 C 846.69543 609.75391 793.7585 624.0295 755.20508 652.58203 C 716.65166 681.13457 697.375 720.39439 697.375 770.36133 C 697.375 809.25185 709.09092 840.2669 732.51953 863.4043 C 755.94815 886.29555 800.72934 908.20094 866.86328 929.12305 L 931.36523 949.42969 C 953.90415 956.5678 971.1042 966.4135 982.9668 978.9668 C 994.82939 991.27392 1000.7617 1005.6745 1000.7617 1022.166 C 1000.7617 1044.0727 991.86421 1061.1792 974.07031 1073.4863 C 956.27643 1085.5473 931.21618 1091.5781 898.89062 1091.5781 C 866.86163 1091.5781 834.38939 1086.5313 801.4707 1076.4395 C 768.84858 1066.3477 735.03956 1050.9651 700.04492 1030.2891 L 700.04492 1142.8984 C 730.88766 1155.6978 762.76881 1165.2975 795.6875 1171.6973 C 828.90275 1178.3431 861.96998 1181.666 894.88867 1181.666 C 974.96115 1181.666 1034.719 1168.0054 1074.1621 1140.6836 C 1113.9018 1113.1156 1133.7715 1071.5169 1133.7715 1015.8887 C 1133.7715 975.02903 1121.167 941.18506 1095.959 914.35547 C 1070.751 887.52595 1031.4559 865.98759 978.07422 849.74219 L 921.57812 832.01953 C 882.43158 819.95854 856.6315 809.00586 844.17578 799.16016 C 832.01663 789.06832 825.93555 776.3917 825.93555 761.13086 C 825.93555 741.43946 834.38878 726.30288 851.29297 715.71875 C 868.19716 705.13462 892.51562 699.8418 924.24805 699.8418 C 952.71826 699.8418 981.4855 704.14869 1010.5488 712.76367 C 1039.6122 721.37867 1068.2307 733.93228 1096.4043 750.42383 L 1096.4043 644.08984 C 1066.4513 632.76728 1036.2005 624.27651 1005.6543 618.61523 C 975.10813 612.70782 944.56179 609.75391 914.01562 609.75391 z M 109.28711 619.72266 L 298.79297 891.09375 L 103.94922 1170.959 L 239.62891 1170.959 L 365.96484 988.56641 L 492.74609 1170.959 L 628.42383 1170.959 L 434.4707 891.09375 L 623.08594 619.72266 L 487.4082 619.72266 L 365.96484 795.09961 L 244.9668 619.72266 L 109.28711 619.72266 z M 1288.1328 619.72266 L 1288.1328 1170.959 L 1700.0605 1170.959 L 1700.0605 1074.9629 L 1419.3633 1074.9629 L 1419.3633 619.72266 L 1288.1328 619.72266 z "/></svg></span>
+  </span><span class="exp-tree-doc-name">1234-AV_SCANNER-XML-EVENT_LOGGING-translationFilter</span><span class="exp-tree-doc-text">(Administrators: OWNER, grp-1234: VIEW, grp-1234-dev: EDIT)</span></div>
+
+
+      
+  </div>
+
+      
+  
+  
+  <div class="exp-tree exp-tree-doc"><span class="stroom-icon inline-svg-button icon-button  " >
+    <span class="face" title="Feed"><svg xmlns="http://www.w3.org/2000/svg" width="1792" height="1792" viewBox="0 0 1792 1792"><path style="fill:var(--icon-colour__green)" d="m 938.50195,211.41007 c -5.56299,0.0388 -11.74705,1.29983 -18.55468,3.7832 -18.1537,6.6223 -30.41561,18.62426 -36.78321,36.00781 L 781.2832,529.3378 l -636.59961,0 c -11.58903,0 -22.47327,3.72569 -32.65234,11.17578 -10.17907,7.4501 -17.391684,16.96956 -21.636719,28.5586 L 3.0683594,807.47452 c -4.2450584,11.5891 -4.00823944,21.10849 0.7128906,28.55859 4.72114,7.4501 12.877765,11.17578 24.466797,11.17578 358.940143,-0.86657 728.661783,-0.53744 1037.093753,-0.52148 l 192.0293,-132.33789 c 11.3101,-8.27788 19.0869,-18.21175 23.332,-29.80078 3.9418,-10.76125 3.2906,-20.28072 -1.9551,-28.5586 L 961.13086,221.4003 c -5.81425,-6.72578 -13.35726,-10.05491 -22.62891,-9.99023 z m 509.37505,415.625 c -5.563,0.0388 -11.7471,1.29983 -18.5547,3.7832 -18.1537,6.6223 -30.4156,18.62426 -36.7832,36.00781 l -101.8809,278.13672 -762.55273,0 c -11.58903,0 -22.47327,3.72569 -32.65235,11.17578 -10.17906,7.4501 -17.39165,16.96957 -21.63671,28.5586 l -87.32618,238.40232 c -4.24506,11.5891 -4.00824,21.1085 0.71289,28.5586 4.72113,7.4501 12.87777,11.1758 24.4668,11.1758 l 762.55278,0 -101.8809,278.1367 c -6.0644,16.5558 -2.5987,28.5577 10.4004,36.0078 13.3022,6.6223 28.6997,4.1399 46.1894,-7.4492 l 637.8145,-439.5547 c 11.3101,-8.2779 19.0869,-18.2117 23.332,-29.8008 3.9418,-10.7612 3.2906,-20.2807 -1.9551,-28.5586 L 1470.5059,637.0253 c -5.8143,-6.72578 -13.3573,-10.05491 -22.6289,-9.99023 z"/></svg></span>
+  </span><span class="exp-tree-doc-name">1234-AV_SCANNER-XML-EVENT_LOGGING</span><span class="exp-tree-doc-text">(Administrators: OWNER, grp-1234: VIEW, grp-1234-dev: VIEW)</span></div>
+
+
+      
+  
+  
+  <div class="exp-tree exp-tree-doc"><span class="stroom-icon inline-svg-button icon-button  " >
+    <span class="face" title="Pipeline"><svg xmlns="http://www.w3.org/2000/svg" width="1792" height="1792" viewBox="0 0 1792 1792"><path style="fill:var(--icon-colour__blue)" d="m 1440,95.339844 c -9.3333,0 -17,2.999997 -23,8.999996 -6,6 -9,13.66667 -9,23 l 0,192 -256,0 c -45.3333,0 -88,5.5 -128,16.5 -40.00001,11 -75.50001,25 -106.50001,42 -31,17 -61,39.83333 -90,68.5 -29,28.66667 -53.66667,56.33333 -74,83 -20.33333,26.66667 -41.66667,60 -64,100 -19.99699,35.8155 -36.49225,67.59036 -49.54102,95.38868 -0.27492,0.10932 -0.53471,0.21669 -0.81054,0.32617 -16,30.66667 -31,56.5 -45,77.5 -14,21 -31,41.5 -51,61.5 -20,20 -43,35 -69,45 -26,10 -55,15 -87,15 l -355.148435,0 c -9.333333,0 -17,3 -23.0000004,9 -6,6 -9.0000000375455,13.66667 -9.0000000375455,23 l 0,192.00001 c 0,9.3333 3.0000000375455,17 9.0000000375455,23 6.0000004,6 13.6666674,9 23.0000004,9 l 355.148435,0 c 45.33333,0 88,-5.5 128,-16.5 40,-11 75.5,-25 106.5,-42 31,-17 61,-39.8333 90,-68.5 29,-28.6667 53.66667,-56.33334 74,-83.00001 20.33333,-26.66667 41.66667,-60 64,-100 19.8569,-35.56461 36.26775,-67.15315 49.27344,-94.8125 0.36178,-0.305 0.71557,-0.5961 1.07812,-0.90235 16,-30.66667 31,-56.5 45,-77.5 14,-21 31,-41.5 51,-61.5 20.00001,-20 43.00001,-35 69.00001,-45 26,-10 55,-15 87,-15 l 256,0 0,192 c 0,8.66667 3.1667,16.16667 9.5,22.5 6.3333,6.33333 13.8333,9.5 22.5,9.5 9.3333,0 17,-3 23,-9 l 320,-320 c 6,-6 9,-13.66667 9,-23 0,-9.33333 -3,-17 -9,-23 l -319,-319 c -8,-6.666666 -16,-9.999996 -24,-9.999996 z"/><path style="fill:var(--icon-colour__green)" d="M 32 608.88672 C 22.666667 608.88672 15 611.88672 9 617.88672 C 3.0000001 623.88672 0 631.55342 0 640.88672 L 0 832.88672 C -2.3684758e-15 842.22005 3.0000001 849.88672 9 855.88672 C 14.999999 861.88672 22.666667 864.88672 32 864.88672 L 387.14844 864.88672 C 389.01484 864.88672 390.86885 864.90739 392.71484 864.94141 C 424.84023 863.54598 455.12074 854.70213 477.65234 838.51562 C 513.22947 811.0071 542.31317 769.76507 567.46094 723.21289 A 59.082625 59.082625 0 0 1 567.88281 722.44336 C 577.24508 705.7116 585.95748 689.48787 593.56641 673.41992 A 59.082625 59.082625 0 0 1 594.40625 671.7168 C 596.87369 666.9118 599.36286 662.08644 601.86719 657.25195 C 575.79127 644.74345 546.89263 634.11637 515.14844 625.38672 C 475.14844 614.38672 432.48177 608.88672 387.14844 608.88672 L 32 608.88672 z M 870.56641 957.2793 C 853.49205 984.29535 834.72449 1010.8834 813.4375 1036.3711 A 59.082625 59.082625 0 0 1 813.08984 1036.7852 C 777.58172 1078.5162 737.58032 1121.5966 687.80664 1156.543 C 688.3781 1157.5702 688.9227 1158.5676 689.5 1159.6016 C 711.83333 1199.6016 733.16667 1232.9349 753.5 1259.6016 C 773.83333 1286.2683 798.5 1313.9349 827.5 1342.6016 C 856.5 1371.2683 886.5 1394.1016 917.5 1411.1016 C 948.5 1428.1016 983.99999 1442.1016 1024 1453.1016 C 1064 1464.1016 1106.6667 1469.6016 1152 1469.6016 L 1408 1469.6016 L 1408 1661.6016 C 1408 1670.9349 1411 1678.6016 1417 1684.6016 C 1423 1690.6016 1430.6667 1693.6016 1440 1693.6016 C 1448 1693.6016 1456 1690.2683 1464 1683.6016 L 1783 1364.6016 C 1789 1358.6016 1792 1350.9349 1792 1341.6016 C 1792 1332.2683 1789 1324.6016 1783 1318.6016 L 1463 998.60156 C 1457 992.60156 1449.3333 989.60156 1440 989.60156 C 1431.3333 989.60156 1423.8333 992.76823 1417.5 999.10156 C 1411.1667 1005.4348 1408 1012.9349 1408 1021.6016 L 1408 1213.6016 L 1152 1213.6016 C 1120 1213.6016 1091 1208.6016 1065 1198.6016 C 1039 1188.6016 1016 1173.6016 996 1153.6016 C 976 1133.6016 959 1113.1016 945 1092.1016 C 931 1071.1016 916 1045.2683 900 1014.6016 C 899.63745 1014.2954 899.28365 1014.0042 898.92188 1013.6992 C 890.80126 996.429 881.35206 977.6246 870.56641 957.2793 z "/></svg></span>
+  </span><span class="exp-tree-doc-name">1234-AV_SCANNER-XML-EVENT_LOGGING</span><span class="exp-tree-doc-text">(Administrators: OWNER, grp-1234: VIEW, grp-1234-dev: VIEW)</span></div>
+
+
+    
+  </div>
+
+  
+  </div>
+
+
+  </div>
+
+<h4 id="dont-copy-dependencies-example">Don&rsquo;t Copy Dependencies Example</h4>
+<p>The following is an example of the content that will be created with the following assumptions:</p>
+<ul>
+<li>The Feed name is <code>1234-AV_SCANNER-XML-EVENT_LOGGING</code>.</li>
+<li><code>AccountId: 1234</code> in the Meta data.</li>
+<li><em>Copy Pipeline Element Dependencies</em> is <strong>NOT</strong> ticked on the Content Template.</li>
+<li>Default <code>autoContentCreation</code> configuration.</li>
+</ul>
+<div class="exp-tree exp-tree-branch exp-tree-branch-root exp-tree-branch-outer">
+
+<span class="exp-tree-branch-arrow"><span class="stroom-icon inline-svg-button icon-button  " >
+    <span class="face" title="Open folder"><svg xmlns="http://www.w3.org/2000/svg" width="1427.7665" height="1427.7665" viewBox="0 0 1427.7665 1427.7665"><g style="stroke:currentColor;stroke-width:167.567"><path d="m 1343.9812,415.01091 c -0.4303,-39.92654 -48.3887,-75.41463 -81.9121,-40.0468 C 1078.9915,567.50904 896.53618,760.71259 713.86658,953.68912 531.19708,760.71259 348.74187,567.50904 165.6643,374.96411 121.87875,328.7694 53.467698,403.45223 98.496155,451.02121 284.31914,646.95679 469.32098,843.97382 656.02368,1039.0081 c 4.8034,5.6117 10.2473,10.4633 16.1231,14.4855 12.4844,9.643 27.0796,13.9638 41.7198,13.6909 14.6402,0.2729 29.2354,-4.0479 41.7198,-13.6909 5.8758,-4.0222 11.3198,-8.8738 16.1231,-14.4855 186.7028,-195.03428 371.70472,-392.05131 557.52782,-587.98689 10.5534,-11.14898 14.8757,-23.78789 14.7439,-36.0103 z"/></g></svg> </span>
+  </span></span><span class="stroom-icon inline-svg-button icon-button  " >
+    <span class="face" title="System"><svg xmlns="http://www.w3.org/2000/svg" width="1792" height="1792" viewBox="0 0 1792 1792"><path style="fill:var(--icon-colour__dirty-amber)" d="m 224,128 c -26.66667,0 -49.33333,9.33333 -68,28 -18.66667,18.66667 -28,41.33333 -28,68 l 0,1344 c 0,26.6667 9.33333,49.3333 28,68 18.66667,18.6667 41.33333,28 68,28 l 1344,0 c 26.6667,0 49.3333,-9.3333 68,-28 18.6667,-18.6667 28,-41.3333 28,-68 l 0,-1344 c 0,-26.66667 -9.3333,-49.33333 -28,-68 -18.6667,-18.66667 -41.3333,-28 -68,-28 z"/><path style="fill:#fff" d="m 592.51802,522.82793 c -206.51277,0 -373.17209,166.65939 -373.17209,373.17211 0,204.70116 166.65932,373.17206 373.17209,373.17206 206.51288,0 373.17222,-168.4709 373.17222,-373.17206 0,-206.51272 -166.65934,-373.17211 -373.17222,-373.17211 z m 0,605.04607 c -128.61749,0 -233.68552,-103.2564 -233.68552,-231.87396 0,-128.61758 105.06803,-233.68545 233.68552,-233.68545 128.61767,0 233.68545,105.06787 233.68545,233.68545 0,128.61756 -105.06778,231.87396 -233.68545,231.87396 z"/><path style="fill:#fff" d="m 1199.4818,522.82793 c -206.51266,0 -373.172,166.65939 -373.172,373.17211 0,204.70116 166.65934,373.17206 373.172,373.17206 206.5127,0 373.1723,-168.4709 373.1723,-373.17206 0,-206.51272 -166.6596,-373.17211 -373.1723,-373.17211 z m 0,605.04607 c -128.6174,0 -233.68541,-103.2564 -233.68541,-231.87396 0,-128.61758 105.06801,-233.68545 233.68541,-233.68545 128.6177,0 233.6855,105.06787 233.6855,233.68545 0,128.61756 -105.0678,231.87396 -233.6855,231.87396 z"/></svg> </span>
+  </span><span class="exp-tree-branch-name">System</span>
+    
+  <div class="exp-tree exp-tree-branch exp-tree-branch-folder">
+
+<span class="exp-tree-branch-arrow"><span class="stroom-icon inline-svg-button icon-button  " >
+    <span class="face" title="Open folder"><svg xmlns="http://www.w3.org/2000/svg" width="1427.7665" height="1427.7665" viewBox="0 0 1427.7665 1427.7665"><g style="stroke:currentColor;stroke-width:167.567"><path d="m 1343.9812,415.01091 c -0.4303,-39.92654 -48.3887,-75.41463 -81.9121,-40.0468 C 1078.9915,567.50904 896.53618,760.71259 713.86658,953.68912 531.19708,760.71259 348.74187,567.50904 165.6643,374.96411 121.87875,328.7694 53.467698,403.45223 98.496155,451.02121 284.31914,646.95679 469.32098,843.97382 656.02368,1039.0081 c 4.8034,5.6117 10.2473,10.4633 16.1231,14.4855 12.4844,9.643 27.0796,13.9638 41.7198,13.6909 14.6402,0.2729 29.2354,-4.0479 41.7198,-13.6909 5.8758,-4.0222 11.3198,-8.8738 16.1231,-14.4855 186.7028,-195.03428 371.70472,-392.05131 557.52782,-587.98689 10.5534,-11.14898 14.8757,-23.78789 14.7439,-36.0103 z"/></g></svg> </span>
+  </span></span><span class="stroom-icon inline-svg-button icon-button  icon-colour__blue" >
+    <span class="face" title="Folder"><svg xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns="http://www.w3.org/2000/svg" height="1792" width="1792" version="1.1" xmlns:cc="http://creativecommons.org/ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" viewBox="0 0 1792 1792"><path fill="var(--icon-colour__blue)" d="m1617.9 701.64v610.84q0 79.825-57.266 137.09-57.266 57.266-137.09 57.266h-1055.1q-79.825 0-137.09-57.266-57.266-57.266-57.266-137.09v-832.96q0-79.825 57.266-137.09 57.266-57.266 137.09-57.266h277.65q79.825 0 137.09 57.266 57.266 57.266 57.266 137.09v27.765h583.07q79.825 0 137.09 57.266 57.266 57.266 57.266 137.09z"/></svg> </span>
+  </span><span class="exp-tree-branch-name">Feeds</span><span class="exp-tree-branch-text">(Administrators: OWNER)</span>
+    
+    <div class="exp-tree exp-tree-branch exp-tree-branch-folder">
+
+<span class="exp-tree-branch-arrow"><span class="stroom-icon inline-svg-button icon-button  " >
+    <span class="face" title="Open folder"><svg xmlns="http://www.w3.org/2000/svg" width="1427.7665" height="1427.7665" viewBox="0 0 1427.7665 1427.7665"><g style="stroke:currentColor;stroke-width:167.567"><path d="m 1343.9812,415.01091 c -0.4303,-39.92654 -48.3887,-75.41463 -81.9121,-40.0468 C 1078.9915,567.50904 896.53618,760.71259 713.86658,953.68912 531.19708,760.71259 348.74187,567.50904 165.6643,374.96411 121.87875,328.7694 53.467698,403.45223 98.496155,451.02121 284.31914,646.95679 469.32098,843.97382 656.02368,1039.0081 c 4.8034,5.6117 10.2473,10.4633 16.1231,14.4855 12.4844,9.643 27.0796,13.9638 41.7198,13.6909 14.6402,0.2729 29.2354,-4.0479 41.7198,-13.6909 5.8758,-4.0222 11.3198,-8.8738 16.1231,-14.4855 186.7028,-195.03428 371.70472,-392.05131 557.52782,-587.98689 10.5534,-11.14898 14.8757,-23.78789 14.7439,-36.0103 z"/></g></svg> </span>
+  </span></span><span class="stroom-icon inline-svg-button icon-button  icon-colour__blue" >
+    <span class="face" title="Folder"><svg xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns="http://www.w3.org/2000/svg" height="1792" width="1792" version="1.1" xmlns:cc="http://creativecommons.org/ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" viewBox="0 0 1792 1792"><path fill="var(--icon-colour__blue)" d="m1617.9 701.64v610.84q0 79.825-57.266 137.09-57.266 57.266-137.09 57.266h-1055.1q-79.825 0-137.09-57.266-57.266-57.266-57.266-137.09v-832.96q0-79.825 57.266-137.09 57.266-57.266 137.09-57.266h277.65q79.825 0 137.09 57.266 57.266 57.266 57.266 137.09v27.765h583.07q79.825 0 137.09 57.266 57.266 57.266 57.266 137.09z"/></svg> </span>
+  </span><span class="exp-tree-branch-name">1234</span><span class="exp-tree-branch-text">(Administrators: OWNER, grp-1234: VIEW)</span>
+    
+      
+  
+  
+  <div class="exp-tree exp-tree-doc"><span class="stroom-icon inline-svg-button icon-button  " >
+    <span class="face" title="Feed"><svg xmlns="http://www.w3.org/2000/svg" width="1792" height="1792" viewBox="0 0 1792 1792"><path style="fill:var(--icon-colour__green)" d="m 938.50195,211.41007 c -5.56299,0.0388 -11.74705,1.29983 -18.55468,3.7832 -18.1537,6.6223 -30.41561,18.62426 -36.78321,36.00781 L 781.2832,529.3378 l -636.59961,0 c -11.58903,0 -22.47327,3.72569 -32.65234,11.17578 -10.17907,7.4501 -17.391684,16.96956 -21.636719,28.5586 L 3.0683594,807.47452 c -4.2450584,11.5891 -4.00823944,21.10849 0.7128906,28.55859 4.72114,7.4501 12.877765,11.17578 24.466797,11.17578 358.940143,-0.86657 728.661783,-0.53744 1037.093753,-0.52148 l 192.0293,-132.33789 c 11.3101,-8.27788 19.0869,-18.21175 23.332,-29.80078 3.9418,-10.76125 3.2906,-20.28072 -1.9551,-28.5586 L 961.13086,221.4003 c -5.81425,-6.72578 -13.35726,-10.05491 -22.62891,-9.99023 z m 509.37505,415.625 c -5.563,0.0388 -11.7471,1.29983 -18.5547,3.7832 -18.1537,6.6223 -30.4156,18.62426 -36.7832,36.00781 l -101.8809,278.13672 -762.55273,0 c -11.58903,0 -22.47327,3.72569 -32.65235,11.17578 -10.17906,7.4501 -17.39165,16.96957 -21.63671,28.5586 l -87.32618,238.40232 c -4.24506,11.5891 -4.00824,21.1085 0.71289,28.5586 4.72113,7.4501 12.87777,11.1758 24.4668,11.1758 l 762.55278,0 -101.8809,278.1367 c -6.0644,16.5558 -2.5987,28.5577 10.4004,36.0078 13.3022,6.6223 28.6997,4.1399 46.1894,-7.4492 l 637.8145,-439.5547 c 11.3101,-8.2779 19.0869,-18.2117 23.332,-29.8008 3.9418,-10.7612 3.2906,-20.2807 -1.9551,-28.5586 L 1470.5059,637.0253 c -5.8143,-6.72578 -13.3573,-10.05491 -22.6289,-9.99023 z"/></svg></span>
+  </span><span class="exp-tree-doc-name">1234-AV_SCANNER-XML-EVENT_LOGGING</span><span class="exp-tree-doc-text">(Administrators: OWNER, grp-1234: VIEW)</span></div>
+
+
+      
+  
+  
+  <div class="exp-tree exp-tree-doc"><span class="stroom-icon inline-svg-button icon-button  " >
+    <span class="face" title="Pipeline"><svg xmlns="http://www.w3.org/2000/svg" width="1792" height="1792" viewBox="0 0 1792 1792"><path style="fill:var(--icon-colour__blue)" d="m 1440,95.339844 c -9.3333,0 -17,2.999997 -23,8.999996 -6,6 -9,13.66667 -9,23 l 0,192 -256,0 c -45.3333,0 -88,5.5 -128,16.5 -40.00001,11 -75.50001,25 -106.50001,42 -31,17 -61,39.83333 -90,68.5 -29,28.66667 -53.66667,56.33333 -74,83 -20.33333,26.66667 -41.66667,60 -64,100 -19.99699,35.8155 -36.49225,67.59036 -49.54102,95.38868 -0.27492,0.10932 -0.53471,0.21669 -0.81054,0.32617 -16,30.66667 -31,56.5 -45,77.5 -14,21 -31,41.5 -51,61.5 -20,20 -43,35 -69,45 -26,10 -55,15 -87,15 l -355.148435,0 c -9.333333,0 -17,3 -23.0000004,9 -6,6 -9.0000000375455,13.66667 -9.0000000375455,23 l 0,192.00001 c 0,9.3333 3.0000000375455,17 9.0000000375455,23 6.0000004,6 13.6666674,9 23.0000004,9 l 355.148435,0 c 45.33333,0 88,-5.5 128,-16.5 40,-11 75.5,-25 106.5,-42 31,-17 61,-39.8333 90,-68.5 29,-28.6667 53.66667,-56.33334 74,-83.00001 20.33333,-26.66667 41.66667,-60 64,-100 19.8569,-35.56461 36.26775,-67.15315 49.27344,-94.8125 0.36178,-0.305 0.71557,-0.5961 1.07812,-0.90235 16,-30.66667 31,-56.5 45,-77.5 14,-21 31,-41.5 51,-61.5 20.00001,-20 43.00001,-35 69.00001,-45 26,-10 55,-15 87,-15 l 256,0 0,192 c 0,8.66667 3.1667,16.16667 9.5,22.5 6.3333,6.33333 13.8333,9.5 22.5,9.5 9.3333,0 17,-3 23,-9 l 320,-320 c 6,-6 9,-13.66667 9,-23 0,-9.33333 -3,-17 -9,-23 l -319,-319 c -8,-6.666666 -16,-9.999996 -24,-9.999996 z"/><path style="fill:var(--icon-colour__green)" d="M 32 608.88672 C 22.666667 608.88672 15 611.88672 9 617.88672 C 3.0000001 623.88672 0 631.55342 0 640.88672 L 0 832.88672 C -2.3684758e-15 842.22005 3.0000001 849.88672 9 855.88672 C 14.999999 861.88672 22.666667 864.88672 32 864.88672 L 387.14844 864.88672 C 389.01484 864.88672 390.86885 864.90739 392.71484 864.94141 C 424.84023 863.54598 455.12074 854.70213 477.65234 838.51562 C 513.22947 811.0071 542.31317 769.76507 567.46094 723.21289 A 59.082625 59.082625 0 0 1 567.88281 722.44336 C 577.24508 705.7116 585.95748 689.48787 593.56641 673.41992 A 59.082625 59.082625 0 0 1 594.40625 671.7168 C 596.87369 666.9118 599.36286 662.08644 601.86719 657.25195 C 575.79127 644.74345 546.89263 634.11637 515.14844 625.38672 C 475.14844 614.38672 432.48177 608.88672 387.14844 608.88672 L 32 608.88672 z M 870.56641 957.2793 C 853.49205 984.29535 834.72449 1010.8834 813.4375 1036.3711 A 59.082625 59.082625 0 0 1 813.08984 1036.7852 C 777.58172 1078.5162 737.58032 1121.5966 687.80664 1156.543 C 688.3781 1157.5702 688.9227 1158.5676 689.5 1159.6016 C 711.83333 1199.6016 733.16667 1232.9349 753.5 1259.6016 C 773.83333 1286.2683 798.5 1313.9349 827.5 1342.6016 C 856.5 1371.2683 886.5 1394.1016 917.5 1411.1016 C 948.5 1428.1016 983.99999 1442.1016 1024 1453.1016 C 1064 1464.1016 1106.6667 1469.6016 1152 1469.6016 L 1408 1469.6016 L 1408 1661.6016 C 1408 1670.9349 1411 1678.6016 1417 1684.6016 C 1423 1690.6016 1430.6667 1693.6016 1440 1693.6016 C 1448 1693.6016 1456 1690.2683 1464 1683.6016 L 1783 1364.6016 C 1789 1358.6016 1792 1350.9349 1792 1341.6016 C 1792 1332.2683 1789 1324.6016 1783 1318.6016 L 1463 998.60156 C 1457 992.60156 1449.3333 989.60156 1440 989.60156 C 1431.3333 989.60156 1423.8333 992.76823 1417.5 999.10156 C 1411.1667 1005.4348 1408 1012.9349 1408 1021.6016 L 1408 1213.6016 L 1152 1213.6016 C 1120 1213.6016 1091 1208.6016 1065 1198.6016 C 1039 1188.6016 1016 1173.6016 996 1153.6016 C 976 1133.6016 959 1113.1016 945 1092.1016 C 931 1071.1016 916 1045.2683 900 1014.6016 C 899.63745 1014.2954 899.28365 1014.0042 898.92188 1013.6992 C 890.80126 996.429 881.35206 977.6246 870.56641 957.2793 z "/></svg></span>
+  </span><span class="exp-tree-doc-name">1234-AV_SCANNER-XML-EVENT_LOGGING</span><span class="exp-tree-doc-text">(Administrators: OWNER, grp-1234: VIEW)</span></div>
+
+
+    
+  </div>
+
+  
+  </div>
+
+
+  </div>
+
+<h3 id="processor_filter-mode"><code>PROCESSOR_FILTER</code> Mode</h3>
+<ul>
+<li>
+<p>Create a stroom user for the authenticated identity that has sent the data.</p>
+</li>
+<li>
+<p>Create a stroom user group using the template defined by property <code>groupTemplate</code>.</p>
+<ul>
+<li>Add the created stroom user to this group.</li>
+</ul>
+</li>
+<li>
+<p>Create an explorer tree folder using the template defined by property <code>destinationExplorerPathTemplate</code>.</p>
+<ul>
+<li>Grant <code>VIEW</code> permission to the created group.</li>
+</ul>
+</li>
+<li>
+<p>Create a Feed <span class="stroom-icon inline-svg-button icon-button  " >
+    <span class="face" title="Feed"><svg xmlns="http://www.w3.org/2000/svg" width="1792" height="1792" viewBox="0 0 1792 1792"><path style="fill:var(--icon-colour__green)" d="m 938.50195,211.41007 c -5.56299,0.0388 -11.74705,1.29983 -18.55468,3.7832 -18.1537,6.6223 -30.41561,18.62426 -36.78321,36.00781 L 781.2832,529.3378 l -636.59961,0 c -11.58903,0 -22.47327,3.72569 -32.65234,11.17578 -10.17907,7.4501 -17.391684,16.96956 -21.636719,28.5586 L 3.0683594,807.47452 c -4.2450584,11.5891 -4.00823944,21.10849 0.7128906,28.55859 4.72114,7.4501 12.877765,11.17578 24.466797,11.17578 358.940143,-0.86657 728.661783,-0.53744 1037.093753,-0.52148 l 192.0293,-132.33789 c 11.3101,-8.27788 19.0869,-18.21175 23.332,-29.80078 3.9418,-10.76125 3.2906,-20.28072 -1.9551,-28.5586 L 961.13086,221.4003 c -5.81425,-6.72578 -13.35726,-10.05491 -22.62891,-9.99023 z m 509.37505,415.625 c -5.563,0.0388 -11.7471,1.29983 -18.5547,3.7832 -18.1537,6.6223 -30.4156,18.62426 -36.7832,36.00781 l -101.8809,278.13672 -762.55273,0 c -11.58903,0 -22.47327,3.72569 -32.65235,11.17578 -10.17906,7.4501 -17.39165,16.96957 -21.63671,28.5586 l -87.32618,238.40232 c -4.24506,11.5891 -4.00824,21.1085 0.71289,28.5586 4.72113,7.4501 12.87777,11.1758 24.4668,11.1758 l 762.55278,0 -101.8809,278.1367 c -6.0644,16.5558 -2.5987,28.5577 10.4004,36.0078 13.3022,6.6223 28.6997,4.1399 46.1894,-7.4492 l 637.8145,-439.5547 c 11.3101,-8.2779 19.0869,-18.2117 23.332,-29.8008 3.9418,-10.7612 3.2906,-20.2807 -1.9551,-28.5586 L 1470.5059,637.0253 c -5.8143,-6.72578 -13.3573,-10.05491 -22.6289,-9.99023 z"/></svg></span>
+  </span> in the folder defined by <code>destinationExplorerPathTemplate</code>.</p>
+<ul>
+<li>Grant <code>VIEW</code> permission to the created group.</li>
+</ul>
+</li>
+<li>
+<p>Create a Processor Filter on the new Pipeline (using the priority and concurrency setting taken from the Content Template) with the following expression:</p>
+<p>Feed <code>is</code> <em>X</em> AND Type <code>=</code> <em>Y</em></p>
+<p>[Where <em>X</em> is the Feed created above and <em>Y</em> is the stream type of the received data.]</p>
+</li>
+<li>
+<p>If <code>groupParentGroupName</code> is defined:</p>
+<ul>
+<li>Create the Stroom user group specified in this property if it doesn&rsquo;t exist.</li>
+<li>Add the group defined by <code>groupTemplate</code> to this group.</li>
+</ul>
+</li>
+</ul>
+<h4 id="example">Example</h4>
+<p>The following is an example of the content that will be created with the following assumptions:</p>
+<ul>
+<li>The Feed name is <code>1234-AV_SCANNER-XML-EVENT_LOGGING</code>.</li>
+<li><code>AccountId: 1234</code> in the Meta data.</li>
+<li>Default <code>autoContentCreation</code> configuration.</li>
+</ul>
+<div class="exp-tree exp-tree-branch exp-tree-branch-root exp-tree-branch-outer">
+
+<span class="exp-tree-branch-arrow"><span class="stroom-icon inline-svg-button icon-button  " >
+    <span class="face" title="Open folder"><svg xmlns="http://www.w3.org/2000/svg" width="1427.7665" height="1427.7665" viewBox="0 0 1427.7665 1427.7665"><g style="stroke:currentColor;stroke-width:167.567"><path d="m 1343.9812,415.01091 c -0.4303,-39.92654 -48.3887,-75.41463 -81.9121,-40.0468 C 1078.9915,567.50904 896.53618,760.71259 713.86658,953.68912 531.19708,760.71259 348.74187,567.50904 165.6643,374.96411 121.87875,328.7694 53.467698,403.45223 98.496155,451.02121 284.31914,646.95679 469.32098,843.97382 656.02368,1039.0081 c 4.8034,5.6117 10.2473,10.4633 16.1231,14.4855 12.4844,9.643 27.0796,13.9638 41.7198,13.6909 14.6402,0.2729 29.2354,-4.0479 41.7198,-13.6909 5.8758,-4.0222 11.3198,-8.8738 16.1231,-14.4855 186.7028,-195.03428 371.70472,-392.05131 557.52782,-587.98689 10.5534,-11.14898 14.8757,-23.78789 14.7439,-36.0103 z"/></g></svg> </span>
+  </span></span><span class="stroom-icon inline-svg-button icon-button  " >
+    <span class="face" title="System"><svg xmlns="http://www.w3.org/2000/svg" width="1792" height="1792" viewBox="0 0 1792 1792"><path style="fill:var(--icon-colour__dirty-amber)" d="m 224,128 c -26.66667,0 -49.33333,9.33333 -68,28 -18.66667,18.66667 -28,41.33333 -28,68 l 0,1344 c 0,26.6667 9.33333,49.3333 28,68 18.66667,18.6667 41.33333,28 68,28 l 1344,0 c 26.6667,0 49.3333,-9.3333 68,-28 18.6667,-18.6667 28,-41.3333 28,-68 l 0,-1344 c 0,-26.66667 -9.3333,-49.33333 -28,-68 -18.6667,-18.66667 -41.3333,-28 -68,-28 z"/><path style="fill:#fff" d="m 592.51802,522.82793 c -206.51277,0 -373.17209,166.65939 -373.17209,373.17211 0,204.70116 166.65932,373.17206 373.17209,373.17206 206.51288,0 373.17222,-168.4709 373.17222,-373.17206 0,-206.51272 -166.65934,-373.17211 -373.17222,-373.17211 z m 0,605.04607 c -128.61749,0 -233.68552,-103.2564 -233.68552,-231.87396 0,-128.61758 105.06803,-233.68545 233.68552,-233.68545 128.61767,0 233.68545,105.06787 233.68545,233.68545 0,128.61756 -105.06778,231.87396 -233.68545,231.87396 z"/><path style="fill:#fff" d="m 1199.4818,522.82793 c -206.51266,0 -373.172,166.65939 -373.172,373.17211 0,204.70116 166.65934,373.17206 373.172,373.17206 206.5127,0 373.1723,-168.4709 373.1723,-373.17206 0,-206.51272 -166.6596,-373.17211 -373.1723,-373.17211 z m 0,605.04607 c -128.6174,0 -233.68541,-103.2564 -233.68541,-231.87396 0,-128.61758 105.06801,-233.68545 233.68541,-233.68545 128.6177,0 233.6855,105.06787 233.6855,233.68545 0,128.61756 -105.0678,231.87396 -233.6855,231.87396 z"/></svg> </span>
+  </span><span class="exp-tree-branch-name">System</span>
+    
+  <div class="exp-tree exp-tree-branch exp-tree-branch-folder">
+
+<span class="exp-tree-branch-arrow"><span class="stroom-icon inline-svg-button icon-button  " >
+    <span class="face" title="Open folder"><svg xmlns="http://www.w3.org/2000/svg" width="1427.7665" height="1427.7665" viewBox="0 0 1427.7665 1427.7665"><g style="stroke:currentColor;stroke-width:167.567"><path d="m 1343.9812,415.01091 c -0.4303,-39.92654 -48.3887,-75.41463 -81.9121,-40.0468 C 1078.9915,567.50904 896.53618,760.71259 713.86658,953.68912 531.19708,760.71259 348.74187,567.50904 165.6643,374.96411 121.87875,328.7694 53.467698,403.45223 98.496155,451.02121 284.31914,646.95679 469.32098,843.97382 656.02368,1039.0081 c 4.8034,5.6117 10.2473,10.4633 16.1231,14.4855 12.4844,9.643 27.0796,13.9638 41.7198,13.6909 14.6402,0.2729 29.2354,-4.0479 41.7198,-13.6909 5.8758,-4.0222 11.3198,-8.8738 16.1231,-14.4855 186.7028,-195.03428 371.70472,-392.05131 557.52782,-587.98689 10.5534,-11.14898 14.8757,-23.78789 14.7439,-36.0103 z"/></g></svg> </span>
+  </span></span><span class="stroom-icon inline-svg-button icon-button  icon-colour__blue" >
+    <span class="face" title="Folder"><svg xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns="http://www.w3.org/2000/svg" height="1792" width="1792" version="1.1" xmlns:cc="http://creativecommons.org/ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" viewBox="0 0 1792 1792"><path fill="var(--icon-colour__blue)" d="m1617.9 701.64v610.84q0 79.825-57.266 137.09-57.266 57.266-137.09 57.266h-1055.1q-79.825 0-137.09-57.266-57.266-57.266-57.266-137.09v-832.96q0-79.825 57.266-137.09 57.266-57.266 137.09-57.266h277.65q79.825 0 137.09 57.266 57.266 57.266 57.266 137.09v27.765h583.07q79.825 0 137.09 57.266 57.266 57.266 57.266 137.09z"/></svg> </span>
+  </span><span class="exp-tree-branch-name">Feeds</span><span class="exp-tree-branch-text">(Administrators: OWNER)</span>
+    
+    <div class="exp-tree exp-tree-branch exp-tree-branch-folder">
+
+<span class="exp-tree-branch-arrow"><span class="stroom-icon inline-svg-button icon-button  " >
+    <span class="face" title="Open folder"><svg xmlns="http://www.w3.org/2000/svg" width="1427.7665" height="1427.7665" viewBox="0 0 1427.7665 1427.7665"><g style="stroke:currentColor;stroke-width:167.567"><path d="m 1343.9812,415.01091 c -0.4303,-39.92654 -48.3887,-75.41463 -81.9121,-40.0468 C 1078.9915,567.50904 896.53618,760.71259 713.86658,953.68912 531.19708,760.71259 348.74187,567.50904 165.6643,374.96411 121.87875,328.7694 53.467698,403.45223 98.496155,451.02121 284.31914,646.95679 469.32098,843.97382 656.02368,1039.0081 c 4.8034,5.6117 10.2473,10.4633 16.1231,14.4855 12.4844,9.643 27.0796,13.9638 41.7198,13.6909 14.6402,0.2729 29.2354,-4.0479 41.7198,-13.6909 5.8758,-4.0222 11.3198,-8.8738 16.1231,-14.4855 186.7028,-195.03428 371.70472,-392.05131 557.52782,-587.98689 10.5534,-11.14898 14.8757,-23.78789 14.7439,-36.0103 z"/></g></svg> </span>
+  </span></span><span class="stroom-icon inline-svg-button icon-button  icon-colour__blue" >
+    <span class="face" title="Folder"><svg xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns="http://www.w3.org/2000/svg" height="1792" width="1792" version="1.1" xmlns:cc="http://creativecommons.org/ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" viewBox="0 0 1792 1792"><path fill="var(--icon-colour__blue)" d="m1617.9 701.64v610.84q0 79.825-57.266 137.09-57.266 57.266-137.09 57.266h-1055.1q-79.825 0-137.09-57.266-57.266-57.266-57.266-137.09v-832.96q0-79.825 57.266-137.09 57.266-57.266 137.09-57.266h277.65q79.825 0 137.09 57.266 57.266 57.266 57.266 137.09v27.765h583.07q79.825 0 137.09 57.266 57.266 57.266 57.266 137.09z"/></svg> </span>
+  </span><span class="exp-tree-branch-name">1234</span><span class="exp-tree-branch-text">(Administrators: OWNER, grp-1234: VIEW)</span>
+    
+      
+  
+  
+  <div class="exp-tree exp-tree-doc"><span class="stroom-icon inline-svg-button icon-button  " >
+    <span class="face" title="Feed"><svg xmlns="http://www.w3.org/2000/svg" width="1792" height="1792" viewBox="0 0 1792 1792"><path style="fill:var(--icon-colour__green)" d="m 938.50195,211.41007 c -5.56299,0.0388 -11.74705,1.29983 -18.55468,3.7832 -18.1537,6.6223 -30.41561,18.62426 -36.78321,36.00781 L 781.2832,529.3378 l -636.59961,0 c -11.58903,0 -22.47327,3.72569 -32.65234,11.17578 -10.17907,7.4501 -17.391684,16.96956 -21.636719,28.5586 L 3.0683594,807.47452 c -4.2450584,11.5891 -4.00823944,21.10849 0.7128906,28.55859 4.72114,7.4501 12.877765,11.17578 24.466797,11.17578 358.940143,-0.86657 728.661783,-0.53744 1037.093753,-0.52148 l 192.0293,-132.33789 c 11.3101,-8.27788 19.0869,-18.21175 23.332,-29.80078 3.9418,-10.76125 3.2906,-20.28072 -1.9551,-28.5586 L 961.13086,221.4003 c -5.81425,-6.72578 -13.35726,-10.05491 -22.62891,-9.99023 z m 509.37505,415.625 c -5.563,0.0388 -11.7471,1.29983 -18.5547,3.7832 -18.1537,6.6223 -30.4156,18.62426 -36.7832,36.00781 l -101.8809,278.13672 -762.55273,0 c -11.58903,0 -22.47327,3.72569 -32.65235,11.17578 -10.17906,7.4501 -17.39165,16.96957 -21.63671,28.5586 l -87.32618,238.40232 c -4.24506,11.5891 -4.00824,21.1085 0.71289,28.5586 4.72113,7.4501 12.87777,11.1758 24.4668,11.1758 l 762.55278,0 -101.8809,278.1367 c -6.0644,16.5558 -2.5987,28.5577 10.4004,36.0078 13.3022,6.6223 28.6997,4.1399 46.1894,-7.4492 l 637.8145,-439.5547 c 11.3101,-8.2779 19.0869,-18.2117 23.332,-29.8008 3.9418,-10.7612 3.2906,-20.2807 -1.9551,-28.5586 L 1470.5059,637.0253 c -5.8143,-6.72578 -13.3573,-10.05491 -22.6289,-9.99023 z"/></svg></span>
+  </span><span class="exp-tree-doc-name">1234-AV_SCANNER-XML-EVENT_LOGGING</span><span class="exp-tree-doc-text">(Administrators: OWNER, grp-1234: VIEW)</span></div>
+
+
+    
+  </div>
+
+  
+  </div>
+
+
+  </div>
+
+<h2 id="expression-fields">Expression Fields</h2>
+<p>When creating the expression in a Content Template, the user will be limited to a set of fields to match on.
+These fields will be matched against the meta data of the Stream.
+The list of fields that can be used are configured using the property <code>.autoContentCreation.templateMatchFields</code>.</p>
+
+</div>
+
+
+
+
+    
+	
+  
+    
+    
+	
+    
+
+
+
+<div class="td-content" style="--base-section-num: '5.'; page-break-before: always">
+    
+  <h1 id="pg-d46f3dc5e68bb8a34915859fec7fde72">5 - Data Feed Identities</h1>
+    <div class="lead">Data Feed Identities is an authentication mechanism designed specifically for the <code>/datafeed</code> API.</div>
+	<p>Data Feed Identities are a new authentication mechanism for data receipt into both Stroom-Proxy and Stroom.
+It combines a set of authentication identities with a pre-defined set of static meta entries.</p>
+<p>There are currently two types of Data Feed Identities:</p>
+<ul>
+<li>Data Feed Keys - Similar to an API Key.</li>
+<li>Certificate Identities - Uses an X509 Distinguished Name for authentication.</li>
+</ul>
+<p>Both types of identity are written to one or more files that are placed on the Stroom or Stroom Proxy Host in a directory configured by <code>.receive.dataFeedIdentitiesDir</code>.</p>
+<p>The following is an example of a file containing one of each type:</p>
+<pre><code class="language-json">{
+  &quot;dataFeedIdentities&quot; : [ {
+    &quot;type&quot; : &quot;DATA_FEED_KEY&quot;,
+    &quot;expiryDateEpochMs&quot; : 1775237109581,
+    &quot;hash&quot; : &quot;$2a$10$JdngdVGxg6RGBeerku.JNusZdyyh4rNHYN5UeNKXRVdNUSNbg3NP6&quot;,
+    &quot;hashAlgorithm&quot; : &quot;BCRYPT_2A&quot;,
+    &quot;salt&quot; : &quot;$2a$10$JdngdVGxg6RGBeerku.JNu&quot;,
+    &quot;streamMetaData&quot; : {
+      &quot;AccountId&quot; : &quot;1000&quot;,
+      &quot;MetaKey2&quot; : &quot;MetaKey2Val-1000&quot;,
+      &quot;MetaKey1&quot; : &quot;MetaKey1Val-1000&quot;
+    }
+  }, {
+    &quot;type&quot; : &quot;CERTIFICATE_DN&quot;,
+    &quot;certificateDn&quot; : &quot;/DC=com/DC=example/DC=corp/OU=Users/CN=John Doe 2/emailAddress=john_doe@example.com&quot;,
+    &quot;expiryDateEpochMs&quot; : 1775237109581,
+    &quot;streamMetaData&quot; : {
+      &quot;AccountId&quot; : &quot;2002&quot;,
+      &quot;MetaKey2&quot; : &quot;MetaKey2Val-2002&quot;,
+      &quot;MetaKey1&quot; : &quot;MetaKey1Val-2002&quot;
+    }
+  } ]
+}
+</code></pre>
+<p>The file can contain zero-many of either type and the directory can contain zero-many of these files.
+This allows for generating Data Feed Keys with a life of say 26hrs, adding a new file every day and deleting files older than 2 days.</p>
+<p>The file(s) will be read on boot and all hashed keys will be stored in memory for receipt authentication.
+Files added to this directory while Stroom-Proxy/Stroom is running will be read and added to the in-memory store of hashed keys.
+Files deleted from this directory will result in all entries associated with the file path being removed from the in-memory store of hashed keys.</p>
+<h2 id="common-properties">Common Properties</h2>
+<p>The following JSON properties are common to both types:</p>
+<ul>
+<li>
+<p><code>type</code> - The type of the identity, one of (<code>DATA_FEED_KEY</code>|<code>CERTIFICATE_DN</code>).</p>
+</li>
+<li>
+<p><code>expiryDateEpochMs</code> - The time the identity expires expressed as milliseconds since the epoch.</p>
+</li>
+<li>
+<p><code>streamMetaData</code> - A map of Meta key/value pairs to set on the Stream&rsquo;s Meta Data on receipt.
+The attributes in <code>streamMetaData</code> will overwrite any matching attribute keys in the received data.</p>
+</li>
+</ul>
+<p>The property <code>.receive.dataFeedOwnerMetaKey</code> defines the Meta key that will be used to extract the owner of the Data Feed Identity.
+By default, this property is set to the value <code>AccountId</code>.
+It is typically an identifier for a client team that may have one or more systems that require one or more Feeds in Stroom.
+An <code>AccountId</code> can have many active Data Feed Identities.</p>
+<h2 id="data-feed-keys">Data Feed Keys</h2>
+<p>They allow for a set of hashed short life keys to be placed in a directory accessible to Stroom-Proxy/Stroom for receipt requests to be authenticated against.</p>
+<pre><code class="language-json">{
+  &quot;type&quot; : &quot;DATA_FEED_KEY&quot;,
+  &quot;expiryDateEpochMs&quot; : 1775237109581,
+  &quot;hash&quot; : &quot;$2a$10$JdngdVGxg6RGBeerku.JNusZdyyh4rNHYN5UeNKXRVdNUSNbg3NP6&quot;,
+  &quot;hashAlgorithm&quot; : &quot;BCRYPT_2A&quot;,
+  &quot;salt&quot; : &quot;$2a$10$JdngdVGxg6RGBeerku.JNu&quot;,
+  &quot;streamMetaData&quot; : {
+    &quot;AccountId&quot; : &quot;1000&quot;,
+    &quot;MetaKey2&quot; : &quot;MetaKey2Val-1000&quot;,
+    &quot;MetaKey1&quot; : &quot;MetaKey1Val-1000&quot;
+  }
+}
+</code></pre>
+<p><code>type</code> must always be <code>DATA_FEED_KEY</code> for a Data Feed Key.</p>
+<p>Data Feed Identities have an expiry date after which they will no longer work.
+Multiple files can be placed in the directory and all valid keys will be loaded.</p>
+<p>The <code>hashAlgorithm</code> is the name of the hash algorithm that was used to hash the key.
+The system creating the hashed data feed keys must use the same hash algorithm and parameters when hashing the key as Stroom will use when it hashes the key used in data receipt to validate them.</p>
+<p>Currently the available hash algorithms are:</p>
+<ul>
+<li>
+<p><code>ARGON2</code></p>
+<ul>
+<li>Hash length: <code>48</code></li>
+<li>Iterations: <code>2</code></li>
+<li>Memory KB: <code>65536</code></li>
+<li>Parallelism: <code>1</code></li>
+</ul>
+</li>
+<li>
+<p><code>BCRYPT_2A</code></p>
+<ul>
+<li>Salt log rounds: <code>10</code></li>
+</ul>
+</li>
+</ul>
+<p>A Data Feed Key takes the following form:</p>
+<pre><code class="language-text">sdk_&lt;128 char random Base58 string&gt;
+</code></pre>
+<p>The regular expression pattern for a Data Feed Key is</p>
+<pre><code class="language-regex">^sdk_[A-HJ-NP-Za-km-z1-9]{128}$
+</code></pre>
+<p>Data Feed Identities are used in the same way as API Keys or OAuth2 tokens, i.e. using the Header <code>Authorization: Bearer &lt;data feed key&gt;</code>.</p>
+<h2 id="certificate-identities">Certificate Identities</h2>
+<p>These identities allow client systems to authenticate with an X509 certificate.
+Typically the TLS will be terminated by an Nginx or load balancer sitting in front of Stroom/Stroom-Proxy, and it will pass the DN as a header (configured by <code>.receive.x509CertificateDnHeader</code>).</p>
+<pre><code class="language-json">{
+  &quot;type&quot; : &quot;CERTIFICATE_DN&quot;,
+  &quot;certificateDn&quot; : &quot;/DC=com/DC=example/DC=corp/OU=Users/CN=John Doe 2/emailAddress=john_doe@example.com&quot;,
+  &quot;expiryDateEpochMs&quot; : 1775237109581,
+  &quot;streamMetaData&quot; : {
+    &quot;AccountId&quot; : &quot;2002&quot;,
+    &quot;MetaKey2&quot; : &quot;MetaKey2Val-2002&quot;,
+    &quot;MetaKey1&quot; : &quot;MetaKey1Val-2002&quot;
+  }
+}
+</code></pre>
+<p><code>type</code> must always be <code>CERTIFICATE_DN</code> for a Certificate Identity.</p>
+<p><code>certificateDn</code> is the certificate&rsquo;s DN (Distinguished Name) in the format defined by <code>.receive.x509CertificateDnFormat</code>.</p>
+<p>When a client sends data, the DN extracted from the header will be checked against all the DNs in the Certificate Identities.
+If one matches and is not expired, it will authenticate using the owner and set the Meta entries using <code>streamMetaData</code>.</p>
+
+</div>
+
+
+
+
+    
+	
+  
+
+
+
+          </main>
+        </div>
+      </div>
+      
+<footer class="bg-dark py-5 row d-print-none">
+  <div class="container-fluid mx-sm-5">
+    <div class="row">
+      <div class="col-6 col-sm-4 text-xs-center order-sm-2">
+        
+        
+        
+      </div>
+      <div class="col-6 col-sm-4 text-right text-xs-center order-sm-3">
+        
+        
+        
+<ul class="list-inline mb-0">
+  
+  <li class="list-inline-item mx-2 h3" data-toggle="tooltip" data-placement="top" title="GitHub" aria-label="GitHub">
+    <a class="text-white" target="_blank" rel="noopener" href="https://github.com/gchq/stroom" aria-label="GitHub">
+      <i class="fab fa-github"></i>
+    </a>
+  </li>
+  
+</ul>
+
+        
+        
+      </div>
+      <div class="col-12 col-sm-4 text-center py-2 order-sm-2">
+        <small class="text-white">&copy; 2026 Crown Copyright All Rights Reserved</small>
+        
+	
+      </div>
+    </div>
+  </div>
+</footer>
+
+
+    </div>
+    
+
+<script src='../../../../js/popper.min.js'></script>
+<script src='../../../../js/bootstrap.min.js'></script>
+
+
+
+
+
+
+    <script src='../../../../js/lunr.min.js'></script>
+  
+
+
+  <script src="../../../../js/hover-tooltip.js" defer></script>
+
+
+
+
+<script src='../../../../js/tabpane-persist.js'></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script src="../../../../js/main.min.cbc1d428d83561c4dec32da9374290554119d7483329f849251cb7153b2ecd07.js" integrity="sha256-y8HUKNg1YcTewy2pN0KQVUEZ10gzKfhJJRy3FTsuzQc=" crossorigin="anonymous"></script>
+
+
+
+<script src='../../../../js/prism.js'></script>
+
+
+
+  </body>
+</html>

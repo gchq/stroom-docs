@@ -4,7 +4,7 @@
     <link>/tags/analytic/</link>
     <description>Recent content in analytic on Stroom</description>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Tue, 30 Apr 2024 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Thu, 03 Sep 2026 00:00:00 +0000</lastBuildDate>
     
 	  <atom:link href="/tags/analytic/index.xml" rel="self" type="application/rss+xml" />
     
@@ -15,22 +15,2242 @@
     
     
     <item>
+      <title>Docs: Rule Queries</title>
+      <link>/docs/user-guide/search/analytics/query/</link>
+      <pubDate>Wed, 02 Sep 2026 00:00:00 +0000</pubDate>
+      
+      <guid>/docs/user-guide/search/analytics/query/</guid>
+      <description>
+        
+        
+        &lt;p&gt;The &lt;em&gt;Query&lt;/em&gt; tab holds the &lt;span class=&#34;glossary-link link-with-hover-tooltip&#34;&gt;
+    &lt;a href=&#34;../../docs/glossary/s/glossary-stroomql&#34;&gt;
+      &lt;span&gt;StroomQl&lt;/span&gt;
+      &lt;i class=&#34;glossary-link-icon fas fa-book fa-sm text-primary&#34;&gt;&lt;/i&gt;
+    &lt;/a&gt;&lt;template class=&#34;hover-tooltip-content&#34;&gt;
+        &lt;span class=&#34;hover-tooltip-title&#34;&gt;StroomQl&lt;/span&gt;
+        &lt;div class=&#34;hover-tooltip-summary&#34;&gt;&lt;strong&gt;Stroom&lt;/strong&gt; &lt;strong&gt;Q&lt;/strong&gt;uery &lt;strong&gt;L&lt;/strong&gt;anguage is Stroom&amp;rsquo;s own query language. It has similarities with Structured Query Language (SQL) as used in databases. StroomQL is sometimes referred to as &lt;em&gt;sQL&lt;/em&gt; to distinguish it from &lt;em&gt;SQL&lt;/em&gt;.&lt;/div&gt;&lt;span class=&#34;hover-tooltip-more-details&#34;&gt;Click to see more details...&lt;/span&gt;&lt;/template&gt;&lt;/span&gt; query that defines the rule.
+It is the same query editor used by the &lt;a href=&#34;../../docs/user-guide/search/queries/&#34;&gt;Query&lt;/a&gt; &lt;span class=&#34;stroom-icon inline-svg-button icon-button  &#34; &gt;
+    &lt;span class=&#34;face&#34; title=&#34;Query&#34;&gt;&lt;svg xmlns=&#34;http://www.w3.org/2000/svg&#34; width=&#34;1792&#34; height=&#34;1792&#34; viewBox=&#34;0 0 1792 1792&#34;&gt;&lt;path style=&#34;fill:var(--icon-colour__blue)&#34; d=&#34;M1216 832q0-185-131.5-316.5t-316.5-131.5-316.5 131.5-131.5 316.5 131.5 316.5 316.5 131.5 316.5-131.5 131.5-316.5zm512 832q0 52-38 90t-90 38q-54 0-90-38l-343-342q-179 124-399 124-143 0-273.5-55.5t-225-150-150-225-55.5-273.5 55.5-273.5 150-225 225-150 273.5-55.5 273.5 55.5 225 150 150 225 55.5 273.5q0 220-124 399l343 343q37 37 37 90z&#34;/&gt;&lt;/svg&gt;&lt;/span&gt;
+  &lt;/span&gt; document, so you can write a query, run it and inspect the results while you are developing the rule.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Every row the query returns becomes one detection.&lt;/strong&gt;
+This is the single most important thing to understand about a rule.
+A query that returns a million rows will raise a million detections, so it is worth running the query and looking at the row count before enabling the rule.&lt;/p&gt;
+
+
+
+&lt;div class=&#34;alert alert-primary&#34; role=&#34;alert&#34;&gt;
+  &lt;h4 class=&#34;alert-heading&#34;&gt;See Also&lt;/h4&gt;
+  &lt;div class=&#34;alert-content&#34;&gt;
+
+
+
+
+&lt;a href=&#34;../../docs/user-guide/search/queries/stroom-query-language/&#34;&gt;Stroom Query Language&lt;/a&gt;
+
+
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;h2 id=&#34;choosing-a-data-source&#34;&gt;Choosing a Data Source&lt;/h2&gt;
+&lt;p&gt;A rule query can use any data source that a Query document can use, but the choice interacts with the &lt;a href=&#34;../../docs/user-guide/search/analytics/#processing-types&#34;&gt;processing type&lt;/a&gt;.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;A &lt;em&gt;Scheduled Query&lt;/em&gt; rule can query anything, including &lt;span class=&#34;glossary-link link-with-hover-tooltip&#34;&gt;
+    &lt;a href=&#34;../../docs/glossary/s/glossary-searchable&#34;&gt;
+      &lt;span&gt;Searchables&lt;/span&gt;
+      &lt;i class=&#34;glossary-link-icon fas fa-book fa-sm text-primary&#34;&gt;&lt;/i&gt;
+    &lt;/a&gt;&lt;template class=&#34;hover-tooltip-content&#34;&gt;
+        &lt;span class=&#34;hover-tooltip-title&#34;&gt;Searchable&lt;/span&gt;
+        &lt;div class=&#34;hover-tooltip-summary&#34;&gt;A &lt;em&gt;Searchable&lt;/em&gt; is the term given the special searchable data sources that appear at the root of the explorer tree picker when selecting a data source. These data sources are special internal data sources that are not user managed content, unlike an &lt;em&gt;Index&lt;/em&gt;. They provide the means to search various aspects of Stroom&amp;rsquo;s internals, such as the &lt;em&gt;Meta Store&lt;/em&gt; or &lt;em&gt;Processor Tasks&lt;/em&gt;.&lt;/div&gt;&lt;span class=&#34;hover-tooltip-more-details&#34;&gt;Click to see more details...&lt;/span&gt;&lt;/template&gt;&lt;/span&gt; and Lucene indexes.&lt;/li&gt;
+&lt;li&gt;A &lt;em&gt;Streaming&lt;/em&gt; rule must query a View &lt;span class=&#34;stroom-icon inline-svg-button icon-button  &#34; &gt;
+    &lt;span class=&#34;face&#34; title=&#34;View&#34;&gt;&lt;svg xmlns=&#34;http://www.w3.org/2000/svg&#34; width=&#34;1792&#34; height=&#34;1792&#34; viewBox=&#34;0 0 1792 1792&#34;&gt;&lt;path style=&#34;fill:var(--icon-colour__green)&#34; d=&#34;M1595 295q17 41-14 70l-493 493v742q0 42-39 59-13 5-25 5-27 0-45-19l-256-256q-19-19-19-45v-486l-493-493q-31-29-14-70 17-39 59-39h1280q42 0 59 39z&#34;/&gt;&lt;/svg&gt; &lt;/span&gt;
+  &lt;/span&gt;, because the View&amp;rsquo;s filter is what decides which streams are fed through the rule.&lt;/li&gt;
+&lt;/ul&gt;
+
+
+
+&lt;div class=&#34;alert alert-primary&#34; role=&#34;alert&#34;&gt;
+  &lt;h4 class=&#34;alert-heading&#34;&gt;See Also&lt;/h4&gt;
+  &lt;div class=&#34;alert-content&#34;&gt;
+
+
+
+
+&lt;a href=&#34;../../docs/user-guide/search/data-sources/&#34;&gt;Data Sources&lt;/a&gt;
+
+
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;h2 id=&#34;time-ranges-and-relative-times&#34;&gt;Time Ranges and Relative Times&lt;/h2&gt;
+&lt;p&gt;A rule that is going to run repeatedly should express its time range relative to when it runs, not as absolute dates.&lt;/p&gt;
+&lt;p&gt;When a scheduled rule runs, Stroom sets the reference time for the query to the rule&amp;rsquo;s &lt;em&gt;effective execution time&lt;/em&gt; rather than to the current clock time.
+Every relative date expression in the query and in the time range is then resolved against that effective time.&lt;/p&gt;
+&lt;p&gt;This is what makes it possible for a rule to work through history.
+A rule whose query says &lt;code&gt;where EventTime &amp;gt;= day() - 1d&lt;/code&gt; will, when it runs for an effective time of last Tuesday, select last Monday&amp;rsquo;s data.
+The same query run for an effective time of today selects yesterday&amp;rsquo;s data.&lt;/p&gt;
+
+
+
+&lt;div class=&#34;alert alert-primary&#34; role=&#34;alert&#34;&gt;
+  &lt;h4 class=&#34;alert-heading&#34;&gt;Note&lt;/h4&gt;
+  &lt;div class=&#34;alert-content&#34;&gt;
+
+
+
+
+The effective execution time is not the same as the wall clock time at which the rule ran.
+The difference matters whenever a rule is catching up, being replayed, or running over a historic period.
+Both times are recorded on every detection, as &lt;code&gt;effectiveExecutionTime&lt;/code&gt; and &lt;code&gt;executionTime&lt;/code&gt;.
+
+
+  &lt;/div&gt;
+&lt;/div&gt;
+
+
+
+
+&lt;div class=&#34;alert alert-primary&#34; role=&#34;alert&#34;&gt;
+  &lt;h4 class=&#34;alert-heading&#34;&gt;See Also&lt;/h4&gt;
+  &lt;div class=&#34;alert-content&#34;&gt;
+
+
+
+
+&lt;a href=&#34;../../docs/reference-section/dates/#date-expressions&#34;&gt;Date Expressions&lt;/a&gt;
+&lt;a href=&#34;../../docs/user-guide/search/analytics/execution/&#34;&gt;Execution&lt;/a&gt;
+
+
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;h2 id=&#34;columns&#34;&gt;Columns&lt;/h2&gt;
+&lt;p&gt;The columns your query selects become the content of each detection.&lt;/p&gt;
+&lt;p&gt;Every column is added to the detection as a name/value pair, using the column&amp;rsquo;s name as the key, and is available to email templates through the &lt;code&gt;values&lt;/code&gt; dictionary.
+Two column names are treated specially.&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;Column&lt;/th&gt;
+&lt;th&gt;Treatment&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;StreamId&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;Used as the &lt;code&gt;streamId&lt;/code&gt; of the detection&amp;rsquo;s linked event rather than added to &lt;code&gt;values&lt;/code&gt;.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;EventId&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;Used as the &lt;code&gt;eventId&lt;/code&gt; of the detection&amp;rsquo;s linked event rather than added to &lt;code&gt;values&lt;/code&gt;.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;Including &lt;code&gt;StreamId&lt;/code&gt; and &lt;code&gt;EventId&lt;/code&gt; in the query is what allows a detection to link back to the &lt;span class=&#34;glossary-link link-with-hover-tooltip&#34;&gt;
+    &lt;a href=&#34;../../docs/glossary/e/glossary-event&#34;&gt;
+      &lt;span&gt;Event&lt;/span&gt;
+      &lt;i class=&#34;glossary-link-icon fas fa-book fa-sm text-primary&#34;&gt;&lt;/i&gt;
+    &lt;/a&gt;&lt;template class=&#34;hover-tooltip-content&#34;&gt;
+        &lt;span class=&#34;hover-tooltip-title&#34;&gt;Event&lt;/span&gt;
+        &lt;div class=&#34;hover-tooltip-summary&#34;&gt;An event is a single auditable event, e.g. a user logging in to a system. A &lt;em&gt;Stream&lt;/em&gt; typically contains multiple events.&lt;/div&gt;&lt;span class=&#34;hover-tooltip-more-details&#34;&gt;Click to see more details...&lt;/span&gt;&lt;/template&gt;&lt;/span&gt; that caused it.
+Without them the detection still carries all its other values, but there is nothing to click through to.&lt;/p&gt;
+
+
+
+&lt;div class=&#34;alert alert-warning&#34; role=&#34;alert&#34;&gt;
+  &lt;h4 class=&#34;alert-heading&#34;&gt;Warning&lt;/h4&gt;
+  &lt;div class=&#34;alert-content&#34;&gt;
+
+
+
+
+Column names become keys in the email template context, so it pays to choose names that are easy to reference.
+A column named &lt;code&gt;Source IP&lt;/code&gt; has to be written as &lt;code&gt;values[&amp;#39;Source IP&amp;#39;]&lt;/code&gt; in a template, whereas &lt;code&gt;SourceIp&lt;/code&gt; can be written as &lt;code&gt;values.SourceIp&lt;/code&gt;.
+
+
+  &lt;/div&gt;
+&lt;/div&gt;
+
+
+
+
+&lt;div class=&#34;alert alert-primary&#34; role=&#34;alert&#34;&gt;
+  &lt;h4 class=&#34;alert-heading&#34;&gt;See Also&lt;/h4&gt;
+  &lt;div class=&#34;alert-content&#34;&gt;
+
+
+
+
+&lt;a href=&#34;../../docs/user-guide/search/analytics/detections/&#34;&gt;Detections&lt;/a&gt;
+
+
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;h2 id=&#34;table-preferences&#34;&gt;Table Preferences&lt;/h2&gt;
+&lt;p&gt;Some things about a result table cannot be expressed in &lt;span class=&#34;glossary-link link-with-hover-tooltip&#34;&gt;
+    &lt;a href=&#34;../../docs/glossary/s/glossary-stroomql&#34;&gt;
+      &lt;span&gt;StroomQl&lt;/span&gt;
+      &lt;i class=&#34;glossary-link-icon fas fa-book fa-sm text-primary&#34;&gt;&lt;/i&gt;
+    &lt;/a&gt;&lt;template class=&#34;hover-tooltip-content&#34;&gt;
+        &lt;span class=&#34;hover-tooltip-title&#34;&gt;StroomQl&lt;/span&gt;
+        &lt;div class=&#34;hover-tooltip-summary&#34;&gt;&lt;strong&gt;Stroom&lt;/strong&gt; &lt;strong&gt;Q&lt;/strong&gt;uery &lt;strong&gt;L&lt;/strong&gt;anguage is Stroom&amp;rsquo;s own query language. It has similarities with Structured Query Language (SQL) as used in databases. StroomQL is sometimes referred to as &lt;em&gt;sQL&lt;/em&gt; to distinguish it from &lt;em&gt;SQL&lt;/em&gt;.&lt;/div&gt;&lt;span class=&#34;hover-tooltip-more-details&#34;&gt;Click to see more details...&lt;/span&gt;&lt;/template&gt;&lt;/span&gt;, such as which columns are hidden, how values are formatted and how rows are sorted.
+These are set by interacting with the results table in the UI and are stored on the rule alongside the query.&lt;/p&gt;
+&lt;p&gt;For an Analytic Rule these preferences affect only what you see while developing the query.
+For a &lt;a href=&#34;../../docs/user-guide/search/reports/&#34;&gt;Report&lt;/a&gt; they also affect the file that is produced, because the report is written from the same table.&lt;/p&gt;
+&lt;h2 id=&#34;parameters&#34;&gt;Parameters&lt;/h2&gt;
+&lt;p&gt;A rule can define parameters in the same way as a Query document, and refer to them in the query.
+Parameters are stored on the rule, so a scheduled rule always runs with the values held against it.&lt;/p&gt;
+
+      </description>
+    </item>
+    
+    <item>
+      <title>Docs: Rule Settings</title>
+      <link>/docs/user-guide/search/analytics/settings/</link>
+      <pubDate>Thu, 03 Sep 2026 00:00:00 +0000</pubDate>
+      
+      <guid>/docs/user-guide/search/analytics/settings/</guid>
+      <description>
+        
+        
+        &lt;p&gt;The &lt;em&gt;Settings&lt;/em&gt; tab holds the settings that describe the rule itself, rather than its query, its schedule or the notifications it sends.&lt;/p&gt;
+&lt;h2 id=&#34;level-and-status&#34;&gt;Level and Status&lt;/h2&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;Field&lt;/th&gt;
+&lt;th&gt;Description&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;Level&lt;/td&gt;
+&lt;td&gt;The severity of the rule.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Status&lt;/td&gt;
+&lt;td&gt;How reliable the rule is.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;Neither is mandatory.
+A rule that sets neither produces detections without them, which is how every rule created before these settings existed behaves.&lt;/p&gt;
+&lt;p&gt;Both are written to every detection the rule produces, whatever its processing type, and both are available to notification email templates as &lt;code&gt;{{ level }}&lt;/code&gt; and &lt;code&gt;{{ status }}&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;&lt;em&gt;Level&lt;/em&gt; describes how urgent a detection from this rule is, so that whoever receives it can prioritise.&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;Level&lt;/th&gt;
+&lt;th&gt;Meaning&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;Low&lt;/td&gt;
+&lt;td&gt;Little urgency. Worth recording, but not worth interrupting anyone for.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Medium&lt;/td&gt;
+&lt;td&gt;Ordinary priority.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;High&lt;/td&gt;
+&lt;td&gt;Should be looked at ahead of lower level detections.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Critical&lt;/td&gt;
+&lt;td&gt;The most urgent. Reserve it, or it stops meaning anything.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;&lt;em&gt;Status&lt;/em&gt; describes how much the rule can be trusted, which tells an analyst how much weight to give a detection and how many false positives to expect.&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;Status&lt;/th&gt;
+&lt;th&gt;Meaning&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;Experimental&lt;/td&gt;
+&lt;td&gt;An early-stage rule that may be incomplete. Expect more false positives.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Testing&lt;/td&gt;
+&lt;td&gt;More mature than an experimental rule. Actively being validated in real environments. Expect some false positives.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Stable&lt;/td&gt;
+&lt;td&gt;Considered production-ready. Has been thoroughly tested across multiple environments. Expect a reasonable false positive rate.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Deprecated&lt;/td&gt;
+&lt;td&gt;An outdated or superseded rule that may rely on old techniques or assumptions. Generally avoid using these in production.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+
+
+&lt;div class=&#34;alert alert-primary&#34; role=&#34;alert&#34;&gt;
+  &lt;h4 class=&#34;alert-heading&#34;&gt;Note&lt;/h4&gt;
+  &lt;div class=&#34;alert-content&#34;&gt;
+
+
+
+
+&lt;em&gt;Level&lt;/em&gt; and &lt;em&gt;Status&lt;/em&gt; describe the rule, not the individual detection, so every detection a rule produces carries the same values.
+Raising the level of a rule affects only the detections it produces from that point on.
+
+
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;h2 id=&#34;include-rule-documentation&#34;&gt;Include Rule Documentation&lt;/h2&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;Field&lt;/th&gt;
+&lt;th&gt;Description&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;Include Rule Documentation&lt;/td&gt;
+&lt;td&gt;Whether the rule&amp;rsquo;s documentation is included in the detections it produces.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;The content of the rule&amp;rsquo;s &lt;em&gt;Documentation&lt;/em&gt; tab is written to each detection as &lt;code&gt;detailedDescription&lt;/code&gt;, which means it leaves Stroom with the detection, for example by email.
+Untick this where the documentation is for whoever maintains the rule rather than for whoever receives its detections.&lt;/p&gt;
+
+
+
+&lt;div class=&#34;alert alert-primary&#34; role=&#34;alert&#34;&gt;
+  &lt;h4 class=&#34;alert-heading&#34;&gt;See Also&lt;/h4&gt;
+  &lt;div class=&#34;alert-content&#34;&gt;
+
+
+
+
+&lt;a href=&#34;../../docs/user-guide/search/analytics/detections/#how-a-detection-is-built&#34;&gt;How a Detection is Built&lt;/a&gt;
+
+
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;h2 id=&#34;feed-for-errors&#34;&gt;Feed for Errors&lt;/h2&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;Field&lt;/th&gt;
+&lt;th&gt;Description&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;Feed For Errors&lt;/td&gt;
+&lt;td&gt;The &lt;span class=&#34;glossary-link link-with-hover-tooltip&#34;&gt;
+    &lt;a href=&#34;../../docs/glossary/f/glossary-feed&#34;&gt;
+      &lt;span&gt;Feed&lt;/span&gt;
+      &lt;i class=&#34;glossary-link-icon fas fa-book fa-sm text-primary&#34;&gt;&lt;/i&gt;
+    &lt;/a&gt;&lt;template class=&#34;hover-tooltip-content&#34;&gt;
+        &lt;span class=&#34;hover-tooltip-title&#34;&gt;Feed&lt;/span&gt;
+        &lt;div class=&#34;hover-tooltip-summary&#34;&gt;A Feed is a means of organising and categorising data in Stroom. A Feed contains multiple &lt;em&gt;Streams&lt;/em&gt; of data that have been ingested into Stroom or output by a &lt;em&gt;Pipeline&lt;/em&gt;. Typically a Feed will contain &lt;em&gt;Streams&lt;/em&gt; of data that are all from one system and have a common data format.&lt;/div&gt;&lt;span class=&#34;hover-tooltip-more-details&#34;&gt;Click to see more details...&lt;/span&gt;&lt;/template&gt;&lt;/span&gt; that errors occurring during execution are written to. Use &lt;em&gt;Set Default&lt;/em&gt; to use the feed configured for the system.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+
+
+&lt;div class=&#34;alert alert-primary&#34; role=&#34;alert&#34;&gt;
+  &lt;h4 class=&#34;alert-heading&#34;&gt;See Also&lt;/h4&gt;
+  &lt;div class=&#34;alert-content&#34;&gt;
+
+
+
+
+&lt;a href=&#34;../../docs/user-guide/search/analytics/execution/#error-feed&#34;&gt;Error Feed&lt;/a&gt;
+
+
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;h2 id=&#34;reports&#34;&gt;Reports&lt;/h2&gt;
+&lt;p&gt;A &lt;a href=&#34;../../docs/user-guide/search/reports/&#34;&gt;Report&lt;/a&gt; &lt;span class=&#34;stroom-icon inline-svg-button icon-button  &#34; &gt;
+    &lt;span class=&#34;face&#34; title=&#34;Report&#34;&gt;&lt;svg id=&#34;svg5453&#34; xmlns=&#34;http://www.w3.org/2000/svg&#34; height=&#34;1792&#34; width=&#34;1792&#34; version=&#34;1.1&#34; viewBox=&#34;0 0 1792 1792&#34;&gt;&lt;path id=&#34;path5455&#34; fill=&#34;var(--icon-colour__blue)&#34; d=&#34;m602.28 1395.3v-176.23q0-12.85-8.2608-21.111-8.2608-8.2607-21.111-8.2607h-293.72q-12.85 0-21.111 8.2607-8.2608 8.2608-8.2608 21.111v176.23q0 12.85 8.2608 21.111 8.2608 8.2608 21.111 8.2608h293.72q12.85 0 21.111-8.2608 8.2608-8.2607 8.2608-21.111zm0-352.46v-176.23q0-12.85-8.2608-21.111-8.2608-8.2608-21.111-8.2608h-293.72q-12.85 0-21.111 8.2608-8.2608 8.2608-8.2608 21.111v176.23q0 12.85 8.2608 21.111 8.2608 8.2608 21.111 8.2608h293.72q12.85 0 21.111-8.2608 8.2608-8.2607 8.2608-21.111zm469.95 352.46v-176.23q0-12.85-8.2608-21.111-8.2608-8.2607-21.111-8.2607h-293.72q-12.85 0-21.111 8.2607-8.2608 8.2608-8.2608 21.111v176.23q0 12.85 8.2608 21.111 8.2608 8.2608 21.111 8.2608h293.72q12.85 0 21.111-8.2608 8.2608-8.2607 8.2608-21.111zm-469.95-704.92v-176.23q0-12.85-8.2608-21.111-8.2608-8.2608-21.111-8.2608h-293.72q-12.85 0-21.111 8.2608-8.2608 8.2608-8.2608 21.111v176.23q0 12.85 8.2608 21.111 8.2608 8.2608 21.111 8.2608h293.72q12.85 0 21.111-8.2608 8.2608-8.2608 8.2608-21.111zm469.95 352.46v-176.23q0-12.85-8.2608-21.111-8.2608-8.2608-21.111-8.2608h-293.72q-12.85 0-21.111 8.2608-8.2608 8.2608-8.2608 21.111v176.23q0 12.85 8.2608 21.111 8.2608 8.2608 21.111 8.2608h293.72q12.85 0 21.111-8.2608 8.2608-8.2607 8.2608-21.111zm469.95 352.46v-176.23q0-12.85-8.2607-21.111-8.2608-8.2607-21.111-8.2607h-293.72q-12.85 0-21.111 8.2607-8.2607 8.2608-8.2607 21.111v176.23q0 12.85 8.2607 21.111 8.2608 8.2608 21.111 8.2608h293.72q12.85 0 21.111-8.2608 8.2607-8.2607 8.2607-21.111zm-469.95-704.92v-176.23q0-12.85-8.2608-21.111-8.2608-8.2608-21.111-8.2608h-293.72q-12.85 0-21.111 8.2608-8.2608 8.2608-8.2608 21.111v176.23q0 12.85 8.2608 21.111 8.2608 8.2608 21.111 8.2608h293.72q12.85 0 21.111-8.2608 8.2608-8.2608 8.2608-21.111zm469.95 352.46v-176.23q0-12.85-8.2607-21.111-8.2608-8.2608-21.111-8.2608h-293.72q-12.85 0-21.111 8.2608-8.2607 8.2608-8.2607 21.111v176.23q0 12.85 8.2607 21.111 8.2608 8.2608 21.111 8.2608h293.72q12.85 0 21.111-8.2608 8.2607-8.2607 8.2607-21.111zm0-352.46v-176.23q0-12.85-8.2607-21.111-8.2608-8.2608-21.111-8.2608h-293.72q-12.85 0-21.111 8.2608-8.2607 8.2608-8.2607 21.111v176.23q0 12.85 8.2607 21.111 8.2608 8.2608 21.111 8.2608h293.72q12.85 0 21.111-8.2608 8.2607-8.2608 8.2607-21.111zm117.49-293.72v998.63q0 60.579-43.14 103.72-43.14 43.14-103.72 43.14h-1233.6q-60.579 0-103.72-43.14-43.14-43.14-43.14-103.72v-998.63q0-60.579 43.14-103.72 43.14-43.14 103.72-43.14h1233.6q60.579 0 103.72 43.14 43.14 43.14 43.14 103.72z&#34;/&gt;&lt;/svg&gt; &lt;/span&gt;
+  &lt;/span&gt; has a &lt;em&gt;Settings&lt;/em&gt; tab of its own, holding &lt;em&gt;Feed For Errors&lt;/em&gt; along with the settings that decide what kind of file it produces.&lt;/p&gt;
+&lt;p&gt;A report has no &lt;em&gt;Level&lt;/em&gt;, &lt;em&gt;Status&lt;/em&gt; or &lt;em&gt;Include Rule Documentation&lt;/em&gt;, because it delivers a file rather than detections.&lt;/p&gt;
+
+
+
+&lt;div class=&#34;alert alert-primary&#34; role=&#34;alert&#34;&gt;
+  &lt;h4 class=&#34;alert-heading&#34;&gt;See Also&lt;/h4&gt;
+  &lt;div class=&#34;alert-content&#34;&gt;
+
+
+
+
+&lt;a href=&#34;../../docs/user-guide/search/reports/settings/&#34;&gt;Report Settings&lt;/a&gt;
+
+
+  &lt;/div&gt;
+&lt;/div&gt;
+
+
+      </description>
+    </item>
+    
+    <item>
+      <title>Docs: Rule Execution</title>
+      <link>/docs/user-guide/search/analytics/execution/</link>
+      <pubDate>Wed, 02 Sep 2026 00:00:00 +0000</pubDate>
+      
+      <guid>/docs/user-guide/search/analytics/execution/</guid>
+      <description>
+        
+        
+        &lt;p&gt;The &lt;em&gt;Execution&lt;/em&gt; tab sets the rule&amp;rsquo;s &lt;a href=&#34;../../docs/user-guide/search/analytics/#processing-types&#34;&gt;processing type&lt;/a&gt;, and for a &lt;em&gt;Scheduled Query&lt;/em&gt; rule it is where you define when the rule runs.&lt;/p&gt;
+&lt;p&gt;A scheduled rule does not have a single schedule field.
+Instead it has a list of &lt;em&gt;execution schedules&lt;/em&gt;, each of which runs the rule independently.
+The tab is split, with the schedules in the upper pane and the history of what those schedules have done in the lower one.&lt;/p&gt;
+&lt;p&gt;Everything on this page applies equally to &lt;a href=&#34;../../docs/user-guide/search/reports/&#34;&gt;Reports&lt;/a&gt; &lt;span class=&#34;stroom-icon inline-svg-button icon-button  &#34; &gt;
+    &lt;span class=&#34;face&#34; title=&#34;Report&#34;&gt;&lt;svg id=&#34;svg5453&#34; xmlns=&#34;http://www.w3.org/2000/svg&#34; height=&#34;1792&#34; width=&#34;1792&#34; version=&#34;1.1&#34; viewBox=&#34;0 0 1792 1792&#34;&gt;&lt;path id=&#34;path5455&#34; fill=&#34;var(--icon-colour__blue)&#34; d=&#34;m602.28 1395.3v-176.23q0-12.85-8.2608-21.111-8.2608-8.2607-21.111-8.2607h-293.72q-12.85 0-21.111 8.2607-8.2608 8.2608-8.2608 21.111v176.23q0 12.85 8.2608 21.111 8.2608 8.2608 21.111 8.2608h293.72q12.85 0 21.111-8.2608 8.2608-8.2607 8.2608-21.111zm0-352.46v-176.23q0-12.85-8.2608-21.111-8.2608-8.2608-21.111-8.2608h-293.72q-12.85 0-21.111 8.2608-8.2608 8.2608-8.2608 21.111v176.23q0 12.85 8.2608 21.111 8.2608 8.2608 21.111 8.2608h293.72q12.85 0 21.111-8.2608 8.2608-8.2607 8.2608-21.111zm469.95 352.46v-176.23q0-12.85-8.2608-21.111-8.2608-8.2607-21.111-8.2607h-293.72q-12.85 0-21.111 8.2607-8.2608 8.2608-8.2608 21.111v176.23q0 12.85 8.2608 21.111 8.2608 8.2608 21.111 8.2608h293.72q12.85 0 21.111-8.2608 8.2608-8.2607 8.2608-21.111zm-469.95-704.92v-176.23q0-12.85-8.2608-21.111-8.2608-8.2608-21.111-8.2608h-293.72q-12.85 0-21.111 8.2608-8.2608 8.2608-8.2608 21.111v176.23q0 12.85 8.2608 21.111 8.2608 8.2608 21.111 8.2608h293.72q12.85 0 21.111-8.2608 8.2608-8.2608 8.2608-21.111zm469.95 352.46v-176.23q0-12.85-8.2608-21.111-8.2608-8.2608-21.111-8.2608h-293.72q-12.85 0-21.111 8.2608-8.2608 8.2608-8.2608 21.111v176.23q0 12.85 8.2608 21.111 8.2608 8.2608 21.111 8.2608h293.72q12.85 0 21.111-8.2608 8.2608-8.2607 8.2608-21.111zm469.95 352.46v-176.23q0-12.85-8.2607-21.111-8.2608-8.2607-21.111-8.2607h-293.72q-12.85 0-21.111 8.2607-8.2607 8.2608-8.2607 21.111v176.23q0 12.85 8.2607 21.111 8.2608 8.2608 21.111 8.2608h293.72q12.85 0 21.111-8.2608 8.2607-8.2607 8.2607-21.111zm-469.95-704.92v-176.23q0-12.85-8.2608-21.111-8.2608-8.2608-21.111-8.2608h-293.72q-12.85 0-21.111 8.2608-8.2608 8.2608-8.2608 21.111v176.23q0 12.85 8.2608 21.111 8.2608 8.2608 21.111 8.2608h293.72q12.85 0 21.111-8.2608 8.2608-8.2608 8.2608-21.111zm469.95 352.46v-176.23q0-12.85-8.2607-21.111-8.2608-8.2608-21.111-8.2608h-293.72q-12.85 0-21.111 8.2608-8.2607 8.2608-8.2607 21.111v176.23q0 12.85 8.2607 21.111 8.2608 8.2608 21.111 8.2608h293.72q12.85 0 21.111-8.2608 8.2607-8.2607 8.2607-21.111zm0-352.46v-176.23q0-12.85-8.2607-21.111-8.2608-8.2608-21.111-8.2608h-293.72q-12.85 0-21.111 8.2608-8.2607 8.2608-8.2607 21.111v176.23q0 12.85 8.2607 21.111 8.2608 8.2608 21.111 8.2608h293.72q12.85 0 21.111-8.2608 8.2607-8.2608 8.2607-21.111zm117.49-293.72v998.63q0 60.579-43.14 103.72-43.14 43.14-103.72 43.14h-1233.6q-60.579 0-103.72-43.14-43.14-43.14-43.14-103.72v-998.63q0-60.579 43.14-103.72 43.14-43.14 103.72-43.14h1233.6q60.579 0 103.72 43.14 43.14 43.14 43.14 103.72z&#34;/&gt;&lt;/svg&gt; &lt;/span&gt;
+  &lt;/span&gt;, which use the same execution machinery.&lt;/p&gt;
+&lt;h2 id=&#34;execution-schedules&#34;&gt;Execution Schedules&lt;/h2&gt;
+&lt;p&gt;Use the &lt;span class=&#34;stroom-icon inline-svg-button icon-button  &#34; &gt;
+    &lt;span class=&#34;face&#34; title=&#34;Add&#34;&gt;&lt;svg xmlns=&#34;http://www.w3.org/2000/svg&#34; width=&#34;1792&#34; height=&#34;1792&#34; viewBox=&#34;0 0 1792 1792&#34;&gt;&lt;path style=&#34;fill:currentColor&#34; d=&#34;m 1600,800 0,192 q 0,40 -28,68 -28,28 -68,28 l -416,0 0,416 q 0,40 -28,68 -28,28 -68,28 l -192,0 q -40,0 -68,-28 -28,-28 -28,-68 l 0,-416 -416,0 q -40,0 -68,-28 -28,-28 -28,-68 l 0,-192 q 0,-40 28,-68 28,-28 68,-28 l 416,0 0,-416 q 0,-40 28,-68 28,-28 68,-28 l 192,0 q 40,0 68,28 28,28 28,68 l 0,416 416,0 q 40,0 68,28 28,28 28,68 z&#34;/&gt;&lt;/svg&gt; &lt;/span&gt;
+  &lt;/span&gt; button above the schedule list to add a schedule.&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;Field&lt;/th&gt;
+&lt;th&gt;Description&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;Name&lt;/td&gt;
+&lt;td&gt;A name for this schedule, used to identify it in the history and recorded on every detection it raises.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Enabled&lt;/td&gt;
+&lt;td&gt;Whether this schedule runs. A schedule that is not enabled is ignored.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Processing Node&lt;/td&gt;
+&lt;td&gt;The node that will run the rule. Use &lt;em&gt;Set Default&lt;/em&gt; to use the node configured for the system.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Schedule&lt;/td&gt;
+&lt;td&gt;A frequency or &lt;span class=&#34;glossary-link link-with-hover-tooltip&#34;&gt;
+    &lt;a href=&#34;../../docs/glossary/c/glossary-cron&#34;&gt;
+      &lt;span&gt;Cron&lt;/span&gt;
+      &lt;i class=&#34;glossary-link-icon fas fa-book fa-sm text-primary&#34;&gt;&lt;/i&gt;
+    &lt;/a&gt;&lt;template class=&#34;hover-tooltip-content&#34;&gt;
+        &lt;span class=&#34;hover-tooltip-title&#34;&gt;Cron&lt;/span&gt;
+        &lt;div class=&#34;hover-tooltip-summary&#34;&gt;&lt;em&gt;Cron&lt;/em&gt; is a command line utility found on most linux/unix systems that is used for scheduling background tasks. Cron expressions (or variants of them) are widely used in other schedulers.&lt;/div&gt;&lt;span class=&#34;hover-tooltip-more-details&#34;&gt;Click to see more details...&lt;/span&gt;&lt;/template&gt;&lt;/span&gt; expression saying how often the rule runs.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Start Time&lt;/td&gt;
+&lt;td&gt;The effective time of the first run, see &lt;a href=&#34;#how-time-works&#34;&gt;How Time Works&lt;/a&gt;.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;End Time&lt;/td&gt;
+&lt;td&gt;An optional effective time after which the schedule stops running.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Run As User&lt;/td&gt;
+&lt;td&gt;The &lt;span class=&#34;glossary-link link-with-hover-tooltip&#34;&gt;
+    &lt;a href=&#34;../../docs/glossary/u/glossary-user&#34;&gt;
+      &lt;span&gt;User&lt;/span&gt;
+      &lt;i class=&#34;glossary-link-icon fas fa-book fa-sm text-primary&#34;&gt;&lt;/i&gt;
+    &lt;/a&gt;&lt;template class=&#34;hover-tooltip-content&#34;&gt;
+        &lt;span class=&#34;hover-tooltip-title&#34;&gt;User&lt;/span&gt;
+        &lt;div class=&#34;hover-tooltip-summary&#34;&gt;Refers to a Stroom User that is linked to either an &lt;em&gt;Account&lt;/em&gt; in Stroom&amp;rsquo;s internal &lt;em&gt;Identity Provider&lt;/em&gt; or a user account in an external &lt;em&gt;Identity Provider&lt;/em&gt;. A Stroom User is primarily concerned with authorisation (i.e. application/document permissions and group memberships) rather than authentication, though disabling one also refuses that person at authentication and ends any access they currently hold.&lt;/div&gt;&lt;span class=&#34;hover-tooltip-more-details&#34;&gt;Click to see more details...&lt;/span&gt;&lt;/template&gt;&lt;/span&gt; whose permissions the query runs with.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+
+
+&lt;div class=&#34;alert alert-primary&#34; role=&#34;alert&#34;&gt;
+  &lt;h4 class=&#34;alert-heading&#34;&gt;See Also&lt;/h4&gt;
+  &lt;div class=&#34;alert-content&#34;&gt;
+
+
+
+
+&lt;a href=&#34;../../docs/user-guide/jobs/scheduler/&#34;&gt;Scheduler&lt;/a&gt;
+
+
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;p&gt;Having more than one schedule on a rule is useful when you want the same query run over different periods.
+A common pattern is a frequent schedule that keeps up with new data, plus a second schedule with a start and end time that is used once to work back over history.&lt;/p&gt;
+&lt;h3 id=&#34;run-as-user&#34;&gt;Run as User&lt;/h3&gt;
+&lt;p&gt;The query runs with the permissions of the &lt;em&gt;Run As User&lt;/em&gt;, not those of whoever created the rule.
+If that user cannot see some of the data, the rule will silently detect nothing in it.&lt;/p&gt;
+
+
+
+&lt;div class=&#34;alert alert-primary&#34; role=&#34;alert&#34;&gt;
+  &lt;h4 class=&#34;alert-heading&#34;&gt;Note&lt;/h4&gt;
+  &lt;div class=&#34;alert-content&#34;&gt;
+
+
+
+
+Changing what a user can see changes what the rules running as that user will detect.
+Stroom records these dependencies so that a user cannot be deleted while schedules still run as them.
+
+
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;h2 id=&#34;how-time-works&#34;&gt;How Time Works&lt;/h2&gt;
+&lt;p&gt;Each run of a schedule has two different times associated with it, and telling them apart is the key to understanding scheduled rules.&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;Time&lt;/th&gt;
+&lt;th&gt;Meaning&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;Execution Time&lt;/td&gt;
+&lt;td&gt;The wall clock time at which the rule actually ran.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Effective Execution Time&lt;/td&gt;
+&lt;td&gt;The point in time the run represents. This is what relative date expressions in the query resolve against.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;For a rule that is keeping up with new data the two are almost the same.
+They diverge whenever a rule is catching up, because a rule that is behind will run now for an effective time in the past.&lt;/p&gt;
+&lt;p&gt;The effective time of the first run comes from the schedule&amp;rsquo;s &lt;em&gt;Start Time&lt;/em&gt;, or from the next occurrence of the schedule if no start time is set.
+After each successful run Stroom records where it has got to, and the next run picks up from there.&lt;/p&gt;
+&lt;h3 id=&#34;contiguous-execution&#34;&gt;Contiguous Execution&lt;/h3&gt;
+&lt;p&gt;Whether a schedule catches up or skips ahead is decided by whether it is contiguous.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;A &lt;strong&gt;contiguous&lt;/strong&gt; schedule takes its next effective time from the last effective time.
+If the rule has not run for a week, it will work forward through that week one run at a time until it catches up.
+No window of data is missed.&lt;/li&gt;
+&lt;li&gt;A &lt;strong&gt;non-contiguous&lt;/strong&gt; schedule takes its next effective time from the current time.
+If the rule has not run for a week, that week is skipped.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Contiguous execution is what you want for a rule that must not miss anything.
+Be aware that it means a rule which has been disabled for a long time, or whose start time is set well in the past, will have a lot of catching up to do when it is enabled.&lt;/p&gt;
+&lt;h2 id=&#34;replaying-an-execution&#34;&gt;Replaying an Execution&lt;/h2&gt;
+&lt;p&gt;Selecting a row in the execution history and clicking &lt;span class=&#34;stroom-icon inline-svg-button icon-button  &#34; &gt;
+    &lt;span class=&#34;face&#34; title=&#34;Replay Execution&#34;&gt;&lt;!-- Created with Inkscape (http://www.inkscape.org/) --&gt;&lt;svg width=&#34;210mm&#34; height=&#34;210mm&#34; viewBox=&#34;0 0 210 210.00001&#34; version=&#34;1.1&#34; id=&#34;svg5&#34; sodipodi:docname=&#34;rerun.svg&#34; inkscape:version=&#34;1.2.2 (b0a8486541, 2022-12-01)&#34; inkscape:export-filename=&#34;drawing.png&#34; inkscape:export-xdpi=&#34;96&#34; inkscape:export-ydpi=&#34;96&#34; xmlns:inkscape=&#34;http://www.inkscape.org/namespaces/inkscape&#34; xmlns:sodipodi=&#34;http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd&#34; xmlns=&#34;http://www.w3.org/2000/svg&#34; &gt;&lt;sodipodi:namedview id=&#34;namedview7&#34; pagecolor=&#34;var(--icon-colour__white)&#34; bordercolor=&#34;var(--icon-colour__black)&#34; borderopacity=&#34;0.25&#34; inkscape:showpageshadow=&#34;2&#34; inkscape:pageopacity=&#34;0&#34; inkscape:pagecheckerboard=&#34;0&#34; inkscape:deskcolor=&#34;#d1d1d1&#34; inkscape:document-units=&#34;mm&#34; showgrid=&#34;false&#34; inkscape:zoom=&#34;0.70710678&#34; inkscape:cx=&#34;545.88643&#34; inkscape:cy=&#34;486.48946&#34; inkscape:window-width=&#34;1920&#34; inkscape:window-height=&#34;1008&#34; inkscape:window-x=&#34;0&#34; inkscape:window-y=&#34;0&#34; inkscape:window-maximized=&#34;1&#34; inkscape:current-layer=&#34;layer1&#34; /&gt;&lt;defs id=&#34;defs2&#34; /&gt;&lt;g inkscape:groupmode=&#34;layer&#34; id=&#34;layer3&#34; inkscape:label=&#34;Layer 2&#34; /&gt;&lt;g inkscape:label=&#34;Layer 1&#34; inkscape:groupmode=&#34;layer&#34; id=&#34;layer1&#34; transform=&#34;translate(0,-1.6910937)&#34;&gt;&lt;text xml:space=&#34;preserve&#34; style=&#34;font-size:3.175px;fill:var(--icon-colour__black);stroke-width:0.264583&#34; x=&#34;83.659332&#34; y=&#34;77.214859&#34; id=&#34;text946&#34;&gt;&lt;tspan sodipodi:role=&#34;line&#34; id=&#34;tspan944&#34; style=&#34;stroke-width:0.264583&#34;&gt;&lt;/tspan&gt;&lt;/text&gt;&lt;g id=&#34;g9697&#34; transform=&#34;matrix(1.3228665,0.33092318,-0.33092318,1.3228665,-44.227363,-53.719178)&#34;&gt;&lt;path sodipodi:type=&#34;star&#34; style=&#34;fill:var(--icon-colour__black);stroke-width:0.264583&#34; id=&#34;path1196&#34; inkscape:flatsided=&#34;false&#34; sodipodi:sides=&#34;3&#34; sodipodi:cx=&#34;310.15042&#34; sodipodi:cy=&#34;183.14101&#34; sodipodi:r1=&#34;41.86467&#34; sodipodi:r2=&#34;20.932335&#34; sodipodi:arg1=&#34;-0.32252128&#34; sodipodi:arg2=&#34;0.72467628&#34; inkscape:rounded=&#34;0.14&#34; inkscape:randomized=&#34;0&#34; d=&#34;m 349.85652,169.87163 c 1.60883,4.81411 -20.66904,23.34494 -24.03377,27.14528 -3.36472,3.80034 -19.06021,28.15904 -24.03376,27.14527 -4.97355,-1.01377 -9.88279,-29.57238 -11.49162,-34.38648 -1.60882,-4.81411 -14.85634,-30.58616 -11.49162,-34.38649 3.36473,-3.80034 30.55183,6.22744 35.52539,7.24121 4.97355,1.01377 33.91655,2.4271 35.52538,7.24121 z&#34; transform=&#34;matrix(0.17052459,-0.53135238,0.54675496,0.17546767,8.7540464,157.71892)&#34; inkscape:transform-center-x=&#34;6.9086319&#34; inkscape:transform-center-y=&#34;-3.1716699&#34; /&gt;&lt;path style=&#34;fill:var(--icon-colour__black);stroke-width:0.264583&#34; d=&#34;M 164.43179,4.6189065 181.35225,32.2586 179.37707,33.46776 162.47629,5.8601959 164.45407,4.6494441&#34; id=&#34;path1211&#34; /&gt;&lt;path style=&#34;fill:var(--icon-colour__black);stroke-width:0.264583&#34; d=&#34;m 173.70723,37.70359 -27.05594,0.21003 -0.021,-2.701525 27.03839,-0.209893 0.0211,2.716434&#34; id=&#34;path1321&#34; /&gt;&lt;/g&gt;&lt;path sodipodi:type=&#34;star&#34; style=&#34;fill:var(--icon-colour__black);stroke-width:0.264583&#34; id=&#34;path1392&#34; inkscape:flatsided=&#34;false&#34; sodipodi:sides=&#34;3&#34; sodipodi:cx=&#34;273.75394&#34; sodipodi:cy=&#34;199.73717&#34; sodipodi:r1=&#34;251.99969&#34; sodipodi:r2=&#34;125.99984&#34; sodipodi:arg1=&#34;0.50510721&#34; sodipodi:arg2=&#34;1.5523048&#34; inkscape:rounded=&#34;0&#34; inkscape:randomized=&#34;0&#34; d=&#34;M 494.28457,321.68014 276.08373,325.71547 57.882912,329.75081 163.48863,138.76568 269.09433,-52.219445 381.68945,134.73036 Z&#34; transform=&#34;matrix(0.23158394,-0.12795787,0.12795787,0.23158394,10.071879,95.474846)&#34; inkscape:transform-center-x=&#34;-17.321196&#34; inkscape:transform-center-y=&#34;1.252762&#34; /&gt;&lt;path id=&#34;path1745&#34; style=&#34;opacity:1;fill:var(--icon-colour__white);stroke-width:0.264583&#34; d=&#34;m 200.12835,63.284233 -7.5029,2.958993 c 0.0361,-0.0125 0.0724,-0.02463 0.10852,-0.03721 0.62569,-0.216452 1.25459,-0.424481 1.87637,-0.652157 0.76548,-0.280864 1.52936,-0.565305 2.28255,-0.877982 0.72613,-0.287044 1.44721,-0.58712 2.16473,-0.895036 0.3607,-0.157076 0.71644,-0.325379 1.07073,-0.496611 z&#34; /&gt;&lt;path id=&#34;path644&#34; style=&#34;fill:var(--icon-colour__black);stroke-width:0.264583&#34; d=&#34;M -104.99979 4.4408921e-16 A 105 105 0 0 1 0 104.99979 A 105 105 0 0 1 -104.99979 210.0001 A 105 105 0 0 1 -210.0001 104.99979 A 105 105 0 0 1 -203.82322 69.569397 L -186.45735 74.592346 C -186.45494 74.593211 -186.45253 74.594066 -186.45012 74.59493 A 87 87 0 0 0 -192.00017 104.99979 A 87 87 0 0 0 -104.99979 192.00017 A 87 87 0 0 0 -17.999935 104.99979 A 87 87 0 0 0 -104.99979 17.999935 A 87 87 0 0 0 -145.37304 27.9554 L -161.16329 16.300814 A 105 105 0 0 1 -104.99979 4.4408921e-16 z &#34; transform=&#34;matrix(-1,0,0,1,0,1.6910937)&#34; /&gt;&lt;ellipse style=&#34;opacity:1;fill:var(--icon-colour__black);fill-opacity:1;fill-rule:nonzero;stroke-width:57.8689;stroke-dasharray:none;paint-order:stroke markers fill&#34; id=&#34;path9602&#34; cx=&#34;166.73792&#34; cy=&#34;124.80812&#34; rx=&#34;9.0336218&#34; ry=&#34;2.5987132&#34; transform=&#34;matrix(0.96111449,-0.27615019,0.27951282,0.96014196,0,0)&#34; /&gt;&lt;/g&gt;&lt;/svg&gt; &lt;/span&gt;
+  &lt;/span&gt; &lt;em&gt;Replay Execution&lt;/em&gt; sets up a re-run of that one execution.&lt;/p&gt;
+&lt;p&gt;Replaying does not run anything immediately.
+It adds a &lt;strong&gt;new execution schedule&lt;/strong&gt;, named after the original with &lt;code&gt; (replay)&lt;/code&gt; appended, whose start and end times are both the effective execution time of the row you selected.
+The new schedule is created &lt;strong&gt;disabled&lt;/strong&gt;, so nothing happens until you enable it.&lt;/p&gt;
+&lt;p&gt;This is deliberate, as it gives you the chance to check the bounds before the rule runs again.
+Once enabled, the schedule runs the rule once for that effective time and then has nothing further to do.&lt;/p&gt;
+&lt;p&gt;Replay works on a single history row at a time.
+To re-run a range of executions, add an ordinary schedule with the start and end times you want instead.&lt;/p&gt;
+
+
+
+&lt;div class=&#34;alert alert-warning&#34; role=&#34;alert&#34;&gt;
+  &lt;h4 class=&#34;alert-heading&#34;&gt;Warning&lt;/h4&gt;
+  &lt;div class=&#34;alert-content&#34;&gt;
+
+
+
+
+Re-running an execution will raise its detections again.
+Where this is not what you want, use &lt;a href=&#34;../../docs/user-guide/search/analytics/duplicate-management/&#34;&gt;Duplicate Management&lt;/a&gt; to suppress the repeats.
+
+
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;h2 id=&#34;execution-history&#34;&gt;Execution History&lt;/h2&gt;
+&lt;p&gt;The lower pane lists what each schedule has done.&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;Column&lt;/th&gt;
+&lt;th&gt;Description&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;Execution Time&lt;/td&gt;
+&lt;td&gt;When the run happened.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Effective Execution Time&lt;/td&gt;
+&lt;td&gt;The point in time the run represents.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Status&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;Complete&lt;/code&gt; or &lt;code&gt;Error&lt;/code&gt;.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Message&lt;/td&gt;
+&lt;td&gt;The error message where the run failed.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;History is kept for the period set by the &lt;code&gt;stroom.analytics.executionHistoryRetention&lt;/code&gt; property and is deleted by the &lt;em&gt;Analytic Execution History Retention&lt;/em&gt; job.&lt;/p&gt;
+
+
+
+&lt;div class=&#34;alert alert-warning&#34; role=&#34;alert&#34;&gt;
+  &lt;h4 class=&#34;alert-heading&#34;&gt;Warning&lt;/h4&gt;
+  &lt;div class=&#34;alert-content&#34;&gt;
+
+
+
+
+&lt;p&gt;&lt;strong&gt;A schedule that fails is disabled.&lt;/strong&gt;
+When a run fails with an error, Stroom disables that execution schedule rather than letting it fail repeatedly.
+The rule then stops running, and stays stopped until someone notices and re-enables it.&lt;/p&gt;
+&lt;p&gt;This is the most common reason for a rule that appears to have quietly stopped working.
+Check the &lt;em&gt;Enabled&lt;/em&gt; state of the schedule and the last row of the execution history, then look at the rule&#39;s error feed for the detail.&lt;/p&gt;
+
+
+
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;h2 id=&#34;the-execution-schedule-manager&#34;&gt;The Execution Schedule Manager&lt;/h2&gt;
+&lt;p&gt;The rule&amp;rsquo;s &lt;em&gt;Execution&lt;/em&gt; tab only shows that rule&amp;rsquo;s schedules.
+
+
+
+
+
+
+  &lt;div class=&#34;stroom-theme-dark stroom-menu&#34;&gt;
+    
+    
+
+      
+
+      
+      
+
+
+      
+
+  
+  
+  &lt;div class=&#34;stroom-menu-item-background&#34; style=&#34;margin-top: 0px;&#34;&gt;
+    
+    &lt;div class=&#34;stroom-menu-item &#34; &gt;
+
+      &lt;div class=&#34;stroom-menu-item-text&#34;&gt;Monitoring
+      &lt;/div&gt;
+        &lt;div class=&#34;stroom-menu-item-arrow&#34;&gt;
+          &lt;span class=&#34;stroom-icon inline-svg-button icon-button  &#34; &gt;
+    &lt;span class=&#34;face&#34; title=&#34;Arrow right&#34;&gt;&lt;svg xmlns=&#34;http://www.w3.org/2000/svg&#34; width=&#34;1427.7665&#34; height=&#34;1427.7665&#34; viewBox=&#34;0 0 1427.7665 1427.7665&#34;&gt;&lt;g style=&#34;stroke:currentColor;stroke-width:167.567&#34;&gt;&lt;path d=&#34;m 415.05387,83.70929 c -39.92654,0.4303 -75.41463,48.3887 -40.0468,81.9121 C 567.552,348.69899 760.75555,531.15431 953.73208,713.82391 760.75555,896.49341 567.552,1078.9486 375.00707,1262.0262 c -46.19471,43.7855 28.48812,112.1966 76.0571,67.1681 195.93558,-185.823 392.95261,-370.82479 587.98693,-557.52749 5.6117,-4.8034 10.4633,-10.2473 14.4855,-16.1231 9.643,-12.4844 13.9638,-27.0796 13.6909,-41.7198 0.2729,-14.6402 -4.0479,-29.2354 -13.6909,-41.7198 -4.0222,-5.8758 -8.8738,-11.3198 -14.4855,-16.1231 C 844.01678,469.27821 646.99975,284.27629 451.06417,98.45319 439.91519,87.89979 427.27628,83.57749 415.05387,83.70929 Z&#34;/&gt;&lt;/g&gt;&lt;/svg&gt; &lt;/span&gt;
+  &lt;/span&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+
+      
+
+      
+      
+        
+      
+
+
+      
+
+  
+  
+  &lt;div class=&#34;stroom-menu-item-background&#34; style=&#34;margin-top: 7px;&#34;&gt;
+    
+    &lt;div class=&#34;stroom-menu-item stroom-menu-item-leaf&#34; &gt;
+
+      &lt;div class=&#34;stroom-menu-item-text&#34;&gt;Execution Schedule Manager
+      &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+  &lt;/div&gt;
+
+
+ shows every execution schedule in the system, for Analytic Rules and Reports alike, and is where bulk operations live.&lt;/p&gt;
+&lt;p&gt;The list identifies each schedule by the document it belongs to as well as by its own name, and can be filtered.&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;Button&lt;/th&gt;
+&lt;th&gt;Purpose&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;Edit Selected Schedule&lt;/td&gt;
+&lt;td&gt;Edit one schedule, as on the rule itself.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Batch Edit Schedules&lt;/td&gt;
+&lt;td&gt;Change the name, enabled state, processing node, schedule, bounds or run as user of many schedules at once.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Filter Schedules&lt;/td&gt;
+&lt;td&gt;Narrow the list, for example to one document or one node.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Run Schedules Now&lt;/td&gt;
+&lt;td&gt;Force schedules to run without waiting for them to fall due.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Delete Schedules&lt;/td&gt;
+&lt;td&gt;Delete the selected schedules.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;&lt;em&gt;Run Schedules Now&lt;/em&gt; and &lt;em&gt;Batch Edit Schedules&lt;/em&gt; can be applied either to the schedules you have selected or to everything matching the current filter.&lt;/p&gt;
+
+
+
+&lt;div class=&#34;alert alert-warning&#34; role=&#34;alert&#34;&gt;
+  &lt;h4 class=&#34;alert-heading&#34;&gt;Warning&lt;/h4&gt;
+  &lt;div class=&#34;alert-content&#34;&gt;
+
+
+
+
+&lt;p&gt;&lt;em&gt;Run Schedules Now&lt;/em&gt; does not run a schedule once.
+It forces the selected schedules to process &lt;strong&gt;until they are up to date&lt;/strong&gt;, which for a contiguous schedule that is well behind means working through every window between where it had got to and now.
+This can take a long time and raise a great many detections, so check what is selected before confirming.&lt;/p&gt;
+&lt;p&gt;Disabled schedules are not run, and Stroom warns you when the selection contains any.&lt;/p&gt;
+
+
+
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;h2 id=&#34;error-feed&#34;&gt;Error Feed&lt;/h2&gt;
+&lt;p&gt;Errors raised while a rule is running are written as &lt;code&gt;Error&lt;/code&gt; streams to the rule&amp;rsquo;s error feed.&lt;/p&gt;
+&lt;p&gt;The feed is set by &lt;em&gt;Feed For Errors&lt;/em&gt; on the &lt;a href=&#34;../../docs/user-guide/search/analytics/settings/&#34;&gt;Settings&lt;/a&gt; tab rather than on this one.
+Where the rule does not name one, the feed configured in &lt;code&gt;stroom.ui.analyticUiDefaultConfig.defaultErrorFeed&lt;/code&gt; is used, and a run for which neither is set fails.&lt;/p&gt;
+&lt;p&gt;A run can fail before there is anywhere to write to, for example when neither the rule nor the system configuration names an error feed.
+Failures of that kind are recorded against the execution history instead, which is why it is worth looking at both.&lt;/p&gt;
+
+      </description>
+    </item>
+    
+    <item>
+      <title>Docs: Rule Notifications</title>
+      <link>/docs/user-guide/search/analytics/notifications/</link>
+      <pubDate>Wed, 02 Sep 2026 00:00:00 +0000</pubDate>
+      
+      <guid>/docs/user-guide/search/analytics/notifications/</guid>
+      <description>
+        
+        
+        &lt;p&gt;The &lt;em&gt;Notifications&lt;/em&gt; tab decides what happens to the detections a rule raises.
+Settings that describe the rule as a whole, such as what its detections contain, are on the &lt;a href=&#34;../../docs/user-guide/search/analytics/settings/&#34;&gt;Settings&lt;/a&gt; tab instead.&lt;/p&gt;
+&lt;p&gt;The tab is a list of notifications.
+A rule can have any number of notifications and each one is delivered independently.
+A rule that both writes detections to a feed for later analysis and emails a few people about them has two notifications, not one.&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;Column&lt;/th&gt;
+&lt;th&gt;Description&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;Enabled&lt;/td&gt;
+&lt;td&gt;Whether this notification is delivered.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Type&lt;/td&gt;
+&lt;td&gt;&lt;em&gt;Stream&lt;/em&gt; or &lt;em&gt;Email&lt;/em&gt;.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Destination&lt;/td&gt;
+&lt;td&gt;The feed or email address that detections go to.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Limit&lt;/td&gt;
+&lt;td&gt;Whether the number of notifications is limited.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Max&lt;/td&gt;
+&lt;td&gt;The limit, where one is set.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+
+
+&lt;div class=&#34;alert alert-primary&#34; role=&#34;alert&#34;&gt;
+  &lt;h4 class=&#34;alert-heading&#34;&gt;Note&lt;/h4&gt;
+  &lt;div class=&#34;alert-content&#34;&gt;
+
+
+
+
+A rule with no notifications at all will fail when it runs, because there is nowhere for its detections to go.
+
+
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;p&gt;Everything on this page applies to &lt;a href=&#34;../../docs/user-guide/search/reports/&#34;&gt;Reports&lt;/a&gt; &lt;span class=&#34;stroom-icon inline-svg-button icon-button  &#34; &gt;
+    &lt;span class=&#34;face&#34; title=&#34;Report&#34;&gt;&lt;svg id=&#34;svg5453&#34; xmlns=&#34;http://www.w3.org/2000/svg&#34; height=&#34;1792&#34; width=&#34;1792&#34; version=&#34;1.1&#34; viewBox=&#34;0 0 1792 1792&#34;&gt;&lt;path id=&#34;path5455&#34; fill=&#34;var(--icon-colour__blue)&#34; d=&#34;m602.28 1395.3v-176.23q0-12.85-8.2608-21.111-8.2608-8.2607-21.111-8.2607h-293.72q-12.85 0-21.111 8.2607-8.2608 8.2608-8.2608 21.111v176.23q0 12.85 8.2608 21.111 8.2608 8.2608 21.111 8.2608h293.72q12.85 0 21.111-8.2608 8.2608-8.2607 8.2608-21.111zm0-352.46v-176.23q0-12.85-8.2608-21.111-8.2608-8.2608-21.111-8.2608h-293.72q-12.85 0-21.111 8.2608-8.2608 8.2608-8.2608 21.111v176.23q0 12.85 8.2608 21.111 8.2608 8.2608 21.111 8.2608h293.72q12.85 0 21.111-8.2608 8.2608-8.2607 8.2608-21.111zm469.95 352.46v-176.23q0-12.85-8.2608-21.111-8.2608-8.2607-21.111-8.2607h-293.72q-12.85 0-21.111 8.2607-8.2608 8.2608-8.2608 21.111v176.23q0 12.85 8.2608 21.111 8.2608 8.2608 21.111 8.2608h293.72q12.85 0 21.111-8.2608 8.2608-8.2607 8.2608-21.111zm-469.95-704.92v-176.23q0-12.85-8.2608-21.111-8.2608-8.2608-21.111-8.2608h-293.72q-12.85 0-21.111 8.2608-8.2608 8.2608-8.2608 21.111v176.23q0 12.85 8.2608 21.111 8.2608 8.2608 21.111 8.2608h293.72q12.85 0 21.111-8.2608 8.2608-8.2608 8.2608-21.111zm469.95 352.46v-176.23q0-12.85-8.2608-21.111-8.2608-8.2608-21.111-8.2608h-293.72q-12.85 0-21.111 8.2608-8.2608 8.2608-8.2608 21.111v176.23q0 12.85 8.2608 21.111 8.2608 8.2608 21.111 8.2608h293.72q12.85 0 21.111-8.2608 8.2608-8.2607 8.2608-21.111zm469.95 352.46v-176.23q0-12.85-8.2607-21.111-8.2608-8.2607-21.111-8.2607h-293.72q-12.85 0-21.111 8.2607-8.2607 8.2608-8.2607 21.111v176.23q0 12.85 8.2607 21.111 8.2608 8.2608 21.111 8.2608h293.72q12.85 0 21.111-8.2608 8.2607-8.2607 8.2607-21.111zm-469.95-704.92v-176.23q0-12.85-8.2608-21.111-8.2608-8.2608-21.111-8.2608h-293.72q-12.85 0-21.111 8.2608-8.2608 8.2608-8.2608 21.111v176.23q0 12.85 8.2608 21.111 8.2608 8.2608 21.111 8.2608h293.72q12.85 0 21.111-8.2608 8.2608-8.2608 8.2608-21.111zm469.95 352.46v-176.23q0-12.85-8.2607-21.111-8.2608-8.2608-21.111-8.2608h-293.72q-12.85 0-21.111 8.2608-8.2607 8.2608-8.2607 21.111v176.23q0 12.85 8.2607 21.111 8.2608 8.2608 21.111 8.2608h293.72q12.85 0 21.111-8.2608 8.2607-8.2607 8.2607-21.111zm0-352.46v-176.23q0-12.85-8.2607-21.111-8.2608-8.2608-21.111-8.2608h-293.72q-12.85 0-21.111 8.2608-8.2607 8.2608-8.2607 21.111v176.23q0 12.85 8.2607 21.111 8.2608 8.2608 21.111 8.2608h293.72q12.85 0 21.111-8.2608 8.2607-8.2608 8.2607-21.111zm117.49-293.72v998.63q0 60.579-43.14 103.72-43.14 43.14-103.72 43.14h-1233.6q-60.579 0-103.72-43.14-43.14-43.14-43.14-103.72v-998.63q0-60.579 43.14-103.72 43.14-43.14 103.72-43.14h1233.6q60.579 0 103.72 43.14 43.14 43.14 43.14 103.72z&#34;/&gt;&lt;/svg&gt; &lt;/span&gt;
+  &lt;/span&gt; as well, except that a report delivers a file rather than a detection.
+The differences are covered in &lt;a href=&#34;../../docs/user-guide/search/reports/delivery/&#34;&gt;Report Delivery&lt;/a&gt;.&lt;/p&gt;
+&lt;h2 id=&#34;stream-destinations&#34;&gt;Stream Destinations&lt;/h2&gt;
+&lt;p&gt;A &lt;em&gt;Stream&lt;/em&gt; notification writes detections into a &lt;span class=&#34;glossary-link link-with-hover-tooltip&#34;&gt;
+    &lt;a href=&#34;../../docs/glossary/f/glossary-feed&#34;&gt;
+      &lt;span&gt;Feed&lt;/span&gt;
+      &lt;i class=&#34;glossary-link-icon fas fa-book fa-sm text-primary&#34;&gt;&lt;/i&gt;
+    &lt;/a&gt;&lt;template class=&#34;hover-tooltip-content&#34;&gt;
+        &lt;span class=&#34;hover-tooltip-title&#34;&gt;Feed&lt;/span&gt;
+        &lt;div class=&#34;hover-tooltip-summary&#34;&gt;A Feed is a means of organising and categorising data in Stroom. A Feed contains multiple &lt;em&gt;Streams&lt;/em&gt; of data that have been ingested into Stroom or output by a &lt;em&gt;Pipeline&lt;/em&gt;. Typically a Feed will contain &lt;em&gt;Streams&lt;/em&gt; of data that are all from one system and have a common data format.&lt;/div&gt;&lt;span class=&#34;hover-tooltip-more-details&#34;&gt;Click to see more details...&lt;/span&gt;&lt;/template&gt;&lt;/span&gt; as XML conforming to the &lt;code&gt;detection:1&lt;/code&gt; &lt;span class=&#34;glossary-link link-with-hover-tooltip&#34;&gt;
+    &lt;a href=&#34;../../docs/glossary/x/glossary-xml-schema&#34;&gt;
+      &lt;span&gt;XML Schema&lt;/span&gt;
+      &lt;i class=&#34;glossary-link-icon fas fa-book fa-sm text-primary&#34;&gt;&lt;/i&gt;
+    &lt;/a&gt;&lt;template class=&#34;hover-tooltip-content&#34;&gt;
+        &lt;span class=&#34;hover-tooltip-title&#34;&gt;XML Schema&lt;/span&gt;
+        &lt;div class=&#34;hover-tooltip-summary&#34;&gt;&lt;em&gt;XML Schema&lt;/em&gt; is a language used to define the permitted structure of an XML document. An XML Schema can be used to validate an XML document to ensure it conforms to that schema such that onward processing of the XML document can be done with confidence that the document is correct.&lt;/div&gt;&lt;span class=&#34;hover-tooltip-more-details&#34;&gt;Click to see more details...&lt;/span&gt;&lt;/template&gt;&lt;/span&gt;.
+This is the right choice when detections are themselves data, to be indexed, searched, or fed into another rule.&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;Field&lt;/th&gt;
+&lt;th&gt;Description&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;Destination Feed&lt;/td&gt;
+&lt;td&gt;The feed the detections are written to. Use &lt;em&gt;Set Default&lt;/em&gt; to use the feed configured for the system.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Use Source Feed If Possible&lt;/td&gt;
+&lt;td&gt;Writes detections to the feed the source data came from rather than to the destination feed.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;&lt;em&gt;Use Source Feed If Possible&lt;/em&gt; is useful for a &lt;a href=&#34;../../docs/user-guide/search/analytics/streaming/&#34;&gt;streaming&lt;/a&gt; rule that runs across many feeds and whose detections are best kept alongside the data that produced them.&lt;/p&gt;
+
+
+
+&lt;div class=&#34;alert alert-primary&#34; role=&#34;alert&#34;&gt;
+  &lt;h4 class=&#34;alert-heading&#34;&gt;Note&lt;/h4&gt;
+  &lt;div class=&#34;alert-content&#34;&gt;
+
+
+
+
+The option only applies to streaming rules, and is disabled for any other processing type.
+A scheduled rule looks across many streams and so has no single source feed to write back to, and a rule that is not streaming always uses the &lt;em&gt;Destination Feed&lt;/em&gt;.
+
+
+  &lt;/div&gt;
+&lt;/div&gt;
+
+
+
+
+&lt;div class=&#34;alert alert-primary&#34; role=&#34;alert&#34;&gt;
+  &lt;h4 class=&#34;alert-heading&#34;&gt;See Also&lt;/h4&gt;
+  &lt;div class=&#34;alert-content&#34;&gt;
+
+
+
+
+&lt;a href=&#34;../../docs/user-guide/search/analytics/detections/&#34;&gt;Detections&lt;/a&gt;
+
+
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;h2 id=&#34;email-destinations&#34;&gt;Email Destinations&lt;/h2&gt;
+&lt;p&gt;An &lt;em&gt;Email&lt;/em&gt; notification sends each detection to people as an email.&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;Field&lt;/th&gt;
+&lt;th&gt;Description&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;To&lt;/td&gt;
+&lt;td&gt;Recipient addresses.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Cc&lt;/td&gt;
+&lt;td&gt;Addresses to copy.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Bcc&lt;/td&gt;
+&lt;td&gt;Addresses to copy without other recipients seeing.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Email Subject Template&lt;/td&gt;
+&lt;td&gt;A template for the subject line.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Email Body Template&lt;/td&gt;
+&lt;td&gt;A template for the body.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;Each field accepts more than one address.&lt;/p&gt;
+
+
+
+&lt;div class=&#34;alert alert-primary&#34; role=&#34;alert&#34;&gt;
+  &lt;h4 class=&#34;alert-heading&#34;&gt;Note&lt;/h4&gt;
+  &lt;div class=&#34;alert-content&#34;&gt;
+
+
+
+
+Email will not work until an SMTP server has been configured for the installation.
+The &lt;em&gt;from&lt;/em&gt; address and name also come from that configuration rather than from the rule.
+See &lt;a href=&#34;../../docs/install-guide/setup/email-setup/&#34;&gt;Email Setup&lt;/a&gt;.
+
+
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;h3 id=&#34;templates&#34;&gt;Templates&lt;/h3&gt;
+&lt;p&gt;The subject and body are &lt;em&gt;Jinja&lt;/em&gt; templates rather than fixed text, so that each email can describe the detection that triggered it.&lt;/p&gt;
+&lt;p&gt;The values from the detection are put into the template context before the template is rendered, so &lt;code&gt;{{ detectTime }}&lt;/code&gt; renders when the detection happened and &lt;code&gt;values.SourceIp&lt;/code&gt; renders the value of the query&amp;rsquo;s &lt;code&gt;SourceIp&lt;/code&gt; column.&lt;/p&gt;
+&lt;p&gt;If the rendered body looks like HTML it is sent as an HTML email, otherwise it is sent as plain text.&lt;/p&gt;
+
+
+
+&lt;div class=&#34;alert alert-primary&#34; role=&#34;alert&#34;&gt;
+  &lt;h4 class=&#34;alert-heading&#34;&gt;See Also&lt;/h4&gt;
+  &lt;div class=&#34;alert-content&#34;&gt;
+
+
+
+
+&lt;a href=&#34;../../docs/reference-section/templating/&#34;&gt;Templating&lt;/a&gt;
+&lt;a href=&#34;../../docs/reference-section/templating/#rule-detections-context&#34;&gt;Rule Detections Context&lt;/a&gt;
+
+
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;h3 id=&#34;testing&#34;&gt;Testing&lt;/h3&gt;
+&lt;p&gt;Two buttons let you check a template without waiting for a real detection.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;em&gt;Test Template&lt;/em&gt; renders the template against an example detection and shows you the result, including any errors in the template.&lt;/li&gt;
+&lt;li&gt;&lt;em&gt;Send Test Email&lt;/em&gt; sends that example detection to the configured recipients, which also proves the SMTP configuration works.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;limiting-notifications&#34;&gt;Limiting Notifications&lt;/h2&gt;
+&lt;p&gt;A rule that suddenly matches far more data than expected can send a very large number of emails.
+The limit settings exist to bound that.&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;Field&lt;/th&gt;
+&lt;th&gt;Description&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;Limit Notifications&lt;/td&gt;
+&lt;td&gt;Whether a limit applies.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Maximum Notifications&lt;/td&gt;
+&lt;td&gt;How many notifications may be sent before this one stops.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Resume Notifications After&lt;/td&gt;
+&lt;td&gt;How long to wait before allowing notifications again.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;Once &lt;em&gt;Maximum Notifications&lt;/em&gt; have been sent the notification switches itself off and nothing further is delivered through it.
+It comes back on when &lt;em&gt;Resume Notifications After&lt;/em&gt; has elapsed since the last notification was sent, at which point the count starts again from zero.&lt;/p&gt;
+
+
+
+&lt;div class=&#34;alert alert-warning&#34; role=&#34;alert&#34;&gt;
+  &lt;h4 class=&#34;alert-heading&#34;&gt;Warning&lt;/h4&gt;
+  &lt;div class=&#34;alert-content&#34;&gt;
+
+
+
+
+&lt;p&gt;Detections suppressed by a limit are discarded, not queued.
+A rule that hits its limit will not deliver the detections it raised while switched off, even after it resumes.&lt;/p&gt;
+&lt;p&gt;Where the aim is to avoid being told the same thing repeatedly rather than to bound the volume, &lt;a href=&#34;../../docs/user-guide/search/analytics/duplicate-management/&#34;&gt;Duplicate Management&lt;/a&gt; is usually the better tool, because it suppresses repeats of a detection you have already seen while still delivering new ones.&lt;/p&gt;
+
+
+
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;p&gt;The count is held per notification and is not persisted, so restarting the node resets it.&lt;/p&gt;
+
+      </description>
+    </item>
+    
+    <item>
       <title>Docs: Analytic Rules</title>
       <link>/docs/user-guide/search/analytics/</link>
-      <pubDate>Tue, 30 Apr 2024 00:00:00 +0000</pubDate>
+      <pubDate>Wed, 02 Sep 2026 00:00:00 +0000</pubDate>
       
       <guid>/docs/user-guide/search/analytics/</guid>
       <description>
         
         
-        
-&lt;div class=&#34;alert alert-warning&#34; role=&#34;alert&#34;&gt;
-&lt;h4 class=&#34;alert-heading&#34;&gt;TODO&lt;/h4&gt;
+        &lt;p&gt;An Analytic Rule &lt;span class=&#34;stroom-icon inline-svg-button icon-button  &#34; &gt;
+    &lt;span class=&#34;face&#34; title=&#34;Analytic rule&#34;&gt;&lt;svg xmlns=&#34;http://www.w3.org/2000/svg&#34; width=&#34;1792&#34; height=&#34;1792&#34; viewBox=&#34;0 0 1792 1792&#34;&gt;&lt;path style=&#34;fill:var(--icon-colour__orange)&#34; d=&#34;M1333 566q18 20 7 44l-540 1157q-13 25-42 25-4 0-14-2-17-5-25.5-19t-4.5-30l197-808-406 101q-4 1-12 1-18 0-31-11-18-15-13-39l201-825q4-14 16-23t28-9h328q19 0 32 12.5t13 29.5q0 8-5 18l-171 463 396-98q8-2 12-2 19 0 34 15z&#34;/&gt;&lt;/svg&gt;&lt;/span&gt;
+  &lt;/span&gt; runs a query over your data and turns each row the query returns into a &lt;em&gt;detection&lt;/em&gt;.
+Detections are then delivered to one or more destinations, either written to a &lt;span class=&#34;glossary-link link-with-hover-tooltip&#34;&gt;
+    &lt;a href=&#34;../../docs/glossary/f/glossary-feed&#34;&gt;
+      &lt;span&gt;Feed&lt;/span&gt;
+      &lt;i class=&#34;glossary-link-icon fas fa-book fa-sm text-primary&#34;&gt;&lt;/i&gt;
+    &lt;/a&gt;&lt;template class=&#34;hover-tooltip-content&#34;&gt;
+        &lt;span class=&#34;hover-tooltip-title&#34;&gt;Feed&lt;/span&gt;
+        &lt;div class=&#34;hover-tooltip-summary&#34;&gt;A Feed is a means of organising and categorising data in Stroom. A Feed contains multiple &lt;em&gt;Streams&lt;/em&gt; of data that have been ingested into Stroom or output by a &lt;em&gt;Pipeline&lt;/em&gt;. Typically a Feed will contain &lt;em&gt;Streams&lt;/em&gt; of data that are all from one system and have a common data format.&lt;/div&gt;&lt;span class=&#34;hover-tooltip-more-details&#34;&gt;Click to see more details...&lt;/span&gt;&lt;/template&gt;&lt;/span&gt; as XML or sent to people by email.&lt;/p&gt;
+&lt;p&gt;A rule is the combination of four things, each of which has its own tab on the rule.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;The &lt;a href=&#34;../../docs/user-guide/search/analytics/query/&#34;&gt;query&lt;/a&gt; that decides what counts as a detection.&lt;/li&gt;
+&lt;li&gt;The &lt;a href=&#34;#processing-types&#34;&gt;processing type&lt;/a&gt;, which decides when and how the query is run.&lt;/li&gt;
+&lt;li&gt;The &lt;a href=&#34;../../docs/user-guide/search/analytics/execution/&#34;&gt;execution&lt;/a&gt; settings, which for a scheduled rule decide when it runs and over what period.&lt;/li&gt;
+&lt;li&gt;The &lt;a href=&#34;../../docs/user-guide/search/analytics/notifications/&#34;&gt;notifications&lt;/a&gt;, which decide where detections are delivered.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;If you want to run a query on a schedule and send the results to someone as a file rather than as detections, use a &lt;a href=&#34;../../docs/user-guide/search/reports/&#34;&gt;Report&lt;/a&gt; &lt;span class=&#34;stroom-icon inline-svg-button icon-button  &#34; &gt;
+    &lt;span class=&#34;face&#34; title=&#34;Report&#34;&gt;&lt;svg id=&#34;svg5453&#34; xmlns=&#34;http://www.w3.org/2000/svg&#34; height=&#34;1792&#34; width=&#34;1792&#34; version=&#34;1.1&#34; viewBox=&#34;0 0 1792 1792&#34;&gt;&lt;path id=&#34;path5455&#34; fill=&#34;var(--icon-colour__blue)&#34; d=&#34;m602.28 1395.3v-176.23q0-12.85-8.2608-21.111-8.2608-8.2607-21.111-8.2607h-293.72q-12.85 0-21.111 8.2607-8.2608 8.2608-8.2608 21.111v176.23q0 12.85 8.2608 21.111 8.2608 8.2608 21.111 8.2608h293.72q12.85 0 21.111-8.2608 8.2608-8.2607 8.2608-21.111zm0-352.46v-176.23q0-12.85-8.2608-21.111-8.2608-8.2608-21.111-8.2608h-293.72q-12.85 0-21.111 8.2608-8.2608 8.2608-8.2608 21.111v176.23q0 12.85 8.2608 21.111 8.2608 8.2608 21.111 8.2608h293.72q12.85 0 21.111-8.2608 8.2608-8.2607 8.2608-21.111zm469.95 352.46v-176.23q0-12.85-8.2608-21.111-8.2608-8.2607-21.111-8.2607h-293.72q-12.85 0-21.111 8.2607-8.2608 8.2608-8.2608 21.111v176.23q0 12.85 8.2608 21.111 8.2608 8.2608 21.111 8.2608h293.72q12.85 0 21.111-8.2608 8.2608-8.2607 8.2608-21.111zm-469.95-704.92v-176.23q0-12.85-8.2608-21.111-8.2608-8.2608-21.111-8.2608h-293.72q-12.85 0-21.111 8.2608-8.2608 8.2608-8.2608 21.111v176.23q0 12.85 8.2608 21.111 8.2608 8.2608 21.111 8.2608h293.72q12.85 0 21.111-8.2608 8.2608-8.2608 8.2608-21.111zm469.95 352.46v-176.23q0-12.85-8.2608-21.111-8.2608-8.2608-21.111-8.2608h-293.72q-12.85 0-21.111 8.2608-8.2608 8.2608-8.2608 21.111v176.23q0 12.85 8.2608 21.111 8.2608 8.2608 21.111 8.2608h293.72q12.85 0 21.111-8.2608 8.2608-8.2607 8.2608-21.111zm469.95 352.46v-176.23q0-12.85-8.2607-21.111-8.2608-8.2607-21.111-8.2607h-293.72q-12.85 0-21.111 8.2607-8.2607 8.2608-8.2607 21.111v176.23q0 12.85 8.2607 21.111 8.2608 8.2608 21.111 8.2608h293.72q12.85 0 21.111-8.2608 8.2607-8.2607 8.2607-21.111zm-469.95-704.92v-176.23q0-12.85-8.2608-21.111-8.2608-8.2608-21.111-8.2608h-293.72q-12.85 0-21.111 8.2608-8.2608 8.2608-8.2608 21.111v176.23q0 12.85 8.2608 21.111 8.2608 8.2608 21.111 8.2608h293.72q12.85 0 21.111-8.2608 8.2608-8.2608 8.2608-21.111zm469.95 352.46v-176.23q0-12.85-8.2607-21.111-8.2608-8.2608-21.111-8.2608h-293.72q-12.85 0-21.111 8.2608-8.2607 8.2608-8.2607 21.111v176.23q0 12.85 8.2607 21.111 8.2608 8.2608 21.111 8.2608h293.72q12.85 0 21.111-8.2608 8.2607-8.2607 8.2607-21.111zm0-352.46v-176.23q0-12.85-8.2607-21.111-8.2608-8.2608-21.111-8.2608h-293.72q-12.85 0-21.111 8.2608-8.2607 8.2608-8.2607 21.111v176.23q0 12.85 8.2607 21.111 8.2608 8.2608 21.111 8.2608h293.72q12.85 0 21.111-8.2608 8.2607-8.2608 8.2607-21.111zm117.49-293.72v998.63q0 60.579-43.14 103.72-43.14 43.14-103.72 43.14h-1233.6q-60.579 0-103.72-43.14-43.14-43.14-43.14-103.72v-998.63q0-60.579 43.14-103.72 43.14-43.14 103.72-43.14h1233.6q60.579 0 103.72 43.14 43.14 43.14 43.14 103.72z&#34;/&gt;&lt;/svg&gt; &lt;/span&gt;
+  &lt;/span&gt; instead.
+Reports and Analytic Rules share most of their configuration, so much of this section applies to both.&lt;/p&gt;
+&lt;h2 id=&#34;processing-types&#34;&gt;Processing Types&lt;/h2&gt;
+&lt;p&gt;The &lt;em&gt;Processing Type&lt;/em&gt; is set on the rule&amp;rsquo;s &lt;em&gt;Execution&lt;/em&gt; tab and decides how the query is run.
+It is the most significant choice you make about a rule, because it determines what the rest of the rule&amp;rsquo;s configuration means.&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;Processing Type&lt;/th&gt;
+&lt;th&gt;When the query runs&lt;/th&gt;
+&lt;th&gt;Typical use&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;Scheduled Query&lt;/td&gt;
+&lt;td&gt;On a schedule that you define, over a window of data.&lt;/td&gt;
+&lt;td&gt;Most rules.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Streaming&lt;/td&gt;
+&lt;td&gt;Against each &lt;span class=&#34;glossary-link link-with-hover-tooltip&#34;&gt;
+    &lt;a href=&#34;../../docs/glossary/s/glossary-stream&#34;&gt;
+      &lt;span&gt;Stream&lt;/span&gt;
+      &lt;i class=&#34;glossary-link-icon fas fa-book fa-sm text-primary&#34;&gt;&lt;/i&gt;
+    &lt;/a&gt;&lt;template class=&#34;hover-tooltip-content&#34;&gt;
+        &lt;span class=&#34;hover-tooltip-title&#34;&gt;Stream&lt;/span&gt;
+        &lt;div class=&#34;hover-tooltip-summary&#34;&gt;A Stream is the unit of data that Stroom works with and will typically contain many &lt;em&gt;Events&lt;/em&gt;.&lt;/div&gt;&lt;span class=&#34;hover-tooltip-more-details&#34;&gt;Click to see more details...&lt;/span&gt;&lt;/template&gt;&lt;/span&gt; as it is processed.&lt;/td&gt;
+&lt;td&gt;Rules that must alert as close to ingest as possible.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Table Builder&lt;/td&gt;
+&lt;td&gt;Experimental, see below.&lt;/td&gt;
+&lt;td&gt;Not for production use.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;Changing the processing type changes which tabs the rule shows, because some settings only apply to one type.&lt;/p&gt;
 
-    Complete this section.
 
+
+&lt;div class=&#34;alert alert-primary&#34; role=&#34;alert&#34;&gt;
+  &lt;h4 class=&#34;alert-heading&#34;&gt;Note&lt;/h4&gt;
+  &lt;div class=&#34;alert-content&#34;&gt;
+
+
+
+
+Whichever processing type you choose, the rule does nothing until the corresponding background job is enabled.
+These jobs are all disabled by default, see &lt;a href=&#34;#jobs&#34;&gt;Jobs&lt;/a&gt; below.
+
+
+  &lt;/div&gt;
 &lt;/div&gt;
 
+&lt;h3 id=&#34;scheduled-query&#34;&gt;Scheduled Query&lt;/h3&gt;
+&lt;p&gt;A &lt;em&gt;Scheduled Query&lt;/em&gt; rule runs its query on a schedule, for example every hour or at 03:00 each day.
+Each run covers a window of data, and the rule keeps track of which windows it has already covered so that it can work through history without gaps or repeats.&lt;/p&gt;
+&lt;p&gt;This is the type to use for most rules.
+It is also the only type available to Reports.&lt;/p&gt;
+
+
+
+&lt;div class=&#34;alert alert-primary&#34; role=&#34;alert&#34;&gt;
+  &lt;h4 class=&#34;alert-heading&#34;&gt;See Also&lt;/h4&gt;
+  &lt;div class=&#34;alert-content&#34;&gt;
+
+
+
+
+&lt;a href=&#34;../../docs/user-guide/search/analytics/execution/&#34;&gt;Execution&lt;/a&gt;
+
+
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;h3 id=&#34;streaming&#34;&gt;Streaming&lt;/h3&gt;
+&lt;p&gt;A &lt;em&gt;Streaming&lt;/em&gt; rule is run by a &lt;span class=&#34;glossary-link link-with-hover-tooltip&#34;&gt;
+    &lt;a href=&#34;../../docs/glossary/p/glossary-processor-filter&#34;&gt;
+      &lt;span&gt;Processor filter&lt;/span&gt;
+      &lt;i class=&#34;glossary-link-icon fas fa-book fa-sm text-primary&#34;&gt;&lt;/i&gt;
+    &lt;/a&gt;&lt;template class=&#34;hover-tooltip-content&#34;&gt;
+        &lt;span class=&#34;hover-tooltip-title&#34;&gt;Processor filter&lt;/span&gt;
+        &lt;div class=&#34;hover-tooltip-summary&#34;&gt;A Processor Filter is used to used to find Streams to process through the &lt;em&gt;Pipeline&lt;/em&gt; associated with the Processor Filter. A Processor Filter consists of an expression tree to select which &lt;em&gt;Streams&lt;/em&gt; to process and a tracker to track the what &lt;em&gt;Streams&lt;/em&gt; have been processed.&lt;/div&gt;&lt;span class=&#34;hover-tooltip-more-details&#34;&gt;Click to see more details...&lt;/span&gt;&lt;/template&gt;&lt;/span&gt;, in the same way as a translation pipeline.
+Each stream that matches the filter is passed through the rule as it is processed, so detections are raised without waiting for a schedule to come round.&lt;/p&gt;
+
+
+
+&lt;div class=&#34;alert alert-primary&#34; role=&#34;alert&#34;&gt;
+  &lt;h4 class=&#34;alert-heading&#34;&gt;See Also&lt;/h4&gt;
+  &lt;div class=&#34;alert-content&#34;&gt;
+
+
+
+
+&lt;a href=&#34;../../docs/user-guide/search/analytics/streaming/&#34;&gt;Streaming Rules&lt;/a&gt;
+
+
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;h3 id=&#34;table-builder&#34;&gt;Table Builder&lt;/h3&gt;
+&lt;p&gt;&lt;em&gt;Table Builder&lt;/em&gt; is an experimental feature and should not be used.&lt;/p&gt;
+
+
+
+&lt;div class=&#34;alert alert-primary&#34; role=&#34;alert&#34;&gt;
+  &lt;h4 class=&#34;alert-heading&#34;&gt;See Also&lt;/h4&gt;
+  &lt;div class=&#34;alert-content&#34;&gt;
+
+
+
+
+&lt;a href=&#34;../../docs/user-guide/search/analytics/table-builder/&#34;&gt;Table Builder Rules&lt;/a&gt;
+
+
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;h2 id=&#34;anatomy-of-a-rule&#34;&gt;Anatomy of a Rule&lt;/h2&gt;
+&lt;p&gt;The tabs shown on an Analytic Rule depend on its processing type.&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;Tab&lt;/th&gt;
+&lt;th&gt;Shown for&lt;/th&gt;
+&lt;th&gt;Purpose&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;Query&lt;/td&gt;
+&lt;td&gt;All&lt;/td&gt;
+&lt;td&gt;The query that defines the rule, see &lt;a href=&#34;../../docs/user-guide/search/analytics/query/&#34;&gt;Query&lt;/a&gt;.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Settings&lt;/td&gt;
+&lt;td&gt;All&lt;/td&gt;
+&lt;td&gt;What the rule declares about itself, and where its errors go, see &lt;a href=&#34;../../docs/user-guide/search/analytics/settings/&#34;&gt;Settings&lt;/a&gt;.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Notifications&lt;/td&gt;
+&lt;td&gt;All&lt;/td&gt;
+&lt;td&gt;Where detections are delivered, see &lt;a href=&#34;../../docs/user-guide/search/analytics/notifications/&#34;&gt;Notifications&lt;/a&gt;.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Execution&lt;/td&gt;
+&lt;td&gt;All&lt;/td&gt;
+&lt;td&gt;Processing type, and the schedules for a Scheduled Query rule, see &lt;a href=&#34;../../docs/user-guide/search/analytics/execution/&#34;&gt;Execution&lt;/a&gt;.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Shards&lt;/td&gt;
+&lt;td&gt;Table Builder only&lt;/td&gt;
+&lt;td&gt;The data held in the rule&amp;rsquo;s table, see &lt;a href=&#34;../../docs/user-guide/search/analytics/table-builder/&#34;&gt;Table Builder Rules&lt;/a&gt;.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Duplicate Management&lt;/td&gt;
+&lt;td&gt;Scheduled Query only&lt;/td&gt;
+&lt;td&gt;Suppression of repeated detections, see &lt;a href=&#34;../../docs/user-guide/search/analytics/duplicate-management/&#34;&gt;Duplicate Management&lt;/a&gt;.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Documentation&lt;/td&gt;
+&lt;td&gt;All&lt;/td&gt;
+&lt;td&gt;&lt;span class=&#34;glossary-link link-with-hover-tooltip&#34;&gt;
+    &lt;a href=&#34;../../docs/glossary/m/glossary-markdown&#34;&gt;
+      &lt;span&gt;Markdown&lt;/span&gt;
+      &lt;i class=&#34;glossary-link-icon fas fa-book fa-sm text-primary&#34;&gt;&lt;/i&gt;
+    &lt;/a&gt;&lt;template class=&#34;hover-tooltip-content&#34;&gt;
+        &lt;span class=&#34;hover-tooltip-title&#34;&gt;Markdown&lt;/span&gt;
+        &lt;div class=&#34;hover-tooltip-summary&#34;&gt;&lt;em&gt;Markdown&lt;/em&gt; is a simple &lt;em&gt;markup&lt;/em&gt; language for creating rich formatted text using a text editor. Due to the simplicity of the Markdown it is still very readable in its raw form that contains the markup. Markdown is used in Stroom on the &lt;em&gt;Documentation&lt;/em&gt; tab of each &lt;em&gt;Document&lt;/em&gt; type and in the &lt;em&gt;Documentation&lt;/em&gt; &lt;em&gt;Document&lt;/em&gt; type.&lt;/div&gt;&lt;span class=&#34;hover-tooltip-more-details&#34;&gt;Click to see more details...&lt;/span&gt;&lt;/template&gt;&lt;/span&gt; describing the rule.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Permissions&lt;/td&gt;
+&lt;td&gt;All&lt;/td&gt;
+&lt;td&gt;Who can read and use the rule.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;The content of the &lt;em&gt;Documentation&lt;/em&gt; tab is not just for readers.
+It is also used as the &lt;code&gt;detailedDescription&lt;/code&gt; of the detections the rule raises, so it is worth writing something that will make sense to whoever receives the detection.
+This can be turned off per rule with &lt;em&gt;Include Rule Documentation&lt;/em&gt; on the &lt;em&gt;Settings&lt;/em&gt; tab.&lt;/p&gt;
+&lt;h2 id=&#34;jobs&#34;&gt;Jobs&lt;/h2&gt;
+&lt;p&gt;Analytic Rules are run by background jobs, all of which are &lt;strong&gt;disabled by default&lt;/strong&gt;.
+A newly created rule will do nothing at all until the job for its processing type has been enabled in 
+
+
+
+
+
+  &lt;div class=&#34;stroom-theme-dark stroom-menu&#34;&gt;
+    
+    
+
+      
+
+      
+      
+
+
+      
+
+  
+  
+  &lt;div class=&#34;stroom-menu-item-background&#34; style=&#34;margin-top: 0px;&#34;&gt;
+    
+    &lt;div class=&#34;stroom-menu-item &#34; &gt;
+
+      &lt;div class=&#34;stroom-menu-item-text&#34;&gt;Monitoring
+      &lt;/div&gt;
+        &lt;div class=&#34;stroom-menu-item-arrow&#34;&gt;
+          &lt;span class=&#34;stroom-icon inline-svg-button icon-button  &#34; &gt;
+    &lt;span class=&#34;face&#34; title=&#34;Arrow right&#34;&gt;&lt;svg xmlns=&#34;http://www.w3.org/2000/svg&#34; width=&#34;1427.7665&#34; height=&#34;1427.7665&#34; viewBox=&#34;0 0 1427.7665 1427.7665&#34;&gt;&lt;g style=&#34;stroke:currentColor;stroke-width:167.567&#34;&gt;&lt;path d=&#34;m 415.05387,83.70929 c -39.92654,0.4303 -75.41463,48.3887 -40.0468,81.9121 C 567.552,348.69899 760.75555,531.15431 953.73208,713.82391 760.75555,896.49341 567.552,1078.9486 375.00707,1262.0262 c -46.19471,43.7855 28.48812,112.1966 76.0571,67.1681 195.93558,-185.823 392.95261,-370.82479 587.98693,-557.52749 5.6117,-4.8034 10.4633,-10.2473 14.4855,-16.1231 9.643,-12.4844 13.9638,-27.0796 13.6909,-41.7198 0.2729,-14.6402 -4.0479,-29.2354 -13.6909,-41.7198 -4.0222,-5.8758 -8.8738,-11.3198 -14.4855,-16.1231 C 844.01678,469.27821 646.99975,284.27629 451.06417,98.45319 439.91519,87.89979 427.27628,83.57749 415.05387,83.70929 Z&#34;/&gt;&lt;/g&gt;&lt;/svg&gt; &lt;/span&gt;
+  &lt;/span&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+
+      
+
+      
+      
+        
+      
+
+
+      
+
+  
+  
+  &lt;div class=&#34;stroom-menu-item-background&#34; style=&#34;margin-top: 7px;&#34;&gt;
+    
+    &lt;div class=&#34;stroom-menu-item stroom-menu-item-leaf&#34; &gt;
+        &lt;div class=&#34;stroom-menu-item-icon&#34;&gt;
+          &lt;span class=&#34;stroom-icon inline-svg-button icon-button  &#34; &gt;
+    &lt;span class=&#34;face&#34; title=&#34;Jobs&#34;&gt;&lt;svg xmlns=&#34;http://www.w3.org/2000/svg&#34; width=&#34;1792&#34; height=&#34;1792&#34; viewBox=&#34;0 0 1792 1792&#34;&gt;&lt;path style=&#34;fill:currentColor&#34; d=&#34;M1024 1408h640v-128h-640v128zm-384-512h1024v-128h-1024v128zm640-512h384v-128h-384v128zm512 832v256q0 26-19 45t-45 19h-1664q-26 0-45-19t-19-45v-256q0-26 19-45t45-19h1664q26 0 45 19t19 45zm0-512v256q0 26-19 45t-45 19h-1664q-26 0-45-19t-19-45v-256q0-26 19-45t45-19h1664q26 0 45 19t19 45zm0-512v256q0 26-19 45t-45 19h-1664q-26 0-45-19t-19-45v-256q0-26 19-45t45-19h1664q26 0 45 19t19 45z&#34;/&gt;&lt;/svg&gt;&lt;/span&gt;
+  &lt;/span&gt;
+        &lt;/div&gt;
+
+      &lt;div class=&#34;stroom-menu-item-text&#34;&gt;Jobs
+      &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+  &lt;/div&gt;
+
+
+.&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;Job&lt;/th&gt;
+&lt;th&gt;Drives&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;Analytic Executor: Scheduled Query&lt;/td&gt;
+&lt;td&gt;Scheduled Query rules.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Analytic Executor: Table Builder&lt;/td&gt;
+&lt;td&gt;Table Builder rules.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Analytic Execution History Retention&lt;/td&gt;
+&lt;td&gt;Deletion of old execution history.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;Streaming rules are run by the normal stream processing jobs rather than by a job of their own.&lt;/p&gt;
+&lt;p&gt;The job frequency controls how often Stroom looks for schedules that are due, not how often a rule runs.
+A rule scheduled to run every ten minutes will not do so if the job that looks for due schedules only runs hourly.&lt;/p&gt;
+
+
+
+&lt;div class=&#34;alert alert-primary&#34; role=&#34;alert&#34;&gt;
+  &lt;h4 class=&#34;alert-heading&#34;&gt;See Also&lt;/h4&gt;
+  &lt;div class=&#34;alert-content&#34;&gt;
+
+
+
+
+&lt;a href=&#34;../../docs/user-guide/jobs/&#34;&gt;Jobs&lt;/a&gt;
+
+
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;h2 id=&#34;configuration&#34;&gt;Configuration&lt;/h2&gt;
+&lt;p&gt;Some rule behaviour is set by system properties rather than on the rule itself.&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;Property&lt;/th&gt;
+&lt;th&gt;Purpose&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;stroom.analytics.timezone&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;The time zone used when generating detections.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;stroom.analytics.executionHistoryRetention&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;How long execution history is kept.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;stroom.analytics.emailConfig&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;The SMTP server used for email notifications, see &lt;a href=&#34;../../docs/user-guide/search/analytics/notifications/#email-destinations&#34;&gt;Notifications&lt;/a&gt;.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;stroom.analytics.duplicateCheckStore&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;The store behind &lt;a href=&#34;../../docs/user-guide/search/analytics/duplicate-management/&#34;&gt;Duplicate Management&lt;/a&gt;.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;stroom.ui.analyticUiDefaultConfig&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;The defaults offered in the UI for processing node, error feed and destination feed.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+
+
+&lt;div class=&#34;alert alert-primary&#34; role=&#34;alert&#34;&gt;
+  &lt;h4 class=&#34;alert-heading&#34;&gt;See Also&lt;/h4&gt;
+  &lt;div class=&#34;alert-content&#34;&gt;
+
+
+
+
+&lt;a href=&#34;../../docs/user-guide/properties/&#34;&gt;Properties&lt;/a&gt;
+
+
+  &lt;/div&gt;
+&lt;/div&gt;
+
+
+      </description>
+    </item>
+    
+    <item>
+      <title>Docs: Detections</title>
+      <link>/docs/user-guide/search/analytics/detections/</link>
+      <pubDate>Wed, 02 Sep 2026 00:00:00 +0000</pubDate>
+      
+      <guid>/docs/user-guide/search/analytics/detections/</guid>
+      <description>
+        
+        
+        &lt;p&gt;A &lt;em&gt;detection&lt;/em&gt; is what an Analytic Rule produces.
+One is raised for each row the rule&amp;rsquo;s query returns, and it is the detection, rather than the row, that is delivered to the rule&amp;rsquo;s &lt;a href=&#34;../../docs/user-guide/search/analytics/notifications/&#34;&gt;notifications&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;Detections written to a &lt;span class=&#34;glossary-link link-with-hover-tooltip&#34;&gt;
+    &lt;a href=&#34;../../docs/glossary/f/glossary-feed&#34;&gt;
+      &lt;span&gt;Feed&lt;/span&gt;
+      &lt;i class=&#34;glossary-link-icon fas fa-book fa-sm text-primary&#34;&gt;&lt;/i&gt;
+    &lt;/a&gt;&lt;template class=&#34;hover-tooltip-content&#34;&gt;
+        &lt;span class=&#34;hover-tooltip-title&#34;&gt;Feed&lt;/span&gt;
+        &lt;div class=&#34;hover-tooltip-summary&#34;&gt;A Feed is a means of organising and categorising data in Stroom. A Feed contains multiple &lt;em&gt;Streams&lt;/em&gt; of data that have been ingested into Stroom or output by a &lt;em&gt;Pipeline&lt;/em&gt;. Typically a Feed will contain &lt;em&gt;Streams&lt;/em&gt; of data that are all from one system and have a common data format.&lt;/div&gt;&lt;span class=&#34;hover-tooltip-more-details&#34;&gt;Click to see more details...&lt;/span&gt;&lt;/template&gt;&lt;/span&gt; are XML in the &lt;code&gt;detection:1&lt;/code&gt; namespace, so they can be indexed and searched like any other data in Stroom.
+Detections sent by email are rendered through a template that has access to the same fields.&lt;/p&gt;
+
+
+
+&lt;div class=&#34;alert alert-warning&#34; role=&#34;alert&#34;&gt;
+  &lt;h4 class=&#34;alert-heading&#34;&gt;Warning&lt;/h4&gt;
+  &lt;div class=&#34;alert-content&#34;&gt;
+
+
+
+
+A rule&#39;s detections do not currently validate against the published &lt;code&gt;detection:1&lt;/code&gt; &lt;span class=&#34;glossary-link link-with-hover-tooltip&#34;&gt;
+&lt;a href=&#34;../../docs/glossary/x/glossary-xml-schema&#34;&gt;
+&lt;span&gt;XML Schema&lt;/span&gt;
+&lt;i class=&#34;glossary-link-icon fas fa-book fa-sm text-primary&#34;&gt;&lt;/i&gt;
+&lt;/a&gt;&lt;template class=&#34;hover-tooltip-content&#34;&gt;
+&lt;span class=&#34;hover-tooltip-title&#34;&gt;XML Schema&lt;/span&gt;
+&lt;div class=&#34;hover-tooltip-summary&#34;&gt;&lt;em&gt;XML Schema&lt;/em&gt; is a language used to define the permitted structure of an XML document. An XML Schema can be used to validate an XML document to ensure it conforms to that schema such that onward processing of the XML document can be done with confidence that the document is correct.&lt;/div&gt;&lt;span class=&#34;hover-tooltip-more-details&#34;&gt;Click to see more details…&lt;/span&gt;&lt;/template&gt;&lt;/span&gt; in the core content pack.
+Stroom writes &lt;code&gt;detectorUuid&lt;/code&gt;, &lt;code&gt;executionSchedule&lt;/code&gt;, &lt;code&gt;executionTime&lt;/code&gt;, &lt;code&gt;effectiveExecutionTime&lt;/code&gt;, &lt;code&gt;level&lt;/code&gt;, &lt;code&gt;status&lt;/code&gt; and &lt;code&gt;feedName&lt;/code&gt;, none of which that schema declares, and the schema requires a &lt;code&gt;headline&lt;/code&gt; element that a rule does not produce.
+This affects validation only, for example an XML Schema filter in a pipeline.
+Indexing, searching and delivery are unaffected.
+
+
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;h2 id=&#34;how-a-detection-is-built&#34;&gt;How a Detection is Built&lt;/h2&gt;
+&lt;p&gt;Most of a detection is filled in for you from the rule and from the run that raised it.&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;Field&lt;/th&gt;
+&lt;th&gt;Where it comes from&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;detectTime&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;When the detection was raised.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;detectorName&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;The name of the Analytic Rule &lt;span class=&#34;stroom-icon inline-svg-button icon-button  &#34; &gt;
+    &lt;span class=&#34;face&#34; title=&#34;Analytic rule&#34;&gt;&lt;svg xmlns=&#34;http://www.w3.org/2000/svg&#34; width=&#34;1792&#34; height=&#34;1792&#34; viewBox=&#34;0 0 1792 1792&#34;&gt;&lt;path style=&#34;fill:var(--icon-colour__orange)&#34; d=&#34;M1333 566q18 20 7 44l-540 1157q-13 25-42 25-4 0-14-2-17-5-25.5-19t-4.5-30l197-808-406 101q-4 1-12 1-18 0-31-11-18-15-13-39l201-825q4-14 16-23t28-9h328q19 0 32 12.5t13 29.5q0 8-5 18l-171 463 396-98q8-2 12-2 19 0 34 15z&#34;/&gt;&lt;/svg&gt;&lt;/span&gt;
+  &lt;/span&gt;.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;detectorUuid&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;The &lt;span class=&#34;glossary-link link-with-hover-tooltip&#34;&gt;
+    &lt;a href=&#34;../../docs/glossary/u/glossary-uuid&#34;&gt;
+      &lt;span&gt;UUID&lt;/span&gt;
+      &lt;i class=&#34;glossary-link-icon fas fa-book fa-sm text-primary&#34;&gt;&lt;/i&gt;
+    &lt;/a&gt;&lt;template class=&#34;hover-tooltip-content&#34;&gt;
+        &lt;span class=&#34;hover-tooltip-title&#34;&gt;UUID&lt;/span&gt;
+        &lt;div class=&#34;hover-tooltip-summary&#34;&gt;A &lt;strong&gt;U&lt;/strong&gt;niversally &lt;strong&gt;U&lt;/strong&gt;nique &lt;strong&gt;Id&lt;/strong&gt;entifier for uniquely identifying something. &lt;em&gt;UUIDs&lt;/em&gt; are used as the identifier in &lt;em&gt;Doc Refs&lt;/em&gt;. An example of a &lt;em&gt;UUID&lt;/em&gt; is &lt;code&gt;4ffeb895-53c9-40d6-bf33-3ef025401ad3&lt;/code&gt;.&lt;/div&gt;&lt;span class=&#34;hover-tooltip-more-details&#34;&gt;Click to see more details...&lt;/span&gt;&lt;/template&gt;&lt;/span&gt; of the rule document.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;detectorVersion&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;The version of the rule document at the time it ran.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;detailedDescription&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;The content of the rule&amp;rsquo;s &lt;em&gt;Documentation&lt;/em&gt; tab, see below.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;detectionUniqueId&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;A generated &lt;span class=&#34;glossary-link link-with-hover-tooltip&#34;&gt;
+    &lt;a href=&#34;../../docs/glossary/u/glossary-uuid&#34;&gt;
+      &lt;span&gt;UUID&lt;/span&gt;
+      &lt;i class=&#34;glossary-link-icon fas fa-book fa-sm text-primary&#34;&gt;&lt;/i&gt;
+    &lt;/a&gt;&lt;template class=&#34;hover-tooltip-content&#34;&gt;
+        &lt;span class=&#34;hover-tooltip-title&#34;&gt;UUID&lt;/span&gt;
+        &lt;div class=&#34;hover-tooltip-summary&#34;&gt;A &lt;strong&gt;U&lt;/strong&gt;niversally &lt;strong&gt;U&lt;/strong&gt;nique &lt;strong&gt;Id&lt;/strong&gt;entifier for uniquely identifying something. &lt;em&gt;UUIDs&lt;/em&gt; are used as the identifier in &lt;em&gt;Doc Refs&lt;/em&gt;. An example of a &lt;em&gt;UUID&lt;/em&gt; is &lt;code&gt;4ffeb895-53c9-40d6-bf33-3ef025401ad3&lt;/code&gt;.&lt;/div&gt;&lt;span class=&#34;hover-tooltip-more-details&#34;&gt;Click to see more details...&lt;/span&gt;&lt;/template&gt;&lt;/span&gt;, different for every detection.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;detectionRevision&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;Always &lt;code&gt;0&lt;/code&gt; for detections raised by a rule.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;executionSchedule&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;The name of the &lt;a href=&#34;../../docs/user-guide/search/analytics/execution/&#34;&gt;execution schedule&lt;/a&gt; that fired, for a scheduled rule.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;executionTime&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;The wall clock time at which the rule ran.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;effectiveExecutionTime&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;The point in time the run represented.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;values&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;One entry per column in the query, see below.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;linkedEvents&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;Built from the &lt;code&gt;StreamId&lt;/code&gt; and &lt;code&gt;EventId&lt;/code&gt; columns, see below.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;level&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;The severity declared by the rule, where it declares one, see &lt;a href=&#34;../../docs/user-guide/search/analytics/settings/#level-and-status&#34;&gt;Settings&lt;/a&gt;.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;status&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;How reliable the rule declares itself to be, where it declares it, see &lt;a href=&#34;../../docs/user-guide/search/analytics/settings/#level-and-status&#34;&gt;Settings&lt;/a&gt;.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;Because &lt;code&gt;detailedDescription&lt;/code&gt; comes from the rule&amp;rsquo;s documentation, what you write there is delivered with the detections the rule raises.
+It is worth writing it for whoever receives the detection rather than for whoever maintains the rule.&lt;/p&gt;
+&lt;p&gt;Whether it is included is controlled by &lt;em&gt;Include Rule Documentation&lt;/em&gt; on the &lt;a href=&#34;../../docs/user-guide/search/analytics/settings/&#34;&gt;Settings&lt;/a&gt; tab, which applies to every processing type.
+Where it is unticked, &lt;code&gt;detailedDescription&lt;/code&gt; is left empty.&lt;/p&gt;
+
+
+
+&lt;div class=&#34;alert alert-primary&#34; role=&#34;alert&#34;&gt;
+  &lt;h4 class=&#34;alert-heading&#34;&gt;Note&lt;/h4&gt;
+  &lt;div class=&#34;alert-content&#34;&gt;
+
+
+
+
+&lt;code&gt;detectorVersion&lt;/code&gt; is the version of the rule document, which changes every time the rule is saved.
+It is not a version you set yourself.
+
+
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;h2 id=&#34;values&#34;&gt;Values&lt;/h2&gt;
+&lt;p&gt;Every column the query selects becomes an entry in &lt;code&gt;values&lt;/code&gt;, keyed by the column name.
+In a feed these appear as &lt;code&gt;&amp;lt;value name=&amp;quot;...&amp;quot;&amp;gt;&lt;/code&gt; elements, and in an email template they are reachable through the &lt;code&gt;values&lt;/code&gt; dictionary.&lt;/p&gt;
+&lt;p&gt;The two exceptions are &lt;code&gt;StreamId&lt;/code&gt; and &lt;code&gt;EventId&lt;/code&gt;.
+Rather than appearing in &lt;code&gt;values&lt;/code&gt;, they are used to build a linked event, which records the &lt;span class=&#34;glossary-link link-with-hover-tooltip&#34;&gt;
+    &lt;a href=&#34;../../docs/glossary/s/glossary-stream&#34;&gt;
+      &lt;span&gt;Stream&lt;/span&gt;
+      &lt;i class=&#34;glossary-link-icon fas fa-book fa-sm text-primary&#34;&gt;&lt;/i&gt;
+    &lt;/a&gt;&lt;template class=&#34;hover-tooltip-content&#34;&gt;
+        &lt;span class=&#34;hover-tooltip-title&#34;&gt;Stream&lt;/span&gt;
+        &lt;div class=&#34;hover-tooltip-summary&#34;&gt;A Stream is the unit of data that Stroom works with and will typically contain many &lt;em&gt;Events&lt;/em&gt;.&lt;/div&gt;&lt;span class=&#34;hover-tooltip-more-details&#34;&gt;Click to see more details...&lt;/span&gt;&lt;/template&gt;&lt;/span&gt; and &lt;span class=&#34;glossary-link link-with-hover-tooltip&#34;&gt;
+    &lt;a href=&#34;../../docs/glossary/e/glossary-event&#34;&gt;
+      &lt;span&gt;Event&lt;/span&gt;
+      &lt;i class=&#34;glossary-link-icon fas fa-book fa-sm text-primary&#34;&gt;&lt;/i&gt;
+    &lt;/a&gt;&lt;template class=&#34;hover-tooltip-content&#34;&gt;
+        &lt;span class=&#34;hover-tooltip-title&#34;&gt;Event&lt;/span&gt;
+        &lt;div class=&#34;hover-tooltip-summary&#34;&gt;An event is a single auditable event, e.g. a user logging in to a system. A &lt;em&gt;Stream&lt;/em&gt; typically contains multiple events.&lt;/div&gt;&lt;span class=&#34;hover-tooltip-more-details&#34;&gt;Click to see more details...&lt;/span&gt;&lt;/template&gt;&lt;/span&gt; the detection relates to.
+A detection whose query selects neither will have no linked events.&lt;/p&gt;
+
+
+
+&lt;div class=&#34;alert alert-primary&#34; role=&#34;alert&#34;&gt;
+  &lt;h4 class=&#34;alert-heading&#34;&gt;See Also&lt;/h4&gt;
+  &lt;div class=&#34;alert-content&#34;&gt;
+
+
+
+
+&lt;a href=&#34;../../docs/user-guide/search/analytics/query/#columns&#34;&gt;Columns&lt;/a&gt;
+
+
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;h2 id=&#34;fields-a-rule-does-not-set&#34;&gt;Fields a Rule Does Not Set&lt;/h2&gt;
+&lt;p&gt;The &lt;code&gt;detection:1&lt;/code&gt; schema has several fields that an Analytic Rule never populates, because they only make sense for a detector that revises its own findings over time.&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;Field&lt;/th&gt;
+&lt;th&gt;Purpose&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;headline&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;A short description of what was detected.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;fullDescription&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;A complete description of what was detected.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;detectorEnvironment&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;Where the detector was deployed.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;defunct&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;Marks earlier revisions of a detection as invalid.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;These exist because the same schema is used by detections produced outside Stroom, for example by an XSLT in a translation pipeline or by an external processing framework, which can set them.&lt;/p&gt;
+
+
+
+&lt;div class=&#34;alert alert-primary&#34; role=&#34;alert&#34;&gt;
+  &lt;h4 class=&#34;alert-heading&#34;&gt;See Also&lt;/h4&gt;
+  &lt;div class=&#34;alert-content&#34;&gt;
+
+
+
+
+&lt;a href=&#34;../../docs/reference-section/templating/#rule-detections-context&#34;&gt;Rule Detections Context&lt;/a&gt;
+
+
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;h2 id=&#34;detections-as-a-data-source&#34;&gt;Detections as a Data Source&lt;/h2&gt;
+&lt;p&gt;Writing detections to a feed means they can be treated as data in their own right.
+Once indexed they can be searched from a &lt;a href=&#34;../../docs/user-guide/search/dashboards/&#34;&gt;Dashboard&lt;/a&gt; or &lt;a href=&#34;../../docs/user-guide/search/queries/&#34;&gt;Query&lt;/a&gt;, reported on, and used as the input to further rules.&lt;/p&gt;
+&lt;p&gt;A rule whose query runs over a feed of detections is a common way of spotting a pattern across detections that no single detection shows on its own.&lt;/p&gt;
+
+      </description>
+    </item>
+    
+    <item>
+      <title>Docs: Duplicate Management</title>
+      <link>/docs/user-guide/search/analytics/duplicate-management/</link>
+      <pubDate>Wed, 02 Sep 2026 00:00:00 +0000</pubDate>
+      
+      <guid>/docs/user-guide/search/analytics/duplicate-management/</guid>
+      <description>
+        
+        
+        &lt;p&gt;Some rules will detect the same thing over and over.
+A rule that runs hourly and looks for a misconfigured device will find that device every hour until someone fixes it, and nobody needs telling twenty four times a day.&lt;/p&gt;
+&lt;p&gt;&lt;em&gt;Duplicate Management&lt;/em&gt; suppresses detections that match ones the rule has already raised.
+The tab is only shown for &lt;a href=&#34;../../docs/user-guide/search/analytics/#scheduled-query&#34;&gt;Scheduled Query&lt;/a&gt; rules.&lt;/p&gt;
+&lt;p&gt;This is different from &lt;a href=&#34;../../docs/user-guide/search/analytics/notifications/#limiting-notifications&#34;&gt;limiting notifications&lt;/a&gt;, which bounds how many notifications a rule may send regardless of what they say.
+Duplicate management suppresses repeats while still delivering anything new.&lt;/p&gt;
+&lt;h2 id=&#34;settings&#34;&gt;Settings&lt;/h2&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;Field&lt;/th&gt;
+&lt;th&gt;Description&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;Remember Notifications&lt;/td&gt;
+&lt;td&gt;Store the column values of de-duplicated detections so they can be viewed.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Suppress Duplicate Notifications&lt;/td&gt;
+&lt;td&gt;Suppress detections identical to ones already sent.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Choose Columns&lt;/td&gt;
+&lt;td&gt;Use a chosen set of columns to decide what counts as identical, rather than all of them.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Columns&lt;/td&gt;
+&lt;td&gt;A comma delimited list of column names, used when &lt;em&gt;Choose Columns&lt;/em&gt; is set.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;The two switches are independent, and the store is used if either of them is set.&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;Remember&lt;/th&gt;
+&lt;th&gt;Suppress&lt;/th&gt;
+&lt;th&gt;Effect&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;No&lt;/td&gt;
+&lt;td&gt;No&lt;/td&gt;
+&lt;td&gt;No store is used at all, and every detection is delivered.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;No&lt;/td&gt;
+&lt;td&gt;Yes&lt;/td&gt;
+&lt;td&gt;Duplicates are suppressed.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Yes&lt;/td&gt;
+&lt;td&gt;No&lt;/td&gt;
+&lt;td&gt;Every detection is delivered, but what the rule has seen is recorded so it can be viewed.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Yes&lt;/td&gt;
+&lt;td&gt;Yes&lt;/td&gt;
+&lt;td&gt;Duplicates are suppressed, and what the rule has seen can be viewed.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;Setting &lt;em&gt;Remember Notifications&lt;/em&gt; on its own is a useful way to see what a rule would suppress before committing to suppressing it.&lt;/p&gt;
+&lt;p&gt;The lower part of the tab lists what the rule has stored, which is how you check why something was or was not suppressed.
+It also lets you clear the store.&lt;/p&gt;
+&lt;h2 id=&#34;choosing-columns&#34;&gt;Choosing Columns&lt;/h2&gt;
+&lt;p&gt;Where &lt;em&gt;Choose Columns&lt;/em&gt; is not set, the columns used depend on whether the query groups its results.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;A query with &lt;strong&gt;grouped&lt;/strong&gt; columns uses those grouped columns, and ignores the rest.&lt;/li&gt;
+&lt;li&gt;A query with &lt;strong&gt;no grouping&lt;/strong&gt; uses every column.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Using every column is often too strict, because a column that changes on every run will make every detection unique.
+A rule whose query selects a timestamp, or a count, or an event id, will never suppress anything unless the columns are narrowed down to the ones that identify the thing being detected.&lt;/p&gt;
+&lt;p&gt;&lt;em&gt;Choose Columns&lt;/em&gt; is how you narrow them.
+For the misconfigured device example, choosing just the device name means the rule tells you about that device once rather than hourly, however much the other columns change.&lt;/p&gt;
+&lt;p&gt;Column names are case sensitive and must match the names in the query.&lt;/p&gt;
+
+
+
+&lt;div class=&#34;alert alert-warning&#34; role=&#34;alert&#34;&gt;
+  &lt;h4 class=&#34;alert-heading&#34;&gt;Warning&lt;/h4&gt;
+  &lt;div class=&#34;alert-content&#34;&gt;
+
+
+
+
+Changing which columns are used for de-duplication requires the duplicate check store to be cleared.
+The stored entries were built from the old set of columns and cannot be compared against the new one, so until the store is cleared the results will not be what you expect.
+
+
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;h2 id=&#34;the-duplicate-check-store&#34;&gt;The Duplicate Check Store&lt;/h2&gt;
+&lt;p&gt;Each rule has its own store, held on the processing node and configured by the &lt;code&gt;stroom.analytics.duplicateCheckStore&lt;/code&gt; property.&lt;/p&gt;
+&lt;p&gt;The store is keyed on the rule, so it survives the rule being edited.
+It is deleted when the rule is deleted.&lt;/p&gt;
+
+
+
+&lt;div class=&#34;alert alert-primary&#34; role=&#34;alert&#34;&gt;
+  &lt;h4 class=&#34;alert-heading&#34;&gt;Note&lt;/h4&gt;
+  &lt;div class=&#34;alert-content&#34;&gt;
+
+
+
+
+Because suppression is based on what the rule has already raised, replaying an execution will not re-deliver its detections while suppression is on.
+Where you are deliberately re-running something and want the detections again, clear the store first.
+
+
+  &lt;/div&gt;
+&lt;/div&gt;
+
+
+      </description>
+    </item>
+    
+    <item>
+      <title>Docs: Reports</title>
+      <link>/docs/user-guide/search/reports/</link>
+      <pubDate>Wed, 02 Sep 2026 00:00:00 +0000</pubDate>
+      
+      <guid>/docs/user-guide/search/reports/</guid>
+      <description>
+        
+        
+        &lt;p&gt;A Report &lt;span class=&#34;stroom-icon inline-svg-button icon-button  &#34; &gt;
+    &lt;span class=&#34;face&#34; title=&#34;Report&#34;&gt;&lt;svg id=&#34;svg5453&#34; xmlns=&#34;http://www.w3.org/2000/svg&#34; height=&#34;1792&#34; width=&#34;1792&#34; version=&#34;1.1&#34; viewBox=&#34;0 0 1792 1792&#34;&gt;&lt;path id=&#34;path5455&#34; fill=&#34;var(--icon-colour__blue)&#34; d=&#34;m602.28 1395.3v-176.23q0-12.85-8.2608-21.111-8.2608-8.2607-21.111-8.2607h-293.72q-12.85 0-21.111 8.2607-8.2608 8.2608-8.2608 21.111v176.23q0 12.85 8.2608 21.111 8.2608 8.2608 21.111 8.2608h293.72q12.85 0 21.111-8.2608 8.2608-8.2607 8.2608-21.111zm0-352.46v-176.23q0-12.85-8.2608-21.111-8.2608-8.2608-21.111-8.2608h-293.72q-12.85 0-21.111 8.2608-8.2608 8.2608-8.2608 21.111v176.23q0 12.85 8.2608 21.111 8.2608 8.2608 21.111 8.2608h293.72q12.85 0 21.111-8.2608 8.2608-8.2607 8.2608-21.111zm469.95 352.46v-176.23q0-12.85-8.2608-21.111-8.2608-8.2607-21.111-8.2607h-293.72q-12.85 0-21.111 8.2607-8.2608 8.2608-8.2608 21.111v176.23q0 12.85 8.2608 21.111 8.2608 8.2608 21.111 8.2608h293.72q12.85 0 21.111-8.2608 8.2608-8.2607 8.2608-21.111zm-469.95-704.92v-176.23q0-12.85-8.2608-21.111-8.2608-8.2608-21.111-8.2608h-293.72q-12.85 0-21.111 8.2608-8.2608 8.2608-8.2608 21.111v176.23q0 12.85 8.2608 21.111 8.2608 8.2608 21.111 8.2608h293.72q12.85 0 21.111-8.2608 8.2608-8.2608 8.2608-21.111zm469.95 352.46v-176.23q0-12.85-8.2608-21.111-8.2608-8.2608-21.111-8.2608h-293.72q-12.85 0-21.111 8.2608-8.2608 8.2608-8.2608 21.111v176.23q0 12.85 8.2608 21.111 8.2608 8.2608 21.111 8.2608h293.72q12.85 0 21.111-8.2608 8.2608-8.2607 8.2608-21.111zm469.95 352.46v-176.23q0-12.85-8.2607-21.111-8.2608-8.2607-21.111-8.2607h-293.72q-12.85 0-21.111 8.2607-8.2607 8.2608-8.2607 21.111v176.23q0 12.85 8.2607 21.111 8.2608 8.2608 21.111 8.2608h293.72q12.85 0 21.111-8.2608 8.2607-8.2607 8.2607-21.111zm-469.95-704.92v-176.23q0-12.85-8.2608-21.111-8.2608-8.2608-21.111-8.2608h-293.72q-12.85 0-21.111 8.2608-8.2608 8.2608-8.2608 21.111v176.23q0 12.85 8.2608 21.111 8.2608 8.2608 21.111 8.2608h293.72q12.85 0 21.111-8.2608 8.2608-8.2608 8.2608-21.111zm469.95 352.46v-176.23q0-12.85-8.2607-21.111-8.2608-8.2608-21.111-8.2608h-293.72q-12.85 0-21.111 8.2608-8.2607 8.2608-8.2607 21.111v176.23q0 12.85 8.2607 21.111 8.2608 8.2608 21.111 8.2608h293.72q12.85 0 21.111-8.2608 8.2607-8.2607 8.2607-21.111zm0-352.46v-176.23q0-12.85-8.2607-21.111-8.2608-8.2608-21.111-8.2608h-293.72q-12.85 0-21.111 8.2608-8.2607 8.2608-8.2607 21.111v176.23q0 12.85 8.2607 21.111 8.2608 8.2608 21.111 8.2608h293.72q12.85 0 21.111-8.2608 8.2607-8.2608 8.2607-21.111zm117.49-293.72v998.63q0 60.579-43.14 103.72-43.14 43.14-103.72 43.14h-1233.6q-60.579 0-103.72-43.14-43.14-43.14-43.14-103.72v-998.63q0-60.579 43.14-103.72 43.14-43.14 103.72-43.14h1233.6q60.579 0 103.72 43.14 43.14 43.14 43.14 103.72z&#34;/&gt;&lt;/svg&gt; &lt;/span&gt;
+  &lt;/span&gt; runs a query on a schedule and turns the results into a file, which is then delivered to the people or the &lt;span class=&#34;glossary-link link-with-hover-tooltip&#34;&gt;
+    &lt;a href=&#34;../../docs/glossary/f/glossary-feed&#34;&gt;
+      &lt;span&gt;Feed&lt;/span&gt;
+      &lt;i class=&#34;glossary-link-icon fas fa-book fa-sm text-primary&#34;&gt;&lt;/i&gt;
+    &lt;/a&gt;&lt;template class=&#34;hover-tooltip-content&#34;&gt;
+        &lt;span class=&#34;hover-tooltip-title&#34;&gt;Feed&lt;/span&gt;
+        &lt;div class=&#34;hover-tooltip-summary&#34;&gt;A Feed is a means of organising and categorising data in Stroom. A Feed contains multiple &lt;em&gt;Streams&lt;/em&gt; of data that have been ingested into Stroom or output by a &lt;em&gt;Pipeline&lt;/em&gt;. Typically a Feed will contain &lt;em&gt;Streams&lt;/em&gt; of data that are all from one system and have a common data format.&lt;/div&gt;&lt;span class=&#34;hover-tooltip-more-details&#34;&gt;Click to see more details...&lt;/span&gt;&lt;/template&gt;&lt;/span&gt; you nominate.&lt;/p&gt;
+&lt;p&gt;Where an &lt;a href=&#34;../../docs/user-guide/search/analytics/&#34;&gt;Analytic Rule&lt;/a&gt; &lt;span class=&#34;stroom-icon inline-svg-button icon-button  &#34; &gt;
+    &lt;span class=&#34;face&#34; title=&#34;Analytic rule&#34;&gt;&lt;svg xmlns=&#34;http://www.w3.org/2000/svg&#34; width=&#34;1792&#34; height=&#34;1792&#34; viewBox=&#34;0 0 1792 1792&#34;&gt;&lt;path style=&#34;fill:var(--icon-colour__orange)&#34; d=&#34;M1333 566q18 20 7 44l-540 1157q-13 25-42 25-4 0-14-2-17-5-25.5-19t-4.5-30l197-808-406 101q-4 1-12 1-18 0-31-11-18-15-13-39l201-825q4-14 16-23t28-9h328q19 0 32 12.5t13 29.5q0 8-5 18l-171 463 396-98q8-2 12-2 19 0 34 15z&#34;/&gt;&lt;/svg&gt;&lt;/span&gt;
+  &lt;/span&gt; turns each row of its query into a separate detection, a Report turns the whole result table into a single document.
+Use a Report when somebody wants a periodic summary of what the data shows, and an Analytic Rule when somebody needs telling about individual things as they are found.&lt;/p&gt;
+&lt;h2 id=&#34;how-a-report-relates-to-an-analytic-rule&#34;&gt;How a Report Relates to an Analytic Rule&lt;/h2&gt;
+&lt;p&gt;Reports and Analytic Rules are built on the same machinery and share most of their configuration.
+Anything documented for Analytic Rules applies to Reports unless stated otherwise here.&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;Tab&lt;/th&gt;
+&lt;th&gt;Difference from an Analytic Rule&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;Query&lt;/td&gt;
+&lt;td&gt;The same, except that the table preferences you set also shape the file produced, see &lt;a href=&#34;#the-query&#34;&gt;Query&lt;/a&gt;.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Settings&lt;/td&gt;
+&lt;td&gt;Reports only, see &lt;a href=&#34;../../docs/user-guide/search/reports/settings/&#34;&gt;Report Settings&lt;/a&gt;.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Notifications&lt;/td&gt;
+&lt;td&gt;The same destinations, but they deliver a file rather than a detection, see &lt;a href=&#34;../../docs/user-guide/search/reports/delivery/&#34;&gt;Delivery&lt;/a&gt;.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Execution&lt;/td&gt;
+&lt;td&gt;Identical, see &lt;a href=&#34;../../docs/user-guide/search/analytics/execution/&#34;&gt;Execution&lt;/a&gt;.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Documentation&lt;/td&gt;
+&lt;td&gt;Included in the report&amp;rsquo;s Excel info sheet and available to email templates.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;The &lt;em&gt;Processing Type&lt;/em&gt; on a Report&amp;rsquo;s &lt;em&gt;Execution&lt;/em&gt; tab offers only &lt;em&gt;Scheduled Query&lt;/em&gt;.
+Reports are always run on a schedule, so there is no streaming or table builder equivalent.
+They also have no &lt;em&gt;Duplicate Management&lt;/em&gt; tab, because a report is a periodic summary and is expected to repeat.&lt;/p&gt;
+&lt;h2 id=&#34;the-query&#34;&gt;The Query&lt;/h2&gt;
+&lt;p&gt;The &lt;em&gt;Query&lt;/em&gt; tab works as it does on an Analytic Rule, with one important difference.&lt;/p&gt;
+&lt;p&gt;The table preferences you set by interacting with the results, such as hidden columns, value formats and sort order, are stored on the report and applied when the report is generated.
+What you see in the results table while developing the query is therefore what the recipient will get.&lt;/p&gt;
+&lt;p&gt;Relative date expressions resolve against the report&amp;rsquo;s effective execution time rather than the current clock time, which is what allows a report for last month to be produced correctly today.&lt;/p&gt;
+
+
+
+&lt;div class=&#34;alert alert-primary&#34; role=&#34;alert&#34;&gt;
+  &lt;h4 class=&#34;alert-heading&#34;&gt;See Also&lt;/h4&gt;
+  &lt;div class=&#34;alert-content&#34;&gt;
+
+
+
+
+&lt;a href=&#34;../../docs/user-guide/search/analytics/query/&#34;&gt;Rule Queries&lt;/a&gt;
+
+
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;h2 id=&#34;jobs&#34;&gt;Jobs&lt;/h2&gt;
+&lt;p&gt;Reports are run by the &lt;em&gt;Reports&lt;/em&gt; job, which is &lt;strong&gt;disabled by default&lt;/strong&gt;.
+A report will not run until that job has been enabled in 
+
+
+
+
+
+  &lt;div class=&#34;stroom-theme-dark stroom-menu&#34;&gt;
+    
+    
+
+      
+
+      
+      
+
+
+      
+
+  
+  
+  &lt;div class=&#34;stroom-menu-item-background&#34; style=&#34;margin-top: 0px;&#34;&gt;
+    
+    &lt;div class=&#34;stroom-menu-item &#34; &gt;
+
+      &lt;div class=&#34;stroom-menu-item-text&#34;&gt;Monitoring
+      &lt;/div&gt;
+        &lt;div class=&#34;stroom-menu-item-arrow&#34;&gt;
+          &lt;span class=&#34;stroom-icon inline-svg-button icon-button  &#34; &gt;
+    &lt;span class=&#34;face&#34; title=&#34;Arrow right&#34;&gt;&lt;svg xmlns=&#34;http://www.w3.org/2000/svg&#34; width=&#34;1427.7665&#34; height=&#34;1427.7665&#34; viewBox=&#34;0 0 1427.7665 1427.7665&#34;&gt;&lt;g style=&#34;stroke:currentColor;stroke-width:167.567&#34;&gt;&lt;path d=&#34;m 415.05387,83.70929 c -39.92654,0.4303 -75.41463,48.3887 -40.0468,81.9121 C 567.552,348.69899 760.75555,531.15431 953.73208,713.82391 760.75555,896.49341 567.552,1078.9486 375.00707,1262.0262 c -46.19471,43.7855 28.48812,112.1966 76.0571,67.1681 195.93558,-185.823 392.95261,-370.82479 587.98693,-557.52749 5.6117,-4.8034 10.4633,-10.2473 14.4855,-16.1231 9.643,-12.4844 13.9638,-27.0796 13.6909,-41.7198 0.2729,-14.6402 -4.0479,-29.2354 -13.6909,-41.7198 -4.0222,-5.8758 -8.8738,-11.3198 -14.4855,-16.1231 C 844.01678,469.27821 646.99975,284.27629 451.06417,98.45319 439.91519,87.89979 427.27628,83.57749 415.05387,83.70929 Z&#34;/&gt;&lt;/g&gt;&lt;/svg&gt; &lt;/span&gt;
+  &lt;/span&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+
+      
+
+      
+      
+        
+      
+
+
+      
+
+  
+  
+  &lt;div class=&#34;stroom-menu-item-background&#34; style=&#34;margin-top: 7px;&#34;&gt;
+    
+    &lt;div class=&#34;stroom-menu-item stroom-menu-item-leaf&#34; &gt;
+        &lt;div class=&#34;stroom-menu-item-icon&#34;&gt;
+          &lt;span class=&#34;stroom-icon inline-svg-button icon-button  &#34; &gt;
+    &lt;span class=&#34;face&#34; title=&#34;Jobs&#34;&gt;&lt;svg xmlns=&#34;http://www.w3.org/2000/svg&#34; width=&#34;1792&#34; height=&#34;1792&#34; viewBox=&#34;0 0 1792 1792&#34;&gt;&lt;path style=&#34;fill:currentColor&#34; d=&#34;M1024 1408h640v-128h-640v128zm-384-512h1024v-128h-1024v128zm640-512h384v-128h-384v128zm512 832v256q0 26-19 45t-45 19h-1664q-26 0-45-19t-19-45v-256q0-26 19-45t45-19h1664q26 0 45 19t19 45zm0-512v256q0 26-19 45t-45 19h-1664q-26 0-45-19t-19-45v-256q0-26 19-45t45-19h1664q26 0 45 19t19 45zm0-512v256q0 26-19 45t-45 19h-1664q-26 0-45-19t-19-45v-256q0-26 19-45t45-19h1664q26 0 45 19t19 45z&#34;/&gt;&lt;/svg&gt;&lt;/span&gt;
+  &lt;/span&gt;
+        &lt;/div&gt;
+
+      &lt;div class=&#34;stroom-menu-item-text&#34;&gt;Jobs
+      &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+  &lt;/div&gt;
+
+
+.&lt;/p&gt;
+&lt;p&gt;The job controls how often Stroom looks for report schedules that are due, not how often a report is produced.&lt;/p&gt;
+
+
+
+&lt;div class=&#34;alert alert-primary&#34; role=&#34;alert&#34;&gt;
+  &lt;h4 class=&#34;alert-heading&#34;&gt;See Also&lt;/h4&gt;
+  &lt;div class=&#34;alert-content&#34;&gt;
+
+
+
+
+&lt;a href=&#34;../../docs/user-guide/jobs/&#34;&gt;Jobs&lt;/a&gt;
+
+
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;h2 id=&#34;configuration&#34;&gt;Configuration&lt;/h2&gt;
+&lt;p&gt;Reports use the same &lt;code&gt;stroom.analytics&lt;/code&gt; configuration as Analytic Rules, including the SMTP settings that email delivery depends on, see &lt;a href=&#34;../../docs/install-guide/setup/email-setup/&#34;&gt;Email Setup&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;The defaults offered in the UI for the processing node, error feed and destination feed come from &lt;code&gt;stroom.ui.reportUiDefaultConfig&lt;/code&gt; rather than from the equivalent analytics property.&lt;/p&gt;
+
+      </description>
+    </item>
+    
+    <item>
+      <title>Docs: Email Setup</title>
+      <link>/docs/install-guide/setup/email-setup/</link>
+      <pubDate>Wed, 02 Sep 2026 00:00:00 +0000</pubDate>
+      
+      <guid>/docs/install-guide/setup/email-setup/</guid>
+      <description>
+        
+        
+        &lt;p&gt;Stroom sends email for two things, &lt;a href=&#34;../../docs/user-guide/search/analytics/&#34;&gt;Analytic Rule&lt;/a&gt; &lt;span class=&#34;stroom-icon inline-svg-button icon-button  &#34; &gt;
+    &lt;span class=&#34;face&#34; title=&#34;Analytic rule&#34;&gt;&lt;svg xmlns=&#34;http://www.w3.org/2000/svg&#34; width=&#34;1792&#34; height=&#34;1792&#34; viewBox=&#34;0 0 1792 1792&#34;&gt;&lt;path style=&#34;fill:var(--icon-colour__orange)&#34; d=&#34;M1333 566q18 20 7 44l-540 1157q-13 25-42 25-4 0-14-2-17-5-25.5-19t-4.5-30l197-808-406 101q-4 1-12 1-18 0-31-11-18-15-13-39l201-825q4-14 16-23t28-9h328q19 0 32 12.5t13 29.5q0 8-5 18l-171 463 396-98q8-2 12-2 19 0 34 15z&#34;/&gt;&lt;/svg&gt;&lt;/span&gt;
+  &lt;/span&gt; notifications and &lt;a href=&#34;../../docs/user-guide/search/reports/&#34;&gt;Report&lt;/a&gt; &lt;span class=&#34;stroom-icon inline-svg-button icon-button  &#34; &gt;
+    &lt;span class=&#34;face&#34; title=&#34;Report&#34;&gt;&lt;svg id=&#34;svg5453&#34; xmlns=&#34;http://www.w3.org/2000/svg&#34; height=&#34;1792&#34; width=&#34;1792&#34; version=&#34;1.1&#34; viewBox=&#34;0 0 1792 1792&#34;&gt;&lt;path id=&#34;path5455&#34; fill=&#34;var(--icon-colour__blue)&#34; d=&#34;m602.28 1395.3v-176.23q0-12.85-8.2608-21.111-8.2608-8.2607-21.111-8.2607h-293.72q-12.85 0-21.111 8.2607-8.2608 8.2608-8.2608 21.111v176.23q0 12.85 8.2608 21.111 8.2608 8.2608 21.111 8.2608h293.72q12.85 0 21.111-8.2608 8.2608-8.2607 8.2608-21.111zm0-352.46v-176.23q0-12.85-8.2608-21.111-8.2608-8.2608-21.111-8.2608h-293.72q-12.85 0-21.111 8.2608-8.2608 8.2608-8.2608 21.111v176.23q0 12.85 8.2608 21.111 8.2608 8.2608 21.111 8.2608h293.72q12.85 0 21.111-8.2608 8.2608-8.2607 8.2608-21.111zm469.95 352.46v-176.23q0-12.85-8.2608-21.111-8.2608-8.2607-21.111-8.2607h-293.72q-12.85 0-21.111 8.2607-8.2608 8.2608-8.2608 21.111v176.23q0 12.85 8.2608 21.111 8.2608 8.2608 21.111 8.2608h293.72q12.85 0 21.111-8.2608 8.2608-8.2607 8.2608-21.111zm-469.95-704.92v-176.23q0-12.85-8.2608-21.111-8.2608-8.2608-21.111-8.2608h-293.72q-12.85 0-21.111 8.2608-8.2608 8.2608-8.2608 21.111v176.23q0 12.85 8.2608 21.111 8.2608 8.2608 21.111 8.2608h293.72q12.85 0 21.111-8.2608 8.2608-8.2608 8.2608-21.111zm469.95 352.46v-176.23q0-12.85-8.2608-21.111-8.2608-8.2608-21.111-8.2608h-293.72q-12.85 0-21.111 8.2608-8.2608 8.2608-8.2608 21.111v176.23q0 12.85 8.2608 21.111 8.2608 8.2608 21.111 8.2608h293.72q12.85 0 21.111-8.2608 8.2608-8.2607 8.2608-21.111zm469.95 352.46v-176.23q0-12.85-8.2607-21.111-8.2608-8.2607-21.111-8.2607h-293.72q-12.85 0-21.111 8.2607-8.2607 8.2608-8.2607 21.111v176.23q0 12.85 8.2607 21.111 8.2608 8.2608 21.111 8.2608h293.72q12.85 0 21.111-8.2608 8.2607-8.2607 8.2607-21.111zm-469.95-704.92v-176.23q0-12.85-8.2608-21.111-8.2608-8.2608-21.111-8.2608h-293.72q-12.85 0-21.111 8.2608-8.2608 8.2608-8.2608 21.111v176.23q0 12.85 8.2608 21.111 8.2608 8.2608 21.111 8.2608h293.72q12.85 0 21.111-8.2608 8.2608-8.2608 8.2608-21.111zm469.95 352.46v-176.23q0-12.85-8.2607-21.111-8.2608-8.2608-21.111-8.2608h-293.72q-12.85 0-21.111 8.2608-8.2607 8.2608-8.2607 21.111v176.23q0 12.85 8.2607 21.111 8.2608 8.2608 21.111 8.2608h293.72q12.85 0 21.111-8.2608 8.2607-8.2607 8.2607-21.111zm0-352.46v-176.23q0-12.85-8.2607-21.111-8.2608-8.2608-21.111-8.2608h-293.72q-12.85 0-21.111 8.2608-8.2607 8.2608-8.2607 21.111v176.23q0 12.85 8.2607 21.111 8.2608 8.2608 21.111 8.2608h293.72q12.85 0 21.111-8.2608 8.2607-8.2608 8.2607-21.111zm117.49-293.72v998.63q0 60.579-43.14 103.72-43.14 43.14-103.72 43.14h-1233.6q-60.579 0-103.72-43.14-43.14-43.14-43.14-103.72v-998.63q0-60.579 43.14-103.72 43.14-43.14 103.72-43.14h1233.6q60.579 0 103.72 43.14 43.14 43.14 43.14 103.72z&#34;/&gt;&lt;/svg&gt; &lt;/span&gt;
+  &lt;/span&gt; delivery.
+Neither will work until an SMTP server has been configured.&lt;/p&gt;
+&lt;p&gt;This step is only needed if you intend to use email notifications.
+An installation whose rules only write detections to a &lt;span class=&#34;glossary-link link-with-hover-tooltip&#34;&gt;
+    &lt;a href=&#34;../../docs/glossary/f/glossary-feed&#34;&gt;
+      &lt;span&gt;Feed&lt;/span&gt;
+      &lt;i class=&#34;glossary-link-icon fas fa-book fa-sm text-primary&#34;&gt;&lt;/i&gt;
+    &lt;/a&gt;&lt;template class=&#34;hover-tooltip-content&#34;&gt;
+        &lt;span class=&#34;hover-tooltip-title&#34;&gt;Feed&lt;/span&gt;
+        &lt;div class=&#34;hover-tooltip-summary&#34;&gt;A Feed is a means of organising and categorising data in Stroom. A Feed contains multiple &lt;em&gt;Streams&lt;/em&gt; of data that have been ingested into Stroom or output by a &lt;em&gt;Pipeline&lt;/em&gt;. Typically a Feed will contain &lt;em&gt;Streams&lt;/em&gt; of data that are all from one system and have a common data format.&lt;/div&gt;&lt;span class=&#34;hover-tooltip-more-details&#34;&gt;Click to see more details...&lt;/span&gt;&lt;/template&gt;&lt;/span&gt; does not need it.&lt;/p&gt;
+
+
+
+&lt;div class=&#34;alert alert-primary&#34; role=&#34;alert&#34;&gt;
+  &lt;h4 class=&#34;alert-heading&#34;&gt;Note&lt;/h4&gt;
+  &lt;div class=&#34;alert-content&#34;&gt;
+
+
+
+
+There is no email configuration in the user interface.
+It is set in &lt;code&gt;config.yml&lt;/code&gt; and applies to the whole installation, so rule authors cannot configure it themselves.
+
+
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;h2 id=&#34;configuration&#34;&gt;Configuration&lt;/h2&gt;
+&lt;p&gt;Email is configured under the &lt;code&gt;appConfig.analytics.emailConfig&lt;/code&gt; branch.&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-yaml&#34;&gt;appConfig:
+  analytics:
+    emailConfig:
+      fromAddress: &amp;quot;noreply@stroom&amp;quot;
+      fromName: &amp;quot;Stroom Analytics&amp;quot;
+      smtp:
+        host: &amp;quot;localhost&amp;quot;
+        port: 2525
+        transport: &amp;quot;plain&amp;quot;
+        username: null
+        password: null
+&lt;/code&gt;&lt;/pre&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;Property&lt;/th&gt;
+&lt;th&gt;Description&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;fromAddress&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;The address that Stroom sends from, and that replies will go to.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;fromName&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;The display name shown against the from address.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;host&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;The &lt;span class=&#34;glossary-link link-with-hover-tooltip&#34;&gt;
+    &lt;a href=&#34;../../docs/glossary/f/glossary-fqdn&#34;&gt;
+      &lt;span&gt;Fully Qualified Domain Name (FQDN)&lt;/span&gt;
+      &lt;i class=&#34;glossary-link-icon fas fa-book fa-sm text-primary&#34;&gt;&lt;/i&gt;
+    &lt;/a&gt;&lt;template class=&#34;hover-tooltip-content&#34;&gt;
+        &lt;span class=&#34;hover-tooltip-title&#34;&gt;Fully Qualified Domain Name (FQDN)&lt;/span&gt;
+        &lt;div class=&#34;hover-tooltip-summary&#34;&gt;The &lt;strong&gt;F&lt;/strong&gt;ully &lt;strong&gt;Q&lt;/strong&gt;ualified &lt;strong&gt;D&lt;/strong&gt;omain &lt;strong&gt;N&lt;/strong&gt;ame (FQDN) is the complete, unambiguous address of a device or service on the internet, specifying all domain levels including the hostname, domain name, and top-level domain. For example &lt;code&gt;server57.some.domain.com&lt;/code&gt;.&lt;/div&gt;&lt;span class=&#34;hover-tooltip-more-details&#34;&gt;Click to see more details...&lt;/span&gt;&lt;/template&gt;&lt;/span&gt; of the SMTP server.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;port&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;The port of the SMTP server.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;transport&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;How Stroom talks to the SMTP server, see below.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;username&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;The user to authenticate as, or &lt;code&gt;null&lt;/code&gt; for an unauthenticated server.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;password&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;The password to authenticate with, or &lt;code&gt;null&lt;/code&gt; for an unauthenticated server.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;The from address and name are set here rather than on each rule, so every email Stroom sends comes from the same place.
+It is worth choosing an address that is monitored, or one that makes clear that replies will not be read.&lt;/p&gt;
+&lt;h3 id=&#34;transport&#34;&gt;Transport&lt;/h3&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;Value&lt;/th&gt;
+&lt;th&gt;Meaning&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;plain&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;Plain SMTP with no transport security. This is the default.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;TLS&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;SMTP over TLS.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;SSL&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;SMTP over TLS. Treated identically to &lt;code&gt;TLS&lt;/code&gt;.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+
+
+&lt;div class=&#34;alert alert-warning&#34; role=&#34;alert&#34;&gt;
+  &lt;h4 class=&#34;alert-heading&#34;&gt;Warning&lt;/h4&gt;
+  &lt;div class=&#34;alert-content&#34;&gt;
+
+
+
+
+Any value other than &lt;code&gt;TLS&lt;/code&gt; or &lt;code&gt;SSL&lt;/code&gt; is treated as &lt;code&gt;plain&lt;/code&gt;, including a misspelling.
+A typo here will silently send mail unencrypted rather than failing, so it is worth confirming the setting took effect by checking the traffic or the mail server&#39;s logs.
+
+
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;h2 id=&#34;testing&#34;&gt;Testing&lt;/h2&gt;
+&lt;p&gt;The quickest way to confirm the configuration works is from a rule rather than from the server.&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;Open or create an Analytic Rule &lt;span class=&#34;stroom-icon inline-svg-button icon-button  &#34; &gt;
+    &lt;span class=&#34;face&#34; title=&#34;Analytic rule&#34;&gt;&lt;svg xmlns=&#34;http://www.w3.org/2000/svg&#34; width=&#34;1792&#34; height=&#34;1792&#34; viewBox=&#34;0 0 1792 1792&#34;&gt;&lt;path style=&#34;fill:var(--icon-colour__orange)&#34; d=&#34;M1333 566q18 20 7 44l-540 1157q-13 25-42 25-4 0-14-2-17-5-25.5-19t-4.5-30l197-808-406 101q-4 1-12 1-18 0-31-11-18-15-13-39l201-825q4-14 16-23t28-9h328q19 0 32 12.5t13 29.5q0 8-5 18l-171 463 396-98q8-2 12-2 19 0 34 15z&#34;/&gt;&lt;/svg&gt;&lt;/span&gt;
+  &lt;/span&gt;.&lt;/li&gt;
+&lt;li&gt;On the &lt;em&gt;Notifications&lt;/em&gt; tab, add a notification with a &lt;em&gt;Destination Type&lt;/em&gt; of &lt;code&gt;Email&lt;/code&gt; and put your own address in the &lt;em&gt;To&lt;/em&gt; field.&lt;/li&gt;
+&lt;li&gt;Click &lt;em&gt;Send Test Email&lt;/em&gt;.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;This sends an example detection through the whole path, so a message arriving proves the SMTP settings, the from address and the templates all work.&lt;/p&gt;
+&lt;p&gt;Where it fails, the error is reported in the user interface.
+Errors from real rule executions go to the rule&amp;rsquo;s error feed instead.&lt;/p&gt;
+
+
+
+&lt;div class=&#34;alert alert-primary&#34; role=&#34;alert&#34;&gt;
+  &lt;h4 class=&#34;alert-heading&#34;&gt;See Also&lt;/h4&gt;
+  &lt;div class=&#34;alert-content&#34;&gt;
+
+
+
+
+&lt;a href=&#34;../../docs/user-guide/search/analytics/notifications/&#34;&gt;Rule Notifications&lt;/a&gt;
+&lt;a href=&#34;../../docs/user-guide/search/reports/delivery/&#34;&gt;Report Delivery&lt;/a&gt;
+&lt;a href=&#34;../../docs/install-guide/configuration/stroom-and-proxy/configuring-stroom/#analytics&#34;&gt;Stroom Configuration&lt;/a&gt;
+
+
+  &lt;/div&gt;
+&lt;/div&gt;
+
+
+      </description>
+    </item>
+    
+    <item>
+      <title>Docs: Streaming Rules</title>
+      <link>/docs/user-guide/search/analytics/streaming/</link>
+      <pubDate>Wed, 02 Sep 2026 00:00:00 +0000</pubDate>
+      
+      <guid>/docs/user-guide/search/analytics/streaming/</guid>
+      <description>
+        
+        
+        &lt;p&gt;A &lt;em&gt;Streaming&lt;/em&gt; rule is run by a &lt;span class=&#34;glossary-link link-with-hover-tooltip&#34;&gt;
+    &lt;a href=&#34;../../docs/glossary/p/glossary-processor-filter&#34;&gt;
+      &lt;span&gt;Processor filter&lt;/span&gt;
+      &lt;i class=&#34;glossary-link-icon fas fa-book fa-sm text-primary&#34;&gt;&lt;/i&gt;
+    &lt;/a&gt;&lt;template class=&#34;hover-tooltip-content&#34;&gt;
+        &lt;span class=&#34;hover-tooltip-title&#34;&gt;Processor filter&lt;/span&gt;
+        &lt;div class=&#34;hover-tooltip-summary&#34;&gt;A Processor Filter is used to used to find Streams to process through the &lt;em&gt;Pipeline&lt;/em&gt; associated with the Processor Filter. A Processor Filter consists of an expression tree to select which &lt;em&gt;Streams&lt;/em&gt; to process and a tracker to track the what &lt;em&gt;Streams&lt;/em&gt; have been processed.&lt;/div&gt;&lt;span class=&#34;hover-tooltip-more-details&#34;&gt;Click to see more details...&lt;/span&gt;&lt;/template&gt;&lt;/span&gt; rather than by a schedule.
+Each &lt;span class=&#34;glossary-link link-with-hover-tooltip&#34;&gt;
+    &lt;a href=&#34;../../docs/glossary/s/glossary-stream&#34;&gt;
+      &lt;span&gt;Stream&lt;/span&gt;
+      &lt;i class=&#34;glossary-link-icon fas fa-book fa-sm text-primary&#34;&gt;&lt;/i&gt;
+    &lt;/a&gt;&lt;template class=&#34;hover-tooltip-content&#34;&gt;
+        &lt;span class=&#34;hover-tooltip-title&#34;&gt;Stream&lt;/span&gt;
+        &lt;div class=&#34;hover-tooltip-summary&#34;&gt;A Stream is the unit of data that Stroom works with and will typically contain many &lt;em&gt;Events&lt;/em&gt;.&lt;/div&gt;&lt;span class=&#34;hover-tooltip-more-details&#34;&gt;Click to see more details...&lt;/span&gt;&lt;/template&gt;&lt;/span&gt; that matches the filter is passed through the rule as it is processed, so a detection is raised without waiting for the next scheduled run.&lt;/p&gt;
+&lt;p&gt;Use this type where the delay imposed by a schedule is unacceptable.
+For most rules a &lt;a href=&#34;../../docs/user-guide/search/analytics/#scheduled-query&#34;&gt;Scheduled Query&lt;/a&gt; is the better choice, because it can look across a window of data rather than at one stream at a time.&lt;/p&gt;
+&lt;h2 id=&#34;data-source&#34;&gt;Data Source&lt;/h2&gt;
+&lt;p&gt;A streaming rule must query a View &lt;span class=&#34;stroom-icon inline-svg-button icon-button  &#34; &gt;
+    &lt;span class=&#34;face&#34; title=&#34;View&#34;&gt;&lt;svg xmlns=&#34;http://www.w3.org/2000/svg&#34; width=&#34;1792&#34; height=&#34;1792&#34; viewBox=&#34;0 0 1792 1792&#34;&gt;&lt;path style=&#34;fill:var(--icon-colour__green)&#34; d=&#34;M1595 295q17 41-14 70l-493 493v742q0 42-39 59-13 5-25 5-27 0-45-19l-256-256q-19-19-19-45v-486l-493-493q-31-29-14-70 17-39 59-39h1280q42 0 59 39z&#34;/&gt;&lt;/svg&gt; &lt;/span&gt;
+  &lt;/span&gt;, and that View must specify an extraction pipeline.&lt;/p&gt;
+&lt;p&gt;The View is what makes streaming possible.
+Its filter determines which streams are selected for processing, and its extraction pipeline determines the fields the rule&amp;rsquo;s query can use.&lt;/p&gt;
+&lt;p&gt;A rule whose query names anything other than a View, or whose View has no pipeline, fails when it is processed rather than when it is saved.
+The error is reported against the rule, so a streaming rule that raises nothing at all is worth checking here first.&lt;/p&gt;
+
+
+
+&lt;div class=&#34;alert alert-primary&#34; role=&#34;alert&#34;&gt;
+  &lt;h4 class=&#34;alert-heading&#34;&gt;See Also&lt;/h4&gt;
+  &lt;div class=&#34;alert-content&#34;&gt;
+
+
+
+
+&lt;a href=&#34;../../docs/reference-section/documents/#view&#34;&gt;Views&lt;/a&gt;
+
+
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;h2 id=&#34;processing&#34;&gt;Processing&lt;/h2&gt;
+&lt;p&gt;The &lt;em&gt;Execution&lt;/em&gt; tab of a streaming rule shows the rule&amp;rsquo;s processors and filters, in the same form as the &lt;em&gt;Processors&lt;/em&gt; tab of a pipeline.&lt;/p&gt;
+&lt;p&gt;When a filter is created for the rule, its expression is defaulted from the filter on the View the query uses.
+You can then narrow it further, for example to a subset of feeds or a range of stream creation times.&lt;/p&gt;
+&lt;p&gt;Because streaming rules use the normal stream processing machinery, they behave like any other processing task.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;They are picked up by the standard stream processor jobs, not by the &lt;em&gt;Analytic Executor&lt;/em&gt; jobs.&lt;/li&gt;
+&lt;li&gt;Their progress can be tracked, and they can be reprocessed, from the &lt;em&gt;Processors&lt;/em&gt; screen.&lt;/li&gt;
+&lt;li&gt;Their priority competes with other processing on the node.&lt;/li&gt;
+&lt;/ul&gt;
+
+
+
+&lt;div class=&#34;alert alert-primary&#34; role=&#34;alert&#34;&gt;
+  &lt;h4 class=&#34;alert-heading&#34;&gt;See Also&lt;/h4&gt;
+  &lt;div class=&#34;alert-content&#34;&gt;
+
+
+
+
+&lt;a href=&#34;../../docs/howtos/general/enablingprocessorshowto/&#34;&gt;HOWTO - Enabling Processors&lt;/a&gt;
+
+
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;h2 id=&#34;differences-from-a-scheduled-rule&#34;&gt;Differences from a Scheduled Rule&lt;/h2&gt;
+&lt;p&gt;A streaming rule has no execution schedules, and consequently no execution history, no effective execution time and no catch up behaviour.
+Relative date expressions in the query resolve against the time of processing.&lt;/p&gt;
+&lt;p&gt;It also has no &lt;a href=&#34;../../docs/user-guide/search/analytics/duplicate-management/&#34;&gt;Duplicate Management&lt;/a&gt; tab, so repeated detections must be controlled by &lt;a href=&#34;../../docs/user-guide/search/analytics/notifications/#limiting-notifications&#34;&gt;limiting notifications&lt;/a&gt; instead.&lt;/p&gt;
+&lt;p&gt;Streaming rules are the only type that can use &lt;em&gt;Use Source Feed If Possible&lt;/em&gt; on a stream notification, which writes each detection to the feed the source data came from rather than to the destination feed, see &lt;a href=&#34;../../docs/user-guide/search/analytics/notifications/#stream-destinations&#34;&gt;Stream Destinations&lt;/a&gt;.&lt;/p&gt;
+
+
+
+&lt;div class=&#34;alert alert-primary&#34; role=&#34;alert&#34;&gt;
+  &lt;h4 class=&#34;alert-heading&#34;&gt;Note&lt;/h4&gt;
+  &lt;div class=&#34;alert-content&#34;&gt;
+
+
+
+
+A streaming rule sees one stream at a time.
+A query that needs to compare data across streams, or count over a period, will not work as a streaming rule and should be a scheduled one.
+
+
+  &lt;/div&gt;
+&lt;/div&gt;
+
+
+      </description>
+    </item>
+    
+    <item>
+      <title>Docs: Table Builder Rules</title>
+      <link>/docs/user-guide/search/analytics/table-builder/</link>
+      <pubDate>Wed, 02 Sep 2026 00:00:00 +0000</pubDate>
+      
+      <guid>/docs/user-guide/search/analytics/table-builder/</guid>
+      <description>
+        
+        
+        
+
+
+&lt;div class=&#34;alert alert-warning&#34; role=&#34;alert&#34;&gt;
+  &lt;h4 class=&#34;alert-heading&#34;&gt;Warning&lt;/h4&gt;
+  &lt;div class=&#34;alert-content&#34;&gt;
+
+
+
+
+&lt;p&gt;&lt;em&gt;Table Builder&lt;/em&gt; is experimental and should not be used.
+The in-product help says the same, and the job that runs these rules is disabled by default.&lt;/p&gt;
+&lt;p&gt;It is documented here only so that anyone who encounters an existing Table Builder rule can recognise what it is.
+Use a &lt;a href=&#34;../../docs/user-guide/search/analytics/#scheduled-query&#34;&gt;Scheduled Query&lt;/a&gt; or a &lt;a href=&#34;../../docs/user-guide/search/analytics/streaming/&#34;&gt;Streaming&lt;/a&gt; rule instead.&lt;/p&gt;
+
+
+
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;p&gt;A Table Builder rule builds and maintains its own table of data from the streams it processes, and raises detections from that table.
+The table is held in shards on the processing node, separately from the rest of Stroom&amp;rsquo;s data.&lt;/p&gt;
+&lt;p&gt;The rule&amp;rsquo;s &lt;em&gt;Shards&lt;/em&gt; tab, which is only shown for this processing type, lists those shards and lets you look at what they contain.&lt;/p&gt;
+&lt;h2 id=&#34;settings&#34;&gt;Settings&lt;/h2&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;Field&lt;/th&gt;
+&lt;th&gt;Description&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;Enabled&lt;/td&gt;
+&lt;td&gt;Whether the rule is processed.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Processing Node&lt;/td&gt;
+&lt;td&gt;The node that builds the table.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Min Stream Create Time&lt;/td&gt;
+&lt;td&gt;The earliest stream creation time to process.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Max Stream Create Time&lt;/td&gt;
+&lt;td&gt;The latest stream creation time to process.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Aggregation Period&lt;/td&gt;
+&lt;td&gt;How long to wait for data before processing it.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Time To Keep Data In The Table&lt;/td&gt;
+&lt;td&gt;How long data is retained in the rule&amp;rsquo;s table.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Processing Info&lt;/td&gt;
+&lt;td&gt;A read only summary of what the rule has processed.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
 
       </description>
     </item>

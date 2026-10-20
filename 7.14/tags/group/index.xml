@@ -1,0 +1,209 @@
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Stroom – group</title>
+    <link>/tags/group/</link>
+    <description>Recent content in group on Stroom</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Fri, 01 Nov 2024 00:00:00 +0000</lastBuildDate>
+    
+	  <atom:link href="/tags/group/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+      
+        
+      
+    
+    
+    <item>
+      <title>Docs: Users and Groups</title>
+      <link>/docs/user-guide/security/users-and-groups/</link>
+      <pubDate>Fri, 01 Nov 2024 00:00:00 +0000</pubDate>
+      
+      <guid>/docs/user-guide/security/users-and-groups/</guid>
+      <description>
+        
+        
+        
+
+
+&lt;div class=&#34;alert alert-warning&#34; role=&#34;alert&#34;&gt;
+  &lt;h4 class=&#34;alert-heading&#34;&gt;TODO&lt;/h4&gt;
+  &lt;div class=&#34;alert-content&#34;&gt;
+
+
+
+
+The Users, Groups and Permissions screens are undergoing significant change in Stroom v7.6.
+Therefore this section will be updated with more detail in v7.6.
+
+
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;h2 id=&#34;accounts-vs-stroom-users&#34;&gt;Accounts vs Stroom Users&lt;/h2&gt;
+&lt;p&gt;See &lt;a href=&#34;../../docs/install-guide/setup/open-id/accounts-users/&#34;&gt;Accounts vs Users&lt;/a&gt; for details on the difference between a Stroom User Account and a Stroom User.&lt;/p&gt;
+&lt;h2 id=&#34;user&#34;&gt;User&lt;/h2&gt;
+&lt;p&gt;A Stroom User represents a human user and is linked to either a User Account in Stroom or to a user account in an external &lt;span class=&#34;glossary-link link-with-hover-tooltip&#34;&gt;
+    &lt;a href=&#34;../../docs/glossary/i/glossary-idp&#34;&gt;
+      &lt;span&gt;Identity Provider (IDP)&lt;/span&gt;
+      &lt;i class=&#34;glossary-link-icon fas fa-book fa-sm text-primary&#34;&gt;&lt;/i&gt;
+    &lt;/a&gt;&lt;template class=&#34;hover-tooltip-content&#34;&gt;
+        &lt;span class=&#34;hover-tooltip-title&#34;&gt;Identity Provider (IDP)&lt;/span&gt;
+        &lt;div class=&#34;hover-tooltip-summary&#34;&gt;An &lt;strong&gt;Id&lt;/strong&gt;entity &lt;strong&gt;P&lt;/strong&gt;rovider is a system or service that can authenticate a user and assert their identity. &lt;em&gt;Identity providers&lt;/em&gt; can support single sign on (SSO), which allows the user to sign in once to the &lt;em&gt;Identity Provider&lt;/em&gt; so they are then authenticated to all systems using that IDP.&lt;/div&gt;&lt;span class=&#34;hover-tooltip-more-details&#34;&gt;Click to see more details...&lt;/span&gt;&lt;/template&gt;&lt;/span&gt;.
+It can also represent a non-human processing user, e.g. where a Stroom User is created and has an &lt;span class=&#34;glossary-link link-with-hover-tooltip&#34;&gt;
+    &lt;a href=&#34;../../docs/glossary/a/glossary-api-key&#34;&gt;
+      &lt;span&gt;API Key&lt;/span&gt;
+      &lt;i class=&#34;glossary-link-icon fas fa-book fa-sm text-primary&#34;&gt;&lt;/i&gt;
+    &lt;/a&gt;&lt;template class=&#34;hover-tooltip-content&#34;&gt;
+        &lt;span class=&#34;hover-tooltip-title&#34;&gt;API Key&lt;/span&gt;
+        &lt;div class=&#34;hover-tooltip-summary&#34;&gt;&lt;em&gt;API Keys&lt;/em&gt; are a form of authentication token that are created within Stroom for use by Stroom-Proxy instances or other clients that want to use Stroom&amp;rsquo;s &lt;em&gt;API&lt;/em&gt;. It is an encrypted string that contains details of the user and the expiration date of the token. Possession of a valid API Key for a user account means that you can do anything that the user can do in the user interface via the API.&lt;/div&gt;&lt;span class=&#34;hover-tooltip-more-details&#34;&gt;Click to see more details...&lt;/span&gt;&lt;/template&gt;&lt;/span&gt; created for it to allow a client system to use Stroom&amp;rsquo;s &lt;span class=&#34;glossary-link link-with-hover-tooltip&#34;&gt;
+    &lt;a href=&#34;../../docs/glossary/a/glossary-api&#34;&gt;
+      &lt;span&gt;API&lt;/span&gt;
+      &lt;i class=&#34;glossary-link-icon fas fa-book fa-sm text-primary&#34;&gt;&lt;/i&gt;
+    &lt;/a&gt;&lt;template class=&#34;hover-tooltip-content&#34;&gt;
+        &lt;span class=&#34;hover-tooltip-title&#34;&gt;API&lt;/span&gt;
+        &lt;div class=&#34;hover-tooltip-summary&#34;&gt;&lt;em&gt;Application Programming Interface&lt;/em&gt;. An interface that one system can present so other systems can use it to communicate. Stroom has a number of APIs, e.g. its many &lt;em&gt;REST&lt;/em&gt; APIs and its &lt;code&gt;/datafeed&lt;/code&gt; interface for data receipt.&lt;/div&gt;&lt;span class=&#34;hover-tooltip-more-details&#34;&gt;Click to see more details...&lt;/span&gt;&lt;/template&gt;&lt;/span&gt;.&lt;/p&gt;
+&lt;p&gt;All audited activity in Stroom will be attributed to a Stroom User and their unique identifier will be included in the audit events.&lt;/p&gt;
+&lt;p&gt;A User can have the following:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Membership of one or more Groups.&lt;/li&gt;
+&lt;li&gt;One or more &lt;span class=&#34;glossary-link link-with-hover-tooltip&#34;&gt;
+    &lt;a href=&#34;../../docs/glossary/a/glossary-application-permission&#34;&gt;
+      &lt;span&gt;Application Permissions&lt;/span&gt;
+      &lt;i class=&#34;glossary-link-icon fas fa-book fa-sm text-primary&#34;&gt;&lt;/i&gt;
+    &lt;/a&gt;&lt;template class=&#34;hover-tooltip-content&#34;&gt;
+        &lt;span class=&#34;hover-tooltip-title&#34;&gt;Application permission&lt;/span&gt;
+        &lt;div class=&#34;hover-tooltip-summary&#34;&gt;This is a permission that is not specific to a single document. It applies to all documents or is not related to documents in any way.&lt;/div&gt;&lt;span class=&#34;hover-tooltip-more-details&#34;&gt;Click to see more details...&lt;/span&gt;&lt;/template&gt;&lt;/span&gt; granted to it.&lt;/li&gt;
+&lt;li&gt;One or more &lt;span class=&#34;glossary-link link-with-hover-tooltip&#34;&gt;
+    &lt;a href=&#34;../../docs/glossary/d/glossary-document-permission&#34;&gt;
+      &lt;span&gt;Document Permissions&lt;/span&gt;
+      &lt;i class=&#34;glossary-link-icon fas fa-book fa-sm text-primary&#34;&gt;&lt;/i&gt;
+    &lt;/a&gt;&lt;template class=&#34;hover-tooltip-content&#34;&gt;
+        &lt;span class=&#34;hover-tooltip-title&#34;&gt;Document permission&lt;/span&gt;
+        &lt;div class=&#34;hover-tooltip-summary&#34;&gt;Document permissions control the access that users and/or groups have to a &lt;em&gt;Document&lt;/em&gt;.&lt;/div&gt;&lt;span class=&#34;hover-tooltip-more-details&#34;&gt;Click to see more details...&lt;/span&gt;&lt;/template&gt;&lt;/span&gt; granted to it.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;enabling-and-disabling-a-user&#34;&gt;Enabling and Disabling a User&lt;/h2&gt;
+&lt;p&gt;A User can be enabled or disabled using the &lt;em&gt;Enabled&lt;/em&gt; tick box on the user, reached by selecting&lt;/p&gt;
+
+
+
+
+
+
+  &lt;div class=&#34;stroom-theme-dark stroom-menu&#34;&gt;
+    
+    
+
+      
+
+      
+      
+
+
+      
+
+  
+  
+  &lt;div class=&#34;stroom-menu-item-background&#34; style=&#34;margin-top: 0px;&#34;&gt;
+    
+    &lt;div class=&#34;stroom-menu-item &#34; &gt;
+
+      &lt;div class=&#34;stroom-menu-item-text&#34;&gt;Security
+      &lt;/div&gt;
+        &lt;div class=&#34;stroom-menu-item-arrow&#34;&gt;
+          &lt;span class=&#34;stroom-icon inline-svg-button icon-button  &#34; &gt;
+    &lt;span class=&#34;face&#34; title=&#34;Arrow right&#34;&gt;&lt;svg xmlns=&#34;http://www.w3.org/2000/svg&#34; width=&#34;1427.7665&#34; height=&#34;1427.7665&#34; viewBox=&#34;0 0 1427.7665 1427.7665&#34;&gt;&lt;g style=&#34;stroke:currentColor;stroke-width:167.567&#34;&gt;&lt;path d=&#34;m 415.05387,83.70929 c -39.92654,0.4303 -75.41463,48.3887 -40.0468,81.9121 C 567.552,348.69899 760.75555,531.15431 953.73208,713.82391 760.75555,896.49341 567.552,1078.9486 375.00707,1262.0262 c -46.19471,43.7855 28.48812,112.1966 76.0571,67.1681 195.93558,-185.823 392.95261,-370.82479 587.98693,-557.52749 5.6117,-4.8034 10.4633,-10.2473 14.4855,-16.1231 9.643,-12.4844 13.9638,-27.0796 13.6909,-41.7198 0.2729,-14.6402 -4.0479,-29.2354 -13.6909,-41.7198 -4.0222,-5.8758 -8.8738,-11.3198 -14.4855,-16.1231 C 844.01678,469.27821 646.99975,284.27629 451.06417,98.45319 439.91519,87.89979 427.27628,83.57749 415.05387,83.70929 Z&#34;/&gt;&lt;/g&gt;&lt;/svg&gt; &lt;/span&gt;
+  &lt;/span&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+
+      
+
+      
+      
+        
+      
+
+
+      
+
+  
+  
+  &lt;div class=&#34;stroom-menu-item-background&#34; style=&#34;margin-top: 7px;&#34;&gt;
+    
+    &lt;div class=&#34;stroom-menu-item stroom-menu-item-leaf&#34; &gt;
+        &lt;div class=&#34;stroom-menu-item-icon&#34;&gt;
+          &lt;span class=&#34;stroom-icon inline-svg-button icon-button  &#34; &gt;
+    &lt;span class=&#34;face&#34; title=&#34;User&#34;&gt;&lt;svg xmlns=&#34;http://www.w3.org/2000/svg&#34; width=&#34;1792&#34; height=&#34;1792&#34; viewBox=&#34;0 0 1792 1792&#34;&gt;&lt;path style=&#34;fill:currentColor&#34; d=&#34;M1536 1399q0 109-62.5 187t-150.5 78h-854q-88 0-150.5-78t-62.5-187q0-85 8.5-160.5t31.5-152 58.5-131 94-89 134.5-34.5q131 128 313 128t313-128q76 0 134.5 34.5t94 89 58.5 131 31.5 152 8.5 160.5zm-256-887q0 159-112.5 271.5t-271.5 112.5-271.5-112.5-112.5-271.5 112.5-271.5 271.5-112.5 271.5 112.5 112.5 271.5z&#34;/&gt;&lt;/svg&gt;&lt;/span&gt;
+  &lt;/span&gt;
+        &lt;/div&gt;
+
+      &lt;div class=&#34;stroom-menu-item-text&#34;&gt;Users
+      &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+  &lt;/div&gt;
+
+
+
+&lt;p&gt;from the main menu and opening the user.
+This requires the &lt;code&gt;Manage Users&lt;/code&gt; or &lt;code&gt;Administrator&lt;/code&gt; &lt;span class=&#34;glossary-link link-with-hover-tooltip&#34;&gt;
+    &lt;a href=&#34;../../docs/glossary/a/glossary-application-permission&#34;&gt;
+      &lt;span&gt;Application permission&lt;/span&gt;
+      &lt;i class=&#34;glossary-link-icon fas fa-book fa-sm text-primary&#34;&gt;&lt;/i&gt;
+    &lt;/a&gt;&lt;template class=&#34;hover-tooltip-content&#34;&gt;
+        &lt;span class=&#34;hover-tooltip-title&#34;&gt;Application permission&lt;/span&gt;
+        &lt;div class=&#34;hover-tooltip-summary&#34;&gt;This is a permission that is not specific to a single document. It applies to all documents or is not related to documents in any way.&lt;/div&gt;&lt;span class=&#34;hover-tooltip-more-details&#34;&gt;Click to see more details...&lt;/span&gt;&lt;/template&gt;&lt;/span&gt;.&lt;/p&gt;
+&lt;p&gt;Disabling a User is the strongest single action available against a person.
+It takes effect at once and does three things:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Every session they hold is ended, across every node in the cluster.&lt;/li&gt;
+&lt;li&gt;Every token issued to them is revoked.&lt;/li&gt;
+&lt;li&gt;They are refused at authentication from then on, whether signing in interactively or presenting a token.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;This is distinct from disabling their &lt;em&gt;Account&lt;/em&gt;, which only prevents them signing in and leaves any session already running untouched.
+An Account exists only where Stroom is its own &lt;span class=&#34;glossary-link link-with-hover-tooltip&#34;&gt;
+    &lt;a href=&#34;../../docs/glossary/i/glossary-idp&#34;&gt;
+      &lt;span&gt;Identity Provider (IDP)&lt;/span&gt;
+      &lt;i class=&#34;glossary-link-icon fas fa-book fa-sm text-primary&#34;&gt;&lt;/i&gt;
+    &lt;/a&gt;&lt;template class=&#34;hover-tooltip-content&#34;&gt;
+        &lt;span class=&#34;hover-tooltip-title&#34;&gt;Identity Provider (IDP)&lt;/span&gt;
+        &lt;div class=&#34;hover-tooltip-summary&#34;&gt;An &lt;strong&gt;Id&lt;/strong&gt;entity &lt;strong&gt;P&lt;/strong&gt;rovider is a system or service that can authenticate a user and assert their identity. &lt;em&gt;Identity providers&lt;/em&gt; can support single sign on (SSO), which allows the user to sign in once to the &lt;em&gt;Identity Provider&lt;/em&gt; so they are then authenticated to all systems using that IDP.&lt;/div&gt;&lt;span class=&#34;hover-tooltip-more-details&#34;&gt;Click to see more details...&lt;/span&gt;&lt;/template&gt;&lt;/span&gt;, whereas every person has a Stroom User whichever &lt;span class=&#34;glossary-link link-with-hover-tooltip&#34;&gt;
+    &lt;a href=&#34;../../docs/glossary/i/glossary-idp&#34;&gt;
+      &lt;span&gt;Identity Provider (IDP)&lt;/span&gt;
+      &lt;i class=&#34;glossary-link-icon fas fa-book fa-sm text-primary&#34;&gt;&lt;/i&gt;
+    &lt;/a&gt;&lt;template class=&#34;hover-tooltip-content&#34;&gt;
+        &lt;span class=&#34;hover-tooltip-title&#34;&gt;Identity Provider (IDP)&lt;/span&gt;
+        &lt;div class=&#34;hover-tooltip-summary&#34;&gt;An &lt;strong&gt;Id&lt;/strong&gt;entity &lt;strong&gt;P&lt;/strong&gt;rovider is a system or service that can authenticate a user and assert their identity. &lt;em&gt;Identity providers&lt;/em&gt; can support single sign on (SSO), which allows the user to sign in once to the &lt;em&gt;Identity Provider&lt;/em&gt; so they are then authenticated to all systems using that IDP.&lt;/div&gt;&lt;span class=&#34;hover-tooltip-more-details&#34;&gt;Click to see more details...&lt;/span&gt;&lt;/template&gt;&lt;/span&gt; is in use, so disabling the User is the action that works in all deployments.&lt;/p&gt;
+&lt;p&gt;See &lt;a href=&#34;../../docs/user-guide/security/sessions-and-tokens/&#34;&gt;Sessions and Tokens&lt;/a&gt; for how this compares with simply ending someone&amp;rsquo;s sessions, and &lt;a href=&#34;../../docs/user-guide/security/user-accounts/&#34;&gt;User Accounts&lt;/a&gt; for the Account states.&lt;/p&gt;
+&lt;h2 id=&#34;group&#34;&gt;Group&lt;/h2&gt;
+&lt;p&gt;A Group represents a collection of Stroom Users and/or other Groups.
+A Group can be used to ease the management of application and document permissions by granting permissions to one Group then adding users to that Group.
+For example if all the users in a team require the same application and document permissions, then a Group can be created for them and the permissions assigned to the Group.
+When a user joins or leaves the team it is simply a case of editing the membership of the Group.&lt;/p&gt;
+&lt;p&gt;A Group can have the following:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;One or more members (Users and/or other Groups).&lt;/li&gt;
+&lt;li&gt;Membership of one or more other Groups.&lt;/li&gt;
+&lt;li&gt;One or more &lt;span class=&#34;glossary-link link-with-hover-tooltip&#34;&gt;
+    &lt;a href=&#34;../../docs/glossary/a/glossary-application-permission&#34;&gt;
+      &lt;span&gt;Application Permissions&lt;/span&gt;
+      &lt;i class=&#34;glossary-link-icon fas fa-book fa-sm text-primary&#34;&gt;&lt;/i&gt;
+    &lt;/a&gt;&lt;template class=&#34;hover-tooltip-content&#34;&gt;
+        &lt;span class=&#34;hover-tooltip-title&#34;&gt;Application permission&lt;/span&gt;
+        &lt;div class=&#34;hover-tooltip-summary&#34;&gt;This is a permission that is not specific to a single document. It applies to all documents or is not related to documents in any way.&lt;/div&gt;&lt;span class=&#34;hover-tooltip-more-details&#34;&gt;Click to see more details...&lt;/span&gt;&lt;/template&gt;&lt;/span&gt; granted to it.&lt;/li&gt;
+&lt;li&gt;One or more &lt;span class=&#34;glossary-link link-with-hover-tooltip&#34;&gt;
+    &lt;a href=&#34;../../docs/glossary/d/glossary-document-permission&#34;&gt;
+      &lt;span&gt;Document Permissions&lt;/span&gt;
+      &lt;i class=&#34;glossary-link-icon fas fa-book fa-sm text-primary&#34;&gt;&lt;/i&gt;
+    &lt;/a&gt;&lt;template class=&#34;hover-tooltip-content&#34;&gt;
+        &lt;span class=&#34;hover-tooltip-title&#34;&gt;Document permission&lt;/span&gt;
+        &lt;div class=&#34;hover-tooltip-summary&#34;&gt;Document permissions control the access that users and/or groups have to a &lt;em&gt;Document&lt;/em&gt;.&lt;/div&gt;&lt;span class=&#34;hover-tooltip-more-details&#34;&gt;Click to see more details...&lt;/span&gt;&lt;/template&gt;&lt;/span&gt; granted to it.&lt;/li&gt;
+&lt;/ul&gt;
+
+      </description>
+    </item>
+    
+  </channel>
+</rss>

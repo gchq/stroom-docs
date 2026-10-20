@@ -15,487 +15,6 @@
     
     
     <item>
-      <title>Docs: Date &amp; Time</title>
-      <link>/docs/user-guide/pipelines/xslt/xslt-functions/date-and-time/</link>
-      <pubDate>Fri, 14 Aug 2026 00:00:00 +0000</pubDate>
-      
-      <guid>/docs/user-guide/pipelines/xslt/xslt-functions/date-and-time/</guid>
-      <description>
-        
-        
-        &lt;h2 id=&#34;current-time&#34;&gt;current-time()&lt;/h2&gt;
-&lt;p&gt;The current system time&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-text&#34;&gt;current-time()
-&lt;/code&gt;&lt;/pre&gt;
-&lt;h2 id=&#34;current-unixtime&#34;&gt;current-unixTime()&lt;/h2&gt;
-&lt;p&gt;The current system time shown as milliseconds since the epoch&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-text&#34;&gt;current-unixTime()
-&lt;/code&gt;&lt;/pre&gt;
-&lt;h2 id=&#34;format-date&#34;&gt;format-date()&lt;/h2&gt;
-&lt;p&gt;The format-date() function combines parsing and formatting of date strings.
-In its simplest form it will parse a date string and return the parsed date in the XML standard Date Format.
-It also supports supplying a custom format pattern to output the parsed date in a specified format.&lt;/p&gt;
-&lt;h3 id=&#34;function-signatures&#34;&gt;Function Signatures&lt;/h3&gt;
-&lt;p&gt;The following are the possible forms of the &lt;code&gt;format-date&lt;/code&gt; function.&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-xml&#34;&gt;&amp;lt;!-- Convert time in millis to standard date format --&amp;gt;
-format-date(long millisSinceEpoch)
-
-&amp;lt;!-- Convert inputDate to standard date format --&amp;gt;
-format-date(String inputDate, String inputPattern)
-
-&amp;lt;!-- Convert inputDate to standard date format using specified input time zone --&amp;gt;
-format-date(String inputDate, String inputPattern, String inputTimeZone)
-
-&amp;lt;!-- Convert inputDate to a custom date format using optional input time zone inputTimeZone --&amp;gt;
-format-date(String inputDate, String inputPattern, String inputTimeZone, String outputPattern)
-
-&amp;lt;!-- Convert inputDate to a custom date format using optional input time zone and a specified output time zone --&amp;gt;
-format-date(String inputDate, String inputPattern, String inputTimeZone, String outputPattern, String outputTimeZone)
-&lt;/code&gt;&lt;/pre&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;code&gt;millisSinceEpoch&lt;/code&gt; - The date/time expressed as the number of milliseconds since the &lt;span class=&#34;external-link&#34;&gt;
-  &lt;a href=&#34;https://en.wikipedia.org/wiki/Unix_time&#34; target=&#34;_blank&#34; class=&#34;external-link&#34; title=&#34;UNIX epoch (external link to https://en.wikipedia.org/wiki/Unix_time)&#34;&gt;
-    &lt;span&gt;UNIX epoch&lt;/span&gt;
-    &lt;i class=&#34;external-link-icon fas fa-external-link-alt fa-sm text-secondary&#34;&gt;&lt;/i&gt;
-  &lt;/a&gt;
-&lt;/span&gt;
-.&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;inputDate&lt;/code&gt; - The input date string, e.g. &lt;code&gt;2009/08/01 12:34:11&lt;/code&gt;.&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;inputPattern&lt;/code&gt; - The pattern that defines the structure of &lt;code&gt;inputDate&lt;/code&gt; (see &lt;a href=&#34;../../docs/reference-section/dates/#custom-date-formats&#34;&gt;Custom Date Formats&lt;/a&gt;).&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;inputTimeZone&lt;/code&gt; - Optional time zone of the &lt;code&gt;inputDate&lt;/code&gt;.
-If &lt;code&gt;null&lt;/code&gt; then the UTC/Zulu time zone will be used.
-If &lt;code&gt;inputTimeZone&lt;/code&gt; is present, the inputPattern must not include the time zone pattern tokens (&lt;code&gt;z&lt;/code&gt; and &lt;code&gt;Z&lt;/code&gt;).&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;outputPattern&lt;/code&gt; - The pattern that defines the format of the output date (see &lt;a href=&#34;../../docs/reference-section/dates/#custom-date-formats&#34;&gt;Custom Date Formats&lt;/a&gt;).&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;outputTimeZone&lt;/code&gt; - Optional time zone of the output date.
-If &lt;code&gt;null&lt;/code&gt; then the UTC/Zulu time zone will be used.&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h3 id=&#34;time-zones&#34;&gt;Time Zones&lt;/h3&gt;
-&lt;p&gt;The following is a list of some common time zone values:&lt;/p&gt;
-&lt;table&gt;
-&lt;thead&gt;
-&lt;tr&gt;
-&lt;th&gt;Values&lt;/th&gt;
-&lt;th&gt;Zone Name&lt;/th&gt;
-&lt;/tr&gt;
-&lt;/thead&gt;
-&lt;tbody&gt;
-&lt;tr&gt;
-&lt;td&gt;&lt;code&gt;GMT/BST&lt;/code&gt;&lt;/td&gt;
-&lt;td&gt;A Stroom specific value for UK daylight saving time (see below)&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;&lt;code&gt;UTC&lt;/code&gt;, &lt;code&gt;UCT&lt;/code&gt;, &lt;code&gt;Zulu&lt;/code&gt;, &lt;code&gt;Universal&lt;/code&gt;, &lt;code&gt;+00:00&lt;/code&gt;, &lt;code&gt;-00:00&lt;/code&gt;, &lt;code&gt;+00&lt;/code&gt;, &lt;code&gt;+0&lt;/code&gt;&lt;/td&gt;
-&lt;td&gt;Coordinated Universal Time (UTC)&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;&lt;code&gt;GMT&lt;/code&gt;, &lt;code&gt;GMT0&lt;/code&gt;, &lt;code&gt;Greenwich&lt;/code&gt;&lt;/td&gt;
-&lt;td&gt;Greenwich Mean Time (GMT)&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;&lt;code&gt;GB&lt;/code&gt;, &lt;code&gt;GB-Eire&lt;/code&gt;, &lt;code&gt;Europe/London&lt;/code&gt;&lt;/td&gt;
-&lt;td&gt;British Time&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;&lt;code&gt;NZ&lt;/code&gt;, &lt;code&gt;Pacific/Auckland&lt;/code&gt;&lt;/td&gt;
-&lt;td&gt;New Zealand Time&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;&lt;code&gt;Australia/Canberra&lt;/code&gt;, &lt;code&gt;Australia/Sydney&lt;/code&gt;&lt;/td&gt;
-&lt;td&gt;Eastern Australia Time&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;&lt;code&gt;CET&lt;/code&gt;&lt;/td&gt;
-&lt;td&gt;Central European Time&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;&lt;code&gt;EET&lt;/code&gt;&lt;/td&gt;
-&lt;td&gt;Eastern European Time&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;&lt;code&gt;Canada/Atlantic&lt;/code&gt;&lt;/td&gt;
-&lt;td&gt;Atlantic Time&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;&lt;code&gt;Canada/Central&lt;/code&gt;&lt;/td&gt;
-&lt;td&gt;Central Time&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;&lt;code&gt;Canada/Pacific&lt;/code&gt;&lt;/td&gt;
-&lt;td&gt;Pacific Time&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;&lt;code&gt;US/Central&lt;/code&gt;&lt;/td&gt;
-&lt;td&gt;Central Time&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;&lt;code&gt;US/Eastern&lt;/code&gt;&lt;/td&gt;
-&lt;td&gt;Eastern Time&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;&lt;code&gt;US/Mountain&lt;/code&gt;&lt;/td&gt;
-&lt;td&gt;Mountain Time&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;&lt;code&gt;US/Pacific&lt;/code&gt;&lt;/td&gt;
-&lt;td&gt;Pacific Time&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;&lt;code&gt;+02:00&lt;/code&gt;, &lt;code&gt;+02&lt;/code&gt;, &lt;code&gt;+2&lt;/code&gt;&lt;/td&gt;
-&lt;td&gt;UTC +2hrs&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;&lt;code&gt;-03:00&lt;/code&gt;, &lt;code&gt;-03&lt;/code&gt;, &lt;code&gt;-3&lt;/code&gt;&lt;/td&gt;
-&lt;td&gt;UTC -3hrs&lt;/td&gt;
-&lt;/tr&gt;
-&lt;/tbody&gt;
-&lt;/table&gt;
-&lt;p&gt;A special time zone value of &lt;code&gt;GMT/BST&lt;/code&gt; can be used when the &lt;code&gt;inputDate&lt;/code&gt; is in local wall clock time with time zone information.
-In this case, the date/time will be used to determine whether the date is in British Summer Time or in GMT and adjust the output accordingly.
-See the examples below.&lt;/p&gt;
-&lt;h3 id=&#34;parsing-examples&#34;&gt;Parsing Examples&lt;/h3&gt;
-&lt;p&gt;The following table shows various examples of calls to &lt;code&gt;stroom:format-date()&lt;/code&gt; with their output.
-The &lt;code&gt;stroom:format-date&lt;/code&gt; part has been omitted for brevity.&lt;/p&gt;
-&lt;!--
-This table is generated by the test
-stroom.pipeline.xsltfunctions.TestFormatDate#testParseExamples
---&gt;
-&lt;pre&gt;&lt;code class=&#34;language-xml&#34;&gt;&amp;lt;!-- Date in millis since UNIX epoch --&amp;gt;
-stroom:format-date(&#39;1269270011640&#39;)
--&amp;gt; &#39;2010-03-22T15:00:11.640Z&#39;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code class=&#34;language-xml&#34;&gt;&amp;lt;!-- Simple date UK style date --&amp;gt;
-stroom:format-date(&#39;29/08/24&#39;, &#39;dd/MM/yy&#39;)
--&amp;gt; &#39;2024-08-29T00:00:00.000Z&#39;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code class=&#34;language-xml&#34;&gt;&amp;lt;!-- Simple date US style date --&amp;gt;
-stroom:format-date(&#39;08/29/24&#39;, &#39;MM/dd/yy&#39;)
--&amp;gt; &#39;2024-08-29T00:00:00.000Z&#39;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code class=&#34;language-xml&#34;&gt;&amp;lt;!-- ISO date with no delimiters --&amp;gt;
-stroom:format-date(&#39;20010801184559&#39;, &#39;yyyyMMddHHmmss&#39;)
--&amp;gt; &#39;2001-08-01T18:45:59.000Z&#39;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code class=&#34;language-xml&#34;&gt;&amp;lt;!-- Standard output, no TZ --&amp;gt;
-stroom:format-date(&#39;2001/08/01 18:45:59&#39;, &#39;yyyy/MM/dd HH:mm:ss&#39;)
--&amp;gt; &#39;2001-08-01T18:45:59.000Z&#39;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code class=&#34;language-xml&#34;&gt;&amp;lt;!-- Standard output, date only, with TZ --&amp;gt;
-stroom:format-date(&#39;2001/08/01&#39;, &#39;yyyy/MM/dd&#39;, &#39;-07:00&#39;)
--&amp;gt; &#39;2001-08-01T07:00:00.000Z&#39;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code class=&#34;language-xml&#34;&gt;&amp;lt;!-- Standard output, with TZ --&amp;gt;
-stroom:format-date(&#39;2001/08/01 01:00:00&#39;, &#39;yyyy/MM/dd HH:mm:ss&#39;, &#39;-08:00&#39;)
--&amp;gt; &#39;2001-08-01T09:00:00.000Z&#39;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code class=&#34;language-xml&#34;&gt;&amp;lt;!-- Standard output, with TZ --&amp;gt;
-stroom:format-date(&#39;2001/08/01 01:00:00&#39;, &#39;yyyy/MM/dd HH:mm:ss&#39;, &#39;+01:00&#39;)
--&amp;gt; &#39;2001-08-01T00:00:00.000Z&#39;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code class=&#34;language-xml&#34;&gt;&amp;lt;!-- Single digit day and month, no padding --&amp;gt;
-stroom:format-date(&#39;2001 8 1&#39;, &#39;yyyy MM dd&#39;)
--&amp;gt; &#39;2001-08-01T00:00:00.000Z&#39;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code class=&#34;language-xml&#34;&gt;&amp;lt;!-- Double digit day and month, no padding --&amp;gt;
-stroom:format-date(&#39;2001 12 28&#39;, &#39;yyyy MM dd&#39;)
--&amp;gt; &#39;2001-12-28T00:00:00.000Z&#39;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code class=&#34;language-xml&#34;&gt;&amp;lt;!-- Single digit day and month, with optional padding --&amp;gt;
-stroom:format-date(&#39;2001  8  1&#39;, &#39;yyyy ppMM ppdd&#39;)
--&amp;gt; &#39;2001-08-01T00:00:00.000Z&#39;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code class=&#34;language-xml&#34;&gt;&amp;lt;!-- Double digit day and month, with optional padding --&amp;gt;
-stroom:format-date(&#39;2001 12 31&#39;, &#39;yyyy ppMM ppdd&#39;)
--&amp;gt; &#39;2001-12-31T00:00:00.000Z&#39;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code class=&#34;language-xml&#34;&gt;&amp;lt;!-- With abbreviated day of week month --&amp;gt;
-stroom:format-date(&#39;Wed Aug 14 2024&#39;, &#39;EEE MMM dd yyyy&#39;)
--&amp;gt; &#39;2024-08-14T00:00:00.000Z&#39;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code class=&#34;language-xml&#34;&gt;&amp;lt;!-- With long form day of week and month --&amp;gt;
-stroom:format-date(&#39;Wednesday August 14 2024&#39;, &#39;EEEE MMMM dd yyyy&#39;)
--&amp;gt; &#39;2024-08-14T00:00:00.000Z&#39;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code class=&#34;language-xml&#34;&gt;&amp;lt;!-- With 12 hour clock, AM --&amp;gt;
-stroom:format-date(&#39;Wed Aug 14 2024 10:32:58 AM&#39;, &#39;E MMM dd yyyy hh:mm:ss a&#39;)
--&amp;gt; &#39;2024-08-14T10:32:58.000Z&#39;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code class=&#34;language-xml&#34;&gt;&amp;lt;!-- With 12 hour clock, PM (lower case) --&amp;gt;
-stroom:format-date(&#39;Wed Aug 14 2024 10:32:58 pm&#39;, &#39;E MMM dd yyyy hh:mm:ss a&#39;)
--&amp;gt; &#39;2024-08-14T22:32:58.000Z&#39;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code class=&#34;language-xml&#34;&gt;&amp;lt;!-- Using minimal symbols --&amp;gt;
-stroom:format-date(&#39;2001 12 31 22:58:32.123&#39;, &#39;y M d H:m:s.S&#39;)
--&amp;gt; &#39;2001-12-31T22:58:32.123Z&#39;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code class=&#34;language-xml&#34;&gt;&amp;lt;!-- Optional time portion, with time --&amp;gt;
-stroom:format-date(&#39;2001/12/31 22:58:32.123&#39;, &#39;yyyy/MM/dd[ HH:mm:ss.SSS]&#39;)
--&amp;gt; &#39;2001-12-31T22:58:32.123Z&#39;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code class=&#34;language-xml&#34;&gt;&amp;lt;!-- Optional time portion, without time --&amp;gt;
-stroom:format-date(&#39;2001/12/31&#39;, &#39;yyyy/MM/dd[ HH:mm:ss.SSS]&#39;)
--&amp;gt; &#39;2001-12-31T00:00:00.000Z&#39;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code class=&#34;language-xml&#34;&gt;&amp;lt;!-- Optional millis portion, with millis --&amp;gt;
-stroom:format-date(&#39;2001/12/31 22:58:32.123&#39;, &#39;yyyy/MM/dd HH:mm:ss[.SSS]&#39;)
--&amp;gt; &#39;2001-12-31T22:58:32.123Z&#39;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code class=&#34;language-xml&#34;&gt;&amp;lt;!-- Optional millis portion, without millis --&amp;gt;
-stroom:format-date(&#39;2001/12/31 22:58:32&#39;, &#39;yyyy/MM/dd HH:mm:ss[.SSS]&#39;)
--&amp;gt; &#39;2001-12-31T22:58:32.000Z&#39;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code class=&#34;language-xml&#34;&gt;&amp;lt;!-- Optional millis/nanos portion, with nanos --&amp;gt;
-stroom:format-date(&#39;2001/12/31 22:58:32.123456&#39;, &#39;yyyy/MM/dd HH:mm:ss[.SSS]&#39;)
--&amp;gt; &#39;2001-12-31T22:58:32.123Z&#39;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code class=&#34;language-xml&#34;&gt;&amp;lt;!-- Fixed text --&amp;gt;
-stroom:format-date(&#39;Date: 2001/12/31 Time: 22:58:32.123&#39;, &#39;&#39;Date: &#39;yyyy/MM/dd &#39;Time: &#39;HH:mm:ss.SSS&#39;)
--&amp;gt; &#39;2001-12-31T22:58:32.123Z&#39;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code class=&#34;language-xml&#34;&gt;&amp;lt;!-- GMT/BST date that is BST --&amp;gt;
-stroom:format-date(&#39;2009/06/01 12:34:11&#39;, &#39;yyyy/MM/dd HH:mm:ss&#39;, &#39;GMT/BST&#39;)
--&amp;gt; &#39;2009-06-01T11:34:11.000Z&#39;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code class=&#34;language-xml&#34;&gt;&amp;lt;!-- GMT/BST date that is GMT --&amp;gt;
-stroom:format-date(&#39;2009/02/01 12:34:11&#39;, &#39;yyyy/MM/dd HH:mm:ss&#39;, &#39;GMT/BST&#39;)
--&amp;gt; &#39;2009-02-01T12:34:11.000Z&#39;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code class=&#34;language-xml&#34;&gt;&amp;lt;!-- Time zone offset --&amp;gt;
-stroom:format-date(&#39;2009/02/01 12:34:11&#39;, &#39;yyyy/MM/dd HH:mm:ss&#39;, &#39;+01:00&#39;)
--&amp;gt; &#39;2009-02-01T11:34:11.000Z&#39;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code class=&#34;language-xml&#34;&gt;&amp;lt;!-- Named time zone --&amp;gt;
-stroom:format-date(&#39;2009/02/01 23:34:11&#39;, &#39;yyyy/MM/dd HH:mm:ss&#39;, &#39;US/Eastern&#39;)
--&amp;gt; &#39;2009-02-02T04:34:11.000Z&#39;
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;div class=&#34;alert alert-primary&#34; role=&#34;alert&#34;&gt;
-&lt;h4 class=&#34;alert-heading&#34;&gt;Note&lt;/h4&gt;
-
-
-    &lt;p&gt;Parsing is done in lenient mode so, the count of each symbol is not critical, e.g. you can parse the year &lt;code&gt;2024&lt;/code&gt; with &lt;code&gt;y&lt;/code&gt;, &lt;code&gt;yy&lt;/code&gt;, &lt;code&gt;yyy&lt;/code&gt; or &lt;code&gt;yyyy&lt;/code&gt;.
-Despite this, it is advisable to use a pattern that matches the known format of the input dates, e.g. in this example &lt;code&gt;yyyy&lt;/code&gt;, to avoid confusing with anyone else reading your XSLT.&lt;/p&gt;
-&lt;p&gt;The count of each symbol is however critical when it comes to formatting.&lt;/p&gt;
-
-
-&lt;/div&gt;
-
-
-&lt;h3 id=&#34;formatting-examples&#34;&gt;Formatting Examples&lt;/h3&gt;
-&lt;!--
-This table is generated by the test
-stroom.pipeline.xsltfunctions.TestFormatDate#testCustomFormatExamples
---&gt;
-&lt;pre&gt;&lt;code class=&#34;language-xml&#34;&gt;&amp;lt;!-- Specific output, no input or output TZ --&amp;gt;
-stroom:format-date(&#39;2001/08/01 14:30:59&#39;, &#39;yyyy/MM/dd HH:mm:ss&#39;, null, &#39;E dd MMM yyyy HH:mm (s &#39;secs&#39;)&#39;)
--&amp;gt; &#39;Wed 01 Aug 2001 14:30 (59 secs)&#39;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code class=&#34;language-xml&#34;&gt;&amp;lt;!-- Specific output, UTC input, no output TZ --&amp;gt;
-stroom:format-date(&#39;2001/08/01 14:30:59&#39;, &#39;yyyy/MM/dd HH:mm:ss&#39;, &#39;UTC&#39;, &#39;E dd MMM yyyy HH:mm (s &#39;secs&#39;)&#39;)
--&amp;gt; &#39;Wed 01 Aug 2001 14:30 (59 secs)&#39;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code class=&#34;language-xml&#34;&gt;&amp;lt;!-- Specific output, no output TZ --&amp;gt;
-stroom:format-date(&#39;2001/08/01 14:30:59&#39;, &#39;yyyy/MM/dd HH:mm:ss&#39;, &#39;+01:00&#39;, &#39;E dd MMM yyyy HH:mm (s &#39;secs&#39;)&#39;)
--&amp;gt; &#39;Wed 01 Aug 2001 13:30 (59 secs)&#39;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code class=&#34;language-xml&#34;&gt;&amp;lt;!-- Specific output, with input and output TZ --&amp;gt;
-stroom:format-date(&#39;2001/08/01 14:30:59&#39;, &#39;yyyy/MM/dd HH:mm:ss&#39;, &#39;+01:00&#39;, &#39;E dd MMM yyyy HH:mm&#39;, &#39;+02:00&#39;)
--&amp;gt; &#39;Wed 01 Aug 2001 15:30&#39;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code class=&#34;language-xml&#34;&gt;&amp;lt;!-- Padded 12 hour clock output --&amp;gt;
-stroom:format-date(&#39;2001/08/01 14:07:05.123&#39;, &#39;yyyy/MM/dd HH:mm:ss.SSS&#39;, &#39;UTC&#39;, &#39;E dd MMM yyyy pph:ppm:pps a&#39;)
--&amp;gt; &#39;Wed 01 Aug 2001  2: 7: 5 PM&#39;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code class=&#34;language-xml&#34;&gt;&amp;lt;!-- Padded 12 hour clock output --&amp;gt;
-stroom:format-date(&#39;2001/08/01 22:27:25.123&#39;, &#39;yyyy/MM/dd HH:mm:ss.SSS&#39;, &#39;UTC&#39;, &#39;E dd MMM yyyy pph:ppm:pps a&#39;)
--&amp;gt; &#39;Wed 01 Aug 2001 10:27:25 PM&#39;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code class=&#34;language-xml&#34;&gt;&amp;lt;!-- Non-Padded 12 hour clock output --&amp;gt;
-stroom:format-date(&#39;2001/08/01 14:07:05.123&#39;, &#39;yyyy/MM/dd HH:mm:ss.SSS&#39;, &#39;UTC&#39;, &#39;E dd MMM yyyy h:m:s a&#39;)
--&amp;gt; &#39;Wed 01 Aug 2001 2:7:5 PM&#39;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code class=&#34;language-xml&#34;&gt;&amp;lt;!-- Long form text --&amp;gt;
-stroom:format-date(&#39;2001/08/01 14:07:05.123&#39;, &#39;yyyy/MM/dd HH:mm:ss.SSS&#39;, &#39;UTC&#39;, &#39;EEEE d MMMM yyyy HH:mm:ss&#39;)
--&amp;gt; &#39;Wednesday 1 August 2001 14:07:05&#39;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;h3 id=&#34;reference-time&#34;&gt;Reference Time&lt;/h3&gt;
-&lt;p&gt;When parsing a date string that does not contain a full zoned date and time, certain assumptions will be made.&lt;/p&gt;
-&lt;p&gt;If there is no time zone in &lt;code&gt;inputDate&lt;/code&gt; and no &lt;code&gt;inputTimeZone&lt;/code&gt; argument has been passed then the time zone of the input date will be assumed to be in the UTC time zone.&lt;/p&gt;
-&lt;p&gt;If any of the date parts are not present, e.g. an input of &lt;code&gt;28 Oct&lt;/code&gt; then Stroom will use a reference date to fill in the gaps.
-The reference date is the first of these values that is non-null&lt;/p&gt;
-&lt;ol&gt;
-&lt;li&gt;The create time of the stream being processed by the XSLT.&lt;/li&gt;
-&lt;li&gt;The current time, i.e. now().&lt;/li&gt;
-&lt;/ol&gt;
-&lt;p&gt;For example for a call of &lt;code&gt;stroom:format-date(&#39;28 Oct&#39;, &#39;dd MMM&#39;)&lt;/code&gt; and a stream create time of &lt;code&gt;2024&lt;/code&gt;, it will return &lt;code&gt;2024-10-28T00:00:00.000Z&lt;/code&gt;.&lt;/p&gt;
-&lt;h2 id=&#34;format-datetime&#34;&gt;format-dateTime()&lt;/h2&gt;
-&lt;p&gt;Formats the dateTime as a string according to the specified pattern and time zone.&lt;/p&gt;
-&lt;h3 id=&#34;function-signatures-1&#34;&gt;Function Signatures&lt;/h3&gt;
-&lt;p&gt;The following are the possible forms of the &lt;code&gt;format-dateTime&lt;/code&gt; function.&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-xml&#34;&gt;&amp;lt;!-- Format dateTime to standard date format --&amp;gt;
-format-dateTime(DateTime dateTime)
-
-&amp;lt;!-- Format dateTime to a custom date format--&amp;gt;
-format-dateTime(DateTime dateTime, String pattern)
-
-&amp;lt;!-- Convert dateTime to standard date format using specified input time zone --&amp;gt;
-format-dateTime(DateTime dateTime, String pattern, String timeZone)
-&lt;/code&gt;&lt;/pre&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;code&gt;dateTime&lt;/code&gt; - The input dateTime.&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;pattern&lt;/code&gt; - The pattern that defines the format of the output string (see &lt;a href=&#34;../../docs/reference-section/dates/#custom-date-formats&#34;&gt;Custom Date Formats&lt;/a&gt;).&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;timeZone&lt;/code&gt; - Optional time zone of the output.
-If &lt;code&gt;null&lt;/code&gt; then the UTC/Zulu time zone will be used.&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h3 id=&#34;examples&#34;&gt;Examples&lt;/h3&gt;
-&lt;pre&gt;&lt;code class=&#34;language-xml&#34;&gt;&amp;lt;!-- Default format --&amp;gt;
-stroom:format-dateTime(xs:dateTime(&#39;2024-08-29T00:00:00Z&#39;))
--&amp;gt; &#39;2024-08-29T00:00:00.000Z&#39;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code class=&#34;language-xml&#34;&gt;&amp;lt;!-- Default format +2hr zone offset --&amp;gt;
-stroom:format-dateTime(xs:dateTime(&#39;2001-08-01T18:45:59.123+02:00&#39;))
--&amp;gt; &#39;2001-08-01T16:45:59.123Z&#39;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code class=&#34;language-xml&#34;&gt;&amp;lt;!-- Default format +2hr30min zone offset --&amp;gt;
-stroom:format-dateTime(xs:dateTime(&#39;2001-08-01T18:45:59.123+02:30&#39;))
--&amp;gt; &#39;2001-08-01T16:15:59.123Z&#39;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code class=&#34;language-xml&#34;&gt;&amp;lt;!-- Default format -3hr zone offset --&amp;gt;
-stroom:format-dateTime(xs:dateTime(&#39;2001-08-01T18:45:59.123-03:00&#39;))
--&amp;gt; &#39;2001-08-01T21:45:59.123Z&#39;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code class=&#34;language-xml&#34;&gt;&amp;lt;!-- Simple date format UK style date --&amp;gt;
-stroom:format-dateTime(xs:dateTime(&#39;2024-08-29T00:00:00Z&#39;), &#39;dd/MM/yy&#39;)
--&amp;gt; &#39;29/08/24&#39;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code class=&#34;language-xml&#34;&gt;&amp;lt;!-- Simple date format US style date --&amp;gt;
-stroom:format-dateTime(xs:dateTime(&#39;2024-08-29T00:00:00Z&#39;), &#39;MM/dd/yy&#39;)
--&amp;gt; &#39;08/29/24&#39;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code class=&#34;language-xml&#34;&gt;&amp;lt;!-- With no delimiters --&amp;gt;
-stroom:format-dateTime(xs:dateTime(&#39;2001-08-01T18:45:59Z&#39;), &#39;yyyyMMddHHmmss&#39;)
--&amp;gt; &#39;20010801184559&#39;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code class=&#34;language-xml&#34;&gt;&amp;lt;!-- Standard output, no TZ --&amp;gt;
-stroom:format-dateTime(xs:dateTime(&#39;2001-08-01T18:45:59Z&#39;), &#39;yyyy/MM/dd HH:mm:ss&#39;)
--&amp;gt; &#39;2001/08/01 18:45:59&#39;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code class=&#34;language-xml&#34;&gt;&amp;lt;!-- Format with nanos --&amp;gt;
-stroom:format-dateTime(xs:dateTime(&#39;2010-01-01T23:59:59.123456Z&#39;), &#39;yyyy-MM-dd&#39;T&#39;HH:mm:ss.SSSSSSXX&#39;)
--&amp;gt; &#39;2010-01-01T23:59:59.123456Z&#39;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code class=&#34;language-xml&#34;&gt;&amp;lt;!-- Standard output, with TZ --&amp;gt;
-stroom:format-dateTime(xs:dateTime(&#39;2001-08-01T09:00:00Z&#39;), &#39;yyyy/MM/dd HH:mm:ss&#39;, &#39;-08:00&#39;)
--&amp;gt; &#39;2001/08/01 01:00:00&#39;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code class=&#34;language-xml&#34;&gt;&amp;lt;!-- Standard output, with TZ --&amp;gt;
-stroom:format-dateTime(xs:dateTime(&#39;2001-08-01T00:00:00Z&#39;), &#39;yyyy/MM/dd HH:mm:ss&#39;, &#39;+01:00&#39;)
--&amp;gt; &#39;2001/08/01 01:00:00&#39;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code class=&#34;language-xml&#34;&gt;&amp;lt;!-- GMT/BST date that is BST --&amp;gt;
-stroom:format-dateTime(xs:dateTime(&#39;2009-06-01T11:34:11Z&#39;), &#39;yyyy/MM/dd HH:mm:ss&#39;, &#39;GMT/BST&#39;)
--&amp;gt; &#39;2009/06/01 12:34:11&#39;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code class=&#34;language-xml&#34;&gt;&amp;lt;!-- GMT/BST date that is GMT --&amp;gt;
-stroom:format-dateTime(xs:dateTime(&#39;2009-02-01T12:34:11Z&#39;), &#39;yyyy/MM/dd HH:mm:ss&#39;, &#39;GMT/BST&#39;)
--&amp;gt; &#39;2009/02/01 12:34:11&#39;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code class=&#34;language-xml&#34;&gt;&amp;lt;!-- Named time zone --&amp;gt;
-stroom:format-dateTime(xs:dateTime(&#39;2009-02-02T04:34:11Z&#39;), &#39;yyyy/MM/dd HH:mm:ss&#39;, &#39;US/Eastern&#39;)
--&amp;gt; &#39;2009/02/01 23:34:11&#39;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;h2 id=&#34;from-unixtime&#34;&gt;from-unixTime()&lt;/h2&gt;
-&lt;p&gt;Returns the specified number of milliseconds since the epoch as a dateTime&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-text&#34;&gt;from-unixTime(Integer milliseconds)
-&lt;/code&gt;&lt;/pre&gt;
-&lt;h2 id=&#34;parse-datetime&#34;&gt;parse-dateTime()&lt;/h2&gt;
-&lt;p&gt;Parses a string to a dateTime according to the specified pattern and time zone.&lt;/p&gt;
-&lt;h3 id=&#34;function-signatures-2&#34;&gt;Function Signatures&lt;/h3&gt;
-&lt;p&gt;The following are the possible forms of the &lt;code&gt;parse-dateTime&lt;/code&gt; function.&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-xml&#34;&gt;&amp;lt;!-- Converts inputDate to a dateTime --&amp;gt;
-parse-dateTime(String inputDate)
-
-&amp;lt;!-- Converts inputDate to a dateTime using a custom date format --&amp;gt;
-parse-dateTime(DateTime inputDate, String pattern)
-
-&amp;lt;!-- Converts inputDate to a dateTime using a custom date format in the specified time zone --&amp;gt;
-parse-dateTime(DateTime inputDate, String pattern, String timeZone)
-&lt;/code&gt;&lt;/pre&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;code&gt;inputDate&lt;/code&gt; - The input string.&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;pattern&lt;/code&gt; - The pattern that defines the format of the input string (see &lt;a href=&#34;../../docs/reference-section/dates/#custom-date-formats&#34;&gt;Custom Date Formats&lt;/a&gt;).&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;timeZone&lt;/code&gt; - Optional time zone of the output.
-If &lt;code&gt;null&lt;/code&gt; then the UTC/Zulu time zone will be used.&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h3 id=&#34;examples-1&#34;&gt;Examples&lt;/h3&gt;
-&lt;pre&gt;&lt;code class=&#34;language-xml&#34;&gt;&amp;lt;!-- ISO 8061 --&amp;gt;
-stroom:parse-dateTime(&#39;2024-08-29T00:00:00Z&#39;)
--&amp;gt; &#39;2024-08-29T00:00:00Z&#39;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code class=&#34;language-xml&#34;&gt;&amp;lt;!-- ISO 8061 with nanos --&amp;gt;
-stroom:parse-dateTime(&#39;2010-01-01T23:59:59.123456Z&#39;)
--&amp;gt; &#39;2010-01-01T23:59:59.123456Z&#39;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code class=&#34;language-xml&#34;&gt;&amp;lt;!-- ISO 8061 with millis --&amp;gt;
-stroom:parse-dateTime(&#39;2010-01-01T23:59:59.123Z&#39;)
--&amp;gt; &#39;2010-01-01T23:59:59.123Z&#39;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code class=&#34;language-xml&#34;&gt;&amp;lt;!-- ISO 8061 Zulu/UTC --&amp;gt;
-stroom:parse-dateTime(&#39;2001-08-01T18:45:59.123+00:00&#39;)
--&amp;gt; &#39;2001-08-01T18:45:59.123Z&#39;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code class=&#34;language-xml&#34;&gt;&amp;lt;!-- ISO 8061 +2hr zone offset --&amp;gt;
-stroom:parse-dateTime(&#39;2001-08-01T18:45:59.123+02&#39;)
--&amp;gt; &#39;2001-08-01T16:45:59.123Z&#39;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code class=&#34;language-xml&#34;&gt;&amp;lt;!-- ISO 8061 +2hr zone offset --&amp;gt;
-stroom:parse-dateTime(&#39;2001-08-01T18:45:59.123+02:00&#39;)
--&amp;gt; &#39;2001-08-01T16:45:59.123Z&#39;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code class=&#34;language-xml&#34;&gt;&amp;lt;!-- ISO 8061 +2hr30min zone offset --&amp;gt;
-stroom:parse-dateTime(&#39;2001-08-01T18:45:59.123+02:30&#39;)
--&amp;gt; &#39;2001-08-01T16:15:59.123Z&#39;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code class=&#34;language-xml&#34;&gt;&amp;lt;!-- ISO 8061 -3hr zone offset --&amp;gt;
-stroom:parse-dateTime(&#39;2001-08-01T18:45:59.123-03:00&#39;)
--&amp;gt; &#39;2001-08-01T21:45:59.123Z&#39;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code class=&#34;language-xml&#34;&gt;&amp;lt;!-- Simple date UK style date --&amp;gt;
-stroom:parse-dateTime(&#39;29/08/24&#39;, &#39;dd/MM/yy&#39;)
--&amp;gt; &#39;2024-08-29T00:00:00Z&#39;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code class=&#34;language-xml&#34;&gt;&amp;lt;!-- Simple date US style date --&amp;gt;
-stroom:parse-dateTime(&#39;08/29/24&#39;, &#39;MM/dd/yy&#39;)
--&amp;gt; &#39;2024-08-29T00:00:00Z&#39;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code class=&#34;language-xml&#34;&gt;&amp;lt;!-- ISO date with no delimiters --&amp;gt;
-stroom:parse-dateTime(&#39;20010801184559&#39;, &#39;yyyyMMddHHmmss&#39;)
--&amp;gt; &#39;2001-08-01T18:45:59Z&#39;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code class=&#34;language-xml&#34;&gt;&amp;lt;!-- Standard output, no TZ --&amp;gt;
-stroom:parse-dateTime(&#39;2001/08/01 18:45:59&#39;, &#39;yyyy/MM/dd HH:mm:ss&#39;)
--&amp;gt; &#39;2001-08-01T18:45:59Z&#39;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code class=&#34;language-xml&#34;&gt;&amp;lt;!-- Standard output, date only, with TZ --&amp;gt;
-stroom:parse-dateTime(&#39;2001/08/01&#39;, &#39;yyyy/MM/dd&#39;, &#39;-07:00&#39;)
--&amp;gt; &#39;2001-08-01T07:00:00Z&#39;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code class=&#34;language-xml&#34;&gt;&amp;lt;!-- Standard output, with TZ --&amp;gt;
-stroom:parse-dateTime(&#39;2001/08/01 01:00:00&#39;, &#39;yyyy/MM/dd HH:mm:ss&#39;, &#39;-08:00&#39;)
--&amp;gt; &#39;2001-08-01T09:00:00Z&#39;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code class=&#34;language-xml&#34;&gt;&amp;lt;!-- Standard output, with TZ --&amp;gt;
-stroom:parse-dateTime(&#39;2001/08/01 01:00:00&#39;, &#39;yyyy/MM/dd HH:mm:ss&#39;, &#39;+01:00&#39;)
--&amp;gt; &#39;2001-08-01T00:00:00Z&#39;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;h2 id=&#34;to-unixtime&#34;&gt;to-unixTime()&lt;/h2&gt;
-&lt;p&gt;Returns milliseconds since the epoch for a specified dateTime&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-text&#34;&gt;to-unixTime(DateTime dateTime)
-&lt;/code&gt;&lt;/pre&gt;
-
-      </description>
-    </item>
-    
-    <item>
       <title>Docs: XSLT Basics</title>
       <link>/docs/user-guide/pipelines/xslt/xslt-basics/</link>
       <pubDate>Wed, 14 Feb 2024 00:00:00 +0000</pubDate>
@@ -504,36 +23,36 @@ stroom:parse-dateTime(&#39;2001/08/01 01:00:00&#39;, &#39;yyyy/MM/dd HH:mm:ss&#3
       <description>
         
         
-        &lt;p&gt;&lt;span class=&#34;glossary-link&#34;&gt;
+        &lt;p&gt;&lt;span class=&#34;glossary-link link-with-hover-tooltip&#34;&gt;
     &lt;a href=&#34;../../docs/glossary/x/glossary-xslt&#34;&gt;
       &lt;span&gt;XSLT&lt;/span&gt;
       &lt;i class=&#34;glossary-link-icon fas fa-book fa-sm text-primary&#34;&gt;&lt;/i&gt;
-    &lt;/a&gt;&lt;span class=&#34;glossary-tooltip&#34;&gt;
-      &lt;span class=&#34;glossary-tooltip-title&#34;&gt;XSLT&lt;/span&gt;
-      &lt;span class=&#34;glossary-tooltip-summary&#34;&gt;E&lt;strong&gt;x&lt;/strong&gt;tensible &lt;strong&gt;S&lt;/strong&gt;tylesheet &lt;strong&gt;L&lt;/strong&gt;anguage &lt;strong&gt;T&lt;/strong&gt;ransformations is a language for transforming XML documents into other XML documents. XSLTs are the primary means of transforming data in Stroom.&lt;/span&gt;&lt;span class=&#34;glossary-tooltip-truncated&#34;&gt;Click to see more details...&lt;/span&gt;&lt;/span&gt;&lt;/span&gt; is a very powerful language and allows the user to perform very complex transformations of XML data.
+    &lt;/a&gt;&lt;template class=&#34;hover-tooltip-content&#34;&gt;
+        &lt;span class=&#34;hover-tooltip-title&#34;&gt;XSLT&lt;/span&gt;
+        &lt;div class=&#34;hover-tooltip-summary&#34;&gt;E&lt;strong&gt;x&lt;/strong&gt;tensible &lt;strong&gt;S&lt;/strong&gt;tylesheet &lt;strong&gt;L&lt;/strong&gt;anguage &lt;strong&gt;T&lt;/strong&gt;ransformations is a language for transforming XML documents into other XML documents. XSLTs are the primary means of transforming data in Stroom.&lt;/div&gt;&lt;span class=&#34;hover-tooltip-more-details&#34;&gt;Click to see more details...&lt;/span&gt;&lt;/template&gt;&lt;/span&gt; is a very powerful language and allows the user to perform very complex transformations of XML data.
 This documentation does not aim to document how to write XSLT documents, for that, we strongly recommend you refer to online references (e.g. &lt;span class=&#34;external-link&#34;&gt;
   &lt;a href=&#34;https://www.w3schools.com/xml/xsl_intro.asp&#34; target=&#34;_blank&#34; class=&#34;external-link&#34; title=&#34;W3Schools (external link to https://www.w3schools.com/xml/xsl_intro.asp)&#34;&gt;
     &lt;span&gt;W3Schools&lt;/span&gt;
     &lt;i class=&#34;external-link-icon fas fa-external-link-alt fa-sm text-secondary&#34;&gt;&lt;/i&gt;
   &lt;/a&gt;
 &lt;/span&gt;
- or obtain a book covering XSLT 2.0 and &lt;span class=&#34;glossary-link&#34;&gt;
+ or obtain a book covering XSLT 2.0 and &lt;span class=&#34;glossary-link link-with-hover-tooltip&#34;&gt;
     &lt;a href=&#34;../../docs/glossary/x/glossary-xpath&#34;&gt;
       &lt;span&gt;XPath&lt;/span&gt;
       &lt;i class=&#34;glossary-link-icon fas fa-book fa-sm text-primary&#34;&gt;&lt;/i&gt;
-    &lt;/a&gt;&lt;span class=&#34;glossary-tooltip&#34;&gt;
-      &lt;span class=&#34;glossary-tooltip-title&#34;&gt;XPath&lt;/span&gt;
-      &lt;span class=&#34;glossary-tooltip-summary&#34;&gt;&lt;em&gt;XPath&lt;/em&gt; is an expression language for selecting a node or nodes in an XML document. It is used heavily in &lt;em&gt;XSLT&lt;/em&gt; to define the match criteria for templates and to select values.&lt;/span&gt;&lt;span class=&#34;glossary-tooltip-truncated&#34;&gt;Click to see more details...&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;).
+    &lt;/a&gt;&lt;template class=&#34;hover-tooltip-content&#34;&gt;
+        &lt;span class=&#34;hover-tooltip-title&#34;&gt;XPath&lt;/span&gt;
+        &lt;div class=&#34;hover-tooltip-summary&#34;&gt;&lt;em&gt;XPath&lt;/em&gt; is an expression language for selecting a node or nodes in an XML document. It is used heavily in &lt;em&gt;XSLT&lt;/em&gt; to define the match criteria for templates and to select values.&lt;/div&gt;&lt;span class=&#34;hover-tooltip-more-details&#34;&gt;Click to see more details...&lt;/span&gt;&lt;/template&gt;&lt;/span&gt;).
 It does however aim to document aspects of XSLT that are specific to the use of XSLT in Stroom.&lt;/p&gt;
 &lt;h2 id=&#34;examples&#34;&gt;Examples&lt;/h2&gt;
 &lt;h3 id=&#34;event-normalisation&#34;&gt;Event Normalisation&lt;/h3&gt;
-&lt;p&gt;Here is an example XSLT document that transforms XML data in the &lt;code&gt;records:2&lt;/code&gt; &lt;span class=&#34;glossary-link&#34;&gt;
+&lt;p&gt;Here is an example XSLT document that transforms XML data in the &lt;code&gt;records:2&lt;/code&gt; &lt;span class=&#34;glossary-link link-with-hover-tooltip&#34;&gt;
     &lt;a href=&#34;../../docs/glossary/n/glossary-namespace&#34;&gt;
       &lt;span&gt;Namespace&lt;/span&gt;
       &lt;i class=&#34;glossary-link-icon fas fa-book fa-sm text-primary&#34;&gt;&lt;/i&gt;
-    &lt;/a&gt;&lt;span class=&#34;glossary-tooltip&#34;&gt;
-      &lt;span class=&#34;glossary-tooltip-title&#34;&gt;Namespace&lt;/span&gt;
-      &lt;span class=&#34;glossary-tooltip-summary&#34;&gt;In Stroom &lt;em&gt;Namespace&lt;/em&gt; typically refers to an &lt;em&gt;XML Namespace&lt;/em&gt;. Namespaces are used in XML to distinguish different elements, e.g. where an &lt;em&gt;XSLT&lt;/em&gt; is transforming XML in the &lt;code&gt;records:2&lt;/code&gt; &lt;em&gt;Namespace&lt;/em&gt; into XML in the &lt;code&gt;event-logging:3&lt;/code&gt; &lt;em&gt;Namespace&lt;/em&gt;.&lt;/span&gt;&lt;span class=&#34;glossary-tooltip-truncated&#34;&gt;Click to see more details...&lt;/span&gt;&lt;/span&gt;&lt;/span&gt; (which is the output of the 
+    &lt;/a&gt;&lt;template class=&#34;hover-tooltip-content&#34;&gt;
+        &lt;span class=&#34;hover-tooltip-title&#34;&gt;Namespace&lt;/span&gt;
+        &lt;div class=&#34;hover-tooltip-summary&#34;&gt;In Stroom &lt;em&gt;Namespace&lt;/em&gt; typically refers to an &lt;em&gt;XML Namespace&lt;/em&gt;. Namespaces are used in XML to distinguish different elements, e.g. where an &lt;em&gt;XSLT&lt;/em&gt; is transforming XML in the &lt;code&gt;records:2&lt;/code&gt; &lt;em&gt;Namespace&lt;/em&gt; into XML in the &lt;code&gt;event-logging:3&lt;/code&gt; &lt;em&gt;Namespace&lt;/em&gt;.&lt;/div&gt;&lt;span class=&#34;hover-tooltip-more-details&#34;&gt;Click to see more details...&lt;/span&gt;&lt;/template&gt;&lt;/span&gt; (which is the output of the 
 
 
 
@@ -595,14 +114,21 @@ It does however aim to document aspects of XSLT that are specific to the use of 
  element) into event XML in the &lt;code&gt;event-logging:3&lt;/code&gt; namespace.
 It is an example of event normalisation from a bespoke format.&lt;/p&gt;
 
-&lt;div class=&#34;alert alert-warning&#34; role=&#34;alert&#34;&gt;
-&lt;h4 class=&#34;alert-heading&#34;&gt;Warning&lt;/h4&gt;
 
-    This example aims to show some typical uses of XSLT in a typical Stroom use case.
+
+&lt;div class=&#34;alert alert-warning&#34; role=&#34;alert&#34;&gt;
+  &lt;h4 class=&#34;alert-heading&#34;&gt;Warning&lt;/h4&gt;
+  &lt;div class=&#34;alert-content&#34;&gt;
+
+
+
+
+This example aims to show some typical uses of XSLT in a typical Stroom use case.
 It does not necessarily represent best practice in terms of creation of a normalised event.
 
-&lt;/div&gt;
 
+  &lt;/div&gt;
+&lt;/div&gt;
 
 &lt;pre&gt;&lt;code class=&#34;language-xml&#34;&gt;&amp;lt;?xml version=&amp;quot;1.1&amp;quot; encoding=&amp;quot;UTF-8&amp;quot; ?&amp;gt;
 &amp;lt;xsl:stylesheet 
@@ -690,13 +216,13 @@ It does not necessarily represent best practice in terms of creation of a normal
 &amp;lt;/xsl:stylesheet&amp;gt;
 &lt;/code&gt;&lt;/pre&gt;
 &lt;h3 id=&#34;reference-data&#34;&gt;Reference Data&lt;/h3&gt;
-&lt;p&gt;Here is an example of transforming &lt;a href=&#34;../../docs/user-guide/pipelines/reference-data/&#34;&gt;Reference Data&lt;/a&gt; in the &lt;code&gt;records:2&lt;/code&gt; &lt;span class=&#34;glossary-link&#34;&gt;
+&lt;p&gt;Here is an example of transforming &lt;a href=&#34;../../docs/user-guide/pipelines/reference-data/&#34;&gt;Reference Data&lt;/a&gt; in the &lt;code&gt;records:2&lt;/code&gt; &lt;span class=&#34;glossary-link link-with-hover-tooltip&#34;&gt;
     &lt;a href=&#34;../../docs/glossary/n/glossary-namespace&#34;&gt;
       &lt;span&gt;Namespace&lt;/span&gt;
       &lt;i class=&#34;glossary-link-icon fas fa-book fa-sm text-primary&#34;&gt;&lt;/i&gt;
-    &lt;/a&gt;&lt;span class=&#34;glossary-tooltip&#34;&gt;
-      &lt;span class=&#34;glossary-tooltip-title&#34;&gt;Namespace&lt;/span&gt;
-      &lt;span class=&#34;glossary-tooltip-summary&#34;&gt;In Stroom &lt;em&gt;Namespace&lt;/em&gt; typically refers to an &lt;em&gt;XML Namespace&lt;/em&gt;. Namespaces are used in XML to distinguish different elements, e.g. where an &lt;em&gt;XSLT&lt;/em&gt; is transforming XML in the &lt;code&gt;records:2&lt;/code&gt; &lt;em&gt;Namespace&lt;/em&gt; into XML in the &lt;code&gt;event-logging:3&lt;/code&gt; &lt;em&gt;Namespace&lt;/em&gt;.&lt;/span&gt;&lt;span class=&#34;glossary-tooltip-truncated&#34;&gt;Click to see more details...&lt;/span&gt;&lt;/span&gt;&lt;/span&gt; (which is the output of the 
+    &lt;/a&gt;&lt;template class=&#34;hover-tooltip-content&#34;&gt;
+        &lt;span class=&#34;hover-tooltip-title&#34;&gt;Namespace&lt;/span&gt;
+        &lt;div class=&#34;hover-tooltip-summary&#34;&gt;In Stroom &lt;em&gt;Namespace&lt;/em&gt; typically refers to an &lt;em&gt;XML Namespace&lt;/em&gt;. Namespaces are used in XML to distinguish different elements, e.g. where an &lt;em&gt;XSLT&lt;/em&gt; is transforming XML in the &lt;code&gt;records:2&lt;/code&gt; &lt;em&gt;Namespace&lt;/em&gt; into XML in the &lt;code&gt;event-logging:3&lt;/code&gt; &lt;em&gt;Namespace&lt;/em&gt;.&lt;/div&gt;&lt;span class=&#34;hover-tooltip-more-details&#34;&gt;Click to see more details...&lt;/span&gt;&lt;/template&gt;&lt;/span&gt; (which is the output of the 
 
 
 
@@ -878,16 +404,20 @@ It does not necessarily represent best practice in terms of creation of a normal
 &lt;p&gt;This XSLT will copy every node and attribute as they are, returning the input document completely un-changed.
 You can then add additional templates to match on specific elements and modify them, for example decorating a user&amp;rsquo;s &lt;code&gt;UserDetails&lt;/code&gt; elements with value obtained from a reference data lookup on a user ID.&lt;/p&gt;
 
+
+
 &lt;div class=&#34;alert alert-primary&#34; role=&#34;alert&#34;&gt;
-&lt;h4 class=&#34;alert-heading&#34;&gt;Note&lt;/h4&gt;
+  &lt;h4 class=&#34;alert-heading&#34;&gt;Note&lt;/h4&gt;
+  &lt;div class=&#34;alert-content&#34;&gt;
 
 
 
-    &lt;p&gt;You can insert this identity skeleton into an XSLT editor using this editor &lt;a href=&#34;../../docs/reference-section/snippet-reference/#events-identity-skeleton&#34;&gt;snippet&lt;/a&gt;.&lt;/p&gt;
+
+You can insert this identity skeleton into an XSLT editor using this editor &lt;a href=&#34;../../docs/reference-section/snippet-reference/#events-identity-skeleton&#34;&gt;snippet&lt;/a&gt;.
 
 
+  &lt;/div&gt;
 &lt;/div&gt;
-
 
 &lt;h2 id=&#34;xslmessage&#34;&gt;&lt;code&gt;&amp;lt;xsl:message&amp;gt;&lt;/code&gt;&lt;/h2&gt;
 &lt;p&gt;Stroom supports the standard &lt;code&gt;&amp;lt;xsl:message&amp;gt;&lt;/code&gt; element from the &lt;span class=&#34;external-link&#34;&gt;
@@ -897,22 +427,38 @@ You can then add additional templates to match on specific elements and modify t
   &lt;/a&gt;
 &lt;/span&gt;
 .
-This element behaves in a similar way to the &lt;a href=&#34;../../docs/user-guide/pipelines/xslt/xslt-functions/output-and-logging/#log&#34;&gt;&lt;code&gt;stroom:log()&lt;/code&gt;&lt;/a&gt; XSLT function.
+This element behaves in a similar way to the &lt;span class=&#34;xslt-func-link link-with-hover-tooltip&#34;&gt;
+          &lt;a href=&#34;../../docs/reference-section/xslt-function-reference/pipeline/#log&#34;&gt;
+            &lt;span&gt;&lt;code&gt;stroom:log()&lt;/code&gt;&lt;/span&gt;
+          &lt;/a&gt;&lt;template class=&#34;xslt-func-link-tooltip hover-tooltip-content&#34;&gt;
+              &lt;span class=&#34;hover-tooltip-title&#34;&gt;&lt;code&gt;stroom:log()&lt;/code&gt;&lt;/span&gt;&lt;div class=&#34;hover-tooltip-summary&#34;&gt;&lt;p&gt;The log() function writes a message to the processing log with the specified severity.
+Severities of INFO, WARN, ERROR and FATAL can be used.
+Severities of ERROR and FATAL will result in records being omitted from the output if a
+RecordOutputFilter is used in the pipeline.&lt;/p&gt;&lt;p&gt;The counts for RecWarn, RecError will be affected by warnings or errors generated in
+this way therefore this function is useful for adding business rules to XML output.&lt;/p&gt;&lt;/div&gt;
+              &lt;span class=&#34;hover-tooltip-more-details&#34;&gt;Click to see more details...&lt;/span&gt;
+            &lt;/template&gt;&lt;/span&gt;) XSLT function.
 The element text is logged to the Error stream with a default severity of &lt;code&gt;ERROR&lt;/code&gt;.&lt;/p&gt;
 &lt;p&gt;A child element can optionally be used to set the severity level (one of &lt;code&gt;FATAL|ERROR|WARN|INFO&lt;/code&gt;).
 The namespace of this element does not matter.
 You can also set the attribute &lt;code&gt;terminate=&amp;quot;yes&amp;quot;&lt;/code&gt; to log the message at severity &lt;code&gt;FATAL&lt;/code&gt; and halt processing of that stream part.
 If the stream is multi-part then processing will continue with the next part.&lt;/p&gt;
 
+
+
 &lt;div class=&#34;alert alert-primary&#34; role=&#34;alert&#34;&gt;
-&lt;h4 class=&#34;alert-heading&#34;&gt;Note&lt;/h4&gt;
+  &lt;h4 class=&#34;alert-heading&#34;&gt;Note&lt;/h4&gt;
+  &lt;div class=&#34;alert-content&#34;&gt;
 
 
-    Setting &lt;code&gt;terminate=&amp;quot;yes&amp;quot;&lt;/code&gt; will trump any severity defined by a child element.
+
+
+Setting &lt;code&gt;terminate=&amp;#34;yes&amp;#34;&lt;/code&gt; will trump any severity defined by a child element.
 It will always be logged at &lt;code&gt;FATAL&lt;/code&gt;.
 
-&lt;/div&gt;
 
+  &lt;/div&gt;
+&lt;/div&gt;
 
 &lt;p&gt;The following are some examples of using &lt;code&gt;&amp;lt;xsl:message&amp;gt;&lt;/code&gt;.&lt;/p&gt;
 &lt;pre&gt;&lt;code class=&#34;language-xml&#34;&gt;&amp;lt;!-- Log a message using default severity of ERROR --&amp;gt;
@@ -943,118 +489,6 @@ It will always be logged at &lt;code&gt;FATAL&lt;/code&gt;.
     </item>
     
     <item>
-      <title>Docs: Stream &amp; Source</title>
-      <link>/docs/user-guide/pipelines/xslt/xslt-functions/stream-and-source/</link>
-      <pubDate>Fri, 14 Aug 2026 00:00:00 +0000</pubDate>
-      
-      <guid>/docs/user-guide/pipelines/xslt/xslt-functions/stream-and-source/</guid>
-      <description>
-        
-        
-        &lt;h2 id=&#34;classification&#34;&gt;classification()&lt;/h2&gt;
-&lt;p&gt;The classification of the feed for the data being processed&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-text&#34;&gt;classification()
-&lt;/code&gt;&lt;/pre&gt;
-&lt;h2 id=&#34;col-from&#34;&gt;col-from()&lt;/h2&gt;
-&lt;p&gt;The column in the input that the current record begins on (can be 0).&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-text&#34;&gt;col-from()
-&lt;/code&gt;&lt;/pre&gt;
-&lt;h2 id=&#34;col-to&#34;&gt;col-to()&lt;/h2&gt;
-&lt;p&gt;The column in the input that the current record ends at.&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-text&#34;&gt;col-to()
-&lt;/code&gt;&lt;/pre&gt;
-&lt;h2 id=&#34;feed-attribute&#34;&gt;feed-attribute()&lt;/h2&gt;
-&lt;p&gt;&lt;strong&gt;NOTE:&lt;/strong&gt; This function is deprecated, use &lt;code&gt;meta(String key)&lt;/code&gt; instead.
-The value for the supplied feed &lt;code&gt;attributeKey&lt;/code&gt;.&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-text&#34;&gt;feed-attribute(String attributeKey)
-&lt;/code&gt;&lt;/pre&gt;
-&lt;h2 id=&#34;feed-name&#34;&gt;feed-name()&lt;/h2&gt;
-&lt;p&gt;Name of the feed for the data being processed&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-text&#34;&gt;feed-name()
-&lt;/code&gt;&lt;/pre&gt;
-&lt;h2 id=&#34;line-from&#34;&gt;line-from()&lt;/h2&gt;
-&lt;p&gt;The line in the input that the current record begins on (1 based).&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-text&#34;&gt;line-from()
-&lt;/code&gt;&lt;/pre&gt;
-&lt;h2 id=&#34;line-to&#34;&gt;line-to()&lt;/h2&gt;
-&lt;p&gt;The line in the input that the current record ends at.&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-text&#34;&gt;line-to()
-&lt;/code&gt;&lt;/pre&gt;
-&lt;h2 id=&#34;manifest&#34;&gt;manifest()&lt;/h2&gt;
-&lt;p&gt;Returns an XML structure with the &lt;code&gt;stroom-meta&lt;/code&gt; namespace detailing the manifest meta of the current stream being processed&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-text&#34;&gt;manifest()
-&lt;/code&gt;&lt;/pre&gt;
-&lt;h2 id=&#34;manifest-for-id&#34;&gt;manifest-for-id()&lt;/h2&gt;
-&lt;p&gt;Returns an XML structure with the &lt;code&gt;stroom-meta&lt;/code&gt; namespace detailing the manifest meta of the specified stream&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-text&#34;&gt;manifest-for-id(String streamId)
-&lt;/code&gt;&lt;/pre&gt;
-&lt;h2 id=&#34;meta&#34;&gt;meta()&lt;/h2&gt;
-&lt;p&gt;Lookup a meta data value for the current stream using the specified key.
-The key can be &lt;code&gt;Feed&lt;/code&gt;, &lt;code&gt;StreamType&lt;/code&gt;, &lt;code&gt;CreatedTime&lt;/code&gt;, &lt;code&gt;EffectiveTime&lt;/code&gt;, &lt;code&gt;Pipeline&lt;/code&gt; or any other attribute supplied when the stream was sent to Stroom, e.g. meta(&amp;lsquo;System&amp;rsquo;).&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-text&#34;&gt;meta(String key)
-&lt;/code&gt;&lt;/pre&gt;
-&lt;h2 id=&#34;meta-attribute&#34;&gt;meta-attribute()&lt;/h2&gt;
-&lt;p&gt;Returns the value of a single attribute from the manifest of the current stream.
-These are the same attributes that &lt;code&gt;manifest()&lt;/code&gt; returns as an XML structure.&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-text&#34;&gt;meta-attribute(String key)
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;This is not the same as &lt;code&gt;meta()&lt;/code&gt;.
-&lt;code&gt;meta()&lt;/code&gt; reads the meta data of the part currently being processed, and is what most translations want.
-&lt;code&gt;meta-attribute()&lt;/code&gt; reads the manifest of the whole stream from the data store, so it will open the stream&amp;rsquo;s source.&lt;/p&gt;
-&lt;p&gt;If the stream has no attribute with the supplied key then no result is returned.&lt;/p&gt;
-&lt;h2 id=&#34;meta-keys&#34;&gt;meta-keys()&lt;/h2&gt;
-&lt;p&gt;When calling this function and assigning the result to a variable, you must specify the variable data type of &lt;code&gt;xs:string*&lt;/code&gt; (array of strings).&lt;/p&gt;
-&lt;p&gt;The following fragment is an example of using &lt;code&gt;meta-keys()&lt;/code&gt; to emit all meta values for a given stream, into an &lt;code&gt;Event/Meta&lt;/code&gt; element:&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-xml&#34;&gt;&amp;lt;Event&amp;gt;
-  &amp;lt;xsl:variable name=&amp;quot;metaKeys&amp;quot; select=&amp;quot;stroom:meta-keys()&amp;quot; as=&amp;quot;xs:string*&amp;quot; /&amp;gt;
-  &amp;lt;Meta&amp;gt;
-    &amp;lt;xsl:for-each select=&amp;quot;$metaKeys&amp;quot;&amp;gt;
-      &amp;lt;string key=&amp;quot;{.}&amp;quot;&amp;gt;&amp;lt;xsl:value-of select=&amp;quot;stroom:meta(.)&amp;quot; /&amp;gt;&amp;lt;/string&amp;gt;
-    &amp;lt;/xsl:for-each&amp;gt;
-  &amp;lt;/Meta&amp;gt;
-&amp;lt;/Event&amp;gt;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;h2 id=&#34;meta-stream&#34;&gt;meta-stream()&lt;/h2&gt;
-&lt;p&gt;Returns an XML structure with the &lt;code&gt;stroom-meta&lt;/code&gt; namespace detailing the meta data of the current stream being processed&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-text&#34;&gt;meta-stream()
-&lt;/code&gt;&lt;/pre&gt;
-&lt;h2 id=&#34;meta-stream-for-id&#34;&gt;meta-stream-for-id()&lt;/h2&gt;
-&lt;p&gt;Returns an XML structure with the &lt;code&gt;stroom-meta&lt;/code&gt; namespace detailing the meta data of the specified stream and part number (1 based)&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-text&#34;&gt;meta-stream-for-id(String streamId, Integer partNo)
-&lt;/code&gt;&lt;/pre&gt;
-&lt;h2 id=&#34;parent-for-id&#34;&gt;parent-for-id()&lt;/h2&gt;
-&lt;p&gt;Get the parent id of the specified input stream&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-text&#34;&gt;parent-for-id(String streamId)
-&lt;/code&gt;&lt;/pre&gt;
-&lt;h2 id=&#34;parent-id&#34;&gt;parent-id()&lt;/h2&gt;
-&lt;p&gt;Get the parent id of the current input stream this is being processed&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-text&#34;&gt;parent-id()
-&lt;/code&gt;&lt;/pre&gt;
-&lt;h2 id=&#34;part-no&#34;&gt;part-no()&lt;/h2&gt;
-&lt;p&gt;The current part within a multi part aggregated input stream (AKA the substream number) (1 based)&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-text&#34;&gt;part-no()
-&lt;/code&gt;&lt;/pre&gt;
-&lt;h2 id=&#34;record-no&#34;&gt;record-no()&lt;/h2&gt;
-&lt;p&gt;The current record number within the current part (substream) (1 based).&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-text&#34;&gt;record-no()
-&lt;/code&gt;&lt;/pre&gt;
-&lt;h2 id=&#34;source&#34;&gt;source()&lt;/h2&gt;
-&lt;p&gt;Returns an XML structure with the &lt;code&gt;stroom-meta&lt;/code&gt; namespace detailing the current source location.&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-text&#34;&gt;source()
-&lt;/code&gt;&lt;/pre&gt;
-&lt;h2 id=&#34;source-id&#34;&gt;source-id()&lt;/h2&gt;
-&lt;p&gt;Get the id of the current input stream that is being processed&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-text&#34;&gt;source-id()
-&lt;/code&gt;&lt;/pre&gt;
-&lt;h2 id=&#34;stream-id&#34;&gt;stream-id()&lt;/h2&gt;
-&lt;p&gt;An alias for &lt;code&gt;source-id&lt;/code&gt; included for backward compatibility.&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-text&#34;&gt;stream-id()
-&lt;/code&gt;&lt;/pre&gt;
-
-      </description>
-    </item>
-    
-    <item>
       <title>Docs: XSLT Functions</title>
       <link>/docs/user-guide/pipelines/xslt/xslt-functions/</link>
       <pubDate>Fri, 14 Aug 2026 00:00:00 +0000</pubDate>
@@ -1063,494 +497,8 @@ These are the same attributes that &lt;code&gt;manifest()&lt;/code&gt; returns a
       <description>
         
         
-        &lt;p&gt;Stroom provides a set of custom functions for use in your XSLT translations.
-To use them, include the &lt;code&gt;stroom&lt;/code&gt; namespace in your stylesheet:&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-xml&#34;&gt;xmlns:stroom=&amp;quot;stroom&amp;quot;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;E.g.&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-xml&#34;&gt;&amp;lt;?xml version=&amp;quot;1.0&amp;quot; encoding=&amp;quot;UTF-8&amp;quot; ?&amp;gt;
-&amp;lt;xsl:stylesheet
-    xmlns=&amp;quot;event-logging:3&amp;quot;
-    xmlns:stroom=&amp;quot;stroom&amp;quot;
-    xmlns:xsl=&amp;quot;http://www.w3.org/1999/XSL/Transform&amp;quot;
-    xmlns:xsi=&amp;quot;http://www.w3.org/2001/XMLSchema-instance&amp;quot;
-    version=&amp;quot;2.0&amp;quot;&amp;gt;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;A function is then called with that prefix, e.g. &lt;code&gt;stroom:format-date(...)&lt;/code&gt;.&lt;/p&gt;
-&lt;p&gt;The functions are grouped as follows.&lt;/p&gt;
-&lt;div class=&#34;td-card-deck card-deck mb-4&#34;&gt;
-  &lt;div class=&#34;td-card card mb-4&#34;&gt;
-  
-    &lt;div class=&#34;card-header&#34;&gt;
-      
-        Date &amp;amp; Time
-      
-    &lt;/div&gt;
-  
-  &lt;div class=&#34;card-body&#34;&gt;
-    
-    
-    
-      &lt;p class=&#34;card-text&#34;&gt;
-        
-          &lt;ul&gt;
-&lt;li&gt;&lt;a href=&#34;date-and-time#current-time&#34;&gt;&lt;code&gt;current-time()&lt;/code&gt;&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;date-and-time#current-unixtime&#34;&gt;&lt;code&gt;current-unixTime()&lt;/code&gt;&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;date-and-time#format-date&#34;&gt;&lt;code&gt;format-date()&lt;/code&gt;&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;date-and-time#format-datetime&#34;&gt;&lt;code&gt;format-dateTime()&lt;/code&gt;&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;date-and-time#from-unixtime&#34;&gt;&lt;code&gt;from-unixTime()&lt;/code&gt;&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;date-and-time#parse-datetime&#34;&gt;&lt;code&gt;parse-dateTime()&lt;/code&gt;&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;date-and-time#to-unixtime&#34;&gt;&lt;code&gt;to-unixTime()&lt;/code&gt;&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-        
-      &lt;/p&gt;
-    
-  &lt;/div&gt;
-  
-&lt;/div&gt;
-
-
-  &lt;div class=&#34;td-card card mb-4&#34;&gt;
-  
-    &lt;div class=&#34;card-header&#34;&gt;
-      
-        Reference Data
-      
-    &lt;/div&gt;
-  
-  &lt;div class=&#34;card-body&#34;&gt;
-    
-    
-    
-      &lt;p class=&#34;card-text&#34;&gt;
-        
-          &lt;ul&gt;
-&lt;li&gt;&lt;a href=&#34;reference-data#bitmap-lookup&#34;&gt;&lt;code&gt;bitmap-lookup()&lt;/code&gt;&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;reference-data#dictionary&#34;&gt;&lt;code&gt;dictionary()&lt;/code&gt;&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;reference-data#lookup&#34;&gt;&lt;code&gt;lookup()&lt;/code&gt;&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-        
-      &lt;/p&gt;
-    
-  &lt;/div&gt;
-  
-&lt;/div&gt;
-
-
-  &lt;div class=&#34;td-card card mb-4&#34;&gt;
-  
-    &lt;div class=&#34;card-header&#34;&gt;
-      
-        Stream &amp;amp; Source
-      
-    &lt;/div&gt;
-  
-  &lt;div class=&#34;card-body&#34;&gt;
-    
-    
-    
-      &lt;p class=&#34;card-text&#34;&gt;
-        
-          &lt;ul&gt;
-&lt;li&gt;&lt;a href=&#34;stream-and-source#classification&#34;&gt;&lt;code&gt;classification()&lt;/code&gt;&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;stream-and-source#col-from&#34;&gt;&lt;code&gt;col-from()&lt;/code&gt;&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;stream-and-source#col-to&#34;&gt;&lt;code&gt;col-to()&lt;/code&gt;&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;stream-and-source#feed-attribute&#34;&gt;&lt;code&gt;feed-attribute()&lt;/code&gt;&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;stream-and-source#feed-name&#34;&gt;&lt;code&gt;feed-name()&lt;/code&gt;&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;stream-and-source#line-from&#34;&gt;&lt;code&gt;line-from()&lt;/code&gt;&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;stream-and-source#line-to&#34;&gt;&lt;code&gt;line-to()&lt;/code&gt;&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;stream-and-source#manifest&#34;&gt;&lt;code&gt;manifest()&lt;/code&gt;&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;stream-and-source#manifest-for-id&#34;&gt;&lt;code&gt;manifest-for-id()&lt;/code&gt;&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;stream-and-source#meta&#34;&gt;&lt;code&gt;meta()&lt;/code&gt;&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;stream-and-source#meta-attribute&#34;&gt;&lt;code&gt;meta-attribute()&lt;/code&gt;&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;stream-and-source#meta-keys&#34;&gt;&lt;code&gt;meta-keys()&lt;/code&gt;&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;stream-and-source#meta-stream&#34;&gt;&lt;code&gt;meta-stream()&lt;/code&gt;&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;stream-and-source#meta-stream-for-id&#34;&gt;&lt;code&gt;meta-stream-for-id()&lt;/code&gt;&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;stream-and-source#parent-for-id&#34;&gt;&lt;code&gt;parent-for-id()&lt;/code&gt;&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;stream-and-source#parent-id&#34;&gt;&lt;code&gt;parent-id()&lt;/code&gt;&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;stream-and-source#part-no&#34;&gt;&lt;code&gt;part-no()&lt;/code&gt;&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;stream-and-source#record-no&#34;&gt;&lt;code&gt;record-no()&lt;/code&gt;&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;stream-and-source#source&#34;&gt;&lt;code&gt;source()&lt;/code&gt;&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;stream-and-source#source-id&#34;&gt;&lt;code&gt;source-id()&lt;/code&gt;&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;stream-and-source#stream-id&#34;&gt;&lt;code&gt;stream-id()&lt;/code&gt;&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-        
-      &lt;/p&gt;
-    
-  &lt;/div&gt;
-  
-&lt;/div&gt;
-
-
-&lt;/div&gt;
-&lt;div class=&#34;td-card-deck card-deck mb-4&#34;&gt;
-  &lt;div class=&#34;td-card card mb-4&#34;&gt;
-  
-    &lt;div class=&#34;card-header&#34;&gt;
-      
-        Networking &amp;amp; URI
-      
-    &lt;/div&gt;
-  
-  &lt;div class=&#34;card-body&#34;&gt;
-    
-    
-    
-      &lt;p class=&#34;card-text&#34;&gt;
-        
-          &lt;ul&gt;
-&lt;li&gt;&lt;a href=&#34;networking-and-uri#cidr-to-numeric-ip-range&#34;&gt;&lt;code&gt;cidr-to-numeric-ip-range()&lt;/code&gt;&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;networking-and-uri#host-address&#34;&gt;&lt;code&gt;host-address()&lt;/code&gt;&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;networking-and-uri#host-name&#34;&gt;&lt;code&gt;host-name()&lt;/code&gt;&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;networking-and-uri#ip-in-cidr&#34;&gt;&lt;code&gt;ip-in-cidr()&lt;/code&gt;&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;networking-and-uri#numeric-ip&#34;&gt;&lt;code&gt;numeric-ip()&lt;/code&gt;&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;networking-and-uri#parse-uri&#34;&gt;&lt;code&gt;parse-uri()&lt;/code&gt;&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-        
-      &lt;/p&gt;
-    
-  &lt;/div&gt;
-  
-&lt;/div&gt;
-
-
-  &lt;div class=&#34;td-card card mb-4&#34;&gt;
-  
-    &lt;div class=&#34;card-header&#34;&gt;
-      
-        String &amp;amp; Encoding
-      
-    &lt;/div&gt;
-  
-  &lt;div class=&#34;card-body&#34;&gt;
-    
-    
-    
-      &lt;p class=&#34;card-text&#34;&gt;
-        
-          &lt;ul&gt;
-&lt;li&gt;&lt;a href=&#34;string-and-encoding#decode-url&#34;&gt;&lt;code&gt;decode-url()&lt;/code&gt;&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;string-and-encoding#encode-url&#34;&gt;&lt;code&gt;encode-url()&lt;/code&gt;&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;string-and-encoding#hash&#34;&gt;&lt;code&gt;hash()&lt;/code&gt;&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;string-and-encoding#hex-to-dec&#34;&gt;&lt;code&gt;hex-to-dec()&lt;/code&gt;&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;string-and-encoding#hex-to-oct&#34;&gt;&lt;code&gt;hex-to-oct()&lt;/code&gt;&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;string-and-encoding#hex-to-string&#34;&gt;&lt;code&gt;hex-to-string()&lt;/code&gt;&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-        
-      &lt;/p&gt;
-    
-  &lt;/div&gt;
-  
-&lt;/div&gt;
-
-
-  &lt;div class=&#34;td-card card mb-4&#34;&gt;
-  
-    &lt;div class=&#34;card-header&#34;&gt;
-      
-        HTTP &amp;amp; JSON
-      
-    &lt;/div&gt;
-  
-  &lt;div class=&#34;card-body&#34;&gt;
-    
-    
-    
-      &lt;p class=&#34;card-text&#34;&gt;
-        
-          &lt;ul&gt;
-&lt;li&gt;&lt;a href=&#34;http-and-json#fetch-json&#34;&gt;&lt;code&gt;fetch-json()&lt;/code&gt;&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;http-and-json#http-call&#34;&gt;&lt;code&gt;http-call()&lt;/code&gt;&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;http-and-json#json-to-xml&#34;&gt;&lt;code&gt;json-to-xml()&lt;/code&gt;&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-        
-      &lt;/p&gt;
-    
-  &lt;/div&gt;
-  
-&lt;/div&gt;
-
-
-&lt;/div&gt;
-&lt;div class=&#34;td-card-deck card-deck mb-4&#34;&gt;
-  &lt;div class=&#34;td-card card mb-4&#34;&gt;
-  
-    &lt;div class=&#34;card-header&#34;&gt;
-      
-        Output &amp;amp; Logging
-      
-    &lt;/div&gt;
-  
-  &lt;div class=&#34;card-body&#34;&gt;
-    
-    
-    
-      &lt;p class=&#34;card-text&#34;&gt;
-        
-          &lt;ul&gt;
-&lt;li&gt;&lt;a href=&#34;output-and-logging#add-meta&#34;&gt;&lt;code&gt;add-meta()&lt;/code&gt;&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;output-and-logging#link&#34;&gt;&lt;code&gt;link()&lt;/code&gt;&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;output-and-logging#log&#34;&gt;&lt;code&gt;log()&lt;/code&gt;&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-        
-      &lt;/p&gt;
-    
-  &lt;/div&gt;
-  
-&lt;/div&gt;
-
-
-  &lt;div class=&#34;td-card card mb-4&#34;&gt;
-  
-    &lt;div class=&#34;card-header&#34;&gt;
-      
-        Values &amp;amp; Context
-      
-    &lt;/div&gt;
-  
-  &lt;div class=&#34;card-body&#34;&gt;
-    
-    
-    
-      &lt;p class=&#34;card-text&#34;&gt;
-        
-          &lt;ul&gt;
-&lt;li&gt;&lt;a href=&#34;values-and-context#current-user&#34;&gt;&lt;code&gt;current-user()&lt;/code&gt;&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;values-and-context#put-and-get&#34;&gt;&lt;code&gt;get()&lt;/code&gt;&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;values-and-context#pipeline-name&#34;&gt;&lt;code&gt;pipeline-name()&lt;/code&gt;&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;values-and-context#put-and-get&#34;&gt;&lt;code&gt;put()&lt;/code&gt;&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;values-and-context#random&#34;&gt;&lt;code&gt;random()&lt;/code&gt;&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;values-and-context#search-id&#34;&gt;&lt;code&gt;search-id()&lt;/code&gt;&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-        
-      &lt;/p&gt;
-    
-  &lt;/div&gt;
-  
-&lt;/div&gt;
-
-
-  &lt;div class=&#34;td-card card mb-4&#34;&gt;
-  
-    &lt;div class=&#34;card-header&#34;&gt;
-      
-        Maths &amp;amp; Vectors
-      
-    &lt;/div&gt;
-  
-  &lt;div class=&#34;card-body&#34;&gt;
-    
-    
-    
-      &lt;p class=&#34;card-text&#34;&gt;
-        
-          &lt;ul&gt;
-&lt;li&gt;&lt;a href=&#34;maths-and-vectors#cosine-similarity&#34;&gt;&lt;code&gt;cosine-similarity()&lt;/code&gt;&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;maths-and-vectors#pointisinsidexypolygon&#34;&gt;&lt;code&gt;pointIsInsideXYPolygon()&lt;/code&gt;&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;maths-and-vectors#split-document&#34;&gt;&lt;code&gt;split-document()&lt;/code&gt;&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-        
-      &lt;/p&gt;
-    
-  &lt;/div&gt;
-  
-&lt;/div&gt;
-
-
-&lt;/div&gt;
-
-      </description>
-    </item>
-    
-    <item>
-      <title>Docs: Reference Data</title>
-      <link>/docs/user-guide/pipelines/xslt/xslt-functions/reference-data/</link>
-      <pubDate>Fri, 14 Aug 2026 00:00:00 +0000</pubDate>
-      
-      <guid>/docs/user-guide/pipelines/xslt/xslt-functions/reference-data/</guid>
-      <description>
-        
-        
-        &lt;h2 id=&#34;bitmap-lookup&#34;&gt;bitmap-lookup()&lt;/h2&gt;
-&lt;p&gt;The bitmap-lookup() function treats the key as a bitmap and, for each set bit position, looks up a value (which can be an XML node set) from reference or context data and adds it to the resultant XML.&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-text&#34;&gt;bitmap-lookup(String map, String key)
-bitmap-lookup(String map, String key, String time)
-bitmap-lookup(String map, String key, String time, Boolean ignoreWarnings)
-bitmap-lookup(String map, String key, String time, Boolean ignoreWarnings, Boolean trace)
-&lt;/code&gt;&lt;/pre&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;code&gt;map&lt;/code&gt; - The name of the reference data map to perform the lookup against.&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;key&lt;/code&gt; - The bitmap value to lookup.
-This can either be represented as a decimal integer (e.g. &lt;code&gt;14&lt;/code&gt;) or as hexadecimal by prefixing with &lt;code&gt;0x&lt;/code&gt; (e.g. &lt;code&gt;0xE&lt;/code&gt;).&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;time&lt;/code&gt; - Determines which set of reference data was effective at the requested time.
-If no reference data exists with an effective time before the requested time then the lookup will fail.
-Time is in the format &lt;code&gt;yyyy-MM-dd&#39;T&#39;HH:mm:ss.SSSXX&lt;/code&gt;, e.g. &lt;code&gt;2010-01-01T00:00:00.000Z&lt;/code&gt;.&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;ignoreWarnings&lt;/code&gt; - If true, any lookup failures will be ignored, else they will be reported as warnings.&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;trace&lt;/code&gt; - If true, additional trace information is output as INFO messages.&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;If the look up fails no result will be returned.&lt;/p&gt;
-&lt;p&gt;The key is a bitmap expressed as either a decimal integer or a hexadecimal value, e.g. &lt;code&gt;14&lt;/code&gt;/&lt;code&gt;0xE&lt;/code&gt; is &lt;code&gt;1110&lt;/code&gt; as a binary bitmap.
-For each bit position that is set, (i.e. has a binary value of &lt;code&gt;1&lt;/code&gt;) a lookup will be performed using that bit position as the key.
-In this example, positions &lt;code&gt;1&lt;/code&gt;, &lt;code&gt;2&lt;/code&gt; &amp;amp; &lt;code&gt;3&lt;/code&gt; are set so a lookup would be performed for these bit positions.
-The result of each lookup for the bitmap are concatenated together in bit position order, separated by a space.&lt;/p&gt;
-&lt;p&gt;If &lt;code&gt;ignoreWarnings&lt;/code&gt; is true then any lookup failures will be ignored and it will return the value(s) for the bit positions it was able to lookup.&lt;/p&gt;
-&lt;p&gt;This function can be useful when you have a set of values that can be represented as a bitmap and you need them to be converted back to individual values.
-For example if you have a set of additive account permissions (e.g. Admin, ManageUsers, PerformExport, etc.), each of which is associated with a bit position, then a user&amp;rsquo;s permissions could be defined as a single decimal/hex bitmap value.
-Thus a bitmap lookup with this value would return all the permissions held by the user.&lt;/p&gt;
-&lt;p&gt;For example the reference data store may contain:&lt;/p&gt;
-&lt;table&gt;
-&lt;thead&gt;
-&lt;tr&gt;
-&lt;th&gt;Key (Bit position)&lt;/th&gt;
-&lt;th&gt;Value&lt;/th&gt;
-&lt;/tr&gt;
-&lt;/thead&gt;
-&lt;tbody&gt;
-&lt;tr&gt;
-&lt;td&gt;0&lt;/td&gt;
-&lt;td&gt;Administrator&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;1&lt;/td&gt;
-&lt;td&gt;Manage_Users&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;2&lt;/td&gt;
-&lt;td&gt;Perform_Export&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;3&lt;/td&gt;
-&lt;td&gt;View_Data&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;4&lt;/td&gt;
-&lt;td&gt;Manage_Jobs&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;5&lt;/td&gt;
-&lt;td&gt;Delete_Data&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;6&lt;/td&gt;
-&lt;td&gt;Manage_Volumes&lt;/td&gt;
-&lt;/tr&gt;
-&lt;/tbody&gt;
-&lt;/table&gt;
-&lt;p&gt;The following are example lookups using the above reference data:&lt;/p&gt;
-&lt;table&gt;
-&lt;thead&gt;
-&lt;tr&gt;
-&lt;th&gt;Lookup Key (decimal)&lt;/th&gt;
-&lt;th&gt;Lookup Key (Hex)&lt;/th&gt;
-&lt;th&gt;Bitmap&lt;/th&gt;
-&lt;th&gt;Result&lt;/th&gt;
-&lt;/tr&gt;
-&lt;/thead&gt;
-&lt;tbody&gt;
-&lt;tr&gt;
-&lt;td&gt;&lt;code&gt;0&lt;/code&gt;&lt;/td&gt;
-&lt;td&gt;&lt;code&gt;0x0&lt;/code&gt;&lt;/td&gt;
-&lt;td&gt;&lt;code&gt;0000000&lt;/code&gt;&lt;/td&gt;
-&lt;td&gt;-&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;&lt;code&gt;1&lt;/code&gt;&lt;/td&gt;
-&lt;td&gt;&lt;code&gt;0x1&lt;/code&gt;&lt;/td&gt;
-&lt;td&gt;&lt;code&gt;0000001&lt;/code&gt;&lt;/td&gt;
-&lt;td&gt;&lt;code&gt;Administrator&lt;/code&gt;&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;&lt;code&gt;74&lt;/code&gt;&lt;/td&gt;
-&lt;td&gt;&lt;code&gt;0x4A&lt;/code&gt;&lt;/td&gt;
-&lt;td&gt;&lt;code&gt;1001010&lt;/code&gt;&lt;/td&gt;
-&lt;td&gt;&lt;code&gt;Manage_Users View_Data Manage_Volumes&lt;/code&gt;&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;&lt;code&gt;2&lt;/code&gt;&lt;/td&gt;
-&lt;td&gt;&lt;code&gt;0x2&lt;/code&gt;&lt;/td&gt;
-&lt;td&gt;&lt;code&gt;0000010&lt;/code&gt;&lt;/td&gt;
-&lt;td&gt;&lt;code&gt;Manage_Users&lt;/code&gt;&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;&lt;code&gt;96&lt;/code&gt;&lt;/td&gt;
-&lt;td&gt;&lt;code&gt;0x60&lt;/code&gt;&lt;/td&gt;
-&lt;td&gt;&lt;code&gt;1100000&lt;/code&gt;&lt;/td&gt;
-&lt;td&gt;&lt;code&gt;Delete_Data Manage_Volumes&lt;/code&gt;&lt;/td&gt;
-&lt;/tr&gt;
-&lt;/tbody&gt;
-&lt;/table&gt;
-&lt;h2 id=&#34;dictionary&#34;&gt;dictionary()&lt;/h2&gt;
-&lt;p&gt;The dictionary() function gets the contents of the specified dictionary for use during translation.
-The main use for this function is to allow users to abstract the management of a set of keywords from the XSLT so that it is easier for some users to make quick alterations to a dictionary that is used by some XSLT, without the need for the user to understand the complexities of XSLT.&lt;/p&gt;
-&lt;h2 id=&#34;lookup&#34;&gt;lookup()&lt;/h2&gt;
-&lt;p&gt;The lookup() function looks up from reference or context data a value (which can be an XML node set) and adds it to the resultant XML.&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-text&#34;&gt;lookup(String map, String key)
-lookup(String map, String key, String time)
-lookup(String map, String key, String time, Boolean ignoreWarnings)
-lookup(String map, String key, String time, Boolean ignoreWarnings, Boolean trace)
-&lt;/code&gt;&lt;/pre&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;code&gt;map&lt;/code&gt; - The name of the reference data map to perform the lookup against.&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;key&lt;/code&gt; - The key to lookup.
-The key can be a simple string, an integer value in a numeric range or a nested lookup key.&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;time&lt;/code&gt; - Determines which set of reference data was effective at the requested time.
-If no reference data exists with an effective time before the requested time then the lookup will fail.
-Time is in the format &lt;code&gt;yyyy-MM-dd&#39;T&#39;HH:mm:ss.SSSXX&lt;/code&gt;, e.g. &lt;code&gt;2010-01-01T00:00:00.000Z&lt;/code&gt;.&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;ignoreWarnings&lt;/code&gt; - If true, any lookup failures will be ignored, else they will be reported as warnings.&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;trace&lt;/code&gt; - If true, additional trace information is output as INFO messages.&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;If the look up fails no result will be returned.
-By testing the result a default value may be output if no result is returned.&lt;/p&gt;
-&lt;p&gt;E.g. Look up a SID given a PF&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-xml&#34;&gt;&amp;lt;xsl:variable name=&amp;quot;pf&amp;quot; select=&amp;quot;PFNumber&amp;quot;/&amp;gt;
-&amp;lt;xsl:if test=&amp;quot;$pf&amp;quot;&amp;gt;
-   &amp;lt;xsl:variable name=&amp;quot;sid&amp;quot; select=&amp;quot;stroom:lookup(&#39;PF_TO_SID&#39;, $pf, $formattedDateTime)&amp;quot;/&amp;gt;
-
-   &amp;lt;xsl:choose&amp;gt;
-      &amp;lt;xsl:when test=&amp;quot;$sid&amp;quot;&amp;gt;
-         &amp;lt;User&amp;gt;
-             &amp;lt;Id&amp;gt;&amp;lt;xsl:value-of select=&amp;quot;$sid&amp;quot;/&amp;gt;&amp;lt;/Id&amp;gt;
-         &amp;lt;/User&amp;gt;
-      &amp;lt;/xsl:when&amp;gt;
-      &amp;lt;xsl:otherwise&amp;gt;
-         &amp;lt;data name=&amp;quot;PFNumber&amp;quot;&amp;gt;
-            &amp;lt;xsl:attribute name=&amp;quot;Value&amp;quot;&amp;gt;&amp;lt;xsl:value-of select=&amp;quot;$pf&amp;quot;/&amp;gt;&amp;lt;/xsl:attribute&amp;gt;
-         &amp;lt;/data&amp;gt;
-      &amp;lt;/xsl:otherwise&amp;gt;
-   &amp;lt;/xsl:choose&amp;gt;
-&amp;lt;/xsl:if&amp;gt;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;h3 id=&#34;range-lookups&#34;&gt;Range Lookups&lt;/h3&gt;
-&lt;p&gt;Reference data entries can either be stored with single string key or a key range that defines a numeric range, e.g. 1-100.
-When a lookup is preformed the passed key is looked up as if it were a normal string key.
-If that lookup fails Stroom will try to convert the key to an integer (long) value.
-If it can be converted to an integer than a second lookup will be performed against entries with key ranges to see if there is a key range that includes the requested key.&lt;/p&gt;
-&lt;p&gt;Range lookups can be used for looking up an IP address where the reference data values are associated with ranges of IP addresses.
-In this use case, the IP address must first be converted into a numeric value using &lt;code&gt;numeric-ip()&lt;/code&gt;, e.g.:&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-xslt&#34;&gt;stroom:lookup(&#39;IP_TO_LOCATION&#39;, numeric-ip($ipAddress))
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;Similarly the reference data must be stored with key ranges whose bounds were created using this function.&lt;/p&gt;
-&lt;h3 id=&#34;nested-maps&#34;&gt;Nested Maps&lt;/h3&gt;
-&lt;p&gt;The lookup function allows you to perform chained lookups using nested maps.
-For example you may have a reference data map called &lt;em&gt;USER_ID_TO_LOCATION&lt;/em&gt; that maps user IDs to some location information for that user and a map called &lt;em&gt;USER_ID_TO_MANAGER&lt;/em&gt; that maps user IDs to the user ID of their manager.
-If you wanted to decorate a user&amp;rsquo;s event with the location of their manager you could use a nested map to achieve the lookup chain.
-To perform the lookup set the &lt;code&gt;map&lt;/code&gt; argument to the list of maps in the lookup chain, separated by a &lt;code&gt;/&lt;/code&gt;, e.g. &lt;code&gt;USER_ID_TO_MANAGER/USER_ID_TO_LOCATION&lt;/code&gt;.&lt;/p&gt;
-&lt;p&gt;This will perform a lookup against the first map in the list using the requested key.
-If a value is found the value will be used as the key in a lookup against the next map.
-The value from each map lookup is used as the key in the next map all the way down the chain.
-The value from the last lookup is then returned as the result of the &lt;code&gt;lookup()&lt;/code&gt; call.
-If no value is found at any point in the chain then that results in no value being returned from the function.&lt;/p&gt;
-&lt;p&gt;In order to use nested map lookups each intermediate map must contain simple string values.
-The last map in the chain can either contain string values or XML fragment values.&lt;/p&gt;
+        &lt;p&gt;Stroom provides a set of custom functions for use in your XSLT translations.&lt;/p&gt;
+&lt;p&gt;See the &lt;a href=&#34;../../docs/reference-section/xslt-function-reference/&#34;&gt;XSLT Functions&lt;/a&gt; reference section for details of the available functions.&lt;/p&gt;
 
       </description>
     </item>
@@ -1564,27 +512,27 @@ The last map in the chain can either contain string values or XML fragment value
       <description>
         
         
-        &lt;p&gt;&lt;span class=&#34;glossary-link&#34;&gt;
+        &lt;p&gt;&lt;span class=&#34;glossary-link link-with-hover-tooltip&#34;&gt;
     &lt;a href=&#34;../../docs/glossary/x/glossary-xslt&#34;&gt;
       &lt;span&gt;XSLT&lt;/span&gt;
       &lt;i class=&#34;glossary-link-icon fas fa-book fa-sm text-primary&#34;&gt;&lt;/i&gt;
-    &lt;/a&gt;&lt;span class=&#34;glossary-tooltip&#34;&gt;
-      &lt;span class=&#34;glossary-tooltip-title&#34;&gt;XSLT&lt;/span&gt;
-      &lt;span class=&#34;glossary-tooltip-summary&#34;&gt;E&lt;strong&gt;x&lt;/strong&gt;tensible &lt;strong&gt;S&lt;/strong&gt;tylesheet &lt;strong&gt;L&lt;/strong&gt;anguage &lt;strong&gt;T&lt;/strong&gt;ransformations is a language for transforming XML documents into other XML documents. XSLTs are the primary means of transforming data in Stroom.&lt;/span&gt;&lt;span class=&#34;glossary-tooltip-truncated&#34;&gt;Click to see more details...&lt;/span&gt;&lt;/span&gt;&lt;/span&gt; is a language that is typically used for transforming XML documents into either a different XML document or plain text.
-XSLT is key part of Stroom&amp;rsquo;s pipeline processing as it is used to normalise bespoke events into a common XML audit event document conforming to the &lt;code&gt;event-logging&lt;/code&gt; &lt;span class=&#34;glossary-link&#34;&gt;
+    &lt;/a&gt;&lt;template class=&#34;hover-tooltip-content&#34;&gt;
+        &lt;span class=&#34;hover-tooltip-title&#34;&gt;XSLT&lt;/span&gt;
+        &lt;div class=&#34;hover-tooltip-summary&#34;&gt;E&lt;strong&gt;x&lt;/strong&gt;tensible &lt;strong&gt;S&lt;/strong&gt;tylesheet &lt;strong&gt;L&lt;/strong&gt;anguage &lt;strong&gt;T&lt;/strong&gt;ransformations is a language for transforming XML documents into other XML documents. XSLTs are the primary means of transforming data in Stroom.&lt;/div&gt;&lt;span class=&#34;hover-tooltip-more-details&#34;&gt;Click to see more details...&lt;/span&gt;&lt;/template&gt;&lt;/span&gt; is a language that is typically used for transforming XML documents into either a different XML document or plain text.
+XSLT is key part of Stroom&amp;rsquo;s pipeline processing as it is used to normalise bespoke events into a common XML audit event document conforming to the &lt;code&gt;event-logging&lt;/code&gt; &lt;span class=&#34;glossary-link link-with-hover-tooltip&#34;&gt;
     &lt;a href=&#34;../../docs/glossary/x/glossary-xml-schema&#34;&gt;
       &lt;span&gt;XML Schema&lt;/span&gt;
       &lt;i class=&#34;glossary-link-icon fas fa-book fa-sm text-primary&#34;&gt;&lt;/i&gt;
-    &lt;/a&gt;&lt;span class=&#34;glossary-tooltip&#34;&gt;
-      &lt;span class=&#34;glossary-tooltip-title&#34;&gt;XML Schema&lt;/span&gt;
-      &lt;span class=&#34;glossary-tooltip-summary&#34;&gt;&lt;em&gt;XML Schema&lt;/em&gt; is a language used to define the permitted structure of an XML document. An XML Schema can be used to validate an XML document to ensure it conforms to that schema such that onward processing of the XML document can be done with confidence that the document is correct.&lt;/span&gt;&lt;span class=&#34;glossary-tooltip-truncated&#34;&gt;Click to see more details...&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;.&lt;/p&gt;
-&lt;p&gt;Once a text file has been converted into intermediary XML (or the feed is already XML), &lt;span class=&#34;glossary-link&#34;&gt;
+    &lt;/a&gt;&lt;template class=&#34;hover-tooltip-content&#34;&gt;
+        &lt;span class=&#34;hover-tooltip-title&#34;&gt;XML Schema&lt;/span&gt;
+        &lt;div class=&#34;hover-tooltip-summary&#34;&gt;&lt;em&gt;XML Schema&lt;/em&gt; is a language used to define the permitted structure of an XML document. An XML Schema can be used to validate an XML document to ensure it conforms to that schema such that onward processing of the XML document can be done with confidence that the document is correct.&lt;/div&gt;&lt;span class=&#34;hover-tooltip-more-details&#34;&gt;Click to see more details...&lt;/span&gt;&lt;/template&gt;&lt;/span&gt;.&lt;/p&gt;
+&lt;p&gt;Once a text file has been converted into intermediary XML (or the feed is already XML), &lt;span class=&#34;glossary-link link-with-hover-tooltip&#34;&gt;
     &lt;a href=&#34;../../docs/glossary/x/glossary-xslt&#34;&gt;
       &lt;span&gt;XSLT&lt;/span&gt;
       &lt;i class=&#34;glossary-link-icon fas fa-book fa-sm text-primary&#34;&gt;&lt;/i&gt;
-    &lt;/a&gt;&lt;span class=&#34;glossary-tooltip&#34;&gt;
-      &lt;span class=&#34;glossary-tooltip-title&#34;&gt;XSLT&lt;/span&gt;
-      &lt;span class=&#34;glossary-tooltip-summary&#34;&gt;E&lt;strong&gt;x&lt;/strong&gt;tensible &lt;strong&gt;S&lt;/strong&gt;tylesheet &lt;strong&gt;L&lt;/strong&gt;anguage &lt;strong&gt;T&lt;/strong&gt;ransformations is a language for transforming XML documents into other XML documents. XSLTs are the primary means of transforming data in Stroom.&lt;/span&gt;&lt;span class=&#34;glossary-tooltip-truncated&#34;&gt;Click to see more details...&lt;/span&gt;&lt;/span&gt;&lt;/span&gt; is used to
+    &lt;/a&gt;&lt;template class=&#34;hover-tooltip-content&#34;&gt;
+        &lt;span class=&#34;hover-tooltip-title&#34;&gt;XSLT&lt;/span&gt;
+        &lt;div class=&#34;hover-tooltip-summary&#34;&gt;E&lt;strong&gt;x&lt;/strong&gt;tensible &lt;strong&gt;S&lt;/strong&gt;tylesheet &lt;strong&gt;L&lt;/strong&gt;anguage &lt;strong&gt;T&lt;/strong&gt;ransformations is a language for transforming XML documents into other XML documents. XSLTs are the primary means of transforming data in Stroom.&lt;/div&gt;&lt;span class=&#34;hover-tooltip-more-details&#34;&gt;Click to see more details...&lt;/span&gt;&lt;/template&gt;&lt;/span&gt; is used to
 translate the XML into the &lt;code&gt;event-logging&lt;/code&gt; XML format.&lt;/p&gt;
 &lt;p&gt;The 
 
@@ -1671,82 +619,6 @@ E.g.:&lt;/p&gt;
     </item>
     
     <item>
-      <title>Docs: Networking &amp; URI</title>
-      <link>/docs/user-guide/pipelines/xslt/xslt-functions/networking-and-uri/</link>
-      <pubDate>Fri, 14 Aug 2026 00:00:00 +0000</pubDate>
-      
-      <guid>/docs/user-guide/pipelines/xslt/xslt-functions/networking-and-uri/</guid>
-      <description>
-        
-        
-        &lt;h2 id=&#34;cidr-to-numeric-ip-range&#34;&gt;cidr-to-numeric-ip-range()&lt;/h2&gt;
-&lt;p&gt;Converts a CIDR IP address range to an array of numeric IP addresses representing the start and end (broadcast) of the range.&lt;/p&gt;
-&lt;p&gt;When storing the result in a variable, ensure you indicate the type as a string array (&lt;code&gt;xs:string*&lt;/code&gt;), as shown in the below example.&lt;/p&gt;
-&lt;h3 id=&#34;example-xslt&#34;&gt;Example XSLT&lt;/h3&gt;
-&lt;pre&gt;&lt;code class=&#34;language-xml&#34;&gt;&amp;lt;xsl:variable name=&amp;quot;range&amp;quot; select=&amp;quot;stroom:cidr-to-numeric-ip-range(&#39;192.168.1.0/24&#39;)&amp;quot; as=&amp;quot;xs:string*&amp;quot; /&amp;gt;
-&amp;lt;Range&amp;gt;
-  &amp;lt;Start&amp;gt;&amp;lt;xsl:value-of select=&amp;quot;$range[1]&amp;quot; /&amp;gt;&amp;lt;/Start&amp;gt;
-  &amp;lt;End&amp;gt;&amp;lt;xsl:value-of select=&amp;quot;$range[2]&amp;quot; /&amp;gt;&amp;lt;/End&amp;gt;
-&amp;lt;/Range&amp;gt;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;h3 id=&#34;example-output&#34;&gt;Example Output&lt;/h3&gt;
-&lt;pre&gt;&lt;code class=&#34;language-xml&#34;&gt;&amp;lt;Range&amp;gt;
-  &amp;lt;Start&amp;gt;3232235776&amp;lt;/Start&amp;gt;
-  &amp;lt;End&amp;gt;3232236031&amp;lt;/End&amp;gt;
-&amp;lt;/Range&amp;gt;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;h2 id=&#34;host-address&#34;&gt;host-address()&lt;/h2&gt;
-&lt;p&gt;Convert a hostname into an IP address.&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-text&#34;&gt;host-address(String hostname)
-&lt;/code&gt;&lt;/pre&gt;
-&lt;h2 id=&#34;host-name&#34;&gt;host-name()&lt;/h2&gt;
-&lt;p&gt;Convert an IP address into a hostname.&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-text&#34;&gt;host-name(String ipAddress)
-&lt;/code&gt;&lt;/pre&gt;
-&lt;h2 id=&#34;ip-in-cidr&#34;&gt;ip-in-cidr()&lt;/h2&gt;
-&lt;p&gt;Return whether an IPv4 address is within the specified CIDR (e.g. &lt;code&gt;192.168.1.0/24&lt;/code&gt;).&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-text&#34;&gt;ip-in-cidr(String ipAddress, String cidr)
-&lt;/code&gt;&lt;/pre&gt;
-&lt;h2 id=&#34;numeric-ip&#34;&gt;numeric-ip()&lt;/h2&gt;
-&lt;p&gt;Convert an IP address to a numeric representation for range comparison&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-text&#34;&gt;numeric-ip(String ipAddress)
-&lt;/code&gt;&lt;/pre&gt;
-&lt;h2 id=&#34;parse-uri&#34;&gt;parse-uri()&lt;/h2&gt;
-&lt;p&gt;The parse-uri() function takes a Uniform Resource Identifier (URI) in string form and returns an XML node with a namespace of &lt;code&gt;uri&lt;/code&gt; containing the URI&amp;rsquo;s individual components of &lt;code&gt;authority&lt;/code&gt;, &lt;code&gt;fragment&lt;/code&gt;, &lt;code&gt;host&lt;/code&gt;, &lt;code&gt;path&lt;/code&gt;, &lt;code&gt;port&lt;/code&gt;, &lt;code&gt;query&lt;/code&gt;, &lt;code&gt;scheme&lt;/code&gt;, &lt;code&gt;schemeSpecificPart&lt;/code&gt; and &lt;code&gt;userInfo&lt;/code&gt;.
-See either &lt;a href=&#34;http://www.ietf.org/rfc/rfc2396.txt&#34;&gt;RFC 2306: Uniform Resource Identifiers (URI): Generic Syntax&lt;/a&gt; or Java&amp;rsquo;s java.net.URI Class for details regarding the components.&lt;/p&gt;
-&lt;p&gt;The following xml&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-xml&#34;&gt;&amp;lt;!-- Display and parse the URI contained within the text of the rURI element --&amp;gt;
-&amp;lt;xsl:variable name=&amp;quot;uri&amp;quot; select=&amp;quot;stroom:parse-uri(rURI)&amp;quot; /&amp;gt;
-
-&amp;lt;URI&amp;gt;
-  &amp;lt;xsl:value-of select=&amp;quot;rURI&amp;quot; /&amp;gt;
-&amp;lt;/URI&amp;gt;
-&amp;lt;URIDetail&amp;gt;
-  &amp;lt;xsl:copy-of select=&amp;quot;$uri&amp;quot;/&amp;gt;
-&amp;lt;/URIDetail&amp;gt;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;Given the rURI text contains&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-text&#34;&gt;http://foo:bar@w1.superman.com:8080/very/long/path.html?p1=v1&amp;amp;amp;p2=v2#more-details
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;Would provide&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-xml&#34;&gt;&amp;lt;URI&amp;gt;http://foo:bar@w1.superman.com:8080/very/long/path.html?p1=v1&amp;amp;amp;p2=v2#more-details&amp;lt;/URI&amp;gt;
-&amp;lt;URIDetail&amp;gt;
-  &amp;lt;authority xmlns=&amp;quot;uri&amp;quot;&amp;gt;foo:bar@w1.superman.com:8080&amp;lt;/authority&amp;gt;
-  &amp;lt;fragment xmlns=&amp;quot;uri&amp;quot;&amp;gt;more-details&amp;lt;/fragment&amp;gt;
-  &amp;lt;host xmlns=&amp;quot;uri&amp;quot;&amp;gt;w1.superman.com&amp;lt;/host&amp;gt;
-  &amp;lt;path xmlns=&amp;quot;uri&amp;quot;&amp;gt;/very/long/path.html&amp;lt;/path&amp;gt;
-  &amp;lt;port xmlns=&amp;quot;uri&amp;quot;&amp;gt;8080&amp;lt;/port&amp;gt;
-  &amp;lt;query xmlns=&amp;quot;uri&amp;quot;&amp;gt;p1=v1&amp;amp;amp;p2=v2&amp;lt;/query&amp;gt;
-  &amp;lt;scheme xmlns=&amp;quot;uri&amp;quot;&amp;gt;http&amp;lt;/scheme&amp;gt;
-  &amp;lt;schemeSpecificPart xmlns=&amp;quot;uri&amp;quot;&amp;gt;//foo:bar@w1.superman.com:8080/very/long/path.html?p1=v1&amp;amp;amp;p2=v2&amp;lt;/schemeSpecificPart&amp;gt;
-  &amp;lt;userInfo xmlns=&amp;quot;uri&amp;quot;&amp;gt;foo:bar&amp;lt;/userInfo&amp;gt;
-&amp;lt;/URIDetail&amp;gt;
-&lt;/code&gt;&lt;/pre&gt;
-
-      </description>
-    </item>
-    
-    <item>
       <title>Docs: Indexing</title>
       <link>/docs/quick-start-guide/indexing/</link>
       <pubDate>Fri, 09 Jul 2021 00:00:00 +0000</pubDate>
@@ -1755,31 +627,35 @@ See either &lt;a href=&#34;http://www.ietf.org/rfc/rfc2396.txt&#34;&gt;RFC 2306:
       <description>
         
         
-        &lt;p&gt;Before you can visualise your data with dashboards you have to &lt;span class=&#34;glossary-link&#34;&gt;
+        &lt;p&gt;Before you can visualise your data with dashboards you have to &lt;span class=&#34;glossary-link link-with-hover-tooltip&#34;&gt;
     &lt;a href=&#34;../../docs/glossary/i/glossary-index&#34;&gt;
       &lt;span&gt;Index&lt;/span&gt;
       &lt;i class=&#34;glossary-link-icon fas fa-book fa-sm text-primary&#34;&gt;&lt;/i&gt;
-    &lt;/a&gt;&lt;span class=&#34;glossary-tooltip&#34;&gt;
-      &lt;span class=&#34;glossary-tooltip-title&#34;&gt;Index&lt;/span&gt;
-      &lt;span class=&#34;glossary-tooltip-summary&#34;&gt;A Data Source that is backed by a Lucene based search index.&lt;/span&gt;&lt;span class=&#34;glossary-tooltip-truncated&#34;&gt;Click to see more details...&lt;/span&gt;&lt;/span&gt;&lt;/span&gt; the data.&lt;/p&gt;
+    &lt;/a&gt;&lt;template class=&#34;hover-tooltip-content&#34;&gt;
+        &lt;span class=&#34;hover-tooltip-title&#34;&gt;Index&lt;/span&gt;
+        &lt;div class=&#34;hover-tooltip-summary&#34;&gt;A Data Source that is backed by a Lucene based search index.&lt;/div&gt;&lt;span class=&#34;hover-tooltip-more-details&#34;&gt;Click to see more details...&lt;/span&gt;&lt;/template&gt;&lt;/span&gt; the data.&lt;/p&gt;
+
+
 
 &lt;div class=&#34;alert alert-primary&#34; role=&#34;alert&#34;&gt;
-&lt;h4 class=&#34;alert-heading&#34;&gt;Note&lt;/h4&gt;
+  &lt;h4 class=&#34;alert-heading&#34;&gt;Note&lt;/h4&gt;
+  &lt;div class=&#34;alert-content&#34;&gt;
 
 
 
-    &lt;p&gt;Stroom uses Apache Lucene for indexing its data but can also integrate with Solr and &lt;span class=&#34;glossary-link&#34;&gt;
+
+Stroom uses Apache Lucene for indexing its data but can also integrate with Solr and &lt;span class=&#34;glossary-link link-with-hover-tooltip&#34;&gt;
 &lt;a href=&#34;../../docs/glossary/e/glossary-elasticsearch&#34;&gt;
 &lt;span&gt;Elasticsearch&lt;/span&gt;
 &lt;i class=&#34;glossary-link-icon fas fa-book fa-sm text-primary&#34;&gt;&lt;/i&gt;
-&lt;/a&gt;&lt;span class=&#34;glossary-tooltip&#34;&gt;
-&lt;span class=&#34;glossary-tooltip-title&#34;&gt;Elasticsearch&lt;/span&gt;
-&lt;span class=&#34;glossary-tooltip-summary&#34;&gt;&lt;em&gt;Elasticsearch&lt;/em&gt;  is an Open Source and commercial search index product. Stroom can be connected to one or more Elasticsearch clusters so that event indexing and search is handled by Elasticsearch rather than internally.&lt;/span&gt;&lt;span class=&#34;glossary-tooltip-truncated&#34;&gt;Click to see more details…&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;.
-For this Quick Start Guide we are going to use Stroom’s internal Lucene indexing.&lt;/p&gt;
+&lt;/a&gt;&lt;template class=&#34;hover-tooltip-content&#34;&gt;
+&lt;span class=&#34;hover-tooltip-title&#34;&gt;Elasticsearch&lt;/span&gt;
+&lt;div class=&#34;hover-tooltip-summary&#34;&gt;&lt;em&gt;Elasticsearch&lt;/em&gt;  is an Open Source and commercial search index product. Stroom can be connected to one or more Elasticsearch clusters so that event indexing and search is handled by Elasticsearch rather than internally.&lt;/div&gt;&lt;span class=&#34;hover-tooltip-more-details&#34;&gt;Click to see more details…&lt;/span&gt;&lt;/template&gt;&lt;/span&gt;.
+For this Quick Start Guide we are going to use Stroom&#39;s internal Lucene indexing.
 
 
+  &lt;/div&gt;
 &lt;/div&gt;
-
 
 &lt;h2 id=&#34;create-the-index&#34;&gt;Create the Index&lt;/h2&gt;
 &lt;p&gt;We can create an index by adding an index entity &lt;span class=&#34;stroom-icon inline-svg-button icon-button  &#34; &gt;
@@ -1791,6 +667,7 @@ You do this in the same way you create any of the items.&lt;/p&gt;
 &lt;p&gt;Right click on the &lt;span class=&#34;stroom-icon inline-svg-button icon-button  &#34; &gt;
     &lt;span class=&#34;face&#34; title=&#34;Folder&#34;&gt;&lt;svg xmlns:rdf=&#34;http://www.w3.org/1999/02/22-rdf-syntax-ns#&#34; xmlns=&#34;http://www.w3.org/2000/svg&#34; height=&#34;1792&#34; width=&#34;1792&#34; version=&#34;1.1&#34; xmlns:cc=&#34;http://creativecommons.org/ns#&#34; xmlns:dc=&#34;http://purl.org/dc/elements/1.1/&#34; viewBox=&#34;0 0 1792 1792&#34;&gt;&lt;path fill=&#34;var(--icon-colour__blue)&#34; d=&#34;m1617.9 701.64v610.84q0 79.825-57.266 137.09-57.266 57.266-137.09 57.266h-1055.1q-79.825 0-137.09-57.266-57.266-57.266-57.266-137.09v-832.96q0-79.825 57.266-137.09 57.266-57.266 137.09-57.266h277.65q79.825 0 137.09 57.266 57.266 57.266 57.266 137.09v27.765h583.07q79.825 0 137.09 57.266 57.266 57.266 57.266 137.09z&#34;/&gt;&lt;/svg&gt; &lt;/span&gt;
   &lt;/span&gt; &lt;em&gt;Stroom 101&lt;/em&gt; folder and select:&lt;/p&gt;
+
 
 
 
@@ -1895,13 +772,13 @@ Click OK.&lt;/p&gt;
 
 .&lt;/p&gt;
 &lt;h2 id=&#34;assign-a-volume-group&#34;&gt;Assign a Volume Group&lt;/h2&gt;
-&lt;p&gt;In the settings tab we need to specify the &lt;span class=&#34;glossary-link&#34;&gt;
+&lt;p&gt;In the settings tab we need to specify the &lt;span class=&#34;glossary-link link-with-hover-tooltip&#34;&gt;
     &lt;a href=&#34;../../docs/glossary/v/glossary-volume&#34;&gt;
       &lt;span&gt;Volume&lt;/span&gt;
       &lt;i class=&#34;glossary-link-icon fas fa-book fa-sm text-primary&#34;&gt;&lt;/i&gt;
-    &lt;/a&gt;&lt;span class=&#34;glossary-tooltip&#34;&gt;
-      &lt;span class=&#34;glossary-tooltip-title&#34;&gt;Volume&lt;/span&gt;
-      &lt;span class=&#34;glossary-tooltip-summary&#34;&gt;In Stroom a Volume is a logical storage area that Stroom can write data to. Volumes are associated with a path on a file system that can either be local to the Stroom node or on a shared file system.&lt;/span&gt;&lt;span class=&#34;glossary-tooltip-truncated&#34;&gt;Click to see more details...&lt;/span&gt;&lt;/span&gt;&lt;/span&gt; where we will store our index shards.&lt;/p&gt;
+    &lt;/a&gt;&lt;template class=&#34;hover-tooltip-content&#34;&gt;
+        &lt;span class=&#34;hover-tooltip-title&#34;&gt;Volume&lt;/span&gt;
+        &lt;div class=&#34;hover-tooltip-summary&#34;&gt;In Stroom a Volume is a logical storage area that Stroom can write data to. Volumes are associated with a path on a file system that can either be local to the Stroom node or on a shared file system.&lt;/div&gt;&lt;span class=&#34;hover-tooltip-more-details&#34;&gt;Click to see more details...&lt;/span&gt;&lt;/template&gt;&lt;/span&gt; where we will store our index shards.&lt;/p&gt;
 &lt;ol&gt;
 &lt;li&gt;Click the &lt;em&gt;Settings&lt;/em&gt; sub-tab.&lt;/li&gt;
 &lt;li&gt;In the &lt;em&gt;Volume Group&lt;/em&gt; dropdown select &lt;em&gt;Default Volume Group&lt;/em&gt;.&lt;/li&gt;
@@ -2039,16 +916,22 @@ Fields can also be created that are an abstraction of multiple fields in the dat
 &lt;/tbody&gt;
 &lt;/table&gt;
 
+
+
 &lt;div class=&#34;alert alert-primary&#34; role=&#34;alert&#34;&gt;
-&lt;h4 class=&#34;alert-heading&#34;&gt;Note&lt;/h4&gt;
+  &lt;h4 class=&#34;alert-heading&#34;&gt;Note&lt;/h4&gt;
+  &lt;div class=&#34;alert-content&#34;&gt;
 
 
-    There are two mandatory fields that need to be added: &lt;code&gt;StreamId&lt;/code&gt; and &lt;code&gt;EventId&lt;/code&gt;.
+
+
+There are two mandatory fields that need to be added: &lt;code&gt;StreamId&lt;/code&gt; and &lt;code&gt;EventId&lt;/code&gt;.
 These are not in the source records but are assigned to cooked events/records by Stroom.
 You will see later how these fields get populated.
 
-&lt;/div&gt;
 
+  &lt;/div&gt;
+&lt;/div&gt;
 
 &lt;p&gt;You should now have:&lt;/p&gt;
 
@@ -2096,13 +979,13 @@ You will see later how these fields get populated.
     &lt;span class=&#34;face&#34; title=&#34;Save&#34;&gt;&lt;svg xmlns=&#34;http://www.w3.org/2000/svg&#34; width=&#34;1792&#34; height=&#34;1792&#34; viewBox=&#34;0 0 1792 1792&#34;&gt;&lt;!--! Font Awesome Free 6.4.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --&gt;&lt;path style=&#34;fill:currentColor;stroke-width:0.570676;stroke-dasharray:none&#34; d=&#34;M 339.40234 116.52148 C 216.56504 116.52148 116.69531 216.3912 116.69531 339.22852 L 116.69531 1452.7715 C 116.69531 1575.6089 216.56504 1675.4785 339.40234 1675.4785 L 1452.5977 1675.4785 C 1575.4349 1675.4785 1675.3047 1575.6089 1675.3047 1452.7715 L 1675.3047 598.82422 C 1675.3047 539.66744 1651.9901 482.94523 1610.2324 441.1875 L 1610.5801 440.83984 L 1351.334 181.59375 C 1309.5761 139.83602 1252.8561 116.52148 1193.6992 116.52148 L 339.40234 116.52148 z M 339.40234 283.55273 L 395.08008 283.55273 L 395.08008 645.45312 C 395.08008 691.73461 432.31423 728.96875 478.5957 728.96875 L 1146.7207 728.96875 C 1193.0023 728.96875 1230.2363 691.73461 1230.2363 645.45312 L 1230.2363 297.12305 C 1231.2803 298.167 1231.9756 298.8623 1233.0195 299.90625 L 1492.6152 558.80469 L 1492.2676 559.1543 C 1502.707 569.59373 1508.6211 583.8594 1508.6211 598.47461 L 1508.6211 1452.7715 C 1508.6211 1483.3939 1483.5678 1508.4473 1452.9453 1508.4473 L 1395.6113 1508.4473 L 1395.6113 1059.8359 C 1395.6113 981.08539 1331.5826 917.05859 1252.832 917.05859 L 539.16797 917.05859 C 460.41738 917.05859 396.38867 981.08539 396.38867 1059.8359 L 396.38867 1508.4473 L 339.40234 1508.4473 C 308.78001 1508.4473 283.72656 1483.3939 283.72656 1452.7715 L 283.72656 339.22852 C 283.72656 308.60619 308.78001 283.55273 339.40234 283.55273 z M 562.11133 283.55273 L 1063.2051 283.55273 L 1063.2051 561.9375 L 562.11133 561.9375 L 562.11133 283.55273 z M 538.94531 1024.1426 L 1252.832 1024.1426 C 1272.4639 1024.1426 1288.5273 1040.2041 1288.5273 1059.8359 L 1288.5273 1508.4473 L 503.25 1508.4473 L 503.25 1059.8359 C 503.25 1040.2041 519.31334 1024.1426 538.94531 1024.1426 z &#34; /&gt;&lt;/svg&gt; &lt;/span&gt;
   &lt;/span&gt; button.&lt;/p&gt;
 &lt;h2 id=&#34;create-empty-index-xslt&#34;&gt;Create Empty Index XSLT&lt;/h2&gt;
-&lt;p&gt;In order for Stroom to index the data, an &lt;span class=&#34;glossary-link&#34;&gt;
+&lt;p&gt;In order for Stroom to index the data, an &lt;span class=&#34;glossary-link link-with-hover-tooltip&#34;&gt;
     &lt;a href=&#34;../../docs/glossary/x/glossary-xslt&#34;&gt;
       &lt;span&gt;XSLT&lt;/span&gt;
       &lt;i class=&#34;glossary-link-icon fas fa-book fa-sm text-primary&#34;&gt;&lt;/i&gt;
-    &lt;/a&gt;&lt;span class=&#34;glossary-tooltip&#34;&gt;
-      &lt;span class=&#34;glossary-tooltip-title&#34;&gt;XSLT&lt;/span&gt;
-      &lt;span class=&#34;glossary-tooltip-summary&#34;&gt;E&lt;strong&gt;x&lt;/strong&gt;tensible &lt;strong&gt;S&lt;/strong&gt;tylesheet &lt;strong&gt;L&lt;/strong&gt;anguage &lt;strong&gt;T&lt;/strong&gt;ransformations is a language for transforming XML documents into other XML documents. XSLTs are the primary means of transforming data in Stroom.&lt;/span&gt;&lt;span class=&#34;glossary-tooltip-truncated&#34;&gt;Click to see more details...&lt;/span&gt;&lt;/span&gt;&lt;/span&gt; is required to convert the event XML into an Index record.
+    &lt;/a&gt;&lt;template class=&#34;hover-tooltip-content&#34;&gt;
+        &lt;span class=&#34;hover-tooltip-title&#34;&gt;XSLT&lt;/span&gt;
+        &lt;div class=&#34;hover-tooltip-summary&#34;&gt;E&lt;strong&gt;x&lt;/strong&gt;tensible &lt;strong&gt;S&lt;/strong&gt;tylesheet &lt;strong&gt;L&lt;/strong&gt;anguage &lt;strong&gt;T&lt;/strong&gt;ransformations is a language for transforming XML documents into other XML documents. XSLTs are the primary means of transforming data in Stroom.&lt;/div&gt;&lt;span class=&#34;hover-tooltip-more-details&#34;&gt;Click to see more details...&lt;/span&gt;&lt;/template&gt;&lt;/span&gt; is required to convert the event XML into an Index record.
 This can be a simple 1:1 mapping from event field to index field or something more complex, e.g. combining multiple event fields into one index field.&lt;/p&gt;
 &lt;p&gt;To create the XSLT for the Index:&lt;/p&gt;
 &lt;ol&gt;
@@ -2110,6 +993,7 @@ This can be a simple 1:1 mapping from event field to index field or something mo
 &lt;p&gt;Right click on the &lt;span class=&#34;stroom-icon inline-svg-button icon-button  &#34; &gt;
     &lt;span class=&#34;face&#34; title=&#34;Folder&#34;&gt;&lt;svg xmlns:rdf=&#34;http://www.w3.org/1999/02/22-rdf-syntax-ns#&#34; xmlns=&#34;http://www.w3.org/2000/svg&#34; height=&#34;1792&#34; width=&#34;1792&#34; version=&#34;1.1&#34; xmlns:cc=&#34;http://creativecommons.org/ns#&#34; xmlns:dc=&#34;http://purl.org/dc/elements/1.1/&#34; viewBox=&#34;0 0 1792 1792&#34;&gt;&lt;path fill=&#34;var(--icon-colour__blue)&#34; d=&#34;m1617.9 701.64v610.84q0 79.825-57.266 137.09-57.266 57.266-137.09 57.266h-1055.1q-79.825 0-137.09-57.266-57.266-57.266-57.266-137.09v-832.96q0-79.825 57.266-137.09 57.266-57.266 137.09-57.266h277.65q79.825 0 137.09 57.266 57.266 57.266 57.266 137.09v27.765h583.07q79.825 0 137.09 57.266 57.266 57.266 57.266 137.09z&#34;/&gt;&lt;/svg&gt; &lt;/span&gt;
   &lt;/span&gt; &lt;em&gt;Stroom 101&lt;/em&gt; folder in the explorer tree, then select:&lt;/p&gt;
+
 
 
 
@@ -2188,25 +1072,26 @@ This can be a simple 1:1 mapping from event field to index field or something mo
 &lt;p&gt;We will add the XSLT content later on.&lt;/p&gt;
 &lt;h2 id=&#34;index-pipeline&#34;&gt;Index Pipeline&lt;/h2&gt;
 &lt;p&gt;Now we are going to create a pipeline to send the processed data (&lt;em&gt;Events&lt;/em&gt;) to the index we just created.
-Typically in Stroom all &lt;span class=&#34;glossary-link&#34;&gt;
+Typically in Stroom all &lt;span class=&#34;glossary-link link-with-hover-tooltip&#34;&gt;
     &lt;a href=&#34;../../docs/glossary/r/glossary-raw-events&#34;&gt;
       &lt;span&gt;Raw Events&lt;/span&gt;
       &lt;i class=&#34;glossary-link-icon fas fa-book fa-sm text-primary&#34;&gt;&lt;/i&gt;
-    &lt;/a&gt;&lt;span class=&#34;glossary-tooltip&#34;&gt;
-      &lt;span class=&#34;glossary-tooltip-title&#34;&gt;Raw Events&lt;/span&gt;
-      &lt;span class=&#34;glossary-tooltip-summary&#34;&gt;This is a &lt;em&gt;Stream Type&lt;/em&gt; used for &lt;em&gt;Streams&lt;/em&gt; received by Stroom. Streams received by Stroom will be in a variety of text formats (CSV, delimited, fixed width, XML, JSON, etc.). Until they have been processed by a pipeline they are essentially just unstructured character data with no concept of what is a record/event. A &lt;em&gt;Parser&lt;/em&gt; in a pipeline is required to provide the demarcation between records/events.&lt;/span&gt;&lt;span class=&#34;glossary-tooltip-truncated&#34;&gt;Click to see more details...&lt;/span&gt;&lt;/span&gt;&lt;/span&gt; are first processed into normalised &lt;span class=&#34;glossary-link&#34;&gt;
+    &lt;/a&gt;&lt;template class=&#34;hover-tooltip-content&#34;&gt;
+        &lt;span class=&#34;hover-tooltip-title&#34;&gt;Raw Events&lt;/span&gt;
+        &lt;div class=&#34;hover-tooltip-summary&#34;&gt;This is a &lt;em&gt;Stream Type&lt;/em&gt; used for &lt;em&gt;Streams&lt;/em&gt; received by Stroom. Streams received by Stroom will be in a variety of text formats (CSV, delimited, fixed width, XML, JSON, etc.). Until they have been processed by a pipeline they are essentially just unstructured character data with no concept of what is a record/event. A &lt;em&gt;Parser&lt;/em&gt; in a pipeline is required to provide the demarcation between records/events.&lt;/div&gt;&lt;span class=&#34;hover-tooltip-more-details&#34;&gt;Click to see more details...&lt;/span&gt;&lt;/template&gt;&lt;/span&gt; are first processed into normalised &lt;span class=&#34;glossary-link link-with-hover-tooltip&#34;&gt;
     &lt;a href=&#34;../../docs/glossary/e/glossary-events&#34;&gt;
       &lt;span&gt;Events&lt;/span&gt;
       &lt;i class=&#34;glossary-link-icon fas fa-book fa-sm text-primary&#34;&gt;&lt;/i&gt;
-    &lt;/a&gt;&lt;span class=&#34;glossary-tooltip&#34;&gt;
-      &lt;span class=&#34;glossary-tooltip-title&#34;&gt;Events&lt;/span&gt;
-      &lt;span class=&#34;glossary-tooltip-summary&#34;&gt;This is a Stream &lt;em&gt;Type&lt;/em&gt; in Stroom. An &lt;em&gt;Events&lt;/em&gt; stream consists of processed/cooked data that has been demarcated into individual Events.&lt;/span&gt;&lt;span class=&#34;glossary-tooltip-truncated&#34;&gt;Click to see more details...&lt;/span&gt;&lt;/span&gt;&lt;/span&gt; conforming to the same XML schema to allow common onward processing of events from all sources.&lt;/p&gt;
+    &lt;/a&gt;&lt;template class=&#34;hover-tooltip-content&#34;&gt;
+        &lt;span class=&#34;hover-tooltip-title&#34;&gt;Events&lt;/span&gt;
+        &lt;div class=&#34;hover-tooltip-summary&#34;&gt;This is a Stream &lt;em&gt;Type&lt;/em&gt; in Stroom. An &lt;em&gt;Events&lt;/em&gt; stream consists of processed/cooked data that has been demarcated into individual Events.&lt;/div&gt;&lt;span class=&#34;hover-tooltip-more-details&#34;&gt;Click to see more details...&lt;/span&gt;&lt;/template&gt;&lt;/span&gt; conforming to the same XML schema to allow common onward processing of events from all sources.&lt;/p&gt;
 &lt;p&gt;We will create a pipeline to index the processed &lt;em&gt;Event&lt;/em&gt; streams containing XML data.&lt;/p&gt;
 &lt;ol&gt;
 &lt;li&gt;
 &lt;p&gt;Right click on the &lt;span class=&#34;stroom-icon inline-svg-button icon-button  &#34; &gt;
     &lt;span class=&#34;face&#34; title=&#34;Folder&#34;&gt;&lt;svg xmlns:rdf=&#34;http://www.w3.org/1999/02/22-rdf-syntax-ns#&#34; xmlns=&#34;http://www.w3.org/2000/svg&#34; height=&#34;1792&#34; width=&#34;1792&#34; version=&#34;1.1&#34; xmlns:cc=&#34;http://creativecommons.org/ns#&#34; xmlns:dc=&#34;http://purl.org/dc/elements/1.1/&#34; viewBox=&#34;0 0 1792 1792&#34;&gt;&lt;path fill=&#34;var(--icon-colour__blue)&#34; d=&#34;m1617.9 701.64v610.84q0 79.825-57.266 137.09-57.266 57.266-137.09 57.266h-1055.1q-79.825 0-137.09-57.266-57.266-57.266-57.266-137.09v-832.96q0-79.825 57.266-137.09 57.266-57.266 137.09-57.266h277.65q79.825 0 137.09 57.266 57.266 57.266 57.266 137.09v27.765h583.07q79.825 0 137.09 57.266 57.266 57.266 57.266 137.09z&#34;/&gt;&lt;/svg&gt; &lt;/span&gt;
   &lt;/span&gt; &lt;em&gt;Stroom 101&lt;/em&gt; folder in the explorer tree, then select:&lt;/p&gt;
+
 
 
 
@@ -2532,30 +1417,30 @@ If a property has been set in the parent pipeline then you can either use the in
   &lt;/span&gt; button.&lt;/p&gt;
 &lt;h2 id=&#34;develop-index-translation&#34;&gt;Develop Index Translation&lt;/h2&gt;
 &lt;p&gt;Next we need to create an XSLT that the &lt;code&gt;indexingFilter&lt;/code&gt; understands.
-The best place to develop a translation is in the &lt;span class=&#34;glossary-link&#34;&gt;
+The best place to develop a translation is in the &lt;span class=&#34;glossary-link link-with-hover-tooltip&#34;&gt;
     &lt;a href=&#34;../../docs/glossary/s/glossary-stepper&#34;&gt;
       &lt;span&gt;Stepper&lt;/span&gt;
       &lt;i class=&#34;glossary-link-icon fas fa-book fa-sm text-primary&#34;&gt;&lt;/i&gt;
-    &lt;/a&gt;&lt;span class=&#34;glossary-tooltip&#34;&gt;
-      &lt;span class=&#34;glossary-tooltip-title&#34;&gt;Stepper&lt;/span&gt;
-      &lt;span class=&#34;glossary-tooltip-summary&#34;&gt;The Stepper is a tool in Stroom for developing and debugging a &lt;em&gt;Pipeline&lt;/em&gt;. It allows the user to simulate passing a &lt;em&gt;Stream&lt;/em&gt; through a pipeline with the ability to &lt;em&gt;step&lt;/em&gt; from one record/event to the next or to jump to records/events based on filter criteria.&lt;/span&gt;&lt;span class=&#34;glossary-tooltip-truncated&#34;&gt;Click to see more details...&lt;/span&gt;&lt;/span&gt;&lt;/span&gt; as it allows you to simulate running the data through the pipeline without producing any persistent output.&lt;/p&gt;
+    &lt;/a&gt;&lt;template class=&#34;hover-tooltip-content&#34;&gt;
+        &lt;span class=&#34;hover-tooltip-title&#34;&gt;Stepper&lt;/span&gt;
+        &lt;div class=&#34;hover-tooltip-summary&#34;&gt;The Stepper is a tool in Stroom for developing and debugging a &lt;em&gt;Pipeline&lt;/em&gt;. It allows the user to simulate passing a &lt;em&gt;Stream&lt;/em&gt; through a pipeline with the ability to &lt;em&gt;step&lt;/em&gt; from one record/event to the next or to jump to records/events based on filter criteria.&lt;/div&gt;&lt;span class=&#34;hover-tooltip-more-details&#34;&gt;Click to see more details...&lt;/span&gt;&lt;/template&gt;&lt;/span&gt; as it allows you to simulate running the data through the pipeline without producing any persistent output.&lt;/p&gt;
 &lt;p&gt;Open the &lt;span class=&#34;stroom-icon inline-svg-button icon-button  &#34; &gt;
     &lt;span class=&#34;face&#34; title=&#34;Feed&#34;&gt;&lt;svg xmlns=&#34;http://www.w3.org/2000/svg&#34; width=&#34;1792&#34; height=&#34;1792&#34; viewBox=&#34;0 0 1792 1792&#34;&gt;&lt;path style=&#34;fill:var(--icon-colour__green)&#34; d=&#34;m 938.50195,211.41007 c -5.56299,0.0388 -11.74705,1.29983 -18.55468,3.7832 -18.1537,6.6223 -30.41561,18.62426 -36.78321,36.00781 L 781.2832,529.3378 l -636.59961,0 c -11.58903,0 -22.47327,3.72569 -32.65234,11.17578 -10.17907,7.4501 -17.391684,16.96956 -21.636719,28.5586 L 3.0683594,807.47452 c -4.2450584,11.5891 -4.00823944,21.10849 0.7128906,28.55859 4.72114,7.4501 12.877765,11.17578 24.466797,11.17578 358.940143,-0.86657 728.661783,-0.53744 1037.093753,-0.52148 l 192.0293,-132.33789 c 11.3101,-8.27788 19.0869,-18.21175 23.332,-29.80078 3.9418,-10.76125 3.2906,-20.28072 -1.9551,-28.5586 L 961.13086,221.4003 c -5.81425,-6.72578 -13.35726,-10.05491 -22.62891,-9.99023 z m 509.37505,415.625 c -5.563,0.0388 -11.7471,1.29983 -18.5547,3.7832 -18.1537,6.6223 -30.4156,18.62426 -36.7832,36.00781 l -101.8809,278.13672 -762.55273,0 c -11.58903,0 -22.47327,3.72569 -32.65235,11.17578 -10.17906,7.4501 -17.39165,16.96957 -21.63671,28.5586 l -87.32618,238.40232 c -4.24506,11.5891 -4.00824,21.1085 0.71289,28.5586 4.72113,7.4501 12.87777,11.1758 24.4668,11.1758 l 762.55278,0 -101.8809,278.1367 c -6.0644,16.5558 -2.5987,28.5577 10.4004,36.0078 13.3022,6.6223 28.6997,4.1399 46.1894,-7.4492 l 637.8145,-439.5547 c 11.3101,-8.2779 19.0869,-18.2117 23.332,-29.8008 3.9418,-10.7612 3.2906,-20.2807 -1.9551,-28.5586 L 1470.5059,637.0253 c -5.8143,-6.72578 -13.3573,-10.05491 -22.6289,-9.99023 z&#34;/&gt;&lt;/svg&gt;&lt;/span&gt;
-  &lt;/span&gt; &lt;em&gt;CSV_FEED&lt;/em&gt; &lt;span class=&#34;glossary-link&#34;&gt;
+  &lt;/span&gt; &lt;em&gt;CSV_FEED&lt;/em&gt; &lt;span class=&#34;glossary-link link-with-hover-tooltip&#34;&gt;
     &lt;a href=&#34;../../docs/glossary/f/glossary-feed&#34;&gt;
       &lt;span&gt;Feed&lt;/span&gt;
       &lt;i class=&#34;glossary-link-icon fas fa-book fa-sm text-primary&#34;&gt;&lt;/i&gt;
-    &lt;/a&gt;&lt;span class=&#34;glossary-tooltip&#34;&gt;
-      &lt;span class=&#34;glossary-tooltip-title&#34;&gt;Feed&lt;/span&gt;
-      &lt;span class=&#34;glossary-tooltip-summary&#34;&gt;A Feed is a means of organising and categorising data in Stroom. A Feed contains multiple &lt;em&gt;Streams&lt;/em&gt; of data that have been ingested into Stroom or output by a &lt;em&gt;Pipeline&lt;/em&gt;. Typically a Feed will contain &lt;em&gt;Streams&lt;/em&gt; of data that are all from one system and have a common data format.&lt;/span&gt;&lt;span class=&#34;glossary-tooltip-truncated&#34;&gt;Click to see more details...&lt;/span&gt;&lt;/span&gt;&lt;/span&gt; we created earlier in the quick-start guide.&lt;/p&gt;
+    &lt;/a&gt;&lt;template class=&#34;hover-tooltip-content&#34;&gt;
+        &lt;span class=&#34;hover-tooltip-title&#34;&gt;Feed&lt;/span&gt;
+        &lt;div class=&#34;hover-tooltip-summary&#34;&gt;A Feed is a means of organising and categorising data in Stroom. A Feed contains multiple &lt;em&gt;Streams&lt;/em&gt; of data that have been ingested into Stroom or output by a &lt;em&gt;Pipeline&lt;/em&gt;. Typically a Feed will contain &lt;em&gt;Streams&lt;/em&gt; of data that are all from one system and have a common data format.&lt;/div&gt;&lt;span class=&#34;hover-tooltip-more-details&#34;&gt;Click to see more details...&lt;/span&gt;&lt;/template&gt;&lt;/span&gt; we created earlier in the quick-start guide.&lt;/p&gt;
 &lt;ol&gt;
-&lt;li&gt;In the top pane of the Data Browser select the &lt;em&gt;Events&lt;/em&gt; &lt;span class=&#34;glossary-link&#34;&gt;
+&lt;li&gt;In the top pane of the Data Browser select the &lt;em&gt;Events&lt;/em&gt; &lt;span class=&#34;glossary-link link-with-hover-tooltip&#34;&gt;
     &lt;a href=&#34;../../docs/glossary/e/glossary-events&#34;&gt;
       &lt;span&gt;Events&lt;/span&gt;
       &lt;i class=&#34;glossary-link-icon fas fa-book fa-sm text-primary&#34;&gt;&lt;/i&gt;
-    &lt;/a&gt;&lt;span class=&#34;glossary-tooltip&#34;&gt;
-      &lt;span class=&#34;glossary-tooltip-title&#34;&gt;Events&lt;/span&gt;
-      &lt;span class=&#34;glossary-tooltip-summary&#34;&gt;This is a Stream &lt;em&gt;Type&lt;/em&gt; in Stroom. An &lt;em&gt;Events&lt;/em&gt; stream consists of processed/cooked data that has been demarcated into individual Events.&lt;/span&gt;&lt;span class=&#34;glossary-tooltip-truncated&#34;&gt;Click to see more details...&lt;/span&gt;&lt;/span&gt;&lt;/span&gt; stream.&lt;/li&gt;
+    &lt;/a&gt;&lt;template class=&#34;hover-tooltip-content&#34;&gt;
+        &lt;span class=&#34;hover-tooltip-title&#34;&gt;Events&lt;/span&gt;
+        &lt;div class=&#34;hover-tooltip-summary&#34;&gt;This is a Stream &lt;em&gt;Type&lt;/em&gt; in Stroom. An &lt;em&gt;Events&lt;/em&gt; stream consists of processed/cooked data that has been demarcated into individual Events.&lt;/div&gt;&lt;span class=&#34;hover-tooltip-more-details&#34;&gt;Click to see more details...&lt;/span&gt;&lt;/template&gt;&lt;/span&gt; stream.&lt;/li&gt;
 &lt;li&gt;In the bottom pane you will see the XML data that you processed earlier.&lt;/li&gt;
 &lt;li&gt;Click the &lt;span class=&#34;stroom-icon inline-svg-button icon-button  &#34; &gt;
     &lt;span class=&#34;face&#34; title=&#34;Stepping&#34;&gt;&lt;svg xmlns=&#34;http://www.w3.org/2000/svg&#34; viewBox=&#34;0 0 1792 1792&#34; height=&#34;1792&#34; width=&#34;1792&#34;&gt;&lt;path style=&#34;fill:#fff&#34; d=&#34;m 1303.3748,386.71917 0,1018.43693 c 0,18.6714 -15.2766,33.948 -33.948,33.948 l -113.1596,0 c -18.6713,0 -33.9479,-15.2766 -33.9479,-33.948 l 0,-429.72386 -485.17205,442.73726 c -58.27722,48.6587 -148.52205,7.9212 -148.52205,-69.5932 0,-571.78462 0,-247.4743 0,-905.2773 0,-77.51437 90.24483,-117.96894 148.52205,-69.59319 l 485.17205,439.62531 0,-426.61195 c 0,-18.67134 15.2766,-33.94789 33.9479,-33.94789 l 113.1596,0 c 18.6714,0 33.948,15.27655 33.948,33.94789 z&#34; /&gt;&lt;/svg&gt; &lt;/span&gt;
@@ -2795,43 +1680,43 @@ Each &lt;code&gt;Data&lt;/code&gt; element needs a &lt;code&gt;Name&lt;/code&gt;
     &lt;span class=&#34;face&#34; title=&#34;Save&#34;&gt;&lt;svg xmlns=&#34;http://www.w3.org/2000/svg&#34; width=&#34;1792&#34; height=&#34;1792&#34; viewBox=&#34;0 0 1792 1792&#34;&gt;&lt;!--! Font Awesome Free 6.4.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --&gt;&lt;path style=&#34;fill:currentColor;stroke-width:0.570676;stroke-dasharray:none&#34; d=&#34;M 339.40234 116.52148 C 216.56504 116.52148 116.69531 216.3912 116.69531 339.22852 L 116.69531 1452.7715 C 116.69531 1575.6089 216.56504 1675.4785 339.40234 1675.4785 L 1452.5977 1675.4785 C 1575.4349 1675.4785 1675.3047 1575.6089 1675.3047 1452.7715 L 1675.3047 598.82422 C 1675.3047 539.66744 1651.9901 482.94523 1610.2324 441.1875 L 1610.5801 440.83984 L 1351.334 181.59375 C 1309.5761 139.83602 1252.8561 116.52148 1193.6992 116.52148 L 339.40234 116.52148 z M 339.40234 283.55273 L 395.08008 283.55273 L 395.08008 645.45312 C 395.08008 691.73461 432.31423 728.96875 478.5957 728.96875 L 1146.7207 728.96875 C 1193.0023 728.96875 1230.2363 691.73461 1230.2363 645.45312 L 1230.2363 297.12305 C 1231.2803 298.167 1231.9756 298.8623 1233.0195 299.90625 L 1492.6152 558.80469 L 1492.2676 559.1543 C 1502.707 569.59373 1508.6211 583.8594 1508.6211 598.47461 L 1508.6211 1452.7715 C 1508.6211 1483.3939 1483.5678 1508.4473 1452.9453 1508.4473 L 1395.6113 1508.4473 L 1395.6113 1059.8359 C 1395.6113 981.08539 1331.5826 917.05859 1252.832 917.05859 L 539.16797 917.05859 C 460.41738 917.05859 396.38867 981.08539 396.38867 1059.8359 L 396.38867 1508.4473 L 339.40234 1508.4473 C 308.78001 1508.4473 283.72656 1483.3939 283.72656 1452.7715 L 283.72656 339.22852 C 283.72656 308.60619 308.78001 283.55273 339.40234 283.55273 z M 562.11133 283.55273 L 1063.2051 283.55273 L 1063.2051 561.9375 L 562.11133 561.9375 L 562.11133 283.55273 z M 538.94531 1024.1426 L 1252.832 1024.1426 C 1272.4639 1024.1426 1288.5273 1040.2041 1288.5273 1059.8359 L 1288.5273 1508.4473 L 503.25 1508.4473 L 503.25 1059.8359 C 503.25 1040.2041 519.31334 1024.1426 538.94531 1024.1426 z &#34; /&gt;&lt;/svg&gt; &lt;/span&gt;
   &lt;/span&gt; button to save the XSLT content to the &lt;em&gt;Stroom 101&lt;/em&gt; XSLT document.&lt;/p&gt;
 &lt;h2 id=&#34;processing-the-indexing-pipeline&#34;&gt;Processing the Indexing Pipeline&lt;/h2&gt;
-&lt;p&gt;To get our indexing pipeline processing data we need to create a &lt;span class=&#34;glossary-link&#34;&gt;
+&lt;p&gt;To get our indexing pipeline processing data we need to create a &lt;span class=&#34;glossary-link link-with-hover-tooltip&#34;&gt;
     &lt;a href=&#34;../../docs/glossary/p/glossary-processor-filter&#34;&gt;
       &lt;span&gt;Processor filter&lt;/span&gt;
       &lt;i class=&#34;glossary-link-icon fas fa-book fa-sm text-primary&#34;&gt;&lt;/i&gt;
-    &lt;/a&gt;&lt;span class=&#34;glossary-tooltip&#34;&gt;
-      &lt;span class=&#34;glossary-tooltip-title&#34;&gt;Processor filter&lt;/span&gt;
-      &lt;span class=&#34;glossary-tooltip-summary&#34;&gt;A Processor Filter is used to used to find Streams to process through the &lt;em&gt;Pipeline&lt;/em&gt; associated with the Processor Filter. A Processor Filter consists of an expression tree to select which &lt;em&gt;Streams&lt;/em&gt; to process and a tracker to track the what &lt;em&gt;Streams&lt;/em&gt; have been processed.&lt;/span&gt;&lt;span class=&#34;glossary-tooltip-truncated&#34;&gt;Click to see more details...&lt;/span&gt;&lt;/span&gt;&lt;/span&gt; to select the data to process through the pipeline.&lt;/p&gt;
+    &lt;/a&gt;&lt;template class=&#34;hover-tooltip-content&#34;&gt;
+        &lt;span class=&#34;hover-tooltip-title&#34;&gt;Processor filter&lt;/span&gt;
+        &lt;div class=&#34;hover-tooltip-summary&#34;&gt;A Processor Filter is used to used to find Streams to process through the &lt;em&gt;Pipeline&lt;/em&gt; associated with the Processor Filter. A Processor Filter consists of an expression tree to select which &lt;em&gt;Streams&lt;/em&gt; to process and a tracker to track the what &lt;em&gt;Streams&lt;/em&gt; have been processed.&lt;/div&gt;&lt;span class=&#34;hover-tooltip-more-details&#34;&gt;Click to see more details...&lt;/span&gt;&lt;/template&gt;&lt;/span&gt; to select the data to process through the pipeline.&lt;/p&gt;
 &lt;p&gt;Go back to your &lt;span class=&#34;stroom-icon inline-svg-button icon-button  &#34; &gt;
     &lt;span class=&#34;face&#34; title=&#34;Pipeline&#34;&gt;&lt;svg xmlns=&#34;http://www.w3.org/2000/svg&#34; width=&#34;1792&#34; height=&#34;1792&#34; viewBox=&#34;0 0 1792 1792&#34;&gt;&lt;path style=&#34;fill:var(--icon-colour__blue)&#34; d=&#34;m 1440,95.339844 c -9.3333,0 -17,2.999997 -23,8.999996 -6,6 -9,13.66667 -9,23 l 0,192 -256,0 c -45.3333,0 -88,5.5 -128,16.5 -40.00001,11 -75.50001,25 -106.50001,42 -31,17 -61,39.83333 -90,68.5 -29,28.66667 -53.66667,56.33333 -74,83 -20.33333,26.66667 -41.66667,60 -64,100 -19.99699,35.8155 -36.49225,67.59036 -49.54102,95.38868 -0.27492,0.10932 -0.53471,0.21669 -0.81054,0.32617 -16,30.66667 -31,56.5 -45,77.5 -14,21 -31,41.5 -51,61.5 -20,20 -43,35 -69,45 -26,10 -55,15 -87,15 l -355.148435,0 c -9.333333,0 -17,3 -23.0000004,9 -6,6 -9.0000000375455,13.66667 -9.0000000375455,23 l 0,192.00001 c 0,9.3333 3.0000000375455,17 9.0000000375455,23 6.0000004,6 13.6666674,9 23.0000004,9 l 355.148435,0 c 45.33333,0 88,-5.5 128,-16.5 40,-11 75.5,-25 106.5,-42 31,-17 61,-39.8333 90,-68.5 29,-28.6667 53.66667,-56.33334 74,-83.00001 20.33333,-26.66667 41.66667,-60 64,-100 19.8569,-35.56461 36.26775,-67.15315 49.27344,-94.8125 0.36178,-0.305 0.71557,-0.5961 1.07812,-0.90235 16,-30.66667 31,-56.5 45,-77.5 14,-21 31,-41.5 51,-61.5 20.00001,-20 43.00001,-35 69.00001,-45 26,-10 55,-15 87,-15 l 256,0 0,192 c 0,8.66667 3.1667,16.16667 9.5,22.5 6.3333,6.33333 13.8333,9.5 22.5,9.5 9.3333,0 17,-3 23,-9 l 320,-320 c 6,-6 9,-13.66667 9,-23 0,-9.33333 -3,-17 -9,-23 l -319,-319 c -8,-6.666666 -16,-9.999996 -24,-9.999996 z&#34;/&gt;&lt;path style=&#34;fill:var(--icon-colour__green)&#34; d=&#34;M 32 608.88672 C 22.666667 608.88672 15 611.88672 9 617.88672 C 3.0000001 623.88672 0 631.55342 0 640.88672 L 0 832.88672 C -2.3684758e-15 842.22005 3.0000001 849.88672 9 855.88672 C 14.999999 861.88672 22.666667 864.88672 32 864.88672 L 387.14844 864.88672 C 389.01484 864.88672 390.86885 864.90739 392.71484 864.94141 C 424.84023 863.54598 455.12074 854.70213 477.65234 838.51562 C 513.22947 811.0071 542.31317 769.76507 567.46094 723.21289 A 59.082625 59.082625 0 0 1 567.88281 722.44336 C 577.24508 705.7116 585.95748 689.48787 593.56641 673.41992 A 59.082625 59.082625 0 0 1 594.40625 671.7168 C 596.87369 666.9118 599.36286 662.08644 601.86719 657.25195 C 575.79127 644.74345 546.89263 634.11637 515.14844 625.38672 C 475.14844 614.38672 432.48177 608.88672 387.14844 608.88672 L 32 608.88672 z M 870.56641 957.2793 C 853.49205 984.29535 834.72449 1010.8834 813.4375 1036.3711 A 59.082625 59.082625 0 0 1 813.08984 1036.7852 C 777.58172 1078.5162 737.58032 1121.5966 687.80664 1156.543 C 688.3781 1157.5702 688.9227 1158.5676 689.5 1159.6016 C 711.83333 1199.6016 733.16667 1232.9349 753.5 1259.6016 C 773.83333 1286.2683 798.5 1313.9349 827.5 1342.6016 C 856.5 1371.2683 886.5 1394.1016 917.5 1411.1016 C 948.5 1428.1016 983.99999 1442.1016 1024 1453.1016 C 1064 1464.1016 1106.6667 1469.6016 1152 1469.6016 L 1408 1469.6016 L 1408 1661.6016 C 1408 1670.9349 1411 1678.6016 1417 1684.6016 C 1423 1690.6016 1430.6667 1693.6016 1440 1693.6016 C 1448 1693.6016 1456 1690.2683 1464 1683.6016 L 1783 1364.6016 C 1789 1358.6016 1792 1350.9349 1792 1341.6016 C 1792 1332.2683 1789 1324.6016 1783 1318.6016 L 1463 998.60156 C 1457 992.60156 1449.3333 989.60156 1440 989.60156 C 1431.3333 989.60156 1423.8333 992.76823 1417.5 999.10156 C 1411.1667 1005.4348 1408 1012.9349 1408 1021.6016 L 1408 1213.6016 L 1152 1213.6016 C 1120 1213.6016 1091 1208.6016 1065 1198.6016 C 1039 1188.6016 1016 1173.6016 996 1153.6016 C 976 1133.6016 959 1113.1016 945 1092.1016 C 931 1071.1016 916 1045.2683 900 1014.6016 C 899.63745 1014.2954 899.28365 1014.0042 898.92188 1013.6992 C 890.80126 996.429 881.35206 977.6246 870.56641 957.2793 z &#34;/&gt;&lt;/svg&gt;&lt;/span&gt;
   &lt;/span&gt; &lt;em&gt;Stroom 101&lt;/em&gt; pipeline and go to the Processors sub-tab.&lt;/p&gt;
 &lt;p&gt;Click the add button &lt;span class=&#34;stroom-icon inline-svg-button icon-button  &#34; &gt;
     &lt;span class=&#34;face&#34; title=&#34;Add&#34;&gt;&lt;svg xmlns=&#34;http://www.w3.org/2000/svg&#34; width=&#34;1792&#34; height=&#34;1792&#34; viewBox=&#34;0 0 1792 1792&#34;&gt;&lt;path style=&#34;fill:currentColor&#34; d=&#34;m 1600,800 0,192 q 0,40 -28,68 -28,28 -68,28 l -416,0 0,416 q 0,40 -28,68 -28,28 -68,28 l -192,0 q -40,0 -68,-28 -28,-28 -28,-68 l 0,-416 -416,0 q -40,0 -68,-28 -28,-28 -28,-68 l 0,-192 q 0,-40 28,-68 28,-28 68,-28 l 416,0 0,-416 q 0,-40 28,-68 28,-28 68,-28 l 192,0 q 40,0 68,28 28,28 28,68 l 0,416 416,0 q 40,0 68,28 28,28 28,68 z&#34;/&gt;&lt;/svg&gt; &lt;/span&gt;
-  &lt;/span&gt; and you will be presented with a Filter &lt;span class=&#34;glossary-link&#34;&gt;
+  &lt;/span&gt; and you will be presented with a Filter &lt;span class=&#34;glossary-link link-with-hover-tooltip&#34;&gt;
     &lt;a href=&#34;../../docs/glossary/e/glossary-expression-tree&#34;&gt;
       &lt;span&gt;Expression tree&lt;/span&gt;
       &lt;i class=&#34;glossary-link-icon fas fa-book fa-sm text-primary&#34;&gt;&lt;/i&gt;
-    &lt;/a&gt;&lt;span class=&#34;glossary-tooltip&#34;&gt;
-      &lt;span class=&#34;glossary-tooltip-title&#34;&gt;Expression tree&lt;/span&gt;
-      &lt;span class=&#34;glossary-tooltip-summary&#34;&gt;A tree of expression terms that each evaluate to a boolean (True/False) value. Terms can be grouped together within an expression operator (AND, OR, NOT).&lt;/span&gt;&lt;span class=&#34;glossary-tooltip-truncated&#34;&gt;Click to see more details...&lt;/span&gt;&lt;/span&gt;&lt;/span&gt; in the &lt;em&gt;Add Filter&lt;/em&gt; dialog.
+    &lt;/a&gt;&lt;template class=&#34;hover-tooltip-content&#34;&gt;
+        &lt;span class=&#34;hover-tooltip-title&#34;&gt;Expression tree&lt;/span&gt;
+        &lt;div class=&#34;hover-tooltip-summary&#34;&gt;A tree of expression terms that each evaluate to a boolean (True/False) value. Terms can be grouped together within an expression operator (AND, OR, NOT).&lt;/div&gt;&lt;span class=&#34;hover-tooltip-more-details&#34;&gt;Click to see more details...&lt;/span&gt;&lt;/template&gt;&lt;/span&gt; in the &lt;em&gt;Add Filter&lt;/em&gt; dialog.
 To configure the filter do the following:&lt;/p&gt;
 &lt;ol&gt;
 &lt;li&gt;Right click on the root AND operator and click &lt;span class=&#34;stroom-icon inline-svg-button icon-button  &#34; &gt;
     &lt;span class=&#34;face&#34; title=&#34;Add Term&#34;&gt;&lt;svg xmlns=&#34;http://www.w3.org/2000/svg&#34; width=&#34;1792&#34; height=&#34;1792&#34; viewBox=&#34;0 0 1792 1792&#34;&gt;&lt;path style=&#34;fill:currentColor&#34; d=&#34;m 1600,800 0,192 q 0,40 -28,68 -28,28 -68,28 l -416,0 0,416 q 0,40 -28,68 -28,28 -68,28 l -192,0 q -40,0 -68,-28 -28,-28 -28,-68 l 0,-416 -416,0 q -40,0 -68,-28 -28,-28 -28,-68 l 0,-192 q 0,-40 28,-68 28,-28 68,-28 l 416,0 0,-416 q 0,-40 28,-68 28,-28 68,-28 l 192,0 q 40,0 68,28 28,28 28,68 l 0,416 416,0 q 40,0 68,28 28,28 28,68 z&#34;/&gt;&lt;/svg&gt; &lt;/span&gt;
   &lt;/span&gt; Add Term.
-A new expression is added to the tree as a child of the operator and it has three dropdowns in it (&lt;span class=&#34;glossary-link&#34;&gt;
+A new expression is added to the tree as a child of the operator and it has three dropdowns in it (&lt;span class=&#34;glossary-link link-with-hover-tooltip&#34;&gt;
     &lt;a href=&#34;../../docs/glossary/f/glossary-field&#34;&gt;
       &lt;span&gt;Field&lt;/span&gt;
       &lt;i class=&#34;glossary-link-icon fas fa-book fa-sm text-primary&#34;&gt;&lt;/i&gt;
-    &lt;/a&gt;&lt;span class=&#34;glossary-tooltip&#34;&gt;
-      &lt;span class=&#34;glossary-tooltip-title&#34;&gt;Field&lt;/span&gt;
-      &lt;span class=&#34;glossary-tooltip-summary&#34;&gt;A named data Field within some form of record or entity, and where each Field can have an associated value. In Stroom, Fields can be the Fields in an &lt;em&gt;Index&lt;/em&gt; (or other queryable &lt;em&gt;Data Source&lt;/em&gt; or the fields of &lt;em&gt;Metadata&lt;/em&gt; associated with a &lt;em&gt;Stream&lt;/em&gt;, e.g. Stream ID, &lt;em&gt;Feed&lt;/em&gt;, creation time, etc.&lt;/span&gt;&lt;span class=&#34;glossary-tooltip-truncated&#34;&gt;Click to see more details...&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;, &lt;span class=&#34;glossary-link&#34;&gt;
+    &lt;/a&gt;&lt;template class=&#34;hover-tooltip-content&#34;&gt;
+        &lt;span class=&#34;hover-tooltip-title&#34;&gt;Field&lt;/span&gt;
+        &lt;div class=&#34;hover-tooltip-summary&#34;&gt;A named data Field within some form of record or entity, and where each Field can have an associated value. In Stroom, Fields can be the Fields in an &lt;em&gt;Index&lt;/em&gt; (or other queryable &lt;em&gt;Data Source&lt;/em&gt; or the fields of &lt;em&gt;Metadata&lt;/em&gt; associated with a &lt;em&gt;Stream&lt;/em&gt;, e.g. Stream ID, &lt;em&gt;Feed&lt;/em&gt;, creation time, etc.&lt;/div&gt;&lt;span class=&#34;hover-tooltip-more-details&#34;&gt;Click to see more details...&lt;/span&gt;&lt;/template&gt;&lt;/span&gt;, &lt;span class=&#34;glossary-link link-with-hover-tooltip&#34;&gt;
     &lt;a href=&#34;../../docs/glossary/c/glossary-condition&#34;&gt;
       &lt;span&gt;Condition&lt;/span&gt;
       &lt;i class=&#34;glossary-link-icon fas fa-book fa-sm text-primary&#34;&gt;&lt;/i&gt;
-    &lt;/a&gt;&lt;span class=&#34;glossary-tooltip&#34;&gt;
-      &lt;span class=&#34;glossary-tooltip-title&#34;&gt;Condition&lt;/span&gt;
-      &lt;span class=&#34;glossary-tooltip-summary&#34;&gt;A Condition in an query expression term, e.g. &lt;code&gt;=&lt;/code&gt;, &lt;code&gt;&amp;gt;&lt;/code&gt;, &lt;code&gt;in&lt;/code&gt;, etc.&lt;/span&gt;&lt;span class=&#34;glossary-tooltip-truncated&#34;&gt;Click to see more details...&lt;/span&gt;&lt;/span&gt;&lt;/span&gt; and value).&lt;/li&gt;
+    &lt;/a&gt;&lt;template class=&#34;hover-tooltip-content&#34;&gt;
+        &lt;span class=&#34;hover-tooltip-title&#34;&gt;Condition&lt;/span&gt;
+        &lt;div class=&#34;hover-tooltip-summary&#34;&gt;A Condition in an query expression term, e.g. &lt;code&gt;=&lt;/code&gt;, &lt;code&gt;&amp;gt;&lt;/code&gt;, &lt;code&gt;in&lt;/code&gt;, etc.&lt;/div&gt;&lt;span class=&#34;hover-tooltip-more-details&#34;&gt;Click to see more details...&lt;/span&gt;&lt;/template&gt;&lt;/span&gt; and value).&lt;/li&gt;
 &lt;li&gt;To create an expression term for the Feed:
 &lt;ol&gt;
 &lt;li&gt;Field: &lt;code&gt;Feed&lt;/code&gt;&lt;/li&gt;
@@ -2869,401 +1754,6 @@ You many need to wait a bit for the data to be flushed to the index shards.&lt;/
 &lt;/ol&gt;
 &lt;p&gt;You should eventually see a &lt;em&gt;Doc Count&lt;/em&gt; of 2,000 to match the number of events processed in the source Stream.&lt;/p&gt;
 &lt;p&gt;Now that we have finished indexing we can display data on a &lt;a href=&#34;../../docs/quick-start-guide/dashboard/&#34;&gt;dashboard&lt;/a&gt;.&lt;/p&gt;
-
-      </description>
-    </item>
-    
-    <item>
-      <title>Docs: String &amp; Encoding</title>
-      <link>/docs/user-guide/pipelines/xslt/xslt-functions/string-and-encoding/</link>
-      <pubDate>Fri, 14 Aug 2026 00:00:00 +0000</pubDate>
-      
-      <guid>/docs/user-guide/pipelines/xslt/xslt-functions/string-and-encoding/</guid>
-      <description>
-        
-        
-        &lt;h2 id=&#34;decode-url&#34;&gt;decode-url()&lt;/h2&gt;
-&lt;p&gt;Decode the provided url.&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-text&#34;&gt;decode-url(String encodedUrl)
-&lt;/code&gt;&lt;/pre&gt;
-&lt;h2 id=&#34;encode-url&#34;&gt;encode-url()&lt;/h2&gt;
-&lt;p&gt;Encode the provided url.&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-text&#34;&gt;encode-url(String url)
-&lt;/code&gt;&lt;/pre&gt;
-&lt;h2 id=&#34;hash&#34;&gt;hash()&lt;/h2&gt;
-&lt;pre&gt;&lt;code class=&#34;language-text&#34;&gt;hash(String value)
-hash(String value, String algorithm)
-hash(String value, String algorithm, String salt)
-&lt;/code&gt;&lt;/pre&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;code&gt;hash(String value)&lt;/code&gt; - Hash a string value using the default &lt;code&gt;SHA-256&lt;/code&gt; algorithm and no salt&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;hash(String value, String algorithm)&lt;/code&gt; - Hash a string value using the specified hashing algorithm and no salt.&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;hash(String value, String algorithm, String salt)&lt;/code&gt; - Hash a string value using the specified hashing algorithm and supplied salt value.
-The algorithm can be any digest algorithm supported by the Java runtime, e.g. &lt;code&gt;SHA-256&lt;/code&gt;, &lt;code&gt;SHA-512&lt;/code&gt;, &lt;code&gt;MD5&lt;/code&gt;.&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h2 id=&#34;hex-to-dec&#34;&gt;hex-to-dec()&lt;/h2&gt;
-&lt;p&gt;Convert hex to dec representation.&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-text&#34;&gt;hex-to-dec(String hex)
-&lt;/code&gt;&lt;/pre&gt;
-&lt;h2 id=&#34;hex-to-oct&#34;&gt;hex-to-oct()&lt;/h2&gt;
-&lt;p&gt;Convert hex to oct representation.&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-text&#34;&gt;hex-to-oct(String hex)
-&lt;/code&gt;&lt;/pre&gt;
-&lt;h2 id=&#34;hex-to-string&#34;&gt;hex-to-string()&lt;/h2&gt;
-&lt;p&gt;For a hexadecimal input string, decode it using the specified character set to its original form.&lt;/p&gt;
-&lt;p&gt;Valid character set names are listed at: &lt;a href=&#34;https://www.iana.org/assignments/character-sets/character-sets.xhtml&#34;&gt;https://www.iana.org/assignments/character-sets/character-sets.xhtml&lt;/a&gt;.
-Common examples are: &lt;code&gt;ASCII&lt;/code&gt;, &lt;code&gt;UTF-8&lt;/code&gt; and &lt;code&gt;UTF-16&lt;/code&gt;.&lt;/p&gt;
-&lt;h4 id=&#34;input&#34;&gt;Input&lt;/h4&gt;
-&lt;pre&gt;&lt;code class=&#34;language-xml&#34;&gt;&amp;lt;string&amp;gt;&amp;lt;xsl:value-of select=&amp;quot;stroom:hex-to-string(&#39;74 65 73 74 69 6e 67 20 31 32 33&#39;, &#39;UTF-8&#39;)&amp;quot; /&amp;gt;&amp;lt;/string&amp;gt;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;h4 id=&#34;output&#34;&gt;Output&lt;/h4&gt;
-&lt;pre&gt;&lt;code class=&#34;language-xml&#34;&gt;&amp;lt;string&amp;gt;testing 123&amp;lt;/string&amp;gt;
-&lt;/code&gt;&lt;/pre&gt;
-
-      </description>
-    </item>
-    
-    <item>
-      <title>Docs: HTTP &amp; JSON</title>
-      <link>/docs/user-guide/pipelines/xslt/xslt-functions/http-and-json/</link>
-      <pubDate>Fri, 14 Aug 2026 00:00:00 +0000</pubDate>
-      
-      <guid>/docs/user-guide/pipelines/xslt/xslt-functions/http-and-json/</guid>
-      <description>
-        
-        
-        &lt;h2 id=&#34;fetch-json&#34;&gt;fetch-json()&lt;/h2&gt;
-&lt;pre&gt;&lt;code class=&#34;language-text&#34;&gt;fetch-json(String url)
-fetch-json(String url, String clientConfig)
-&lt;/code&gt;&lt;/pre&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;code&gt;fetch-json(String url)&lt;/code&gt; - Simplistic version of &lt;code&gt;http-call&lt;/code&gt; that sends a request to the passed &lt;code&gt;url&lt;/code&gt; and converts the JSON response body to XML using &lt;code&gt;json-to-xml&lt;/code&gt;.&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;fetch-json(String url, String clientConfig)&lt;/code&gt; - As above, with the HTTP client configured using the same JSON object as &lt;a href=&#34;#clientconfig&#34;&gt;&lt;code&gt;http-call()&lt;/code&gt;&lt;/a&gt;, e.g. to supply SSL configuration.&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h2 id=&#34;http-call&#34;&gt;http-call()&lt;/h2&gt;
-&lt;p&gt;Executes an HTTP(S) request to a remote server and returns the response.&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-text&#34;&gt;http-call(String url, [String headers], [String mediaType], [String data], [String clientConfig])
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;The arguments are as follows:&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;code&gt;url&lt;/code&gt; - The URL to send the request to.&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;headers&lt;/code&gt; - A newline (&lt;code&gt;&amp;amp;#10;&lt;/code&gt;) delimited list of HTTP headers to send.
-Each header is of the form &lt;code&gt;key:value&lt;/code&gt;.&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;mediaType&lt;/code&gt; - The media (or MIME) type of the request &lt;code&gt;data&lt;/code&gt;, e.g. &lt;code&gt;application/json&lt;/code&gt;.
-If not set &lt;code&gt;application/json; charset=utf-8&lt;/code&gt; will be used.&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;data&lt;/code&gt; - The data to send.
-The data type should be consistent with &lt;code&gt;mediaType&lt;/code&gt;.
-Supplying the &lt;code&gt;data&lt;/code&gt; argument means a POST request method will be used rather than the default GET.&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;clientConfig&lt;/code&gt; - A JSON object containing the configuration for the HTTP client to use, including any SSL configuration.&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;The function returns the response as XML with namespace &lt;code&gt;stroom-http&lt;/code&gt;.
-The XML includes the body of the response in addition to the status code, success status, message and any headers.&lt;/p&gt;
-&lt;h3 id=&#34;clientconfig&#34;&gt;&lt;code&gt;clientConfig&lt;/code&gt;&lt;/h3&gt;
-&lt;p&gt;The client can be configured using a JSON object containing various optional configuration items.
-The following is an example of the client configuration object with all keys populated.&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-json&#34;&gt;{
-  &amp;quot;callTimeout&amp;quot;: &amp;quot;PT30S&amp;quot;,
-  &amp;quot;connectionTimeout&amp;quot;: &amp;quot;PT30S&amp;quot;,
-  &amp;quot;followRedirects&amp;quot;: false,
-  &amp;quot;followSslRedirects&amp;quot;: false,
-  &amp;quot;httpProtocols&amp;quot;: [
-    &amp;quot;http/2&amp;quot;,
-    &amp;quot;http/1.1&amp;quot;
-  ],
-  &amp;quot;readTimeout&amp;quot;: &amp;quot;PT30S&amp;quot;,
-  &amp;quot;retryOnConnectionFailure&amp;quot;: true,
-  &amp;quot;sslConfig&amp;quot;: {
-    &amp;quot;keyStorePassword&amp;quot;: &amp;quot;password&amp;quot;,
-    &amp;quot;keyStorePath&amp;quot;: &amp;quot;/some/path/client.jks&amp;quot;,
-    &amp;quot;keyStoreType&amp;quot;: &amp;quot;JKS&amp;quot;,
-    &amp;quot;trustStorePassword&amp;quot;: &amp;quot;password&amp;quot;,
-    &amp;quot;trustStorePath&amp;quot;: &amp;quot;/some/path/ca.jks&amp;quot;,
-    &amp;quot;trustStoreType&amp;quot;: &amp;quot;JKS&amp;quot;,
-    &amp;quot;sslProtocol&amp;quot;: &amp;quot;TLSv1.2&amp;quot;,
-    &amp;quot;hostnameVerificationEnabled&amp;quot;: false
-  },
-  &amp;quot;writeTimeout&amp;quot;: &amp;quot;PT30S&amp;quot;
-}
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;If you are using two-way SSL then you may need to set the protocol to &lt;code&gt;HTTP/1.1&lt;/code&gt;.&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-json&#34;&gt;  &amp;quot;httpProtocols&amp;quot;: [
-    &amp;quot;http/1.1&amp;quot;
-  ],
-&lt;/code&gt;&lt;/pre&gt;
-&lt;h3 id=&#34;example-output&#34;&gt;Example Output&lt;/h3&gt;
-&lt;p&gt;The following is an example of the XML returned from the &lt;code&gt;http-call&lt;/code&gt; function:&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-xml&#34;&gt;&amp;lt;response xmlns=&amp;quot;stroom-http&amp;quot;&amp;gt;
-  &amp;lt;successful&amp;gt;true&amp;lt;/successful&amp;gt;
-  &amp;lt;code&amp;gt;200&amp;lt;/code&amp;gt;
-  &amp;lt;message&amp;gt;OK&amp;lt;/message&amp;gt;
-  &amp;lt;headers&amp;gt;
-    &amp;lt;header&amp;gt;
-      &amp;lt;key&amp;gt;cache-control&amp;lt;/key&amp;gt;
-      &amp;lt;value&amp;gt;public, max-age=600&amp;lt;/value&amp;gt;
-    &amp;lt;/header&amp;gt;
-    &amp;lt;header&amp;gt;
-      &amp;lt;key&amp;gt;connection&amp;lt;/key&amp;gt;
-      &amp;lt;value&amp;gt;keep-alive&amp;lt;/value&amp;gt;
-    &amp;lt;/header&amp;gt;
-    &amp;lt;header&amp;gt;
-      &amp;lt;key&amp;gt;content-length&amp;lt;/key&amp;gt;
-      &amp;lt;value&amp;gt;108&amp;lt;/value&amp;gt;
-    &amp;lt;/header&amp;gt;
-    &amp;lt;header&amp;gt;
-      &amp;lt;key&amp;gt;content-type&amp;lt;/key&amp;gt;
-      &amp;lt;value&amp;gt;application/json;charset=iso-8859-1&amp;lt;/value&amp;gt;
-    &amp;lt;/header&amp;gt;
-    &amp;lt;header&amp;gt;
-      &amp;lt;key&amp;gt;date&amp;lt;/key&amp;gt;
-      &amp;lt;value&amp;gt;Wed, 29 Jun 2022 13:03:38 GMT&amp;lt;/value&amp;gt;
-    &amp;lt;/header&amp;gt;
-    &amp;lt;header&amp;gt;
-      &amp;lt;key&amp;gt;expires&amp;lt;/key&amp;gt;
-      &amp;lt;value&amp;gt;Wed, 29 Jun 2022 13:13:38 GMT&amp;lt;/value&amp;gt;
-    &amp;lt;/header&amp;gt;
-    &amp;lt;header&amp;gt;
-      &amp;lt;key&amp;gt;server&amp;lt;/key&amp;gt;
-      &amp;lt;value&amp;gt;nginx/1.21.6&amp;lt;/value&amp;gt;
-    &amp;lt;/header&amp;gt;
-    &amp;lt;header&amp;gt;
-      &amp;lt;key&amp;gt;vary&amp;lt;/key&amp;gt;
-      &amp;lt;value&amp;gt;Accept-Encoding&amp;lt;/value&amp;gt;
-    &amp;lt;/header&amp;gt;
-    &amp;lt;header&amp;gt;
-      &amp;lt;key&amp;gt;x-content-type-options&amp;lt;/key&amp;gt;
-      &amp;lt;value&amp;gt;nosniff&amp;lt;/value&amp;gt;
-    &amp;lt;/header&amp;gt;
-    &amp;lt;header&amp;gt;
-      &amp;lt;key&amp;gt;x-frame-options&amp;lt;/key&amp;gt;
-      &amp;lt;value&amp;gt;sameorigin&amp;lt;/value&amp;gt;
-    &amp;lt;/header&amp;gt;
-    &amp;lt;header&amp;gt;
-      &amp;lt;key&amp;gt;x-xss-protection&amp;lt;/key&amp;gt;
-      &amp;lt;value&amp;gt;1; mode=block&amp;lt;/value&amp;gt;
-    &amp;lt;/header&amp;gt;
-  &amp;lt;/headers&amp;gt;
-  &amp;lt;body&amp;gt;{&amp;quot;buildDate&amp;quot;:&amp;quot;2022-06-29T09:22:41.541886118Z&amp;quot;,&amp;quot;buildVersion&amp;quot;:&amp;quot;SNAPSHOT&amp;quot;,&amp;quot;upDate&amp;quot;:&amp;quot;2022-06-29T11:06:26.869Z&amp;quot;}&amp;lt;/body&amp;gt;
-&amp;lt;/response&amp;gt;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;h3 id=&#34;example-usage&#34;&gt;Example Usage&lt;/h3&gt;
-&lt;p&gt;This is an example of how to use the function call in your XSLT.
-It is recommended to place the &lt;code&gt;clientConfig&lt;/code&gt; JSON in a &lt;span class=&#34;glossary-link&#34;&gt;
-    &lt;a href=&#34;../../docs/glossary/d/glossary-dictionary&#34;&gt;
-      &lt;span&gt;Dictionary&lt;/span&gt;
-      &lt;i class=&#34;glossary-link-icon fas fa-book fa-sm text-primary&#34;&gt;&lt;/i&gt;
-    &lt;/a&gt;&lt;span class=&#34;glossary-tooltip&#34;&gt;
-      &lt;span class=&#34;glossary-tooltip-title&#34;&gt;Dictionary&lt;/span&gt;
-      &lt;span class=&#34;glossary-tooltip-summary&#34;&gt;A entity for storing static content, e.g. lists of terms for use in a query with the &lt;code&gt;in dictionary&lt;/code&gt; condition. They can also be used to hold arbitrary text for use in &lt;em&gt;XSLT&lt;/em&gt; with the &lt;code&gt;dictionary&lt;/code&gt; function.&lt;/span&gt;&lt;span class=&#34;glossary-tooltip-truncated&#34;&gt;Click to see more details...&lt;/span&gt;&lt;/span&gt;&lt;/span&gt; to make it easier to edit and to avoid having to escape all the quotes.&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-xml&#34;&gt;  ...
-  &amp;lt;xsl:template match=&amp;quot;record&amp;quot;&amp;gt;
-    ...
-    &amp;lt;!-- Read the client config from a Dictionary into a variable --&amp;gt;
-    &amp;lt;xsl:variable name=&amp;quot;clientConfig&amp;quot; select=&amp;quot;stroom:dictionary(&#39;HTTP Client Config&#39;)&amp;quot; /&amp;gt;
-    &amp;lt;!-- Make the HTTP call and store the response in a variable --&amp;gt;
-    &amp;lt;xsl:variable name=&amp;quot;response&amp;quot; select=&amp;quot;stroom:http-call(&#39;https://reqbin.com/echo&#39;, null, null, null, $clientConfig)&amp;quot; /&amp;gt;
-    &amp;lt;!-- Apply &#39;response&#39; templates to the response --&amp;gt;
-    &amp;lt;xsl:apply-templates mode=&amp;quot;response&amp;quot; select=&amp;quot;$response&amp;quot; /&amp;gt;
-    ...
-  &amp;lt;/xsl:template&amp;gt;
-  
-  &amp;lt;xsl:template mode=&amp;quot;response&amp;quot; match=&amp;quot;http:response&amp;quot;&amp;gt;
-    &amp;lt;!-- Extract just the body of the response --&amp;gt;
-    &amp;lt;val&amp;gt;&amp;lt;xsl:value-of select=&amp;quot;./http:body/text()&amp;quot; /&amp;gt;&amp;lt;/val&amp;gt;
-  &amp;lt;/xsl:template&amp;gt;
-  ...
-&lt;/code&gt;&lt;/pre&gt;
-&lt;h2 id=&#34;json-to-xml&#34;&gt;json-to-xml()&lt;/h2&gt;
-&lt;p&gt;Returns an XML representation of the supplied JSON value for use in XPath expressions&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-text&#34;&gt;json-to-xml(String json)
-&lt;/code&gt;&lt;/pre&gt;
-
-      </description>
-    </item>
-    
-    <item>
-      <title>Docs: Output &amp; Logging</title>
-      <link>/docs/user-guide/pipelines/xslt/xslt-functions/output-and-logging/</link>
-      <pubDate>Fri, 14 Aug 2026 00:00:00 +0000</pubDate>
-      
-      <guid>/docs/user-guide/pipelines/xslt/xslt-functions/output-and-logging/</guid>
-      <description>
-        
-        
-        &lt;h2 id=&#34;add-meta&#34;&gt;add-meta()&lt;/h2&gt;
-&lt;p&gt;Add meta to be written to output destination.&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-text&#34;&gt;add-meta(String key, String value)
-&lt;/code&gt;&lt;/pre&gt;
-&lt;h2 id=&#34;link&#34;&gt;link()&lt;/h2&gt;
-&lt;p&gt;Create a string that represents a hyperlink for display in a dashboard table.&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;link(url)
-link(title, url)
-link(title, url, type)
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;Example&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;link(&#39;https://www.somehost.com/somepath&#39;)
-&amp;gt; [https://www.somehost.com/somepath](https://www.somehost.com/somepath)
-link(&#39;Click Here&#39;,&#39;https://www.somehost.com/somepath&#39;)
-&amp;gt; [Click Here](https://www.somehost.com/somepath)
-link(&#39;Click Here&#39;,&#39;https://www.somehost.com/somepath&#39;, &#39;dialog&#39;)
-&amp;gt; [Click Here](https://www.somehost.com/somepath){dialog}
-link(&#39;Click Here&#39;,&#39;https://www.somehost.com/somepath&#39;, &#39;dialog|Dialog Title&#39;)
-&amp;gt; [Click Here](https://www.somehost.com/somepath){dialog|Dialog Title}
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;Type can be one of:&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;code&gt;dialog&lt;/code&gt; : Display the content of the link URL within a stroom popup dialog.&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;tab&lt;/code&gt; : Display the content of the link URL within a stroom tab.&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;browser&lt;/code&gt; : Display the content of the link URL within a new browser tab.&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;dashboard&lt;/code&gt; : Used to launch a stroom dashboard internally with parameters in the URL.&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;If you wish to override the default title or URL of the target link in either a tab or dialog you can.
-Both &lt;code&gt;dialog&lt;/code&gt; and &lt;code&gt;tab&lt;/code&gt; types allow titles to be specified after a &lt;code&gt;|&lt;/code&gt;, e.g. &lt;code&gt;dialog|My Title&lt;/code&gt;.&lt;/p&gt;
-&lt;h2 id=&#34;log&#34;&gt;log()&lt;/h2&gt;
-&lt;p&gt;The log() function writes a message to the processing log with the specified severity.
-Severities of INFO, WARN, ERROR and FATAL can be used.
-Severities of ERROR and FATAL will result in records being omitted from the output if a RecordOutputFilter is used in the pipeline.
-The counts for RecWarn, RecError will be affected by warnings or errors generated in this way therefore this function is useful for adding business rules to XML output.&lt;/p&gt;
-&lt;p&gt;E.g. Warn if a SID is not the correct length.&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-xml&#34;&gt;&amp;lt;xsl:if test=&amp;quot;string-length($sid) != 7&amp;quot;&amp;gt;
-  &amp;lt;xsl:value-of select=&amp;quot;stroom:log(&#39;WARN&#39;, concat($sid, &#39; is not the correct length&#39;))&amp;quot;/&amp;gt;
-&amp;lt;/xsl:if&amp;gt;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;The same functionality can also be achieved using the standard &lt;code&gt;xsl:message&lt;/code&gt; element, see &lt;a href=&#34;../../docs/user-guide/pipelines/xslt/xslt-basics/#xslmessage&#34;&gt;&lt;code&gt;&amp;lt;xsl:message&amp;gt;&lt;/code&gt;&lt;/a&gt;&lt;/p&gt;
-
-      </description>
-    </item>
-    
-    <item>
-      <title>Docs: Values &amp; Context</title>
-      <link>/docs/user-guide/pipelines/xslt/xslt-functions/values-and-context/</link>
-      <pubDate>Fri, 14 Aug 2026 00:00:00 +0000</pubDate>
-      
-      <guid>/docs/user-guide/pipelines/xslt/xslt-functions/values-and-context/</guid>
-      <description>
-        
-        
-        &lt;h2 id=&#34;current-user&#34;&gt;current-user()&lt;/h2&gt;
-&lt;p&gt;Returns the identity of the user that Stroom is processing as.
-This is only meaningful for interactive use, e.g. a search, rather than for background stream processing.&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-text&#34;&gt;current-user()
-current-user(String form)
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;The optional &lt;code&gt;form&lt;/code&gt; argument selects which form of the user&amp;rsquo;s identity is returned.&lt;/p&gt;
-&lt;table&gt;
-&lt;thead&gt;
-&lt;tr&gt;
-&lt;th&gt;&lt;code&gt;form&lt;/code&gt;&lt;/th&gt;
-&lt;th&gt;Returns&lt;/th&gt;
-&lt;/tr&gt;
-&lt;/thead&gt;
-&lt;tbody&gt;
-&lt;tr&gt;
-&lt;td&gt;&lt;code&gt;display&lt;/code&gt;&lt;/td&gt;
-&lt;td&gt;The user&amp;rsquo;s display name, falling back to their subject identifier if they have none. This is the value Stroom uses for auditing, and is the default.&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;&lt;code&gt;subject&lt;/code&gt;&lt;/td&gt;
-&lt;td&gt;The unique subject identifier for the user, as supplied by the identity provider.&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;&lt;code&gt;full&lt;/code&gt;&lt;/td&gt;
-&lt;td&gt;The user&amp;rsquo;s full name, or an empty string if they do not have one.&lt;/td&gt;
-&lt;/tr&gt;
-&lt;/tbody&gt;
-&lt;/table&gt;
-&lt;p&gt;If &lt;code&gt;form&lt;/code&gt; is omitted, empty or not one of the above values then &lt;code&gt;display&lt;/code&gt; is used.&lt;/p&gt;
-&lt;h2 id=&#34;pipeline-name&#34;&gt;pipeline-name()&lt;/h2&gt;
-&lt;p&gt;Get the name of the pipeline currently processing the stream.&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-text&#34;&gt;pipeline-name()
-&lt;/code&gt;&lt;/pre&gt;
-&lt;h2 id=&#34;put-and-get&#34;&gt;put() and get()&lt;/h2&gt;
-&lt;p&gt;You can put values into a map using the &lt;code&gt;put()&lt;/code&gt; function.
-These values can then be retrieved later using the &lt;code&gt;get()&lt;/code&gt; function.
-Values are stored against a key name so that multiple values can be stored.
-These functions can be used for many purposes but are most commonly used to count a number of records that meet certain criteria.&lt;/p&gt;
-&lt;p&gt;The map is in the scope of the current pipeline process so values do not live after the stream has been processed.
-Also, the map will only contain entries that were &lt;code&gt;put()&lt;/code&gt; within the current pipeline process.&lt;/p&gt;
-&lt;p&gt;An example of how to count records is shown below:&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-xml&#34;&gt;&amp;lt;!-- Get the current record count --&amp;gt;
-&amp;lt;xsl:variable name=&amp;quot;currentCount&amp;quot; select=&amp;quot;number(stroom:get(&#39;count&#39;))&amp;quot; /&amp;gt;
-
-&amp;lt;!-- Increment the record count --&amp;gt;
-&amp;lt;xsl:variable name=&amp;quot;count&amp;quot;&amp;gt;
-  &amp;lt;xsl:choose&amp;gt;
-    &amp;lt;xsl:when test=&amp;quot;$currentCount&amp;quot;&amp;gt;
-      &amp;lt;xsl:value-of select=&amp;quot;$currentCount + 1&amp;quot; /&amp;gt;
-    &amp;lt;/xsl:when&amp;gt;
-    &amp;lt;xsl:otherwise&amp;gt;
-      &amp;lt;xsl:value-of select=&amp;quot;1&amp;quot; /&amp;gt;
-    &amp;lt;/xsl:otherwise&amp;gt;
-  &amp;lt;/xsl:choose&amp;gt;
-&amp;lt;/xsl:variable&amp;gt;
-
-&amp;lt;!-- Store the count for future retrieval --&amp;gt;
-&amp;lt;xsl:value-of select=&amp;quot;stroom:put(&#39;count&#39;, $count)&amp;quot; /&amp;gt;
-
-&amp;lt;!-- Output the new count --&amp;gt;
-&amp;lt;data name=&amp;quot;Count&amp;quot;&amp;gt;
-  &amp;lt;xsl:attribute name=&amp;quot;Value&amp;quot; select=&amp;quot;$count&amp;quot; /&amp;gt;
-&amp;lt;/data&amp;gt;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;h2 id=&#34;random&#34;&gt;random()&lt;/h2&gt;
-&lt;p&gt;Get a system generated random number between 0 and 1.&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-text&#34;&gt;random()
-&lt;/code&gt;&lt;/pre&gt;
-&lt;h2 id=&#34;search-id&#34;&gt;search-id()&lt;/h2&gt;
-&lt;p&gt;Get the id of the batch search when a pipeline is processing as part of a batch search&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-text&#34;&gt;search-id()
-&lt;/code&gt;&lt;/pre&gt;
-
-      </description>
-    </item>
-    
-    <item>
-      <title>Docs: Maths &amp; Vectors</title>
-      <link>/docs/user-guide/pipelines/xslt/xslt-functions/maths-and-vectors/</link>
-      <pubDate>Fri, 14 Aug 2026 00:00:00 +0000</pubDate>
-      
-      <guid>/docs/user-guide/pipelines/xslt/xslt-functions/maths-and-vectors/</guid>
-      <description>
-        
-        
-        &lt;h2 id=&#34;cosine-similarity&#34;&gt;cosine-similarity()&lt;/h2&gt;
-&lt;p&gt;Returns the cosine similarity of two numeric vectors, i.e. a value between &lt;code&gt;-1&lt;/code&gt; and &lt;code&gt;1&lt;/code&gt; describing how closely the two vectors point in the same direction.
-It is intended for comparing sets of embeddings produced by a large language model.&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-text&#34;&gt;cosine-similarity(Number[] vectorA, Number[] vectorB)
-&lt;/code&gt;&lt;/pre&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;code&gt;vectorA&lt;/code&gt; - A sequence of numbers.&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;vectorB&lt;/code&gt; - A sequence of numbers, of the same length as &lt;code&gt;vectorA&lt;/code&gt;.&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;Both vectors must have the same number of elements, otherwise an error is raised.
-If either vector has a magnitude of zero then &lt;code&gt;0&lt;/code&gt; is returned.&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-xml&#34;&gt;&amp;lt;xsl:variable name=&amp;quot;a&amp;quot; select=&amp;quot;(1, 0, 1)&amp;quot; as=&amp;quot;xs:double*&amp;quot; /&amp;gt;
-&amp;lt;xsl:variable name=&amp;quot;b&amp;quot; select=&amp;quot;(1, 1, 1)&amp;quot; as=&amp;quot;xs:double*&amp;quot; /&amp;gt;
-&amp;lt;Similarity&amp;gt;&amp;lt;xsl:value-of select=&amp;quot;stroom:cosine-similarity($a, $b)&amp;quot; /&amp;gt;&amp;lt;/Similarity&amp;gt;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code class=&#34;language-xml&#34;&gt;&amp;lt;Similarity&amp;gt;0.8164965809277259&amp;lt;/Similarity&amp;gt;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;h2 id=&#34;pointisinsidexypolygon&#34;&gt;pointIsInsideXYPolygon()&lt;/h2&gt;
-&lt;p&gt;Returns true if the specified point is inside the specified polygon.
-Useful for determining if a user is inside a physical zone based on their location and the boundary of that zone.&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-text&#34;&gt;pointIsInsideXYPolygon(Number xPos, Number yPos, Number[] xPolyData, Number[] yPolyData)
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;Arguments:&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;code&gt;xPos&lt;/code&gt; - The X value of the point to be tested.&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;yPos&lt;/code&gt; - The Y value of the point to be tested.&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;xPolyData&lt;/code&gt; - A sequence of X values that define the polygon.&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;yPolyData&lt;/code&gt; - A sequence of Y values that define the polygon.&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;The list of values supplied for &lt;code&gt;xPolyData&lt;/code&gt; must correspond with the list of values supplied for &lt;code&gt;yPolyData&lt;/code&gt;.
-The points that define the polygon must be provided in order, i.e. starting from one point on the polygon and then travelling round the path of the polygon until it gets back to the beginning.&lt;/p&gt;
-&lt;!-- TODO add example XSLT --&gt;
-&lt;h2 id=&#34;split-document&#34;&gt;split-document()&lt;/h2&gt;
-&lt;p&gt;Split a document for LLM tokenisation (experimental).&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-text&#34;&gt;split-document(String doc, Number segmentSize, Number overlapSize)
-&lt;/code&gt;&lt;/pre&gt;
 
       </description>
     </item>

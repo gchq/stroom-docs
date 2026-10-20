@@ -56,8 +56,8 @@
 
 
 
-<link rel="preload" href="../../../../../scss/main.min.396476946a9b6e781a9b8d417186b5e7ca15aa5c2d8a2821b87b82f11629222e.css" as="style">
-<link href="../../../../../scss/main.min.396476946a9b6e781a9b8d417186b5e7ca15aa5c2d8a2821b87b82f11629222e.css" rel="stylesheet" integrity="">
+<link rel="preload" href="../../../../../scss/main.min.e88dbdcc11536c32758367027850973cba7b125793b45a9a421989bcdc0ce239.css" as="style">
+<link href="../../../../../scss/main.min.e88dbdcc11536c32758367027850973cba7b125793b45a9a421989bcdc0ce239.css" rel="stylesheet" integrity="">
 
 
 <script src='../../../../../js/jquery-3.6.0.min.js'></script>
@@ -72,9 +72,9 @@
 
 <link rel="stylesheet" href="../../../../../css/stroom-ui/material_design_colors.min.ab1318fe69a1013ff756090954c02c5364ff48d150dcc94468a73d2e3efd3fc0.css" integrity="sha256-qxMY/mmhAT/3VgkJVMAsU2T/SNFQ3MlEaKc9Lj79P8A=">
 
-<link rel="stylesheet" href="../../../../../css/stroom-ui/theme-root.min.bebaa7a01087d1ece8e812db2a1a91349b15556d04f84eea180c6d23491738c4.css" integrity="sha256-vrqnoBCH0ezo6BLbKhqRNJsVVW0E&#43;E7qGAxtI0kXOMQ=">
+<link rel="stylesheet" href="../../../../../css/stroom-ui/theme-root.min.e4f410f95b5e1796bfe81465105eecf7ad66a8b0a4c15da0147e1c641b821e17.css" integrity="sha256-5PQQ&#43;VteF5a/6BRlEF7s961mqLCkwV2gFH4cZBuCHhc=">
 
-<link rel="stylesheet" href="../../../../../css/stroom-ui/theme-dark.min.bc08bf14d505124d1eb4316e6df1348b0985e517e3cc0f5a590a03a968cc8c65.css" integrity="sha256-vAi/FNUFEk0etDFubfE0iwmF5RfjzA9aWQoDqWjMjGU=">
+<link rel="stylesheet" href="../../../../../css/stroom-ui/theme-dark.min.9754c7f8f115669862cd3465c6d7938e668838a638e0712d65af7520041f9678.css" integrity="sha256-l1TH&#43;PEVZphizTRlxteTjmaIOKY44HEtZa91IAQflng=">
 
 
 
@@ -103,13 +103,15 @@
       </li>
       <li class="nav-item dropdown mr-4 d-none d-lg-block">
         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-	Stroom Version (7.13)
+	Stroom Version (7.14)
 </a>
 <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
 	
 	
 	
-	<a class="dropdown-item" href="../../../../../">7.13 (Latest)</a>
+	<a class="dropdown-item" href="../../../../../">7.14 (Latest)</a>
+	
+	<a class="dropdown-item" href="../../../../../7.13">7.13</a>
 	
 	<a class="dropdown-item" href="../../../../../7.12">7.12</a>
 	
@@ -151,7 +153,7 @@
     aria-label="Search this site…"
     autocomplete="off"
     
-    data-offline-search-index-json-src="../../../../../offline-search-index.9e83be62e9f553a95e11868d6695cd7f.json"
+    data-offline-search-index-json-src="../../../../../offline-search-index.cfd63d01b0ef498d3946ddaeed6323c3.json"
     data-offline-search-base-href="../../../../../"
     data-offline-search-max-results="50"
   >
@@ -522,14 +524,21 @@ For details of how different types are represented in the YAML and the UI, see <
 <p>Multiple configuration branches in both Stroom and Stroom-Proxy have one or more properties for configuring a cache.
 Each of these share the same structure and will typically be named <code>xxxCache</code>, e.g. <code>feedStatusCache</code> or <code>metaTypeCache</code>.</p>
 
-<div class="alert alert-warning" role="alert">
-<h4 class="alert-heading">Warning</h4>
 
-    The default values for each property within the cache config will be specific to the cache.
+
+<div class="alert alert-warning" role="alert">
+  <h4 class="alert-heading">Warning</h4>
+  <div class="alert-content">
+
+
+
+
+The default values for each property within the cache config will be specific to the cache.
 Care needs to be taken when changing the cache properties to avoid changing the behaviour of the cache, e.g. changing from having a <code>expireAfterWrite</code> value to having a <code>expireAfterAccess</code> value may prevent items from aging off as expected.
 
-</div>
 
+  </div>
+</div>
 
 <pre><code class="language-yaml">      xxxCache:
         # Specifies that each entry should be automatically removed from the cache once
@@ -685,13 +694,19 @@ This section of config is only applicable if <code>appConfig/proxyConfig.securit
         validateAudience: true
 </code></pre>
 
-<div class="alert alert-primary" role="alert">
-<h4 class="alert-heading">See Also</h4>
-<div class="alert-content">
-  
-  <p>See <a href="../../../../../docs/install-guide/setup/open-id/external-idp/">External IDP</a> for how to set these values up for a given identity provider, and <a href="../../../../../docs/install-guide/setup/open-id/external-idp/stroom-configuration/">Stroom Configuration</a> for what each one does.</p>
 
-</div>
+
+<div class="alert alert-primary" role="alert">
+  <h4 class="alert-heading">See Also</h4>
+  <div class="alert-content">
+
+
+
+
+See <a href="../../../../../docs/install-guide/setup/open-id/external-idp/">External IDP</a> for how to set these values up for a given identity provider, and <a href="../../../../../docs/install-guide/setup/open-id/external-idp/stroom-configuration/">Stroom Configuration</a> for what each one does.
+
+
+  </div>
 </div>
 
 <h2 id="jersey-http-client-configuration">Jersey HTTP Client Configuration</h2>
@@ -716,15 +731,21 @@ Thus the configuration of the connections to each of those destinations can be c
 <li><code>STROOM</code> - Inter-node communications within the Stroom cluster (<strong>Stroom only</strong>).</li>
 </ul>
 
+
+
 <div class="alert alert-primary" role="alert">
-<h4 class="alert-heading">Note</h4>
+  <h4 class="alert-heading">Note</h4>
+  <div class="alert-content">
 
 
-    If a named configuration does not exist then the configuration for <code>DEFAULT</code> will be used.
+
+
+If a named configuration does not exist then the configuration for <code>DEFAULT</code> will be used.
 If <code>DEFAULT</code> is not defined in the configuration then the Dropwizard defaults will be used.
 
-</div>
 
+  </div>
+</div>
 
 <p>The following is an example of how the clients are configured in the YAML file:</p>
 <pre><code class="language-yaml">jerseyClients:
@@ -817,12 +838,15 @@ If <code>DEFAULT</code> is not defined in the configuration then the Dropwizard 
       certAlias: alias-of-specific-cert
 </code></pre>
 
+
+
 <div class="alert alert-primary" role="alert">
-<h4 class="alert-heading">Note</h4>
+  <h4 class="alert-heading">Note</h4>
+  <div class="alert-content">
 
 
 
-    <p>Duration values in the Jersey client configuration blocks are different to <a href="#stroom-duration-data-type">Stroom Durations</a> defined in Stroom properties.
+Duration values in the Jersey client configuration blocks are different to <a href="#stroom-duration-data-type">Stroom Durations</a> defined in Stroom properties.
 They are defined as a numeric value and a unit suffix.
 Typical suffixes are (in ascending order): <code>ns</code>, <code>us</code>, <code>ms</code>, <code>s</code>, <code>m</code>, <code>h</code>, <code>d</code>.
 ISO 8601 duration strings are NOT supported, nor are values without a suffix.
@@ -831,21 +855,27 @@ ISO 8601 duration strings are NOT supported, nor are values without a suffix.
 <span>Full list of duration suffixes and their aliases</span>
 <i class="external-link-icon fas fa-external-link-alt fa-sm text-secondary"></i>
 </a>
-</span></p>
+</span>
 
 
+  </div>
 </div>
+
 
 
 
 <div class="alert alert-primary" role="alert">
-<h4 class="alert-heading">Note</h4>
+  <h4 class="alert-heading">Note</h4>
+  <div class="alert-content">
 
 
-    The paths used for the key and trust stores will be treated in the same way as Stroom property paths, i.e. relative to <code>stroom.home</code> if relative and supporting variable substitution.
 
+
+The paths used for the key and trust stores will be treated in the same way as Stroom property paths, i.e. relative to <code>stroom.home</code> if relative and supporting variable substitution.
+
+
+  </div>
 </div>
-
 
 <h2 id="logging-configuration">Logging Configuration</h2>
 <p>For details of how to configure logging in Stroom and Stroom-Proxy, see <a href="../../../../../docs/install-guide/configuration/stroom-and-proxy/configuring-logging/">Logging Configuration</a>.</p>
@@ -870,14 +900,20 @@ ISO 8601 duration strings are NOT supported, nor are values without a suffix.
   <h1 id="pg-7b2a27b905aa6ec1ca2fc5dd048532fa">2 - Stroom Configuration</h1>
     <div class="lead">Describes how the Stroom application is configured.</div>
 	
-<div class="alert alert-primary" role="alert">
-<h4 class="alert-heading">See Also</h4>
-<div class="alert-content">
-  
-  <p><a href="../../../../../docs/install-guide/configuration/stroom-and-proxy/common-configuration/">Stroom and Stroom-Proxy Common Configuration</a><br>
-<a href="../../../../../docs/user-guide/properties/">Stroom Properties</a></p>
 
-</div>
+
+<div class="alert alert-primary" role="alert">
+  <h4 class="alert-heading">See Also</h4>
+  <div class="alert-content">
+
+
+
+
+<a href="../../../../../docs/install-guide/configuration/stroom-and-proxy/common-configuration/">Stroom and Stroom-Proxy Common Configuration</a><br>
+<a href="../../../../../docs/user-guide/properties/">Stroom Properties</a>
+
+
+  </div>
 </div>
 
 <h2 id="general-configuration">General Configuration</h2>
@@ -2032,14 +2068,20 @@ Any property with the name <code>db</code> will follow this structure.</p>
   <h1 id="pg-8b79abf8bc6d35d887f9b09047eebed1">3 - Stroom Proxy Configuration</h1>
     <div class="lead">Describes how the Stroom-Proxy application is configured.</div>
 	
-<div class="alert alert-primary" role="alert">
-<h4 class="alert-heading">See Also</h4>
-<div class="alert-content">
-  
-  <p><a href="../../../../../docs/install-guide/configuration/stroom-and-proxy/common-configuration/">Stroom and Stroom-Proxy Common Configuration</a><br>
-<a href="../../../../../docs/user-guide/properties/">Stroom Properties</a></p>
 
-</div>
+
+<div class="alert alert-primary" role="alert">
+  <h4 class="alert-heading">See Also</h4>
+  <div class="alert-content">
+
+
+
+
+<a href="../../../../../docs/install-guide/configuration/stroom-and-proxy/common-configuration/">Stroom and Stroom-Proxy Common Configuration</a><br>
+<a href="../../../../../docs/user-guide/properties/">Stroom Properties</a>
+
+
+  </div>
 </div>
 
 <p>The configuration of Stroom-proxy is very much the same as for Stroom with the only difference being the structure of the application specific part of the <code>config.yml</code> file.
@@ -2166,19 +2208,25 @@ See also <a href="#forwarding-certificate-configuration">Forwarding certificate 
     aggregationFrequency: &quot;PT10M&quot;
 </code></pre>
 
+
+
 <div class="alert alert-primary" role="alert">
-<h4 class="alert-heading">Note</h4>
+  <h4 class="alert-heading">Note</h4>
+  <div class="alert-content">
 
 
-    <p>The <code>aggregator</code> settings apply to <strong>all</strong> forwarders.
+
+
+<p>The <code>aggregator</code> settings apply to <strong>all</strong> forwarders.
 It is not possible for forwarders to to use different aggregation settings.</p>
 <p>If you need to forward to a HTTP destination but also want to forward to a file destination using different aggregator settings, e.g. to keep a local archive of the data, you would need to employ a second Stroom-Proxy.
 Stroom-Proxy A would forward to the HTTP downstream and forward to Stroom-Proxy B over HTTP.
 Stroom-Proxy B would forward to a file destination, using much larger aggregator thresholds.</p>
 
 
-</div>
 
+  </div>
+</div>
 
 <h3 id="directory-scanner-configuration">Directory Scanner Configuration</h3>
 <p>This configuration controls the directories that Stroom-Proxy scans to look for ZIP files to ingest.
@@ -2211,13 +2259,13 @@ It is primarily used as a means of manually re-processing files that have failed
     apiKey: &quot;sak_6a011e3e5d_oKimmDxfNwj......&lt;truncated&gt;.....HYQxHaR2&quot;
 </code></pre>
 <h3 id="event-store-configuration">Event Store Configuration</h3>
-<p>The Event Store is used to store and aggregate individual events received via the <code>/api/event</code> <span class="glossary-link">
+<p>The Event Store is used to store and aggregate individual events received via the <code>/api/event</code> <span class="glossary-link link-with-hover-tooltip">
     <a href="../../../../../docs/glossary/a/glossary-api">
       <span>API</span>
       <i class="glossary-link-icon fas fa-book fa-sm text-primary"></i>
-    </a><span class="glossary-tooltip">
-      <span class="glossary-tooltip-title">API</span>
-      <span class="glossary-tooltip-summary"><em>Application Programming Interface</em>. An interface that one system can present so other systems can use it to communicate. Stroom has a number of APIs, e.g. its many <em>REST</em> APIs and its <code>/datafeed</code> interface for data receipt.</span><span class="glossary-tooltip-truncated">Click to see more details...</span></span></span> or the SQS Connectors.
+    </a><template class="hover-tooltip-content">
+        <span class="hover-tooltip-title">API</span>
+        <div class="hover-tooltip-summary"><em>Application Programming Interface</em>. An interface that one system can present so other systems can use it to communicate. Stroom has a number of APIs, e.g. its many <em>REST</em> APIs and its <code>/datafeed</code> interface for data receipt.</div><span class="hover-tooltip-more-details">Click to see more details...</span></template></span> or the SQS Connectors.
 Events are appended to files specific to the Feed and Stream Type of the event.
 Once a threshold is reached, the file will be rolled and processed by Stroom-Proxy.</p>
 <p>Each event is stored as a JSON line in the file.</p>
@@ -2802,11 +2850,15 @@ An <em>Appender</em> is an output that a <em>Logger</em> can append its log mess
 <li>Syslog - appends messages to <code>syslog</code>.</li>
 </ul>
 
+
+
 <div class="alert alert-primary" role="alert">
-<h4 class="alert-heading">See Also</h4>
-<div class="alert-content">
-  
-  <p>Dropwizard’s logging configuration reference can be found <span class="external-link">
+  <h4 class="alert-heading">See Also</h4>
+  <div class="alert-content">
+
+
+
+<p>Dropwizard’s logging configuration reference can be found <span class="external-link">
 <a href="https://www.dropwizard.io/en/stable/manual/core.html#logging" target="_blank" class="external-link" title="here (external link to https://www.dropwizard.io/en/stable/manual/core.html#logging)">
 <span>here</span>
 <i class="external-link-icon fas fa-external-link-alt fa-sm text-secondary"></i>
@@ -2821,7 +2873,9 @@ An <em>Appender</em> is an output that a <em>Logger</em> can append its log mess
 </span>
 .</p>
 
-</div>
+
+
+  </div>
 </div>
 
 <h2 id="types-of-logging">Types of Logging</h2>
@@ -2914,14 +2968,20 @@ This will potentially produce a very large amount of logging as it is often used
 It is essentially a combination of an identity and a log level.
 The identity can be a Class name (e.g. <code>stroom.security.impl.SecurityFilter</code>), a package name (e.g. <code>stroom.security</code>) or a custom logger name (e.g. <code>event-logging</code>).</p>
 
+
+
 <div class="alert alert-primary" role="alert">
-<h4 class="alert-heading">Note</h4>
+  <h4 class="alert-heading">Note</h4>
+  <div class="alert-content">
 
 
-    It is likely that you will not need to change the log settings unless specifically asked to by one of the developers or you have a good understanding of the underlying application code.
 
+
+It is likely that you will not need to change the log settings unless specifically asked to by one of the developers or you have a good understanding of the underlying application code.
+
+
+  </div>
 </div>
-
 
 <p>The following is an example of logging configuration:</p>
 <pre><code class="language-yaml">logging:
@@ -2991,19 +3051,24 @@ The appender controls things like the format of the log messages output, the str
       logFormat: &quot;%-6level [%d{\&quot;yyyy-MM-dd'T'HH:mm:ss.SSS'Z'\&quot;,UTC}] [%t] %logger - %X{code} %msg %n&quot;
 </code></pre>
 
+
+
 <div class="alert alert-primary" role="alert">
-<h4 class="alert-heading">See Also</h4>
-<div class="alert-content">
-  
-  <p>For a detailed description of the logging configuration, see <span class="external-link">
+  <h4 class="alert-heading">See Also</h4>
+  <div class="alert-content">
+
+
+
+For a detailed description of the logging configuration, see <span class="external-link">
 <a href="https://www.dropwizard.io/en/stable/manual/configuration.html#logging" target="_blank" class="external-link" title="Dropwizard Logging Configuration (external link to https://www.dropwizard.io/en/stable/manual/configuration.html#logging)">
 <span>Dropwizard Logging Configuration</span>
 <i class="external-link-icon fas fa-external-link-alt fa-sm text-secondary"></i>
 </a>
 </span>
-.</p>
+.
 
-</div>
+
+  </div>
 </div>
 
 <h3 id="console-appender">Console Appender</h3>
@@ -3096,18 +3161,22 @@ See warning below.</li>
 </li>
 </ul>
 
+
+
 <div class="alert alert-warning" role="alert">
-<h4 class="alert-heading">Warning</h4>
-
-    <p>Rolling based on size alone is not recommended as this involves renaming all the existing rolled files on each roll event.
-From the Logback documentation:</p>
-<blockquote>
-<p>Given that file renaming is a relatively slow process and is fraught with problems, we consider FixedWindowRollingPolicy as a deprecated policy and do not recommend its use.</p>
-</blockquote>
+  <h4 class="alert-heading">Warning</h4>
+  <div class="alert-content">
 
 
+
+
+Rolling based on size alone is not recommended as this involves renaming all the existing rolled files on each roll event.
+From the Logback documentation:
+>Given that file renaming is a relatively slow process and is fraught with problems, we consider FixedWindowRollingPolicy as a deprecated policy and do not recommend its use.
+
+
+  </div>
 </div>
-
 
 <h4 id="archivedfilecount"><code>archivedFileCount</code></h4>
 <p>This property controls the number of archived files that are retained, however it is a little confusing.</p>
@@ -3128,16 +3197,24 @@ logs/app/app-4.log.gz
 logs/app/app-5.log.gz
 </code></pre>
 
-<div class="alert alert-warning" role="alert">
-<h4 class="alert-heading">Warning</h4>
 
-    <p>Log file rolling is event based, so a file will only roll when a new message arrives that would require a roll to happen.
-This means that if the application is idle for a long period with no log output then the un-rolled file will remain active until a new message arrives to trigger it to roll. For example, if Stroom is unused overnight, then the last log message from the night before will not be rolled until a new messages arrive in the morning.</p>
+
+<div class="alert alert-warning" role="alert">
+  <h4 class="alert-heading">Warning</h4>
+  <div class="alert-content">
+
+
+
+
+<p>Log file rolling is event based, so a file will only roll when a new message arrives that would require a roll to happen.
+This means that if the application is idle for a long period with no log output then the un-rolled file will remain active until a new message arrives to trigger it to roll.
+For example, if Stroom is unused overnight, then the last log message from the night before will not be rolled until a new messages arrive in the morning.</p>
 <p>For this reason, <code>archivedFileCount</code> should be set to a value that is greater than the maximum time the application may be idle, else rolled log files may be deleted as soon as they are rolled.</p>
 
 
-</div>
 
+  </div>
+</div>
 
 <h4 id="totalsizecap"><code>totalSizeCap</code></h4>
 <p>This property limits the total size taken up by the log files.
@@ -3157,29 +3234,40 @@ This is used for loggers like <code>event-logging</code></p>
 <p>The format for an access/request log.</p>
 <p><code>%h %l &quot;%u&quot; [%t] &quot;%r&quot; %s %b &quot;%i{Referer}&quot; &quot;%i{User-Agent}&quot; %D</code></p>
 
+
+
 <div class="alert alert-primary" role="alert">
-<h4 class="alert-heading">Note</h4>
+  <h4 class="alert-heading">Note</h4>
+  <div class="alert-content">
 
 
-    If the value of <code>%msg</code> contains new line characters then a log message can span multiple lines.
 
+
+If the value of <code>%msg</code> contains new line characters then a log message can span multiple lines.
+
+
+  </div>
 </div>
 
 
 
+
 <div class="alert alert-primary" role="alert">
-<h4 class="alert-heading">See Also</h4>
-<div class="alert-content">
-  
-  <p>For details of the pattern variables used in <code>logFormat</code> value, see <span class="external-link">
+  <h4 class="alert-heading">See Also</h4>
+  <div class="alert-content">
+
+
+
+For details of the pattern variables used in <code>logFormat</code> value, see <span class="external-link">
 <a href="https://logback.qos.ch/manual/layouts.html#ClassicPatternLayout" target="_blank" class="external-link" title="Logback Pattern Layout (external link to https://logback.qos.ch/manual/layouts.html#ClassicPatternLayout)">
 <span>Logback Pattern Layout</span>
 <i class="external-link-icon fas fa-external-link-alt fa-sm text-secondary"></i>
 </a>
 </span>
-.</p>
+.
 
-</div>
+
+  </div>
 </div>
 
 <h3 id="json-logging">JSON Logging</h3>
@@ -3433,6 +3521,11 @@ This is used for loggers like <code>event-logging</code></p>
 
     <script src='../../../../../js/lunr.min.js'></script>
   
+
+
+  <script src="../../../../../js/hover-tooltip.js" defer></script>
+
+
 
 
 <script src='../../../../../js/tabpane-persist.js'></script>

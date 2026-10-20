@@ -23,32 +23,36 @@
       <description>
         
         
-        &lt;p&gt;This page describes what a user experiences when signing in to Stroom using its internal &lt;span class=&#34;glossary-link&#34;&gt;
+        &lt;p&gt;This page describes what a user experiences when signing in to Stroom using its internal &lt;span class=&#34;glossary-link link-with-hover-tooltip&#34;&gt;
     &lt;a href=&#34;../../docs/glossary/i/glossary-idp&#34;&gt;
       &lt;span&gt;Identity Provider (IDP)&lt;/span&gt;
       &lt;i class=&#34;glossary-link-icon fas fa-book fa-sm text-primary&#34;&gt;&lt;/i&gt;
-    &lt;/a&gt;&lt;span class=&#34;glossary-tooltip&#34;&gt;
-      &lt;span class=&#34;glossary-tooltip-title&#34;&gt;Identity Provider (IDP)&lt;/span&gt;
-      &lt;span class=&#34;glossary-tooltip-summary&#34;&gt;An &lt;strong&gt;Id&lt;/strong&gt;entity &lt;strong&gt;P&lt;/strong&gt;rovider is a system or service that can authenticate a user and assert their identity. &lt;em&gt;Identity providers&lt;/em&gt; can support single sign on (SSO), which allows the user to sign in once to the &lt;em&gt;Identity Provider&lt;/em&gt; so they are then authenticated to all systems using that IDP.&lt;/span&gt;&lt;span class=&#34;glossary-tooltip-truncated&#34;&gt;Click to see more details...&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;.&lt;/p&gt;
+    &lt;/a&gt;&lt;template class=&#34;hover-tooltip-content&#34;&gt;
+        &lt;span class=&#34;hover-tooltip-title&#34;&gt;Identity Provider (IDP)&lt;/span&gt;
+        &lt;div class=&#34;hover-tooltip-summary&#34;&gt;An &lt;strong&gt;Id&lt;/strong&gt;entity &lt;strong&gt;P&lt;/strong&gt;rovider is a system or service that can authenticate a user and assert their identity. &lt;em&gt;Identity providers&lt;/em&gt; can support single sign on (SSO), which allows the user to sign in once to the &lt;em&gt;Identity Provider&lt;/em&gt; so they are then authenticated to all systems using that IDP.&lt;/div&gt;&lt;span class=&#34;hover-tooltip-more-details&#34;&gt;Click to see more details...&lt;/span&gt;&lt;/template&gt;&lt;/span&gt;.&lt;/p&gt;
+
+
 
 &lt;div class=&#34;alert alert-primary&#34; role=&#34;alert&#34;&gt;
-&lt;h4 class=&#34;alert-heading&#34;&gt;Note&lt;/h4&gt;
+  &lt;h4 class=&#34;alert-heading&#34;&gt;Note&lt;/h4&gt;
+  &lt;div class=&#34;alert-content&#34;&gt;
 
 
 
-    &lt;p&gt;None of this applies when Stroom is configured to use an external &lt;span class=&#34;glossary-link&#34;&gt;
+
+None of this applies when Stroom is configured to use an external &lt;span class=&#34;glossary-link link-with-hover-tooltip&#34;&gt;
 &lt;a href=&#34;../../docs/glossary/i/glossary-idp&#34;&gt;
 &lt;span&gt;Identity Provider (IDP)&lt;/span&gt;
 &lt;i class=&#34;glossary-link-icon fas fa-book fa-sm text-primary&#34;&gt;&lt;/i&gt;
-&lt;/a&gt;&lt;span class=&#34;glossary-tooltip&#34;&gt;
-&lt;span class=&#34;glossary-tooltip-title&#34;&gt;Identity Provider (IDP)&lt;/span&gt;
-&lt;span class=&#34;glossary-tooltip-summary&#34;&gt;An &lt;strong&gt;Id&lt;/strong&gt;entity &lt;strong&gt;P&lt;/strong&gt;rovider is a system or service that can authenticate a user and assert their identity. &lt;em&gt;Identity providers&lt;/em&gt; can support single sign on (SSO), which allows the user to sign in once to the &lt;em&gt;Identity Provider&lt;/em&gt; so they are then authenticated to all systems using that IDP.&lt;/span&gt;&lt;span class=&#34;glossary-tooltip-truncated&#34;&gt;Click to see more details…&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;.
+&lt;/a&gt;&lt;template class=&#34;hover-tooltip-content&#34;&gt;
+&lt;span class=&#34;hover-tooltip-title&#34;&gt;Identity Provider (IDP)&lt;/span&gt;
+&lt;div class=&#34;hover-tooltip-summary&#34;&gt;An &lt;strong&gt;Id&lt;/strong&gt;entity &lt;strong&gt;P&lt;/strong&gt;rovider is a system or service that can authenticate a user and assert their identity. &lt;em&gt;Identity providers&lt;/em&gt; can support single sign on (SSO), which allows the user to sign in once to the &lt;em&gt;Identity Provider&lt;/em&gt; so they are then authenticated to all systems using that IDP.&lt;/div&gt;&lt;span class=&#34;hover-tooltip-more-details&#34;&gt;Click to see more details…&lt;/span&gt;&lt;/template&gt;&lt;/span&gt;.
 In that case sign in, password policy and account recovery are all handled by that provider.
-See &lt;a href=&#34;../../docs/install-guide/setup/open-id/&#34;&gt;Open ID Connect&lt;/a&gt;.&lt;/p&gt;
+See &lt;a href=&#34;../../docs/install-guide/setup/open-id/&#34;&gt;Open ID Connect&lt;/a&gt;.
 
 
+  &lt;/div&gt;
 &lt;/div&gt;
-
 
 &lt;h2 id=&#34;signing-in-with-a-password&#34;&gt;Signing in with a Password&lt;/h2&gt;
 &lt;p&gt;The outcome of a sign in attempt depends on the state of the account as well as the password.&lt;/p&gt;
@@ -157,14 +161,20 @@ The user id is taken from the certificate&amp;rsquo;s common name using &lt;code
 &lt;p&gt;A valid certificate is treated in exactly the same way as a correct password.
 The same account states apply in the same order, so a disabled or locked account is still refused, and an inactive account is either reactivated or refused depending on &lt;code&gt;stroom.security.identity.reactivateInactiveAccountsOnLogin&lt;/code&gt;.&lt;/p&gt;
 
-&lt;div class=&#34;alert alert-primary&#34; role=&#34;alert&#34;&gt;
-&lt;h4 class=&#34;alert-heading&#34;&gt;See Also&lt;/h4&gt;
-&lt;div class=&#34;alert-content&#34;&gt;
-  
-  &lt;p&gt;&lt;a href=&#34;../../docs/user-guide/security/user-accounts/&#34;&gt;User Accounts&lt;/a&gt;
-&lt;a href=&#34;../../docs/user-guide/security/sessions-and-tokens/&#34;&gt;Sessions and Tokens&lt;/a&gt;&lt;/p&gt;
 
-&lt;/div&gt;
+
+&lt;div class=&#34;alert alert-primary&#34; role=&#34;alert&#34;&gt;
+  &lt;h4 class=&#34;alert-heading&#34;&gt;See Also&lt;/h4&gt;
+  &lt;div class=&#34;alert-content&#34;&gt;
+
+
+
+
+&lt;a href=&#34;../../docs/user-guide/security/user-accounts/&#34;&gt;User Accounts&lt;/a&gt;
+&lt;a href=&#34;../../docs/user-guide/security/sessions-and-tokens/&#34;&gt;Sessions and Tokens&lt;/a&gt;
+
+
+  &lt;/div&gt;
 &lt;/div&gt;
 
 

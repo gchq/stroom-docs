@@ -175,15 +175,21 @@ Once it reaches &lt;code&gt;Ready&lt;/code&gt; state, you can deploy a Stroom cl
 &lt;li&gt;&lt;code&gt;kubectl apply -f all-in-one.yaml&lt;/code&gt;&lt;/li&gt;
 &lt;/ol&gt;
 
+
+
 &lt;div class=&#34;alert alert-primary&#34; role=&#34;alert&#34;&gt;
-&lt;h4 class=&#34;alert-heading&#34;&gt;Note&lt;/h4&gt;
+  &lt;h4 class=&#34;alert-heading&#34;&gt;Note&lt;/h4&gt;
+  &lt;div class=&#34;alert-content&#34;&gt;
 
 
-    The Operator retains CPU and memory metrics for all &lt;code&gt;StroomCluster&lt;/code&gt; Pods for a 60-minute window.
+
+
+The Operator retains CPU and memory metrics for all &lt;code&gt;StroomCluster&lt;/code&gt; Pods for a 60-minute window.
 In very large deployments, this may cause it to run out of memory.
 
-&lt;/div&gt;
 
+  &lt;/div&gt;
+&lt;/div&gt;
 
 &lt;h2 id=&#34;next-steps&#34;&gt;Next Steps&lt;/h2&gt;
 &lt;p&gt;&lt;a href=&#34;../../docs/install-guide/kubernetes/configure-database-server/&#34;&gt;Configure&lt;/a&gt; a Stroom database server&lt;br&gt;
@@ -205,13 +211,20 @@ In very large deployments, this may cause it to run out of memory.
         &lt;p&gt;Upgrading the Operator can be performed without disrupting any resources it controls, including Stroom clusters.&lt;/p&gt;
 &lt;p&gt;To perform the upgrade, follow the same steps in &lt;a href=&#34;../../docs/install-guide/kubernetes/install-operator/&#34;&gt;Installing the Stroom K8s Operator&lt;/a&gt;.&lt;/p&gt;
 
+
+
 &lt;div class=&#34;alert alert-warning&#34; role=&#34;alert&#34;&gt;
-&lt;h4 class=&#34;alert-heading&#34;&gt;Warning&lt;/h4&gt;
+  &lt;h4 class=&#34;alert-heading&#34;&gt;Warning&lt;/h4&gt;
+  &lt;div class=&#34;alert-content&#34;&gt;
 
-    Ensure you do NOT delete the operator first (i.e. &lt;code&gt;kubectl delete ...&lt;/code&gt;)
 
+
+
+Ensure you do NOT delete the operator first (i.e. &lt;code&gt;kubectl delete ...&lt;/code&gt;)
+
+
+  &lt;/div&gt;
 &lt;/div&gt;
-
 
 &lt;p&gt;Once you have initiated the update (by executing &lt;code&gt;kubectl apply -f all-in-one.yaml&lt;/code&gt;), an instance of the new Operator version will be created.
 Once it starts up successfully, the old instance will be removed.&lt;/p&gt;
@@ -338,24 +351,39 @@ These credentials should be backed up to a secure location, in the event the &lt
 This may be desirable if you have for instance, a replication-enabled MySQL InnoDB cluster.&lt;/p&gt;
 &lt;h3 id=&#34;provision-the-server-and-stroom-databases&#34;&gt;Provision the Server and Stroom Databases&lt;/h3&gt;
 
+
+
 &lt;div class=&#34;alert alert-warning&#34; role=&#34;alert&#34;&gt;
-&lt;h4 class=&#34;alert-heading&#34;&gt;TODO&lt;/h4&gt;
+  &lt;h4 class=&#34;alert-heading&#34;&gt;TODO&lt;/h4&gt;
+  &lt;div class=&#34;alert-content&#34;&gt;
 
-    Complete this section.
 
+
+
+Complete this section.
+
+
+  &lt;/div&gt;
 &lt;/div&gt;
 
 &lt;h3 id=&#34;store-credentials-in-a-secret&#34;&gt;Store Credentials in a &lt;code&gt;Secret&lt;/code&gt;&lt;/h3&gt;
 &lt;p&gt;Create a &lt;code&gt;Secret&lt;/code&gt; in the same namespace as the &lt;code&gt;StroomCluster&lt;/code&gt;, containing the key &lt;code&gt;stroomuser&lt;/code&gt;, with the value set to the password of that user.&lt;/p&gt;
 
-&lt;div class=&#34;alert alert-warning&#34; role=&#34;alert&#34;&gt;
-&lt;h4 class=&#34;alert-heading&#34;&gt;Warning&lt;/h4&gt;
 
-    If at any time the MySQL password is updated, the value of the &lt;code&gt;Secret&lt;/code&gt; must also be changed.
+
+&lt;div class=&#34;alert alert-warning&#34; role=&#34;alert&#34;&gt;
+  &lt;h4 class=&#34;alert-heading&#34;&gt;Warning&lt;/h4&gt;
+  &lt;div class=&#34;alert-content&#34;&gt;
+
+
+
+
+If at any time the MySQL password is updated, the value of the &lt;code&gt;Secret&lt;/code&gt; must also be changed.
 Otherwise, Stroom will stop functioning.
 
-&lt;/div&gt;
 
+  &lt;/div&gt;
+&lt;/div&gt;
 
 &lt;h2 id=&#34;upgrading-or-removing-a-databaseserver&#34;&gt;Upgrading or Removing a &lt;code&gt;DatabaseServer&lt;/code&gt;&lt;/h2&gt;
 &lt;p&gt;A &lt;code&gt;DatabaseServer&lt;/code&gt; cannot shut down while its dependent &lt;code&gt;StroomCluster&lt;/code&gt; is running.
@@ -417,19 +445,24 @@ See &lt;a href=&#34;../../docs/install-guide/kubernetes/configure-stroomtaskauto
 .&lt;/p&gt;
 &lt;p&gt;If you chose to create an Operator-managed &lt;code&gt;DatabaseServer&lt;/code&gt;, the &lt;code&gt;StroomCluster.spec.databaseServerRef&lt;/code&gt; should point to the name of the &lt;code&gt;DatabaseServer&lt;/code&gt;.&lt;/p&gt;
 
+
+
 &lt;div class=&#34;alert alert-primary&#34; role=&#34;alert&#34;&gt;
-&lt;h4 class=&#34;alert-heading&#34;&gt;See Also&lt;/h4&gt;
-&lt;div class=&#34;alert-content&#34;&gt;
-  
-  &lt;p&gt;See the &lt;code&gt;StroomCluster&lt;/code&gt; Custom Resource Definition (CRD) &lt;span class=&#34;external-link&#34;&gt;
+  &lt;h4 class=&#34;alert-heading&#34;&gt;See Also&lt;/h4&gt;
+  &lt;div class=&#34;alert-content&#34;&gt;
+
+
+
+See the &lt;code&gt;StroomCluster&lt;/code&gt; Custom Resource Definition (CRD) &lt;span class=&#34;external-link&#34;&gt;
 &lt;a href=&#34;https://doc.crds.dev/github.com/p-kimberley/stroom-k8s-operator/stroom.gchq.github.io/StroomCluster/v1&#34; target=&#34;_blank&#34; class=&#34;external-link&#34; title=&#34;API documentation (external link to https://doc.crds.dev/github.com/p-kimberley/stroom-k8s-operator/stroom.gchq.github.io/StroomCluster/v1)&#34;&gt;
 &lt;span&gt;API documentation&lt;/span&gt;
 &lt;i class=&#34;external-link-icon fas fa-external-link-alt fa-sm text-secondary&#34;&gt;&lt;/i&gt;
 &lt;/a&gt;
 &lt;/span&gt;
-for an explanation of the various CRD fields&lt;/p&gt;
+for an explanation of the various CRD fields
 
-&lt;/div&gt;
+
+  &lt;/div&gt;
 &lt;/div&gt;
 
 &lt;h3 id=&#34;provision-a-persistentvolume-for-each-stroom-node&#34;&gt;Provision a &lt;code&gt;PersistentVolume&lt;/code&gt; for Each Stroom Node&lt;/h3&gt;
@@ -458,15 +491,21 @@ When deciding on a storage quota, be sure to consider the needs of log and refer
 &lt;p&gt;If the &lt;code&gt;StroomCluster&lt;/code&gt; configuration is valid, the Operator will deploy a &lt;code&gt;StatefulSet&lt;/code&gt; for each &lt;code&gt;NodeSet&lt;/code&gt; defined in &lt;code&gt;StroomCluster.spec.nodeSets&lt;/code&gt;.
 Once these &lt;code&gt;StatefulSet&lt;/code&gt;s reach &lt;code&gt;Ready&lt;/code&gt; state, you are ready to access the Stroom UI.&lt;/p&gt;
 
+
+
 &lt;div class=&#34;alert alert-primary&#34; role=&#34;alert&#34;&gt;
-&lt;h4 class=&#34;alert-heading&#34;&gt;Note&lt;/h4&gt;
+  &lt;h4 class=&#34;alert-heading&#34;&gt;Note&lt;/h4&gt;
+  &lt;div class=&#34;alert-content&#34;&gt;
 
 
-    If the &lt;code&gt;StatefulSet&lt;/code&gt;s don&amp;rsquo;t deploy, there is probably something wrong with your configuration.
+
+
+If the &lt;code&gt;StatefulSet&lt;/code&gt;s don&#39;t deploy, there is probably something wrong with your configuration.
 Check the logs of the pod &lt;code&gt;stroom-operator-system/stroom-operator-controller-manager&lt;/code&gt; for any errors.
 
-&lt;/div&gt;
 
+  &lt;/div&gt;
+&lt;/div&gt;
 
 &lt;h3 id=&#34;log-into-stroom&#34;&gt;Log into Stroom&lt;/h3&gt;
 &lt;p&gt;Access the Stroom UI at: &lt;code&gt;https://&amp;lt;ingress hostname&amp;gt;&lt;/code&gt;.
@@ -566,18 +605,24 @@ Too large and spikes may not cause throttling to occur.&lt;/li&gt;
 Setting &lt;code&gt;maxTaskLimit&lt;/code&gt; to be equal to the number of assigned CPUs would be a reasonable starting point.&lt;/li&gt;
 &lt;/ul&gt;
 
+
+
 &lt;div class=&#34;alert alert-primary&#34; role=&#34;alert&#34;&gt;
-&lt;h4 class=&#34;alert-heading&#34;&gt;Note&lt;/h4&gt;
+  &lt;h4 class=&#34;alert-heading&#34;&gt;Note&lt;/h4&gt;
+  &lt;div class=&#34;alert-content&#34;&gt;
 
 
-    A node&amp;rsquo;s task limits will only be adjusted while its task queue is full.
+
+
+A node&#39;s task limits will only be adjusted while its task queue is full.
 That is, unless a node is fully-committed, it will not be scaled.
 This is to avoid continually downscaling each node to the minimum during periods of inactivity.
 Because of this, be realistic with setting &lt;code&gt;maxTaskLimit&lt;/code&gt; to ensure the node is actually capable of hitting that maximum.
-If it can&amp;rsquo;t, the autoscaler will continue adjusting upwards, potentially causing the node to become unresponsive.
+If it can&#39;t, the autoscaler will continue adjusting upwards, potentially causing the node to become unresponsive.
 
+
+  &lt;/div&gt;
 &lt;/div&gt;
-
 
 &lt;h3 id=&#34;deploy-the-resource-manifest&#34;&gt;Deploy the Resource Manifest&lt;/h3&gt;
 
@@ -639,15 +684,21 @@ This check is performed once every minute, so there may be a brief delay between
 &lt;/ol&gt;
 &lt;p&gt;The &lt;code&gt;StroomCluster&lt;/code&gt; resource will be removed from the Kubernetes cluster once all nodes have finished processing tasks.&lt;/p&gt;
 
+
+
 &lt;div class=&#34;alert alert-primary&#34; role=&#34;alert&#34;&gt;
-&lt;h4 class=&#34;alert-heading&#34;&gt;Note&lt;/h4&gt;
+  &lt;h4 class=&#34;alert-heading&#34;&gt;Note&lt;/h4&gt;
+  &lt;div class=&#34;alert-content&#34;&gt;
 
 
-    The &lt;code&gt;StroomCluster.spec.nodeTerminationGracePeriodSecs&lt;/code&gt; is an important setting that determines how long the Operator will wait for each node&amp;rsquo;s tasks to complete before terminating it.
+
+
+The &lt;code&gt;StroomCluster.spec.nodeTerminationGracePeriodSecs&lt;/code&gt; is an important setting that determines how long the Operator will wait for each node&#39;s tasks to complete before terminating it.
 Ensure this is set to a reasonable value, otherwise long-running tasks may not have enough time to finish if the &lt;code&gt;StroomCluster&lt;/code&gt; is taken down (e.g. for maintenance).
 
-&lt;/div&gt;
 
+  &lt;/div&gt;
+&lt;/div&gt;
 
 &lt;h2 id=&#34;stopping-the-cluster&#34;&gt;Stopping the Cluster&lt;/h2&gt;
 
@@ -672,15 +723,21 @@ kubectl delete -f database-server.yaml&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;If any of these commands appear to hang with no response, that&amp;rsquo;s normal; the Operator is likely waiting for tasks to drain.
 You may press &lt;code&gt;Ctrl+C&lt;/code&gt; to return to the shell and task termination will continue in the background.&lt;/p&gt;
 
+
+
 &lt;div class=&#34;alert alert-primary&#34; role=&#34;alert&#34;&gt;
-&lt;h4 class=&#34;alert-heading&#34;&gt;Note&lt;/h4&gt;
+  &lt;h4 class=&#34;alert-heading&#34;&gt;Note&lt;/h4&gt;
+  &lt;div class=&#34;alert-content&#34;&gt;
 
 
-    If the &lt;code&gt;StroomCluster&lt;/code&gt; deletion appears to be hung, you can inspect the Operator logs to see which nodes are holding up deletion due to outstanding tasks.
+
+
+If the &lt;code&gt;StroomCluster&lt;/code&gt; deletion appears to be hung, you can inspect the Operator logs to see which nodes are holding up deletion due to outstanding tasks.
 You will see a list of one or more node names, with the number of tasks outstanding in brackets (e.g. &lt;code&gt;StroomCluster deletion waiting on task completing for 1 nodes: stroom-dev-node-data-0 (5)&lt;/code&gt;).
 
-&lt;/div&gt;
 
+  &lt;/div&gt;
+&lt;/div&gt;
 
 &lt;p&gt;Once the &lt;code&gt;StroomCluster&lt;/code&gt; is removed, it can be reconfigured (if required) and redeployed, using the same process as in &lt;a href=&#34;../../docs/install-guide/kubernetes/configure-stroom-cluster/&#34;&gt;Configure a Stroom cluster&lt;/a&gt;.&lt;/p&gt;
 &lt;h2 id=&#34;persistentvolumeclaim-deletion&#34;&gt;&lt;code&gt;PersistentVolumeClaim&lt;/code&gt; Deletion&lt;/h2&gt;
@@ -731,15 +788,21 @@ In these situations, it may be necessary to terminate the Pod.&lt;/p&gt;
 After the termination grace period has elapsed, the Pod will be killed and a new one will automatically re-spawn to take its place.
 Once the new Pod finishes starting up, if functioning correct it should begin responding to cluster ping.&lt;/p&gt;
 
+
+
 &lt;div class=&#34;alert alert-primary&#34; role=&#34;alert&#34;&gt;
-&lt;h4 class=&#34;alert-heading&#34;&gt;Note&lt;/h4&gt;
+  &lt;h4 class=&#34;alert-heading&#34;&gt;Note&lt;/h4&gt;
+  &lt;div class=&#34;alert-content&#34;&gt;
 
 
-    Prior to a Stroom node being stopped (for whatever reason), task processing for that node is disabled and it is drained of all active tasks.
+
+
+Prior to a Stroom node being stopped (for whatever reason), task processing for that node is disabled and it is drained of all active tasks.
 Task processing is resumed once the node starts up again.
 
-&lt;/div&gt;
 
+  &lt;/div&gt;
+&lt;/div&gt;
 
 &lt;h2 id=&#34;force-deletion&#34;&gt;Force Deletion&lt;/h2&gt;
 &lt;p&gt;If waiting for the grace period to elapse is unacceptable and you are willing to risk shutting down the node without draining it first (or you are &lt;strong&gt;sure&lt;/strong&gt; it has no active tasks), you can force delete the Pod using the procedure outline in the &lt;span class=&#34;external-link&#34;&gt;

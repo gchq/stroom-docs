@@ -45,13 +45,13 @@
 <meta property="og:type" content="article" />
 <meta property="og:url" content="/docs/reference-section/templating/" /><meta property="article:section" content="docs" />
 <meta property="article:published_time" content="2024-05-03T00:00:00+00:00" />
-<meta property="article:modified_time" content="2026-09-29T11:29:45+01:00" /><meta property="og:site_name" content="Stroom" />
+<meta property="article:modified_time" content="2026-10-20T17:37:14+01:00" /><meta property="og:site_name" content="Stroom" />
 
 <meta itemprop="name" content="Templating">
 <meta itemprop="description" content="Jinja text templating syntax and context.
 "><meta itemprop="datePublished" content="2024-05-03T00:00:00+00:00" />
-<meta itemprop="dateModified" content="2026-09-29T11:29:45+01:00" />
-<meta itemprop="wordCount" content="2187">
+<meta itemprop="dateModified" content="2026-10-20T17:37:14+01:00" />
+<meta itemprop="wordCount" content="2447">
 <meta itemprop="keywords" content="" /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Templating"/>
 <meta name="twitter:description" content="Jinja text templating syntax and context.
@@ -60,8 +60,8 @@
 
 
 
-<link rel="preload" href="../../../scss/main.min.396476946a9b6e781a9b8d417186b5e7ca15aa5c2d8a2821b87b82f11629222e.css" as="style">
-<link href="../../../scss/main.min.396476946a9b6e781a9b8d417186b5e7ca15aa5c2d8a2821b87b82f11629222e.css" rel="stylesheet" integrity="">
+<link rel="preload" href="../../../scss/main.min.e88dbdcc11536c32758367027850973cba7b125793b45a9a421989bcdc0ce239.css" as="style">
+<link href="../../../scss/main.min.e88dbdcc11536c32758367027850973cba7b125793b45a9a421989bcdc0ce239.css" rel="stylesheet" integrity="">
 
 
 <script src='../../../js/jquery-3.6.0.min.js'></script>
@@ -76,9 +76,9 @@
 
 <link rel="stylesheet" href="../../../css/stroom-ui/material_design_colors.min.ab1318fe69a1013ff756090954c02c5364ff48d150dcc94468a73d2e3efd3fc0.css" integrity="sha256-qxMY/mmhAT/3VgkJVMAsU2T/SNFQ3MlEaKc9Lj79P8A=">
 
-<link rel="stylesheet" href="../../../css/stroom-ui/theme-root.min.bebaa7a01087d1ece8e812db2a1a91349b15556d04f84eea180c6d23491738c4.css" integrity="sha256-vrqnoBCH0ezo6BLbKhqRNJsVVW0E&#43;E7qGAxtI0kXOMQ=">
+<link rel="stylesheet" href="../../../css/stroom-ui/theme-root.min.e4f410f95b5e1796bfe81465105eecf7ad66a8b0a4c15da0147e1c641b821e17.css" integrity="sha256-5PQQ&#43;VteF5a/6BRlEF7s961mqLCkwV2gFH4cZBuCHhc=">
 
-<link rel="stylesheet" href="../../../css/stroom-ui/theme-dark.min.bc08bf14d505124d1eb4316e6df1348b0985e517e3cc0f5a590a03a968cc8c65.css" integrity="sha256-vAi/FNUFEk0etDFubfE0iwmF5RfjzA9aWQoDqWjMjGU=">
+<link rel="stylesheet" href="../../../css/stroom-ui/theme-dark.min.9754c7f8f115669862cd3465c6d7938e668838a638e0712d65af7520041f9678.css" integrity="sha256-l1TH&#43;PEVZphizTRlxteTjmaIOKY44HEtZa91IAQflng=">
 
 
 
@@ -107,13 +107,15 @@
       </li>
       <li class="nav-item dropdown mr-4 d-none d-lg-block">
         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-	Stroom Version (7.13)
+	Stroom Version (7.14)
 </a>
 <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
 	
 	
 	
-	<a class="dropdown-item" href="../../../">7.13 (Latest)</a>
+	<a class="dropdown-item" href="../../../">7.14 (Latest)</a>
+	
+	<a class="dropdown-item" href="../../../7.13">7.13</a>
 	
 	<a class="dropdown-item" href="../../../7.12">7.12</a>
 	
@@ -155,7 +157,7 @@
     aria-label="Search this site…"
     autocomplete="off"
     
-    data-offline-search-index-json-src="../../../offline-search-index.9e83be62e9f553a95e11868d6695cd7f.json"
+    data-offline-search-index-json-src="../../../offline-search-index.cfd63d01b0ef498d3946ddaeed6323c3.json"
     data-offline-search-base-href="../../../"
     data-offline-search-max-results="50"
   >
@@ -180,7 +182,7 @@
     aria-label="Search this site…"
     autocomplete="off"
     
-    data-offline-search-index-json-src="../../../offline-search-index.9e83be62e9f553a95e11868d6695cd7f.json"
+    data-offline-search-index-json-src="../../../offline-search-index.cfd63d01b0ef498d3946ddaeed6323c3.json"
     data-offline-search-base-href="../../../"
     data-offline-search-max-results="50"
   >
@@ -266,6 +268,8 @@
   <a href="../../../docs/install-guide/setup/processing-user-setup/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-docsinstall-guidesetupprocessing-user-setup"><span class="">Processing Users</span></a>
 </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-docsinstall-guidesetupcreate-first-admin-li">
   <a href="../../../docs/install-guide/setup/create-first-admin/" title="Creating the First Administrator" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-docsinstall-guidesetupcreate-first-admin"><span class="">First Administrator</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-docsinstall-guidesetupemail-setup-li">
+  <a href="../../../docs/install-guide/setup/email-setup/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-docsinstall-guidesetupemail-setup"><span class="">Email Setup</span></a>
 </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section with-child collapse" id="m-docsinstall-guidesetupopen-id-li">
   <a href="../../../docs/install-guide/setup/open-id/" title="Setting up Stroom with an Open ID Connect IDP" class="align-left pl-0 td-sidebar-link td-sidebar-link__section" id="m-docsinstall-guidesetupopen-id"><span class="">Open ID Connect</span></a>
   <ul class="ul-4 foldable">
@@ -582,29 +586,8 @@
   <ul class="ul-4 foldable">
     <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-docsuser-guidepipelinesxsltxslt-basics-li">
   <a href="../../../docs/user-guide/pipelines/xslt/xslt-basics/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-docsuser-guidepipelinesxsltxslt-basics"><span class="">XSLT Basics</span></a>
-</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section with-child collapse" id="m-docsuser-guidepipelinesxsltxslt-functions-li">
-  <a href="../../../docs/user-guide/pipelines/xslt/xslt-functions/" class="align-left pl-0 td-sidebar-link td-sidebar-link__section" id="m-docsuser-guidepipelinesxsltxslt-functions"><span class="">XSLT Functions</span></a>
-  <ul class="ul-5 foldable">
-    <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-docsuser-guidepipelinesxsltxslt-functionsdate-and-time-li">
-  <a href="../../../docs/user-guide/pipelines/xslt/xslt-functions/date-and-time/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-docsuser-guidepipelinesxsltxslt-functionsdate-and-time"><span class="">Date &amp; Time</span></a>
-</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-docsuser-guidepipelinesxsltxslt-functionsstream-and-source-li">
-  <a href="../../../docs/user-guide/pipelines/xslt/xslt-functions/stream-and-source/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-docsuser-guidepipelinesxsltxslt-functionsstream-and-source"><span class="">Stream &amp; Source</span></a>
-</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-docsuser-guidepipelinesxsltxslt-functionsreference-data-li">
-  <a href="../../../docs/user-guide/pipelines/xslt/xslt-functions/reference-data/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-docsuser-guidepipelinesxsltxslt-functionsreference-data"><span class="">Reference Data</span></a>
-</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-docsuser-guidepipelinesxsltxslt-functionsnetworking-and-uri-li">
-  <a href="../../../docs/user-guide/pipelines/xslt/xslt-functions/networking-and-uri/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-docsuser-guidepipelinesxsltxslt-functionsnetworking-and-uri"><span class="">Networking &amp; URI</span></a>
-</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-docsuser-guidepipelinesxsltxslt-functionsstring-and-encoding-li">
-  <a href="../../../docs/user-guide/pipelines/xslt/xslt-functions/string-and-encoding/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-docsuser-guidepipelinesxsltxslt-functionsstring-and-encoding"><span class="">String &amp; Encoding</span></a>
-</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-docsuser-guidepipelinesxsltxslt-functionshttp-and-json-li">
-  <a href="../../../docs/user-guide/pipelines/xslt/xslt-functions/http-and-json/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-docsuser-guidepipelinesxsltxslt-functionshttp-and-json"><span class="">HTTP &amp; JSON</span></a>
-</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-docsuser-guidepipelinesxsltxslt-functionsoutput-and-logging-li">
-  <a href="../../../docs/user-guide/pipelines/xslt/xslt-functions/output-and-logging/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-docsuser-guidepipelinesxsltxslt-functionsoutput-and-logging"><span class="">Output &amp; Logging</span></a>
-</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-docsuser-guidepipelinesxsltxslt-functionsvalues-and-context-li">
-  <a href="../../../docs/user-guide/pipelines/xslt/xslt-functions/values-and-context/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-docsuser-guidepipelinesxsltxslt-functionsvalues-and-context"><span class="">Values &amp; Context</span></a>
-</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-docsuser-guidepipelinesxsltxslt-functionsmaths-and-vectors-li">
-  <a href="../../../docs/user-guide/pipelines/xslt/xslt-functions/maths-and-vectors/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-docsuser-guidepipelinesxsltxslt-functionsmaths-and-vectors"><span class="">Maths &amp; Vectors</span></a>
-</li>
-  </ul>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-docsuser-guidepipelinesxsltxslt-functions-li">
+  <a href="../../../docs/user-guide/pipelines/xslt/xslt-functions/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-docsuser-guidepipelinesxsltxslt-functions"><span class="">XSLT Functions</span></a>
 </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-docsuser-guidepipelinesxsltxslt-includes-li">
   <a href="../../../docs/user-guide/pipelines/xslt/xslt-includes/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-docsuser-guidepipelinesxsltxslt-includes"><span class="">XSLT Includes</span></a>
 </li>
@@ -653,8 +636,36 @@
   <a href="../../../docs/user-guide/search/queries/stroom-query-language/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-docsuser-guidesearchqueriesstroom-query-language"><span class="">Stroom Query Language</span></a>
 </li>
   </ul>
-</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-docsuser-guidesearchanalytics-li">
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section with-child collapse" id="m-docsuser-guidesearchanalytics-li">
   <a href="../../../docs/user-guide/search/analytics/" class="align-left pl-0 td-sidebar-link td-sidebar-link__section" id="m-docsuser-guidesearchanalytics"><span class="">Analytic Rules</span></a>
+  <ul class="ul-4 foldable">
+    <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-docsuser-guidesearchanalyticsquery-li">
+  <a href="../../../docs/user-guide/search/analytics/query/" title="Rule Queries" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-docsuser-guidesearchanalyticsquery"><span class="">Query</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-docsuser-guidesearchanalyticssettings-li">
+  <a href="../../../docs/user-guide/search/analytics/settings/" title="Rule Settings" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-docsuser-guidesearchanalyticssettings"><span class="">Settings</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-docsuser-guidesearchanalyticsexecution-li">
+  <a href="../../../docs/user-guide/search/analytics/execution/" title="Rule Execution" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-docsuser-guidesearchanalyticsexecution"><span class="">Execution</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-docsuser-guidesearchanalyticsnotifications-li">
+  <a href="../../../docs/user-guide/search/analytics/notifications/" title="Rule Notifications" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-docsuser-guidesearchanalyticsnotifications"><span class="">Notifications</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-docsuser-guidesearchanalyticsdetections-li">
+  <a href="../../../docs/user-guide/search/analytics/detections/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-docsuser-guidesearchanalyticsdetections"><span class="">Detections</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-docsuser-guidesearchanalyticsduplicate-management-li">
+  <a href="../../../docs/user-guide/search/analytics/duplicate-management/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-docsuser-guidesearchanalyticsduplicate-management"><span class="">Duplicate Management</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-docsuser-guidesearchanalyticsstreaming-li">
+  <a href="../../../docs/user-guide/search/analytics/streaming/" title="Streaming Rules" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-docsuser-guidesearchanalyticsstreaming"><span class="">Streaming</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-docsuser-guidesearchanalyticstable-builder-li">
+  <a href="../../../docs/user-guide/search/analytics/table-builder/" title="Table Builder Rules" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-docsuser-guidesearchanalyticstable-builder"><span class="">Table Builder</span></a>
+</li>
+  </ul>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section with-child collapse" id="m-docsuser-guidesearchreports-li">
+  <a href="../../../docs/user-guide/search/reports/" class="align-left pl-0 td-sidebar-link td-sidebar-link__section" id="m-docsuser-guidesearchreports"><span class="">Reports</span></a>
+  <ul class="ul-4 foldable">
+    <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-docsuser-guidesearchreportssettings-li">
+  <a href="../../../docs/user-guide/search/reports/settings/" title="Report Settings" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-docsuser-guidesearchreportssettings"><span class="">Settings</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-docsuser-guidesearchreportsdelivery-li">
+  <a href="../../../docs/user-guide/search/reports/delivery/" title="Report Delivery" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-docsuser-guidesearchreportsdelivery"><span class="">Delivery</span></a>
+</li>
+  </ul>
 </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-docsuser-guidesearchsearch-extraction-li">
   <a href="../../../docs/user-guide/search/search-extraction/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-docsuser-guidesearchsearch-extraction"><span class="">Search Extraction</span></a>
 </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-docsuser-guidesearchdictionaries-li">
@@ -743,7 +754,9 @@
 </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section with-child" id="m-docsreference-sectionexpressions-li">
   <a href="../../../docs/reference-section/expressions/" class="align-left pl-0 td-sidebar-link td-sidebar-link__section" id="m-docsreference-sectionexpressions"><span class="">Expression functions</span></a>
   <ul class="ul-3 foldable">
-    <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-docsreference-sectionexpressionslookup-li">
+    <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-docsreference-sectionexpressionsai-li">
+  <a href="../../../docs/reference-section/expressions/ai/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-docsreference-sectionexpressionsai"><span class="">AI Functions</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-docsreference-sectionexpressionslookup-li">
   <a href="../../../docs/reference-section/expressions/lookup/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-docsreference-sectionexpressionslookup"><span class="">Lookup Functions</span></a>
 </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-docsreference-sectionexpressionsparam-li">
   <a href="../../../docs/reference-section/expressions/param/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-docsreference-sectionexpressionsparam"><span class="">Param Functions</span></a>
@@ -779,6 +792,29 @@
   <a href="../../../docs/reference-section/keyboard-shortcuts/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-docsreference-sectionkeyboard-shortcuts"><span class="">Keyboard Shortcuts</span></a>
 </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-docsreference-sectionpipeline-elements-li">
   <a href="../../../docs/reference-section/pipeline-elements/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-docsreference-sectionpipeline-elements"><span class="">Pipeline Elements</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section with-child" id="m-docsreference-sectionxslt-function-reference-li">
+  <a href="../../../docs/reference-section/xslt-function-reference/" class="align-left pl-0 td-sidebar-link td-sidebar-link__section" id="m-docsreference-sectionxslt-function-reference"><span class="">XSLT Functions</span></a>
+  <ul class="ul-3 foldable">
+    <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-docsreference-sectionxslt-function-referenceconversion-li">
+  <a href="../../../docs/reference-section/xslt-function-reference/conversion/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-docsreference-sectionxslt-function-referenceconversion"><span class="">Conversion Functions</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-docsreference-sectionxslt-function-referencedate-li">
+  <a href="../../../docs/reference-section/xslt-function-reference/date/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-docsreference-sectionxslt-function-referencedate"><span class="">Date/Time Functions</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-docsreference-sectionxslt-function-referencenetwork-li">
+  <a href="../../../docs/reference-section/xslt-function-reference/network/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-docsreference-sectionxslt-function-referencenetwork"><span class="">Network Functions</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-docsreference-sectionxslt-function-referenceother-li">
+  <a href="../../../docs/reference-section/xslt-function-reference/other/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-docsreference-sectionxslt-function-referenceother"><span class="">Other Functions</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-docsreference-sectionxslt-function-referencepipeline-li">
+  <a href="../../../docs/reference-section/xslt-function-reference/pipeline/" title="Stroom Pipeline Functions" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-docsreference-sectionxslt-function-referencepipeline"><span class="">Pipeline Functions</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-docsreference-sectionxslt-function-referencestring-li">
+  <a href="../../../docs/reference-section/xslt-function-reference/string/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-docsreference-sectionxslt-function-referencestring"><span class="">String Functions</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-docsreference-sectionxslt-function-referenceuri-li">
+  <a href="../../../docs/reference-section/xslt-function-reference/uri/" title="URI/URL Functions" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-docsreference-sectionxslt-function-referenceuri"><span class="">URI Functions</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-docsreference-sectionxslt-function-referencevalue-li">
+  <a href="../../../docs/reference-section/xslt-function-reference/value/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-docsreference-sectionxslt-function-referencevalue"><span class="">Value Functions</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-docsreference-sectionxslt-function-referenceai-li">
+  <a href="../../../docs/reference-section/xslt-function-reference/ai/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-docsreference-sectionxslt-function-referenceai"><span class=""></span></a>
+</li>
+  </ul>
 </li>
   </ul>
 </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section with-child" id="m-docssending-data-li">
@@ -1130,9 +1166,9 @@
           <aside class="d-none d-xl-block col-xl-2 td-sidebar-toc d-print-none">
             
 <div class="td-page-meta ml-2 pb-1 pt-2 mb-0">
-<a href="https://github.com/gchq/stroom-docs/tree/7.13/content/en/docs/reference-section/templating.md" class="td-page-meta--view" target="_blank" rel="noopener"><i class="fa-solid fa-file-lines fa-fw"></i> View page source</a>
-  <a href="https://github.com/gchq/stroom-docs/edit/7.13/content/en/docs/reference-section/templating.md" class="td-page-meta--edit" target="_blank" rel="noopener"><i class="fa-solid fa-pen-to-square fa-fw"></i> Edit this page</a>
-  <a href="https://github.com/gchq/stroom-docs/new/7.13/content/en/docs/reference-section/templating.md?filename=change-me.md&amp;value=---%0Atitle%3A&#43;%22Long&#43;Page&#43;Title%22%0AlinkTitle%3A&#43;%22Short&#43;Nav&#43;Title%22%0Aweight%3A&#43;100%0Adescription%3A&#43;%3E-%0A&#43;&#43;&#43;&#43;&#43;Page&#43;description&#43;for&#43;heading&#43;and&#43;indexes.%0A---%0A%0A%23%23&#43;Heading%0A%0AEdit&#43;this&#43;template&#43;to&#43;create&#43;your&#43;new&#43;page.%0A%0A%2A&#43;Give&#43;it&#43;a&#43;good&#43;name%2C&#43;ending&#43;in&#43;%60.md%60&#43;-&#43;e.g.&#43;%60getting-started.md%60%0A%2A&#43;Edit&#43;the&#43;%22front&#43;matter%22&#43;section&#43;at&#43;the&#43;top&#43;of&#43;the&#43;page&#43;%28weight&#43;controls&#43;how&#43;its&#43;ordered&#43;amongst&#43;other&#43;pages&#43;in&#43;the&#43;same&#43;directory%3B&#43;lowest&#43;number&#43;first%29.%0A%2A&#43;Add&#43;a&#43;good&#43;commit&#43;message&#43;at&#43;the&#43;bottom&#43;of&#43;the&#43;page&#43;%28%3C80&#43;characters%3B&#43;use&#43;the&#43;extended&#43;description&#43;field&#43;for&#43;more&#43;detail%29.%0A%2A&#43;Create&#43;a&#43;new&#43;branch&#43;so&#43;you&#43;can&#43;preview&#43;your&#43;new&#43;file&#43;and&#43;request&#43;a&#43;review&#43;via&#43;Pull&#43;Request.%0A" class="td-page-meta--child" target="_blank" rel="noopener"><i class="fa-solid fa-pen-to-square fa-fw"></i> Create child page</a>
+<a href="https://github.com/gchq/stroom-docs/tree/7.14/content/en/docs/reference-section/templating.md" class="td-page-meta--view" target="_blank" rel="noopener"><i class="fa-solid fa-file-lines fa-fw"></i> View page source</a>
+  <a href="https://github.com/gchq/stroom-docs/edit/7.14/content/en/docs/reference-section/templating.md" class="td-page-meta--edit" target="_blank" rel="noopener"><i class="fa-solid fa-pen-to-square fa-fw"></i> Edit this page</a>
+  <a href="https://github.com/gchq/stroom-docs/new/7.14/content/en/docs/reference-section/templating.md?filename=change-me.md&amp;value=---%0Atitle%3A&#43;%22Long&#43;Page&#43;Title%22%0AlinkTitle%3A&#43;%22Short&#43;Nav&#43;Title%22%0Aweight%3A&#43;100%0Adescription%3A&#43;%3E-%0A&#43;&#43;&#43;&#43;&#43;Page&#43;description&#43;for&#43;heading&#43;and&#43;indexes.%0A---%0A%0A%23%23&#43;Heading%0A%0AEdit&#43;this&#43;template&#43;to&#43;create&#43;your&#43;new&#43;page.%0A%0A%2A&#43;Give&#43;it&#43;a&#43;good&#43;name%2C&#43;ending&#43;in&#43;%60.md%60&#43;-&#43;e.g.&#43;%60getting-started.md%60%0A%2A&#43;Edit&#43;the&#43;%22front&#43;matter%22&#43;section&#43;at&#43;the&#43;top&#43;of&#43;the&#43;page&#43;%28weight&#43;controls&#43;how&#43;its&#43;ordered&#43;amongst&#43;other&#43;pages&#43;in&#43;the&#43;same&#43;directory%3B&#43;lowest&#43;number&#43;first%29.%0A%2A&#43;Add&#43;a&#43;good&#43;commit&#43;message&#43;at&#43;the&#43;bottom&#43;of&#43;the&#43;page&#43;%28%3C80&#43;characters%3B&#43;use&#43;the&#43;extended&#43;description&#43;field&#43;for&#43;more&#43;detail%29.%0A%2A&#43;Create&#43;a&#43;new&#43;branch&#43;so&#43;you&#43;can&#43;preview&#43;your&#43;new&#43;file&#43;and&#43;request&#43;a&#43;review&#43;via&#43;Pull&#43;Request.%0A" class="td-page-meta--child" target="_blank" rel="noopener"><i class="fa-solid fa-pen-to-square fa-fw"></i> Create child page</a>
   <a href="https://github.com/gchq/stroom-docs/issues/new?title=Templating" class="td-page-meta--issue" target="_blank" rel="noopener"><i class="fa-solid fa-list-check fa-fw"></i> Create documentation issue</a>
   <a href="https://github.com/gchq/stroom/issues/new" class="td-page-meta--project-issue" target="_blank" rel="noopener"><i class="fa-solid fa-list-check fa-fw"></i> Create project issue</a>
   <a id="print" href="../../../docs/reference-section/_print/"><i class="fa-solid fa-print fa-fw"></i> Print entire section</a>
@@ -1168,6 +1204,7 @@
     <li><a href="#template-context">Template Context</a>
       <ul>
         <li><a href="#rule-detections-context">Rule Detections Context</a></li>
+        <li><a href="#report-context">Report Context</a></li>
       </ul>
     </li>
   </ul>
@@ -1201,7 +1238,7 @@
         
           <li><a class="taxonomy-term" href="../../../tags/administration/" data-taxonomy-term="administration"><span class="taxonomy-label">administration</span><span class="taxonomy-count">1</span></a></li>
         
-          <li><a class="taxonomy-term" href="../../../tags/analytic/" data-taxonomy-term="analytic"><span class="taxonomy-label">analytic</span><span class="taxonomy-count">1</span></a></li>
+          <li><a class="taxonomy-term" href="../../../tags/analytic/" data-taxonomy-term="analytic"><span class="taxonomy-label">analytic</span><span class="taxonomy-count">11</span></a></li>
         
           <li><a class="taxonomy-term" href="../../../tags/api/" data-taxonomy-term="api"><span class="taxonomy-label">api</span><span class="taxonomy-count">9</span></a></li>
         
@@ -1303,11 +1340,13 @@
         
           <li><a class="taxonomy-term" href="../../../tags/proxy/" data-taxonomy-term="proxy"><span class="taxonomy-label">proxy</span><span class="taxonomy-count">6</span></a></li>
         
-          <li><a class="taxonomy-term" href="../../../tags/query/" data-taxonomy-term="query"><span class="taxonomy-label">query</span><span class="taxonomy-count">3</span></a></li>
+          <li><a class="taxonomy-term" href="../../../tags/query/" data-taxonomy-term="query"><span class="taxonomy-label">query</span><span class="taxonomy-count">4</span></a></li>
         
           <li><a class="taxonomy-term" href="../../../tags/raw/" data-taxonomy-term="raw"><span class="taxonomy-label">raw</span><span class="taxonomy-count">1</span></a></li>
         
           <li><a class="taxonomy-term" href="../../../tags/reference-data/" data-taxonomy-term="reference-data"><span class="taxonomy-label">reference-data</span><span class="taxonomy-count">4</span></a></li>
+        
+          <li><a class="taxonomy-term" href="../../../tags/report/" data-taxonomy-term="report"><span class="taxonomy-label">report</span><span class="taxonomy-count">4</span></a></li>
         
           <li><a class="taxonomy-term" href="../../../tags/retention/" data-taxonomy-term="retention"><span class="taxonomy-label">retention</span><span class="taxonomy-count">1</span></a></li>
         
@@ -1345,7 +1384,7 @@
         
           <li><a class="taxonomy-term" href="../../../tags/xml/" data-taxonomy-term="xml"><span class="taxonomy-label">xml</span><span class="taxonomy-count">1</span></a></li>
         
-          <li><a class="taxonomy-term" href="../../../tags/xslt/" data-taxonomy-term="xslt"><span class="taxonomy-label">xslt</span><span class="taxonomy-count">14</span></a></li>
+          <li><a class="taxonomy-term" href="../../../tags/xslt/" data-taxonomy-term="xslt"><span class="taxonomy-label">xslt</span><span class="taxonomy-count">5</span></a></li>
         
       </ul>
     </div>
@@ -1411,11 +1450,15 @@ Stroom uses the <span class="external-link">
  templating engine that is based on Jinja templating.
 Not all feature</p>
 
+
+
 <div class="alert alert-primary" role="alert">
-<h4 class="alert-heading">See Also</h4>
-<div class="alert-content">
-  
-  <p>HubSpot’s Hubl language also uses the JinJava engine, its <span class="external-link">
+  <h4 class="alert-heading">See Also</h4>
+  <div class="alert-content">
+
+
+
+<p>HubSpot’s Hubl language also uses the JinJava engine, its <span class="external-link">
 <a href="https://developers.hubspot.com/docs/cms/reference/hubl/overview" target="_blank" class="external-link" title="documentation (external link to https://developers.hubspot.com/docs/cms/reference/hubl/overview)">
 <span>documentation</span>
 <i class="external-link-icon fas fa-external-link-alt fa-sm text-secondary"></i>
@@ -1430,7 +1473,9 @@ may be helpful.</p>
 </span>
 .</p>
 
-</div>
+
+
+  </div>
 </div>
 
 <h3 id="data-types">Data Types</h3>
@@ -1751,26 +1796,36 @@ weight: 320
 
 </div>
 
+
+
 <div class="alert alert-primary" role="alert">
-<h4 class="alert-heading">Note</h4>
+  <h4 class="alert-heading">Note</h4>
+  <div class="alert-content">
 
 
-    Note, the filter <code>dictsort</code> is used here to sort the dictionary by its keys.
 
+
+Note, the filter <code>dictsort</code> is used here to sort the dictionary by its keys.
+
+
+  </div>
 </div>
 
 
 
+
 <div class="alert alert-primary" role="alert">
-<h4 class="alert-heading">Note</h4>
+  <h4 class="alert-heading">Note</h4>
+  <div class="alert-content">
 
 
 
-    <p>Note the use of <code>-</code> to prevent an additional line break appearing in the rendered output, see <a href="#white-space">White Space</a> below.</p>
+
+Note the use of <code>-</code> to prevent an additional line break appearing in the rendered output, see <a href="#white-space">White Space</a> below.
 
 
+  </div>
 </div>
-
 
 <h3 id="filters">Filters</h3>
 <p><strong>Syntax</strong>: <code>... | &lt;filter name&gt;</code></p>
@@ -1872,16 +1927,20 @@ The detection time is {{detectionTime}}.
 
 </div>
 
+
+
 <div class="alert alert-primary" role="alert">
-<h4 class="alert-heading">Note</h4>
+  <h4 class="alert-heading">Note</h4>
+  <div class="alert-content">
 
 
 
-    <p>Note the use of <code>-</code> to prevent an additional line break appearing in the rendered output, see <a href="#white-space">White Space</a> below.</p>
+
+Note the use of <code>-</code> to prevent an additional line break appearing in the rendered output, see <a href="#white-space">White Space</a> below.
 
 
+  </div>
 </div>
-
 
 <h3 id="white-space">White Space</h3>
 <p>When JinJava renders the template, each expression or statement is evaluated and then removed or replaced by its output, but any white space around them, e.g. line breaks remain.
@@ -1981,13 +2040,13 @@ The fields available in the context are those taken from the <code>detection:1</
 <tr>
 <td>detectorUuid</td>
 <td>String</td>
-<td>This is the <span class="glossary-link">
+<td>This is the <span class="glossary-link link-with-hover-tooltip">
     <a href="../../../docs/glossary/u/glossary-uuid">
       <span>UUID</span>
       <i class="glossary-link-icon fas fa-book fa-sm text-primary"></i>
-    </a><span class="glossary-tooltip">
-      <span class="glossary-tooltip-title">UUID</span>
-      <span class="glossary-tooltip-summary">A <strong>U</strong>niversally <strong>U</strong>nique <strong>Id</strong>entifier for uniquely identifying something. <em>UUIDs</em> are used as the identifier in <em>Doc Refs</em>. An example of a <em>UUID</em> is <code>4ffeb895-53c9-40d6-bf33-3ef025401ad3</code>.</span><span class="glossary-tooltip-truncated">Click to see more details...</span></span></span> of the Analytic Rule <span class="stroom-icon inline-svg-button icon-button  " >
+    </a><template class="hover-tooltip-content">
+        <span class="hover-tooltip-title">UUID</span>
+        <div class="hover-tooltip-summary">A <strong>U</strong>niversally <strong>U</strong>nique <strong>Id</strong>entifier for uniquely identifying something. <em>UUIDs</em> are used as the identifier in <em>Doc Refs</em>. An example of a <em>UUID</em> is <code>4ffeb895-53c9-40d6-bf33-3ef025401ad3</code>.</div><span class="hover-tooltip-more-details">Click to see more details...</span></template></span> of the Analytic Rule <span class="stroom-icon inline-svg-button icon-button  " >
     <span class="face" title="title"><svg xmlns="http://www.w3.org/2000/svg" width="1792" height="1792" viewBox="0 0 1792 1792"><path style="fill:var(--icon-colour__orange)" d="M1333 566q18 20 7 44l-540 1157q-13 25-42 25-4 0-14-2-17-5-25.5-19t-4.5-30l197-808-406 101q-4 1-12 1-18 0-31-11-18-15-13-39l201-825q4-14 16-23t28-9h328q19 0 32 12.5t13 29.5q0 8-5 18l-171 463 396-98q8-2 12-2 19 0 34 15z"/></svg></span>
   </span> document.</td>
 </tr>
@@ -2019,13 +2078,13 @@ The fields available in the context are those taken from the <code>detection:1</
 <tr>
 <td>detectionUniqueId</td>
 <td>String</td>
-<td>This field does not need to be assigned.<br>  Any assignment should be to a value that is sufficiently unique to identify a specific detection from a specific detector.<br>Typically, but not necessarily, the value of this field is a <span class="glossary-link">
+<td>This field does not need to be assigned.<br>  Any assignment should be to a value that is sufficiently unique to identify a specific detection from a specific detector.<br>Typically, but not necessarily, the value of this field is a <span class="glossary-link link-with-hover-tooltip">
     <a href="../../../docs/glossary/u/glossary-uuid">
       <span>UUID</span>
       <i class="glossary-link-icon fas fa-book fa-sm text-primary"></i>
-    </a><span class="glossary-tooltip">
-      <span class="glossary-tooltip-title">UUID</span>
-      <span class="glossary-tooltip-summary">A <strong>U</strong>niversally <strong>U</strong>nique <strong>Id</strong>entifier for uniquely identifying something. <em>UUIDs</em> are used as the identifier in <em>Doc Refs</em>. An example of a <em>UUID</em> is <code>4ffeb895-53c9-40d6-bf33-3ef025401ad3</code>.</span><span class="glossary-tooltip-truncated">Click to see more details...</span></span></span>.<br>It can be useful to assign this field in order to support analytic development / debugging.<br>It is necessary to assign this field if <em>detectionRevision</em> field is assigned a value.</td>
+    </a><template class="hover-tooltip-content">
+        <span class="hover-tooltip-title">UUID</span>
+        <div class="hover-tooltip-summary">A <strong>U</strong>niversally <strong>U</strong>nique <strong>Id</strong>entifier for uniquely identifying something. <em>UUIDs</em> are used as the identifier in <em>Doc Refs</em>. An example of a <em>UUID</em> is <code>4ffeb895-53c9-40d6-bf33-3ef025401ad3</code>.</div><span class="hover-tooltip-more-details">Click to see more details...</span></template></span>.<br>It can be useful to assign this field in order to support analytic development / debugging.<br>It is necessary to assign this field if <em>detectionRevision</em> field is assigned a value.</td>
 </tr>
 <tr>
 <td>detectionRevision</td>
@@ -2062,6 +2121,16 @@ The fields available in the context are those taken from the <code>detection:1</
 <td>List of DetectionLinkedEvent</td>
 <td>This is a list of the event(s) that are linked to this detection.</td>
 </tr>
+<tr>
+<td>level</td>
+<td>String</td>
+<td>The severity of the rule that raised the detection, e.g. <code>High</code>, where the rule declares one. See <a href="../../../docs/user-guide/search/analytics/settings/#level-and-status">Rule Settings</a>.</td>
+</tr>
+<tr>
+<td>status</td>
+<td>String</td>
+<td>How reliable the rule that raised the detection declares itself to be, e.g. <code>Stable</code>, where the rule declares it. See <a href="../../../docs/user-guide/search/analytics/settings/#level-and-status">Rule Settings</a>.</td>
+</tr>
 </tbody>
 </table>
 <p>DetectionLinkedEvent fields:</p>
@@ -2082,44 +2151,125 @@ The fields available in the context are those taken from the <code>detection:1</
 <tr>
 <td>streamId</td>
 <td>String</td>
-<td>The ID of the <span class="glossary-link">
+<td>The ID of the <span class="glossary-link link-with-hover-tooltip">
     <a href="../../../docs/glossary/s/glossary-stream">
       <span>Stream</span>
       <i class="glossary-link-icon fas fa-book fa-sm text-primary"></i>
-    </a><span class="glossary-tooltip">
-      <span class="glossary-tooltip-title">Stream</span>
-      <span class="glossary-tooltip-summary">A Stream is the unit of data that Stroom works with and will typically contain many <em>Events</em>.</span><span class="glossary-tooltip-truncated">Click to see more details...</span></span></span> that contains the associated event.</td>
+    </a><template class="hover-tooltip-content">
+        <span class="hover-tooltip-title">Stream</span>
+        <div class="hover-tooltip-summary">A Stream is the unit of data that Stroom works with and will typically contain many <em>Events</em>.</div><span class="hover-tooltip-more-details">Click to see more details...</span></template></span> that contains the associated event.</td>
 </tr>
 <tr>
 <td>eventId</td>
 <td>String</td>
-<td>The ID of the <span class="glossary-link">
+<td>The ID of the <span class="glossary-link link-with-hover-tooltip">
     <a href="../../../docs/glossary/e/glossary-event">
       <span>Event</span>
       <i class="glossary-link-icon fas fa-book fa-sm text-primary"></i>
-    </a><span class="glossary-tooltip">
-      <span class="glossary-tooltip-title">Event</span>
-      <span class="glossary-tooltip-summary">An event is a single auditable event, e.g. a user logging in to a system. A <em>Stream</em> typically contains multiple events.</span><span class="glossary-tooltip-truncated">Click to see more details...</span></span></span> that is associated with this detection.</td>
+    </a><template class="hover-tooltip-content">
+        <span class="hover-tooltip-title">Event</span>
+        <div class="hover-tooltip-summary">An event is a single auditable event, e.g. a user logging in to a system. A <em>Stream</em> typically contains multiple events.</div><span class="hover-tooltip-more-details">Click to see more details...</span></template></span> that is associated with this detection.</td>
 </tr>
 </tbody>
 </table>
 
+
+
 <div class="alert alert-warning" role="alert">
-<h4 class="alert-heading">Warning</h4>
+  <h4 class="alert-heading">Warning</h4>
+  <div class="alert-content">
 
 
-    <p>When choosing the names of the columns in your rule it may be beneficial to use <code>snake_case</code> or <code>UpperCamelCase</code> to make it easier to reference those columns in the detection template (see <a href="#accessing-collection-items">Accessing Collection Items</a> above).
-E.g. <code>myDict.some_key</code> vs <code>myDict['some key']</code>.</p>
 
 
+When choosing the names of the columns in your rule it may be beneficial to use <code>snake_case</code> or <code>UpperCamelCase</code> to make it easier to reference those columns in the detection template (see <a href="#accessing-collection-items">Accessing Collection Items</a> above).
+E.g. <code>myDict.some_key</code> vs <code>myDict[&#39;some key&#39;]</code>.
+
+
+  </div>
 </div>
 
+<h3 id="report-context">Report Context</h3>
+<p>When an email subject/body template is rendered for a Report <span class="stroom-icon inline-svg-button icon-button  " >
+    <span class="face" title="title"><svg id="svg5453" xmlns="http://www.w3.org/2000/svg" height="1792" width="1792" version="1.1" viewBox="0 0 1792 1792"><path id="path5455" fill="var(--icon-colour__blue)" d="m602.28 1395.3v-176.23q0-12.85-8.2608-21.111-8.2608-8.2607-21.111-8.2607h-293.72q-12.85 0-21.111 8.2607-8.2608 8.2608-8.2608 21.111v176.23q0 12.85 8.2608 21.111 8.2608 8.2608 21.111 8.2608h293.72q12.85 0 21.111-8.2608 8.2608-8.2607 8.2608-21.111zm0-352.46v-176.23q0-12.85-8.2608-21.111-8.2608-8.2608-21.111-8.2608h-293.72q-12.85 0-21.111 8.2608-8.2608 8.2608-8.2608 21.111v176.23q0 12.85 8.2608 21.111 8.2608 8.2608 21.111 8.2608h293.72q12.85 0 21.111-8.2608 8.2608-8.2607 8.2608-21.111zm469.95 352.46v-176.23q0-12.85-8.2608-21.111-8.2608-8.2607-21.111-8.2607h-293.72q-12.85 0-21.111 8.2607-8.2608 8.2608-8.2608 21.111v176.23q0 12.85 8.2608 21.111 8.2608 8.2608 21.111 8.2608h293.72q12.85 0 21.111-8.2608 8.2608-8.2607 8.2608-21.111zm-469.95-704.92v-176.23q0-12.85-8.2608-21.111-8.2608-8.2608-21.111-8.2608h-293.72q-12.85 0-21.111 8.2608-8.2608 8.2608-8.2608 21.111v176.23q0 12.85 8.2608 21.111 8.2608 8.2608 21.111 8.2608h293.72q12.85 0 21.111-8.2608 8.2608-8.2608 8.2608-21.111zm469.95 352.46v-176.23q0-12.85-8.2608-21.111-8.2608-8.2608-21.111-8.2608h-293.72q-12.85 0-21.111 8.2608-8.2608 8.2608-8.2608 21.111v176.23q0 12.85 8.2608 21.111 8.2608 8.2608 21.111 8.2608h293.72q12.85 0 21.111-8.2608 8.2608-8.2607 8.2608-21.111zm469.95 352.46v-176.23q0-12.85-8.2607-21.111-8.2608-8.2607-21.111-8.2607h-293.72q-12.85 0-21.111 8.2607-8.2607 8.2608-8.2607 21.111v176.23q0 12.85 8.2607 21.111 8.2608 8.2608 21.111 8.2608h293.72q12.85 0 21.111-8.2608 8.2607-8.2607 8.2607-21.111zm-469.95-704.92v-176.23q0-12.85-8.2608-21.111-8.2608-8.2608-21.111-8.2608h-293.72q-12.85 0-21.111 8.2608-8.2608 8.2608-8.2608 21.111v176.23q0 12.85 8.2608 21.111 8.2608 8.2608 21.111 8.2608h293.72q12.85 0 21.111-8.2608 8.2608-8.2608 8.2608-21.111zm469.95 352.46v-176.23q0-12.85-8.2607-21.111-8.2608-8.2608-21.111-8.2608h-293.72q-12.85 0-21.111 8.2608-8.2607 8.2608-8.2607 21.111v176.23q0 12.85 8.2607 21.111 8.2608 8.2608 21.111 8.2608h293.72q12.85 0 21.111-8.2608 8.2607-8.2607 8.2607-21.111zm0-352.46v-176.23q0-12.85-8.2607-21.111-8.2608-8.2608-21.111-8.2608h-293.72q-12.85 0-21.111 8.2608-8.2607 8.2608-8.2607 21.111v176.23q0 12.85 8.2607 21.111 8.2608 8.2608 21.111 8.2608h293.72q12.85 0 21.111-8.2608 8.2607-8.2608 8.2607-21.111zm117.49-293.72v998.63q0 60.579-43.14 103.72-43.14 43.14-103.72 43.14h-1233.6q-60.579 0-103.72-43.14-43.14-43.14-43.14-103.72v-998.63q0-60.579 43.14-103.72 43.14-43.14 103.72-43.14h1233.6q60.579 0 103.72 43.14 43.14 43.14 43.14 103.72z"/></svg> </span>
+  </span>, the context describes the report that was produced rather than a detection.</p>
+<p>A Report delivers its data as an attached file, so the context carries facts about that file and about the run that produced it, not the data itself.</p>
+<table>
+<thead>
+<tr>
+<th>Field Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>reportName</td>
+<td>String</td>
+<td>The name of the Report <span class="stroom-icon inline-svg-button icon-button  " >
+    <span class="face" title="title"><svg id="svg5453" xmlns="http://www.w3.org/2000/svg" height="1792" width="1792" version="1.1" viewBox="0 0 1792 1792"><path id="path5455" fill="var(--icon-colour__blue)" d="m602.28 1395.3v-176.23q0-12.85-8.2608-21.111-8.2608-8.2607-21.111-8.2607h-293.72q-12.85 0-21.111 8.2607-8.2608 8.2608-8.2608 21.111v176.23q0 12.85 8.2608 21.111 8.2608 8.2608 21.111 8.2608h293.72q12.85 0 21.111-8.2608 8.2608-8.2607 8.2608-21.111zm0-352.46v-176.23q0-12.85-8.2608-21.111-8.2608-8.2608-21.111-8.2608h-293.72q-12.85 0-21.111 8.2608-8.2608 8.2608-8.2608 21.111v176.23q0 12.85 8.2608 21.111 8.2608 8.2608 21.111 8.2608h293.72q12.85 0 21.111-8.2608 8.2608-8.2607 8.2608-21.111zm469.95 352.46v-176.23q0-12.85-8.2608-21.111-8.2608-8.2607-21.111-8.2607h-293.72q-12.85 0-21.111 8.2607-8.2608 8.2608-8.2608 21.111v176.23q0 12.85 8.2608 21.111 8.2608 8.2608 21.111 8.2608h293.72q12.85 0 21.111-8.2608 8.2608-8.2607 8.2608-21.111zm-469.95-704.92v-176.23q0-12.85-8.2608-21.111-8.2608-8.2608-21.111-8.2608h-293.72q-12.85 0-21.111 8.2608-8.2608 8.2608-8.2608 21.111v176.23q0 12.85 8.2608 21.111 8.2608 8.2608 21.111 8.2608h293.72q12.85 0 21.111-8.2608 8.2608-8.2608 8.2608-21.111zm469.95 352.46v-176.23q0-12.85-8.2608-21.111-8.2608-8.2608-21.111-8.2608h-293.72q-12.85 0-21.111 8.2608-8.2608 8.2608-8.2608 21.111v176.23q0 12.85 8.2608 21.111 8.2608 8.2608 21.111 8.2608h293.72q12.85 0 21.111-8.2608 8.2608-8.2607 8.2608-21.111zm469.95 352.46v-176.23q0-12.85-8.2607-21.111-8.2608-8.2607-21.111-8.2607h-293.72q-12.85 0-21.111 8.2607-8.2607 8.2608-8.2607 21.111v176.23q0 12.85 8.2607 21.111 8.2608 8.2608 21.111 8.2608h293.72q12.85 0 21.111-8.2608 8.2607-8.2607 8.2607-21.111zm-469.95-704.92v-176.23q0-12.85-8.2608-21.111-8.2608-8.2608-21.111-8.2608h-293.72q-12.85 0-21.111 8.2608-8.2608 8.2608-8.2608 21.111v176.23q0 12.85 8.2608 21.111 8.2608 8.2608 21.111 8.2608h293.72q12.85 0 21.111-8.2608 8.2608-8.2608 8.2608-21.111zm469.95 352.46v-176.23q0-12.85-8.2607-21.111-8.2608-8.2608-21.111-8.2608h-293.72q-12.85 0-21.111 8.2608-8.2607 8.2608-8.2607 21.111v176.23q0 12.85 8.2607 21.111 8.2608 8.2608 21.111 8.2608h293.72q12.85 0 21.111-8.2608 8.2607-8.2607 8.2607-21.111zm0-352.46v-176.23q0-12.85-8.2607-21.111-8.2608-8.2608-21.111-8.2608h-293.72q-12.85 0-21.111 8.2608-8.2607 8.2608-8.2607 21.111v176.23q0 12.85 8.2607 21.111 8.2608 8.2608 21.111 8.2608h293.72q12.85 0 21.111-8.2608 8.2607-8.2608 8.2607-21.111zm117.49-293.72v998.63q0 60.579-43.14 103.72-43.14 43.14-103.72 43.14h-1233.6q-60.579 0-103.72-43.14-43.14-43.14-43.14-103.72v-998.63q0-60.579 43.14-103.72 43.14-43.14 103.72-43.14h1233.6q60.579 0 103.72 43.14 43.14 43.14 43.14 103.72z"/></svg> </span>
+  </span> document.</td>
+</tr>
+<tr>
+<td>description</td>
+<td>String</td>
+<td>The content of the report&rsquo;s <em>Documentation</em> tab.</td>
+</tr>
+<tr>
+<td>executionTime</td>
+<td>String</td>
+<td>This is the actual wall clock time that the report ran.</td>
+</tr>
+<tr>
+<td>effectiveExecutionTime</td>
+<td>String</td>
+<td>This is the time used in any relative date expressions in the report&rsquo;s query or time range, e.g. <code>day() - 1w</code>.</td>
+</tr>
+<tr>
+<td>rowCount</td>
+<td>Integer</td>
+<td>The number of rows in the report.</td>
+</tr>
+<tr>
+<td>fileType</td>
+<td>String</td>
+<td>The format of the attached file, e.g. <code>EXCEL</code>.</td>
+</tr>
+<tr>
+<td>fileName</td>
+<td>String</td>
+<td>The name of the attached file.</td>
+</tr>
+<tr>
+<td>aiSummary</td>
+<td>String</td>
+<td>The AI summary of the report&rsquo;s data, or an empty string where there is none.</td>
+</tr>
+</tbody>
+</table>
+<p><code>aiSummary</code> is always present in the context, so that a template using it renders whether or not a summary was produced.</p>
+
+
+
+<div class="alert alert-primary" role="alert">
+  <h4 class="alert-heading">Note</h4>
+  <div class="alert-content">
+
+
+
+
+None of the fields from the <a href="#rule-detections-context">Rule Detections Context</a> are available to a Report template, and none of the fields above are available to an Analytic Rule template.
+A template written for one will not render against the other.
+
+
+  </div>
+</div>
 
 
 	
 	
 	<div class="text-muted mt-5 pt-3 border-top">
-  Last modified September 29, 2026: <a href="https://github.com/gchq/stroom-docs/commit/ed17883fe4686fcbcd4cd7e1f4d4b58232057e4e">Update DFK structure in data-feed-identities.md (ed17883)</a>
+  Last modified October 20, 2026: <a href="https://github.com/gchq/stroom-docs/commit/2c6fb22c274a19e603e2cd1c2d8b1ed30de7db2d">Merge pull request #144 from gchq/add-7.14-rel-notes (2c6fb22)</a>
 </div>
 
 </div>
@@ -2177,6 +2327,11 @@ E.g. <code>myDict.some_key</code> vs <code>myDict['some key']</code>.</p>
 
     <script src='../../../js/lunr.min.js'></script>
   
+
+
+  <script src="../../../js/hover-tooltip.js" defer></script>
+
+
 
 
 <script src='../../../js/tabpane-persist.js'></script>

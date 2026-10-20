@@ -23,36 +23,41 @@
       <description>
         
         
-        &lt;p&gt;When Stroom acts as its own &lt;span class=&#34;glossary-link&#34;&gt;
+        &lt;p&gt;When Stroom acts as its own &lt;span class=&#34;glossary-link link-with-hover-tooltip&#34;&gt;
     &lt;a href=&#34;../../docs/glossary/i/glossary-idp&#34;&gt;
       &lt;span&gt;Identity Provider (IDP)&lt;/span&gt;
       &lt;i class=&#34;glossary-link-icon fas fa-book fa-sm text-primary&#34;&gt;&lt;/i&gt;
-    &lt;/a&gt;&lt;span class=&#34;glossary-tooltip&#34;&gt;
-      &lt;span class=&#34;glossary-tooltip-title&#34;&gt;Identity Provider (IDP)&lt;/span&gt;
-      &lt;span class=&#34;glossary-tooltip-summary&#34;&gt;An &lt;strong&gt;Id&lt;/strong&gt;entity &lt;strong&gt;P&lt;/strong&gt;rovider is a system or service that can authenticate a user and assert their identity. &lt;em&gt;Identity providers&lt;/em&gt; can support single sign on (SSO), which allows the user to sign in once to the &lt;em&gt;Identity Provider&lt;/em&gt; so they are then authenticated to all systems using that IDP.&lt;/span&gt;&lt;span class=&#34;glossary-tooltip-truncated&#34;&gt;Click to see more details...&lt;/span&gt;&lt;/span&gt;&lt;/span&gt; it signs the tokens it issues with a key that it creates and replaces by itself.
+    &lt;/a&gt;&lt;template class=&#34;hover-tooltip-content&#34;&gt;
+        &lt;span class=&#34;hover-tooltip-title&#34;&gt;Identity Provider (IDP)&lt;/span&gt;
+        &lt;div class=&#34;hover-tooltip-summary&#34;&gt;An &lt;strong&gt;Id&lt;/strong&gt;entity &lt;strong&gt;P&lt;/strong&gt;rovider is a system or service that can authenticate a user and assert their identity. &lt;em&gt;Identity providers&lt;/em&gt; can support single sign on (SSO), which allows the user to sign in once to the &lt;em&gt;Identity Provider&lt;/em&gt; so they are then authenticated to all systems using that IDP.&lt;/div&gt;&lt;span class=&#34;hover-tooltip-more-details&#34;&gt;Click to see more details...&lt;/span&gt;&lt;/template&gt;&lt;/span&gt; it signs the tokens it issues with a key that it creates and replaces by itself.
 Nodes and Stroom-Proxy check that signature to satisfy themselves that a token really came from Stroom.&lt;/p&gt;
 &lt;p&gt;This screen exists so that a key believed to have been exposed can be withdrawn.
 It is not needed for day to day running, because keys are replaced automatically.&lt;/p&gt;
 
+
+
 &lt;div class=&#34;alert alert-primary&#34; role=&#34;alert&#34;&gt;
-&lt;h4 class=&#34;alert-heading&#34;&gt;Note&lt;/h4&gt;
+  &lt;h4 class=&#34;alert-heading&#34;&gt;Note&lt;/h4&gt;
+  &lt;div class=&#34;alert-content&#34;&gt;
 
 
 
-    &lt;p&gt;This screen requires the &lt;code&gt;Administrator&lt;/code&gt; &lt;span class=&#34;glossary-link&#34;&gt;
+
+This screen requires the &lt;code&gt;Administrator&lt;/code&gt; &lt;span class=&#34;glossary-link link-with-hover-tooltip&#34;&gt;
 &lt;a href=&#34;../../docs/glossary/a/glossary-application-permission&#34;&gt;
 &lt;span&gt;Application permission&lt;/span&gt;
 &lt;i class=&#34;glossary-link-icon fas fa-book fa-sm text-primary&#34;&gt;&lt;/i&gt;
-&lt;/a&gt;&lt;span class=&#34;glossary-tooltip&#34;&gt;
-&lt;span class=&#34;glossary-tooltip-title&#34;&gt;Application permission&lt;/span&gt;
-&lt;span class=&#34;glossary-tooltip-summary&#34;&gt;This is a permission that is not specific to a single document. It applies to all documents or is not related to documents in any way.&lt;/span&gt;&lt;span class=&#34;glossary-tooltip-truncated&#34;&gt;Click to see more details…&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;, rather than &lt;code&gt;Manage Users&lt;/code&gt; which is enough for most other security screens.
-Withdrawing a signing key affects everybody using Stroom at once, so it is treated as an application wide action.&lt;/p&gt;
+&lt;/a&gt;&lt;template class=&#34;hover-tooltip-content&#34;&gt;
+&lt;span class=&#34;hover-tooltip-title&#34;&gt;Application permission&lt;/span&gt;
+&lt;div class=&#34;hover-tooltip-summary&#34;&gt;This is a permission that is not specific to a single document. It applies to all documents or is not related to documents in any way.&lt;/div&gt;&lt;span class=&#34;hover-tooltip-more-details&#34;&gt;Click to see more details…&lt;/span&gt;&lt;/template&gt;&lt;/span&gt;, rather than &lt;code&gt;Manage Users&lt;/code&gt; which is enough for most other security screens.
+Withdrawing a signing key affects everybody using Stroom at once, so it is treated as an application wide action.
 
 
+  &lt;/div&gt;
 &lt;/div&gt;
 
-
 &lt;p&gt;Reach the screen by selecting&lt;/p&gt;
+
 
 
 
@@ -158,17 +163,24 @@ Any token signed with it stops being accepted, and a replacement signing key is 
 &lt;p&gt;Both actions ask for confirmation first, and the confirmation says what that particular key will cost, because the effect differs enormously between them.
 Revoking a retired key usually affects a handful of people, while revoking the active key affects everyone.&lt;/p&gt;
 
-&lt;div class=&#34;alert alert-warning&#34; role=&#34;alert&#34;&gt;
-&lt;h4 class=&#34;alert-heading&#34;&gt;Warning&lt;/h4&gt;
 
-    &lt;p&gt;Revoking cannot be undone.
+
+&lt;div class=&#34;alert alert-warning&#34; role=&#34;alert&#34;&gt;
+  &lt;h4 class=&#34;alert-heading&#34;&gt;Warning&lt;/h4&gt;
+  &lt;div class=&#34;alert-content&#34;&gt;
+
+
+
+
+&lt;p&gt;Revoking cannot be undone.
 There is no way to restore trust in a key that has been withdrawn.&lt;/p&gt;
 &lt;p&gt;Revoke a key only if you believe it may have been exposed.
 A key revoked by mistake costs everybody a fresh sign in, but no data is lost.&lt;/p&gt;
 
 
-&lt;/div&gt;
 
+  &lt;/div&gt;
+&lt;/div&gt;
 
 &lt;h3 id=&#34;what-to-expect-after-revoking-the-active-key&#34;&gt;What to Expect after Revoking the Active Key&lt;/h3&gt;
 &lt;p&gt;Everybody using Stroom is signed out and must authenticate again.
@@ -178,14 +190,20 @@ Parts of the cluster may therefore be unable to talk to one another for up to te
 This resolves itself and needs no intervention, but it is worth expecting rather than being surprised by, and it is a good reason to reserve this action for a suspected compromise.&lt;/p&gt;
 &lt;p&gt;Revoking a retired or expired key has no such effect, as nothing is signing with it.&lt;/p&gt;
 
-&lt;div class=&#34;alert alert-primary&#34; role=&#34;alert&#34;&gt;
-&lt;h4 class=&#34;alert-heading&#34;&gt;See Also&lt;/h4&gt;
-&lt;div class=&#34;alert-content&#34;&gt;
-  
-  &lt;p&gt;&lt;a href=&#34;../../docs/user-guide/security/sessions-and-tokens/&#34;&gt;Sessions and Tokens&lt;/a&gt;
-&lt;a href=&#34;../../docs/install-guide/setup/open-id/internal-idp/&#34;&gt;Internal IDP&lt;/a&gt;&lt;/p&gt;
 
-&lt;/div&gt;
+
+&lt;div class=&#34;alert alert-primary&#34; role=&#34;alert&#34;&gt;
+  &lt;h4 class=&#34;alert-heading&#34;&gt;See Also&lt;/h4&gt;
+  &lt;div class=&#34;alert-content&#34;&gt;
+
+
+
+
+&lt;a href=&#34;../../docs/user-guide/security/sessions-and-tokens/&#34;&gt;Sessions and Tokens&lt;/a&gt;
+&lt;a href=&#34;../../docs/install-guide/setup/open-id/internal-idp/&#34;&gt;Internal IDP&lt;/a&gt;
+
+
+  &lt;/div&gt;
 &lt;/div&gt;
 
 

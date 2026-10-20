@@ -279,14 +279,21 @@ For details of how different types are represented in the YAML and the UI, see &
 &lt;p&gt;Multiple configuration branches in both Stroom and Stroom-Proxy have one or more properties for configuring a cache.
 Each of these share the same structure and will typically be named &lt;code&gt;xxxCache&lt;/code&gt;, e.g. &lt;code&gt;feedStatusCache&lt;/code&gt; or &lt;code&gt;metaTypeCache&lt;/code&gt;.&lt;/p&gt;
 
-&lt;div class=&#34;alert alert-warning&#34; role=&#34;alert&#34;&gt;
-&lt;h4 class=&#34;alert-heading&#34;&gt;Warning&lt;/h4&gt;
 
-    The default values for each property within the cache config will be specific to the cache.
+
+&lt;div class=&#34;alert alert-warning&#34; role=&#34;alert&#34;&gt;
+  &lt;h4 class=&#34;alert-heading&#34;&gt;Warning&lt;/h4&gt;
+  &lt;div class=&#34;alert-content&#34;&gt;
+
+
+
+
+The default values for each property within the cache config will be specific to the cache.
 Care needs to be taken when changing the cache properties to avoid changing the behaviour of the cache, e.g. changing from having a &lt;code&gt;expireAfterWrite&lt;/code&gt; value to having a &lt;code&gt;expireAfterAccess&lt;/code&gt; value may prevent items from aging off as expected.
 
-&lt;/div&gt;
 
+  &lt;/div&gt;
+&lt;/div&gt;
 
 &lt;pre&gt;&lt;code class=&#34;language-yaml&#34;&gt;      xxxCache:
         # Specifies that each entry should be automatically removed from the cache once
@@ -442,13 +449,19 @@ This section of config is only applicable if &lt;code&gt;appConfig/proxyConfig.s
         validateAudience: true
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;div class=&#34;alert alert-primary&#34; role=&#34;alert&#34;&gt;
-&lt;h4 class=&#34;alert-heading&#34;&gt;See Also&lt;/h4&gt;
-&lt;div class=&#34;alert-content&#34;&gt;
-  
-  &lt;p&gt;See &lt;a href=&#34;../../docs/install-guide/setup/open-id/external-idp/&#34;&gt;External IDP&lt;/a&gt; for how to set these values up for a given identity provider, and &lt;a href=&#34;../../docs/install-guide/setup/open-id/external-idp/stroom-configuration/&#34;&gt;Stroom Configuration&lt;/a&gt; for what each one does.&lt;/p&gt;
 
-&lt;/div&gt;
+
+&lt;div class=&#34;alert alert-primary&#34; role=&#34;alert&#34;&gt;
+  &lt;h4 class=&#34;alert-heading&#34;&gt;See Also&lt;/h4&gt;
+  &lt;div class=&#34;alert-content&#34;&gt;
+
+
+
+
+See &lt;a href=&#34;../../docs/install-guide/setup/open-id/external-idp/&#34;&gt;External IDP&lt;/a&gt; for how to set these values up for a given identity provider, and &lt;a href=&#34;../../docs/install-guide/setup/open-id/external-idp/stroom-configuration/&#34;&gt;Stroom Configuration&lt;/a&gt; for what each one does.
+
+
+  &lt;/div&gt;
 &lt;/div&gt;
 
 &lt;h2 id=&#34;jersey-http-client-configuration&#34;&gt;Jersey HTTP Client Configuration&lt;/h2&gt;
@@ -473,15 +486,21 @@ Thus the configuration of the connections to each of those destinations can be c
 &lt;li&gt;&lt;code&gt;STROOM&lt;/code&gt; - Inter-node communications within the Stroom cluster (&lt;strong&gt;Stroom only&lt;/strong&gt;).&lt;/li&gt;
 &lt;/ul&gt;
 
+
+
 &lt;div class=&#34;alert alert-primary&#34; role=&#34;alert&#34;&gt;
-&lt;h4 class=&#34;alert-heading&#34;&gt;Note&lt;/h4&gt;
+  &lt;h4 class=&#34;alert-heading&#34;&gt;Note&lt;/h4&gt;
+  &lt;div class=&#34;alert-content&#34;&gt;
 
 
-    If a named configuration does not exist then the configuration for &lt;code&gt;DEFAULT&lt;/code&gt; will be used.
+
+
+If a named configuration does not exist then the configuration for &lt;code&gt;DEFAULT&lt;/code&gt; will be used.
 If &lt;code&gt;DEFAULT&lt;/code&gt; is not defined in the configuration then the Dropwizard defaults will be used.
 
-&lt;/div&gt;
 
+  &lt;/div&gt;
+&lt;/div&gt;
 
 &lt;p&gt;The following is an example of how the clients are configured in the YAML file:&lt;/p&gt;
 &lt;pre&gt;&lt;code class=&#34;language-yaml&#34;&gt;jerseyClients:
@@ -574,12 +593,15 @@ If &lt;code&gt;DEFAULT&lt;/code&gt; is not defined in the configuration then the
       certAlias: alias-of-specific-cert
 &lt;/code&gt;&lt;/pre&gt;
 
+
+
 &lt;div class=&#34;alert alert-primary&#34; role=&#34;alert&#34;&gt;
-&lt;h4 class=&#34;alert-heading&#34;&gt;Note&lt;/h4&gt;
+  &lt;h4 class=&#34;alert-heading&#34;&gt;Note&lt;/h4&gt;
+  &lt;div class=&#34;alert-content&#34;&gt;
 
 
 
-    &lt;p&gt;Duration values in the Jersey client configuration blocks are different to &lt;a href=&#34;#stroom-duration-data-type&#34;&gt;Stroom Durations&lt;/a&gt; defined in Stroom properties.
+Duration values in the Jersey client configuration blocks are different to &lt;a href=&#34;#stroom-duration-data-type&#34;&gt;Stroom Durations&lt;/a&gt; defined in Stroom properties.
 They are defined as a numeric value and a unit suffix.
 Typical suffixes are (in ascending order): &lt;code&gt;ns&lt;/code&gt;, &lt;code&gt;us&lt;/code&gt;, &lt;code&gt;ms&lt;/code&gt;, &lt;code&gt;s&lt;/code&gt;, &lt;code&gt;m&lt;/code&gt;, &lt;code&gt;h&lt;/code&gt;, &lt;code&gt;d&lt;/code&gt;.
 ISO 8601 duration strings are NOT supported, nor are values without a suffix.
@@ -588,21 +610,27 @@ ISO 8601 duration strings are NOT supported, nor are values without a suffix.
 &lt;span&gt;Full list of duration suffixes and their aliases&lt;/span&gt;
 &lt;i class=&#34;external-link-icon fas fa-external-link-alt fa-sm text-secondary&#34;&gt;&lt;/i&gt;
 &lt;/a&gt;
-&lt;/span&gt;&lt;/p&gt;
+&lt;/span&gt;
 
 
+  &lt;/div&gt;
 &lt;/div&gt;
+
 
 
 
 &lt;div class=&#34;alert alert-primary&#34; role=&#34;alert&#34;&gt;
-&lt;h4 class=&#34;alert-heading&#34;&gt;Note&lt;/h4&gt;
+  &lt;h4 class=&#34;alert-heading&#34;&gt;Note&lt;/h4&gt;
+  &lt;div class=&#34;alert-content&#34;&gt;
 
 
-    The paths used for the key and trust stores will be treated in the same way as Stroom property paths, i.e. relative to &lt;code&gt;stroom.home&lt;/code&gt; if relative and supporting variable substitution.
 
+
+The paths used for the key and trust stores will be treated in the same way as Stroom property paths, i.e. relative to &lt;code&gt;stroom.home&lt;/code&gt; if relative and supporting variable substitution.
+
+
+  &lt;/div&gt;
 &lt;/div&gt;
-
 
 &lt;h2 id=&#34;logging-configuration&#34;&gt;Logging Configuration&lt;/h2&gt;
 &lt;p&gt;For details of how to configure logging in Stroom and Stroom-Proxy, see &lt;a href=&#34;../../docs/install-guide/configuration/stroom-and-proxy/configuring-logging/&#34;&gt;Logging Configuration&lt;/a&gt;.&lt;/p&gt;
@@ -629,6 +657,7 @@ Some properties can be changed at runtime to alter the behaviour of Stroom.&lt;/
 These represent reasonable defaults, where applicable, but may need to be changed, e.g. to reflect the scale of the Stroom system or the specific environment.&lt;/p&gt;
 &lt;p&gt;The default property values can either be viewed in the Stroom user interface or in the file &lt;code&gt;config/config-defaults.yml&lt;/code&gt; in the Stroom distribution.
 Properties can be accessed in the user interface by selecting this from the top menu:
+
 
 
 
@@ -697,6 +726,7 @@ Properties can be accessed in the user interface by selecting this from the top 
 The database record will only exist if a database value has explicitly been set.
 The database value will apply to all nodes in the cluster, overriding the default value, unless a node also has a value set in its YAML configuration.&lt;/p&gt;
 &lt;p&gt;Database values can be set from the Stroom user interface, accessed by selecting this from the top menu:&lt;/p&gt;
+
 
 
 

@@ -45,12 +45,12 @@
 <meta property="og:type" content="article" />
 <meta property="og:url" content="/docs/install-guide/setup/open-id/external-idp/azure-ad/" /><meta property="article:section" content="docs" />
 <meta property="article:published_time" content="2026-08-03T00:00:00+00:00" />
-<meta property="article:modified_time" content="2026-09-29T11:29:45+01:00" /><meta property="og:site_name" content="Stroom" />
+<meta property="article:modified_time" content="2026-10-20T17:37:14+01:00" /><meta property="og:site_name" content="Stroom" />
 
 <meta itemprop="name" content="Microsoft Entra ID (Azure AD)">
 <meta itemprop="description" content="How to set up Microsoft Entra ID, formerly Azure Active Directory, as an external identity provider for Stroom.
 "><meta itemprop="datePublished" content="2026-08-03T00:00:00+00:00" />
-<meta itemprop="dateModified" content="2026-09-29T11:29:45+01:00" />
+<meta itemprop="dateModified" content="2026-10-20T17:37:14+01:00" />
 <meta itemprop="wordCount" content="2826">
 <meta itemprop="keywords" content="open-id,authentication," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Microsoft Entra ID (Azure AD)"/>
@@ -60,8 +60,8 @@
 
 
 
-<link rel="preload" href="../../../../../../scss/main.min.396476946a9b6e781a9b8d417186b5e7ca15aa5c2d8a2821b87b82f11629222e.css" as="style">
-<link href="../../../../../../scss/main.min.396476946a9b6e781a9b8d417186b5e7ca15aa5c2d8a2821b87b82f11629222e.css" rel="stylesheet" integrity="">
+<link rel="preload" href="../../../../../../scss/main.min.e88dbdcc11536c32758367027850973cba7b125793b45a9a421989bcdc0ce239.css" as="style">
+<link href="../../../../../../scss/main.min.e88dbdcc11536c32758367027850973cba7b125793b45a9a421989bcdc0ce239.css" rel="stylesheet" integrity="">
 
 
 <script src='../../../../../../js/jquery-3.6.0.min.js'></script>
@@ -76,9 +76,9 @@
 
 <link rel="stylesheet" href="../../../../../../css/stroom-ui/material_design_colors.min.ab1318fe69a1013ff756090954c02c5364ff48d150dcc94468a73d2e3efd3fc0.css" integrity="sha256-qxMY/mmhAT/3VgkJVMAsU2T/SNFQ3MlEaKc9Lj79P8A=">
 
-<link rel="stylesheet" href="../../../../../../css/stroom-ui/theme-root.min.bebaa7a01087d1ece8e812db2a1a91349b15556d04f84eea180c6d23491738c4.css" integrity="sha256-vrqnoBCH0ezo6BLbKhqRNJsVVW0E&#43;E7qGAxtI0kXOMQ=">
+<link rel="stylesheet" href="../../../../../../css/stroom-ui/theme-root.min.e4f410f95b5e1796bfe81465105eecf7ad66a8b0a4c15da0147e1c641b821e17.css" integrity="sha256-5PQQ&#43;VteF5a/6BRlEF7s961mqLCkwV2gFH4cZBuCHhc=">
 
-<link rel="stylesheet" href="../../../../../../css/stroom-ui/theme-dark.min.bc08bf14d505124d1eb4316e6df1348b0985e517e3cc0f5a590a03a968cc8c65.css" integrity="sha256-vAi/FNUFEk0etDFubfE0iwmF5RfjzA9aWQoDqWjMjGU=">
+<link rel="stylesheet" href="../../../../../../css/stroom-ui/theme-dark.min.9754c7f8f115669862cd3465c6d7938e668838a638e0712d65af7520041f9678.css" integrity="sha256-l1TH&#43;PEVZphizTRlxteTjmaIOKY44HEtZa91IAQflng=">
 
 
 
@@ -107,13 +107,15 @@
       </li>
       <li class="nav-item dropdown mr-4 d-none d-lg-block">
         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-	Stroom Version (7.13)
+	Stroom Version (7.14)
 </a>
 <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
 	
 	
 	
-	<a class="dropdown-item" href="../../../../../../">7.13 (Latest)</a>
+	<a class="dropdown-item" href="../../../../../../">7.14 (Latest)</a>
+	
+	<a class="dropdown-item" href="../../../../../../7.13">7.13</a>
 	
 	<a class="dropdown-item" href="../../../../../../7.12">7.12</a>
 	
@@ -155,7 +157,7 @@
     aria-label="Search this site…"
     autocomplete="off"
     
-    data-offline-search-index-json-src="../../../../../../offline-search-index.9e83be62e9f553a95e11868d6695cd7f.json"
+    data-offline-search-index-json-src="../../../../../../offline-search-index.cfd63d01b0ef498d3946ddaeed6323c3.json"
     data-offline-search-base-href="../../../../../../"
     data-offline-search-max-results="50"
   >
@@ -180,7 +182,7 @@
     aria-label="Search this site…"
     autocomplete="off"
     
-    data-offline-search-index-json-src="../../../../../../offline-search-index.9e83be62e9f553a95e11868d6695cd7f.json"
+    data-offline-search-index-json-src="../../../../../../offline-search-index.cfd63d01b0ef498d3946ddaeed6323c3.json"
     data-offline-search-base-href="../../../../../../"
     data-offline-search-max-results="50"
   >
@@ -266,6 +268,8 @@
   <a href="../../../../../../docs/install-guide/setup/processing-user-setup/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-docsinstall-guidesetupprocessing-user-setup"><span class="">Processing Users</span></a>
 </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-docsinstall-guidesetupcreate-first-admin-li">
   <a href="../../../../../../docs/install-guide/setup/create-first-admin/" title="Creating the First Administrator" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-docsinstall-guidesetupcreate-first-admin"><span class="">First Administrator</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-docsinstall-guidesetupemail-setup-li">
+  <a href="../../../../../../docs/install-guide/setup/email-setup/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-docsinstall-guidesetupemail-setup"><span class="">Email Setup</span></a>
 </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section with-child active-path" id="m-docsinstall-guidesetupopen-id-li">
   <a href="../../../../../../docs/install-guide/setup/open-id/" title="Setting up Stroom with an Open ID Connect IDP" class="align-left pl-0 td-sidebar-link td-sidebar-link__section" id="m-docsinstall-guidesetupopen-id"><span class="">Open ID Connect</span></a>
   <ul class="ul-4 foldable">
@@ -582,29 +586,8 @@
   <ul class="ul-4 foldable">
     <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-docsuser-guidepipelinesxsltxslt-basics-li">
   <a href="../../../../../../docs/user-guide/pipelines/xslt/xslt-basics/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-docsuser-guidepipelinesxsltxslt-basics"><span class="">XSLT Basics</span></a>
-</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section with-child collapse" id="m-docsuser-guidepipelinesxsltxslt-functions-li">
-  <a href="../../../../../../docs/user-guide/pipelines/xslt/xslt-functions/" class="align-left pl-0 td-sidebar-link td-sidebar-link__section" id="m-docsuser-guidepipelinesxsltxslt-functions"><span class="">XSLT Functions</span></a>
-  <ul class="ul-5 foldable">
-    <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-docsuser-guidepipelinesxsltxslt-functionsdate-and-time-li">
-  <a href="../../../../../../docs/user-guide/pipelines/xslt/xslt-functions/date-and-time/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-docsuser-guidepipelinesxsltxslt-functionsdate-and-time"><span class="">Date &amp; Time</span></a>
-</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-docsuser-guidepipelinesxsltxslt-functionsstream-and-source-li">
-  <a href="../../../../../../docs/user-guide/pipelines/xslt/xslt-functions/stream-and-source/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-docsuser-guidepipelinesxsltxslt-functionsstream-and-source"><span class="">Stream &amp; Source</span></a>
-</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-docsuser-guidepipelinesxsltxslt-functionsreference-data-li">
-  <a href="../../../../../../docs/user-guide/pipelines/xslt/xslt-functions/reference-data/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-docsuser-guidepipelinesxsltxslt-functionsreference-data"><span class="">Reference Data</span></a>
-</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-docsuser-guidepipelinesxsltxslt-functionsnetworking-and-uri-li">
-  <a href="../../../../../../docs/user-guide/pipelines/xslt/xslt-functions/networking-and-uri/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-docsuser-guidepipelinesxsltxslt-functionsnetworking-and-uri"><span class="">Networking &amp; URI</span></a>
-</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-docsuser-guidepipelinesxsltxslt-functionsstring-and-encoding-li">
-  <a href="../../../../../../docs/user-guide/pipelines/xslt/xslt-functions/string-and-encoding/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-docsuser-guidepipelinesxsltxslt-functionsstring-and-encoding"><span class="">String &amp; Encoding</span></a>
-</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-docsuser-guidepipelinesxsltxslt-functionshttp-and-json-li">
-  <a href="../../../../../../docs/user-guide/pipelines/xslt/xslt-functions/http-and-json/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-docsuser-guidepipelinesxsltxslt-functionshttp-and-json"><span class="">HTTP &amp; JSON</span></a>
-</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-docsuser-guidepipelinesxsltxslt-functionsoutput-and-logging-li">
-  <a href="../../../../../../docs/user-guide/pipelines/xslt/xslt-functions/output-and-logging/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-docsuser-guidepipelinesxsltxslt-functionsoutput-and-logging"><span class="">Output &amp; Logging</span></a>
-</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-docsuser-guidepipelinesxsltxslt-functionsvalues-and-context-li">
-  <a href="../../../../../../docs/user-guide/pipelines/xslt/xslt-functions/values-and-context/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-docsuser-guidepipelinesxsltxslt-functionsvalues-and-context"><span class="">Values &amp; Context</span></a>
-</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-docsuser-guidepipelinesxsltxslt-functionsmaths-and-vectors-li">
-  <a href="../../../../../../docs/user-guide/pipelines/xslt/xslt-functions/maths-and-vectors/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-docsuser-guidepipelinesxsltxslt-functionsmaths-and-vectors"><span class="">Maths &amp; Vectors</span></a>
-</li>
-  </ul>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-docsuser-guidepipelinesxsltxslt-functions-li">
+  <a href="../../../../../../docs/user-guide/pipelines/xslt/xslt-functions/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-docsuser-guidepipelinesxsltxslt-functions"><span class="">XSLT Functions</span></a>
 </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-docsuser-guidepipelinesxsltxslt-includes-li">
   <a href="../../../../../../docs/user-guide/pipelines/xslt/xslt-includes/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-docsuser-guidepipelinesxsltxslt-includes"><span class="">XSLT Includes</span></a>
 </li>
@@ -653,8 +636,36 @@
   <a href="../../../../../../docs/user-guide/search/queries/stroom-query-language/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-docsuser-guidesearchqueriesstroom-query-language"><span class="">Stroom Query Language</span></a>
 </li>
   </ul>
-</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-docsuser-guidesearchanalytics-li">
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section with-child collapse" id="m-docsuser-guidesearchanalytics-li">
   <a href="../../../../../../docs/user-guide/search/analytics/" class="align-left pl-0 td-sidebar-link td-sidebar-link__section" id="m-docsuser-guidesearchanalytics"><span class="">Analytic Rules</span></a>
+  <ul class="ul-4 foldable">
+    <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-docsuser-guidesearchanalyticsquery-li">
+  <a href="../../../../../../docs/user-guide/search/analytics/query/" title="Rule Queries" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-docsuser-guidesearchanalyticsquery"><span class="">Query</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-docsuser-guidesearchanalyticssettings-li">
+  <a href="../../../../../../docs/user-guide/search/analytics/settings/" title="Rule Settings" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-docsuser-guidesearchanalyticssettings"><span class="">Settings</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-docsuser-guidesearchanalyticsexecution-li">
+  <a href="../../../../../../docs/user-guide/search/analytics/execution/" title="Rule Execution" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-docsuser-guidesearchanalyticsexecution"><span class="">Execution</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-docsuser-guidesearchanalyticsnotifications-li">
+  <a href="../../../../../../docs/user-guide/search/analytics/notifications/" title="Rule Notifications" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-docsuser-guidesearchanalyticsnotifications"><span class="">Notifications</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-docsuser-guidesearchanalyticsdetections-li">
+  <a href="../../../../../../docs/user-guide/search/analytics/detections/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-docsuser-guidesearchanalyticsdetections"><span class="">Detections</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-docsuser-guidesearchanalyticsduplicate-management-li">
+  <a href="../../../../../../docs/user-guide/search/analytics/duplicate-management/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-docsuser-guidesearchanalyticsduplicate-management"><span class="">Duplicate Management</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-docsuser-guidesearchanalyticsstreaming-li">
+  <a href="../../../../../../docs/user-guide/search/analytics/streaming/" title="Streaming Rules" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-docsuser-guidesearchanalyticsstreaming"><span class="">Streaming</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-docsuser-guidesearchanalyticstable-builder-li">
+  <a href="../../../../../../docs/user-guide/search/analytics/table-builder/" title="Table Builder Rules" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-docsuser-guidesearchanalyticstable-builder"><span class="">Table Builder</span></a>
+</li>
+  </ul>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section with-child collapse" id="m-docsuser-guidesearchreports-li">
+  <a href="../../../../../../docs/user-guide/search/reports/" class="align-left pl-0 td-sidebar-link td-sidebar-link__section" id="m-docsuser-guidesearchreports"><span class="">Reports</span></a>
+  <ul class="ul-4 foldable">
+    <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-docsuser-guidesearchreportssettings-li">
+  <a href="../../../../../../docs/user-guide/search/reports/settings/" title="Report Settings" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-docsuser-guidesearchreportssettings"><span class="">Settings</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-docsuser-guidesearchreportsdelivery-li">
+  <a href="../../../../../../docs/user-guide/search/reports/delivery/" title="Report Delivery" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-docsuser-guidesearchreportsdelivery"><span class="">Delivery</span></a>
+</li>
+  </ul>
 </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-docsuser-guidesearchsearch-extraction-li">
   <a href="../../../../../../docs/user-guide/search/search-extraction/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-docsuser-guidesearchsearch-extraction"><span class="">Search Extraction</span></a>
 </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-docsuser-guidesearchdictionaries-li">
@@ -743,7 +754,9 @@
 </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section with-child collapse" id="m-docsreference-sectionexpressions-li">
   <a href="../../../../../../docs/reference-section/expressions/" class="align-left pl-0 td-sidebar-link td-sidebar-link__section" id="m-docsreference-sectionexpressions"><span class="">Expression functions</span></a>
   <ul class="ul-3 foldable">
-    <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-docsreference-sectionexpressionslookup-li">
+    <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-docsreference-sectionexpressionsai-li">
+  <a href="../../../../../../docs/reference-section/expressions/ai/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-docsreference-sectionexpressionsai"><span class="">AI Functions</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-docsreference-sectionexpressionslookup-li">
   <a href="../../../../../../docs/reference-section/expressions/lookup/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-docsreference-sectionexpressionslookup"><span class="">Lookup Functions</span></a>
 </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-docsreference-sectionexpressionsparam-li">
   <a href="../../../../../../docs/reference-section/expressions/param/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-docsreference-sectionexpressionsparam"><span class="">Param Functions</span></a>
@@ -779,6 +792,29 @@
   <a href="../../../../../../docs/reference-section/keyboard-shortcuts/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-docsreference-sectionkeyboard-shortcuts"><span class="">Keyboard Shortcuts</span></a>
 </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-docsreference-sectionpipeline-elements-li">
   <a href="../../../../../../docs/reference-section/pipeline-elements/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-docsreference-sectionpipeline-elements"><span class="">Pipeline Elements</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section with-child collapse" id="m-docsreference-sectionxslt-function-reference-li">
+  <a href="../../../../../../docs/reference-section/xslt-function-reference/" class="align-left pl-0 td-sidebar-link td-sidebar-link__section" id="m-docsreference-sectionxslt-function-reference"><span class="">XSLT Functions</span></a>
+  <ul class="ul-3 foldable">
+    <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-docsreference-sectionxslt-function-referenceconversion-li">
+  <a href="../../../../../../docs/reference-section/xslt-function-reference/conversion/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-docsreference-sectionxslt-function-referenceconversion"><span class="">Conversion Functions</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-docsreference-sectionxslt-function-referencedate-li">
+  <a href="../../../../../../docs/reference-section/xslt-function-reference/date/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-docsreference-sectionxslt-function-referencedate"><span class="">Date/Time Functions</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-docsreference-sectionxslt-function-referencenetwork-li">
+  <a href="../../../../../../docs/reference-section/xslt-function-reference/network/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-docsreference-sectionxslt-function-referencenetwork"><span class="">Network Functions</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-docsreference-sectionxslt-function-referenceother-li">
+  <a href="../../../../../../docs/reference-section/xslt-function-reference/other/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-docsreference-sectionxslt-function-referenceother"><span class="">Other Functions</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-docsreference-sectionxslt-function-referencepipeline-li">
+  <a href="../../../../../../docs/reference-section/xslt-function-reference/pipeline/" title="Stroom Pipeline Functions" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-docsreference-sectionxslt-function-referencepipeline"><span class="">Pipeline Functions</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-docsreference-sectionxslt-function-referencestring-li">
+  <a href="../../../../../../docs/reference-section/xslt-function-reference/string/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-docsreference-sectionxslt-function-referencestring"><span class="">String Functions</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-docsreference-sectionxslt-function-referenceuri-li">
+  <a href="../../../../../../docs/reference-section/xslt-function-reference/uri/" title="URI/URL Functions" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-docsreference-sectionxslt-function-referenceuri"><span class="">URI Functions</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-docsreference-sectionxslt-function-referencevalue-li">
+  <a href="../../../../../../docs/reference-section/xslt-function-reference/value/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-docsreference-sectionxslt-function-referencevalue"><span class="">Value Functions</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-docsreference-sectionxslt-function-referenceai-li">
+  <a href="../../../../../../docs/reference-section/xslt-function-reference/ai/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-docsreference-sectionxslt-function-referenceai"><span class=""></span></a>
+</li>
+  </ul>
 </li>
   </ul>
 </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section with-child" id="m-docssending-data-li">
@@ -1130,9 +1166,9 @@
           <aside class="d-none d-xl-block col-xl-2 td-sidebar-toc d-print-none">
             
 <div class="td-page-meta ml-2 pb-1 pt-2 mb-0">
-<a href="https://github.com/gchq/stroom-docs/tree/7.13/content/en/docs/install-guide/setup/open-id/external-idp/azure-ad.md" class="td-page-meta--view" target="_blank" rel="noopener"><i class="fa-solid fa-file-lines fa-fw"></i> View page source</a>
-  <a href="https://github.com/gchq/stroom-docs/edit/7.13/content/en/docs/install-guide/setup/open-id/external-idp/azure-ad.md" class="td-page-meta--edit" target="_blank" rel="noopener"><i class="fa-solid fa-pen-to-square fa-fw"></i> Edit this page</a>
-  <a href="https://github.com/gchq/stroom-docs/new/7.13/content/en/docs/install-guide/setup/open-id/external-idp/azure-ad.md?filename=change-me.md&amp;value=---%0Atitle%3A&#43;%22Long&#43;Page&#43;Title%22%0AlinkTitle%3A&#43;%22Short&#43;Nav&#43;Title%22%0Aweight%3A&#43;100%0Adescription%3A&#43;%3E-%0A&#43;&#43;&#43;&#43;&#43;Page&#43;description&#43;for&#43;heading&#43;and&#43;indexes.%0A---%0A%0A%23%23&#43;Heading%0A%0AEdit&#43;this&#43;template&#43;to&#43;create&#43;your&#43;new&#43;page.%0A%0A%2A&#43;Give&#43;it&#43;a&#43;good&#43;name%2C&#43;ending&#43;in&#43;%60.md%60&#43;-&#43;e.g.&#43;%60getting-started.md%60%0A%2A&#43;Edit&#43;the&#43;%22front&#43;matter%22&#43;section&#43;at&#43;the&#43;top&#43;of&#43;the&#43;page&#43;%28weight&#43;controls&#43;how&#43;its&#43;ordered&#43;amongst&#43;other&#43;pages&#43;in&#43;the&#43;same&#43;directory%3B&#43;lowest&#43;number&#43;first%29.%0A%2A&#43;Add&#43;a&#43;good&#43;commit&#43;message&#43;at&#43;the&#43;bottom&#43;of&#43;the&#43;page&#43;%28%3C80&#43;characters%3B&#43;use&#43;the&#43;extended&#43;description&#43;field&#43;for&#43;more&#43;detail%29.%0A%2A&#43;Create&#43;a&#43;new&#43;branch&#43;so&#43;you&#43;can&#43;preview&#43;your&#43;new&#43;file&#43;and&#43;request&#43;a&#43;review&#43;via&#43;Pull&#43;Request.%0A" class="td-page-meta--child" target="_blank" rel="noopener"><i class="fa-solid fa-pen-to-square fa-fw"></i> Create child page</a>
+<a href="https://github.com/gchq/stroom-docs/tree/7.14/content/en/docs/install-guide/setup/open-id/external-idp/azure-ad.md" class="td-page-meta--view" target="_blank" rel="noopener"><i class="fa-solid fa-file-lines fa-fw"></i> View page source</a>
+  <a href="https://github.com/gchq/stroom-docs/edit/7.14/content/en/docs/install-guide/setup/open-id/external-idp/azure-ad.md" class="td-page-meta--edit" target="_blank" rel="noopener"><i class="fa-solid fa-pen-to-square fa-fw"></i> Edit this page</a>
+  <a href="https://github.com/gchq/stroom-docs/new/7.14/content/en/docs/install-guide/setup/open-id/external-idp/azure-ad.md?filename=change-me.md&amp;value=---%0Atitle%3A&#43;%22Long&#43;Page&#43;Title%22%0AlinkTitle%3A&#43;%22Short&#43;Nav&#43;Title%22%0Aweight%3A&#43;100%0Adescription%3A&#43;%3E-%0A&#43;&#43;&#43;&#43;&#43;Page&#43;description&#43;for&#43;heading&#43;and&#43;indexes.%0A---%0A%0A%23%23&#43;Heading%0A%0AEdit&#43;this&#43;template&#43;to&#43;create&#43;your&#43;new&#43;page.%0A%0A%2A&#43;Give&#43;it&#43;a&#43;good&#43;name%2C&#43;ending&#43;in&#43;%60.md%60&#43;-&#43;e.g.&#43;%60getting-started.md%60%0A%2A&#43;Edit&#43;the&#43;%22front&#43;matter%22&#43;section&#43;at&#43;the&#43;top&#43;of&#43;the&#43;page&#43;%28weight&#43;controls&#43;how&#43;its&#43;ordered&#43;amongst&#43;other&#43;pages&#43;in&#43;the&#43;same&#43;directory%3B&#43;lowest&#43;number&#43;first%29.%0A%2A&#43;Add&#43;a&#43;good&#43;commit&#43;message&#43;at&#43;the&#43;bottom&#43;of&#43;the&#43;page&#43;%28%3C80&#43;characters%3B&#43;use&#43;the&#43;extended&#43;description&#43;field&#43;for&#43;more&#43;detail%29.%0A%2A&#43;Create&#43;a&#43;new&#43;branch&#43;so&#43;you&#43;can&#43;preview&#43;your&#43;new&#43;file&#43;and&#43;request&#43;a&#43;review&#43;via&#43;Pull&#43;Request.%0A" class="td-page-meta--child" target="_blank" rel="noopener"><i class="fa-solid fa-pen-to-square fa-fw"></i> Create child page</a>
   <a href="https://github.com/gchq/stroom-docs/issues/new?title=Microsoft%20Entra%20ID%20%28Azure%20AD%29" class="td-page-meta--issue" target="_blank" rel="noopener"><i class="fa-solid fa-list-check fa-fw"></i> Create documentation issue</a>
   <a href="https://github.com/gchq/stroom/issues/new" class="td-page-meta--project-issue" target="_blank" rel="noopener"><i class="fa-solid fa-list-check fa-fw"></i> Create project issue</a>
   <a id="print" href="../../../../../../docs/install-guide/setup/open-id/external-idp/_print/"><i class="fa-solid fa-print fa-fw"></i> Print entire section</a>
@@ -1194,7 +1230,7 @@
         
           <li><a class="taxonomy-term" href="../../../../../../tags/administration/" data-taxonomy-term="administration"><span class="taxonomy-label">administration</span><span class="taxonomy-count">1</span></a></li>
         
-          <li><a class="taxonomy-term" href="../../../../../../tags/analytic/" data-taxonomy-term="analytic"><span class="taxonomy-label">analytic</span><span class="taxonomy-count">1</span></a></li>
+          <li><a class="taxonomy-term" href="../../../../../../tags/analytic/" data-taxonomy-term="analytic"><span class="taxonomy-label">analytic</span><span class="taxonomy-count">11</span></a></li>
         
           <li><a class="taxonomy-term" href="../../../../../../tags/api/" data-taxonomy-term="api"><span class="taxonomy-label">api</span><span class="taxonomy-count">9</span></a></li>
         
@@ -1296,11 +1332,13 @@
         
           <li><a class="taxonomy-term" href="../../../../../../tags/proxy/" data-taxonomy-term="proxy"><span class="taxonomy-label">proxy</span><span class="taxonomy-count">6</span></a></li>
         
-          <li><a class="taxonomy-term" href="../../../../../../tags/query/" data-taxonomy-term="query"><span class="taxonomy-label">query</span><span class="taxonomy-count">3</span></a></li>
+          <li><a class="taxonomy-term" href="../../../../../../tags/query/" data-taxonomy-term="query"><span class="taxonomy-label">query</span><span class="taxonomy-count">4</span></a></li>
         
           <li><a class="taxonomy-term" href="../../../../../../tags/raw/" data-taxonomy-term="raw"><span class="taxonomy-label">raw</span><span class="taxonomy-count">1</span></a></li>
         
           <li><a class="taxonomy-term" href="../../../../../../tags/reference-data/" data-taxonomy-term="reference-data"><span class="taxonomy-label">reference-data</span><span class="taxonomy-count">4</span></a></li>
+        
+          <li><a class="taxonomy-term" href="../../../../../../tags/report/" data-taxonomy-term="report"><span class="taxonomy-label">report</span><span class="taxonomy-count">4</span></a></li>
         
           <li><a class="taxonomy-term" href="../../../../../../tags/retention/" data-taxonomy-term="retention"><span class="taxonomy-label">retention</span><span class="taxonomy-count">1</span></a></li>
         
@@ -1338,7 +1376,7 @@
         
           <li><a class="taxonomy-term" href="../../../../../../tags/xml/" data-taxonomy-term="xml"><span class="taxonomy-label">xml</span><span class="taxonomy-count">1</span></a></li>
         
-          <li><a class="taxonomy-term" href="../../../../../../tags/xslt/" data-taxonomy-term="xslt"><span class="taxonomy-label">xslt</span><span class="taxonomy-count">14</span></a></li>
+          <li><a class="taxonomy-term" href="../../../../../../tags/xslt/" data-taxonomy-term="xslt"><span class="taxonomy-label">xslt</span><span class="taxonomy-count">5</span></a></li>
         
       </ul>
     </div>
@@ -1408,36 +1446,46 @@
     <i class="external-link-icon fas fa-external-link-alt fa-sm text-secondary"></i>
   </a>
 </span>
- as Stroom&rsquo;s <span class="glossary-link">
+ as Stroom&rsquo;s <span class="glossary-link link-with-hover-tooltip">
     <a href="../../../../../../docs/glossary/i/glossary-idp">
       <span>Identity Provider (IDP)</span>
       <i class="glossary-link-icon fas fa-book fa-sm text-primary"></i>
-    </a><span class="glossary-tooltip">
-      <span class="glossary-tooltip-title">Identity Provider (IDP)</span>
-      <span class="glossary-tooltip-summary">An <strong>Id</strong>entity <strong>P</strong>rovider is a system or service that can authenticate a user and assert their identity. <em>Identity providers</em> can support single sign on (SSO), which allows the user to sign in once to the <em>Identity Provider</em> so they are then authenticated to all systems using that IDP.</span><span class="glossary-tooltip-truncated">Click to see more details...</span></span></span>.
+    </a><template class="hover-tooltip-content">
+        <span class="hover-tooltip-title">Identity Provider (IDP)</span>
+        <div class="hover-tooltip-summary">An <strong>Id</strong>entity <strong>P</strong>rovider is a system or service that can authenticate a user and assert their identity. <em>Identity providers</em> can support single sign on (SSO), which allows the user to sign in once to the <em>Identity Provider</em> so they are then authenticated to all systems using that IDP.</div><span class="hover-tooltip-more-details">Click to see more details...</span></template></span>.
 Entra ID is the current name for what was Azure Active Directory, and much of the tooling and documentation still says Azure AD.</p>
 
-<div class="alert alert-primary" role="alert">
-<h4 class="alert-heading">See Also</h4>
-<div class="alert-content">
-  
-  <p>Read <a href="../../../../../../docs/install-guide/setup/open-id/external-idp/">External IDP</a> first for what Stroom needs from any provider, and <a href="../../../../../../docs/install-guide/setup/open-id/external-idp/stroom-configuration/">Stroom Configuration</a> for what each setting does.</p>
-
-</div>
-</div>
 
 
 <div class="alert alert-primary" role="alert">
-<h4 class="alert-heading">Note</h4>
+  <h4 class="alert-heading">See Also</h4>
+  <div class="alert-content">
 
 
 
-    <p>This page covers Stroom itself being the OIDC client of Entra ID.
-If an authenticating proxy in front of Stroom does the sign in instead, the proxy is the client and much of this page does not apply - see <a href="../../../../../../docs/install-guide/setup/open-id/edge-proxy/aws-alb/#microsoft-entra-id">AWS Application Load Balancer</a> or <a href="../../../../../../docs/install-guide/setup/open-id/edge-proxy/nginx-oauth2-proxy/#entra-id-instead-of-keycloak">NGINX and oauth2-proxy</a>.</p>
+
+Read <a href="../../../../../../docs/install-guide/setup/open-id/external-idp/">External IDP</a> first for what Stroom needs from any provider, and <a href="../../../../../../docs/install-guide/setup/open-id/external-idp/stroom-configuration/">Stroom Configuration</a> for what each setting does.
 
 
+  </div>
 </div>
 
+
+
+
+<div class="alert alert-primary" role="alert">
+  <h4 class="alert-heading">Note</h4>
+  <div class="alert-content">
+
+
+
+
+This page covers Stroom itself being the OIDC client of Entra ID.
+If an authenticating proxy in front of Stroom does the sign in instead, the proxy is the client and much of this page does not apply - see <a href="../../../../../../docs/install-guide/setup/open-id/edge-proxy/aws-alb/#microsoft-entra-id">AWS Application Load Balancer</a> or <a href="../../../../../../docs/install-guide/setup/open-id/edge-proxy/nginx-oauth2-proxy/#entra-id-instead-of-keycloak">NGINX and oauth2-proxy</a>.
+
+
+  </div>
+</div>
 
 <p>Entra ID has two generations of endpoint, v1.0 and v2.0, which issue tokens with different issuers and different formats.
 Two of the three things most likely to go wrong here come from mixing them up, so it is worth being deliberate: <strong>use the v2.0 endpoints throughout</strong>.</p>
@@ -1459,17 +1507,24 @@ This restricts sign in to your own tenant.</li>
 </ol>
 <p>Where <code>STROOM_FQDN</code> is the public address of Stroom, i.e. what you have set as <code>appConfig.publicUri</code>.</p>
 
-<div class="alert alert-warning" role="alert">
-<h4 class="alert-heading">Warning</h4>
 
-    <p>Entra ID matches redirect URIs exactly and does not accept wildcards.
+
+<div class="alert alert-warning" role="alert">
+  <h4 class="alert-heading">Warning</h4>
+  <div class="alert-content">
+
+
+
+
+<p>Entra ID matches redirect URIs exactly and does not accept wildcards.
 It also requires <code>https</code>, other than for <code>http://localhost</code>.</p>
 <p>Register the single exact URI above.
-Earlier versions of Stroom sent the user&rsquo;s current page as the redirect URI; if you are upgrading, remove whatever was registered for that.</p>
+Earlier versions of Stroom sent the user's current page as the redirect URI; if you are upgrading, remove whatever was registered for that.</p>
 
 
+
+  </div>
 </div>
-
 
 <p>Then, still in the app registration:</p>
 <ol>
@@ -1477,16 +1532,23 @@ Earlier versions of Stroom sent the user&rsquo;s current page as the redirect UR
 <li>Under <em>Certificates &amp; secrets</em> =&gt; <em>Client secrets</em>, create a new secret and copy its <strong>Value</strong> immediately, as it is only shown once.</li>
 </ol>
 
-<div class="alert alert-warning" role="alert">
-<h4 class="alert-heading">Warning</h4>
 
-    <p>Entra ID client secrets <strong>expire</strong>, with a maximum lifetime of 24 months.
+
+<div class="alert alert-warning" role="alert">
+  <h4 class="alert-heading">Warning</h4>
+  <div class="alert-content">
+
+
+
+
+<p>Entra ID client secrets <strong>expire</strong>, with a maximum lifetime of 24 months.
 When the secret expires Stroom will stop being able to exchange authorization codes for tokens and nobody will be able to sign in.</p>
 <p>Record the expiry date and plan the rotation, or use certificate credentials instead.</p>
 
 
-</div>
 
+  </div>
+</div>
 
 <p>Entra ID supports PKCE, and Stroom always sends an <code>S256</code> challenge, so there is nothing to configure for it.</p>
 <h2 id="exposing-an-api-for-access-tokens">Exposing an API for Access Tokens</h2>
@@ -1502,19 +1564,24 @@ Accept the default of <code>api://CLIENT_ID</code>, or set your own.</li>
 <li>Under <em>Manifest</em>, set <code>accessTokenAcceptedVersion</code> to <code>2</code>.</li>
 </ol>
 
+
+
 <div class="alert alert-primary" role="alert">
-<h4 class="alert-heading">Note</h4>
+  <h4 class="alert-heading">Note</h4>
+  <div class="alert-content">
 
 
 
-    <p><code>accessTokenAcceptedVersion</code> defaults to <code>null</code>, which means v1.0.
+
+<p><code>accessTokenAcceptedVersion</code> defaults to <code>null</code>, which means v1.0.
 A v1.0 access token has an issuer of <code>https://sts.windows.net/TENANT_ID/</code>, which does not match the v2.0 issuer that Stroom obtains from the v2.0 discovery document, so such tokens are refused.</p>
 <p>Setting it to <code>2</code> is the clean fix.
 See <a href="#issuers">Issuers</a> if you have a reason to stay on v1.0.</p>
 
 
-</div>
 
+  </div>
+</div>
 
 <p>Callers then request that scope, e.g. <code>api://CLIENT_ID/user_impersonation</code>, and the resulting access token carries an <code>aud</code> claim that Stroom can be configured to accept.</p>
 <h2 id="configuring-stroom">Configuring Stroom</h2>
@@ -1569,46 +1636,64 @@ Their issuer is <code>https://sts.windows.net/TENANT_ID/</code>, which shares no
 </code></pre>
 <p>Stroom then accepts tokens carrying either issuer, so v1.0 and v2.0 tokens can be in use at the same time.</p>
 
-<div class="alert alert-warning" role="alert">
-<h4 class="alert-heading">Warning</h4>
 
-    <p>When <code>validIssuers</code> is set, the issuer advertised by the discovery document must be one of the values in it; the parent path check described above is no longer applied.
+
+<div class="alert alert-warning" role="alert">
+  <h4 class="alert-heading">Warning</h4>
+  <div class="alert-content">
+
+
+
+
+<p>When <code>validIssuers</code> is set, the issuer advertised by the discovery document must be one of the values in it; the parent path check described above is no longer applied.
 Listing only the v1.0 issuer against the v2.0 discovery endpoint will stop Stroom starting with:</p>
-<blockquote>
-<p>Issuer &lsquo;X&rsquo; obtained from configuration endpoint Y does not match those in the &lsquo;issuer&rsquo; or &lsquo;validIssuers&rsquo; properties.</p>
-</blockquote>
+<p>> Issuer 'X' obtained from configuration endpoint Y does not match those in the 'issuer' or 'validIssuers' properties.</p>
 <p>Always include the v2.0 issuer alongside the v1.0 one.
 The values must match exactly, including the <code>/v2.0</code> suffix on one and the trailing <code>/</code> on the other.</p>
 
 
-</div>
 
+  </div>
+</div>
 
 <p>Using the v2.0 endpoints and <code>accessTokenAcceptedVersion: 2</code> is much the better answer, in which case <code>validIssuers</code> can be omitted altogether.</p>
 
+
+
 <div class="alert alert-primary" role="alert">
-<h4 class="alert-heading">Note</h4>
+  <h4 class="alert-heading">Note</h4>
+  <div class="alert-content">
 
 
-    Do not use the <code>common</code> or <code>organizations</code> endpoints in place of a tenant id.
+
+
+Do not use the <code>common</code> or <code>organizations</code> endpoints in place of a tenant id.
 Their discovery documents report an issuer containing a literal <code>{tenantid}</code> placeholder rather than a real value, and they allow sign in from any tenant, which is unlikely to be what you want.
 
-</div>
 
+  </div>
+</div>
 
 <h3 id="audience-validation">Audience Validation</h3>
 <p>An Entra ID <strong>id_token</strong> carries <code>aud</code> set to the Application (client) ID, so interactive sign in validates against <code>clientId</code> with no further configuration.</p>
 <p>An <strong>access token</strong> for your exposed API carries <code>aud</code> set to either the Application ID URI or the client id, depending on <code>accessTokenAcceptedVersion</code> and how the scope was requested.
 Listing both in <code>allowedAudiences</code>, as above, covers either.</p>
 
-<div class="alert alert-warning" role="alert">
-<h4 class="alert-heading">Warning</h4>
 
-    Do not simply set <code>audienceClaimRequired: false</code> to make a rejection go away.
+
+<div class="alert alert-warning" role="alert">
+  <h4 class="alert-heading">Warning</h4>
+  <div class="alert-content">
+
+
+
+
+Do not simply set <code>audienceClaimRequired: false</code> to make a rejection go away.
 Entra ID does populate the audience claim, so an absent one means the token is not the one you think it is, most likely a Microsoft Graph token, and loosening the check hides that rather than fixing it.
 
-</div>
 
+  </div>
+</div>
 
 <p>Leave <code>validateAudience</code> at its default of <code>true</code>.</p>
 <h3 id="claims">Claims</h3>
@@ -1639,16 +1724,23 @@ Setting <code>requestScopes</code> replaces the defaults rather than adding to t
 <code>sub</code> is fine if you are confident the app registration will not be recreated.
 The example above uses <code>oid</code>; remove that line to keep the default of <code>sub</code>.</p>
 
-<div class="alert alert-warning" role="alert">
-<h4 class="alert-heading">Warning</h4>
 
-    <p>Whichever you choose, decide before the first user signs in.
+
+<div class="alert alert-warning" role="alert">
+  <h4 class="alert-heading">Warning</h4>
+  <div class="alert-content">
+
+
+
+
+<p>Whichever you choose, decide before the first user signs in.
 Changing it later means every existing Stroom user is orphaned, and their permissions and group memberships have to be reapplied to the new identities.</p>
 <p>Do not use <code>preferred_username</code>, <code>email</code> or <code>upn</code>; all can be reassigned to a different person, who would then inherit the Stroom user.</p>
 
 
-</div>
 
+  </div>
+</div>
 
 <h3 id="group-and-role-claims">Group and Role Claims</h3>
 <p>Entra ID can be configured to emit <code>groups</code> and <code>roles</code> claims.
@@ -1689,13 +1781,19 @@ java -jar /absolute/path/to/stroom-app-all.jar \
 <p>The command is repeatable and will skip anything that already exists, so running it against a user who has already signed in is fine.
 Restart Stroom afterwards if it was running, as permissions are cached.</p>
 
-<div class="alert alert-primary" role="alert">
-<h4 class="alert-heading">See Also</h4>
-<div class="alert-content">
-  
-  <p>See <a href="../../../../../../docs/install-guide/setup/open-id/external-idp/keycloak/#setting-up-the-admin-user-in-stroom">KeyCloak</a> for a fuller description of what this command does, and <a href="../../../../../../docs/user-guide/tools/command-line/">Command Line Tools</a> for its options.</p>
 
-</div>
+
+<div class="alert alert-primary" role="alert">
+  <h4 class="alert-heading">See Also</h4>
+  <div class="alert-content">
+
+
+
+
+See <a href="../../../../../../docs/install-guide/setup/open-id/external-idp/keycloak/#setting-up-the-admin-user-in-stroom">KeyCloak</a> for a fuller description of what this command does, and <a href="../../../../../../docs/user-guide/tools/command-line/">Command Line Tools</a> for its options.
+
+
+  </div>
 </div>
 
 <h2 id="stroom-proxy-with-entra-id">Stroom-Proxy with Entra ID</h2>
@@ -1720,15 +1818,21 @@ Restart Stroom afterwards if it was running, as permissions are cached.</p>
           - &quot;api://CLIENT_ID/.default&quot;
 </code></pre>
 
+
+
 <div class="alert alert-primary" role="alert">
-<h4 class="alert-heading">Note</h4>
+  <h4 class="alert-heading">Note</h4>
+  <div class="alert-content">
 
 
-    Stroom&rsquo;s default for <code>clientCredentialsScopes</code> is <code>openid</code>, and its configuration description suggests setting <code>openid</code> alongside the <code>.default</code> scope.
-Entra ID&rsquo;s v2.0 client credentials flow generally accepts a <code>.default</code> scope on its own and rejects it being combined with others, so start with just the <code>.default</code> scope as above and add <code>openid</code> only if your tenant requires it.
 
+
+Stroom's default for <code>clientCredentialsScopes</code> is <code>openid</code>, and its configuration description suggests setting <code>openid</code> alongside the <code>.default</code> scope.
+Entra ID's v2.0 client credentials flow generally accepts a <code>.default</code> scope on its own and rejects it being combined with others, so start with just the <code>.default</code> scope as above and add <code>openid</code> only if your tenant requires it.
+
+
+  </div>
 </div>
-
 
 <p>The destination the proxy forwards to must accept the audience these tokens carry, which will be the Application ID URI or client id of the Stroom app registration, so make sure it appears in that destination&rsquo;s <code>allowedAudiences</code>.</p>
 <h2 id="obtaining-a-token-to-send-data">Obtaining a Token to Send Data</h2>
@@ -1822,13 +1926,19 @@ The usual causes are a wrong or expired client secret, a <code>scope</code> that
 
 <p>Tokens are short lived, typically around an hour, so a sender must request a fresh token when <code>expires_in</code> has elapsed or a request is refused with a <code>401</code>, rather than caching one indefinitely.</p>
 
-<div class="alert alert-primary" role="alert">
-<h4 class="alert-heading">See Also</h4>
-<div class="alert-content">
-  
-  <p>See <a href="../../../../../../docs/sending-data/example-clients/curl-linux/">curl (Linux)</a> for more on sending data with curl.</p>
 
-</div>
+
+<div class="alert alert-primary" role="alert">
+  <h4 class="alert-heading">See Also</h4>
+  <div class="alert-content">
+
+
+
+
+See <a href="../../../../../../docs/sending-data/example-clients/curl-linux/">curl (Linux)</a> for more on sending data with curl.
+
+
+  </div>
 </div>
 
 <h3 id="checking-the-token">Checking the Token</h3>
@@ -1868,7 +1978,7 @@ For a client credentials token that is the <code>oid</code> of the sender&rsquo;
 	
 	
 	<div class="text-muted mt-5 pt-3 border-top">
-  Last modified September 29, 2026: <a href="https://github.com/gchq/stroom-docs/commit/ed17883fe4686fcbcd4cd7e1f4d4b58232057e4e">Update DFK structure in data-feed-identities.md (ed17883)</a>
+  Last modified October 20, 2026: <a href="https://github.com/gchq/stroom-docs/commit/2c6fb22c274a19e603e2cd1c2d8b1ed30de7db2d">Merge pull request #144 from gchq/add-7.14-rel-notes (2c6fb22)</a>
 </div>
 
 </div>
@@ -1926,6 +2036,11 @@ For a client credentials token that is the <code>oid</code> of the sender&rsquo;
 
     <script src='../../../../../../js/lunr.min.js'></script>
   
+
+
+  <script src="../../../../../../js/hover-tooltip.js" defer></script>
+
+
 
 
 <script src='../../../../../../js/tabpane-persist.js'></script>

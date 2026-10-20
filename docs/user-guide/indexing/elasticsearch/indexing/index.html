@@ -45,12 +45,12 @@
 <meta property="og:type" content="article" />
 <meta property="og:url" content="/docs/user-guide/indexing/elasticsearch/indexing/" /><meta property="article:section" content="docs" />
 <meta property="article:published_time" content="2022-12-15T00:00:00+00:00" />
-<meta property="article:modified_time" content="2026-09-29T11:29:45+01:00" /><meta property="og:site_name" content="Stroom" />
+<meta property="article:modified_time" content="2026-10-20T17:37:14+01:00" /><meta property="og:site_name" content="Stroom" />
 
 <meta itemprop="name" content="Indexing data">
 <meta itemprop="description" content="Indexing event data to Elasticsearch
 "><meta itemprop="datePublished" content="2022-12-15T00:00:00+00:00" />
-<meta itemprop="dateModified" content="2026-09-29T11:29:45+01:00" />
+<meta itemprop="dateModified" content="2026-10-20T17:37:14+01:00" />
 <meta itemprop="wordCount" content="2441">
 <meta itemprop="keywords" content="elastic,indexing," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Indexing data"/>
@@ -60,8 +60,8 @@
 
 
 
-<link rel="preload" href="../../../../../scss/main.min.396476946a9b6e781a9b8d417186b5e7ca15aa5c2d8a2821b87b82f11629222e.css" as="style">
-<link href="../../../../../scss/main.min.396476946a9b6e781a9b8d417186b5e7ca15aa5c2d8a2821b87b82f11629222e.css" rel="stylesheet" integrity="">
+<link rel="preload" href="../../../../../scss/main.min.e88dbdcc11536c32758367027850973cba7b125793b45a9a421989bcdc0ce239.css" as="style">
+<link href="../../../../../scss/main.min.e88dbdcc11536c32758367027850973cba7b125793b45a9a421989bcdc0ce239.css" rel="stylesheet" integrity="">
 
 
 <script src='../../../../../js/jquery-3.6.0.min.js'></script>
@@ -76,9 +76,9 @@
 
 <link rel="stylesheet" href="../../../../../css/stroom-ui/material_design_colors.min.ab1318fe69a1013ff756090954c02c5364ff48d150dcc94468a73d2e3efd3fc0.css" integrity="sha256-qxMY/mmhAT/3VgkJVMAsU2T/SNFQ3MlEaKc9Lj79P8A=">
 
-<link rel="stylesheet" href="../../../../../css/stroom-ui/theme-root.min.bebaa7a01087d1ece8e812db2a1a91349b15556d04f84eea180c6d23491738c4.css" integrity="sha256-vrqnoBCH0ezo6BLbKhqRNJsVVW0E&#43;E7qGAxtI0kXOMQ=">
+<link rel="stylesheet" href="../../../../../css/stroom-ui/theme-root.min.e4f410f95b5e1796bfe81465105eecf7ad66a8b0a4c15da0147e1c641b821e17.css" integrity="sha256-5PQQ&#43;VteF5a/6BRlEF7s961mqLCkwV2gFH4cZBuCHhc=">
 
-<link rel="stylesheet" href="../../../../../css/stroom-ui/theme-dark.min.bc08bf14d505124d1eb4316e6df1348b0985e517e3cc0f5a590a03a968cc8c65.css" integrity="sha256-vAi/FNUFEk0etDFubfE0iwmF5RfjzA9aWQoDqWjMjGU=">
+<link rel="stylesheet" href="../../../../../css/stroom-ui/theme-dark.min.9754c7f8f115669862cd3465c6d7938e668838a638e0712d65af7520041f9678.css" integrity="sha256-l1TH&#43;PEVZphizTRlxteTjmaIOKY44HEtZa91IAQflng=">
 
 
 
@@ -107,13 +107,15 @@
       </li>
       <li class="nav-item dropdown mr-4 d-none d-lg-block">
         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-	Stroom Version (7.13)
+	Stroom Version (7.14)
 </a>
 <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
 	
 	
 	
-	<a class="dropdown-item" href="../../../../../">7.13 (Latest)</a>
+	<a class="dropdown-item" href="../../../../../">7.14 (Latest)</a>
+	
+	<a class="dropdown-item" href="../../../../../7.13">7.13</a>
 	
 	<a class="dropdown-item" href="../../../../../7.12">7.12</a>
 	
@@ -155,7 +157,7 @@
     aria-label="Search this site…"
     autocomplete="off"
     
-    data-offline-search-index-json-src="../../../../../offline-search-index.9e83be62e9f553a95e11868d6695cd7f.json"
+    data-offline-search-index-json-src="../../../../../offline-search-index.cfd63d01b0ef498d3946ddaeed6323c3.json"
     data-offline-search-base-href="../../../../../"
     data-offline-search-max-results="50"
   >
@@ -180,7 +182,7 @@
     aria-label="Search this site…"
     autocomplete="off"
     
-    data-offline-search-index-json-src="../../../../../offline-search-index.9e83be62e9f553a95e11868d6695cd7f.json"
+    data-offline-search-index-json-src="../../../../../offline-search-index.cfd63d01b0ef498d3946ddaeed6323c3.json"
     data-offline-search-base-href="../../../../../"
     data-offline-search-max-results="50"
   >
@@ -266,6 +268,8 @@
   <a href="../../../../../docs/install-guide/setup/processing-user-setup/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-docsinstall-guidesetupprocessing-user-setup"><span class="">Processing Users</span></a>
 </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-docsinstall-guidesetupcreate-first-admin-li">
   <a href="../../../../../docs/install-guide/setup/create-first-admin/" title="Creating the First Administrator" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-docsinstall-guidesetupcreate-first-admin"><span class="">First Administrator</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-docsinstall-guidesetupemail-setup-li">
+  <a href="../../../../../docs/install-guide/setup/email-setup/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-docsinstall-guidesetupemail-setup"><span class="">Email Setup</span></a>
 </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section with-child collapse" id="m-docsinstall-guidesetupopen-id-li">
   <a href="../../../../../docs/install-guide/setup/open-id/" title="Setting up Stroom with an Open ID Connect IDP" class="align-left pl-0 td-sidebar-link td-sidebar-link__section" id="m-docsinstall-guidesetupopen-id"><span class="">Open ID Connect</span></a>
   <ul class="ul-4 foldable">
@@ -582,29 +586,8 @@
   <ul class="ul-4 foldable">
     <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-docsuser-guidepipelinesxsltxslt-basics-li">
   <a href="../../../../../docs/user-guide/pipelines/xslt/xslt-basics/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-docsuser-guidepipelinesxsltxslt-basics"><span class="">XSLT Basics</span></a>
-</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section with-child collapse" id="m-docsuser-guidepipelinesxsltxslt-functions-li">
-  <a href="../../../../../docs/user-guide/pipelines/xslt/xslt-functions/" class="align-left pl-0 td-sidebar-link td-sidebar-link__section" id="m-docsuser-guidepipelinesxsltxslt-functions"><span class="">XSLT Functions</span></a>
-  <ul class="ul-5 foldable">
-    <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-docsuser-guidepipelinesxsltxslt-functionsdate-and-time-li">
-  <a href="../../../../../docs/user-guide/pipelines/xslt/xslt-functions/date-and-time/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-docsuser-guidepipelinesxsltxslt-functionsdate-and-time"><span class="">Date &amp; Time</span></a>
-</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-docsuser-guidepipelinesxsltxslt-functionsstream-and-source-li">
-  <a href="../../../../../docs/user-guide/pipelines/xslt/xslt-functions/stream-and-source/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-docsuser-guidepipelinesxsltxslt-functionsstream-and-source"><span class="">Stream &amp; Source</span></a>
-</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-docsuser-guidepipelinesxsltxslt-functionsreference-data-li">
-  <a href="../../../../../docs/user-guide/pipelines/xslt/xslt-functions/reference-data/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-docsuser-guidepipelinesxsltxslt-functionsreference-data"><span class="">Reference Data</span></a>
-</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-docsuser-guidepipelinesxsltxslt-functionsnetworking-and-uri-li">
-  <a href="../../../../../docs/user-guide/pipelines/xslt/xslt-functions/networking-and-uri/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-docsuser-guidepipelinesxsltxslt-functionsnetworking-and-uri"><span class="">Networking &amp; URI</span></a>
-</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-docsuser-guidepipelinesxsltxslt-functionsstring-and-encoding-li">
-  <a href="../../../../../docs/user-guide/pipelines/xslt/xslt-functions/string-and-encoding/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-docsuser-guidepipelinesxsltxslt-functionsstring-and-encoding"><span class="">String &amp; Encoding</span></a>
-</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-docsuser-guidepipelinesxsltxslt-functionshttp-and-json-li">
-  <a href="../../../../../docs/user-guide/pipelines/xslt/xslt-functions/http-and-json/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-docsuser-guidepipelinesxsltxslt-functionshttp-and-json"><span class="">HTTP &amp; JSON</span></a>
-</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-docsuser-guidepipelinesxsltxslt-functionsoutput-and-logging-li">
-  <a href="../../../../../docs/user-guide/pipelines/xslt/xslt-functions/output-and-logging/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-docsuser-guidepipelinesxsltxslt-functionsoutput-and-logging"><span class="">Output &amp; Logging</span></a>
-</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-docsuser-guidepipelinesxsltxslt-functionsvalues-and-context-li">
-  <a href="../../../../../docs/user-guide/pipelines/xslt/xslt-functions/values-and-context/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-docsuser-guidepipelinesxsltxslt-functionsvalues-and-context"><span class="">Values &amp; Context</span></a>
-</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-docsuser-guidepipelinesxsltxslt-functionsmaths-and-vectors-li">
-  <a href="../../../../../docs/user-guide/pipelines/xslt/xslt-functions/maths-and-vectors/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-docsuser-guidepipelinesxsltxslt-functionsmaths-and-vectors"><span class="">Maths &amp; Vectors</span></a>
-</li>
-  </ul>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-docsuser-guidepipelinesxsltxslt-functions-li">
+  <a href="../../../../../docs/user-guide/pipelines/xslt/xslt-functions/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-docsuser-guidepipelinesxsltxslt-functions"><span class="">XSLT Functions</span></a>
 </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-docsuser-guidepipelinesxsltxslt-includes-li">
   <a href="../../../../../docs/user-guide/pipelines/xslt/xslt-includes/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-docsuser-guidepipelinesxsltxslt-includes"><span class="">XSLT Includes</span></a>
 </li>
@@ -653,8 +636,36 @@
   <a href="../../../../../docs/user-guide/search/queries/stroom-query-language/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-docsuser-guidesearchqueriesstroom-query-language"><span class="">Stroom Query Language</span></a>
 </li>
   </ul>
-</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-docsuser-guidesearchanalytics-li">
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section with-child collapse" id="m-docsuser-guidesearchanalytics-li">
   <a href="../../../../../docs/user-guide/search/analytics/" class="align-left pl-0 td-sidebar-link td-sidebar-link__section" id="m-docsuser-guidesearchanalytics"><span class="">Analytic Rules</span></a>
+  <ul class="ul-4 foldable">
+    <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-docsuser-guidesearchanalyticsquery-li">
+  <a href="../../../../../docs/user-guide/search/analytics/query/" title="Rule Queries" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-docsuser-guidesearchanalyticsquery"><span class="">Query</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-docsuser-guidesearchanalyticssettings-li">
+  <a href="../../../../../docs/user-guide/search/analytics/settings/" title="Rule Settings" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-docsuser-guidesearchanalyticssettings"><span class="">Settings</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-docsuser-guidesearchanalyticsexecution-li">
+  <a href="../../../../../docs/user-guide/search/analytics/execution/" title="Rule Execution" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-docsuser-guidesearchanalyticsexecution"><span class="">Execution</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-docsuser-guidesearchanalyticsnotifications-li">
+  <a href="../../../../../docs/user-guide/search/analytics/notifications/" title="Rule Notifications" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-docsuser-guidesearchanalyticsnotifications"><span class="">Notifications</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-docsuser-guidesearchanalyticsdetections-li">
+  <a href="../../../../../docs/user-guide/search/analytics/detections/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-docsuser-guidesearchanalyticsdetections"><span class="">Detections</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-docsuser-guidesearchanalyticsduplicate-management-li">
+  <a href="../../../../../docs/user-guide/search/analytics/duplicate-management/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-docsuser-guidesearchanalyticsduplicate-management"><span class="">Duplicate Management</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-docsuser-guidesearchanalyticsstreaming-li">
+  <a href="../../../../../docs/user-guide/search/analytics/streaming/" title="Streaming Rules" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-docsuser-guidesearchanalyticsstreaming"><span class="">Streaming</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-docsuser-guidesearchanalyticstable-builder-li">
+  <a href="../../../../../docs/user-guide/search/analytics/table-builder/" title="Table Builder Rules" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-docsuser-guidesearchanalyticstable-builder"><span class="">Table Builder</span></a>
+</li>
+  </ul>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section with-child collapse" id="m-docsuser-guidesearchreports-li">
+  <a href="../../../../../docs/user-guide/search/reports/" class="align-left pl-0 td-sidebar-link td-sidebar-link__section" id="m-docsuser-guidesearchreports"><span class="">Reports</span></a>
+  <ul class="ul-4 foldable">
+    <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-docsuser-guidesearchreportssettings-li">
+  <a href="../../../../../docs/user-guide/search/reports/settings/" title="Report Settings" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-docsuser-guidesearchreportssettings"><span class="">Settings</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-docsuser-guidesearchreportsdelivery-li">
+  <a href="../../../../../docs/user-guide/search/reports/delivery/" title="Report Delivery" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-docsuser-guidesearchreportsdelivery"><span class="">Delivery</span></a>
+</li>
+  </ul>
 </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-docsuser-guidesearchsearch-extraction-li">
   <a href="../../../../../docs/user-guide/search/search-extraction/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-docsuser-guidesearchsearch-extraction"><span class="">Search Extraction</span></a>
 </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-docsuser-guidesearchdictionaries-li">
@@ -743,7 +754,9 @@
 </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section with-child collapse" id="m-docsreference-sectionexpressions-li">
   <a href="../../../../../docs/reference-section/expressions/" class="align-left pl-0 td-sidebar-link td-sidebar-link__section" id="m-docsreference-sectionexpressions"><span class="">Expression functions</span></a>
   <ul class="ul-3 foldable">
-    <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-docsreference-sectionexpressionslookup-li">
+    <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-docsreference-sectionexpressionsai-li">
+  <a href="../../../../../docs/reference-section/expressions/ai/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-docsreference-sectionexpressionsai"><span class="">AI Functions</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-docsreference-sectionexpressionslookup-li">
   <a href="../../../../../docs/reference-section/expressions/lookup/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-docsreference-sectionexpressionslookup"><span class="">Lookup Functions</span></a>
 </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-docsreference-sectionexpressionsparam-li">
   <a href="../../../../../docs/reference-section/expressions/param/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-docsreference-sectionexpressionsparam"><span class="">Param Functions</span></a>
@@ -779,6 +792,29 @@
   <a href="../../../../../docs/reference-section/keyboard-shortcuts/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-docsreference-sectionkeyboard-shortcuts"><span class="">Keyboard Shortcuts</span></a>
 </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-docsreference-sectionpipeline-elements-li">
   <a href="../../../../../docs/reference-section/pipeline-elements/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-docsreference-sectionpipeline-elements"><span class="">Pipeline Elements</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section with-child collapse" id="m-docsreference-sectionxslt-function-reference-li">
+  <a href="../../../../../docs/reference-section/xslt-function-reference/" class="align-left pl-0 td-sidebar-link td-sidebar-link__section" id="m-docsreference-sectionxslt-function-reference"><span class="">XSLT Functions</span></a>
+  <ul class="ul-3 foldable">
+    <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-docsreference-sectionxslt-function-referenceconversion-li">
+  <a href="../../../../../docs/reference-section/xslt-function-reference/conversion/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-docsreference-sectionxslt-function-referenceconversion"><span class="">Conversion Functions</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-docsreference-sectionxslt-function-referencedate-li">
+  <a href="../../../../../docs/reference-section/xslt-function-reference/date/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-docsreference-sectionxslt-function-referencedate"><span class="">Date/Time Functions</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-docsreference-sectionxslt-function-referencenetwork-li">
+  <a href="../../../../../docs/reference-section/xslt-function-reference/network/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-docsreference-sectionxslt-function-referencenetwork"><span class="">Network Functions</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-docsreference-sectionxslt-function-referenceother-li">
+  <a href="../../../../../docs/reference-section/xslt-function-reference/other/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-docsreference-sectionxslt-function-referenceother"><span class="">Other Functions</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-docsreference-sectionxslt-function-referencepipeline-li">
+  <a href="../../../../../docs/reference-section/xslt-function-reference/pipeline/" title="Stroom Pipeline Functions" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-docsreference-sectionxslt-function-referencepipeline"><span class="">Pipeline Functions</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-docsreference-sectionxslt-function-referencestring-li">
+  <a href="../../../../../docs/reference-section/xslt-function-reference/string/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-docsreference-sectionxslt-function-referencestring"><span class="">String Functions</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-docsreference-sectionxslt-function-referenceuri-li">
+  <a href="../../../../../docs/reference-section/xslt-function-reference/uri/" title="URI/URL Functions" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-docsreference-sectionxslt-function-referenceuri"><span class="">URI Functions</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-docsreference-sectionxslt-function-referencevalue-li">
+  <a href="../../../../../docs/reference-section/xslt-function-reference/value/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-docsreference-sectionxslt-function-referencevalue"><span class="">Value Functions</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-docsreference-sectionxslt-function-referenceai-li">
+  <a href="../../../../../docs/reference-section/xslt-function-reference/ai/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-docsreference-sectionxslt-function-referenceai"><span class=""></span></a>
+</li>
+  </ul>
 </li>
   </ul>
 </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section with-child" id="m-docssending-data-li">
@@ -1130,9 +1166,9 @@
           <aside class="d-none d-xl-block col-xl-2 td-sidebar-toc d-print-none">
             
 <div class="td-page-meta ml-2 pb-1 pt-2 mb-0">
-<a href="https://github.com/gchq/stroom-docs/tree/7.13/content/en/docs/user-guide/indexing/elasticsearch/indexing.md" class="td-page-meta--view" target="_blank" rel="noopener"><i class="fa-solid fa-file-lines fa-fw"></i> View page source</a>
-  <a href="https://github.com/gchq/stroom-docs/edit/7.13/content/en/docs/user-guide/indexing/elasticsearch/indexing.md" class="td-page-meta--edit" target="_blank" rel="noopener"><i class="fa-solid fa-pen-to-square fa-fw"></i> Edit this page</a>
-  <a href="https://github.com/gchq/stroom-docs/new/7.13/content/en/docs/user-guide/indexing/elasticsearch/indexing.md?filename=change-me.md&amp;value=---%0Atitle%3A&#43;%22Long&#43;Page&#43;Title%22%0AlinkTitle%3A&#43;%22Short&#43;Nav&#43;Title%22%0Aweight%3A&#43;100%0Adescription%3A&#43;%3E-%0A&#43;&#43;&#43;&#43;&#43;Page&#43;description&#43;for&#43;heading&#43;and&#43;indexes.%0A---%0A%0A%23%23&#43;Heading%0A%0AEdit&#43;this&#43;template&#43;to&#43;create&#43;your&#43;new&#43;page.%0A%0A%2A&#43;Give&#43;it&#43;a&#43;good&#43;name%2C&#43;ending&#43;in&#43;%60.md%60&#43;-&#43;e.g.&#43;%60getting-started.md%60%0A%2A&#43;Edit&#43;the&#43;%22front&#43;matter%22&#43;section&#43;at&#43;the&#43;top&#43;of&#43;the&#43;page&#43;%28weight&#43;controls&#43;how&#43;its&#43;ordered&#43;amongst&#43;other&#43;pages&#43;in&#43;the&#43;same&#43;directory%3B&#43;lowest&#43;number&#43;first%29.%0A%2A&#43;Add&#43;a&#43;good&#43;commit&#43;message&#43;at&#43;the&#43;bottom&#43;of&#43;the&#43;page&#43;%28%3C80&#43;characters%3B&#43;use&#43;the&#43;extended&#43;description&#43;field&#43;for&#43;more&#43;detail%29.%0A%2A&#43;Create&#43;a&#43;new&#43;branch&#43;so&#43;you&#43;can&#43;preview&#43;your&#43;new&#43;file&#43;and&#43;request&#43;a&#43;review&#43;via&#43;Pull&#43;Request.%0A" class="td-page-meta--child" target="_blank" rel="noopener"><i class="fa-solid fa-pen-to-square fa-fw"></i> Create child page</a>
+<a href="https://github.com/gchq/stroom-docs/tree/7.14/content/en/docs/user-guide/indexing/elasticsearch/indexing.md" class="td-page-meta--view" target="_blank" rel="noopener"><i class="fa-solid fa-file-lines fa-fw"></i> View page source</a>
+  <a href="https://github.com/gchq/stroom-docs/edit/7.14/content/en/docs/user-guide/indexing/elasticsearch/indexing.md" class="td-page-meta--edit" target="_blank" rel="noopener"><i class="fa-solid fa-pen-to-square fa-fw"></i> Edit this page</a>
+  <a href="https://github.com/gchq/stroom-docs/new/7.14/content/en/docs/user-guide/indexing/elasticsearch/indexing.md?filename=change-me.md&amp;value=---%0Atitle%3A&#43;%22Long&#43;Page&#43;Title%22%0AlinkTitle%3A&#43;%22Short&#43;Nav&#43;Title%22%0Aweight%3A&#43;100%0Adescription%3A&#43;%3E-%0A&#43;&#43;&#43;&#43;&#43;Page&#43;description&#43;for&#43;heading&#43;and&#43;indexes.%0A---%0A%0A%23%23&#43;Heading%0A%0AEdit&#43;this&#43;template&#43;to&#43;create&#43;your&#43;new&#43;page.%0A%0A%2A&#43;Give&#43;it&#43;a&#43;good&#43;name%2C&#43;ending&#43;in&#43;%60.md%60&#43;-&#43;e.g.&#43;%60getting-started.md%60%0A%2A&#43;Edit&#43;the&#43;%22front&#43;matter%22&#43;section&#43;at&#43;the&#43;top&#43;of&#43;the&#43;page&#43;%28weight&#43;controls&#43;how&#43;its&#43;ordered&#43;amongst&#43;other&#43;pages&#43;in&#43;the&#43;same&#43;directory%3B&#43;lowest&#43;number&#43;first%29.%0A%2A&#43;Add&#43;a&#43;good&#43;commit&#43;message&#43;at&#43;the&#43;bottom&#43;of&#43;the&#43;page&#43;%28%3C80&#43;characters%3B&#43;use&#43;the&#43;extended&#43;description&#43;field&#43;for&#43;more&#43;detail%29.%0A%2A&#43;Create&#43;a&#43;new&#43;branch&#43;so&#43;you&#43;can&#43;preview&#43;your&#43;new&#43;file&#43;and&#43;request&#43;a&#43;review&#43;via&#43;Pull&#43;Request.%0A" class="td-page-meta--child" target="_blank" rel="noopener"><i class="fa-solid fa-pen-to-square fa-fw"></i> Create child page</a>
   <a href="https://github.com/gchq/stroom-docs/issues/new?title=Indexing%20data" class="td-page-meta--issue" target="_blank" rel="noopener"><i class="fa-solid fa-list-check fa-fw"></i> Create documentation issue</a>
   <a href="https://github.com/gchq/stroom/issues/new" class="td-page-meta--project-issue" target="_blank" rel="noopener"><i class="fa-solid fa-list-check fa-fw"></i> Create project issue</a>
   <a id="print" href="../../../../../docs/user-guide/indexing/elasticsearch/_print/"><i class="fa-solid fa-print fa-fw"></i> Print entire section</a>
@@ -1212,7 +1248,7 @@
         
           <li><a class="taxonomy-term" href="../../../../../tags/administration/" data-taxonomy-term="administration"><span class="taxonomy-label">administration</span><span class="taxonomy-count">1</span></a></li>
         
-          <li><a class="taxonomy-term" href="../../../../../tags/analytic/" data-taxonomy-term="analytic"><span class="taxonomy-label">analytic</span><span class="taxonomy-count">1</span></a></li>
+          <li><a class="taxonomy-term" href="../../../../../tags/analytic/" data-taxonomy-term="analytic"><span class="taxonomy-label">analytic</span><span class="taxonomy-count">11</span></a></li>
         
           <li><a class="taxonomy-term" href="../../../../../tags/api/" data-taxonomy-term="api"><span class="taxonomy-label">api</span><span class="taxonomy-count">9</span></a></li>
         
@@ -1314,11 +1350,13 @@
         
           <li><a class="taxonomy-term" href="../../../../../tags/proxy/" data-taxonomy-term="proxy"><span class="taxonomy-label">proxy</span><span class="taxonomy-count">6</span></a></li>
         
-          <li><a class="taxonomy-term" href="../../../../../tags/query/" data-taxonomy-term="query"><span class="taxonomy-label">query</span><span class="taxonomy-count">3</span></a></li>
+          <li><a class="taxonomy-term" href="../../../../../tags/query/" data-taxonomy-term="query"><span class="taxonomy-label">query</span><span class="taxonomy-count">4</span></a></li>
         
           <li><a class="taxonomy-term" href="../../../../../tags/raw/" data-taxonomy-term="raw"><span class="taxonomy-label">raw</span><span class="taxonomy-count">1</span></a></li>
         
           <li><a class="taxonomy-term" href="../../../../../tags/reference-data/" data-taxonomy-term="reference-data"><span class="taxonomy-label">reference-data</span><span class="taxonomy-count">4</span></a></li>
+        
+          <li><a class="taxonomy-term" href="../../../../../tags/report/" data-taxonomy-term="report"><span class="taxonomy-label">report</span><span class="taxonomy-count">4</span></a></li>
         
           <li><a class="taxonomy-term" href="../../../../../tags/retention/" data-taxonomy-term="retention"><span class="taxonomy-label">retention</span><span class="taxonomy-count">1</span></a></li>
         
@@ -1356,7 +1394,7 @@
         
           <li><a class="taxonomy-term" href="../../../../../tags/xml/" data-taxonomy-term="xml"><span class="taxonomy-label">xml</span><span class="taxonomy-count">1</span></a></li>
         
-          <li><a class="taxonomy-term" href="../../../../../tags/xslt/" data-taxonomy-term="xslt"><span class="taxonomy-label">xslt</span><span class="taxonomy-count">14</span></a></li>
+          <li><a class="taxonomy-term" href="../../../../../tags/xslt/" data-taxonomy-term="xslt"><span class="taxonomy-label">xslt</span><span class="taxonomy-count">5</span></a></li>
         
       </ul>
     </div>
@@ -1449,14 +1487,20 @@
 &lt;/map&gt;
 </code></pre>
 
+
+
 <div class="alert alert-primary" role="alert">
-<h4 class="alert-heading">Note</h4>
+  <h4 class="alert-heading">Note</h4>
+  <div class="alert-content">
 
 
-    It is recommended to insert a schema validation filter into your pipeline XML (with schema group <code>JSON</code>), to make it easier to diagnose JSON conversion errors.
 
+
+It is recommended to insert a schema validation filter into your pipeline XML (with schema group <code>JSON</code>), to make it easier to diagnose JSON conversion errors.
+
+
+  </div>
 </div>
-
 
 <p>We will now explore how to create an Elasticsearch <em>index template</em>, which specifies field mappings and settings for one or more indices.</p>
 <h2 id="create-an-elasticsearch-index-template">Create an Elasticsearch Index Template</h2>
@@ -1470,15 +1514,21 @@
 <p>When Elasticsearch first receives a document from Stroom targeting an index, whose name matches any of the <code>index_patterns</code> entries in the index template, it will create a new index / data stream using the <code>settings</code> and <code>mappings</code> properties from the template.
 In this way, the index does <em>not</em> need to be manually created in advance.</p>
 
+
+
 <div class="alert alert-primary" role="alert">
-<h4 class="alert-heading">Note</h4>
+  <h4 class="alert-heading">Note</h4>
+  <div class="alert-content">
 
 
-    If an index doesn&rsquo;t match a template when it is created, data will still be indexed - with default mappings and settings.
+
+
+If an index doesn't match a template when it is created, data will still be indexed - with default mappings and settings.
 This may be appropriate for small indices, but with a default shard count of <code>5</code>, the indexing and search performance will likely be inadequate for large indices.
 
-</div>
 
+  </div>
+</div>
 
 <p>The following example creates a basic index template <code>stroom-events-v1</code> in a local Elasticsearch cluster, with the following explicit field mappings:</p>
 <ol>
@@ -1504,12 +1554,15 @@ Nested field <code>wildcard</code> <span class="external-link">
 .</li>
 </ol>
 
+
+
 <div class="alert alert-primary" role="alert">
-<h4 class="alert-heading">Note</h4>
+  <h4 class="alert-heading">Note</h4>
+  <div class="alert-content">
 
 
 
-    <p>Elasticsearch does not have a dedicated <code>array</code> field mapping data type.
+Elasticsearch does not have a dedicated <code>array</code> field mapping data type.
 An Elasticsearch field may contain zero or more values by default.
 See: <span class="external-link">
 <a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/array.html" target="_blank" class="external-link" title="Arrays (external link to https://www.elastic.co/guide/en/elasticsearch/reference/current/array.html)">
@@ -1517,11 +1570,11 @@ See: <span class="external-link">
 <i class="external-link-icon fas fa-external-link-alt fa-sm text-secondary"></i>
 </a>
 </span>
-in the Elastic documentation.</p>
+in the Elastic documentation.
 
 
+  </div>
 </div>
-
 
 <p>In Kibana Dev Tools, execute the following query:</p>
 <p><code>PUT _index_template/stroom-events-v1</code></p>
@@ -2377,6 +2430,7 @@ It typically consists of the following pipeline elements:</p>
 
 
 
+
   <div class="stroom-theme-dark stroom-menu">
     
     
@@ -2477,6 +2531,7 @@ It typically consists of the following pipeline elements:</p>
     <span class="face" title="Explorer"><svg xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns="http://www.w3.org/2000/svg" height="1792" width="1792" version="1.1" xmlns:cc="http://creativecommons.org/ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" viewBox="0 0 1792 1792"><g fill="var(--icon-colour__blue)"><path d="m804.29 276.08v287.08q0 37.516-26.913 64.429t-64.429 26.913h-495.86q-37.516 0-64.429-26.913-26.91-26.92-26.91-64.43v-391.47q0-37.516 26.913-64.429t64.429-26.913h130.49q37.516 0 64.429 26.913t26.913 64.429v13.049h274.03q37.516 0 64.429 26.913t26.913 64.429z"/><path d="m1653.2 1336.4v287.08q0 37.516-26.913 64.429t-64.429 26.913h-495.86q-37.516 0-64.429-26.913t-26.913-64.429v-391.47q0-37.516 26.913-64.429t64.429-26.913h130.49q37.516 0 64.429 26.913t26.913 64.429v13.049h274.03q37.516 0 64.429 26.914 26.913 26.913 26.913 64.429z"/><path d="m1653.2 654.02v287.08q0 37.516-26.913 64.429t-64.429 26.913h-495.86q-37.516 0-64.429-26.913t-26.913-64.429v-391.47q0-37.516 26.913-64.429t64.429-26.913h130.49q37.516 0 64.429 26.913t26.913 64.429v13.049h274.03q37.516 0 64.429 26.913t26.913 64.429z"/></g><path stroke-linejoin="round" d="m600.75 492.64v949.1h381.89" stroke="var(--icon-colour__blue)" stroke-width="71.125" fill="none"/><path d="m597.94 807.14h539.13" fill-rule="evenodd" stroke="var(--icon-colour__blue)" stroke-width="71.125"/></svg> </span>
   </span>.</li>
 <li>
+
 
 
 
@@ -2595,23 +2650,26 @@ There are cases however, where indices may contain significant volumes of data s
 As Elasticsearch data stream indices roll over based on the current time (not event time), it is helpful to be able to partition data streams by user-defined properties such as year.
 This use case is met by Stroom&rsquo;s dynamic index naming.</p>
 
+
+
 <div class="alert alert-primary" role="alert">
-<h4 class="alert-heading">Note</h4>
+  <h4 class="alert-heading">Note</h4>
+  <div class="alert-content">
 
 
 
-    <p>An Elasticsearch <span class="external-link">
+An Elasticsearch <span class="external-link">
 <a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/data-streams.html" target="_blank" class="external-link" title="data stream (external link to https://www.elastic.co/guide/en/elasticsearch/reference/current/data-streams.html)">
 <span>data stream</span>
 <i class="external-link-icon fas fa-external-link-alt fa-sm text-secondary"></i>
 </a>
 </span>
 consists of one or more backing indices, which automatically roll over once a size or date threshold are met.
-This abstraction assists with the lifecycle management of time-series log data, enabling users to define time and sized-based rules that can for instance, delete indices after they reach a certain age - or move older indices to different data tiers (e.g. cold storage).</p>
+This abstraction assists with the lifecycle management of time-series log data, enabling users to define time and sized-based rules that can for instance, delete indices after they reach a certain age - or move older indices to different data tiers (e.g. cold storage).
 
 
+  </div>
 </div>
-
 
 <h4 id="single-named-index-or-data-stream">Single Named Index or Data Stream</h4>
 <p>This is the simplest use case and is suitable where you want to write all data for a particular pipeline, to a single data stream or index.
@@ -2625,15 +2683,21 @@ Data streams, amongst many other features, provide the option to use Elasticsear
 </span>
  to manage their lifecycle.</p>
 
+
+
 <div class="alert alert-primary" role="alert">
-<h4 class="alert-heading">Note</h4>
+  <h4 class="alert-heading">Note</h4>
+  <div class="alert-content">
 
 
-    When indexing to a data stream, ensure to include a <code>string</code> field named <code>@timestamp</code> in the output JSON XML.
-This is mandatory and indexing will fail if this field isn&rsquo;t a valid <code>date</code> value.
 
+
+When indexing to a data stream, ensure to include a <code>string</code> field named <code>@timestamp</code> in the output JSON XML.
+This is mandatory and indexing will fail if this field isn't a valid <code>date</code> value.
+
+
+  </div>
 </div>
-
 
 <h4 id="dynamic-data-stream-names">Dynamic Data Stream Names</h4>
 <p>With a dynamic stream name, <code>indexName</code> contains the names of elements, for example: <code>stroom-events-v1-{year}</code>.
@@ -2655,24 +2719,37 @@ For example, if the JSON XML representation of an event consists of the followin
 <p>This is due to the value of <code>/map/number[@key='year']</code> being <code>2022</code>.
 This approach can be useful when you need to apply different ILM policies, such as maintaining older data on slower storage tiers.</p>
 
-<div class="alert alert-warning" role="alert">
-<h4 class="alert-heading">Warning</h4>
 
-    Any element names defined in <code>indexName</code> <em>must</em> exist in the JSON XML (unless it is an empty document).
+
+<div class="alert alert-warning" role="alert">
+  <h4 class="alert-heading">Warning</h4>
+  <div class="alert-content">
+
+
+
+
+Any element names defined in <code>indexName</code> <em>must</em> exist in the JSON XML (unless it is an empty document).
 If a blank value is desired, output an empty <code>string</code> element.
 
+
+  </div>
 </div>
+
 
 
 
 <div class="alert alert-primary" role="alert">
-<h4 class="alert-heading">Note</h4>
+  <h4 class="alert-heading">Note</h4>
+  <div class="alert-content">
 
 
-    If an element name begins with <code>_</code> (underscore), its value is <em>only</em> used for <code>indexName</code> interpolation, and it is <strong>not</strong> included in the final JSON.
 
+
+If an element name begins with <code>_</code> (underscore), its value is <em>only</em> used for <code>indexName</code> interpolation, and it is <strong>not</strong> included in the final JSON.
+
+
+  </div>
 </div>
-
 
 <h5 id="other-applications-for-dynamic-data-stream-names">Other Applications for Dynamic Data Stream Names</h5>
 <p>Dynamic data stream names can also help in other scenarios, such as implementing fine-grained retention policies, such as deleting documents that aren&rsquo;t user-attributed after 12 months.
@@ -2868,19 +2945,23 @@ Stroom will distribute processing tasks to enabled nodes and send documents to E
 <p>If any errors occur while a stream is being indexed, an <code>Error</code> stream is created, containing details of each failure.
 <code>Error</code> streams can be found under the <code>Data</code> tab of either the indexing pipeline or receiving <code>Feed</code>.</p>
 
+
+
 <div class="alert alert-primary" role="alert">
-<h4 class="alert-heading">Note</h4>
+  <h4 class="alert-heading">Note</h4>
+  <div class="alert-content">
 
 
 
-    <p>You can filter the selected pipeline or feed to list only <code>Error</code> streams.
+
+You can filter the selected pipeline or feed to list only <code>Error</code> streams.
 Click <span class="stroom-icon inline-svg-button icon-button  " >
 <span class="face" title="Filter"><svg xmlns="http://www.w3.org/2000/svg" width="1792" height="1792" viewBox="0 0 1792 1792"><path style="fill:currentColor" d="M1595 295q17 41-14 70l-493 493v742q0 42-39 59-13 5-25 5-27 0-45-19l-256-256q-19-19-19-45v-486l-493-493q-31-29-14-70 17-39 59-39h1280q42 0 59 39z"/></svg></span>
-</span> then add a condition <code>Type</code> <code>=</code> <code>Error</code>.</p>
+</span> then add a condition <code>Type</code> <code>=</code> <code>Error</code>.
 
 
+  </div>
 </div>
-
 
 <p>Once you have addressed the underlying cause for a particular type of error (such as an incorrect field mapping), reprocess affected streams:</p>
 <ol>
@@ -2973,23 +3054,30 @@ Users will now be searching against the new index.</li>
 </ol>
 <p>If you created a data view in Kibana, you&rsquo;ll also want to update this to point to the new index / data stream.</p>
 
+
+
 <div class="alert alert-primary" role="alert">
-<h4 class="alert-heading">See Also</h4>
-<div class="alert-content">
-  
-  <ol>
+  <h4 class="alert-heading">See Also</h4>
+  <div class="alert-content">
+
+
+
+
+<ol>
 <li><a href="../../../../../docs/user-guide/search/data-sources/elastic-data-source/">Searching an Elasticsearch index in a Dashboard</a></li>
 <li><a href="../../../../../docs/user-guide/indexing/elasticsearch/kibana/">Exploring data with Kibana</a></li>
 </ol>
 
-</div>
+
+
+  </div>
 </div>
 
 
 	
 	
 	<div class="text-muted mt-5 pt-3 border-top">
-  Last modified September 29, 2026: <a href="https://github.com/gchq/stroom-docs/commit/ed17883fe4686fcbcd4cd7e1f4d4b58232057e4e">Update DFK structure in data-feed-identities.md (ed17883)</a>
+  Last modified October 20, 2026: <a href="https://github.com/gchq/stroom-docs/commit/2c6fb22c274a19e603e2cd1c2d8b1ed30de7db2d">Merge pull request #144 from gchq/add-7.14-rel-notes (2c6fb22)</a>
 </div>
 
 </div>
@@ -3047,6 +3135,11 @@ Users will now be searching against the new index.</li>
 
     <script src='../../../../../js/lunr.min.js'></script>
   
+
+
+  <script src="../../../../../js/hover-tooltip.js" defer></script>
+
+
 
 
 <script src='../../../../../js/tabpane-persist.js'></script>
