@@ -9,7 +9,7 @@ description: >
 
 ---
 
-The `stroom-java-client` provides an example Java client that can:
+The {{< external-link "DataFeedClient" "https://github.com/gchq/stroom-clients/blob/master/java/src/main/java/stroom/clients/DataFeedClient.java" >}} provides an example Java client that can:
 
 * Read a zip, gzip or uncompressed an input file.
 * Perform a HTTP post of data with zip, gzip or uncompressed compression.
