@@ -107,4 +107,4 @@ Upgrading or removing a `DatabaseServer` requires the `StroomCluster` be [remove
 
 ## Next Steps
 
-[Configure](configure-stroom-cluster.md) a Stroom cluster
+[Configure]({{< relref "configure-stroom-cluster" >}}) a Stroom cluster
