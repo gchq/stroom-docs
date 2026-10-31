@@ -103,8 +103,8 @@ Tool | What it does | Changes
 `save_xslt` | Saves an XSLT written by hand, or an indexing XSLT from its plan, in the build. | Build only
 `save_text_converter` | Saves a text converter in the build. | Build only
 `save_dictionary` | Saves a Dictionary in the build. | Build only
-`record_source_notes` | Keeps the user's vendor or event documentation, and notes condensed from it, as Documentation documents in the build. | Build only
-`write_documentation` | Creates or updates the Documentation document for a pipeline in the build, or for an existing index. | Build only
+`record_source_notes` | Keeps the user's vendor or event documentation, and notes condensed from it, as {{< stroom-doc "Documentation" >}} documents in the build. | Build only
+`write_documentation` | Creates or updates the {{< stroom-doc "Documentation" >}} document for a pipeline in the build, or for an existing index. | Build only
 `draft_cef_mapping` | Drafts a mapping of the source's Events to CEF (ArcSight Common Event Format) output. | Build only (some calls)
 `review_coverage` | Whole-feed coverage of an events pipeline: the kinds of event the sample missed, from the records its translation couldn't match. | No
 `list_visualisations` | The charting libraries installed, the kinds of chart each draws, and the Visualisations in Stroom. | No
@@ -152,6 +152,7 @@ Tool | What it does | Changes
 `step_records` | Steps chosen records of existing streams, where they are. | No
 `compare_outputs` | Steps the same records through the current pipeline and a candidate, and compares each record's output field by field. | No
 `summarise_fix` | Proves a fix by stepping the streams with it, and packages it for the user with the code's diff. | No
+`evaluate_pipeline` | Gathers the facts for an evaluation of a pipeline, the same sections every time for its kind: its errors, a stepping verdict, and the checks for an events, indexing, CEF or reference data pipeline. | No
 `create_processor_filter` | Creates a processor filter, for Stroom to process streams through a pipeline. | Yes, confirms
 `set_processor_filter_enabled` | Disables a processor filter on a pipeline the build created (the user enables filters themselves). | Build only
 `reprocess_streams` | Processes streams again through a pipeline under development, after a change. | Yes, confirms

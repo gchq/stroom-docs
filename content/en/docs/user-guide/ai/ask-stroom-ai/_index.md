@@ -19,7 +19,7 @@ An administrator has to set up a model before the chat can be used: see [Setting
 ## Asking a Question
 
 Open the chat with the {{< stroom-icon "ai.svg" "Ask Stroom AI" >}} _Ask Stroom AI_ button in the main toolbar, or from a table's or chart's {{< stroom-icon "ai.svg" "Ask Stroom AI" >}} _Ask Stroom AI_ button to ask about its rows.
-Type a question in the box at the bottom and press Enter.
+Type a question in the box at the bottom and press {{< key-bind "enter" >}}.
 
 The answer streams in as the model writes it.
 Everything the model does to answer is shown in the conversation, in the order it happens: its reasoning (if the model gives it), what it writes to you along the way, each tool it calls (with the result, which you can expand), and its answer.

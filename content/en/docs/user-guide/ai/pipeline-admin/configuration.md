@@ -18,8 +18,19 @@ These settings, all under `stroom.ai`, fit them to your environment.
 ## The Build Folder
 
 `builds.workspaceFolder` (default `MCP Workspace`) is the folder below `System` in which each build gets a folder of its own.
+
+{{< stroom-tree "System" >}}
+  {{< stroom-tree "MCP Workspace" "The build workspace folder" >}}
+    {{< stroom-tree "acme" "A build's folder" />}}
+    {{< stroom-tree "firewall" "Another build's folder" />}}
+  {{< /stroom-tree >}}
+{{< /stroom-tree >}}
+
 Users who onboard sources need permission to create folders in it.
+
+{{< warning >}}
 Renaming the setting leaves builds already in the old folder behind: rename the folder in the explorer tree to match.
+{{< /warning >}}
 
 
 ## Pipeline Stages and Templates
@@ -34,7 +45,7 @@ Stage | What it does
 `discovery` | Raw structured data straight to an index, with no Events.
 `reference` | A Raw Reference feed to the reference data maps that {{< xslt-func-link "lookup" >}} reads.
 `records` | A source to a Records stream.
-`forwarding` | Events sent on, e.g. as CEF.
+`forwarding` | Events sent on, e.g. as CEF to Kafka, or as CEF written to a file. A pipeline writing text is taken as CEF output when its XSLT, or an XSLT it imports, writes CEF lines.
 
 Each stage has:
 
@@ -100,8 +111,21 @@ Samples on a user's machine are uploaded through Stroom's MCP endpoint, which ne
 
 ## Standing Instructions (AGENTS Documents)
 
-Give the agent your environment's own rules in {{< stroom-icon "document/Documentation.svg" >}} Documentation documents named `AGENTS`, the equivalent of an `AGENTS.md` file.
+Give the agent your environment's own rules in {{< stroom-doc "Documentation" >}} documents named `AGENTS`, the equivalent of an `AGENTS.md` file.
 An `AGENTS` document in a folder applies to everything in that folder and below it, e.g. `/Feeds/AGENTS` for every feed.
+
+{{< stroom-tree "System" >}}
+  {{< stroom-tree-doc "Documentation" "AGENTS" "Applies to everything" >}}
+  {{< stroom-tree "Feeds" >}}
+    {{< stroom-tree-doc "Documentation" "AGENTS" "Applies to every feed" >}}
+    {{< stroom-tree "ACME" >}}
+      {{< stroom-tree-doc "Documentation" "AGENTS" "Applies only to the ACME feeds" >}}
+      {{< stroom-tree-doc "Feed" "ACME-FIREWALL-EVENTS" >}}
+    {{< /stroom-tree >}}
+  {{< /stroom-tree >}}
+{{< /stroom-tree >}}
+
+Working on the `ACME-FIREWALL-EVENTS` feed, the agent reads all three, starting with the one in `System`.
 The agent reads those that apply to the folders, feeds and documents it works on, most general first, as the user (so only those they can view), e.g.:
 
 * How XSLT is written, and how fields are mapped

@@ -41,6 +41,12 @@ The work is done in a _build_: a folder of its own, under the build workspace fo
 The tools change only the documents they made in a build, and refuse to write anywhere else.
 When the build is finished and checked, _promotion_ moves its documents to their final folders.
 
+{{< stroom-tree "System" >}}
+  {{< stroom-tree "MCP Workspace" "The build workspace folder" >}}
+    {{< stroom-tree "acme" "The build for the ACME firewall logs" />}}
+  {{< /stroom-tree >}}
+{{< /stroom-tree >}}
+
 Ask for it in plain words, e.g. _"Onboard the ACME firewall logs, samples are in stream 123"_, or attach a feed or folder and choose the onboarding question the chat offers.
 The agent then works through the plan with you, which you can follow in its task list:
 

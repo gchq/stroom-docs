@@ -42,7 +42,7 @@ The agent proposes changes rather than making them where it can: a change to a q
 * _"Explain what this XSLT does to a 4625 event."_
 * _"Which reference data loaders write the maps this translation looks up?"_
 * _"Show me this document's history: who changed it and when?"_
-* _"Write documentation for this pipeline"_ (proposed as a change to its Documentation tab)
+* _"Write documentation for this pipeline"_ (proposed as a change to its Documentation tab, or, with the build tools, written as a full Documentation document with its field mapping: see [Documenting an existing pipeline]({{< relref "../pipeline-admin/editing-pipelines#documenting-an-existing-pipeline" >}}))
 
 
 ## Feeds and Data Sources
@@ -65,6 +65,7 @@ The agent proposes changes rather than making them where it can: a change to a q
   * _"Fix the time stamp so it is in UTC"_ (proposed as a change to the XSLT, tried by stepping first, with _Review and apply_)
 * _"Step the records of stream 4567 through the new version, and compare the output with the current one."_
 * _"Translate the new event type in this feed; it isn't covered yet."_
+* _"Evaluate the ACME-EVENTS pipeline and tell me what to improve"_ (see [Evaluating a pipeline]({{< relref "../pipeline-admin/editing-pipelines#evaluating-a-pipeline" >}}))
 
 
 ## Streams and Processing

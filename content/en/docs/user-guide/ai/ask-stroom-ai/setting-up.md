@@ -40,7 +40,11 @@ You can have several models, e.g. a large one for the chat and a small, fast one
    _Maximum tools per request_ | The most tool definitions sent to the model in one request, for a server that limits them; `0` for no limit.
 
 1. Optionally, _Set Http Client Config_ sets how Stroom connects to the server: timeouts, TLS, a proxy, and **Headers** sent with every request (e.g. `anthropic-version` for Anthropic's OpenAI-compatible endpoint).
+
+   {{< warning >}}
    Don't put secrets in headers: the API key belongs in the credential.
+   {{< /warning >}}
+
 1. {{< stroom-icon "ok.svg" "Test Model" >}} _Test Model_ connects to the server with the settings as they are in the form, and checks that it serves the _Model ID_: it must be listed by the server's `/models`, or found when asked for by its id (`/models/<id>`), as gateways that route by pattern answer.
    Found, the test shows that model's entry; not found, it says so, and its detail lists the models the server does serve.
    Testing needs Edit permission on the model document, as only someone who could save the settings may make Stroom connect with them.

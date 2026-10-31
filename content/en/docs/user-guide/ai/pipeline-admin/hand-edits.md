@@ -45,6 +45,13 @@ All the changes of one build are one row, shown as _Unreleased_ until promotion 
 An edit you make in Stroom's editor becomes a _by hand_ row when the agent next changes the XSLT, found because the XSLT no longer has the digest of the code the agent last saved; its date and author are those of the XSLT's last save in Stroom, and several saves in Stroom between two of the agent's changes are one row.
 The digest leaves out only the XML declaration and the space between tags, so a comment you add makes a _by hand_ row too, though it isn't an edit the agent has to keep.
 
+{{< warning >}}
+Don't edit or delete what the agent keeps on a generated XSLT's Documentation tab: the version history, and the hidden content below the note asking you to leave it be.
+The hidden content holds the mapping the XSLT was generated from and the build's pending changes.
+Without it the agent treats the XSLT as having no mapping, so it can no longer change it from the mapping, rebuild its Field mapping documentation or spot your hand edits.
+Change the XSLT through the agent, or edit its code, instead.
+{{< /warning >}}
+
 
 ## What Happens on the Agent's Next Change
 

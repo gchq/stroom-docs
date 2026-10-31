@@ -94,6 +94,10 @@ Command | Does
 `/remember <fact>` | Adds a fact to your memory, which every chat loads.
 `/clear` | Clears the chat's messages, attachments, workspace files and the chat's own memory, after asking (it can't be undone). The chat, its mode and its tool approvals are kept, as is your own memory.
 
+{{< warning >}}
+`/clear` can't be undone.
+{{< /warning >}}
+
 To send a message that starts with `/`, start it with `//`.
 
 

@@ -33,15 +33,31 @@ This page is for whoever reviews and promotes builds: what the agent can and can
 * **Its documents**, in subfolders by role (Events or Records, Indexing, CEF, Reference), with its feeds, notes and records at the top.
 * **Tags**: everything the agent made carries the tags `mcp-generated` and `mcp-managed`, and an XSLT generated from a field mapping also `mcp-kept-mapping`.
   Promotion removes `mcp-managed`, so `mcp-generated` still finds everything the agent made after it is in production.
-* **The build record**: a Documentation document named `Build record`, which holds what the build knows about its documents between calls: which are working copies of production documents, which code has stepped clean, been verified or validated, and which feeds' samples are files on your machine.
+* **The build record**: a {{< stroom-doc "Documentation" >}} document named `Build record`, which holds what the build knows about its documents between calls: which are working copies of production documents, which code has stepped clean, been verified or validated, and which feeds' samples are files on your machine.
+
+For example, a build onboarding the ACME firewall logs to an index:
+
+{{< stroom-tree "System" >}}
+  {{< stroom-tree "MCP Workspace" >}}
+    {{< stroom-tree "acme" "The build folder" >}}
+      {{< stroom-tree "Events" "The translation pipeline and its code" />}}
+      {{< stroom-tree "Indexing" "The indexing pipeline and the index" />}}
+      {{< stroom-tree-doc "Feed" "ACME-FIREWALL-EVENTS" "The build's feed" >}}
+      {{< stroom-tree-doc "Documentation" "Build record" "What the build knows about its documents" >}}
+    {{< /stroom-tree >}}
+  {{< /stroom-tree >}}
+{{< /stroom-tree >}}
 
 A document's build is the folder it is in.
+{{< warning >}}
 Don't move or rename anything in a build folder, or edit the build record: the build loses track of it.
+{{< /warning >}}
 
-**A feed already holding data.**
+{{< note >}}
 A build that works from a feed's existing streams processes them where they are, writing its Events to a test feed of its own (`<FEED>-MCP-TEST`, or the next free name), so production Events aren't touched.
 The test feed stays in the workspace at promotion, and the promoted pipeline writes to the feed as before.
 Error streams are written into the input's feed, so they appear in the production feed beside its raw streams.
+{{< /note >}}
 
 
 ## Reviewing a Build

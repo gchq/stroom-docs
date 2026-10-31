@@ -93,6 +93,7 @@ When a client connects, Stroom tells it how its tools work (instructions sent wi
 
 * **Tools**: Those your tool policies grant you.
   If an administrator changes a policy while you are connected, the client is told (if its session is on the node the change was saved on; otherwise the change shows the next time it lists its tools), and lists the tools again.
+* **Progress**: Long calls (surveys, index checks, stepping, waiting for processing) report what they are doing as they go, to a client that asks for progress, and stop if the client cancels them.
 * **Resources**: The working guides (`stroom://guide/<name>`, with an index at `stroom://guides`) and the field convention profiles (`stroom://conventions/<name>`) the tools refer to.
 
 

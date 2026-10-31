@@ -104,7 +104,7 @@ Charts follow your theme and your date and time preferences.
 ## Filtering by a Chart
 
 Clicking an item on a chart (a slice, bar, point, link or node) selects it; clicking it again, or empty space, clears the selection.
-Ctrl-click (or Shift-click) selects several items.
+Clicking with {{< key-bind "ctrl" >}} (or {{< key-bind "shift" >}}) held selects several items.
 While something is selected, the chart shows a _Selected: …_ bar with a button that clears it.
 
 A selection filter makes other parts of the dashboard follow the selection.

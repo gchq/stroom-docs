@@ -95,7 +95,7 @@ To allow one tool rather than all of them, choose to allow it for the rest of th
 
 ## Asking, Stopping and Steering
 
-* **Asking**: Type in the box and press Enter (Shift+Enter for a new line), or click {{< stroom-icon "play.svg" "Send message" >}} _Run_.
+* **Asking**: Type in the box and press {{< key-bind "enter" >}} ({{< key-bind "shift+enter" >}} for a new line), or click {{< stroom-icon "play.svg" "Send message" >}} _Run_.
   Type `/` to list the [commands]({{< relref "using-the-chat#commands" >}}).
 * **Following the work**: Everything the agent does is shown as it happens: its reasoning, what it writes along the way, each tool call (click one to see its arguments and result), and its answer.
   A _Working…_ line at the bottom says what it is doing now.
@@ -155,8 +155,8 @@ Click its heading to fold it away.
 {{< stroom-icon "explore.svg" "Chat history navigation" >}} _Chat history navigation_ shows the chat as a flowchart of what you did (your questions, messages, answers and approvals), joined by lines saying which tools the agent called in between and how long it took.
 Click a step to go to it in the conversation.
 
-* {{< stroom-icon "search.svg" "Search the chat history" >}} Searches the steps; Enter goes to the next match and Shift+Enter the one before.
-* {{< stroom-icon "zoom-in.svg" "Zoom in" >}}, {{< stroom-icon "zoom-out.svg" "Zoom out" >}} (or Ctrl and the mouse wheel) and {{< stroom-icon "fit-width.svg" "Fit to the panel's width" >}} zoom it.
+* {{< stroom-icon "search.svg" "Search the chat history" >}} Searches the steps; {{< key-bind "enter" >}} goes to the next match and {{< key-bind "shift+enter" >}} the one before.
+* {{< stroom-icon "zoom-in.svg" "Zoom in" >}}, {{< stroom-icon "zoom-out.svg" "Zoom out" >}} (or {{< key-bind "ctrl" >}} and the mouse wheel) and {{< stroom-icon "fit-width.svg" "Fit to the panel's width" >}} zoom it.
 
 
 ## The More Menu
