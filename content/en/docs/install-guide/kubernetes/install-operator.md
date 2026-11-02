@@ -20,7 +20,7 @@ description: >
 
 Stage the following images in a locally-accessible container registry:
 
-1. All images listed in: {{< external-link "https://github.com/p-kimberley/stroom-k8s-operator/blob/master/deploy/images.txt" >}}
+1. All images listed in: {{< external-link "https://github.com/gchq/stroom-k8s-operator/blob/master/deploy/images.txt" >}}
 1. MySQL (e.g. `mysql/mysql-server:8.0.25`)
 1. Stroom (e.g. `gchq/stroom:v7-LATEST`)
 1. `gchq/stroom-log-sender:v2.2.0` (only required if log forwarding is enabled)
@@ -31,7 +31,7 @@ Stage the following images in a locally-accessible container registry:
 1. Clone the repository
 
    {{< command-line "user" "localhost" >}}
-   git clone https://github.com/p-kimberley/stroom-k8s-operator.git
+   git clone https://github.com/gchq/stroom-k8s-operator.git
    {{</ command-line >}}
 
 1. Edit `./deploy/all-in-one.yaml`, prefixing any referenced images with your private registry URL.

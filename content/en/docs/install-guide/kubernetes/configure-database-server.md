@@ -24,9 +24,9 @@ This is the recommended option, as the Operator will take care of the creation a
 
 ### Create a `DatabaseServer` Resource Manifest
 
-Use the example at {{< external-link "database-server.yaml" "https://github.com/p-kimberley/stroom-k8s-operator/blob/master/samples/database-server.yaml" >}}.
+Use the example at {{< external-link "database-server.yaml" "https://github.com/gchq/stroom-k8s-operator/blob/master/samples/database-server.yaml" >}}.
 
-See the `DatabaseServer` Custom Resource Definition (CRD) {{< external-link "API documentation" "https://doc.crds.dev/github.com/p-kimberley/stroom-k8s-operator/stroom.gchq.github.io/DatabaseServer/v1" >}} for an explanation of the various CRD fields.
+See the `DatabaseServer` Custom Resource Definition (CRD) {{< external-link "API documentation" "https://doc.crds.dev/github.com/gchq/stroom-k8s-operator/stroom.gchq.github.io/DatabaseServer/v1" >}} for an explanation of the various CRD fields.
 
 By default, MySQL imposes a limit of 151 concurrent connections.
 If your Stroom cluster is larger than a few nodes, it is likely you will exceed this limit.

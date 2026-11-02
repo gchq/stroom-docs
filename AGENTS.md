@@ -69,6 +69,14 @@ You will need docker available to run some of these commands.
 
 * No hard line breaks.
 
+* When naming a Stroom XSLT function, link to its reference documentation with the `xslt-func-link` short code instead of writing it as code, e.g. `{{< xslt-func-link "lookup" >}}` rather than `` `stroom:lookup()` ``.
+  The short code renders the name as `stroom:lookup()`, so pass the bare function name.
+  It only works for functions with a definition file in `assets/data/xslt-function-reference/`.
+
+* When showing where folders or documents sit in the Explorer tree (e.g. `System/MCP Workspace`), render the tree with the `stroom-tree` and `stroom-tree-doc` short codes rather than describing the path in text.
+  See the [Explorer Tree](https://gchq.github.io/stroom-docs/community/documentation/style-guide/using-images/#explorer-tree) section of the style guide for usage.
+  Trees are block content, so keep inline paths in tables and short list items as text.
+
 
 ## Contributing
 

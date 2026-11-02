@@ -46,6 +46,7 @@ The following is the list of different application permissions that can be grant
 | **Manage DB** | Access the _Monitoring_ -> _Database Tables_ screen to view the state of the tables in the database. |
 | **Manage Index Shards** | Access the _Shards_ sub-tab on an Index {{< stroom-icon "document/Index.svg" >}} document. |
 | **Manage Jobs** | Access the _Jobs_ screen to manage Stroom's background jobs. |
+| **Manage MCP Tool Policies** | Access the _MCP Tool Policies_ screen to view and manage which of Stroom's AI tools users and groups may use, over MCP and in Ask Stroom AI. |
 | **Manage Nodes** | Access the _Nodes_ screen to view the nodes the cluster and manage their priority and enabled states. |
 | **Manage Policies** | Access the _Data Retention_ screen to manage data retention rules. |
 | **Manage Processors** | Access the _Processors_ tab and manage the processors/filters used to process stream data through pipelines. |
@@ -54,4 +55,5 @@ The following is the list of different application permissions that can be grant
 | **Manage Users** | Access the screens to manage users, groups, document/application permissions. Also gives the user the ability to manage API keys for other users. |
 | **Manage Volumes** | Access the _Data Volumes_ and _Index Volumes_ screens to create/edit/delete the index/data volumes used for Lucene indexing and the stream store. |
 | **Pipeline Stepping** | Step data through a pipeline using the Stepper. |
+| **Use MCP Tools** | Connect an MCP client (e.g. VS Code or Claude) to Stroom's `/mcp` endpoint and call, as the user, the tools their MCP tool policies allow. |
 | **View System Information** | Use the System Information API. This is used by the administrators for viewing some of the internal working of Stroom to aid in debugging issues. |

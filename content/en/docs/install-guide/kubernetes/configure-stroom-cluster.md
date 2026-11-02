@@ -55,12 +55,12 @@ See [this guide]({{< relref "configure-stroomtaskautoscaler" >}}) on how to conf
 
 ### Create a `StroomCluster` Resource Manifest
 
-Use the example {{< external-link "stroom-cluster.yaml" "https://github.com/p-kimberley/stroom-k8s-operator/blob/master/samples/stroom-cluster.yaml" >}}.
+Use the example {{< external-link "stroom-cluster.yaml" "https://github.com/gchq/stroom-k8s-operator/blob/master/samples/stroom-cluster.yaml" >}}.
 
 If you chose to create an Operator-managed `DatabaseServer`, the `StroomCluster.spec.databaseServerRef` should point to the name of the `DatabaseServer`.
 
 {{< see-also >}}
-See the `StroomCluster` Custom Resource Definition (CRD) {{< external-link "API documentation" "https://doc.crds.dev/github.com/p-kimberley/stroom-k8s-operator/stroom.gchq.github.io/StroomCluster/v1" >}} for an explanation of the various CRD fields
+See the `StroomCluster` Custom Resource Definition (CRD) {{< external-link "API documentation" "https://doc.crds.dev/github.com/gchq/stroom-k8s-operator/stroom.gchq.github.io/StroomCluster/v1" >}} for an explanation of the various CRD fields
 {{< /see-also >}}
 
 

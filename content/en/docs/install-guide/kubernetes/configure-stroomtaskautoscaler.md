@@ -30,10 +30,10 @@ When a `StroomTaskAutoscaler` resource is deployed to a linked `StroomCluster`, 
 
 ### Create an `StroomTaskAutoscaler` Resource Manifest
 
-Use the example {{< external-link "autoscaler.yaml" "https://github.com/p-kimberley/stroom-k8s-operator/blob/master/samples/autoscaler.yaml" >}}.
+Use the example {{< external-link "autoscaler.yaml" "https://github.com/gchq/stroom-k8s-operator/blob/master/samples/autoscaler.yaml" >}}.
 
 Below is an explanation of some of the main parameters.
-The rest are documented {{< external-link "here" "https://doc.crds.dev/github.com/p-kimberley/stroom-k8s-operator/stroom.gchq.github.io/StroomTaskAutoscaler/v1" >}}.
+The rest are documented {{< external-link "here" "https://doc.crds.dev/github.com/gchq/stroom-k8s-operator/stroom.gchq.github.io/StroomTaskAutoscaler/v1" >}}.
 
 * `adjustmentIntervalMins` Determines how often the Operator will check whether a node has exceeded its CPU parameters.
    It should be often enough to catch brief load spikes, but not too often as to overload the Operator and Kubernetes cluster through excessive API calls and other overhead.

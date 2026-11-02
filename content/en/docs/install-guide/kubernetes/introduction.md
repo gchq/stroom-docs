@@ -16,7 +16,7 @@ As such, it is ideally suited to a Kubernetes deployment, especially when operat
 Features standard to Kubernetes, like {{< external-link "Ingress" "https://kubernetes.io/docs/concepts/services-networking/ingress/" >}} and {{< external-link "Cluster Networking" "https://kubernetes.io/docs/concepts/cluster-administration/networking/" >}}, simplify the installation and ongoing operation of Stroom.
 
 Running applications in K8s can be challenging for applications not designed to operate in a K8s cluster natively.
-A purpose-built Kubernetes Operator ({{< external-link "stroom-k8s-operator" "https://github.com/p-kimberley/stroom-k8s-operator" >}}) has been developed to make deployment easier, while taking advantage of several key Kubernetes features to further automate Stroom cluster management.
+A purpose-built Kubernetes Operator ({{< external-link "stroom-k8s-operator" "https://github.com/gchq/stroom-k8s-operator" >}}) has been developed to make deployment easier, while taking advantage of several key Kubernetes features to further automate Stroom cluster management.
 
 The concept of Kubernetes operators is discussed {{< external-link "here" "https://kubernetes.io/docs/concepts/extend-kubernetes/operator/" >}}.
 

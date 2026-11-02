@@ -54,6 +54,12 @@ This job checks user accounts on the system and de-activates them under the foll
 * An account that has been inactive for longer than the age configured by `stroom.security.identity.passwordPolicy.unusedAccountDeactivationThreshold`.
 
 
+## AI Chat Retention
+
+Removes Ask Stroom AI data no longer than it should be kept: workspace files older than `stroom.ai.workspaceFileRetention`, chats not updated for `stroom.ai.chatRetention`, and the chats and memory of deleted users.
+Runs hourly.
+
+
 ## Analytic Executor: Scheduled Query
 
 Run scheduled index query analytics periodically
@@ -213,3 +219,9 @@ How frequently Solr index segments are explicitly optimised by merging them into
 
 How frequently a process is run to delete items from the Solr indexes that don't meet the retention rule of that index.
 
+
+## MCP Session Maintenance
+
+Ends the MCP sessions on the node that have been idle for `stroom.ai.mcpEndpoint.sessionRetention`, and those whose clients have gone, deleting their workspaces.
+Runs every minute on each node.
+It is not managed, so it isn't shown on the Jobs screen.
