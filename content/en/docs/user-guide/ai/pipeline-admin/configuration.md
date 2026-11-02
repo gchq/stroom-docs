@@ -28,8 +28,13 @@ These settings, all under `stroom.ai`, fit them to your environment.
 
 Users who onboard sources need permission to create folders in it.
 
+`builds.maxProcessingTasks` (default `4`) is the most tasks that process a build's own streams at once.
+The processor filters the agent creates to process a build's sample streams, or to reprocess streams, run one task per stream, up to this many, so the samples are processed side by side.
+Lower it to leave more of the nodes' task capacity to other processing.
+Processor filters created when a build is promoted, which process a whole feed, are not affected.
+
 {{< warning >}}
-Renaming the setting leaves builds already in the old folder behind: rename the folder in the explorer tree to match.
+Changing `builds.workspaceFolder` leaves builds already in the old folder behind: rename the folder in the explorer tree to match.
 {{< /warning >}}
 
 
@@ -61,7 +66,51 @@ If no template has the parser the samples need, the agent offers a template with
 Likewise, only if there is no discovery template does it build a discovery pipeline of its own.
 So that new pipelines inherit from your templates, make sure each stage you use (including `discovery` and `reference`) can find them.
 
-Set the folders and names to your own templates, so that new pipelines inherit from them, and the schema groups and stream types if your templates validate against other schema groups or write other stream types.
+Set the schema groups and stream types too if your templates validate against other schema groups or write other stream types.
+
+
+### Where the Agent Looks for Templates
+
+{{< warning >}}
+By default, the agent only knows the templates in Stroom's standard **Template Pipelines** content pack, in `System/Template Pipelines`.
+If your own templates are anywhere else or named differently, including any Elasticsearch indexing or discovery templates, set each stage's `templateFolders` and `templateNames` to them.
+Otherwise the agent can't find them, and new pipelines won't inherit from them.
+{{< /warning >}}
+
+The defaults are:
+
+Stage | `templateFolders` | `templateNames`
+-- | -- | --
+`translation` | `System/Template Pipelines` | `Event Data (*)`
+`indexing` | `System/Template Pipelines` | `Indexing`
+`discovery` | None | None
+`reference` | `System/Template Pipelines` | `Reference Data`
+
+The standard content pack has no discovery template, so the `discovery` stage finds none until you configure it, and the agent offers to build a discovery pipeline of its own.
+Nor does the `indexing` stage look for Elasticsearch indexing templates by default, as the standard `Indexing` template writes to a Lucene index.
+
+Setting a list replaces its default, so to keep the standard templates as well as your own, list both.
+For example, for Elasticsearch indexing and discovery templates in a folder of their own:
+
+```yaml
+appConfig:
+  ai:
+    pipelineStages:
+      indexing:
+        templateFolders:
+        - "System/Template Pipelines"
+        - "System/Template Pipelines/Elasticsearch"
+        templateNames:
+        - "Indexing"
+        - "Indexing - Elasticsearch"
+      discovery:
+        templateFolders:
+        - "System/Template Pipelines/Elasticsearch"
+        templateNames:
+        - "Raw to Elasticsearch"
+```
+
+These can also be set in the [Properties]({{< relref "docs/user-guide/properties" >}}) screen, e.g. `stroom.ai.pipelineStages.indexing.templateFolders`, with the list written as a [delimited string]({{< relref "docs/user-guide/properties#list-data-type" >}}), e.g. `|System/Template Pipelines|System/Template Pipelines/Elasticsearch`.
 
 
 ## Error Triage Rules
@@ -69,16 +118,22 @@ Set the folders and names to your own templates, so that new pipelines inherit f
 The agent triages pipeline errors as **blocking** (must be fixed), **review** (may be caused by the pipeline's own content) or **benign** (report only), using Stroom's own rules.
 `errorTriage.rules` adds your environment's rules, checked in order before Stroom's; the first to match decides.
 
-Each rule may give:
+Each rule is a mapping, which may give:
 
 Field | Matches
 -- | --
 `severity` | A list of `FATAL`, `ERROR`, `WARNING` and `INFO`.
-`element` | A glob on the element's id.
+`element` | A glob on the element's id (case is ignored).
 `own` | `true` for an element the pipeline sets itself, `false` for one it inherits.
-`message` | A regular expression on the error message.
+`message` | A regular expression found in the error message (case is ignored).
 
 and must give its `class` (`blocking`, `review` or `benign`) and `reason`.
+
+A rule may also give `cause: true`, for an error that loses text, such as a record a parser drops.
+The errors that follow such an error in a stream may only be its consequences, so its group is listed first in its class, and the other blocking and review groups say they may follow from it.
+Stroom's own rules mark a Data Splitter's lost records this way.
+
+In `config.yml`, the rules are a YAML list of mappings.
 For example, so that lookup misses for accounts not in reference data are reported but not fixed:
 
 ```yaml
@@ -86,12 +141,20 @@ appConfig:
   ai:
     errorTriage:
       rules:
-        - element: decorationFilter
-          severity: [WARNING, INFO]
-          message: 'lookup'
-          class: benign
-          reason: 'User decoration miss for accounts not in reference data'
+      - element: decorationFilter
+        severity: [WARNING, INFO]
+        message: lookup
+        class: benign
+        reason: User decoration miss for accounts not in reference data
 ```
+
+In the [Properties]({{< relref "docs/user-guide/properties" >}}) screen, `stroom.ai.errorTriage.rules` is a JSON array of objects with the same fields:
+
+```json
+[{"element": "decorationFilter", "severity": ["WARNING", "INFO"], "message": "lookup", "class": "benign", "reason": "User decoration miss for accounts not in reference data"}]
+```
+
+Each rule must have a valid `class` and a `reason`, and its `message` must be a valid regular expression; otherwise the tools that triage errors fail.
 
 Errors a user tells the agent are benign during onboarding are also recorded in the source's documentation.
 
@@ -100,12 +163,13 @@ Errors a user tells the agent are benign during onboarding are also recorded in 
 
 When indexing, the agent names fields following a convention that the user chooses: Elastic Common Schema (`ecs`) or Stroom's flat naming (`stroom-flat`).
 It can also follow the fields of an index you point it at.
+For Elasticsearch, an example index template you give (or an existing index in Stroom) comes first, and a convention only without one.
 The conventions are served to MCP clients as resources (`stroom://conventions/<name>`).
 
 
 ## Sample Uploads
 
-Samples on a user's machine are uploaded through Stroom's MCP endpoint, which needs to be turned on, with the commands the agent gives (see [Sample Data]({{< relref "onboarding#sample-data" >}})).
+Samples on a user's machine are uploaded through Stroom's MCP endpoint, which must be turned on (`mcpEndpoint.enabled`, on by default), with the commands the agent gives (see [Sample Data]({{< relref "onboarding#sample-data" >}})).
 `sampleUploads.maxUploadMb` (100), `sampleUploads.commandsLast` (15 minutes) and `sampleUploads.maxPendingPerUser` (20) limit them (see [Deploying the MCP endpoint]({{< relref "../agent-tools/deployment" >}})).
 
 
@@ -162,6 +226,8 @@ Each is a heading followed by bullets of the form `- key: value, value`:
   - field mapping: compact
   ```
 
+A section on XSLT style (e.g. how variables and templates are named, and when to use an `xsl:map`) is followed through the style of the plans the agent generates XSLTs from, so its generated XSLTs follow it without hand edits.
+
 The agent also follows how your environment's pipelines already write common elements: shared templates that two or more of your event (or indexing) pipelines call are used in its new XSLTs in the same way, and it warns when an XSLT doesn't call one.
 
 
@@ -205,4 +271,4 @@ Setting | Default | What it does
 
 ## Guides for the Agent
 
-The agent also works from built-in guides on XSLT, the event-logging schema, Data Splitter, JSON input, reference data, indexing, CEF and documentation, which MCP clients can read too (`stroom://guide/<name>`).
+The agent also works from built-in guides on XSLT, translation mappings, the event-logging schema, Data Splitter, JSON input, reference data, indexing, CEF, documentation, standing instructions and visualisations, which MCP clients can read too (`stroom://guide/<name>`).

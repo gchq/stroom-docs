@@ -58,7 +58,7 @@ Before anything is written, Stroom checks that the open dashboard's table still 
 
 ## What You Need
 
-* _Pipeline Stepping_ and _View Data_, to try the extraction on the table's events.
+* _Pipeline Stepping_ and _Data - View_, to try the extraction on the table's events.
 * Permission to create documents in the folder you choose, or Edit permission on the XSLT to change it in place.
 * A [tool policy]({{< relref "../agent-tools/tool-policies" >}}) granting you the Content category.
   Read-only access is enough, as the agent only offers buttons, and you make the change.

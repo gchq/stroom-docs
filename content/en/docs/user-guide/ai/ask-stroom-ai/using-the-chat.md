@@ -17,7 +17,7 @@ Results that hold only Stroom's own text or your own answers, such as the time o
 Some tools also ask you to confirm what they are about to do in their own form (see below), and aren't asked about a second time.
 The onboarding tools that can only change the documents in their own build folder (e.g. saving a draft XSLT) don't ask either, as nothing outside the build changes until it is promoted, which asks you itself (see [Onboarding a data source]({{< relref "../pipeline-admin/onboarding" >}})).
 The tools of other MCP servers may ask first, depending on how the server is set up and what the tool does: an approval card shows the call in full, what kind of tool it is, and lets you allow or deny it (with a reason, which the model is told).
-You can allow a tool for the rest of the chat, or all of a trusted server's read-only tools, and review the tools you have allowed in **Tool Approvals** (from the chat's {{< stroom-icon "ellipses-vertical.svg" "Menu" >}} menu), where Stroom's own tools are listed as `Stroom (built-in)`.
+You can allow a tool for the rest of the chat, or all of a trusted server's read-only tools, and review the tools you have allowed in **Tool Approvals** (from the chat's {{< stroom-icon "ellipses-vertical.svg" "More" >}} _More_ menu), where Stroom's own tools are listed as `Stroom (built-in)`.
 A change to a tool's name or description, or to its server's settings, asks again.
 A request you don't answer expires after 24 hours.
 If an administrator allows it, the {{< stroom-icon "shield.svg" "Auto-approve" >}} shield beside the model turns on _Auto-approve_ for the chat (see [Trust and untrusted content]({{< relref "../how-it-works/trust" >}})).
@@ -98,6 +98,7 @@ Command | Does
 `/clear` can't be undone.
 {{< /warning >}}
 
+Prompts offered by the model's MCP tool servers are listed as commands too, as `/<name>`, or as `/<server>.<name>` where more than one server offers a prompt of that name or it is one of the chat's own commands.
 To send a message that starts with `/`, start it with `//`.
 
 
@@ -110,6 +111,6 @@ Everything stays stored, and the agent can read an earlier step again.
 
 The agent has memory: your own, loaded into every chat, and the chat's own.
 A change to your memory from a chat that has read data needs your approval.
-You can view, edit and undo changes in **Memory** (from the chat's {{< stroom-icon "ellipses-vertical.svg" "Menu" >}} menu).
+You can view, edit and undo changes in **Memory** (from the chat's {{< stroom-icon "ellipses-vertical.svg" "More" >}} _More_ menu).
 
 See [How it Works]({{< relref "../how-it-works" >}}) for how runs, context, memory and workspaces work in detail.

@@ -36,7 +36,7 @@ You can have several models, e.g. a large one for the chat and a small, fast one
    _Reasoning Effort_ | `low`, `medium` or `high`, for a model that supports it; blank otherwise.
    _Embedding model dimensions_ | Only for embedding models, not used by the chat.
    _Tools enabled_ | Whether the model is given tools. Turn it off for a model that can't call tools: it then answers from what it is sent, and [attached tables are analysed in batches]({{< relref "analytics#models-without-tools" >}}).
-   _Show reasoning_ | Whether the model's reasoning, when it gives any, is kept and shown to users. On by default.
+   _Keep reasoning_ | Whether the model is asked for its reasoning, and it is kept with each chat for users who choose to see it (_Show reasoning_ in their [chat settings](#default-chat-settings)). When off, the reasoning isn't kept, so no one can see it, then or later. On by default.
    _Maximum tools per request_ | The most tool definitions sent to the model in one request, for a server that limits them; `0` for no limit.
 
 1. Optionally, _Set Http Client Config_ sets how Stroom connects to the server: timeouts, TLS, a proxy, and **Headers** sent with every request (e.g. `anthropic-version` for Anthropic's OpenAI-compatible endpoint).
@@ -56,7 +56,7 @@ The stub answers at once; a question that includes `[[think]]` gets some reasoni
 
 ## Default Chat Settings
 
-Each user's chat settings are in the chat's **Settings** dialog (from the chat's {{< stroom-icon "ellipses-vertical.svg" "Menu" >}} menu).
+Each user's chat settings are in the chat's **Settings** dialog (from the chat's {{< stroom-icon "ellipses-vertical.svg" "More" >}} _More_ menu).
 Its **General** tab holds:
 
 Setting | Property under `stroom.askStroomAi` | Default | Description
@@ -67,7 +67,7 @@ _Dock Location_ | `dockLocation` | `RIGHT` | Where a docked chat sits: `LEFT`, `
 _Chat System Prompt_ | `chatSystemPrompt` | Stroom's own | The system prompt every chat starts from (see [Runs and context]({{< relref "../how-it-works/runs-and-context#what-the-model-is-sent" >}})).
 _History Summary Prompt_ | `historySummaryPrompt` | Stroom's own | The prompt for summarising a chat's earlier turns when it is compacted.
 _Show tool calls_ | `showToolCalls` | `true` | Whether tool calls are shown in the conversation. Off only hides them; the agent works the same.
-_Show reasoning_ | `showReasoning` | `true` | Whether the model's reasoning is shown, where the model's own _Show reasoning_ keeps it.
+_Show reasoning_ | `showReasoning` | `true` | Whether the model's reasoning is shown. It has no effect for a model whose reasoning isn't kept (_Keep reasoning_ in the model's settings).
 _Show request detail_ | `enableDebugDetail` | `true` | Whether each answer's request detail (what the model was sent) is kept and shown.
 _Enable browser notifications_ | `browserNotifications` | `true` | Whether the browser notifies the user when a chat finishes or needs them.
 
@@ -166,7 +166,7 @@ _Authentication_ | How Stroom signs in to the server (see below).
 _Credential_, _API key header name_, _API key value prefix_ | The shared credential, and how it is sent, for the authentication modes that use one.
 _Token audience_ | For _OAuth2 passthrough_ with Stroom's internal identity provider: the audience of the tokens Stroom issues for the server, e.g. `stroom-mcp`.
 _Set Http Client Config_ | Timeouts, TLS, a proxy and headers for the connection. The authentication's own headers take precedence.
-_Tool category_ | The category of [MCP Tool Policies]({{< relref "../agent-tools/tool-policies" >}}) that grants the server's tools (Core by default), for each tool of a trusted server that doesn't name a category itself.
+_Tool category_ | The category of [MCP Tool Policies]({{< relref "../agent-tools/tool-policies" >}}) that grants the server's tools (Core by default): all of an untrusted server's tools, and each tool of a trusted server that doesn't name a category itself.
 _Tool policies_ | Rules, each a regular expression matching a tool's whole name (ignoring case), e.g. `find_.*`, and what to do: _Allow_ (run without asking), _Ask every time_, or _Deny_ (never offered). The first rule to match applies. A tool no rule matches runs without asking if the server is trusted and the tool only reads, and asks otherwise.
 
 _Test Connection_ connects with the settings as they are in the dialog, and lists the tools the server would offer.
@@ -182,7 +182,7 @@ The authentication modes are:
 * _None_, _Bearer token_, _Custom API key header_ and _Basic auth_: one shared credential, so every user's calls run as one account.
   Use them for development, or for servers that make their own checks.
 
-When a model would be offered more MCP tools than `stroom.ai.toolGroupThreshold` (24), they are offered as groups, which the model turns on as it needs them.
+When a model would be offered more of Stroom's own tools, or more MCP tools, than `stroom.ai.toolGroupThreshold` (24), those only some questions need are offered as groups, which the model turns on as it needs them.
 
 
 ## Configuration
@@ -208,11 +208,12 @@ Property | Default | Description
 `askReadOnlyToolsAfterUntrustedContent` | `false` | Makes a trusted MCP server's read-only tools ask once a run has read untrusted data.
 `elicitationTimeout` | `PT10M` | How long a form from an MCP tool server's tool waits for the user.
 `maxElicitationsPerNode` | `5` | Forms from MCP tool servers that may wait on a node at once.
-`toolGroupThreshold` | `24` | When a model is given more MCP tools than this, they are offered as groups (0 never groups).
+`toolGroupThreshold` | `24` | When a model is given more of Stroom's own tools, or more MCP tools, than this, those only some questions need are offered as groups (0 never groups).
 `suggestFollowUps` | `true` | Whether the model suggests follow-up questions after its answers.
 `builds.workspaceFolder` | `MCP Workspace` | The folder below System in which the build tools make each build's folder.
+`builds.maxProcessingTasks` | `4` | The most tasks that process a build's own sample or reprocessed streams at once, one per stream.
 `errorTriage.rules` | `[]` | Your own rules for triaging pipeline errors (blocking, review or benign), checked before Stroom's.
-`pipelineStages` | | What marks a pipeline as each stage (translation, indexing, reference and so on), and where each stage's templates are looked for.
+`pipelineStages` | | What marks a pipeline as each stage (translation, indexing, reference and so on), and where each stage's templates are looked for. Set this if your templates aren't the standard ones in `System/Template Pipelines` (see [Where the Agent Looks for Templates]({{< relref "../pipeline-admin/configuration#where-the-agent-looks-for-templates" >}})).
 
 The workspace's limits are under `stroom.ai.workspace` (see [Workspaces]({{< relref "../how-it-works/workspaces#limits" >}})), and the MCP endpoint's under `stroom.ai.mcpEndpoint` and `stroom.ai.sampleUploads` (see [Deploying the MCP endpoint]({{< relref "../agent-tools/deployment" >}})).
 

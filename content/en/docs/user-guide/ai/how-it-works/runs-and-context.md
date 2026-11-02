@@ -32,18 +32,18 @@ Each run is recorded in the database with its status, its node, the tokens it us
   One whose heartbeat is over a minute old is marked as interrupted, as its node has stopped.
   An interrupted, stopped or failed run can be resumed with _Resume_, which carries on from the last question, on any node.
 * **Unattended runs.**
-  When no browser has polled a chat for `stroom.ai.unattendedAfter` (10 minutes), its run is unattended: only tools that cannot change anything run, and anything else waits for the user.
+  When no browser has polled any of the user's chats for `stroom.ai.unattendedAfter` (10 minutes), their runs are unattended: only tools that cannot change anything run, and anything else waits for the user.
 
 
 ## What the Model is Sent
 
 Each call to the model is built afresh, from what the chat has stored, in this order:
 
-1. **The system message**: The system prompt (`stroom.askStroomAi.chatSystemPrompt`), guidance on the tools and on the kind of tab attached (for a model with tools), the mode's guidance (for _Ask_ and _Plan_), and then the user's and the chat's [memory]({{< relref "memory" >}}).
-1. **A summary of compacted turns**, if the chat has been compacted (see below).
-1. **Attached tables and documents**, which are always kept.
+1. **The system message**: The system prompt (`stroom.askStroomAi.chatSystemPrompt`), guidance on the tools and on the kind of tab attached (for a model with tools), the guidance for the chat's mode (_Ask_ or _Plan_, or _Agent_ for a model with tools), and then the user's and the chat's [memory]({{< relref "memory" >}}).
+1. **Digests or a summary of compacted turns**, if the chat has been compacted (see below).
+1. **Earlier questions and answers**, in full, with **attached tables and documents** where they were attached.
+   Attachments are always kept, even from compacted turns.
    A model with tools is given each table's profile and where it is in the workspace; a model without tools is given the rows.
-1. **Earlier questions and answers**, in full.
    The tool calls of earlier turns aren't sent again: only a log of them, a line each, with the start of their arguments and results.
    The agent can read an earlier turn in full with its `read_turn` tool.
 1. **The question**, with a note on the attached tab's snapshot.
@@ -55,11 +55,11 @@ A large tool result isn't sent whole: it is saved to the [workspace]({{< relref 
 ## Fitting a Long Chat: Compaction
 
 The context meter beside the model shows how much of the model's context window the chat uses.
-When a chat reaches `stroom.ai.compaction.thresholdPercent` (80%) of its budget (the window less `compaction.replyReserveTokens`, 4,096 tokens, kept for the reply), its earlier turns are compacted:
+When a chat reaches `stroom.ai.compaction.thresholdPercent` (80%) of its budget (the window less `compaction.replyReserveTokens`, 4,096 tokens, kept for the reply, but never less than half the window), its earlier turns are compacted:
 
 * Older turns are replaced, for the model only, by digests that Stroom writes itself: the question, each tool called with the start of its arguments, short results copied exactly (up to `compaction.digestMaxResultRows`, 20 lines) or a preview and where the result is stored, the files made, and the first paragraph of the answer.
 * The latest `compaction.turnsKeptInFull` (2) turns are kept in full.
-* If the digests are still too large, the model folds the oldest into a running summary; as a last resort, the oldest half are dropped from what the model is sent.
+* If the digests are still too large, the model folds the oldest into a running summary; if the summary can't be written, the oldest half of those digests are left out of what the model is sent instead, with a warning in the chat.
 
 `/compact [focus]` compacts the chat at once, the model writing a summary with the focus you give.
 The latest compaction can be undone while no run is working.
@@ -73,10 +73,11 @@ A model with no context window size set is never compacted automatically.
 A long piece of work within one question, such as onboarding a source, can fill the window by itself, which compaction (of earlier turns) doesn't help.
 Before each call to the model, if the run is too large:
 
-1. With at least six earlier steps, the model summarises them, keeping the latest four as they are, so that what it found is kept rather than read again.
+1. With at least six earlier steps besides the latest four, the model summarises them, keeping the latest four as they are, so that what it found is kept rather than read again.
+   Once the run has a summary, another waits for twelve more steps.
 1. Then the run is shortened a step at a time, least lossy first: earlier tool results (keeping the latest two, and never short ones), then the arguments of earlier calls (e.g. whole code proposed), then all results but the latest, and finally earlier steps put as a line each.
-
-If the model still says a request is too large, the run is made smaller and the call tried again, up to four times, before the chat is compacted as far as it will go and the run started again.
+   Results the model read to work from (e.g. a schema's elements or a guide) are kept longer than other results.
+If the model still says a request is too large, the run is made smaller and the call tried again, up to five times, before the chat is compacted as far as it will go and the run started again.
 A reply cut off as the window filled is continued, up to twice.
 
 

@@ -53,7 +53,7 @@ The agent then works through the plan with you, which you can follow in its task
 1. **Start**: The build is made, and the samples are profiled to tell their format and fields.
    Samples can be text you give, streams already in Stroom, or files you upload; files are profiled once the feed is made and they have been uploaded to it.
 1. **The events pipeline**: A feed, the samples uploaded to it, a pipeline from one of your pipeline templates, and a translation XSLT generated from a field mapping the agent drafts and you agree.
-   Every record of the samples is stepped through it, its Events are checked against the event-logging schema, processing is started, and the source's notes and documentation are written, with its field mappings.
+   Every record of the samples is stepped through it, processing is started, the Events it writes are checked against the event-logging schema, and the source's notes and documentation are written, with its field mappings.
    The agent asks about indexing (the backend, cluster, index template and field naming) only once the build has Events.
 1. **Indexing**: An index plan drafted from the Events (following a field convention such as ECS where you want one), the index document, and an indexing pipeline, verified with test searches, and documented.
 1. **CEF output** (if you want it): A CEF mapping of the Events, a pipeline for it, stepped and documented.
@@ -71,7 +71,8 @@ Only when Stroom has no translation template at all does the agent build an even
 
 For text that isn't XML or JSON, the agent writes a {{< glossary "Data Splitter" >}} from a description of the format (delimited, regular expression, key=value, or syslog), never by hand first.
 It is run on the samples, and through Stroom's own Data Splitter parser, which must read the samples as the agent expects before the Data Splitter is saved.
-Its read buffer is sized for the samples' longest record, as a record longer than the buffer is lost.
+Its read buffer is sized for the longest record in the whole of the sample streams, not just the part the agent profiles, as a record longer than half the buffer is lost.
+For delimited text, the Data Splitter isn't saved while any record has more cells than the header (usually a value holding the delimiter, which needs a quote), or while a quoted value spans lines that the Data Splitter would split into separate records.
 
 
 ## Discovery Indexes
@@ -87,7 +88,7 @@ The source can be a feed already holding raw data, or a sample.
 1. You agree the template, and apply it to Elasticsearch (or have your cluster admin do so); the agent never writes to Elasticsearch.
 1. The indexing pipeline is made from a discovery template, the samples are indexed, and the agent verifies them with test searches through Stroom, then documents the index.
 
-The pipeline inherits from one of your discovery templates.
+The pipeline inherits from one of your discovery templates, which the agent finds only once you have [configured where they are]({{< relref "configuration#where-the-agent-looks-for-templates" >}}), as Stroom's standard templates include none.
 Only when Stroom has none does the agent offer to build a discovery pipeline of its own (a parser for the input, one record a split, the XSLT, a JSON schema filter and the Elasticsearch indexing filter), which you confirm in a form, as a last resort.
 
 

@@ -427,6 +427,41 @@ Stroom will re-send data from the selected `Event` streams to Elasticsearch for 
 Any existing documents matching the `StreamId` of the original `Event` stream are first deleted automatically to avoid duplication.
 
 
+#### Documents Rejected by Elasticsearch
+
+Elasticsearch can reject individual documents in a bulk request, e.g. when a field value doesn't suit the field's mapped type.
+Each rejected document is reported as its own error in the `Error` stream, with Elasticsearch's error type and reason, and the first cause it gives, which usually holds the detail of a mapping error, e.g.:
+
+```text
+Elasticsearch rejected the document with EventId 5 (document_parsing_exception): [1:45] failed to parse field [event.created] of type [date] in document with id '...'. Caused by (illegal_argument_exception): failed to parse date field [yesterday] with format [strict_date_optional_time]
+```
+
+The document is named by its root `EventId` field, which is the event's record number in the source stream, so you can find the event it came from by [stepping the pipeline]({{< relref "../../../quick-start-guide/process/" >}}) to that record.
+A document without an `EventId` is named by its position in the stream instead.
+
+{{< note >}}
+Include an `EventId` field at the root of each document your indexing translation writes, so that a rejected document can be traced to its event.
+{{< /note >}}
+
+Up to 100 rejected documents are reported in each batch.
+If there are more, a further error says how many documents the batch rejected in all.
+
+The documents Elasticsearch accepts are still indexed, but the stream fails, with a fatal error saying how many of the batch's documents were rejected, e.g. `Bulk indexing request failed: 3 of 10000 documents rejected by Elasticsearch`.
+Once you have fixed the cause, reprocess the stream as described above.
+
+
+#### When Elasticsearch is Overloaded
+
+When Elasticsearch is too busy to index some documents in a bulk request (HTTP status `429`), only those documents are retried; the documents it accepted stay indexed.
+
+The wait before each retry doubles, starting from `stroom.elastic.indexing.initialRetryBackoffPeriodMs` and capped at 60 seconds.
+Each wait is randomised to between half and all of that, so that indexing tasks rejected at the same moment don't all retry at the same moment.
+With the defaults (1 second, and `stroom.elastic.indexing.retryCount` of 5 retries), the waits are up to 1, 2, 4, 8 and 16 seconds.
+
+If the documents still can't be indexed once the retries run out, the stream fails with a fatal error.
+Frequent overload suggests the cluster needs more capacity, or that fewer indexing tasks should run at once, or that bulk requests should be smaller (see [Limit the Size of Bulk Requests](#limit-the-size-of-bulk-requests) and [Compress Requests over a Slow Network](#compress-requests-over-a-slow-network)).
+
+
 ## Tips and Tricks
 
 ### Use a Common Schema for Your Indices
@@ -436,6 +471,29 @@ This helps users understand the purpose of each field and to build cross-index q
 
 With this in mind, it is important that common fields also have the same data type in each index.
 Component templates help make this easier and reduce the chance of error, by centralising the definition of common fields to a single *component*.
+
+
+### Limit the Size of Bulk Requests
+
+The {{< pipe-elm "ElasticIndexingFilter" >}} sends documents to Elasticsearch in bulk requests.
+A batch is sent when it reaches either of two limits, whichever comes first:
+
+* `batchSize`: the number of documents (default `10000`).
+* `maxBatchSize`: the total size of the documents, in bytes (e.g. `1048576`) or with an IEC unit suffix (e.g. `1M`) (default `10M`).
+
+Elastic recommend bulk requests of 5 to 15 MB.
+If your documents are large, a batch of `batchSize` documents can be far larger than that, risking memory pressure on the cluster and overload rejections; `maxBatchSize` keeps each request within a size the cluster handles well.
+A single document larger than `maxBatchSize` is sent in a batch of its own.
+
+
+### Compress Requests over a Slow Network
+
+Bulk indexing requests are JSON, which usually compresses to a fraction of its size.
+Where the network between Stroom and a cluster is slow, tick [Compress Requests]({{< relref "getting-started#compress-requests" >}}) on the `Elastic Cluster` document, so that Stroom compresses the body of each request to that cluster with gzip and accepts compressed responses.
+This trades some CPU on Stroom and on the cluster for less network traffic.
+
+The setting is per cluster, so you can compress requests to a remote cluster while leaving those to a cluster on the local network uncompressed.
+It is off by default, and takes effect as soon as the document is saved.
 
 
 ### Use a Version Control System (such as git) to Track Index and Component Templates

@@ -40,7 +40,7 @@ A `write` or `delete` of a note that exists must give the version read.
 
 ## Approval of Changes
 
-A change to the chat's memory never asks, as it stays in the chat.
+A change to the chat's memory doesn't ask, as it stays in the chat, except while the run is unattended, when it waits for the user as any change does (see [Runs and context]({{< relref "runs-and-context#runs" >}})).
 
 A change to the user's memory lasts, and reaches every later chat, so the user is asked to approve it on an approval card when:
 
@@ -54,7 +54,7 @@ An approval request expires after 24 hours.
 ## Viewing and Undoing Changes
 
 **Memory**, in the chat's {{< stroom-icon "ellipses-vertical.svg" "Menu" >}} menu, lists the notes of both kinds, to view, edit and delete.
-It also lists each change the agent made to the user's memory, latest first, with what the note held before and after, and _Undo_.
+It also lists each change the agent made to the user's memory in that chat, latest first, with what the note held before and after, and _Undo_.
 Undo works only while the note still holds exactly what the change left in it.
 
 Your own edits in **Memory** need no approval and aren't listed as changes.

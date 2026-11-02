@@ -21,8 +21,9 @@ A chat's or session's workspace is its own: no other chat or session can see its
 Folder | Holds | Agent can write
 -- | -- | --
 `/attachments/` | Attached tables (`<id>.md`), each with its profile (`<id>.profile.md`). | No
-`/tabs/<n>/` | Snapshots of the attached tab, one per question that sent it: its text parts (e.g. `code.xsl`, `query.sql`), its structure and its results. | No
-`/documents/<uuid>/` | Documents' content, as `read_document` gives it. | No
+`/tabs/<n>/` | Snapshots of the attached tab, one per question that sent it (unless unchanged since the last): its text parts (e.g. `code.xsl`, `query.sql`), a stepping tab's structure (`structure.md`) and the searches behind its tables of results (`searches.json`). | No
+`/tabs/results/` | Snapshots of the rows of the attached tab's tables of results, taken by `current_results`. | No
+`/documents/<uuid>/` | Documents' content that `read_document` found too large to give in full. | No
 `/outputs/` | What the tools and the agent write: query results, fetched events, search results, column summaries, task lists as CSV, and large tool results. | Yes
 
 Some of the files tools write by default:
@@ -30,15 +31,16 @@ Some of the files tools write by default:
 * `run_stroomql`: `/outputs/queries/query-<time>.md`
 * `fetch_events`: `/outputs/events.xml`
 * `search_events`: `/outputs/search_events.csv`
-* `processor_tasks`, `server_tasks` and `stream_meta`: CSV files under `/outputs/` when asked for all their rows
+* `stream_meta`: `/outputs/stream_meta.csv`
+* `processor_tasks` and `server_tasks`: a CSV file under `/outputs/` (e.g. `/outputs/processor_tasks.csv`) when asked to write all the matching tasks
 * `summarise_column`: `/outputs/summaries/`
 * `preview_extraction`: `/outputs/extraction.xsl`
 
 The workspace tools (`ls`, `read_file`, `grep`, `wc`, `jq`, `xpath`, `table`, `write_file`, `str_replace`, `delete_file` and others) work on these files.
 Only files in `/outputs/` can be written or deleted.
-Paths are ASCII, up to 512 characters and 8 levels deep.
+Paths are ASCII, up to 512 characters and 8 levels below the top folder.
 
-The agent can also pass a workspace file (or part of one, picked with jq) as an argument of another MCP server's tool, up to `stroom.ai.workspace.maxToolArgumentBytes` (1 MiB).
+The agent can also pass a workspace file (or part of one, picked with jq) as an argument of any tool, Stroom's own or another MCP server's, up to `stroom.ai.workspace.maxToolArgumentBytes` (1 MiB).
 
 
 ## Large Results
@@ -76,17 +78,17 @@ Property | Default | Description
 `maxEventsPerFetch` | `500` | The most events `fetch_events` fetches in one call.
 `maxEventBytes` | 1 MiB | The largest event `fetch_events` fetches; larger ones are left out.
 `maxStreamStoreReads` | `500` | The most streams `stream_meta` may read from the stream store in one call.
-`maxToolArgumentBytes` | 1 MiB | The largest arguments of an MCP tool call, once workspace files are put into them.
+`maxToolArgumentBytes` | 1 MiB | The largest arguments of a tool call, once workspace files are put into them.
 
-An attached tab's snapshot is limited by `stroom.ai.maxTabSnapshotBytes` (2 MiB), and an attached table by `stroom.ai.tableAnalysis.maxTotalRows` (50,000 rows).
+An attached tab's snapshot is limited by `stroom.ai.maxTabSnapshotBytes` (2 MiB), and an attached table by `stroom.askStroomAi.tableAnalysis.maxTotalRows` (50,000 rows).
 
 
 ## Permissions
 
-A file made from Stroom data (an attached table, a document's content, a tab's snapshot) remembers the document it came from, and is checked against the user's permissions each time it is used:
+A file made from Stroom data (an attached table, query results, a document's content, a tab's snapshot) remembers the document it came from, and is checked against the user's permissions each time it is used:
 
-* A file from a data source needs _Use_ on it.
-* A file from any other document needs _View_ on it.
+* Data searched from a data source (e.g. an attached table or query results) needs _Use_ on it.
+* A document's own content (under `/documents/`) or a tab's snapshot (under `/tabs/`) needs _View_ on the document, whatever its type.
 
 If the user no longer has the permission, or the document has been deleted, the file is refused.
 It isn't deleted, so it can be used again if the permission is given back.

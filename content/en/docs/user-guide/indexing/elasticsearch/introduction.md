@@ -20,7 +20,7 @@ For instance, you can:
 1. Index Stroom's stream meta and `Error` streams so monitoring systems can generate metrics and alerts.
 1. Use Apache Spark to perform stateful data processing and enrichment, through the use of the {{< external-link "Elasticsearch-Hadoop" "https://www.elastic.co/elasticsearch/hadoop" >}} connector.
 
-Stroom achieves indexing and search integration by interfacing securely with the Elasticsearch REST API using the Java high-level client.
+Stroom achieves indexing and search integration by interfacing securely with the Elasticsearch REST API using the Elasticsearch Java API client.
 
 This guide will walk you through configuring a Stroom indexing pipeline, creating an Elasticsearch index template, activating a stream processor and searching the indexed data in both Stroom and Kibana.
 
@@ -28,13 +28,14 @@ This guide will walk you through configuring a Stroom indexing pipeline, creatin
 ## Assumptions
 
 1. You have created an Elasticsearch cluster.
-   Elasticsearch 8.x is recommended, though the latest supported 7.x version will also work.
+   Elasticsearch 9.x is recommended, as Stroom uses version 9 of the Elasticsearch Java API client.
+   See Elastic's {{< external-link "client compatibility" "https://www.elastic.co/docs/reference/elasticsearch/clients/java" >}} notes before using an older cluster.
    For test purposes, you can quickly create a single-node cluster using Docker by following the steps in the {{< external-link "Elasticsearch Docs" "https://www.elastic.co/guide/en/elasticsearch/reference/current/docker.html#docker-cli-run-dev-mode" >}}.
-1. The Elasticsearch cluster is reachable via HTTPS from all Stroom nodes participating in [stream processing]({{< relref "../../../quick-start-guide/running.md" >}}).
-1. Elasticsearch security is enabled.
-   This is mandatory and is enabled by default in Elasticsearch 8.x and above.
+1. The Elasticsearch cluster is reachable from all Stroom nodes participating in [stream processing]({{< relref "../../../quick-start-guide/running.md" >}}), preferably via HTTPS.
+1. Elasticsearch security is enabled, which it is by default in Elasticsearch 8.x and above.
+   Stroom authenticates with an API key held in a Stroom credential.
 1. The Elasticsearch HTTPS interface presents a trusted X.509 server certificate.
-   The Stroom node(s) connecting to Elasticsearch need to be able to verify the certificate, so for custom PKI, a Stroom truststore entry may be required.
+   The Stroom node(s) connecting to Elasticsearch need to be able to verify the certificate, so for custom PKI, add your CA certificate to a trust store in the `Elastic Cluster` document's HTTP client configuration (see [Set Http Client Config]({{< relref "getting-started#set-http-client-config" >}})).
 1. You have a feed containing `Event` streams to index.
 
 

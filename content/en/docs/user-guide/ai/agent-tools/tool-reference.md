@@ -23,7 +23,7 @@ No | The tool only reads (or works things out), and is offered under a read-only
 Yes | A call changes something in Stroom. The user is asked to approve it first, in a form shown by the client.
 Yes, confirms | A call changes something in Stroom. The tool asks the user in a form of its own, saying what it will do and letting them correct it, so it isn't approved a second time.
 Build only | A call can only change the documents in its onboarding build's folder, so the user isn't asked: nothing outside the build changes until `promote_build`, which asks.
-Workspace | A call only changes files in the session's workspace.
+Workspace | A call only changes files in the session's workspace. Over MCP, the user is still asked to approve it first, in a form shown by the client.
 
 A tool marked _some calls_ has calls that only read (e.g. a dry run), which a read-only policy allows; only its calls that change something need read and write.
 A call that changes something needs a client that can show forms (MCP elicitation), and is refused otherwise (see [Agent Tools]({{< relref "_index.md#how-the-tools-are-governed" >}})).
@@ -143,6 +143,8 @@ Tool | What it does | Changes
 `processing_status` | A pipeline's processor filters and their progress, and its processor tasks by status. | No
 `processor_tasks` | Processing failures and why, backlogs, and task lists and counts across the cluster. | No
 `explain_processing` | Why processing isn't happening (or is slow) for a pipeline, feed, stream or the whole cluster, checked link by link from the nodes and jobs to each processor filter, with a fix for each finding. | No
+`explain_retention` | How long data is kept, and when and why it is deleted, from the data retention rules. | No
+`measure_records` | Measures the longest record in whole raw streams, and the Data Splitter buffer size that holds it. | No
 `profile_sample` | Profiles raw data, to tell its format, fields and time stamps (nothing is saved). | No
 `survey_feed` | Samples a feed's streams over its lifetime and groups their records into kinds of event. | Build only (some calls)
 `set_shape_handling` | Records in the build that some kinds of event are left untranslated on purpose (or no longer are). | Yes, confirms
@@ -161,12 +163,13 @@ Tool | What it does | Changes
 
 ## Administration
 
-Configuration and the cluster's work.
+Configuration, volumes and the cluster's work.
 
 Tool | What it does | Changes
 -- | -- | --
 `config_properties` | Searches, gets and lists system properties, with where each value comes from; secrets masked. | No
 `server_tasks` | The tasks running on every node now, as _Monitoring_ > _Server Tasks_ shows them. | No
+`volumes` | The data and index volumes, how full they are, and what Stroom does when they fill. | No
 
 
 ## Tools Only in the Chat

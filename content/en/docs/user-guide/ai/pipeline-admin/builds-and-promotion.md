@@ -99,9 +99,9 @@ Once approved:
   Documents keep their UUIDs, so processor filters and references keep working.
   The build's role subfolders are kept under each destination when the build spans more than one role, unless you say otherwise.
 * **A new version** of a production pipeline goes in a version subfolder beside its predecessor, named after the new version, with its own index, documentation and dashboard.
-* **Working copies** are written back over their originals, after each original is backed up to the workspace's `backups` folder.
+* **Working copies** are written back over their originals, after each original is backed up to the workspace's `backups` folder; a working copy with no changes is discarded.
   If an original was changed in production since its working copy was made (by a hand edit, say), you are asked first, before the layout is shown: you are told who changed it and when, and shown what overwriting would lose from production and what the copy brings, and you choose to overwrite production with the working copy (the production change is then only in the backup) or keep production as it is (the copy and its pipeline stay in the build).
-* **Processing** is handed over: each promoted pipeline gets a processor filter for its feed, created disabled.
+* **Processing** is handed over: each promoted pipeline gets a processor filter for its feed, created disabled, unless it already has an enabled filter selecting what arrives.
   A document you asked to keep in the workspace (a test feed, say) stays there.
 * The build folder is removed if nothing is left in it.
 
@@ -114,6 +114,7 @@ The result repeats the layout, with a link to each destination folder and each p
   Enabled, a filter processes everything on its feed, existing data included.
   If an earlier version of the pipeline still processes the same feed, disable it (or limit the new filter) first, or the feed's history is processed twice.
 * An index that must start fresh is named, with the request to drop it, before its filter is enabled; otherwise it holds the build's events twice.
+  Where its events pipeline was promoted too, enable the indexing filter only once the events pipeline's filter has processed the build's streams again.
 * Once promoted, documents change only through a new build: a working copy, written back by promoting again.
 * In the chat, the agent may offer to write the choices you made during the build, and in earlier chats, into the feed's folder as standing instructions, so the next build follows them.
   It offers once, and only when it finds choices you have made the same way more than once; you review the proposal and apply it (see [Suggesting standing instructions]({{< relref "configuration#suggesting-standing-instructions" >}})).

@@ -97,7 +97,7 @@ For free text, such as log messages, the agent can:
 When a table isn't grouped, each row carries the stream and event it came from (from the hidden `StreamId` and `EventId` columns), so the agent can look at the events themselves, e.g. for a value the table doesn't show.
 For a grouped dashboard table, it takes the rows ungrouped, one per event, by running the table's search again separately.
 
-1. It fetches the events behind the rows (up to 500 at a time by default, which needs the _View Data_ permission), and reads one to find where the value is.
+1. It fetches the events behind the rows (up to 500 at a time by default, which needs the _Data - View_ permission), and reads one to find where the value is.
 1. It searches them: with XPath for a value from each event, for text anywhere in each event (with a snippet around the match), or with jq for values inside JSON held in an event (e.g. every `username` at any depth of a message).
 1. It adds what it finds as a column of the table, for the table tool to count, group or filter.
 
@@ -197,7 +197,7 @@ It says what is filtering the rows out, and offers the fix: often clearing a sel
 
 A model that can't call tools is given the first 10,000 rows of each table (by default), and told when there are more.
 If they don't fit its context window, the tables are analysed in batches, and the partial answers are merged into one answer.
-These limits, and the prompts used for batches and for merging, are set by an administrator on the **Table Analysis** tab of the chat's **Settings** (from the chat's {{< stroom-icon "ellipses-vertical.svg" "Menu" >}} menu).
+These limits, and the prompts used for batches and for merging, are set by an administrator on the **Table Analysis** tab of the chat's **Settings** (from the chat's {{< stroom-icon "ellipses-vertical.svg" "More" >}} _More_ menu).
 
 Answers worked out this way are less exact than those of a model with tools, and the analysis above that relies on tools (expressions, the events behind rows, queries of its own) isn't available.
 

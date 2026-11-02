@@ -26,6 +26,7 @@ It works in [Ask Stroom AI]({{< relref "../ask-stroom-ai" >}}), or in an MCP cli
   New documents, and working copies of production ones, are made in a folder of their own, and only promotion, which you approve, moves them into place.
 * **Templates are inherited, never copied.**
   A new pipeline is a child of one of your pipeline templates, setting only what the child supplies (e.g. its XSLT), so it follows later changes to the template.
+  The agent only finds templates where it is [configured to look]({{< relref "configuration#where-the-agent-looks-for-templates" >}}), which by default is Stroom's standard templates in `System/Template Pipelines`.
 * **You make the decisions.**
   The agent asks you what is yours to decide (a feed's name, how to map a field it can't place, which convention to index with), and changes that create documents or start processing ask you first in a short form.
 * **Some steps are yours alone.**
@@ -38,7 +39,7 @@ Permission | For
 -- | --
 A [tool policy]({{< relref "../agent-tools/tool-policies" >}}) granting read and write in Content, Processing and Indexing | Tools that make and change documents and start processing. The default policy grants read-only tools only.
 _Pipeline Stepping_ | Stepping samples and streams through pipelines.
-_View Data_ | Reading streams, and the events behind search results.
+_Data - View_ | Reading streams, and the events behind search results.
 _Data - Import_, and Edit on the feed | Uploading samples to a feed.
 _Manage Processors_ | Processor filters, reprocessing, processing status and promotion.
 Permission to create documents in the build folder (`System/MCP Workspace` by default) and in the destination folders | Builds and promotion.

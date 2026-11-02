@@ -33,12 +33,12 @@ With a pipeline's Stepping view attached, the agent sees the selected element's 
 
 * **Stepping**: It can step one record through a pipeline and show what each element does, step every record of a set of streams for one verdict, or step chosen records of existing streams where they are.
 * **Proposing a change**: Asked to fix something (_"Make the time stamp UTC"_), the agent proposes a change to the XSLT or text converter being stepped.
-  Before it is offered, the change is tried by stepping the record with it, and refused if it gives errors the current code doesn't.
+  Before it is offered, the change is tried by stepping the record with it, and refused if it gives errors the current code doesn't, unless you tell the agent to offer it anyway.
   It is shown as a diff with _Review and apply_, which puts it in the editor, unsaved, for you to check and save.
 * **Proving a fix**: For a fix to a production pipeline, the agent steps every record of the affected streams with the fixed code, compares the outputs with the current code's (only the expected parts should change), and gives you the code's diff and the outputs that change, to review before anything is saved.
 * **Comparing outputs**: It can step the same records through the current pipeline and a candidate (draft code, or a new version), and compare each record's output field by field.
 
-XSLT the agent writes is compiled with Stroom's own XSLT engine and functions, and checked against the event-logging schema and quality rules (a full UTC time stamp, the System's name and environment, one action under EventDetail, no empty elements) before it is saved.
+XSLT the agent writes is compiled with Stroom's own XSLT engine and functions, and checked against the event-logging schema and quality rules (a full UTC time stamp; the System's name and environment, Generator, Device and TypeId present; one action under EventDetail; no empty elements) before it is saved.
 It may not call functions that reach outside Stroom.
 
 > _"Step stream 4567 through this pipeline: why are records 12 to 15 producing errors?"_
@@ -80,7 +80,7 @@ The agent can also change a pipeline it made: its elements' properties, and the 
   Stroom marks the earlier output of those streams deleted once the new output is written, but removes nothing from an index: before reprocessing into an Elasticsearch index that already holds those streams' documents, you are given the request to drop it (for your cluster admin); a build's own Lucene index is emptied once you approve.
   An Elasticsearch data stream keeps the mapping it was made with, so a changed index template only applies once it is dropped.
 * **Verifying an index**: The agent verifies indexed events through Stroom, as a dashboard searches, never by querying the backend: the sample's streams, an exact match on each key field, and a time range, each search kept to the sample's streams, with each hit traced back to the record it came from.
-  Some searches find nothing without an error, and the agent avoids them: on Lucene, STARTS_WITH, ENDS_WITH, CONTAINS on a keyword field, and IN with a value holding a space; on Elasticsearch, a wildcard on an `ip` field (use a CIDR range), STARTS_WITH and CONTAINS.
+  Some searches give a wrong answer without an error, and the agent avoids them: on Lucene, STARTS_WITH, ENDS_WITH, CONTAINS on a keyword field, a range on a text field, and IN with a value holding a space find nothing; on Elasticsearch, a wildcard on an `ip` field (use a CIDR range), STARTS_WITH and CONTAINS find nothing, and IS_NULL and IS_NOT_NULL match every document.
 * **Waiting for processing**: It waits until each input stream's processing has ended, then reports the Events (or Reference) and Error streams it wrote.
 
 
@@ -91,13 +91,15 @@ The agent can also change a pipeline it made: its elements' properties, and the 
   * Each processor filter: Whether it is enabled, its tracker (_Complete_, or _Error_, which Stroom never retries), its stream create time window, its feed dependencies and polling
   * Its processor profile: The node group, the periods it applies in, and the threads each node gets now
   * Where its tasks wait (locked streams, limits), and the higher-priority filters ahead of it in its profile
+  * Whether output can be written: a volume group with no volume to write to
 
   Each link is reported as ok, blocking, slowing, or not checked (where you lack the permission to see it), with a fix for each finding.
-  It reads Stroom's state only, never its logs, and needs _Manage Processors_ (with _Manage Jobs_, _Manage Nodes_ and _View System Info_ for the jobs and nodes).
+  It reads Stroom's state only, never its logs, and needs _Manage Processors_ (with _Manage Jobs_, _Manage Nodes_ and _View System Information_ for the jobs and nodes).
   When waiting for processing finds nothing processed, the agent turns to this check.
 * **Across the cluster**: What is failing today and why, backlogs, queued and stuck tasks by node, and task lists, from processor tasks (this needs _Manage Processors_).
 * **Errors**: The errors in Error streams, grouped by severity, element and message, each triaged as blocking, for review, or benign, and the pipeline's own elements told from inherited ones.
   Your own [error triage rules]({{< relref "configuration#error-triage-rules" >}}) are applied first.
+  Errors that lose text, such as records a Data Splitter drops because they are longer than half its buffer, are listed first, as the errors after them may only be their consequences.
   A document Elasticsearch rejects is reported on its own, with Elasticsearch's reason, and traced back to its record by its `EventId`.
   Stroom lists only the first 100 documents a batch rejects, and the agent says how many more were rejected without being listed.
   The pipeline's own errors are looked at before those its templates cause; an error you tell the agent is harmless is recorded with your reason in the pipeline's documentation, and then reported as benign.
@@ -134,7 +136,7 @@ Reference data | The maps it loads, with their key and value shapes, its feeds, 
 Anything else | None beyond the sections above.
 
 Errors you have agreed are harmless, recorded in the pipeline's documentation, are reported as benign rather than as problems.
-A section you don't have the permission for (_View Data_, _Pipeline Stepping_, or _Manage Processors_ for a reference data pipeline's feeds) says so, and the rest is still given.
+A section you don't have the permission for (_Data - View_, _Pipeline Stepping_, or _Manage Processors_ for a reference data pipeline's feeds) says so, and the rest is still given.
 The agent then writes its report in the chat, under the same headings each time: a summary, the pipeline, its processing errors, stepping, the checks for its kind, and recommendations.
 The evaluation points to deeper checks it doesn't run itself, such as a whole-feed coverage review or checking an Elasticsearch index template, for you to ask for next.
 

@@ -30,7 +30,7 @@ Stroom doesn't record why a task failed: the reason goes only to the application
 The agent doesn't read logs; it gives you the node and the times to look for in your log system.
 
 It needs _Manage Processors_, as the **Processors** screen does.
-Only tasks whose pipeline and feed you can view are counted, and Error streams are read only with _View Data_.
+Only tasks whose pipeline and feed you can view are counted, and Error streams are read only with _Data - View_.
 Every limit the agent reaches is said in its answer.
 
 

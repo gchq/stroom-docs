@@ -30,7 +30,7 @@ Every request to the endpoint is signed in, as any request to Stroom's API is.
 
 An API key works with every identity provider, and is the only way when Stroom uses its own (internal) identity provider.
 
-1. Create an API key for yourself: {{< stroom-menu "Security" "API Keys" >}} (this needs the _Manage API Keys_ permission).
+1. Create an API key for yourself: {{< stroom-menu "Security" "Manage API Keys" >}} (this needs the _Manage API Keys_ permission).
 1. Give it to your MCP client as a bearer token: the client sends the header `Authorization: Bearer <api key>` with each request.
 
 Treat the key as a password: the client acts as you with it.

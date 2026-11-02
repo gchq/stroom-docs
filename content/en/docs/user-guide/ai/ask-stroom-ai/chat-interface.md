@@ -87,7 +87,7 @@ Models differ in what they are good at and in the size of their context window, 
 Stroom asks you before some tool calls run (see [Approvals]({{< relref "using-the-chat#approvals" >}})).
 {{< stroom-icon "shield.svg" "Auto-approve" >}} _Auto-approve_, if your administrator allows it, lets tools that change data keep running without asking for the rest of this chat, even once it has read data that could hold planted instructions.
 The shield is highlighted while it is on; click it again to turn it off.
-It never covers other servers' destructive tools, or those that reach outside Stroom.
+It never covers the tools of an untrusted MCP server, destructive tools or those that reach outside Stroom, or tools set to _Ask every time_, and it doesn't apply while no one is watching the chat.
 
 Use it only for work you are watching, on data you trust.
 To allow one tool rather than all of them, choose to allow it for the rest of the chat on its approval card; **Tool Approvals** in the {{< stroom-icon "ellipses-vertical.svg" "More" >}} menu lists what you have allowed, to revoke.
@@ -185,7 +185,7 @@ _Model_ | The model your chats use.
 _Dock Type_, _Dock Location_ | How the chat is shown: docked (and where), as a tab, or as a dialog.
 _Chat System Prompt_, _History Summary Prompt_ | The prompts the chat starts from, and summarises earlier turns with. Change them only if you know what you need.
 _Show tool calls_ | Shows the agent's tool calls in the conversation. Turning it off only hides them.
-_Show reasoning_ | Shows the model's reasoning, where the model gives it.
+_Show reasoning_ | Shows the model's reasoning, where the model gives it and its settings keep it.
 _Show request detail_ | Keeps and shows what the model was sent for each answer, for troubleshooting.
 _Enable browser notifications_ | Notifies you when a chat finishes or needs you while you are elsewhere.
 
