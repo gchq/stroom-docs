@@ -153,7 +153,7 @@
     aria-label="Search this site…"
     autocomplete="off"
     
-    data-offline-search-index-json-src="../../offline-search-index.cfd63d01b0ef498d3946ddaeed6323c3.json"
+    data-offline-search-index-json-src="../../offline-search-index.1ea2bb1ece4173e856c536dfe7d4ccd3.json"
     data-offline-search-base-href="../../"
     data-offline-search-max-results="50"
   >
@@ -1243,22 +1243,8 @@ Please read this section carefully in case any of the changes affect you.
 </div>
 
 <h2 id="stroom">Stroom</h2>
-
-
-
-<div class="alert alert-warning" role="alert">
-  <h4 class="alert-heading">TODO</h4>
-  <div class="alert-content">
-
-
-
-
-<p>Complete this section.</p>
-
-
-  </div>
-</div>
-
+<h3 id="migrating-an-existing-v714-stroom">Migrating an Existing v7.14 Stroom</h3>
+<p>See <a href="../../releases/v07.14/upgrade-notes/#migrating-an-existing-v714-stroom">Migrating an Existing v7.14 Stroom</a></p>
 <h2 id="stroom-proxy">Stroom-Proxy</h2>
 
 
@@ -1654,6 +1640,139 @@ All other nodes will wait until that is complete before proceeding with the boot
 <p>It is recommended however to use a single node to execute the migration.
 To avoid Stroom starting up and beginning processing you can use the <code>migrage</code> command to just migrate the database and not fully boot Stroom.
 See <a href="../../docs/user-guide/tools/command-line/#migrate"><code>migrage</code> command</a> for more details.</p>
+<h3 id="migrating-an-existing-v714-stroom">Migrating an Existing v7.14 Stroom</h3>
+<p>If you are deploying v7.14-beta.11 or later onto an existing v7.14 then you need to do the following.
+If you are upgrading from v7.13 or below, you can skip this section.</p>
+<p>A migration was added in v7.13 that will make some v7.14 migrations fail.
+To determine if you need to take any steps, then run the following SQL:</p>
+<pre><code class="language-sql">select h.installed_rank
+from processor_schema_history h
+where h.version = '07.14.00.001';
+</code></pre>
+<p>If this returns no rows then you can skip this section.
+If it does return rows, then you need to do the following to fix the <code>processor_schema_history</code> table.</p>
+<pre><code class="language-sql">-- Copy schema history data to a new table.
+create table processor_schema_history_tmp as
+    select * from processor_schema_history;
+
+-- Create a backup of the current schema history data.
+create table processor_schema_history_bkup as
+select * from processor_schema_history;
+
+-- Increment the installed_rank column for each v14 migration
+update processor_schema_history_tmp
+set installed_rank = installed_rank + 1
+where installed_rank &gt;= (
+    select r from (
+        select installed_rank as r
+        from processor_schema_history_tmp
+        where version = '07.14.00.001'
+        limit 1
+    ) t
+);
+
+-- Insert the missing v7.13 migration.
+insert into processor_schema_history_tmp
+values (
+    (select r
+        from (
+            select installed_rank + 1 as r
+            from processor_schema_history_tmp
+            where version = '07.12.00.002'
+        ) t
+    ),
+    '07.13.00.001',
+    'processor filter dependency version',
+    'SQL',
+    'V07_13_00_001__processor_filter_dependency_version.sql',
+    -2143125670,
+    'stroomuser',
+    '2026-11-10 11:37:16',
+    31,
+    1);
+
+-- Delete the old schema history data.
+delete from processor_schema_history
+where installed_rank &gt;= -1;
+
+-- Insert the modified schema history data.
+insert into processor_schema_history
+select *
+from processor_schema_history_tmp
+order by installed_rank;
+
+-- Verify the modified schema history data.
+select * from processor_schema_history;
+
+-- Drop the temporary table.
+drop table processor_schema_history_tmp;
+</code></pre>
+<p>When querying from the table you should see this:</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:right">installed_rank</th>
+<th style="text-align:left">version</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:right">22</td>
+<td style="text-align:left">07.12.00.002</td>
+</tr>
+<tr>
+<td style="text-align:right">23</td>
+<td style="text-align:left">07.13.00.001</td>
+</tr>
+<tr>
+<td style="text-align:right">24</td>
+<td style="text-align:left">07.14.00.001</td>
+</tr>
+<tr>
+<td style="text-align:right">25</td>
+<td style="text-align:left">07.14.00.002</td>
+</tr>
+<tr>
+<td style="text-align:right">26</td>
+<td style="text-align:left">07.14.00.003</td>
+</tr>
+<tr>
+<td style="text-align:right">27</td>
+<td style="text-align:left">07.14.00.004</td>
+</tr>
+</tbody>
+</table>
+<p>I.e. <code>07.13.00.001</code> should sit between <code>07.12.00.002</code> and <code>07.14.00.001</code> when ordered by <code>installed_rank</code>.</p>
+<p>If these changes have been successful, then run the following to remove the <code>_bkup</code> table.</p>
+<pre><code class="language-sql">-- Once you have run stroom successfully, run this to drop the backup table
+drop table processor_schema_history_bkup;
+</code></pre>
+<p>Now you need to manually run the missing database migration script.</p>
+<p>Download the file <span class="external-link">
+  <a href="https://github.com/gchq/stroom/blob/7.14/stroom-processor/stroom-processor-impl-db/src/main/resources/stroom/processor/impl/db/migration/V07_13_00_001__processor_filter_dependency_version.sql" target="_blank" class="external-link" title="V07_13_00_001__processor_filter_dependency_version.sql (external link to https://github.com/gchq/stroom/blob/7.14/stroom-processor/stroom-processor-impl-db/src/main/resources/stroom/processor/impl/db/migration/V07_13_00_001__processor_filter_dependency_version.sql)">
+    <span>V07_13_00_001__processor_filter_dependency_version.sql</span>
+    <i class="external-link-icon fas fa-external-link-alt fa-sm text-secondary"></i>
+  </a>
+</span>
+.</p>
+<p>Execute the script on the database (the script is safe to run more than once), e.g.</p>
+
+  
+
+
+
+
+
+
+<div class="code-toolbar">
+  <pre 
+    class="command-line language-bash" 
+    data-user="user" 
+    data-host="localhost" 
+    data-continuation-str="\"
+    data-filter-output="(out)"><code class="language-bash">mysql &lt;connection options&gt; &lt;processor database&gt; &lt; V07_13_00_001__processor_filter_dependency_version.sql</code></pre>
+</div>
+
 <!-- 
 Run stroom.db.migration.TestListDbMigrations.listDbMigrationsForLatestVersion() to generate the content for
 this section

@@ -108,7 +108,9 @@
 	
 	
 	
-	<a class="dropdown-item" href="../../../">7.13 (Latest)</a>
+	<a class="dropdown-item" href="../../../">7.14 (Latest)</a>
+	
+	<a class="dropdown-item" href="../../../7.13">7.13</a>
 	
 	<a class="dropdown-item" href="../../../7.12">7.12</a>
 	
@@ -150,7 +152,7 @@
     aria-label="Search this site…"
     autocomplete="off"
     
-    data-offline-search-index-json-src="../../offline-search-index.c4fb0ae2ae023c2d4a3724b52a437c28.json"
+    data-offline-search-index-json-src="../../offline-search-index.506de221fd13c2ce7e59528253c083fd.json"
     data-offline-search-base-href="../../"
     data-offline-search-max-results="50"
   >
@@ -3620,8 +3622,8 @@ This is the multi-page printable view of this section.
 <div class="content">
       <blockquote>
 <p>Applicable Stroom version: &ldquo;<strong>7.11</strong>&rdquo;<br>
-Documentation generated on: <strong>11 Sep 2026, 23:44 UTC</strong><br>
-Documentation release version: <strong>stroom-docs-v4062</strong></p>
+Documentation generated on: <strong>10 Nov 2026, 16:08 UTC</strong><br>
+Documentation release version: <strong>stroom-docs-v4207</strong></p>
 <p>To see the documentation for other versions of Stroom click the version drop-down at the top of the screen.</p>
 </blockquote>
 
@@ -15368,14 +15370,14 @@ The tag should correspond to the release number that was downloaded (e.g. <code>
 This is the recommended option, as the Operator will take care of the creation and storage of database credentials, which are shared securely with the Pod via the use of a <code>Secret</code> cluster resource.</p>
 <h3 id="create-a-databaseserver-resource-manifest">Create a <code>DatabaseServer</code> resource manifest</h3>
 <p>Use the example at <span class="external-link">
-  <a href="https://github.com/p-kimberley/stroom-k8s-operator/blob/master/samples/database-server.yaml" target="_blank" class="external-link" title="database-server.yaml (external link to https://github.com/p-kimberley/stroom-k8s-operator/blob/master/samples/database-server.yaml)">
+  <a href="https://github.com/gradata-systems/stroom-k8s-operator/blob/master/samples/operator-database/database-server.yaml" target="_blank" class="external-link" title="database-server.yaml (external link to https://github.com/gradata-systems/stroom-k8s-operator/blob/master/samples/operator-database/database-server.yaml)">
     <span>database-server.yaml</span>
     <i class="external-link-icon fas fa-external-link-alt fa-sm text-secondary"></i>
   </a>
 </span>
 .</p>
 <p>See the <code>DatabaseServer</code> Custom Resource Definition (CRD) <span class="external-link">
-  <a href="https://doc.crds.dev/github.com/p-kimberley/stroom-k8s-operator/stroom.gchq.github.io/DatabaseServer/v1" target="_blank" class="external-link" title="API documentation (external link to https://doc.crds.dev/github.com/p-kimberley/stroom-k8s-operator/stroom.gchq.github.io/DatabaseServer/v1)">
+  <a href="https://doc.crds.dev/github.com/gradata-systems/stroom-k8s-operator/stroom.gchq.github.io/DatabaseServer/v1" target="_blank" class="external-link" title="API documentation (external link to https://doc.crds.dev/github.com/gradata-systems/stroom-k8s-operator/stroom.gchq.github.io/DatabaseServer/v1)">
     <span>API documentation</span>
     <i class="external-link-icon fas fa-external-link-alt fa-sm text-secondary"></i>
   </a>
@@ -15511,12 +15513,19 @@ See <a href="../../docs/install-guide/kubernetes/configure-stroomtaskautoscaler/
 <h2 id="creating-a-stroom-cluster">Creating a Stroom cluster</h2>
 <h3 id="create-a-stroomcluster-resource-manifest">Create a <code>StroomCluster</code> resource manifest</h3>
 <p>Use the example <span class="external-link">
-  <a href="https://github.com/p-kimberley/stroom-k8s-operator/blob/master/samples/stroom-cluster.yaml" target="_blank" class="external-link" title="stroom-cluster.yaml (external link to https://github.com/p-kimberley/stroom-k8s-operator/blob/master/samples/stroom-cluster.yaml)">
+  <a href="https://github.com/gradata-systems/stroom-k8s-operator/blob/master/samples/external-database/stroom-cluster.yaml" target="_blank" class="external-link" title="stroom-cluster.yaml (external link to https://github.com/gradata-systems/stroom-k8s-operator/blob/master/samples/external-database/stroom-cluster.yaml)">
     <span>stroom-cluster.yaml</span>
     <i class="external-link-icon fas fa-external-link-alt fa-sm text-secondary"></i>
   </a>
 </span>
-.</p>
+ for an externally managed database server.
+Use the example <span class="external-link">
+  <a href="https://github.com/gradata-systems/stroom-k8s-operator/blob/master/samples/operator-database/stroom-cluster.yaml" target="_blank" class="external-link" title="stroom-cluster.yaml (external link to https://github.com/gradata-systems/stroom-k8s-operator/blob/master/samples/operator-database/stroom-cluster.yaml)">
+    <span>stroom-cluster.yaml</span>
+    <i class="external-link-icon fas fa-external-link-alt fa-sm text-secondary"></i>
+  </a>
+</span>
+ for an operator managed database server.</p>
 <p>If you chose to create an Operator-managed <code>DatabaseServer</code>, the <code>StroomCluster.spec.databaseServerRef</code> should point to the name of the <code>DatabaseServer</code>.</p>
 
 <div class="alert alert-primary" role="alert">
@@ -15524,7 +15533,7 @@ See <a href="../../docs/install-guide/kubernetes/configure-stroomtaskautoscaler/
 <div class="alert-content">
   
   <p>See the <code>StroomCluster</code> Custom Resource Definition (CRD) <span class="external-link">
-<a href="https://doc.crds.dev/github.com/p-kimberley/stroom-k8s-operator/stroom.gchq.github.io/StroomCluster/v1" target="_blank" class="external-link" title="API documentation (external link to https://doc.crds.dev/github.com/p-kimberley/stroom-k8s-operator/stroom.gchq.github.io/StroomCluster/v1)">
+<a href="https://doc.crds.dev/github.com/gradata-systems/stroom-k8s-operator/stroom.gchq.github.io/StroomCluster/v1" target="_blank" class="external-link" title="API documentation (external link to https://doc.crds.dev/github.com/gradata-systems/stroom-k8s-operator/stroom.gchq.github.io/StroomCluster/v1)">
 <span>API documentation</span>
 <i class="external-link-icon fas fa-external-link-alt fa-sm text-secondary"></i>
 </a>
@@ -15649,7 +15658,7 @@ Therefore an automated solution, factoring in system load, is called for.</p>
 <h2 id="enabling-autoscaling">Enabling autoscaling</h2>
 <h3 id="create-an-stroomtaskautoscaler-resource-manifest">Create an <code>StroomTaskAutoscaler</code> resource manifest</h3>
 <p>Use the example <span class="external-link">
-  <a href="https://github.com/p-kimberley/stroom-k8s-operator/blob/master/samples/autoscaler.yaml" target="_blank" class="external-link" title="autoscaler.yaml (external link to https://github.com/p-kimberley/stroom-k8s-operator/blob/master/samples/autoscaler.yaml)">
+  <a href="https://github.com/gradata-systems/stroom-k8s-operator/blob/master/samples/operator-database/autoscaler.yaml" target="_blank" class="external-link" title="autoscaler.yaml (external link to https://github.com/gradata-systems/stroom-k8s-operator/blob/master/samples/operator-database/autoscaler.yaml)">
     <span>autoscaler.yaml</span>
     <i class="external-link-icon fas fa-external-link-alt fa-sm text-secondary"></i>
   </a>
@@ -15657,7 +15666,7 @@ Therefore an automated solution, factoring in system load, is called for.</p>
 .</p>
 <p>Below is an explanation of some of the main parameters.
 The rest are documented <span class="external-link">
-  <a href="https://doc.crds.dev/github.com/p-kimberley/stroom-k8s-operator/stroom.gchq.github.io/StroomTaskAutoscaler/v1" target="_blank" class="external-link" title="here (external link to https://doc.crds.dev/github.com/p-kimberley/stroom-k8s-operator/stroom.gchq.github.io/StroomTaskAutoscaler/v1)">
+  <a href="https://doc.crds.dev/github.com/gradata-systems/stroom-k8s-operator/stroom.gchq.github.io/StroomTaskAutoscaler/v1" target="_blank" class="external-link" title="here (external link to https://doc.crds.dev/github.com/gradata-systems/stroom-k8s-operator/stroom.gchq.github.io/StroomTaskAutoscaler/v1)">
     <span>here</span>
     <i class="external-link-icon fas fa-external-link-alt fa-sm text-secondary"></i>
   </a>
