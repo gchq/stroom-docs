@@ -462,6 +462,16 @@ If these changes have been successful, then run the following to remove the `_bk
 drop table processor_schema_history_bkup;
 ```
 
+Now you need to manually run the missing database migration script.
+
+Download the file {{< external-link "V07_13_00_001__processor_filter_dependency_version.sql" "https://github.com/gchq/stroom/blob/7.14/stroom-processor/stroom-processor-impl-db/src/main/resources/stroom/processor/impl/db/migration/V07_13_00_001__processor_filter_dependency_version.sql" >}}.
+
+Execute the script on the database (the script is safe to run more than once), e.g.
+
+{{< command-line "user" "localhost" >}}
+mysql <connection options> <processor database> < V07_13_00_001__processor_filter_dependency_version.sql
+{{</ command-line >}}
+
 
 <!-- 
 Run stroom.db.migration.TestListDbMigrations.listDbMigrationsForLatestVersion() to generate the content for
