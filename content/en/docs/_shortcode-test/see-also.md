@@ -28,6 +28,26 @@ description: >
 {{< /see-also >}}
 
 {{< see-also >}}
+* Some text.
+* This is a glossary link {{< glossary "idp" >}}.
+* This is an xslt func link {{< xslt-func-link "lookup" >}}.
+* This is a doc link {{< doc-link "Feed" >}} 
+* This is a doc link {{< doc-link "Feed" >}} 
+* This is a pipe element link {{< pipe-elm "IndexingFilter" >}}
+* Some more text.
+{{< /see-also >}}
+
+{{< see-also >}}
+{{< pipe-elm "StandardKafkaProducer" >}}
+{{< /see-also >}}
+
+{{< see-also >}}
+* This is bold **1001**
+* {{< pipe-elm "StandardKafkaProducer" >}}
+* This is italic _2_
+{{< /see-also >}}
+
+{{< see-also >}}
 * This is bold **1003**
 * xxx {{< xslt-func-link "cosine-similarity" >}} yyy
 * This is italic _2_

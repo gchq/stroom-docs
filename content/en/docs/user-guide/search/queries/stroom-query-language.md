@@ -126,7 +126,7 @@ Supported conditions are:
 * `in` - The value is in a list of allowed values.  
   e.g. `StreamId in (1001, 1002, 2009)`  
   or `Feed in ("FEED_X", "FEED_Y")`.
-* `in dictionary` - The value is in a list of allowed values that are contained in a {{< stroom-doc "Dictionary" >}}.  
+* `in dictionary` - The value is in a list of allowed values that are contained in a {{< doc-link "Dictionary" >}}.  
   e.g. `Feed in dictionary "My Dict"` (using the dictionary's unique name)  
   or  `Feed in dictionary "fb7a8cea-e6b4-4d94-8f7e-47ff3b3c7711"` (using the dictionary's {{< glossary "UUID" >}}).  
 
@@ -447,8 +447,8 @@ It contains the following items:
 * _Fields_ - The list of fields that can be used in the Query.
   The fields list will only be available once a complete `from ...` clause has been added.
 * _Functions_ - The list of [Expression Functions]({{< relref "docs/reference-section/expressions" >}}) that can be used.
-* _Visualisations_ - The list of {{< stroom-doc "Visualisation" >}} documents that can be included in the {{< stroom-doc "Query" >}}.
-* _Dictionaries_ - The list of {{< stroom-doc "Dictionary" >}} documents that can be used in [`in dictionary`]({{< relref "#conditions" >}}) terms.
+* _Visualisations_ - The list of {{< doc-link "Visualisation" >}} documents that can be included in the {{< doc-link "Query" >}}.
+* _Dictionaries_ - The list of {{< doc-link "Dictionary" >}} documents that can be used in [`in dictionary`]({{< relref "#conditions" >}}) terms.
 
 Clicking on an item will show some detailed help about that item in the bottom of the pane.
 

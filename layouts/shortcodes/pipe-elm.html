@@ -1,32 +1,30 @@
-<!-- 
-Short code to add a pipeline element (as seen on the Pipeline Structure
+{{/* Short code to add a pipeline element (as seen on the Pipeline Structure
 sub-tab) to the page. It will appear as a rounded box containing the icon
 and the name.
 
-stroom icon (from /assets/images/stroom-ui/) to the page 
+stroom icon (from /assets/images/stroom-ui/) to the page
 with an optional hover title. If you don't supply a title it will make one from the
 filename.
 Usage:
 stroom-icon filename [title]
 e.g
 stroom-icon add.svg "Add"
+stroom-icon add.svg */}}
+{{/* This code is generated with the help of
 stroom-icon add.svg
--->
-
-{{/* 
-  This code is generated with the help of
-  stroom.app.docs.GeneratePipelineElementsDoc#generatePipeElmShortcodeNames
-  That method gives you the names and the icon class names so you need to
-  look up the class name in stroom-app/src/main/resources/ui/css/svg-icon.css
-  to find out the filename.
-  Since the icons got refactored in stroom 7.1 it is now not possible to
-  go from the element annotations to an icon path
-  without somehow parsing the css file to convert a css class into an icon
-  file path. For now we are stuck with maintaining this manually.
-  */}}
-
-<!-- #~#~#~#~#~# GENERATED CONTENT START #~#~#~#~#~#~# -->
-{{ $element_map := dict
+*/}}
+{{/*
+This code is generated with the help of
+stroom.app.docs.GeneratePipelineElementsDoc#generatePipeElmShortcodeNames
+That method gives you the names and the icon class names so you need to
+look up the class name in stroom-app/src/main/resources/ui/css/svg-icon.css
+to find out the filename.
+Since the icons got refactored in stroom 7.1 it is now not possible to
+go from the element annotations to an icon path
+without somehow parsing the css file to convert a css class into an icon
+file path. For now we are stuck with maintaining this manually. */}}
+{{/*<!-- #~#~#~#~#~# GENERATED CONTENT START #~#~#~#~#~#~# -->*/}}
+{{- $element_map := dict
 "AnnotationWriter" "pipeline/text.svg"
 "BOMRemovalFilterInput" "pipeline/stream.svg"
 "BadTextXMLFilterReader" "pipeline/stream.svg"
@@ -71,92 +69,60 @@ stroom-icon add.svg
 "XMLParser" "pipeline/xml.svg"
 "XMLWriter" "pipeline/xml.svg"
 "XPathExtractionOutputFilter" "pipeline/xml_search.svg"
-"XSLTFilter" "pipeline/xslt.svg"
-}}
-<!-- #~#~#~#~#~# GENERATED CONTENT END #~#~#~#~#~#~# -->
-
-{{- if eq (.Get 0) "pipe_elm_demo" }}
-
-  {{/* Render all the elements for a gallery page */}}
+"XSLTFilter" "pipeline/xslt.svg" -}}
+{{- /*<!-- #~#~#~#~#~# GENERATED CONTENT END #~#~#~#~#~#~# -->*/ -}}
+{{- if eq (.Get 0) "pipe_elm_demo" -}}
+  {{- /* Render all the elements for a gallery page */ -}}
   <div class="stroom-theme-dark pipeline-element-demo row">
-    {{- range $elm_name, $filename := $element_map }}
+    {{- range $elm_name, $filename := $element_map -}}
       <div class="pipeline-element-demo-item col-md-3">
-      {{/* Call the locally declared partial to render a single element */}}
-      {{ partial "pipe-elm-item.html" (dict 
-          "context" . 
-          "elm_name" $elm_name 
+      {{- /* Call the locally declared partial to render a single element */ -}}
+      {{- partial "pipe-elm-item.html" (dict
+          "context" .
+          "elm_name" $elm_name
           "display_name" $elm_name
-          "element_map" $element_map ) }}
+          "element_map" $element_map ) -}}
       </div>
-    {{- end }}
+    {{- end -}}
   </div>
-
-{{ else }}
-
-  {{ $elm_name := .Get 0 }}
-  {{ $display_name := .Get 1 | default $elm_name }}
-
-  {{/* Call the locally declared partial to render a single element */}}
-  {{ partial "pipe-elm-item.html" (dict 
-      "context" . 
-      "elm_name" $elm_name 
+{{- else -}}
+  {{- $elm_name := .Get 0 -}}
+  {{- $display_name := .Get 1 | default $elm_name -}}
+  {{- /* Call the locally declared partial to render a single element */ -}}
+  {{- partial "pipe-elm-item.html" (dict
+      "context" .
+      "elm_name" $elm_name
       "display_name" $display_name
-      "element_map" $element_map ) }}
-
-{{ end }}
-
-
-
-
-{{/* Locally defined partial to render a single menu item */}}
-{{- define "partials/pipe-elm-item.html" }}
-
-  {{ $elm_name := .elm_name }}
-  {{ $display_name := .display_name }}
-  {{ $element_map := .element_map }}
-
-  {{ $filename := "" }}
-  {{ $filename = index $element_map $elm_name | default nil }}
-
-  {{/* Allow for user not using the full icon path, i.e. text.svg vs pipeline/text.svg */}}
-  {{/*
-  {{ if not hasPrefix $filename "pipeline/" }}
-    {{ $filename := printf "%s/%s" "pipeline" $filename }}
-  {{ end }}
-  */}}
-
-  {{ if $filename }}
-
-    {{ $path := printf "/images/stroom-ui/%s" $filename }}
-    {{ $image := resources.Get (printf "%s" $path) }}
-
-    {{ if $image }}
-      {{ $elm_ref_url := "docs/reference-section/pipeline-elements" | relURL}}
-      {{ $elm_ref_url = printf "%s#%s" $elm_ref_url (anchorize $elm_name) }}
-      {{ $title := printf "%s \"%s\"" $elm_name $display_name }}
-
-      {{/* Surround the outer span with hyperlink tag to the appropriate anchor on the element reference page */}}
-      <a href="{{ $elm_ref_url }}" class="" style="" title="">
-        <span class="stroom-theme-dark pipeline-element" title="{{ $title }}" >
-          <span class="pipeline-element-content" >
-            <span class="pipeline-element-icon">
-              {{ partial "stroom-icon.partial.html" (dict 
-                  "context" . 
-                  "file" $filename ) }}
-            </span>
-            <span class="pipeline-element-text">{{ $display_name }}</span>
-          </span>
-        </span>
-      </a>
-
-      {{/* DO NOT REMOVE THIS span. Required for delimiting elements in pipe.html shortcode */}}
-      <span style="display:none;" class="USED FOR SPLITTING" ></span>
-
-    {{ else }}
-      {{ errorf "pipe-elm shortcode - Unable to find pipe-elm icon file %s" $path }}
-    {{ end }}
-  {{ else }}
-    {{ errorf "pipe-elm shortcode - Unknown element name %s" $elm_name }}
-  {{ end }}
-
-{{- end }}
+      "element_map" $element_map ) -}}
+{{- end -}}
+{{- define "partials/pipe-elm-item.html" -}}
+  {{- $elm_name := .elm_name -}}
+  {{- $display_name := .display_name -}}
+  {{- $element_map := .element_map -}}
+  {{- $filename := "" -}}
+  {{- $filename = index $element_map $elm_name | default nil -}}
+  {{- if $filename -}}
+    {{- $path := printf "/images/stroom-ui/%s" $filename -}}
+    {{- $image := resources.Get (printf "%s" $path) -}}
+    {{- if $image -}}
+      {{- $elm_ref_url := "docs/reference-section/pipeline-elements" | relURL}}
+      {{- $elm_ref_url = printf "%s#%s" $elm_ref_url (anchorize $elm_name) -}}
+      {{- $title := printf "%s \"%s\"" $elm_name $display_name -}}
+<span class="stroom-theme-dark pipeline-element" title="{{- $title -}}">
+<a href="{{- $elm_ref_url -}}" class="" style="" title="">
+<span class="pipeline-element-content" >
+<span class="pipeline-element-icon">
+{{- partial "stroom-icon.partial.html" (dict "context" . "file" $filename ) -}}
+</span>
+<span class="pipeline-element-text">{{- $display_name -}}</span>
+</span>
+</a>
+</span><!--
+--><span style="display:none;" class="USED FOR SPLITTING" ></span>
+    {{- else -}}
+      {{- errorf "pipe-elm shortcode - Unable to find pipe-elm icon file %s" $path -}}
+    {{- end -}}
+  {{- else -}}
+    {{- errorf "pipe-elm shortcode - Unknown element name %s" $elm_name -}}
+  {{- end -}}
+{{- end -}}
