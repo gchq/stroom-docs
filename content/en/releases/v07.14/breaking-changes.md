@@ -15,9 +15,9 @@ Please read this section carefully in case any of the changes affect you.
 
 ## Stroom
 
-{{% todo %}}
-Complete this section.
-{{% /todo %}}
+### Migrating an Existing v7.14 Stroom
+
+See [Migrating an Existing v7.14 Stroom]({{< relref "./upgrade-notes#migrating-an-existing-v714-stroom" >}})
 
 
 ## Stroom-Proxy
