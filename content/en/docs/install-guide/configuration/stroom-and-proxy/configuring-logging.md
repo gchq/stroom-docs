@@ -292,7 +292,6 @@ From the Logback documentation:
 {{% /warning %}}
 
 
-
 #### `archivedFileCount`
 
 This property controls the number of archived files that are retained, however it is a little confusing.
@@ -323,7 +322,8 @@ logs/app/app-5.log.gz
 
 {{% warning %}}
 Log file rolling is event based, so a file will only roll when a new message arrives that would require a roll to happen.
-This means that if the application is idle for a long period with no log output then the un-rolled file will remain active until a new message arrives to trigger it to roll. For example, if Stroom is unused overnight, then the last log message from the night before will not be rolled until a new messages arrive in the morning.
+This means that if the application is idle for a long period with no log output then the un-rolled file will remain active until a new message arrives to trigger it to roll.
+For example, if Stroom is unused overnight, then the last log message from the night before will not be rolled until a new messages arrive in the morning.
 
 For this reason, `archivedFileCount` should be set to a value that is greater than the maximum time the application may be idle, else rolled log files may be deleted as soon as they are rolled.
 {{% /warning %}}
