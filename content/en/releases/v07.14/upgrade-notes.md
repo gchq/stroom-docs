@@ -367,6 +367,102 @@ To avoid Stroom starting up and beginning processing you can use the `migrage` c
 See [`migrage` command]({{< relref "/docs/user-guide/tools/command-line#migrate" >}}) for more details.
 
 
+### Migrating an Existing v7.14 Stroom
+
+If you are deploying v7.14-beta.11 or later onto an existing v7.14 then you need to do the following.
+If you are upgrading from v7.13 or below, you can skip this section.
+
+A migration was added in v7.13 that will make some v7.14 migrations fail.
+To determine if you need to take any steps, then run the following SQL:
+
+```sql
+select h.installed_rank
+from processor_schema_history h
+where h.version = '07.14.00.001';
+```
+
+If this returns no rows then you can skip this section.
+If it does return rows, then you need to do the following to fix the `processor_schema_history` table.
+
+```sql
+-- Copy schema history data to a new table.
+create table processor_schema_history_tmp as
+    select * from processor_schema_history;
+
+-- Create a backup of the current schema history data.
+create table processor_schema_history_bkup as
+select * from processor_schema_history;
+
+-- Increment the installed_rank column for each v14 migration
+update processor_schema_history_tmp
+set installed_rank = installed_rank + 1
+where installed_rank >= (
+    select r from (
+        select installed_rank as r
+        from processor_schema_history_tmp
+        where version = '07.14.00.001'
+        limit 1
+    ) t
+);
+
+-- Insert the missing v7.13 migration.
+insert into processor_schema_history_tmp
+values (
+    (select r
+        from (
+            select installed_rank + 1 as r
+            from processor_schema_history_tmp
+            where version = '07.12.00.002'
+        ) t
+    ),
+    '07.13.00.001',
+    'processor filter dependency version',
+    'SQL',
+    'V07_13_00_001__processor_filter_dependency_version.sql',
+    -2143125670,
+    'stroomuser',
+    '2026-11-10 11:37:16',
+    31,
+    1);
+
+-- Delete the old schema history data.
+delete from processor_schema_history
+where installed_rank >= -1;
+
+-- Insert the modified schema history data.
+insert into processor_schema_history
+select *
+from processor_schema_history_tmp
+order by installed_rank;
+
+-- Verify the modified schema history data.
+select * from processor_schema_history;
+
+-- Drop the temporary table.
+drop table processor_schema_history_tmp;
+```
+
+When querying from the table you should see this:
+
+| installed_rank | version      |
+| -------------: | :----------- |
+| 22             | 07.12.00.002 |
+| 23             | 07.13.00.001 |
+| 24             | 07.14.00.001 |
+| 25             | 07.14.00.002 |
+| 26             | 07.14.00.003 |
+| 27             | 07.14.00.004 |
+
+I.e. `07.13.00.001` should sit between `07.12.00.002` and `07.14.00.001` when ordered by `installed_rank`.
+
+If these changes have been successful, then run the following to remove the `_bkup` table.
+
+```sql
+-- Once you have run stroom successfully, run this to drop the backup table
+drop table processor_schema_history_bkup;
+```
+
+
 <!-- 
 Run stroom.db.migration.TestListDbMigrations.listDbMigrationsForLatestVersion() to generate the content for
 this section
