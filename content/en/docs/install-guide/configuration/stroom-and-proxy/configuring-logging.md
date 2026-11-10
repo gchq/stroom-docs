@@ -291,7 +291,6 @@ From the Logback documentation:
 >Given that file renaming is a relatively slow process and is fraught with problems, we consider FixedWindowRollingPolicy as a deprecated policy and do not recommend its use.
 {{< /warning >}}
 
-
 #### `archivedFileCount`
 
 This property controls the number of archived files that are retained, however it is a little confusing.
