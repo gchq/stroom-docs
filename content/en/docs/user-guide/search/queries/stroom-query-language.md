@@ -29,6 +29,7 @@ The following shows the supported syntax for a StroomQL query.
 
 ```stroomql
 from <DATA_SOURCE>
+[sql] """<NATIVE_QUERY>"""
 where <FIELD> <CONDITION> <VALUE> [and|or|not]
 [and|or|not]
 [window] <TIME_FIELD> by <WINDOW_SIZE> [advance <ADVANCE_WINDOW_SIZE>]
@@ -86,6 +87,32 @@ If the name of the data source contains white space then it must be quoted using
 ```stroomql
 from "my source"
 ```
+
+
+### Sql
+
+Some data sources run a query of their own before Stroom works on the results: a [Data Connection]({{< relref "docs/user-guide/search/data-sources/data-connections" >}}) of type JDBC or Amazon Athena runs SQL, and one of type LDAP runs a search filter.
+That query goes in a `sql` clause, straight after `from`, e.g.
+
+```stroomql
+from "Reports DB"
+sql """
+  select name, team, joined
+  from staff
+  where joined >= :from and joined < :to
+"""
+where team = "Platform"
+sort by joined desc
+select name, joined
+```
+
+The SQL or filter is a string, usually in triple double quotes (`"""`).
+A triple-quoted string is taken exactly as written: it can span several lines and hold `"` and `\` without escaping, and it ends at the next `"""`.
+
+Its results become the rows that the rest of the query works on, so `where`, `eval`, `group by` and the other clauses work on them as on any other data source.
+Named placeholders such as `:team` take the value of the query parameter of that name, and `:from` and `:to` take the ends of the query's time range.
+
+A data source that needs a `sql` clause refuses a query without one, and one that does not take one refuses a query with one.
 
 
 ### Where
@@ -382,8 +409,8 @@ eval Sl = stringLength(FirstName)
 eval count = count()
 group by StreamId
 sort by Sl desc
-select Sl, StreamId as "Stream Id", EventId as "Event Id", EventTime as "Event Time", UserId as "User Id", FirstName, count
 limit 10
+select Sl, StreamId as "Stream Id", EventId as "Event Id", EventTime as "Event Time", UserId as "User Id", FirstName, count
 ```
 
 ```stroomql
@@ -398,8 +425,8 @@ eval Sl = stringLength(FirstName)
 eval count = count()
 group by StreamId
 sort by Sl desc
-select Sl, StreamId as "Stream Id", EventId as "Event Id", EventTime as "Event Time", UserId as "User Id", FirstName, count
 limit 10
+select Sl, StreamId as "Stream Id", EventId as "Event Id", EventTime as "Event Time", UserId as "User Id", FirstName, count
 ```
 
 ```stroomql
@@ -414,8 +441,8 @@ eval Sl = stringLength(FirstName)
 // eval count = count()
 // group by StreamId
 // sort by Sl desc
-select StreamId as "Stream Id", EventId as "Event Id"
 // limit 10
+select StreamId as "Stream Id", EventId as "Event Id"
 ```
 
 ```stroomql
@@ -430,8 +457,8 @@ eval Sl = stringLength(FirstName)
 eval count = count()
 group by StreamId
 sort by Sl desc
-select Sl, StreamId as "Stream Id", EventId as "Event Id", EventTime as "Event Time", UserId as "User Id", FirstName, count
 limit 10
+select Sl, StreamId as "Stream Id", EventId as "Event Id", EventTime as "Event Time", UserId as "User Id", FirstName, count
 ```
 
 

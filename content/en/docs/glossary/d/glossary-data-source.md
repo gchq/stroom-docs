@@ -5,11 +5,12 @@ description: >
   The source of data for a _Query_, e.g. a _Lucene_ based _Index_, a SQL Statistics Data source, etc.
 ---
 
-There are three types of Data source:
+Types of Data source include:
 
 * {{< stroom-icon "document/Index.svg" "Index" >}} Lucene based search index data sources.
 * {{< stroom-icon "document/StatisticStore.svg" "SQL Statistics" >}} Stroom's SQL Statistics data sources.
 * {{< stroom-icon "document/searchable.svg" "Searchable" >}} Searchable data sources for searching the internals of Stroom.
+* {{< stroom-icon "document/DataConnection.svg" "Data Connection" >}} {{< glossary "Data Connection" >}} data sources, for data held outside Stroom.
 
 A data source will have a {{< glossary "DocRef" >}} to identify it and will define the set of {{< glossary "Field" "Fields" >}} that it presents.
 Each Field will have:
@@ -23,5 +24,6 @@ Each Field will have:
 * {{< glossary "Query">}}
 * {{< glossary "Dashboard">}}
 * {{< glossary "Field">}}
+* {{< glossary "Data Connection">}}
 {{< /see-also >}}
 
