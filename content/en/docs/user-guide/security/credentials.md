@@ -12,6 +12,7 @@ Sometimes Stroom needs to connect to other systems:
 
 * Git repositories
 * Stroom AI connections
+* [Data Connections]({{< relref "docs/user-guide/search/data-sources/data-connections" >}}) to databases, Amazon Athena and LDAP directories
 * In the future, all credentials for third-party systems will be managed by this user-interface.
 
 The Credentials module is intended to centralise the management of these
@@ -30,11 +31,14 @@ The Credentials Manager can be accessed via the Stroom Menu
 Stroom supports different types of credentials.
 Different systems can use different types of credentials.
 
-| User          | Username / Password          | Access Token                 | SSH Key                      | Key Store                    | 
-|---------------|:----------------------------:|:----------------------------:|:----------------------------:|:----------------------------:|
-| GitRepo       | {{< stroom-icon "ok.svg" >}} | {{< stroom-icon "ok.svg" >}} | {{< stroom-icon "ok.svg" >}} |                              |
-| Content Store | {{< stroom-icon "ok.svg" >}} | {{< stroom-icon "ok.svg" >}} | {{< stroom-icon "ok.svg" >}} |                              |
-| Stroom AI     |                              |                              |                              | {{< stroom-icon "ok.svg" >}} |
+| User                       | Username / Password          | Access Token                 | SSH Key                      | Key Store                    | AWS Access Key               |
+|----------------------------|:----------------------------:|:----------------------------:|:----------------------------:|:----------------------------:|:----------------------------:|
+| GitRepo                    | {{< stroom-icon "ok.svg" >}} | {{< stroom-icon "ok.svg" >}} | {{< stroom-icon "ok.svg" >}} |                              |                              |
+| Content Store              | {{< stroom-icon "ok.svg" >}} | {{< stroom-icon "ok.svg" >}} | {{< stroom-icon "ok.svg" >}} |                              |                              |
+| Stroom AI                  |                              |                              |                              | {{< stroom-icon "ok.svg" >}} |                              |
+| JDBC Data Connection       | {{< stroom-icon "ok.svg" >}} |                              |                              |                              |                              |
+| LDAP Data Connection       | {{< stroom-icon "ok.svg" >}} |                              |                              |                              |                              |
+| Amazon Athena Data Connection |                           |                              |                              |                              | {{< stroom-icon "ok.svg" >}} |
 
 
 ### Username / Password
@@ -100,3 +104,9 @@ Stroom needs this pass-phrase to read the keystore.
 #### Upload Key Store File
 
 Select the keystore and upload it to enter it into Stroom.
+
+
+### AWS Access Key
+
+An AWS access key ID and its secret access key, for connecting to AWS services such as Amazon Athena.
+Use the keys of an AWS identity that can only do what Stroom needs, e.g. read the tables an Athena Data Connection should query.

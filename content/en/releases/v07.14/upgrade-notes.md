@@ -184,6 +184,87 @@ appConfig:
 `maxSessionIdleTime` controls when an idle session and its persisted I/O are removed, while `orphanMaxAge` controls cleanup of abandoned session directories.
 
 
+#### New `dataConnection` Properties
+
+The new [Data Connection]({{< relref "docs/user-guide/search/data-sources/data-connections" >}}) document type has its own branch of properties.
+With the defaults, no JDBC, Amazon Athena or LDAP connection is allowed: set `allowedUrlPatterns`, `allowedAthenaWorkGroups` or `allowedLdapUrlPatterns` to allow the systems Data Connections may query.
+CSV and Excel Data Connections need no setting.
+See [Administration]({{< relref "docs/user-guide/search/data-sources/data-connections#administration" >}}) for what each property does.
+
+```yaml
+appConfig:
+  dataConnection:
+    allowDefaultAwsCredentials: false
+    allowPlainLdap: false
+    allowedAthenaOutputLocations: []
+    allowedAthenaWorkGroups: []
+    allowedLdapUrlPatterns: []
+    allowedUrlPatterns: []
+    connectionPoolCache:
+      expireAfterAccess: "PT10M"
+      expireAfterWrite: null
+      maximumSize: 100
+      refreshAfterWrite: null
+      statisticsMode: "INTERNAL"
+    deniedConnectionProperties:
+    - "allowLoadLocalInfile"
+    - "allowLoadLocalInfileInPath"
+    - "allowUrlInLocalInfile"
+    - "clientCertificateKeyStoreUrl"
+    - "ociConfigFile"
+    - "serverRSAPublicKeyFile"
+    - "trustCertificateKeyStoreUrl"
+    - "authenticationPlugins"
+    - "autoDeserialize"
+    - "clientInfoProvider"
+    - "connectionLifecycleInterceptors"
+    - "defaultAuthenticationPlugin"
+    - "exceptionInterceptors"
+    - "ha.loadBalanceStrategy"
+    - "loadBalanceExceptionChecker"
+    - "logger"
+    - "profilerEventHandler"
+    - "propertiesTransform"
+    - "queryInterceptors"
+    - "socketFactory"
+    - "readOnlyPropagatesToServer"
+    - "gsslib"
+    - "jaasLogin"
+    - "loggerFile"
+    - "options"
+    - "service"
+    - "sslcert"
+    - "sslkey"
+    - "sslrootcert"
+    - "authenticationPluginClassName"
+    - "socketFactoryArg"
+    - "sslfactory"
+    - "sslfactoryarg"
+    - "sslhostnameverifier"
+    - "sslpasswordcallback"
+    - "sspiServiceClass"
+    - "readOnly"
+    - "readOnlyMode"
+    driverDirectory: null
+    fieldCache:
+      expireAfterAccess: null
+      expireAfterWrite: "PT10M"
+      maximumSize: 1000
+      refreshAfterWrite: null
+      statisticsMode: "INTERNAL"
+    maxPoolSizeLimit: 20
+    maxQueryTimeout: "PT10M"
+    maxRowsLimit: 1000000
+    maxStoredDataSize: "5M"
+    tableCache:
+      expireAfterAccess: "PT10M"
+      expireAfterWrite: null
+      maximumSize: 10
+      refreshAfterWrite: null
+      statisticsMode: "INTERNAL"
+```
+
+
 #### Changes to the `planb` Branch
 
 The following properties have been added to control Plan B shard allocation, caching and merging.
