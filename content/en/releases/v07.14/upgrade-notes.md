@@ -337,6 +337,21 @@ appConfig:
 `visibilityTimeout` should be longer than the time needed to process a message; successfully processed messages are deleted from the queue.
 
 
+#### New `search.resultStore` Join Properties
+
+[StroomQL joins]({{< relref "docs/user-guide/search/queries/joins" >}}) hold each joined source while the first source is searched.
+These properties limit how much a joined source may hold, as rows and as bytes.
+A query that joins more fails, suggesting that the joined source is filtered or grouped.
+
+```yaml
+appConfig:
+  search:
+    resultStore:
+      joinMaxRows: 1000000
+      joinMaxSize: "256M"
+```
+
+
 #### New `sqlStore` Database Configuration
 
 The SQL statistics store has a new database connection branch.

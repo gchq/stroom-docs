@@ -277,6 +277,8 @@ It imports a _Data Connection Examples_ folder holding:
 * _Stroom DB_, a JDBC Data Connection pointed at Stroom's own MySQL database, with queries of its nodes, streams and processor tasks.
 * _Teams_, a CSV Data Connection, and _Bank Holidays_, an Excel one, each with a query.
   They need no set-up.
+* _People_, a CSV Data Connection, and ten _Join - ..._ queries that join it to _Teams_ and _Bank Holidays_: a left join, a semi join with a condition on the joined source, an anti join, a join to a bracketed grouped query, a join on a date, `where exists`, `where not exists`, `where ... in`, a right join and a full outer join.
+  They need no set-up either, see [Joins]({{< relref "docs/user-guide/search/queries/joins" >}}).
 * _Directory_, an LDAP Data Connection, with queries of the people in a directory.
 
 The _Documentation_ tab of each JDBC and LDAP Data Connection gives its set-up steps.

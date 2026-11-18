@@ -50,9 +50,10 @@ A value that is not of its column's type is empty, and the query warns about it,
 
 * Each column is named from the header row, if there is one.
   A column with no name in the header, or with no header row, is named `column1`, `column2` and so on, and a repeated name has a suffix added, as each column needs a field name of its own.
+  Names that differ only in case, such as `Team` and `team`, count as repeated, as fields are matched without regard to case.
 * Each column's type is guessed from its values: the narrowest of Long, Double, Date and Boolean that all of them are, or else Text.
   Numbers that would lose something as a number stay Text, such as codes with leading zeros, e.g. `0123`, and whole numbers too big for a Long, such as long identifiers.
-* A column already in the table keeps the type you chose for it, so you can detect the columns again after changing the data.
+* A column already in the table keeps the type you chose for it, even if the case of its name in the header has changed, so you can detect the columns again after changing the data.
 
 If the header row no longer matches the columns in the table, because the data changed after they were detected, a query warns that values may be under the wrong fields.
 Detect the columns again.

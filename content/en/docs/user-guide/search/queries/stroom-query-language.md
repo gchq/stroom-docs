@@ -28,8 +28,9 @@ It is currently used on the _Query_ entity as the means of defining a query.
 The following shows the supported syntax for a StroomQL query.
 
 ```stroomql
-from <DATA_SOURCE>
+from <DATA_SOURCE> [as <ALIAS>]
 [sql] """<NATIVE_QUERY>"""
+[join] <DATA_SOURCE> [as <ALIAS>] on <FIELD> = <ALIAS>.<FIELD> [and ...]
 where <FIELD> <CONDITION> <VALUE> [and|or|not]
 [and|or|not]
 [window] <TIME_FIELD> by <WINDOW_SIZE> [advance <ADVANCE_WINDOW_SIZE>]
@@ -43,6 +44,8 @@ where <FIELD> <CONDITION> <VALUE> [and|or|not]
 select <FIELD> [as <COLUMN NAME>], ...
 [show as] <VIS_NAME> (<VIS_CONTROL_ID_1> = <COLUMN_1>, <VIS_CONTROL_ID_2> = <COLUMN_2>)
 ```
+
+For the full grammar, see [StroomQL Grammar]({{< relref "docs/reference-section/stroomql-grammar" >}}).
 
 
 ## Fields
@@ -92,7 +95,7 @@ from "my source"
 ### Sql
 
 Some data sources run a query of their own before Stroom works on the results: a [Data Connection]({{< relref "docs/user-guide/search/data-sources/data-connections" >}}) of type JDBC or Amazon Athena runs SQL, and one of type LDAP runs a search filter.
-That query goes in a `sql` clause, straight after `from`, e.g.
+That query goes in a `sql` clause, straight after the data source it is for, e.g. after `from`:
 
 ```stroomql
 from "Reports DB"
@@ -113,6 +116,59 @@ Its results become the rows that the rest of the query works on, so `where`, `ev
 Named placeholders such as `:team` take the value of the query parameter of that name, and `:from` and `:to` take the ends of the query's time range.
 
 A data source that needs a `sql` clause refuses a query without one, and one that does not take one refuses a query with one.
+
+A joined data source can have a `sql` clause too, straight after it in its join line, and a bracketed query has its own inside its brackets, straight after its `from`, e.g.
+
+```stroomql
+from "Windows events"
+left join "Reports DB" as staff sql """
+  select username, team
+  from staff
+""" on UserId = staff.username
+select UserId, staff.team
+```
+
+
+### Join
+
+Use `join` to join the rows of another data source to the rows of the query, straight after `from`, e.g.
+
+```stroomql
+from "Windows events"
+left join "HR Users" as hr on UserId = hr.Username
+select UserId, hr.Department
+```
+
+The kinds of join are `join`, `left join`, `right join`, `full join`, `semi join` and `anti join`.
+The joined fields are named `<alias>.<field>`, e.g. `hr.Department`, where the alias is the name after `as`, or the data source's name if there is none.
+If that name has spaces, write its fields in braces, e.g. `${HR Users.Department}`.
+
+The joined source can also be a bracketed query, and a query can have several join lines.
+
+See [Joins]({{< relref "joins" >}}) for the kinds of join and examples.
+
+
+### On
+
+Use `on` to give the keys of a join, whose values must be equal for rows to join, e.g.
+
+```stroomql
+on lowerCase(UserId) = hr.Username and Host = hr.Host
+```
+
+Keys match exactly, so case matters, and a blank key never matches.
+
+An event-to-event join can also give a time window after its keys, e.g.
+
+```stroomql
+from "Windows events" as logon
+join "File events" as export
+  on logon.UserId = export.UserId
+  within 10m after logon.EventTime
+select logon.UserId, logon.EventTime, export.FileName
+```
+
+See [Joining Events Within a Time Window]({{< relref "joins#joining-events-within-a-time-window" >}}).
 
 
 ### Where
@@ -170,6 +226,29 @@ You can force evaluation of items in a specific order using bracketed groups.
 ```stroomql
 and X = 5 OR (name = foo and surname = bar)
 ```
+
+
+#### Exists and In
+
+Use `exists` to keep only the rows that have a match in another data source, or `not exists` to keep those with none, as in SQL, e.g.
+
+```stroomql
+from People as p
+where exists (from Teams as t where t.team = p.team and t.on_call = true)
+select name, team
+```
+
+Use `in` or `not in` to compare a field with the one field another data source's query selects, e.g.
+
+```stroomql
+from People
+where team not in (from Teams select team)
+select name, team
+```
+
+These are other ways of writing a `semi join` and an `anti join`, and run as them.
+They can only be used at the top level of `where`, joined to its other conditions by `and`.
+See [Exists and In]({{< relref "joins#exists-and-in" >}}).
 
 
 ### Window
@@ -443,6 +522,17 @@ eval Sl = stringLength(FirstName)
 // sort by Sl desc
 // limit 10
 select StreamId as "Stream Id", EventId as "Event Id"
+```
+
+```stroomql
+from "index_view" // view
+// add each user's department, keeping users not in the HR list
+left join "HR Users" as hr on UserId = hr.Username
+where EventTime > now() - 1227d
+eval count = count()
+group by UserId, hr.Department
+sort by count desc
+select UserId as "User Id", hr.Department as "Department", count
 ```
 
 ```stroomql
