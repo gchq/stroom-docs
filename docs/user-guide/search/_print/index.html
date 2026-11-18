@@ -153,7 +153,7 @@
     aria-label="Search this site…"
     autocomplete="off"
     
-    data-offline-search-index-json-src="../../../../offline-search-index.0f80f2d5bacc260392e1d9263776d11b.json"
+    data-offline-search-index-json-src="../../../../offline-search-index.1a7dcb547574e1fbe1716674a52291e4.json"
     data-offline-search-base-href="../../../../"
     data-offline-search-max-results="50"
   >
@@ -239,7 +239,58 @@ This is the multi-page printable view of this section.
     
     
 	
-<li>1.4: <a href="#pg-53502f4a17a850f5f69889deae19cfb2">Internal Data Sources</a></li>
+<li>1.4: <a href="#pg-66de47e03b02f019d101a97627ff6d0f">Data Connections</a></li>
+
+
+    
+    <ul>
+        
+  
+  
+  
+  
+
+  
+    
+    
+	
+<li>1.4.1: <a href="#pg-bfe1b3438f8a0c89c24e41aa75437e31">JDBC Data Connections</a></li>
+
+
+    
+  
+    
+    
+	
+<li>1.4.2: <a href="#pg-301f74fc3d8511c9eb2788f9364d9b58">Amazon Athena Data Connections</a></li>
+
+
+    
+  
+    
+    
+	
+<li>1.4.3: <a href="#pg-1365f89079a1df099dc1ab123c24ae07">LDAP Data Connections</a></li>
+
+
+    
+  
+    
+    
+	
+<li>1.4.4: <a href="#pg-16eed6d330cd887e163b24dfeca3aa72">CSV and Excel Data Connections</a></li>
+
+
+    
+  
+
+    </ul>
+    
+  
+    
+    
+	
+<li>1.5: <a href="#pg-53502f4a17a850f5f69889deae19cfb2">Internal Data Sources</a></li>
 
 
     
@@ -310,6 +361,14 @@ This is the multi-page printable view of this section.
     
 	
 <li>3.1: <a href="#pg-97b6ae5548e13b85a8f0677d36564595">Stroom Query Language</a></li>
+
+
+    
+  
+    
+    
+	
+<li>3.2: <a href="#pg-49e1201b3376ba4fafbf8b0f8615f20b">Joins</a></li>
 
 
     
@@ -844,7 +903,1431 @@ You can now search by any of these - in particular, the fields common to all thr
 
 <div class="td-content" style="--base-section-num: '1.4.'; page-break-before: always">
     
-  <h1 id="pg-53502f4a17a850f5f69889deae19cfb2">1.4 - Internal Data Sources</h1>
+  <h1 id="pg-66de47e03b02f019d101a97627ff6d0f">1.4 - Data Connections</h1>
+    <div class="lead">Querying data held outside Stroom&rsquo;s own stores: a JDBC database, Amazon Athena or an LDAP directory, or CSV and Excel data held in the document itself.</div>
+	<p>A 
+
+  
+  
+  <span class="stroom-doc">
+      <a href="../../../../docs/reference-section/documents#data-connection" class="stroom-doc-link">
+        
+        <span class="stroom-doc-icon"><span class="stroom-icon inline-svg-button icon-button  " >
+    <span class="face" title="dataconnection"><svg xmlns="http://www.w3.org/2000/svg" width="1792" height="1792" viewBox="0 0 1792 1792"><path style="fill:var(--icon-colour__purple)" d="M896 768q237 0 443-43t325-127v170q0 69-103 128t-280 93.5-385 34.5-385-34.5-280-93.5-103-128v-170q119 84 325 127t443 43zm0 768q237 0 443-43t325-127v170q0 69-103 128t-280 93.5-385 34.5-385-34.5-280-93.5-103-128v-170q119 84 325 127t443 43zm0-384q237 0 443-43t325-127v170q0 69-103 128t-280 93.5-385 34.5-385-34.5-280-93.5-103-128v-170q119 84 325 127t443 43zm0-1152q208 0 385 34.5t280 93.5 103 128v128q0 69-103 128t-280 93.5-385 34.5-385-34.5-280-93.5-103-128v-128q0-69 103-128t280-93.5 385-34.5z"/></svg> </span>
+  </span></span>
+        
+        <span class="stroom-doc-text">Data Connection</span>
+      </a>
+    </span>
+
+ is one more kind of <span class="glossary-link link-with-hover-tooltip">
+    <a href="../../../../docs/glossary/d/glossary-data-source">
+      <span>data source</span>
+      <i class="glossary-link-icon fas fa-book fa-sm text-primary"></i>
+    </a><template class="hover-tooltip-content">
+        <span class="hover-tooltip-title">Data source</span>
+        <div class="hover-tooltip-summary">The source of data for a <em>Query</em>, e.g. a <em>Lucene</em> based <em>Index</em>, a SQL Statistics Data source, etc.</div><span class="hover-tooltip-more-details">Click to see more details...</span></template></span>.
+It lets <span class="glossary-link link-with-hover-tooltip">
+    <a href="../../../../docs/glossary/s/glossary-stroomql">
+      <span>StroomQl</span>
+      <i class="glossary-link-icon fas fa-book fa-sm text-primary"></i>
+    </a><template class="hover-tooltip-content">
+        <span class="hover-tooltip-title">StroomQl</span>
+        <div class="hover-tooltip-summary"><strong>Stroom</strong> <strong>Q</strong>uery <strong>L</strong>anguage is Stroom&rsquo;s own query language. It has similarities with Structured Query Language (SQL) as used in databases. StroomQL is sometimes referred to as <em>sQL</em> to distinguish it from <em>SQL</em>.</div><span class="hover-tooltip-more-details">Click to see more details...</span></template></span> queries, <span class="glossary-link link-with-hover-tooltip">
+    <a href="../../../../docs/glossary/d/glossary-dashboard">
+      <span>Dashboards</span>
+      <i class="glossary-link-icon fas fa-book fa-sm text-primary"></i>
+    </a><template class="hover-tooltip-content">
+        <span class="hover-tooltip-title">Dashboard</span>
+        <div class="hover-tooltip-summary">A Dashboard is a configurable entity for querying one or more <em>Data Sources</em> and displaying the results as a table, a visualisation or some other form.</div><span class="hover-tooltip-more-details">Click to see more details...</span></template></span> and scheduled analytic rules query data that Stroom does not hold in its own indexes or stores, such as a reporting database or a staff directory.
+Once its rows reach Stroom, every part of StroomQL works on them as it does on any other data source, e.g. <code>where</code>, <code>eval</code>, <code>group by</code>, <code>sort by</code> and <code>select</code>.</p>
+<p>Data Connections are read-only.
+Stroom never writes to the systems they connect to, and cannot join one data source to another.</p>
+<h2 id="types">Types</h2>
+<p>Each Data Connection has a <em>Type</em>, which decides where its data comes from and how it is queried.</p>
+<table>
+<thead>
+<tr>
+<th>Type</th>
+<th>Data</th>
+<th>Queried with</th>
+<th>Fields</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="../../../../docs/user-guide/search/data-sources/data-connections/jdbc/">JDBC</a></td>
+<td>A database reached through a JDBC driver, e.g. MySQL or PostgreSQL.</td>
+<td>SQL in each query&rsquo;s <code>sql</code> clause.</td>
+<td>The columns the SQL returns.</td>
+</tr>
+<tr>
+<td><a href="../../../../docs/user-guide/search/data-sources/data-connections/athena/">Amazon Athena</a></td>
+<td>Amazon Athena, reached through the AWS SDK.</td>
+<td>SQL in each query&rsquo;s <code>sql</code> clause.</td>
+<td>The columns the SQL returned when it last ran.</td>
+</tr>
+<tr>
+<td><a href="../../../../docs/user-guide/search/data-sources/data-connections/ldap/">LDAP</a></td>
+<td>An LDAP directory, e.g. OpenLDAP or Active Directory.</td>
+<td>An LDAP search filter in each query&rsquo;s <code>sql</code> clause.</td>
+<td><code>dn</code> and the attributes listed in the document.</td>
+</tr>
+<tr>
+<td><a href="../../../../docs/user-guide/search/data-sources/data-connections/csv-and-excel/">CSV</a></td>
+<td>CSV text held in the document.</td>
+<td>Stroom&rsquo;s own clauses only.</td>
+<td>The columns listed in the document.</td>
+</tr>
+<tr>
+<td><a href="../../../../docs/user-guide/search/data-sources/data-connections/csv-and-excel/">Excel</a></td>
+<td>An Excel <code>.xlsx</code> workbook held in the document.</td>
+<td>Stroom&rsquo;s own clauses only.</td>
+<td>The columns listed in the document.</td>
+</tr>
+</tbody>
+</table>
+<p>The pages for each type describe its settings.
+The rest of this page applies to them all.</p>
+<h2 id="creating-a-data-connection">Creating a Data Connection</h2>
+<ol>
+<li>Right-click a folder in the Stroom Explorer pane (<span class="stroom-icon inline-svg-button icon-button  " >
+    <span class="face" title="Explorer"><svg xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns="http://www.w3.org/2000/svg" height="1792" width="1792" version="1.1" xmlns:cc="http://creativecommons.org/ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" viewBox="0 0 1792 1792"><g fill="var(--icon-colour__blue)"><path d="m804.29 276.08v287.08q0 37.516-26.913 64.429t-64.429 26.913h-495.86q-37.516 0-64.429-26.913-26.91-26.92-26.91-64.43v-391.47q0-37.516 26.913-64.429t64.429-26.913h130.49q37.516 0 64.429 26.913t26.913 64.429v13.049h274.03q37.516 0 64.429 26.913t26.913 64.429z"/><path d="m1653.2 1336.4v287.08q0 37.516-26.913 64.429t-64.429 26.913h-495.86q-37.516 0-64.429-26.913t-26.913-64.429v-391.47q0-37.516 26.913-64.429t64.429-26.913h130.49q37.516 0 64.429 26.913t26.913 64.429v13.049h274.03q37.516 0 64.429 26.914 26.913 26.913 26.913 64.429z"/><path d="m1653.2 654.02v287.08q0 37.516-26.913 64.429t-64.429 26.913h-495.86q-37.516 0-64.429-26.913t-26.913-64.429v-391.47q0-37.516 26.913-64.429t64.429-26.913h130.49q37.516 0 64.429 26.913t26.913 64.429v13.049h274.03q37.516 0 64.429 26.913t26.913 64.429z"/></g><path stroke-linejoin="round" d="m600.75 492.64v949.1h381.89" stroke="var(--icon-colour__blue)" stroke-width="71.125" fill="none"/><path d="m597.94 807.14h539.13" fill-rule="evenodd" stroke="var(--icon-colour__blue)" stroke-width="71.125"/></svg> </span>
+  </span>).</li>
+<li>Select:<br>
+
+
+
+
+
+
+  <div class="stroom-theme-dark stroom-menu">
+    
+    
+
+      
+
+      
+      
+
+
+      
+
+  
+  
+  <div class="stroom-menu-item-background" style="margin-top: 0px;">
+    
+    <div class="stroom-menu-item " >
+        <div class="stroom-menu-item-icon">
+          <span class="stroom-icon inline-svg-button icon-button  " >
+    <span class="face" title="Add"><svg xmlns="http://www.w3.org/2000/svg" width="1792" height="1792" viewBox="0 0 1792 1792"><path style="fill:currentColor" d="m 1600,800 0,192 q 0,40 -28,68 -28,28 -68,28 l -416,0 0,416 q 0,40 -28,68 -28,28 -68,28 l -192,0 q -40,0 -68,-28 -28,-28 -28,-68 l 0,-416 -416,0 q -40,0 -68,-28 -28,-28 -28,-68 l 0,-192 q 0,-40 28,-68 28,-28 68,-28 l 416,0 0,-416 q 0,-40 28,-68 28,-28 68,-28 l 192,0 q 40,0 68,28 28,28 28,68 l 0,416 416,0 q 40,0 68,28 28,28 28,68 z"/></svg> </span>
+  </span>
+        </div>
+
+      <div class="stroom-menu-item-text">New
+      </div>
+        <div class="stroom-menu-item-arrow">
+          <span class="stroom-icon inline-svg-button icon-button  " >
+    <span class="face" title="Arrow right"><svg xmlns="http://www.w3.org/2000/svg" width="1427.7665" height="1427.7665" viewBox="0 0 1427.7665 1427.7665"><g style="stroke:currentColor;stroke-width:167.567"><path d="m 415.05387,83.70929 c -39.92654,0.4303 -75.41463,48.3887 -40.0468,81.9121 C 567.552,348.69899 760.75555,531.15431 953.73208,713.82391 760.75555,896.49341 567.552,1078.9486 375.00707,1262.0262 c -46.19471,43.7855 28.48812,112.1966 76.0571,67.1681 195.93558,-185.823 392.95261,-370.82479 587.98693,-557.52749 5.6117,-4.8034 10.4633,-10.2473 14.4855,-16.1231 9.643,-12.4844 13.9638,-27.0796 13.6909,-41.7198 0.2729,-14.6402 -4.0479,-29.2354 -13.6909,-41.7198 -4.0222,-5.8758 -8.8738,-11.3198 -14.4855,-16.1231 C 844.01678,469.27821 646.99975,284.27629 451.06417,98.45319 439.91519,87.89979 427.27628,83.57749 415.05387,83.70929 Z"/></g></svg> </span>
+  </span>
+        </div>
+    </div>
+  </div>
+
+      
+
+      
+      
+        
+      
+
+
+      
+
+  
+  
+  <div class="stroom-menu-item-background" style="margin-top: 7px;">
+    
+    <div class="stroom-menu-item stroom-menu-item-leaf" >
+
+      <div class="stroom-menu-item-text">Data Connection
+      </div>
+    </div>
+  </div>
+  </div>
+
+
+</li>
+<li>Enter a name for the Data Connection and click 
+
+
+
+
+
+
+  
+  
+  
+
+
+<span class="stroom-theme-dark stroom-button stroom-button-primary" title="OK button" >
+  <span class="stroom-icon inline-svg-button icon-button  icon-colour__grey" >
+    <span class="face" title="OK"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!-- Font Awesome Free 5.15.3 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) --><path style="fill:#fff" d="M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z"/></svg> </span>
+  </span>
+  <span class="stroom-button-text">OK</span>
+</span>
+.
+Queries name it after <code>from</code>, so a short name without spaces is easiest to type.</li>
+<li>On the <em>Settings</em> tab, choose the <em>Type</em> and fill in the settings that appear below it.</li>
+<li>Click 
+
+
+
+
+
+
+  
+
+
+<span class="stroom-theme-dark stroom-button key-bind-single" title="Test Connection button" >
+  
+  <span class="stroom-button-text">Test Connection</span>
+</span>
+, or for CSV and Excel 
+
+
+
+
+
+
+  
+
+
+<span class="stroom-theme-dark stroom-button key-bind-single" title="Check CSV button" >
+  
+  <span class="stroom-button-text">Check CSV</span>
+</span>
+ or 
+
+
+
+
+
+
+  
+
+
+<span class="stroom-theme-dark stroom-button key-bind-single" title="Check Workbook button" >
+  
+  <span class="stroom-button-text">Check Workbook</span>
+</span>
+, to check the settings.</li>
+<li>Click <span class="stroom-icon inline-svg-button icon-button  " >
+    <span class="face" title="Save"><svg xmlns="http://www.w3.org/2000/svg" width="1792" height="1792" viewBox="0 0 1792 1792"><!--! Font Awesome Free 6.4.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><path style="fill:currentColor;stroke-width:0.570676;stroke-dasharray:none" d="M 339.40234 116.52148 C 216.56504 116.52148 116.69531 216.3912 116.69531 339.22852 L 116.69531 1452.7715 C 116.69531 1575.6089 216.56504 1675.4785 339.40234 1675.4785 L 1452.5977 1675.4785 C 1575.4349 1675.4785 1675.3047 1575.6089 1675.3047 1452.7715 L 1675.3047 598.82422 C 1675.3047 539.66744 1651.9901 482.94523 1610.2324 441.1875 L 1610.5801 440.83984 L 1351.334 181.59375 C 1309.5761 139.83602 1252.8561 116.52148 1193.6992 116.52148 L 339.40234 116.52148 z M 339.40234 283.55273 L 395.08008 283.55273 L 395.08008 645.45312 C 395.08008 691.73461 432.31423 728.96875 478.5957 728.96875 L 1146.7207 728.96875 C 1193.0023 728.96875 1230.2363 691.73461 1230.2363 645.45312 L 1230.2363 297.12305 C 1231.2803 298.167 1231.9756 298.8623 1233.0195 299.90625 L 1492.6152 558.80469 L 1492.2676 559.1543 C 1502.707 569.59373 1508.6211 583.8594 1508.6211 598.47461 L 1508.6211 1452.7715 C 1508.6211 1483.3939 1483.5678 1508.4473 1452.9453 1508.4473 L 1395.6113 1508.4473 L 1395.6113 1059.8359 C 1395.6113 981.08539 1331.5826 917.05859 1252.832 917.05859 L 539.16797 917.05859 C 460.41738 917.05859 396.38867 981.08539 396.38867 1059.8359 L 396.38867 1508.4473 L 339.40234 1508.4473 C 308.78001 1508.4473 283.72656 1483.3939 283.72656 1452.7715 L 283.72656 339.22852 C 283.72656 308.60619 308.78001 283.55273 339.40234 283.55273 z M 562.11133 283.55273 L 1063.2051 283.55273 L 1063.2051 561.9375 L 562.11133 561.9375 L 562.11133 283.55273 z M 538.94531 1024.1426 L 1252.832 1024.1426 C 1272.4639 1024.1426 1288.5273 1040.2041 1288.5273 1059.8359 L 1288.5273 1508.4473 L 503.25 1508.4473 L 503.25 1059.8359 C 503.25 1040.2041 519.31334 1024.1426 538.94531 1024.1426 z " /></svg> </span>
+  </span>.</li>
+</ol>
+<p>The settings of every type are kept when you change the <em>Type</em>, so you can switch back without losing them.
+Only the settings of the chosen type are checked and used.</p>
+<p>Settings an administrator controls, such as which JDBC URLs are allowed, are checked when you save, so a mistake is reported straight away.
+They are checked again whenever the Data Connection connects, as an imported document is not checked on import.</p>
+<h3 id="settings-for-every-type">Settings for Every Type</h3>
+<dl>
+<dt><em>Time Column (optional)</em></dt>
+<dd>A date column of the data, used to apply a query&rsquo;s time range.
+See <a href="#time-range">Time Range</a>.
+Not used by Amazon Athena.</dd>
+<dt><em>Query Timeout (seconds)</em></dt>
+<dd>How long a query may run before it is stopped.
+An administrator may set a lower ceiling.
+Not used by CSV and Excel, which are read from the document.
+Default: <code>60</code>.</dd>
+<dt><em>Max Rows</em></dt>
+<dd>The most rows a query may read.
+A query with more uses the first ones and warns that the limit was reached.
+An administrator may set a lower ceiling.
+Default: <code>100000</code>.</dd>
+</dl>
+<h2 id="querying-a-data-connection">Querying a Data Connection</h2>
+<p>Name the Data Connection after <code>from</code>, as for any other data source.
+For CSV and Excel that is all that is needed, as the data is held in the document, e.g.</p>
+<pre><code class="language-stroomql">from &quot;Teams&quot;
+where on_call = true
+sort by members desc
+select team, members
+</code></pre>
+<p>JDBC, Amazon Athena and LDAP Data Connections also need the query to run in the external system: SQL for JDBC and Athena, or a search filter for LDAP.
+It goes in a <code>sql</code> clause straight after <code>from</code>, as a string in triple double quotes (<code>&quot;&quot;&quot;</code>).
+A triple-quoted string is taken exactly as written, so it can span lines and hold <code>&quot;</code> and <code>\</code> without escaping, e.g.</p>
+<pre><code class="language-stroomql">from &quot;Stroom DB&quot;
+sql &quot;&quot;&quot;
+  select f.name as feed, t.name as type
+  from meta m
+  join meta_feed f on f.id = m.feed_id
+  join meta_type t on t.id = m.type_id
+&quot;&quot;&quot;
+eval streams = count()
+group by feed, type
+sort by streams desc
+select feed, type, streams
+</code></pre>
+<p>The SQL or filter runs first, in the external system.
+Its rows then go through the rest of the query in Stroom, like the rows of any other data source.
+So keep the SQL or filter to what narrows the data, and let Stroom&rsquo;s clauses do the rest, or do as much as the external system can do faster, as you prefer.</p>
+<p>A <code>sql</code> clause is refused for a data source that does not take one, and a JDBC, Athena or LDAP Data Connection without one is refused with an example of the clause.</p>
+
+
+
+<div class="alert alert-primary" role="alert">
+  <h4 class="alert-heading">See Also</h4>
+  <div class="alert-content">
+
+
+
+
+<a href="../../../../docs/user-guide/search/queries/stroom-query-language/#sql">StroomQL Sql clause</a>
+
+
+  </div>
+</div>
+
+<h3 id="fields">Fields</h3>
+<p>The fields of a query are the columns of the rows its data source gives:</p>
+<ul>
+<li>JDBC: the columns of the SQL.
+Stroom asks the database to describe the SQL without running it, so the fields are known as you type.</li>
+<li>Amazon Athena: the columns of the SQL when it last ran, as Athena cannot describe a query without running it and every run is billed.
+Until the SQL has run once, the field list is empty.</li>
+<li>LDAP: <code>dn</code>, then each attribute listed in the document.</li>
+<li>CSV and Excel: the columns listed in the document.</li>
+</ul>
+<p>A field the query uses that the data does not have is empty, and the query warns about it.
+A field used in <code>where</code> that is not a column is an error.</p>
+<h3 id="parameters">Parameters</h3>
+<p>The SQL or filter can take values from the query&rsquo;s parameters, such as those of a dashboard, with a named placeholder: a colon followed by the parameter&rsquo;s name, e.g. <code>:feed</code>.</p>
+<pre><code class="language-stroomql">from &quot;Stroom DB&quot;
+sql &quot;&quot;&quot;
+  select m.id, m.create_time
+  from meta m
+  join meta_feed f on f.id = m.feed_id
+  where f.name = :feed
+&quot;&quot;&quot;
+select id, create_time
+</code></pre>
+<p>A value is never pasted into the SQL or filter as text, so it cannot change it:</p>
+<ul>
+<li>JDBC binds it as a parameter of a prepared statement.</li>
+<li>Amazon Athena passes it as an execution parameter, written as a single SQL literal.
+As Athena receives every value as text, compare it with a number by casting, e.g. <code>where id = cast(:id as bigint)</code>.</li>
+<li>LDAP escapes it as a filter value, so <code>*)(uid=*</code> is matched as text and finds nothing.</li>
+</ul>
+<p>A placeholder with no parameter of its name is an error.
+SQL must use named placeholders: a <code>?</code> outside quotes is refused.</p>
+<h3 id="time-range">Time Range</h3>
+<p>A query&rsquo;s time range can be applied in two ways.</p>
+<p><strong>In the SQL or filter</strong>, with the placeholders <code>:from</code> and <code>:to</code>, which take the start and end of the time range, e.g.</p>
+<pre><code class="language-sql">select * from events where event_time &gt;= :from and event_time &lt; :to
+</code></pre>
+<p>By default they are timestamps.
+A format in braces after the name changes them:</p>
+<table>
+<thead>
+<tr>
+<th>Placeholder</th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>:from</code></td>
+<td>A timestamp for JDBC and Athena, or an LDAP time (GeneralizedTime) for LDAP.</td>
+</tr>
+<tr>
+<td><code>:from{epochMillis}</code></td>
+<td>Milliseconds since 1970, as Stroom&rsquo;s own tables hold times.</td>
+</tr>
+<tr>
+<td><code>:from{epochSeconds}</code></td>
+<td>Seconds since 1970.</td>
+</tr>
+<tr>
+<td><code>:from{yyyy-MM-dd}</code></td>
+<td>Text in the given date pattern, in UTC.</td>
+</tr>
+</tbody>
+</table>
+<p><strong>In Stroom</strong>, on the document&rsquo;s <em>Time Column</em>, when the SQL or filter has no <code>:from</code> or <code>:to</code>.
+The SQL must return the column, and for LDAP, CSV and Excel it must be a Date column or attribute.
+This reads every row the SQL or filter returns, so filtering in the SQL is faster on large data.</p>
+<p>If neither applies, the time range is ignored and the query warns that it was.</p>
+<p>Amazon Athena bills by the data each query scans, so an Athena query with a time range must use <code>:from</code> or <code>:to</code> in its SQL, and is refused otherwise.</p>
+<h3 id="limits-and-warnings">Limits and Warnings</h3>
+<p>A query stops when it has read the document&rsquo;s <em>Max Rows</em> or runs for its <em>Query Timeout</em>, whichever comes first.
+An administrator&rsquo;s ceilings on both apply to every Data Connection.</p>
+<p>Problems that do not stop a query are reported as warnings with its results, e.g.:</p>
+<ul>
+<li>The row limit was reached, so only the first rows were used.</li>
+<li>The time range was ignored.</li>
+<li>A field the query uses is not a column of the data.</li>
+<li>Values were not of their column&rsquo;s type, so they are empty.
+The warning counts them and gives an example.</li>
+<li>For LDAP, a referral was not followed, or the directory&rsquo;s own size or time limit ended the search.</li>
+</ul>
+<p>Closing or stopping a query stops it in the external system too.</p>
+<h2 id="dashboards">Dashboards</h2>
+<p>A Data Connection can be the data source of a dashboard&rsquo;s <em>Query</em> panel.
+CSV and Excel need nothing more.</p>
+<p>For JDBC, Amazon Athena and LDAP the query needs its <code>sql</code> clause, which the <em>Query</em> panel&rsquo;s expression editor has no place for.
+Write the query in a 
+
+  
+  
+  <span class="stroom-doc">
+      <a href="../../../../docs/reference-section/documents#query" class="stroom-doc-link">
+        
+        <span class="stroom-doc-icon"><span class="stroom-icon inline-svg-button icon-button  " >
+    <span class="face" title="query"><svg xmlns="http://www.w3.org/2000/svg" width="1792" height="1792" viewBox="0 0 1792 1792"><path style="fill:var(--icon-colour__blue)" d="M1216 832q0-185-131.5-316.5t-316.5-131.5-316.5 131.5-131.5 316.5 131.5 316.5 316.5 131.5 316.5-131.5 131.5-316.5zm512 832q0 52-38 90t-90 38q-54 0-90-38l-343-342q-179 124-399 124-143 0-273.5-55.5t-225-150-150-225-55.5-273.5 55.5-273.5 150-225 225-150 273.5-55.5 273.5 55.5 225 150 150 225 55.5 273.5q0 220-124 399l343 343q37 37 37 90z"/></svg></span>
+  </span></span>
+        
+        <span class="stroom-doc-text">Query</span>
+      </a>
+    </span>
+
+ document instead, and show it on the dashboard with an <em>Embedded Query</em> panel.</p>
+<p>A dashboard that refreshes automatically reruns the query each time, against the external system.
+The <em>Minimum Refresh (minutes)</em> setting of JDBC, Amazon Athena and LDAP Data Connections sets the shortest interval at which a dashboard may do so, to protect the system and, for Athena, the cost.
+A dashboard set to refresh more often is held to the minimum.</p>
+<h2 id="analytics">Analytics</h2>
+<p><a href="../../../../docs/user-guide/search/analytics/query/">Scheduled Query</a> rules and 
+
+  
+  
+  <span class="stroom-doc">
+      <a href="../../../../docs/reference-section/documents#report" class="stroom-doc-link">
+        
+        <span class="stroom-doc-icon"><span class="stroom-icon inline-svg-button icon-button  " >
+    <span class="face" title="report"><svg id="svg5453" xmlns="http://www.w3.org/2000/svg" height="1792" width="1792" version="1.1" viewBox="0 0 1792 1792"><path id="path5455" fill="var(--icon-colour__blue)" d="m602.28 1395.3v-176.23q0-12.85-8.2608-21.111-8.2608-8.2607-21.111-8.2607h-293.72q-12.85 0-21.111 8.2607-8.2608 8.2608-8.2608 21.111v176.23q0 12.85 8.2608 21.111 8.2608 8.2608 21.111 8.2608h293.72q12.85 0 21.111-8.2608 8.2608-8.2607 8.2608-21.111zm0-352.46v-176.23q0-12.85-8.2608-21.111-8.2608-8.2608-21.111-8.2608h-293.72q-12.85 0-21.111 8.2608-8.2608 8.2608-8.2608 21.111v176.23q0 12.85 8.2608 21.111 8.2608 8.2608 21.111 8.2608h293.72q12.85 0 21.111-8.2608 8.2608-8.2607 8.2608-21.111zm469.95 352.46v-176.23q0-12.85-8.2608-21.111-8.2608-8.2607-21.111-8.2607h-293.72q-12.85 0-21.111 8.2607-8.2608 8.2608-8.2608 21.111v176.23q0 12.85 8.2608 21.111 8.2608 8.2608 21.111 8.2608h293.72q12.85 0 21.111-8.2608 8.2608-8.2607 8.2608-21.111zm-469.95-704.92v-176.23q0-12.85-8.2608-21.111-8.2608-8.2608-21.111-8.2608h-293.72q-12.85 0-21.111 8.2608-8.2608 8.2608-8.2608 21.111v176.23q0 12.85 8.2608 21.111 8.2608 8.2608 21.111 8.2608h293.72q12.85 0 21.111-8.2608 8.2608-8.2608 8.2608-21.111zm469.95 352.46v-176.23q0-12.85-8.2608-21.111-8.2608-8.2608-21.111-8.2608h-293.72q-12.85 0-21.111 8.2608-8.2608 8.2608-8.2608 21.111v176.23q0 12.85 8.2608 21.111 8.2608 8.2608 21.111 8.2608h293.72q12.85 0 21.111-8.2608 8.2608-8.2607 8.2608-21.111zm469.95 352.46v-176.23q0-12.85-8.2607-21.111-8.2608-8.2607-21.111-8.2607h-293.72q-12.85 0-21.111 8.2607-8.2607 8.2608-8.2607 21.111v176.23q0 12.85 8.2607 21.111 8.2608 8.2608 21.111 8.2608h293.72q12.85 0 21.111-8.2608 8.2607-8.2607 8.2607-21.111zm-469.95-704.92v-176.23q0-12.85-8.2608-21.111-8.2608-8.2608-21.111-8.2608h-293.72q-12.85 0-21.111 8.2608-8.2608 8.2608-8.2608 21.111v176.23q0 12.85 8.2608 21.111 8.2608 8.2608 21.111 8.2608h293.72q12.85 0 21.111-8.2608 8.2608-8.2608 8.2608-21.111zm469.95 352.46v-176.23q0-12.85-8.2607-21.111-8.2608-8.2608-21.111-8.2608h-293.72q-12.85 0-21.111 8.2608-8.2607 8.2608-8.2607 21.111v176.23q0 12.85 8.2607 21.111 8.2608 8.2608 21.111 8.2608h293.72q12.85 0 21.111-8.2608 8.2607-8.2607 8.2607-21.111zm0-352.46v-176.23q0-12.85-8.2607-21.111-8.2608-8.2608-21.111-8.2608h-293.72q-12.85 0-21.111 8.2608-8.2607 8.2608-8.2607 21.111v176.23q0 12.85 8.2607 21.111 8.2608 8.2608 21.111 8.2608h293.72q12.85 0 21.111-8.2608 8.2607-8.2608 8.2607-21.111zm117.49-293.72v998.63q0 60.579-43.14 103.72-43.14 43.14-103.72 43.14h-1233.6q-60.579 0-103.72-43.14-43.14-43.14-43.14-103.72v-998.63q0-60.579 43.14-103.72 43.14-43.14 103.72-43.14h1233.6q60.579 0 103.72 43.14 43.14 43.14 43.14 103.72z"/></svg> </span>
+  </span></span>
+        
+        <span class="stroom-doc-text">Report</span>
+      </a>
+    </span>
+
+ documents can query a Data Connection.
+Each run applies the rule&rsquo;s time range to the time it runs for, using <code>:from</code> and <code>:to</code> or the <em>Time Column</em> as above.</p>
+<p><a href="../../../../docs/user-guide/search/analytics/streaming/">Streaming</a> and table builder rules run over events as Stroom processes them, through a 
+
+  
+  
+  <span class="stroom-doc">
+      <a href="../../../../docs/reference-section/documents#view" class="stroom-doc-link">
+        
+        <span class="stroom-doc-icon"><span class="stroom-icon inline-svg-button icon-button  " >
+    <span class="face" title="view"><svg xmlns="http://www.w3.org/2000/svg" width="1792" height="1792" viewBox="0 0 1792 1792"><path style="fill:var(--icon-colour__green)" d="M1595 295q17 41-14 70l-493 493v742q0 42-39 59-13 5-25 5-27 0-45-19l-256-256q-19-19-19-45v-486l-493-493q-31-29-14-70 17-39 59-39h1280q42 0 59 39z"/></svg> </span>
+  </span></span>
+        
+        <span class="stroom-doc-text">View</span>
+      </a>
+    </span>
+
+.
+A View cannot use a Data Connection, so these rules cannot either.</p>
+<h2 id="permissions">Permissions</h2>
+<p>To query a Data Connection a user needs <em>Use</em> permission on the document.</p>
+<p>JDBC, LDAP and Amazon Athena Data Connections name a <a href="../../../../docs/user-guide/security/credentials/">credential</a> to connect with.
+The credential is used as the user running the query, who needs <em>Use</em> permission on the credential too.
+A credential that does not exist and one the user may not use give the same error, so the names of credentials cannot be discovered this way.</p>
+<p>Testing a connection, and detecting the columns or attributes of the data, use the settings being edited with the credential they name.
+So they need permission to edit the document as well.</p>
+
+
+
+<div class="alert alert-warning" role="alert">
+  <h4 class="alert-heading">Warning</h4>
+  <div class="alert-content">
+
+
+
+
+<p>Stroom runs whatever SQL or filter a query gives, as the account of its credential.
+Use accounts that can only read the data Stroom should query: Stroom asks JDBC databases for read-only connections, but only the database, Athena workgroup or directory can enforce what an account may do.</p>
+
+
+  </div>
+</div>
+
+<h2 id="administration">Administration</h2>
+<p>An administrator controls what Data Connections may connect to with these properties, under <code>stroom.dataConnection</code>.
+See <a href="../../../../docs/user-guide/properties/">Properties</a>.</p>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Default</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>allowedUrlPatterns</code></td>
+<td>None</td>
+<td>Regular expressions a JDBC URL must match one of. With none, no JDBC connection is allowed.</td>
+</tr>
+<tr>
+<td><code>deniedConnectionProperties</code></td>
+<td>A list of MySQL and PostgreSQL properties</td>
+<td>JDBC driver properties a Data Connection may not set, in its URL or its connection properties, because they can read local files, load classes or turn off read-only connections.</td>
+</tr>
+<tr>
+<td><code>driverDirectory</code></td>
+<td>None</td>
+<td>A directory of extra JDBC driver jars, for databases other than MySQL and PostgreSQL, whose drivers Stroom ships. Needs a restart.</td>
+</tr>
+<tr>
+<td><code>allowedAthenaWorkGroups</code></td>
+<td>None</td>
+<td>Regular expressions an Amazon Athena <code>region/workgroup</code> must match one of, e.g. <code>^eu-west-2/stroom-.*$</code>. With none, no Athena connection is allowed.</td>
+</tr>
+<tr>
+<td><code>allowedAthenaOutputLocations</code></td>
+<td>None</td>
+<td>Regular expressions an Athena output location must match one of. With none, Data Connections may not set one and the workgroup&rsquo;s is used.</td>
+</tr>
+<tr>
+<td><code>allowDefaultAwsCredentials</code></td>
+<td><code>false</code></td>
+<td>Whether an Athena Data Connection with no credential may use Stroom&rsquo;s own AWS identity.</td>
+</tr>
+<tr>
+<td><code>allowedLdapUrlPatterns</code></td>
+<td>None</td>
+<td>Regular expressions an LDAP URL must match one of, e.g. <code>^ldaps://directory\.example\.org:636$</code>. With none, no LDAP connection is allowed.</td>
+</tr>
+<tr>
+<td><code>allowPlainLdap</code></td>
+<td><code>false</code></td>
+<td>Whether an LDAP Data Connection may connect with plain <code>ldap://</code> and no StartTLS, sending its password and results unencrypted.</td>
+</tr>
+<tr>
+<td><code>maxStoredDataSize</code></td>
+<td><code>5M</code> (5 MiB)</td>
+<td>The most CSV or Excel data a Data Connection may hold.</td>
+</tr>
+<tr>
+<td><code>maxQueryTimeout</code></td>
+<td><code>PT10M</code></td>
+<td>The longest query timeout a Data Connection may set.</td>
+</tr>
+<tr>
+<td><code>maxRowsLimit</code></td>
+<td><code>1000000</code></td>
+<td>The highest row limit a Data Connection may set.</td>
+</tr>
+<tr>
+<td><code>maxPoolSizeLimit</code></td>
+<td><code>20</code></td>
+<td>The largest JDBC connection pool a Data Connection may set.</td>
+</tr>
+<tr>
+<td><code>connectionPoolCache</code></td>
+<td>100 pools, closed after 10 minutes unused</td>
+<td>The JDBC connection pools, one per Data Connection.</td>
+</tr>
+<tr>
+<td><code>fieldCache</code></td>
+<td>1000 entries for 10 minutes</td>
+<td>The columns of each query&rsquo;s SQL, so editors can list fields without asking the database each time.</td>
+</tr>
+<tr>
+<td><code>tableCache</code></td>
+<td>10 entries, for 10 minutes unused</td>
+<td>The rows read from the CSV or Excel data of each Data Connection.</td>
+</tr>
+</tbody>
+</table>
+<p>With the defaults, no JDBC, Athena or LDAP connection is allowed until an administrator allows one.
+CSV and Excel Data Connections need no setting.</p>
+<h2 id="example-pack">Example Pack</h2>
+<p>The Stroom repository holds an import pack of example Data Connections and queries, <code>stroom-data-connection/DataConnection-Examples.zip</code>, for trying them out in a development or test Stroom.
+Import it with:</p>
+
+
+
+
+
+
+  <div class="stroom-theme-dark stroom-menu">
+    
+    
+
+      
+
+      
+      
+
+
+      
+
+  
+  
+  <div class="stroom-menu-item-background" style="margin-top: 0px;">
+    
+    <div class="stroom-menu-item " >
+
+      <div class="stroom-menu-item-text">Tools
+      </div>
+        <div class="stroom-menu-item-arrow">
+          <span class="stroom-icon inline-svg-button icon-button  " >
+    <span class="face" title="Arrow right"><svg xmlns="http://www.w3.org/2000/svg" width="1427.7665" height="1427.7665" viewBox="0 0 1427.7665 1427.7665"><g style="stroke:currentColor;stroke-width:167.567"><path d="m 415.05387,83.70929 c -39.92654,0.4303 -75.41463,48.3887 -40.0468,81.9121 C 567.552,348.69899 760.75555,531.15431 953.73208,713.82391 760.75555,896.49341 567.552,1078.9486 375.00707,1262.0262 c -46.19471,43.7855 28.48812,112.1966 76.0571,67.1681 195.93558,-185.823 392.95261,-370.82479 587.98693,-557.52749 5.6117,-4.8034 10.4633,-10.2473 14.4855,-16.1231 9.643,-12.4844 13.9638,-27.0796 13.6909,-41.7198 0.2729,-14.6402 -4.0479,-29.2354 -13.6909,-41.7198 -4.0222,-5.8758 -8.8738,-11.3198 -14.4855,-16.1231 C 844.01678,469.27821 646.99975,284.27629 451.06417,98.45319 439.91519,87.89979 427.27628,83.57749 415.05387,83.70929 Z"/></g></svg> </span>
+  </span>
+        </div>
+    </div>
+  </div>
+
+      
+
+      
+      
+        
+      
+
+
+      
+
+  
+  
+  <div class="stroom-menu-item-background" style="margin-top: 7px;">
+    
+    <div class="stroom-menu-item stroom-menu-item-leaf" >
+        <div class="stroom-menu-item-icon">
+          <span class="stroom-icon inline-svg-button icon-button  " >
+    <span class="face" title="Upload"><svg xmlns="http://www.w3.org/2000/svg" width="1792" height="1792" viewBox="0 0 1792 1792"><path style="fill:var(--icon-colour__green)" d="M1675 971q0 51-37 90l-75 75q-38 38-91 38-54 0-90-38l-294-293v704q0 52-37.5 84.5t-90.5 32.5h-128q-53 0-90.5-32.5t-37.5-84.5v-704l-294 293q-36 38-90 38t-90-38l-75-75q-38-38-38-90 0-53 38-91l651-651q35-37 90-37 54 0 91 37l651 651q37 39 37 91z"/></svg></span>
+  </span>
+        </div>
+
+      <div class="stroom-menu-item-text">Import
+      </div>
+    </div>
+  </div>
+  </div>
+
+
+
+<p>It imports a <em>Data Connection Examples</em> folder holding:</p>
+<ul>
+<li><em>Stroom DB</em>, a JDBC Data Connection pointed at Stroom&rsquo;s own MySQL database, with queries of its nodes, streams and processor tasks.</li>
+<li><em>Teams</em>, a CSV Data Connection, and <em>Bank Holidays</em>, an Excel one, each with a query.
+They need no set-up.</li>
+<li><em>People</em>, a CSV Data Connection, and ten <em>Join - &hellip;</em> queries that join it to <em>Teams</em> and <em>Bank Holidays</em>: a left join, a semi join with a condition on the joined source, an anti join, a join to a bracketed grouped query, a join on a date, <code>where exists</code>, <code>where not exists</code>, <code>where ... in</code>, a right join and a full outer join.
+They need no set-up either, see <a href="../../../../docs/user-guide/search/queries/joins/">Joins</a>.</li>
+<li><em>Directory</em>, an LDAP Data Connection, with queries of the people in a directory.</li>
+</ul>
+<p>The <em>Documentation</em> tab of each JDBC and LDAP Data Connection gives its set-up steps.
+Change its URL to your own database or directory first, as the queries will otherwise read a different one, or none.</p>
+
+
+
+<div class="alert alert-warning" role="alert">
+  <h4 class="alert-heading">Warning</h4>
+  <div class="alert-content">
+
+
+
+
+<p>Reading Stroom&rsquo;s own <code>meta</code> table directly bypasses Stroom&rsquo;s feed permissions, so do not set up the <em>Stroom DB</em> example on a production Stroom.</p>
+
+
+  </div>
+</div>
+
+
+</div>
+
+
+
+
+    
+      
+  
+  
+  
+  
+
+  
+  
+
+  
+    
+    
+	
+    
+
+
+
+<div class="td-content" style="--base-section-num: '1.4.1.'; page-break-before: always">
+    
+  <h1 id="pg-bfe1b3438f8a0c89c24e41aa75437e31">1.4.1 - JDBC Data Connections</h1>
+    <div class="lead">Querying a database with SQL through a JDBC driver.</div>
+	<p>A JDBC 
+
+  
+  
+  <span class="stroom-doc">
+      <a href="../../../../docs/reference-section/documents#data-connection" class="stroom-doc-link">
+        
+        <span class="stroom-doc-icon"><span class="stroom-icon inline-svg-button icon-button  " >
+    <span class="face" title="dataconnection"><svg xmlns="http://www.w3.org/2000/svg" width="1792" height="1792" viewBox="0 0 1792 1792"><path style="fill:var(--icon-colour__purple)" d="M896 768q237 0 443-43t325-127v170q0 69-103 128t-280 93.5-385 34.5-385-34.5-280-93.5-103-128v-170q119 84 325 127t443 43zm0 768q237 0 443-43t325-127v170q0 69-103 128t-280 93.5-385 34.5-385-34.5-280-93.5-103-128v-170q119 84 325 127t443 43zm0-384q237 0 443-43t325-127v170q0 69-103 128t-280 93.5-385 34.5-385-34.5-280-93.5-103-128v-170q119 84 325 127t443 43zm0-1152q208 0 385 34.5t280 93.5 103 128v128q0 69-103 128t-280 93.5-385 34.5-385-34.5-280-93.5-103-128v-128q0-69 103-128t280-93.5 385-34.5z"/></svg> </span>
+  </span></span>
+        
+        <span class="stroom-doc-text">Data Connection</span>
+      </a>
+    </span>
+
+ connects to a database through a JDBC driver.
+Each query gives the SQL to run in a <code>sql</code> clause, and the columns of its result become the query&rsquo;s fields.</p>
+<p>Stroom ships the MySQL and PostgreSQL drivers.
+An administrator can add drivers for other databases by putting their jars in the directory named by the <code>stroom.dataConnection.driverDirectory</code> property.</p>
+<h2 id="settings">Settings</h2>
+<dl>
+<dt><em>JDBC URL</em></dt>
+<dd>The JDBC URL of the database, e.g. <code>jdbc:mysql://reporting-db:3306/reports</code>.
+It must match one of the patterns an administrator has allowed in the <code>stroom.dataConnection.allowedUrlPatterns</code> property.
+Do not put a user name or password in it; choose a credential instead.</dd>
+<dt><em>Credential</em></dt>
+<dd>The <em>Username / Password</em> <a href="../../../../docs/user-guide/security/credentials/">credential</a> to connect with.
+You need <em>Use</em> permission on it, as does anyone who queries this Data Connection.</dd>
+<dt><em>Connection Properties</em></dt>
+<dd>Extra JDBC driver properties, one <code>name=value</code> per line.
+For MySQL, add <code>useCursorFetch=true</code> so large results are read in batches of the fetch size rather than all at once.</dd>
+<dt><em>Max Pool Size</em></dt>
+<dd>The most connections Stroom keeps open to this database at once.
+An administrator may set a lower ceiling.
+Default: <code>5</code>.</dd>
+<dt><em>Fetch Size</em></dt>
+<dd>How many rows are fetched from the database in each round trip.
+<code>0</code> uses the driver&rsquo;s own default.
+Default: <code>1000</code>.</dd>
+<dt><em>Minimum Refresh (minutes)</em></dt>
+<dd>The shortest interval at which a dashboard may rerun a query of this Data Connection automatically, to limit the load on the database.
+<code>0</code> sets no minimum beyond the dashboard&rsquo;s own 10 seconds.
+Default: <code>0</code>.</dd>
+</dl>
+<p>The <em>Time Column</em>, <em>Query Timeout</em> and <em>Max Rows</em> settings are described in <a href="../../../../docs/user-guide/search/data-sources/data-connections/#settings-for-every-type">Settings for Every Type</a>.</p>
+<p>
+
+
+
+
+
+
+  
+
+
+<span class="stroom-theme-dark stroom-button key-bind-single" title="Test Connection button" >
+  
+  <span class="stroom-button-text">Test Connection</span>
+</span>
+ connects with the settings as they stand and reports the database and driver it reached, and the user it connected as.</p>
+<h2 id="writing-the-sql">Writing the SQL</h2>
+<p>The SQL is a single statement that returns rows, given in a triple-quoted <code>sql</code> clause, e.g.</p>
+<pre><code class="language-stroomql">from &quot;Reports DB&quot;
+sql &quot;&quot;&quot;
+  select name, team, joined
+  from staff
+  where joined &gt;= :from and joined &lt; :to
+&quot;&quot;&quot;
+where team = &quot;Platform&quot;
+select name, joined
+</code></pre>
+<ul>
+<li>A <code>;</code> is only allowed at the end, so a query cannot run a second statement.</li>
+<li>Use named placeholders such as <code>:team</code> for values, not <code>?</code>, which is refused outside quotes.
+See <a href="../../../../docs/user-guide/search/data-sources/data-connections/#parameters">Parameters</a> and <a href="../../../../docs/user-guide/search/data-sources/data-connections/#time-range">Time Range</a>.</li>
+<li>Give each column the name you want as its field, with <code>as</code> if needed, e.g. <code>count(*) as streams</code>.
+A field matches a column of the same name, or failing that a column whose name differs only in case, as some databases change the case of names that are not quoted.</li>
+</ul>
+<p>Stroom asks the database to describe the SQL without running it, so the fields are listed in the query editor as you write the SQL.</p>
+<h3 id="column-types">Column Types</h3>
+<p>Each column is read as a Stroom field type, from the type the driver reports:</p>
+<table>
+<thead>
+<tr>
+<th>Database type</th>
+<th>Field type</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>TINYINT</code>, <code>SMALLINT</code>, <code>INTEGER</code></td>
+<td>Integer</td>
+</tr>
+<tr>
+<td><code>BIGINT</code></td>
+<td>Long</td>
+</tr>
+<tr>
+<td><code>DECIMAL</code> and <code>NUMERIC</code> with no fraction and up to 18 digits</td>
+<td>Long</td>
+</tr>
+<tr>
+<td><code>REAL</code>, <code>FLOAT</code></td>
+<td>Float</td>
+</tr>
+<tr>
+<td><code>DOUBLE</code>, and other <code>DECIMAL</code> and <code>NUMERIC</code></td>
+<td>Double</td>
+</tr>
+<tr>
+<td><code>BOOLEAN</code>, <code>BIT</code></td>
+<td>Boolean</td>
+</tr>
+<tr>
+<td><code>DATE</code>, <code>TIMESTAMP</code>, <code>TIMESTAMP WITH TIME ZONE</code></td>
+<td>Date</td>
+</tr>
+<tr>
+<td>Anything else</td>
+<td>Text</td>
+</tr>
+</tbody>
+</table>
+<p>A date or timestamp with no time zone is taken as UTC.
+An unsigned <code>BIGINT</code> too large for a Long is read as a Double.</p>
+<p>Stroom&rsquo;s own tables hold times as milliseconds since 1970 in <code>BIGINT</code> columns.
+To read them as dates, convert them in the SQL, e.g. <code>from_unixtime(create_time / 1000)</code> in MySQL, and compare them with the time range using <code>:from{epochMillis}</code> and <code>:to{epochMillis}</code>.</p>
+<h2 id="security">Security</h2>
+<p>Stroom asks for read-only connections, turning off auto-commit so that PostgreSQL connections are read-only too.
+Only the database can enforce what an account may do, so the credential should be for an account that can only read the tables Stroom should query.</p>
+<p>An administrator&rsquo;s controls are checked when the Data Connection is saved and again whenever it connects:</p>
+<ul>
+<li>The URL must match one of the <code>stroom.dataConnection.allowedUrlPatterns</code> patterns.</li>
+<li>Embedded databases (<code>jdbc:h2:</code>, <code>jdbc:hsqldb:</code>, <code>jdbc:derby:</code> and <code>jdbc:sqlite:</code>) are refused, as they read files on the Stroom server.</li>
+<li>Driver properties that can read local files, load classes or turn off read-only connections are refused, whether in the URL or the connection properties.
+The list is the <code>stroom.dataConnection.deniedConnectionProperties</code> property.
+For MySQL and PostgreSQL the URL is read by the driver&rsquo;s own parser, so a property cannot be hidden in it.
+The URLs of other databases cannot contain <code>%</code> or <code>(</code>; set their properties as connection properties instead.</li>
+<li>A user name or password in the URL or connection properties is refused, so a secret is never stored in the document.</li>
+</ul>
+
+</div>
+
+
+
+
+    
+	
+  
+    
+    
+	
+    
+
+
+
+<div class="td-content" style="--base-section-num: '1.4.2.'; page-break-before: always">
+    
+  <h1 id="pg-301f74fc3d8511c9eb2788f9364d9b58">1.4.2 - Amazon Athena Data Connections</h1>
+    <div class="lead">Querying Amazon Athena with SQL through the AWS SDK.</div>
+	<p>An Amazon Athena 
+
+  
+  
+  <span class="stroom-doc">
+      <a href="../../../../docs/reference-section/documents#data-connection" class="stroom-doc-link">
+        
+        <span class="stroom-doc-icon"><span class="stroom-icon inline-svg-button icon-button  " >
+    <span class="face" title="dataconnection"><svg xmlns="http://www.w3.org/2000/svg" width="1792" height="1792" viewBox="0 0 1792 1792"><path style="fill:var(--icon-colour__purple)" d="M896 768q237 0 443-43t325-127v170q0 69-103 128t-280 93.5-385 34.5-385-34.5-280-93.5-103-128v-170q119 84 325 127t443 43zm0 768q237 0 443-43t325-127v170q0 69-103 128t-280 93.5-385 34.5-385-34.5-280-93.5-103-128v-170q119 84 325 127t443 43zm0-384q237 0 443-43t325-127v170q0 69-103 128t-280 93.5-385 34.5-385-34.5-280-93.5-103-128v-170q119 84 325 127t443 43zm0-1152q208 0 385 34.5t280 93.5 103 128v128q0 69-103 128t-280 93.5-385 34.5-385-34.5-280-93.5-103-128v-128q0-69 103-128t280-93.5 385-34.5z"/></svg> </span>
+  </span></span>
+        
+        <span class="stroom-doc-text">Data Connection</span>
+      </a>
+    </span>
+
+ runs SQL in <span class="external-link">
+  <a href="https://aws.amazon.com/athena/" target="_blank" class="external-link" title="Amazon Athena (external link to https://aws.amazon.com/athena/)">
+    <span>Amazon Athena</span>
+    <i class="external-link-icon fas fa-external-link-alt fa-sm text-secondary"></i>
+  </a>
+</span>
+ through the AWS SDK.
+Each query gives the SQL to run in a <code>sql</code> clause, and the columns of its result become the query&rsquo;s fields.</p>
+<p>Athena bills by the data each query scans, so several settings and rules here exist to keep the cost in check.</p>
+<h2 id="settings">Settings</h2>
+<dl>
+<dt><em>AWS Region</em></dt>
+<dd>The AWS region of the Athena workgroup, e.g. <code>eu-west-2</code>.</dd>
+<dt><em>Workgroup</em></dt>
+<dd>The Athena workgroup queries run in.
+The region and workgroup, written <code>region/workgroup</code>, must match one of the patterns an administrator has allowed in the <code>stroom.dataConnection.allowedAthenaWorkGroups</code> property.
+The workgroup&rsquo;s per-query data scan limit is the control on cost.
+Default: <code>primary</code>.</dd>
+<dt><em>Data Catalog</em></dt>
+<dd>The data catalog queries run in.
+Default: <code>AwsDataCatalog</code>.</dd>
+<dt><em>Database</em></dt>
+<dd>The database queries run in.
+Default: <code>default</code>.</dd>
+<dt><em>Output Location (optional)</em></dt>
+<dd>The S3 URI query results are written to, e.g. <code>s3://my-bucket/athena/</code>.
+Leave it empty to use the workgroup&rsquo;s.
+It must match one of the patterns an administrator has allowed in the <code>stroom.dataConnection.allowedAthenaOutputLocations</code> property; with none, it must be left empty.</dd>
+<dt><em>Credential</em></dt>
+<dd>The <em>AWS Access Key</em> <a href="../../../../docs/user-guide/security/credentials/">credential</a> to query with.
+You need <em>Use</em> permission on it, as does anyone who queries this Data Connection.
+With none, Stroom&rsquo;s own AWS identity is used, but only if an administrator has turned on the <code>stroom.dataConnection.allowDefaultAwsCredentials</code> property.</dd>
+<dt><em>Result Reuse (minutes)</em></dt>
+<dd>How old a result of the same query may be and still be reused instead of running the query again.
+Athena bills every run, so this saves cost when the same query is run again.
+<code>0</code> never reuses a result.
+Default: <code>0</code>.</dd>
+<dt><em>Minimum Refresh (minutes)</em></dt>
+<dd>The shortest interval at which a dashboard may rerun a query of this Data Connection automatically.
+Result reuse rarely helps a dashboard, as its time range changes on every refresh, and many refreshes also use up the account&rsquo;s limit on Athena queries running at once.
+<code>0</code> sets no minimum beyond the dashboard&rsquo;s own 10 seconds.
+Default: <code>5</code>.</dd>
+<dt><em>Max Data Scanned (MB)</em></dt>
+<dd>The most data, in MB, a query may scan before Stroom stops it.
+Stroom checks while the query runs, so a query may pass the limit by what it scans between two checks.
+The workgroup&rsquo;s own per-query data scan limit is the one Athena enforces exactly, so set that too.
+<code>0</code> sets no limit beyond the workgroup&rsquo;s.
+Default: <code>0</code>.</dd>
+</dl>
+<p>The <em>Query Timeout</em> and <em>Max Rows</em> settings are described in <a href="../../../../docs/user-guide/search/data-sources/data-connections/#settings-for-every-type">Settings for Every Type</a>.
+Athena takes the time range in its SQL, so it has no time column.</p>
+<p>
+
+
+
+
+
+
+  
+
+
+<span class="stroom-theme-dark stroom-button key-bind-single" title="Test Connection button" >
+  
+  <span class="stroom-button-text">Test Connection</span>
+</span>
+ runs no query, as every query is billed.
+It looks up the workgroup and the database, which checks the credential, region, workgroup and database.
+It reports the workgroup&rsquo;s data scan limit and result location, or that none is set, and whether the workgroup enforces its own settings.</p>
+<h2 id="writing-the-sql">Writing the SQL</h2>
+<p>The SQL is a single statement that returns rows, given in a triple-quoted <code>sql</code> clause, e.g.</p>
+<pre><code class="language-stroomql">from &quot;Events&quot;
+sql &quot;&quot;&quot;
+  select event_time, user_name, action
+  from sign_ins
+  where event_time &gt;= :from and event_time &lt; :to
+    and outcome = 'FAILED'
+&quot;&quot;&quot;
+eval failures = count()
+group by user_name
+sort by failures desc
+select user_name, failures
+</code></pre>
+<ul>
+<li>Only SQL that starts with <code>SELECT</code>, <code>WITH</code>, <code>VALUES</code>, <code>SHOW</code> or <code>DESCRIBE</code> is run, as an Athena connection cannot be made read-only.
+That refuses <code>CREATE TABLE AS</code>, <code>INSERT</code> and <code>UNLOAD</code>.</li>
+<li>A <code>;</code> is only allowed at the end, so a query cannot run a second statement.</li>
+<li>A query with a time range must use <code>:from</code> or <code>:to</code> in its SQL, and is refused otherwise.
+Filtering in Stroom after Athena had scanned everything would cost money for nothing.</li>
+<li>Athena receives every parameter as text, written as a single SQL literal.
+To compare one with a number, cast it, e.g. <code>where id = cast(:id as bigint)</code>.</li>
+</ul>
+<p>See <a href="../../../../docs/user-guide/search/data-sources/data-connections/#parameters">Parameters</a> and <a href="../../../../docs/user-guide/search/data-sources/data-connections/#time-range">Time Range</a>.</p>
+<h3 id="fields">Fields</h3>
+<p>Athena cannot describe a query without running it, and every run is billed.
+So the fields of a query are only known once its SQL has run; until then the field list is empty.
+After a run, the fields are remembered for a while, so the query editor can list them.</p>
+<h3 id="cost">Cost</h3>
+<p>Each run reports the data Athena scanned with its results.</p>
+<p>A query is stopped in Athena, not just in Stroom, when it is cancelled, when it reaches the query timeout or the <em>Max Data Scanned</em> limit, or when Stroom fails after starting it.</p>
+
+
+
+<div class="alert alert-warning" role="alert">
+  <h4 class="alert-heading">Warning</h4>
+  <div class="alert-content">
+
+
+
+
+<p>Set a per-query data scan limit on every workgroup Stroom may use.
+It is the only limit Athena enforces exactly, whatever a Data Connection&rsquo;s settings.</p>
+
+
+  </div>
+</div>
+
+<h2 id="security">Security</h2>
+<ul>
+<li>The region and workgroup must match one of the <code>stroom.dataConnection.allowedAthenaWorkGroups</code> patterns.</li>
+<li>An output location must match one of the <code>stroom.dataConnection.allowedAthenaOutputLocations</code> patterns.
+Every query writes its full result there, with the AWS identity of the user running it.</li>
+<li>A Data Connection must name an AWS access key credential, unless <code>stroom.dataConnection.allowDefaultAwsCredentials</code> is on.
+Otherwise any user who can create a document could query whatever Stroom&rsquo;s own AWS identity can read.</li>
+<li>Use AWS identities that can only read the tables Stroom should query.
+Federated queries pass SQL to connectors that Stroom cannot see into, so their accounts should only be able to read too.</li>
+</ul>
+
+</div>
+
+
+
+
+    
+	
+  
+    
+    
+	
+    
+
+
+
+<div class="td-content" style="--base-section-num: '1.4.3.'; page-break-before: always">
+    
+  <h1 id="pg-1365f89079a1df099dc1ab123c24ae07">1.4.3 - LDAP Data Connections</h1>
+    <div class="lead">Searching an LDAP directory, such as OpenLDAP or Active Directory, with a search filter.</div>
+	<p>An LDAP 
+
+  
+  
+  <span class="stroom-doc">
+      <a href="../../../../docs/reference-section/documents#data-connection" class="stroom-doc-link">
+        
+        <span class="stroom-doc-icon"><span class="stroom-icon inline-svg-button icon-button  " >
+    <span class="face" title="dataconnection"><svg xmlns="http://www.w3.org/2000/svg" width="1792" height="1792" viewBox="0 0 1792 1792"><path style="fill:var(--icon-colour__purple)" d="M896 768q237 0 443-43t325-127v170q0 69-103 128t-280 93.5-385 34.5-385-34.5-280-93.5-103-128v-170q119 84 325 127t443 43zm0 768q237 0 443-43t325-127v170q0 69-103 128t-280 93.5-385 34.5-385-34.5-280-93.5-103-128v-170q119 84 325 127t443 43zm0-384q237 0 443-43t325-127v170q0 69-103 128t-280 93.5-385 34.5-385-34.5-280-93.5-103-128v-170q119 84 325 127t443 43zm0-1152q208 0 385 34.5t280 93.5 103 128v128q0 69-103 128t-280 93.5-385 34.5-385-34.5-280-93.5-103-128v-128q0-69 103-128t280-93.5 385-34.5z"/></svg> </span>
+  </span></span>
+        
+        <span class="stroom-doc-text">Data Connection</span>
+      </a>
+    </span>
+
+ searches an LDAP directory.
+Each query gives an LDAP search filter in a <code>sql</code> clause, and each entry it finds becomes a row.
+The fields are <code>dn</code> and the attributes listed in the document.</p>
+<h2 id="settings">Settings</h2>
+<dl>
+<dt><em>LDAP URL</em></dt>
+<dd>The directory&rsquo;s URL: its scheme, host and port only, e.g. <code>ldaps://directory.example.org:636</code>.
+It must match one of the patterns an administrator has allowed in the <code>stroom.dataConnection.allowedLdapUrlPatterns</code> property.
+A URL that also gives a base DN, attributes, scope or filter is refused; set those in their own places.</dd>
+<dt><em>Use StartTLS</em></dt>
+<dd>Whether to start TLS on an <code>ldap://</code> connection before binding, so the password and results are encrypted.
+An <code>ldaps://</code> connection is always encrypted.
+Plain <code>ldap://</code> without StartTLS can only be used if an administrator turns on the <code>stroom.dataConnection.allowPlainLdap</code> property.
+Default: off.</dd>
+<dt><em>Credential</em></dt>
+<dd>The <em>Username / Password</em> <a href="../../../../docs/user-guide/security/credentials/">credential</a> to bind with.
+Its username is the full bind DN, e.g. <code>cn=stroom-reader,ou=Services,dc=example,dc=org</code>.
+You need <em>Use</em> permission on it, as does anyone who queries this Data Connection.
+Anonymous binds are not allowed, so a credential is required, and it must have a password.</dd>
+<dt><em>Base DN</em></dt>
+<dd>Where searches start, e.g. <code>ou=People,dc=example,dc=org</code>.
+Queries cannot search outside it.</dd>
+<dt><em>Scope</em></dt>
+<dd>How far below the base DN searches reach: the base entry only, the entries directly below it, or the whole subtree.
+Default: the whole subtree.</dd>
+<dt><em>Page Size</em></dt>
+<dd>How many entries are fetched in each page of results.
+Default: <code>500</code>.</dd>
+<dt><em>Minimum Refresh (minutes)</em></dt>
+<dd>The shortest interval at which a dashboard may rerun a query of this Data Connection automatically, to limit the load on the directory.
+<code>0</code> sets no minimum beyond the dashboard&rsquo;s own 10 seconds.
+Default: <code>0</code>.</dd>
+<dt><em>Attributes</em></dt>
+<dd>The attributes read from each entry, each with a type.
+See <a href="#attributes">Attributes</a>.</dd>
+</dl>
+<p>The <em>Time Column</em>, <em>Query Timeout</em> and <em>Max Rows</em> settings are described in <a href="../../../../docs/user-guide/search/data-sources/data-connections/#settings-for-every-type">Settings for Every Type</a>.</p>
+<p>
+
+
+
+
+
+
+  
+
+
+<span class="stroom-theme-dark stroom-button key-bind-single" title="Test Connection button" >
+  
+  <span class="stroom-button-text">Test Connection</span>
+</span>
+ connects, starts TLS if set, binds and reads the base DN&rsquo;s entry.
+It reports the directory&rsquo;s vendor, and whether the directory supports paged results.</p>
+<h2 id="attributes">Attributes</h2>
+<p>The fields of a query are <code>dn</code>, which every entry has, then each attribute in the <em>Attributes</em> table, in order.
+An attribute an entry does not have is empty.</p>
+<p>
+
+
+
+
+
+
+  
+
+
+<span class="stroom-theme-dark stroom-button key-bind-single" title="Detect Attributes button" >
+  
+  <span class="stroom-button-text">Detect Attributes</span>
+</span>
+ reads the first 100 entries below the base DN and adds the attributes they have to the table, with the type their values suggest.
+Attributes already in the table stay, in their place and with their type, so a type you chose survives detecting the attributes again.
+It also asks for <code>createTimestamp</code> and <code>modifyTimestamp</code>, which most directories keep but only return when asked for by name.</p>
+<p>Directories return some attributes only when asked for by name, such as operational attributes, and an attribute may only be on later entries.
+Add these to the table by name, and remove the ones you do not need, as each attribute is fetched from the directory for every entry.</p>
+<p>Each attribute is read as its type:</p>
+<table>
+<thead>
+<tr>
+<th>Type</th>
+<th>Reads</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Text</td>
+<td>Any attribute. An attribute with several values, such as <code>memberOf</code>, gives them all, joined by <code>; </code>. Binary values, such as <code>objectGUID</code>, are given in base64.</td>
+</tr>
+<tr>
+<td>Long, Double</td>
+<td>A number.</td>
+</tr>
+<tr>
+<td>Boolean</td>
+<td><code>TRUE</code> or <code>FALSE</code>, as LDAP writes them, in any case.</td>
+</tr>
+<tr>
+<td>Date</td>
+<td>An LDAP time (GeneralizedTime), such as <code>createTimestamp</code> or <code>whenCreated</code>, or an Active Directory FILETIME number, such as <code>lastLogonTimestamp</code> or <code>pwdLastSet</code>. A FILETIME of <code>0</code>, or the largest possible value, means no time and is empty.</td>
+</tr>
+</tbody>
+</table>
+<p>An attribute with more than one value, or a binary value, can only be read as Text.
+A value that is not of its attribute&rsquo;s type is empty, and the query warns about it.
+Detect Attributes suggests Date only for LDAP times, so set FILETIME attributes to Date yourself.</p>
+<h2 id="writing-the-filter">Writing the Filter</h2>
+<p>The filter is a standard LDAP search filter, given in a triple-quoted <code>sql</code> clause, e.g.</p>
+<pre><code class="language-stroomql">from &quot;Directory&quot;
+sql &quot;&quot;&quot;
+(&amp;(objectClass=person)(departmentNumber=:department))
+&quot;&quot;&quot;
+sort by cn
+select cn, uid, mail
+</code></pre>
+<p>The brackets around a filter may be left off, e.g. <code>objectClass=person</code>.</p>
+<p>A placeholder takes the value of the query parameter of its name, and <code>:from</code> and <code>:to</code> take the time range as LDAP times, e.g. <code>(modifyTimestamp&gt;=:from)</code>.
+See <a href="../../../../docs/user-guide/search/data-sources/data-connections/#parameters">Parameters</a> and <a href="../../../../docs/user-guide/search/data-sources/data-connections/#time-range">Time Range</a>.</p>
+<p>Each value is escaped as an LDAP filter value, so it can only ever be matched and never change the filter.</p>
+<ul>
+<li>A colon also appears in extensible match filters, such as <code>(cn:caseExactMatch:=Fred)</code>, and in values such as times and URLs.
+So a colon only starts a placeholder where a value starts, straight after <code>=</code>, <code>~=</code>, <code>&gt;=</code> or <code>&lt;=</code>, or after a <code>*</code> wildcard.
+A value that must start with a colon followed by a letter writes the colon as <code>\3a</code>.</li>
+<li>Values are escaped for the filter, not for a DN.
+So in a DN-valued filter such as <code>(member=uid=:user,ou=People,dc=example,dc=org)</code>, a parameter holding a comma could compare a different DN, though never change the filter.
+Give the whole DN as one parameter instead, e.g. <code>(member=:memberDn)</code>.</li>
+</ul>
+<h2 id="searching">Searching</h2>
+<ul>
+<li>Entries are fetched a page at a time with the simple paged results control, so a search can read more entries than the directory returns at once.
+The control is not marked critical, so a directory without it still answers, within its own size limit.</li>
+<li>The search stops at the Data Connection&rsquo;s <em>Max Rows</em>.</li>
+<li>If the directory&rsquo;s own size or time limit for the bind account ends a search, the query keeps the entries read so far and warns.
+Narrow the filter, or ask the directory&rsquo;s administrator to raise the limit.</li>
+<li>Referrals to other servers are not followed, as the allowed LDAP URLs may not include them.
+The query warns how many there were.
+Search those servers with Data Connections of their own.</li>
+</ul>
+<h2 id="security">Security</h2>
+<ul>
+<li>The URL must match one of the <code>stroom.dataConnection.allowedLdapUrlPatterns</code> patterns.</li>
+<li>The connection must be encrypted, with <code>ldaps://</code> or StartTLS, unless <code>stroom.dataConnection.allowPlainLdap</code> is on.
+Plain LDAP sends the bind password and every result unencrypted, so only use it for test directories.</li>
+<li>The directory&rsquo;s certificate must be trusted by Stroom&rsquo;s Java trust store and name the host in the URL.</li>
+<li>Directories hold personal data, so use a bind account the directory lets read only the entries and attributes Stroom needs.</li>
+<li>Stroom&rsquo;s LDAP client never turns what a directory returns into Java objects, so a directory cannot make Stroom load code.</li>
+</ul>
+<h2 id="active-directory">Active Directory</h2>
+<p>Active Directory names some attributes differently from the standard <code>inetOrgPerson</code> ones, e.g.:</p>
+<table>
+<thead>
+<tr>
+<th>Standard</th>
+<th>Active Directory</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>uid</code></td>
+<td><code>sAMAccountName</code></td>
+</tr>
+<tr>
+<td><code>departmentNumber</code></td>
+<td><code>department</code></td>
+</tr>
+<tr>
+<td><code>createTimestamp</code></td>
+<td><code>whenCreated</code></td>
+</tr>
+<tr>
+<td><code>modifyTimestamp</code></td>
+<td><code>whenChanged</code></td>
+</tr>
+</tbody>
+</table>
+<p>Its global catalog, on ports 3268 and 3269, can search a whole forest without referrals.
+Times such as <code>lastLogonTimestamp</code>, <code>pwdLastSet</code> and <code>accountExpires</code> are FILETIME numbers: set their type to Date to read them as dates.</p>
+
+</div>
+
+
+
+
+    
+	
+  
+    
+    
+	
+    
+
+
+
+<div class="td-content" style="--base-section-num: '1.4.4.'; page-break-before: always">
+    
+  <h1 id="pg-16eed6d330cd887e163b24dfeca3aa72">1.4.4 - CSV and Excel Data Connections</h1>
+    <div class="lead">Querying CSV text or an Excel workbook held in the Data Connection itself.</div>
+	<p>A CSV or Excel 
+
+  
+  
+  <span class="stroom-doc">
+      <a href="../../../../docs/reference-section/documents#data-connection" class="stroom-doc-link">
+        
+        <span class="stroom-doc-icon"><span class="stroom-icon inline-svg-button icon-button  " >
+    <span class="face" title="dataconnection"><svg xmlns="http://www.w3.org/2000/svg" width="1792" height="1792" viewBox="0 0 1792 1792"><path style="fill:var(--icon-colour__purple)" d="M896 768q237 0 443-43t325-127v170q0 69-103 128t-280 93.5-385 34.5-385-34.5-280-93.5-103-128v-170q119 84 325 127t443 43zm0 768q237 0 443-43t325-127v170q0 69-103 128t-280 93.5-385 34.5-385-34.5-280-93.5-103-128v-170q119 84 325 127t443 43zm0-384q237 0 443-43t325-127v170q0 69-103 128t-280 93.5-385 34.5-385-34.5-280-93.5-103-128v-170q119 84 325 127t443 43zm0-1152q208 0 385 34.5t280 93.5 103 128v128q0 69-103 128t-280 93.5-385 34.5-385-34.5-280-93.5-103-128v-128q0-69 103-128t280-93.5 385-34.5z"/></svg> </span>
+  </span></span>
+        
+        <span class="stroom-doc-text">Data Connection</span>
+      </a>
+    </span>
+
+ holds its data in the document itself, so it needs no connection and no credential.
+It suits small lookup tables and reference lists, such as teams, sites or holidays, that queries and dashboards can use alongside Stroom&rsquo;s own data.
+Bulk data belongs in a <span class="glossary-link link-with-hover-tooltip">
+    <a href="../../../../docs/glossary/f/glossary-feed">
+      <span>Feed</span>
+      <i class="glossary-link-icon fas fa-book fa-sm text-primary"></i>
+    </a><template class="hover-tooltip-content">
+        <span class="hover-tooltip-title">Feed</span>
+        <div class="hover-tooltip-summary">A Feed is a means of organising and categorising data in Stroom. A Feed contains multiple <em>Streams</em> of data that have been ingested into Stroom or output by a <em>Pipeline</em>. Typically a Feed will contain <em>Streams</em> of data that are all from one system and have a common data format.</div><span class="hover-tooltip-more-details">Click to see more details...</span></template></span>.</p>
+<p>The data is queried with Stroom&rsquo;s own clauses alone, so a query has no <code>sql</code> clause, e.g.</p>
+<pre><code class="language-stroomql">from &quot;Bank Holidays&quot;
+where region = &quot;All&quot; or region = &quot;Scotland&quot;
+sort by date
+select date, holiday
+</code></pre>
+<p>The data is held, exported and imported with the document.
+An export keeps it in a file of its own beside the document&rsquo;s JSON: the CSV as text, in a <code>.csv</code> file, and the workbook as the original <code>.xlsx</code> file.</p>
+<p>An administrator sets the most data a Data Connection may hold with the <code>stroom.dataConnection.maxStoredDataSize</code> property, <code>5M</code> (5 MiB) by default.
+Saving more is refused.</p>
+<h2 id="columns">Columns</h2>
+<p>The fields of a query are the columns in the document&rsquo;s <em>Columns</em> table, in the order their values appear in each row.
+Each column has a name, which becomes the field name, and a type, which its values are read as:</p>
+<table>
+<thead>
+<tr>
+<th>Type</th>
+<th>Values</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Text</td>
+<td>Anything, kept as it is.</td>
+</tr>
+<tr>
+<td>Long</td>
+<td>Whole numbers.</td>
+</tr>
+<tr>
+<td>Double</td>
+<td>Numbers that may have a fraction.</td>
+</tr>
+<tr>
+<td>Date</td>
+<td>Dates and times in ISO 8601 with a four-digit year, e.g. <code>2026-11-12</code> or <code>2026-11-12T09:30:00Z</code>. A space may stand for the <code>T</code>. A time with no zone is taken as UTC; a zone is <code>Z</code> or an offset such as <code>+01:00</code>, <code>+0100</code> or <code>+01</code>.</td>
+</tr>
+<tr>
+<td>Boolean</td>
+<td><code>true</code> or <code>false</code>, in any case.</td>
+</tr>
+</tbody>
+</table>
+<p>A value that is not of its column&rsquo;s type is empty, and the query warns about it, giving the number of such values and an example.</p>
+<p>
+
+
+
+
+
+
+  
+
+
+<span class="stroom-theme-dark stroom-button key-bind-single" title="Detect Columns button" >
+  
+  <span class="stroom-button-text">Detect Columns</span>
+</span>
+ reads the first 1,000 rows and fills in the table:</p>
+<ul>
+<li>Each column is named from the header row, if there is one.
+A column with no name in the header, or with no header row, is named <code>column1</code>, <code>column2</code> and so on, and a repeated name has a suffix added, as each column needs a field name of its own.
+Names that differ only in case, such as <code>Team</code> and <code>team</code>, count as repeated, as fields are matched without regard to case.</li>
+<li>Each column&rsquo;s type is guessed from its values: the narrowest of Long, Double, Date and Boolean that all of them are, or else Text.
+Numbers that would lose something as a number stay Text, such as codes with leading zeros, e.g. <code>0123</code>, and whole numbers too big for a Long, such as long identifiers.</li>
+<li>A column already in the table keeps the type you chose for it, even if the case of its name in the header has changed, so you can detect the columns again after changing the data.</li>
+</ul>
+<p>If the header row no longer matches the columns in the table, because the data changed after they were detected, a query warns that values may be under the wrong fields.
+Detect the columns again.</p>
+<h2 id="csv">CSV</h2>
+<dl>
+<dt><em>Delimiter</em></dt>
+<dd>The character between the values of each row: comma, semicolon, tab or pipe.
+Default: comma.</dd>
+<dt><em>First Row Is A Header</em></dt>
+<dd>Whether the first row holds the column names.
+Default: on.</dd>
+<dt><em>CSV</em></dt>
+<dd>The data.
+Paste it in, or click 
+
+
+
+
+
+
+  
+
+
+<span class="stroom-theme-dark stroom-button key-bind-single" title="Load From File button" >
+  
+  <span class="stroom-button-text">Load From File</span>
+</span>
+ to read a file from your computer, which then detects the columns.
+Values are read as CSV, so a value holding the delimiter, a quote or a line break is quoted in <code>&quot;</code> double quotes, with any <code>&quot;</code> inside written twice.</dd>
+</dl>
+<p>Changing the delimiter or the header setting detects the columns again.</p>
+<p>
+
+
+
+
+
+
+  
+
+
+<span class="stroom-theme-dark stroom-button key-bind-single" title="Check CSV button" >
+  
+  <span class="stroom-button-text">Check CSV</span>
+</span>
+ reads all of the CSV and reports how many rows and columns it has, and any values that are not of their column&rsquo;s type.</p>
+<h2 id="excel">Excel</h2>
+<dl>
+<dt><em>Workbook</em></dt>
+<dd>The Excel workbook.
+Choose an <code>.xlsx</code> file: it is uploaded straight away, which detects the columns, and stored with the document when you save.
+Older <code>.xls</code> workbooks cannot be read; save them as <code>.xlsx</code> in Excel first.
+
+
+
+
+
+
+
+  
+
+
+<span class="stroom-theme-dark stroom-button key-bind-single" title="Download button" >
+  
+  <span class="stroom-button-text">Download</span>
+</span>
+ downloads the stored workbook, e.g. to edit it in Excel and upload it again.
+
+
+
+
+
+
+
+  
+
+
+<span class="stroom-theme-dark stroom-button key-bind-single" title="Remove button" >
+  
+  <span class="stroom-button-text">Remove</span>
+</span>
+ removes it when you save.</dd>
+<dt><em>Sheet (optional)</em></dt>
+<dd>The name of the sheet to read.
+Leave it empty to read the first sheet.</dd>
+<dt><em>First Row Is A Header</em></dt>
+<dd>Whether the first row with values holds the column names.
+Default: on.</dd>
+</dl>
+<p>Excel values are read as Excel worked them out:</p>
+<ul>
+<li>Numbers are read as plain numbers, whatever their format in Excel, e.g. <code>1234.5</code> for a cell shown as <code>£1,234.50</code>.</li>
+<li>Dates are read as dates, including in workbooks that count dates from 1904, as older Mac versions of Excel did.</li>
+<li>Formulas are read as the value Excel last worked out for them; Stroom does not work them out again.</li>
+</ul>
+<p>
+
+
+
+
+
+
+  
+
+
+<span class="stroom-theme-dark stroom-button key-bind-single" title="Check Workbook button" >
+  
+  <span class="stroom-button-text">Check Workbook</span>
+</span>
+ reads all of the sheet and reports how many rows and columns it has, and any values that are not of their column&rsquo;s type.</p>
+<p>The browser never holds the workbook: it is uploaded to Stroom, and downloaded only when you ask.</p>
+<h2 id="time-range-and-other-settings">Time Range and Other Settings</h2>
+<p>If the document names a <em>Time Column</em>, which must be a Date column, a query&rsquo;s time range filters the rows on it.
+With none, the time range is ignored, and the query warns that it was.</p>
+<p>The data only changes when the document does, so CSV and Excel Data Connections have no query timeout and no minimum refresh.
+The rows read are cached for each version of the document, so a dashboard that refreshes does not read the data again.</p>
+
+</div>
+
+
+
+
+    
+	
+  
+
+    
+	
+  
+    
+    
+	
+    
+
+
+
+<div class="td-content" style="--base-section-num: '1.5.'; page-break-before: always">
+    
+  <h1 id="pg-53502f4a17a850f5f69889deae19cfb2">1.5 - Internal Data Sources</h1>
     <div class="lead">A set of data sources for querying the inner workings of Stroom.</div>
 	<p>Stroom provides a number of built in data sources for querying the inner workings of stroom.
 These data sources do not have a corresponding <span class="glossary-link link-with-hover-tooltip">
@@ -1931,7 +3414,9 @@ change the headings without changing the anchors in Stroom.
         <div class="hover-tooltip-summary">A Dashboard is a configurable entity for querying one or more <em>Data Sources</em> and displaying the results as a table, a visualisation or some other form.</div><span class="hover-tooltip-more-details">Click to see more details...</span></template></span> query builder and allows you to express the same queries in text form as well as providing additional functionality.
 It is currently used on the <em>Query</em> entity as the means of defining a query.</p>
 <p>The following shows the supported syntax for a StroomQL query.</p>
-<pre><code class="language-stroomql">from &lt;DATA_SOURCE&gt;
+<pre><code class="language-stroomql">from &lt;DATA_SOURCE&gt; [as &lt;ALIAS&gt;]
+[sql] &quot;&quot;&quot;&lt;NATIVE_QUERY&gt;&quot;&quot;&quot;
+[join] &lt;DATA_SOURCE&gt; [as &lt;ALIAS&gt;] on &lt;FIELD&gt; = &lt;ALIAS&gt;.&lt;FIELD&gt; [and ...]
 where &lt;FIELD&gt; &lt;CONDITION&gt; &lt;VALUE&gt; [and|or|not]
 [and|or|not]
 [window] &lt;TIME_FIELD&gt; by &lt;WINDOW_SIZE&gt; [advance &lt;ADVANCE_WINDOW_SIZE&gt;]
@@ -1945,6 +3430,7 @@ where &lt;FIELD&gt; &lt;CONDITION&gt; &lt;VALUE&gt; [and|or|not]
 select &lt;FIELD&gt; [as &lt;COLUMN NAME&gt;], ...
 [show as] &lt;VIS_NAME&gt; (&lt;VIS_CONTROL_ID_1&gt; = &lt;COLUMN_1&gt;, &lt;VIS_CONTROL_ID_2&gt; = &lt;COLUMN_2&gt;)
 </code></pre>
+<p>For the full grammar, see <a href="../../../../docs/reference-section/stroomql-grammar/">StroomQL Grammar</a>.</p>
 <h2 id="fields">Fields</h2>
 <p>Fields are the fields in a data source.
 Fields are case-sensitive.</p>
@@ -2082,6 +3568,56 @@ All queries must include the <code>from</code> clause.</p>
 <p>If the name of the data source contains white space then it must be quoted using <code>&quot;</code> double quotes, e.g.</p>
 <pre><code class="language-stroomql">from &quot;my source&quot;
 </code></pre>
+<h3 id="sql">Sql</h3>
+<p>Some data sources run a query of their own before Stroom works on the results: a <a href="../../../../docs/user-guide/search/data-sources/data-connections/">Data Connection</a> of type JDBC or Amazon Athena runs SQL, and one of type LDAP runs a search filter.
+That query goes in a <code>sql</code> clause, straight after the data source it is for, e.g. after <code>from</code>:</p>
+<pre><code class="language-stroomql">from &quot;Reports DB&quot;
+sql &quot;&quot;&quot;
+  select name, team, joined
+  from staff
+  where joined &gt;= :from and joined &lt; :to
+&quot;&quot;&quot;
+where team = &quot;Platform&quot;
+sort by joined desc
+select name, joined
+</code></pre>
+<p>The SQL or filter is a string, usually in triple double quotes (<code>&quot;&quot;&quot;</code>).
+A triple-quoted string is taken exactly as written: it can span several lines and hold <code>&quot;</code> and <code>\</code> without escaping, and it ends at the next <code>&quot;&quot;&quot;</code>.</p>
+<p>Its results become the rows that the rest of the query works on, so <code>where</code>, <code>eval</code>, <code>group by</code> and the other clauses work on them as on any other data source.
+Named placeholders such as <code>:team</code> take the value of the query parameter of that name, and <code>:from</code> and <code>:to</code> take the ends of the query&rsquo;s time range.</p>
+<p>A data source that needs a <code>sql</code> clause refuses a query without one, and one that does not take one refuses a query with one.</p>
+<p>A joined data source can have a <code>sql</code> clause too, straight after it in its join line, and a bracketed query has its own inside its brackets, straight after its <code>from</code>, e.g.</p>
+<pre><code class="language-stroomql">from &quot;Windows events&quot;
+left join &quot;Reports DB&quot; as staff sql &quot;&quot;&quot;
+  select username, team
+  from staff
+&quot;&quot;&quot; on UserId = staff.username
+select UserId, staff.team
+</code></pre>
+<h3 id="join">Join</h3>
+<p>Use <code>join</code> to join the rows of another data source to the rows of the query, straight after <code>from</code>, e.g.</p>
+<pre><code class="language-stroomql">from &quot;Windows events&quot;
+left join &quot;HR Users&quot; as hr on UserId = hr.Username
+select UserId, hr.Department
+</code></pre>
+<p>The kinds of join are <code>join</code>, <code>left join</code>, <code>right join</code>, <code>full join</code>, <code>semi join</code> and <code>anti join</code>.
+The joined fields are named <code>&lt;alias&gt;.&lt;field&gt;</code>, e.g. <code>hr.Department</code>, where the alias is the name after <code>as</code>, or the data source&rsquo;s name if there is none.
+If that name has spaces, write its fields in braces, e.g. <code>${HR Users.Department}</code>.</p>
+<p>The joined source can also be a bracketed query, and a query can have several join lines.</p>
+<p>See <a href="../../../../docs/user-guide/search/queries/joins/">Joins</a> for the kinds of join and examples.</p>
+<h3 id="on">On</h3>
+<p>Use <code>on</code> to give the keys of a join, whose values must be equal for rows to join, e.g.</p>
+<pre><code class="language-stroomql">on lowerCase(UserId) = hr.Username and Host = hr.Host
+</code></pre>
+<p>Keys match exactly, so case matters, and a blank key never matches.</p>
+<p>An event-to-event join can also give a time window after its keys, e.g.</p>
+<pre><code class="language-stroomql">from &quot;Windows events&quot; as logon
+join &quot;File events&quot; as export
+  on logon.UserId = export.UserId
+  within 10m after logon.EventTime
+select logon.UserId, logon.EventTime, export.FileName
+</code></pre>
+<p>See <a href="../../../../docs/user-guide/search/queries/joins/#joining-events-within-a-time-window">Joining Events Within a Time Window</a>.</p>
 <h3 id="where">Where</h3>
 <p>Use <code>where</code> to construct query criteria, e.g.</p>
 <pre><code class="language-text">where feed = &quot;my feed&quot;
@@ -2139,6 +3675,20 @@ or  <code>Feed in dictionary &quot;fb7a8cea-e6b4-4d94-8f7e-47ff3b3c7711&quot;</c
 <p>You can force evaluation of items in a specific order using bracketed groups.</p>
 <pre><code class="language-stroomql">and X = 5 OR (name = foo and surname = bar)
 </code></pre>
+<h4 id="exists-and-in">Exists and In</h4>
+<p>Use <code>exists</code> to keep only the rows that have a match in another data source, or <code>not exists</code> to keep those with none, as in SQL, e.g.</p>
+<pre><code class="language-stroomql">from People as p
+where exists (from Teams as t where t.team = p.team and t.on_call = true)
+select name, team
+</code></pre>
+<p>Use <code>in</code> or <code>not in</code> to compare a field with the one field another data source&rsquo;s query selects, e.g.</p>
+<pre><code class="language-stroomql">from People
+where team not in (from Teams select team)
+select name, team
+</code></pre>
+<p>These are other ways of writing a <code>semi join</code> and an <code>anti join</code>, and run as them.
+They can only be used at the top level of <code>where</code>, joined to its other conditions by <code>and</code>.
+See <a href="../../../../docs/user-guide/search/queries/joins/#exists-and-in">Exists and In</a>.</p>
 <h3 id="window">Window</h3>
 <pre><code class="language-stroomql">window &lt;TIME_FIELD&gt; by &lt;WINDOW_SIZE&gt; [advance &lt;ADVANCE_WINDOW_SIZE&gt;]
 </code></pre>
@@ -2288,8 +3838,8 @@ eval Sl = stringLength(FirstName)
 eval count = count()
 group by StreamId
 sort by Sl desc
-select Sl, StreamId as &quot;Stream Id&quot;, EventId as &quot;Event Id&quot;, EventTime as &quot;Event Time&quot;, UserId as &quot;User Id&quot;, FirstName, count
 limit 10
+select Sl, StreamId as &quot;Stream Id&quot;, EventId as &quot;Event Id&quot;, EventTime as &quot;Event Time&quot;, UserId as &quot;User Id&quot;, FirstName, count
 </code></pre>
 <pre><code class="language-stroomql">from &quot;index_view&quot; // view
 // add a where
@@ -2302,8 +3852,8 @@ eval Sl = stringLength(FirstName)
 eval count = count()
 group by StreamId
 sort by Sl desc
-select Sl, StreamId as &quot;Stream Id&quot;, EventId as &quot;Event Id&quot;, EventTime as &quot;Event Time&quot;, UserId as &quot;User Id&quot;, FirstName, count
 limit 10
+select Sl, StreamId as &quot;Stream Id&quot;, EventId as &quot;Event Id&quot;, EventTime as &quot;Event Time&quot;, UserId as &quot;User Id&quot;, FirstName, count
 </code></pre>
 <pre><code class="language-stroomql">from &quot;index_view&quot; // view
 // add a where
@@ -2316,8 +3866,17 @@ eval Sl = stringLength(FirstName)
 // eval count = count()
 // group by StreamId
 // sort by Sl desc
-select StreamId as &quot;Stream Id&quot;, EventId as &quot;Event Id&quot;
 // limit 10
+select StreamId as &quot;Stream Id&quot;, EventId as &quot;Event Id&quot;
+</code></pre>
+<pre><code class="language-stroomql">from &quot;index_view&quot; // view
+// add each user's department, keeping users not in the HR list
+left join &quot;HR Users&quot; as hr on UserId = hr.Username
+where EventTime &gt; now() - 1227d
+eval count = count()
+group by UserId, hr.Department
+sort by count desc
+select UserId as &quot;User Id&quot;, hr.Department as &quot;Department&quot;, count
 </code></pre>
 <pre><code class="language-stroomql">from &quot;index_view&quot; // view
 // add a where
@@ -2330,8 +3889,8 @@ eval Sl = stringLength(FirstName)
 eval count = count()
 group by StreamId
 sort by Sl desc
-select Sl, StreamId as &quot;Stream Id&quot;, EventId as &quot;Event Id&quot;, EventTime as &quot;Event Time&quot;, UserId as &quot;User Id&quot;, FirstName, count
 limit 10
+select Sl, StreamId as &quot;Stream Id&quot;, EventId as &quot;Event Id&quot;, EventTime as &quot;Event Time&quot;, UserId as &quot;User Id&quot;, FirstName, count
 </code></pre>
 <h2 id="help-pane">Help Pane</h2>
 <p>The left hand pane of the Query editor provides help for building a StroomQL query.
@@ -2945,6 +4504,518 @@ For example:</p>
 .<br>
 <code>substring(Feed, 0, 5)</code> is displayed, with the cursor now positioned after the closing bracket.</li>
 </ol>
+
+</div>
+
+
+
+
+    
+	
+  
+    
+    
+	
+    
+
+
+
+<div class="td-content" style="--base-section-num: '3.2.'; page-break-before: always">
+    
+  <h1 id="pg-49e1201b3376ba4fafbf8b0f8615f20b">3.2 - Joins</h1>
+    <div class="lead">Joining the rows of one data source to those of another in a StroomQL query.</div>
+	<p>A join adds the rows of another data source, the <em>joined source</em>, to the rows of a <span class="glossary-link link-with-hover-tooltip">
+    <a href="../../../../docs/glossary/s/glossary-stroomql">
+      <span>StroomQl</span>
+      <i class="glossary-link-icon fas fa-book fa-sm text-primary"></i>
+    </a><template class="hover-tooltip-content">
+        <span class="hover-tooltip-title">StroomQl</span>
+        <div class="hover-tooltip-summary"><strong>Stroom</strong> <strong>Q</strong>uery <strong>L</strong>anguage is Stroom&rsquo;s own query language. It has similarities with Structured Query Language (SQL) as used in databases. StroomQL is sometimes referred to as <em>sQL</em> to distinguish it from <em>SQL</em>.</div><span class="hover-tooltip-more-details">Click to see more details...</span></template></span> query, matching them on keys.
+For example, a join can add each user&rsquo;s department from an HR list to their logon events, or find the logons of users who are not in the HR list at all.</p>
+<p>Any data source can be joined to any other, e.g. an index to a <a href="../../../../docs/user-guide/search/data-sources/data-connections/">Data Connection</a>, or an index to itself.</p>
+<p>Join lines go straight after <code>from</code>:</p>
+<pre><code class="language-stroomql">from &quot;Windows events&quot;
+left join &quot;HR Users&quot; as hr on UserId = hr.Username
+select UserId, hr.Department
+</code></pre>
+<p>The joined source is searched first and held.
+The first source is then searched as usual, and each of its rows is joined as it arrives, so results appear as the search runs, as they do without a join.</p>
+<p>For the full grammar, see <a href="../../../../docs/reference-section/stroomql-grammar/#join-lines">StroomQL Grammar</a>.</p>
+<h2 id="kinds-of-join">Kinds of Join</h2>
+
+
+
+
+
+
+
+  
+  
+  
+  
+  
+
+
+
+
+
+
+
+  
+
+
+
+<div class="card rounded shadow-stroom p-2 td-post-card mb-4 mt-4" style="width: fit-content;">
+
+  <a title="images/user-guide/search/queries/joins/joins-venn.svg" href="../../../../images/user-guide/search/queries/joins/joins-venn.svg">
+    <figure style="margin-block-end: 0px" >
+      
+      <img class="card-img-top" src="../../../../images/user-guide/search/queries/joins/joins-venn.svg" style="max-width: fit-content" alt="images/user-guide/search/queries/joins/joins-venn.svg">
+      
+
+      
+      <div class="card-body px-0 pt-2 pb-0">
+        <hr style="border-top: 1px solid #ddd; margin-top: 0px; margin-bottom:4px;">
+        <figcaption class="card-text" style="font-size: smaller; text-align: center;">The rows each kind of join gives</figcaption>
+      </div>
+      
+    </figure>
+  </a>
+</div>
+
+<table>
+<thead>
+<tr>
+<th>Join</th>
+<th>Also written</th>
+<th>Rows given</th>
+<th>Joined fields</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>join</code></td>
+<td><code>inner join</code></td>
+<td>One row per match; rows with no match are dropped.</td>
+<td>Added.</td>
+</tr>
+<tr>
+<td><code>left join</code></td>
+<td><code>left outer join</code></td>
+<td>One row per match; rows with no match are kept.</td>
+<td>Added, blank when there is no match.</td>
+</tr>
+<tr>
+<td><code>right join</code></td>
+<td><code>right outer join</code></td>
+<td>One row per match; rows of the joined source with no match are kept.</td>
+<td>Added; the first source&rsquo;s fields are blank when there is no match.</td>
+</tr>
+<tr>
+<td><code>full join</code></td>
+<td><code>full outer join</code></td>
+<td>One row per match; rows of either source with no match are kept.</td>
+<td>Added, blank where there is no match.</td>
+</tr>
+<tr>
+<td><code>semi join</code></td>
+<td><code>left semi join</code>, <code>where exists</code>, <code>where ... in</code></td>
+<td>Each row with at least one match, once.</td>
+<td>None.</td>
+</tr>
+<tr>
+<td><code>anti join</code></td>
+<td><code>left anti join</code>, <code>where not exists</code>, <code>where ... not in</code></td>
+<td>Each row with no match.</td>
+<td>None.</td>
+</tr>
+</tbody>
+</table>
+<p>A <code>join</code> and a <code>semi join</code> give the same rows, but a <code>semi join</code> adds no fields and never repeats a row, so use it to keep only the rows that have a match.</p>
+<h2 id="examples">Examples</h2>
+<p>The examples below use the <em>People</em> and <em>Teams</em> CSV Data Connections from the <a href="../../../../docs/user-guide/search/data-sources/data-connections/#example-pack">Example Pack</a>, where each example is also a query.</p>
+<p><em>People</em>:</p>
+<table>
+<thead>
+<tr>
+<th>name</th>
+<th>team</th>
+<th>started</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Alice</td>
+<td>Platform</td>
+<td>2025-01-13</td>
+</tr>
+<tr>
+<td>Ben</td>
+<td>Data</td>
+<td>2026-04-03</td>
+</tr>
+<tr>
+<td>Chloe</td>
+<td>Security</td>
+<td>2025-09-01</td>
+</tr>
+<tr>
+<td>Dev</td>
+<td>Analysis</td>
+<td>2026-05-25</td>
+</tr>
+<tr>
+<td>Ella</td>
+<td>Platform</td>
+<td>2024-06-17</td>
+</tr>
+<tr>
+<td>Femi</td>
+<td>Design</td>
+<td>2026-02-09</td>
+</tr>
+<tr>
+<td>Gus</td>
+<td>Support</td>
+<td>2025-11-03</td>
+</tr>
+</tbody>
+</table>
+<p><em>Teams</em>:</p>
+<table>
+<thead>
+<tr>
+<th>team</th>
+<th>members</th>
+<th>founded</th>
+<th>on_call</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Platform</td>
+<td>6</td>
+<td>2019-03-01</td>
+<td>true</td>
+</tr>
+<tr>
+<td>Data</td>
+<td>4</td>
+<td>2021-07-15</td>
+<td>false</td>
+</tr>
+<tr>
+<td>Security</td>
+<td>5</td>
+<td>2020-11-02</td>
+<td>true</td>
+</tr>
+<tr>
+<td>Analysis</td>
+<td>8</td>
+<td>2018-05-20</td>
+<td>false</td>
+</tr>
+<tr>
+<td>Support</td>
+<td>3</td>
+<td>2024-01-08</td>
+<td>true</td>
+</tr>
+<tr>
+<td>Research</td>
+<td>2</td>
+<td>2022-02-14</td>
+<td>false</td>
+</tr>
+</tbody>
+</table>
+<p>Femi&rsquo;s team, Design, is not in <em>Teams</em>, and no one in <em>People</em> is in Research.</p>
+
+
+
+<div class="alert alert-primary" role="alert">
+  <h4 class="alert-heading">Note</h4>
+  <div class="alert-content">
+
+
+
+
+<p>The query&rsquo;s time range applies to joined sources too.
+<em>Teams</em> has <code>founded</code> as its time field, and <em>Bank Holidays</em> has <code>date</code>, so run these examples over a time range that includes those dates, or <em>Teams</em> and <em>Bank Holidays</em> will have no rows to join.</p>
+
+
+  </div>
+</div>
+
+<h3 id="adding-fields-from-another-source">Adding Fields from Another Source</h3>
+<p>A <code>left join</code> gives every person, with their team&rsquo;s fields:</p>
+<pre><code class="language-stroomql">from People
+left join Teams as t on team = t.team
+sort by name
+select name, team, t.members as members, t.on_call as on_call
+</code></pre>
+<table>
+<thead>
+<tr>
+<th>name</th>
+<th>team</th>
+<th>members</th>
+<th>on_call</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Alice</td>
+<td>Platform</td>
+<td>6</td>
+<td>true</td>
+</tr>
+<tr>
+<td>Ben</td>
+<td>Data</td>
+<td>4</td>
+<td>false</td>
+</tr>
+<tr>
+<td>Chloe</td>
+<td>Security</td>
+<td>5</td>
+<td>true</td>
+</tr>
+<tr>
+<td>Dev</td>
+<td>Analysis</td>
+<td>8</td>
+<td>false</td>
+</tr>
+<tr>
+<td>Ella</td>
+<td>Platform</td>
+<td>6</td>
+<td>true</td>
+</tr>
+<tr>
+<td>Femi</td>
+<td>Design</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>Gus</td>
+<td>Support</td>
+<td>3</td>
+<td>true</td>
+</tr>
+</tbody>
+</table>
+<p>The joined fields are named with the alias, as in <code>t.members</code>.
+The alias is the name after <code>as</code>, or the data source&rsquo;s name if there is none.
+If that name has spaces, write its fields in braces, e.g. <code>${HR Users.Department}</code>.</p>
+<p>A plain <code>join</code> would give the same rows without Femi, who has no match.</p>
+<h3 id="keeping-rows-with-or-without-a-match">Keeping Rows with or without a Match</h3>
+<p>A <code>semi join</code> keeps each person whose team is on call, without adding the team&rsquo;s fields:</p>
+<pre><code class="language-stroomql">from People
+semi join Teams as t on team = t.team
+where t.on_call = true
+sort by name
+select name, team
+</code></pre>
+<p>This gives Alice, Chloe, Ella and Gus.</p>
+<p>An <code>anti join</code> gives the opposite: each row with no match.
+It is useful for finding rows that refer to something that doesn&rsquo;t exist:</p>
+<pre><code class="language-stroomql">from People
+anti join Teams as t on team = t.team
+select name, team
+</code></pre>
+<p>This gives Femi.</p>
+<h3 id="exists-and-in">Exists and In</h3>
+<p><code>where exists</code>, <code>where not exists</code>, <code>where ... in</code> and <code>where ... not in</code> are the SQL ways of writing semi and anti joins, and run as them.
+This query gives the same rows as the <code>semi join</code> above:</p>
+<pre><code class="language-stroomql">from People as p
+where exists (from Teams as t where t.team = p.team and t.on_call = true)
+sort by name
+select name, team
+</code></pre>
+<p>The bracketed query names the first source&rsquo;s fields by its alias, here <code>p</code>, or by its data source&rsquo;s name if it has no alias, and compares them using <code>=</code>.
+Its other conditions, here <code>t.on_call = true</code>, narrow its own search.</p>
+<p><code>in</code> compares a field with the one field the bracketed query selects:</p>
+<pre><code class="language-stroomql">from People
+where team in (from Teams select team)
+sort by name
+select name, team
+</code></pre>
+<p>These forms can only be used at the top level of <code>where</code>, joined to its other conditions by <code>and</code>.</p>
+
+
+
+<div class="alert alert-primary" role="alert">
+  <h4 class="alert-heading">Note</h4>
+  <div class="alert-content">
+
+
+
+
+<p>A blank key never matches, so <code>not in</code> keeps a row whose field is blank, and a blank value in the other source doesn&rsquo;t stop any row from being kept.
+This differs from SQL, where <code>not in</code> gives no rows once the other query holds a null.</p>
+
+
+  </div>
+</div>
+
+<h3 id="right-and-full-joins">Right and Full Joins</h3>
+<p>A <code>right join</code> gives every row of the joined source: here, every team, with a row for each person in it.</p>
+<pre><code class="language-stroomql">from People
+right join Teams as t on team = t.team
+sort by t.team, name
+select t.team as team, name
+</code></pre>
+<p>Research is given once, with a blank name, as no one is in it.
+Femi is not given, as Design is not in <em>Teams</em>.</p>
+<p>A <code>full outer join</code> gives every row of both:</p>
+<pre><code class="language-stroomql">from People
+full outer join Teams as t on team = t.team
+sort by t.team, name
+select name, team, t.team as listed_team, t.members as members
+</code></pre>
+<p>This gives a row for each person in a team, Femi with blank team fields, and Research with a blank name.</p>
+<p>The rows of the joined source with no match, such as Research, are only known once the first source has been searched, so they are given last.
+A right or full join must be the last join line.</p>
+<h3 id="joining-a-bracketed-query">Joining a Bracketed Query</h3>
+<p>Either source can be a bracketed query, such as a grouped summary.
+This compares each team&rsquo;s stated size with the number of people listed in it:</p>
+<pre><code class="language-stroomql">from Teams
+join (
+  from People
+  group by team
+  select team, count() as listed
+) as p on team = p.team
+sort by team
+select team, members, p.listed as listed
+</code></pre>
+<p>A bracketed query in a join line needs an alias, here <code>p</code>.</p>
+<p>A bracketed query in <code>from</code> must be searched before any of its rows can be joined, so its results don&rsquo;t appear as the search runs.
+All of the outer <code>where</code> is then tested on the joined rows, so to narrow a source&rsquo;s search, put the condition inside a bracketed query for it.</p>
+<p>A bracketed query can&rsquo;t have joins, an alias or a bracketed query of its own.</p>
+<h3 id="several-joins">Several Joins</h3>
+<p>A query can have several join lines.
+Each is joined in turn, and a later join&rsquo;s keys can use an earlier join&rsquo;s fields, e.g.</p>
+<pre><code class="language-stroomql">from &quot;Windows events&quot;
+join &quot;HR Users&quot; as hr on UserId = hr.Username
+left join &quot;Cost Centres&quot; as cc on hr.Department = cc.Department
+select UserId, hr.Department, cc.CostCentre
+</code></pre>
+<h3 id="keys">Keys</h3>
+<p>A join can have several keys, joined by <code>and</code>, and either side of a key can be an expression:</p>
+<pre><code class="language-stroomql">from &quot;Windows events&quot;
+join &quot;HR Users&quot; as hr on lowerCase(UserId) = hr.Username and Host = hr.Host
+select UserId, Host, hr.Department
+</code></pre>
+<p>Keys match exactly, as text, so case matters.
+Use a function such as <code>lowerCase()</code> on both sides to ignore case.
+A blank key never matches.</p>
+<p>Dates match exactly too, so they must be the same time, e.g. the same day with no time of day.
+The example pack joins the start dates in <em>People</em> to the dates in the <em>Bank Holidays</em> Excel Data Connection:</p>
+<pre><code class="language-stroomql">from People
+join &quot;Bank Holidays&quot; as h on started = h.date
+sort by started
+select name, started, h.holiday as holiday
+</code></pre>
+<h2 id="joining-events-within-a-time-window">Joining Events Within a Time Window</h2>
+<p>A join can also match events to events that happen within a time window of them.
+This finds each logon that was followed by a file export by the same user within 10 minutes:</p>
+<pre><code class="language-stroomql">from &quot;Windows events&quot; as logon
+join &quot;File events&quot; as export
+  on logon.UserId = export.UserId
+  within 10m after logon.EventTime
+where logon.EventType = &quot;Logon&quot;
+select logon.UserId, logon.EventTime, export.FileName
+</code></pre>
+<p><code>within 10m after</code> matches joined events from the first source&rsquo;s time to 10 minutes after it, and <code>within 10m before</code> matches those from 10 minutes before it to that time.
+The joined event&rsquo;s time is taken from its data source&rsquo;s time field.</p>
+<p>A join with a time window works the other way round from other joins.
+The first source is searched first and held, with the same limits as a joined source, so keep it small with <code>where</code> or a short time range.
+The joined source is then searched only within the windows of its rows, and no more of its events than the row limit may fall within them.
+The rows appear once both have been searched.</p>
+<p>A query with a time window can have only one join line, and both sources must be data sources, not bracketed queries.</p>
+<h2 id="where">Where</h2>
+<p><code>where</code> can name joined fields as well as those of the first source.
+Stroom splits it at its top level <code>and</code>:</p>
+<ul>
+<li>Conditions on the first source&rsquo;s fields narrow the first source&rsquo;s search, as without a join.</li>
+<li>Conditions on only one joined source&rsquo;s fields narrow that source&rsquo;s search, for a <code>join</code> or <code>semi join</code>.</li>
+<li>Everything else, including an <code>or</code> that names fields of more than one source, is tested on the joined rows.</li>
+</ul>
+<p>With a right or full join, <code>where</code> is tested on the joined rows, as in SQL, so it doesn&rsquo;t narrow the first source&rsquo;s search.
+To narrow it, use a bracketed query in <code>from</code>.</p>
+<p>When the first source is a bracketed query, all of <code>where</code> is tested on the joined rows.</p>
+<p>The query&rsquo;s time range applies to every source whose data source has a time field, including joined sources and bracketed queries.</p>
+<p>A semi or anti join adds no fields, so its fields can only be used in its keys, or, for a semi join, in <code>where</code> conditions on only its fields.
+To match only some rows of an anti join&rsquo;s source, filter them in a bracketed query, e.g.</p>
+<pre><code class="language-stroomql">from People
+anti join (from Teams where on_call = true select team) as t on team = t.team
+select name, team
+</code></pre>
+<h2 id="performance-and-limits">Performance and Limits</h2>
+<p>The joined source is held while the first source is searched, up to 1,000,000 rows or 256 MB.
+With a time window, the first source is held instead, with the same limits.
+A query that joins more fails, suggesting that the joined source is filtered or grouped.
+Administrators can change these limits with the <code>search.resultStore.joinMaxRows</code> and <code>search.resultStore.joinMaxSize</code> properties.</p>
+<p>To keep joins fast:</p>
+<ul>
+<li>Make the joined source small, by filtering it in <code>where</code> for a <code>join</code> or <code>semi join</code>, or by joining a bracketed query that filters or groups it.</li>
+<li>Join a large source to a small one, not the other way round.
+Without a time window, the first source can be as large as any other search.</li>
+<li>Join on one plain field of the first source, such as <code>UserId</code>, rather than an expression, where you can.
+A <code>join</code>, <code>semi join</code> or <code>right join</code> with one such key, on an ID, number, keyword or text field the first source can search, then also narrows the first source&rsquo;s search to the joined source&rsquo;s keys, if there are at most 1,000 of them and none has spaces, commas, quotes or wildcards.
+An <code>anti join</code> does the same, leaving those keys out, on ID and whole-number fields.</li>
+</ul>
+<p>Each source is searched as the user running the query, so a join never shows data the user could not otherwise see.</p>
+<p>The hidden <code>StreamId</code>, <code>EventId</code> and <code>AnnotationId</code> fields come from the first source, so a joined row still opens and annotates the first source&rsquo;s event.</p>
+<h3 id="warnings">Warnings</h3>
+<p>A query with a join may give these warnings with its results:</p>
+<ul>
+<li>A row matched many rows of a joined source, more than 1,000, so the result may be much bigger than expected.
+Check the keys of the join.</li>
+<li>A field that <code>where</code> tests after a right or full join had no value in any row of the first source.
+This happens when a data source can search a field but not give its value.
+Narrow the first source with a bracketed query in <code>from</code> instead.</li>
+<li>The rows of a right or full join with no match were left out, as the search didn&rsquo;t finish.</li>
+</ul>
+<h2 id="where-joins-can-be-used">Where Joins Can be Used</h2>
+<p>Joins can be used in a 
+
+  
+  
+  <span class="stroom-doc">
+      <a href="../../../../docs/reference-section/documents#query" class="stroom-doc-link">
+        
+        <span class="stroom-doc-icon"><span class="stroom-icon inline-svg-button icon-button  " >
+    <span class="face" title="query"><svg xmlns="http://www.w3.org/2000/svg" width="1792" height="1792" viewBox="0 0 1792 1792"><path style="fill:var(--icon-colour__blue)" d="M1216 832q0-185-131.5-316.5t-316.5-131.5-316.5 131.5-131.5 316.5 131.5 316.5 316.5 131.5 316.5-131.5 131.5-316.5zm512 832q0 52-38 90t-90 38q-54 0-90-38l-343-342q-179 124-399 124-143 0-273.5-55.5t-225-150-150-225-55.5-273.5 55.5-273.5 150-225 225-150 273.5-55.5 273.5 55.5 225 150 150 225 55.5 273.5q0 220-124 399l343 343q37 37 37 90z"/></svg></span>
+  </span></span>
+        
+        <span class="stroom-doc-text">Query</span>
+      </a>
+    </span>
+
+, in an <em>Embedded Query</em> panel on a 
+
+  
+  
+  <span class="stroom-doc">
+      <a href="../../../../docs/reference-section/documents#dashboard" class="stroom-doc-link">
+        
+        <span class="stroom-doc-icon"><span class="stroom-icon inline-svg-button icon-button  " >
+    <span class="face" title="dashboard"><!-- Created with Inkscape (http://www.inkscape.org/) --><svg version="1.1" id="svg4591" width="512" height="512" viewBox="0 0 512 512" sodipodi:docname="Dashboard.svg" inkscape:version="1.2.1 (9c6d41e410, 2022-07-14, custom)" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape" xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd" xmlns="http://www.w3.org/2000/svg" ><defs id="defs4595" /><sodipodi:namedview id="namedview4593" pagecolor="var(--icon-colour__white)" bordercolor="#666666" borderopacity="1.0" inkscape:showpageshadow="2" inkscape:pageopacity="0.0" inkscape:pagecheckerboard="0" inkscape:deskcolor="#d1d1d1" showgrid="false" inkscape:zoom="0.35458919" inkscape:cx="530.191" inkscape:cy="589.41447" inkscape:window-width="2560" inkscape:window-height="1403" inkscape:window-x="2560" inkscape:window-y="0" inkscape:window-maximized="1" inkscape:current-layer="g4597" /><g inkscape:groupmode="layer" inkscape:label="Image" id="g4597"><rect style="fill:var(--icon-colour__orange);fill-opacity:1;stroke:var(--icon-colour__orange);stroke-width:18.00002425;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:none;stroke-opacity:1;paint-order:fill markers stroke" id="rect4655" width="151.83469" height="195.54515" x="73.71109" y="73.244606" transform="matrix(1,0,-0.00232161,0.99999731,0,0)" /><rect style="fill:var(--icon-colour__yellow);fill-opacity:1;stroke:var(--icon-colour__yellow);stroke-width:18.00002425;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:none;stroke-opacity:1;paint-order:fill markers stroke" id="rect4655-5" width="151.83469" height="195.54515" x="287.34845" y="243.71935" transform="matrix(1,0,-0.00232161,0.99999731,0,0)" /><rect style="fill:var(--icon-colour__green);fill-opacity:1;stroke:var(--icon-colour__green);stroke-width:18.00007497;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:none;stroke-opacity:1;paint-order:fill markers stroke" id="rect4655-5-9" width="155.95563" height="108.24628" x="285.01883" y="71.178368" transform="matrix(1,0,-0.00408154,0.99999167,0,0)" /><rect style="fill:var(--icon-colour__blue);fill-opacity:1;stroke:var(--icon-colour__blue);stroke-width:18.00007497;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:none;stroke-opacity:1;paint-order:fill markers stroke" id="rect4655-5-9-2" width="155.95563" height="108.24628" x="72.821693" y="331.08734" transform="matrix(1,0,-0.00408154,0.99999167,0,0)" /></g></svg> </span>
+  </span></span>
+        
+        <span class="stroom-doc-text">Dashboard</span>
+      </a>
+    </span>
+
+, and in scheduled analytic rules and reports.</p>
+<p>Streaming and table builder analytic rules can&rsquo;t use joins, an alias or a bracketed query in <code>from</code>, as they run on one event at a time as it is processed.
+Use a scheduled query rule instead.</p>
 
 </div>
 

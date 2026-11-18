@@ -153,7 +153,7 @@
     aria-label="Search this site…"
     autocomplete="off"
     
-    data-offline-search-index-json-src="../../offline-search-index.0f80f2d5bacc260392e1d9263776d11b.json"
+    data-offline-search-index-json-src="../../offline-search-index.1a7dcb547574e1fbe1716674a52291e4.json"
     data-offline-search-base-href="../../"
     data-offline-search-max-results="50"
   >
@@ -1082,7 +1082,137 @@ This is the multi-page printable view of this section.
     
   <h1 id="pg-81de532f07fcf22e09435e5c16b702d9">2.1 - New Features</h1>
     <div class="lead">New features in Stroom version 7.14.</div>
-	
+	<h2 id="data-connections">Data Connections</h2>
+<p>A new 
+
+  
+  
+  <span class="stroom-doc">
+      <a href="../../docs/reference-section/documents#data-connection" class="stroom-doc-link">
+        
+        <span class="stroom-doc-icon"><span class="stroom-icon inline-svg-button icon-button  " >
+    <span class="face" title="dataconnection"><svg xmlns="http://www.w3.org/2000/svg" width="1792" height="1792" viewBox="0 0 1792 1792"><path style="fill:var(--icon-colour__purple)" d="M896 768q237 0 443-43t325-127v170q0 69-103 128t-280 93.5-385 34.5-385-34.5-280-93.5-103-128v-170q119 84 325 127t443 43zm0 768q237 0 443-43t325-127v170q0 69-103 128t-280 93.5-385 34.5-385-34.5-280-93.5-103-128v-170q119 84 325 127t443 43zm0-384q237 0 443-43t325-127v170q0 69-103 128t-280 93.5-385 34.5-385-34.5-280-93.5-103-128v-170q119 84 325 127t443 43zm0-1152q208 0 385 34.5t280 93.5 103 128v128q0 69-103 128t-280 93.5-385 34.5-385-34.5-280-93.5-103-128v-128q0-69 103-128t280-93.5 385-34.5z"/></svg> </span>
+  </span></span>
+        
+        <span class="stroom-doc-text">Data Connection</span>
+      </a>
+    </span>
+
+ document type makes data held outside Stroom into one more kind of <span class="glossary-link link-with-hover-tooltip">
+    <a href="../../docs/glossary/d/glossary-data-source">
+      <span>data source</span>
+      <i class="glossary-link-icon fas fa-book fa-sm text-primary"></i>
+    </a><template class="hover-tooltip-content">
+        <span class="hover-tooltip-title">Data source</span>
+        <div class="hover-tooltip-summary">The source of data for a <em>Query</em>, e.g. a <em>Lucene</em> based <em>Index</em>, a SQL Statistics Data source, etc.</div><span class="hover-tooltip-more-details">Click to see more details...</span></template></span>.
+<span class="glossary-link link-with-hover-tooltip">
+    <a href="../../docs/glossary/s/glossary-stroomql">
+      <span>StroomQl</span>
+      <i class="glossary-link-icon fas fa-book fa-sm text-primary"></i>
+    </a><template class="hover-tooltip-content">
+        <span class="hover-tooltip-title">StroomQl</span>
+        <div class="hover-tooltip-summary"><strong>Stroom</strong> <strong>Q</strong>uery <strong>L</strong>anguage is Stroom&rsquo;s own query language. It has similarities with Structured Query Language (SQL) as used in databases. StroomQL is sometimes referred to as <em>sQL</em> to distinguish it from <em>SQL</em>.</div><span class="hover-tooltip-more-details">Click to see more details...</span></template></span> queries, dashboards, scheduled analytic rules and reports can query it, and every part of StroomQL works on its rows as it does on Stroom&rsquo;s own data.</p>
+<p>A Data Connection has one of five types:</p>
+<ul>
+<li><em>JDBC</em> - a database, queried with SQL given in each query.
+Stroom ships the MySQL and PostgreSQL drivers, and an administrator can add others.</li>
+<li><em>Amazon Athena</em> - Amazon Athena, queried with SQL through the AWS SDK, with a limit on the data a query may scan.</li>
+<li><em>LDAP</em> - an LDAP directory, such as OpenLDAP or Active Directory, searched with a filter given in each query.</li>
+<li><em>CSV</em> and <em>Excel</em> - small lookup tables and reference lists held in the document itself, queried with StroomQL&rsquo;s own clauses.</li>
+</ul>
+<p>The SQL or filter goes in a new <code>sql</code> clause, straight after <code>from</code>, as a triple-quoted string that can span lines and hold quotes without escaping:</p>
+<pre><code class="language-stroomql">from &quot;Reports DB&quot;
+sql &quot;&quot;&quot;
+  select name, team, joined
+  from staff
+  where joined &gt;= :from and joined &lt; :to
+&quot;&quot;&quot;
+where team = &quot;Platform&quot;
+select name, joined
+</code></pre>
+<p>Named placeholders such as <code>:team</code> take query parameters, and <code>:from</code> and <code>:to</code> take the query&rsquo;s time range, without ever changing the SQL or filter itself.</p>
+<p>Data Connections connect with credentials held in the Credentials store, which gains an <em>AWS Access Key</em> type for Amazon Athena.
+A user needs <em>Use</em> permission on both the Data Connection and its credential to query it.
+No JDBC, Athena or LDAP connection is allowed until an administrator allows it with the new <code>dataConnection</code> properties, see <a href="../../releases/v07.14/upgrade-notes/#new-dataconnection-properties">Upgrade Notes</a>.</p>
+<p>An example import pack, <code>stroom-data-connection/DataConnection-Examples.zip</code> in the Stroom repository, has JDBC, LDAP, CSV and Excel Data Connections with example queries.</p>
+
+
+
+<div class="alert alert-primary" role="alert">
+  <h4 class="alert-heading">See Also</h4>
+  <div class="alert-content">
+
+
+
+
+<ul>
+<li><a href="../../docs/user-guide/search/data-sources/data-connections/">Data Connections</a></li>
+<li><a href="../../docs/user-guide/search/queries/stroom-query-language/#sql">StroomQL Sql clause</a></li>
+<li><a href="../../docs/user-guide/security/credentials/">Credentials</a></li>
+</ul>
+
+
+
+  </div>
+</div>
+
+<h2 id="stroomql-joins">StroomQL Joins</h2>
+<p><span class="glossary-link link-with-hover-tooltip">
+    <a href="../../docs/glossary/s/glossary-stroomql">
+      <span>StroomQl</span>
+      <i class="glossary-link-icon fas fa-book fa-sm text-primary"></i>
+    </a><template class="hover-tooltip-content">
+        <span class="hover-tooltip-title">StroomQl</span>
+        <div class="hover-tooltip-summary"><strong>Stroom</strong> <strong>Q</strong>uery <strong>L</strong>anguage is Stroom&rsquo;s own query language. It has similarities with Structured Query Language (SQL) as used in databases. StroomQL is sometimes referred to as <em>sQL</em> to distinguish it from <em>SQL</em>.</div><span class="hover-tooltip-more-details">Click to see more details...</span></template></span> queries can now join the rows of one data source to those of another, matching them on keys.
+Join lines go straight after <code>from</code>:</p>
+<pre><code class="language-stroomql">from &quot;Windows events&quot;
+left join &quot;HR Users&quot; as hr on UserId = hr.Username
+select UserId, hr.Department
+</code></pre>
+<p>The joined source is searched first and held, and the first source&rsquo;s rows are joined as they arrive, so results still appear as the search runs.
+Any data source can be joined to any other, such as an index to a Data Connection, and either can be a bracketed query, such as a grouped summary.</p>
+<p>There are six kinds of join:</p>
+<ul>
+<li><code>join</code> (or <code>inner join</code>) - one row per match.</li>
+<li><code>left join</code> (or <code>left outer join</code>) - also keeps the rows with no match.</li>
+<li><code>right join</code> (or <code>right outer join</code>) - also keeps the joined source&rsquo;s rows with no match.</li>
+<li><code>full join</code> (or <code>full outer join</code>) - also keeps the rows of either source with no match.</li>
+<li><code>semi join</code> (or <code>left semi join</code>) - each row with a match, once, adding no fields.</li>
+<li><code>anti join</code> (or <code>left anti join</code>) - each row with no match.</li>
+</ul>
+<p><code>where exists</code>, <code>where not exists</code>, <code>where ... in (from ...)</code> and <code>where ... not in (from ...)</code> are also accepted, as the SQL ways of writing semi and anti joins.</p>
+<p>A join can also match events to events within a time window, e.g. a logon followed by a file export by the same user within 10 minutes:</p>
+<pre><code class="language-stroomql">from &quot;Windows events&quot; as logon
+join &quot;File events&quot; as export
+  on logon.UserId = export.UserId
+  within 10m after logon.EventTime
+select logon.UserId, logon.EventTime, export.FileName
+</code></pre>
+<p>Joins can be used in queries, in Embedded Query panels on dashboards, and in scheduled analytic rules and reports.
+A joined source can hold up to 1,000,000 rows or 256 MB, which administrators can change, see <a href="../../releases/v07.14/upgrade-notes/#new-searchresultstore-join-properties">Upgrade Notes</a>.</p>
+<p>The Data Connection example pack has ten example join queries.</p>
+
+
+
+<div class="alert alert-primary" role="alert">
+  <h4 class="alert-heading">See Also</h4>
+  <div class="alert-content">
+
+
+
+
+<ul>
+<li><a href="../../docs/user-guide/search/queries/joins/">Joins</a></li>
+<li><a href="../../docs/reference-section/stroomql-grammar/#join-lines">StroomQL Grammar</a></li>
+<li><a href="../../docs/user-guide/search/queries/stroom-query-language/#join">StroomQL Join clause</a></li>
+</ul>
+
+
+
+  </div>
+</div>
+
+
 </div>
 
 
@@ -1475,6 +1605,82 @@ The limits prevent a stepping session from consuming excessive disk space or pro
 </code></pre>
 <p><code>maxBytesPerStream</code> and <code>maxRecordsPerStream</code> stop stepping with an error when the persisted I/O or captured records for a stream exceed the configured limit.
 <code>maxSessionIdleTime</code> controls when an idle session and its persisted I/O are removed, while <code>orphanMaxAge</code> controls cleanup of abandoned session directories.</p>
+<h4 id="new-dataconnection-properties">New <code>dataConnection</code> Properties</h4>
+<p>The new <a href="../../docs/user-guide/search/data-sources/data-connections/">Data Connection</a> document type has its own branch of properties.
+With the defaults, no JDBC, Amazon Athena or LDAP connection is allowed: set <code>allowedUrlPatterns</code>, <code>allowedAthenaWorkGroups</code> or <code>allowedLdapUrlPatterns</code> to allow the systems Data Connections may query.
+CSV and Excel Data Connections need no setting.
+See <a href="../../docs/user-guide/search/data-sources/data-connections/#administration">Administration</a> for what each property does.</p>
+<pre><code class="language-yaml">appConfig:
+  dataConnection:
+    allowDefaultAwsCredentials: false
+    allowPlainLdap: false
+    allowedAthenaOutputLocations: []
+    allowedAthenaWorkGroups: []
+    allowedLdapUrlPatterns: []
+    allowedUrlPatterns: []
+    connectionPoolCache:
+      expireAfterAccess: &quot;PT10M&quot;
+      expireAfterWrite: null
+      maximumSize: 100
+      refreshAfterWrite: null
+      statisticsMode: &quot;INTERNAL&quot;
+    deniedConnectionProperties:
+    - &quot;allowLoadLocalInfile&quot;
+    - &quot;allowLoadLocalInfileInPath&quot;
+    - &quot;allowUrlInLocalInfile&quot;
+    - &quot;clientCertificateKeyStoreUrl&quot;
+    - &quot;ociConfigFile&quot;
+    - &quot;serverRSAPublicKeyFile&quot;
+    - &quot;trustCertificateKeyStoreUrl&quot;
+    - &quot;authenticationPlugins&quot;
+    - &quot;autoDeserialize&quot;
+    - &quot;clientInfoProvider&quot;
+    - &quot;connectionLifecycleInterceptors&quot;
+    - &quot;defaultAuthenticationPlugin&quot;
+    - &quot;exceptionInterceptors&quot;
+    - &quot;ha.loadBalanceStrategy&quot;
+    - &quot;loadBalanceExceptionChecker&quot;
+    - &quot;logger&quot;
+    - &quot;profilerEventHandler&quot;
+    - &quot;propertiesTransform&quot;
+    - &quot;queryInterceptors&quot;
+    - &quot;socketFactory&quot;
+    - &quot;readOnlyPropagatesToServer&quot;
+    - &quot;gsslib&quot;
+    - &quot;jaasLogin&quot;
+    - &quot;loggerFile&quot;
+    - &quot;options&quot;
+    - &quot;service&quot;
+    - &quot;sslcert&quot;
+    - &quot;sslkey&quot;
+    - &quot;sslrootcert&quot;
+    - &quot;authenticationPluginClassName&quot;
+    - &quot;socketFactoryArg&quot;
+    - &quot;sslfactory&quot;
+    - &quot;sslfactoryarg&quot;
+    - &quot;sslhostnameverifier&quot;
+    - &quot;sslpasswordcallback&quot;
+    - &quot;sspiServiceClass&quot;
+    - &quot;readOnly&quot;
+    - &quot;readOnlyMode&quot;
+    driverDirectory: null
+    fieldCache:
+      expireAfterAccess: null
+      expireAfterWrite: &quot;PT10M&quot;
+      maximumSize: 1000
+      refreshAfterWrite: null
+      statisticsMode: &quot;INTERNAL&quot;
+    maxPoolSizeLimit: 20
+    maxQueryTimeout: &quot;PT10M&quot;
+    maxRowsLimit: 1000000
+    maxStoredDataSize: &quot;5M&quot;
+    tableCache:
+      expireAfterAccess: &quot;PT10M&quot;
+      expireAfterWrite: null
+      maximumSize: 10
+      refreshAfterWrite: null
+      statisticsMode: &quot;INTERNAL&quot;
+</code></pre>
 <h4 id="changes-to-the-planb-branch">Changes to the <code>planb</code> Branch</h4>
 <p>The following properties have been added to control Plan B shard allocation, caching and merging.
 <code>defaultShardCounts</code> defines the default number of shards for each state type.</p>
@@ -1532,6 +1738,16 @@ The queue URL, polling limits, visibility timeout and optional dead-letter queue
 <p><code>rePollDuration</code> limits how long a scheduled execution polls before waiting for the next execution.
 <code>sleepDurationPostFailure</code> sets the delay after a polling failure.
 <code>visibilityTimeout</code> should be longer than the time needed to process a message; successfully processed messages are deleted from the queue.</p>
+<h4 id="new-searchresultstore-join-properties">New <code>search.resultStore</code> Join Properties</h4>
+<p><a href="../../docs/user-guide/search/queries/joins/">StroomQL joins</a> hold each joined source while the first source is searched.
+These properties limit how much a joined source may hold, as rows and as bytes.
+A query that joins more fails, suggesting that the joined source is filtered or grouped.</p>
+<pre><code class="language-yaml">appConfig:
+  search:
+    resultStore:
+      joinMaxRows: 1000000
+      joinMaxSize: &quot;256M&quot;
+</code></pre>
 <h4 id="new-sqlstore-database-configuration">New <code>sqlStore</code> Database Configuration</h4>
 <p>The SQL statistics store has a new database connection branch.
 These values can be left unset when the connection is supplied through common database details.</p>

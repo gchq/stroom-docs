@@ -1,0 +1,222 @@
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Stroom – ldap</title>
+    <link>/tags/ldap/</link>
+    <description>Recent content in ldap on Stroom</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Thu, 12 Nov 2026 00:00:00 +0000</lastBuildDate>
+    
+	  <atom:link href="/tags/ldap/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+      
+        
+      
+    
+    
+    <item>
+      <title>Docs: LDAP Data Connections</title>
+      <link>/docs/user-guide/search/data-sources/data-connections/ldap/</link>
+      <pubDate>Thu, 12 Nov 2026 00:00:00 +0000</pubDate>
+      
+      <guid>/docs/user-guide/search/data-sources/data-connections/ldap/</guid>
+      <description>
+        
+        
+        &lt;p&gt;An LDAP 
+
+  
+  
+  &lt;span class=&#34;stroom-doc&#34;&gt;
+      &lt;a href=&#34;../../docs/reference-section/documents#data-connection&#34; class=&#34;stroom-doc-link&#34;&gt;
+        
+        &lt;span class=&#34;stroom-doc-icon&#34;&gt;&lt;span class=&#34;stroom-icon inline-svg-button icon-button  &#34; &gt;
+    &lt;span class=&#34;face&#34; title=&#34;dataconnection&#34;&gt;&lt;svg xmlns=&#34;http://www.w3.org/2000/svg&#34; width=&#34;1792&#34; height=&#34;1792&#34; viewBox=&#34;0 0 1792 1792&#34;&gt;&lt;path style=&#34;fill:var(--icon-colour__purple)&#34; d=&#34;M896 768q237 0 443-43t325-127v170q0 69-103 128t-280 93.5-385 34.5-385-34.5-280-93.5-103-128v-170q119 84 325 127t443 43zm0 768q237 0 443-43t325-127v170q0 69-103 128t-280 93.5-385 34.5-385-34.5-280-93.5-103-128v-170q119 84 325 127t443 43zm0-384q237 0 443-43t325-127v170q0 69-103 128t-280 93.5-385 34.5-385-34.5-280-93.5-103-128v-170q119 84 325 127t443 43zm0-1152q208 0 385 34.5t280 93.5 103 128v128q0 69-103 128t-280 93.5-385 34.5-385-34.5-280-93.5-103-128v-128q0-69 103-128t280-93.5 385-34.5z&#34;/&gt;&lt;/svg&gt; &lt;/span&gt;
+  &lt;/span&gt;&lt;/span&gt;
+        
+        &lt;span class=&#34;stroom-doc-text&#34;&gt;Data Connection&lt;/span&gt;
+      &lt;/a&gt;
+    &lt;/span&gt;
+
+ searches an LDAP directory.
+Each query gives an LDAP search filter in a &lt;code&gt;sql&lt;/code&gt; clause, and each entry it finds becomes a row.
+The fields are &lt;code&gt;dn&lt;/code&gt; and the attributes listed in the document.&lt;/p&gt;
+&lt;h2 id=&#34;settings&#34;&gt;Settings&lt;/h2&gt;
+&lt;dl&gt;
+&lt;dt&gt;&lt;em&gt;LDAP URL&lt;/em&gt;&lt;/dt&gt;
+&lt;dd&gt;The directory&amp;rsquo;s URL: its scheme, host and port only, e.g. &lt;code&gt;ldaps://directory.example.org:636&lt;/code&gt;.
+It must match one of the patterns an administrator has allowed in the &lt;code&gt;stroom.dataConnection.allowedLdapUrlPatterns&lt;/code&gt; property.
+A URL that also gives a base DN, attributes, scope or filter is refused; set those in their own places.&lt;/dd&gt;
+&lt;dt&gt;&lt;em&gt;Use StartTLS&lt;/em&gt;&lt;/dt&gt;
+&lt;dd&gt;Whether to start TLS on an &lt;code&gt;ldap://&lt;/code&gt; connection before binding, so the password and results are encrypted.
+An &lt;code&gt;ldaps://&lt;/code&gt; connection is always encrypted.
+Plain &lt;code&gt;ldap://&lt;/code&gt; without StartTLS can only be used if an administrator turns on the &lt;code&gt;stroom.dataConnection.allowPlainLdap&lt;/code&gt; property.
+Default: off.&lt;/dd&gt;
+&lt;dt&gt;&lt;em&gt;Credential&lt;/em&gt;&lt;/dt&gt;
+&lt;dd&gt;The &lt;em&gt;Username / Password&lt;/em&gt; &lt;a href=&#34;../../docs/user-guide/security/credentials/&#34;&gt;credential&lt;/a&gt; to bind with.
+Its username is the full bind DN, e.g. &lt;code&gt;cn=stroom-reader,ou=Services,dc=example,dc=org&lt;/code&gt;.
+You need &lt;em&gt;Use&lt;/em&gt; permission on it, as does anyone who queries this Data Connection.
+Anonymous binds are not allowed, so a credential is required, and it must have a password.&lt;/dd&gt;
+&lt;dt&gt;&lt;em&gt;Base DN&lt;/em&gt;&lt;/dt&gt;
+&lt;dd&gt;Where searches start, e.g. &lt;code&gt;ou=People,dc=example,dc=org&lt;/code&gt;.
+Queries cannot search outside it.&lt;/dd&gt;
+&lt;dt&gt;&lt;em&gt;Scope&lt;/em&gt;&lt;/dt&gt;
+&lt;dd&gt;How far below the base DN searches reach: the base entry only, the entries directly below it, or the whole subtree.
+Default: the whole subtree.&lt;/dd&gt;
+&lt;dt&gt;&lt;em&gt;Page Size&lt;/em&gt;&lt;/dt&gt;
+&lt;dd&gt;How many entries are fetched in each page of results.
+Default: &lt;code&gt;500&lt;/code&gt;.&lt;/dd&gt;
+&lt;dt&gt;&lt;em&gt;Minimum Refresh (minutes)&lt;/em&gt;&lt;/dt&gt;
+&lt;dd&gt;The shortest interval at which a dashboard may rerun a query of this Data Connection automatically, to limit the load on the directory.
+&lt;code&gt;0&lt;/code&gt; sets no minimum beyond the dashboard&amp;rsquo;s own 10 seconds.
+Default: &lt;code&gt;0&lt;/code&gt;.&lt;/dd&gt;
+&lt;dt&gt;&lt;em&gt;Attributes&lt;/em&gt;&lt;/dt&gt;
+&lt;dd&gt;The attributes read from each entry, each with a type.
+See &lt;a href=&#34;#attributes&#34;&gt;Attributes&lt;/a&gt;.&lt;/dd&gt;
+&lt;/dl&gt;
+&lt;p&gt;The &lt;em&gt;Time Column&lt;/em&gt;, &lt;em&gt;Query Timeout&lt;/em&gt; and &lt;em&gt;Max Rows&lt;/em&gt; settings are described in &lt;a href=&#34;../../docs/user-guide/search/data-sources/data-connections/#settings-for-every-type&#34;&gt;Settings for Every Type&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;
+
+
+
+
+
+
+  
+
+
+&lt;span class=&#34;stroom-theme-dark stroom-button key-bind-single&#34; title=&#34;Test Connection button&#34; &gt;
+  
+  &lt;span class=&#34;stroom-button-text&#34;&gt;Test Connection&lt;/span&gt;
+&lt;/span&gt;
+ connects, starts TLS if set, binds and reads the base DN&amp;rsquo;s entry.
+It reports the directory&amp;rsquo;s vendor, and whether the directory supports paged results.&lt;/p&gt;
+&lt;h2 id=&#34;attributes&#34;&gt;Attributes&lt;/h2&gt;
+&lt;p&gt;The fields of a query are &lt;code&gt;dn&lt;/code&gt;, which every entry has, then each attribute in the &lt;em&gt;Attributes&lt;/em&gt; table, in order.
+An attribute an entry does not have is empty.&lt;/p&gt;
+&lt;p&gt;
+
+
+
+
+
+
+  
+
+
+&lt;span class=&#34;stroom-theme-dark stroom-button key-bind-single&#34; title=&#34;Detect Attributes button&#34; &gt;
+  
+  &lt;span class=&#34;stroom-button-text&#34;&gt;Detect Attributes&lt;/span&gt;
+&lt;/span&gt;
+ reads the first 100 entries below the base DN and adds the attributes they have to the table, with the type their values suggest.
+Attributes already in the table stay, in their place and with their type, so a type you chose survives detecting the attributes again.
+It also asks for &lt;code&gt;createTimestamp&lt;/code&gt; and &lt;code&gt;modifyTimestamp&lt;/code&gt;, which most directories keep but only return when asked for by name.&lt;/p&gt;
+&lt;p&gt;Directories return some attributes only when asked for by name, such as operational attributes, and an attribute may only be on later entries.
+Add these to the table by name, and remove the ones you do not need, as each attribute is fetched from the directory for every entry.&lt;/p&gt;
+&lt;p&gt;Each attribute is read as its type:&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;Type&lt;/th&gt;
+&lt;th&gt;Reads&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;Text&lt;/td&gt;
+&lt;td&gt;Any attribute. An attribute with several values, such as &lt;code&gt;memberOf&lt;/code&gt;, gives them all, joined by &lt;code&gt;; &lt;/code&gt;. Binary values, such as &lt;code&gt;objectGUID&lt;/code&gt;, are given in base64.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Long, Double&lt;/td&gt;
+&lt;td&gt;A number.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Boolean&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;TRUE&lt;/code&gt; or &lt;code&gt;FALSE&lt;/code&gt;, as LDAP writes them, in any case.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Date&lt;/td&gt;
+&lt;td&gt;An LDAP time (GeneralizedTime), such as &lt;code&gt;createTimestamp&lt;/code&gt; or &lt;code&gt;whenCreated&lt;/code&gt;, or an Active Directory FILETIME number, such as &lt;code&gt;lastLogonTimestamp&lt;/code&gt; or &lt;code&gt;pwdLastSet&lt;/code&gt;. A FILETIME of &lt;code&gt;0&lt;/code&gt;, or the largest possible value, means no time and is empty.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;An attribute with more than one value, or a binary value, can only be read as Text.
+A value that is not of its attribute&amp;rsquo;s type is empty, and the query warns about it.
+Detect Attributes suggests Date only for LDAP times, so set FILETIME attributes to Date yourself.&lt;/p&gt;
+&lt;h2 id=&#34;writing-the-filter&#34;&gt;Writing the Filter&lt;/h2&gt;
+&lt;p&gt;The filter is a standard LDAP search filter, given in a triple-quoted &lt;code&gt;sql&lt;/code&gt; clause, e.g.&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-stroomql&#34;&gt;from &amp;quot;Directory&amp;quot;
+sql &amp;quot;&amp;quot;&amp;quot;
+(&amp;amp;(objectClass=person)(departmentNumber=:department))
+&amp;quot;&amp;quot;&amp;quot;
+sort by cn
+select cn, uid, mail
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;The brackets around a filter may be left off, e.g. &lt;code&gt;objectClass=person&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;A placeholder takes the value of the query parameter of its name, and &lt;code&gt;:from&lt;/code&gt; and &lt;code&gt;:to&lt;/code&gt; take the time range as LDAP times, e.g. &lt;code&gt;(modifyTimestamp&amp;gt;=:from)&lt;/code&gt;.
+See &lt;a href=&#34;../../docs/user-guide/search/data-sources/data-connections/#parameters&#34;&gt;Parameters&lt;/a&gt; and &lt;a href=&#34;../../docs/user-guide/search/data-sources/data-connections/#time-range&#34;&gt;Time Range&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;Each value is escaped as an LDAP filter value, so it can only ever be matched and never change the filter.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;A colon also appears in extensible match filters, such as &lt;code&gt;(cn:caseExactMatch:=Fred)&lt;/code&gt;, and in values such as times and URLs.
+So a colon only starts a placeholder where a value starts, straight after &lt;code&gt;=&lt;/code&gt;, &lt;code&gt;~=&lt;/code&gt;, &lt;code&gt;&amp;gt;=&lt;/code&gt; or &lt;code&gt;&amp;lt;=&lt;/code&gt;, or after a &lt;code&gt;*&lt;/code&gt; wildcard.
+A value that must start with a colon followed by a letter writes the colon as &lt;code&gt;\3a&lt;/code&gt;.&lt;/li&gt;
+&lt;li&gt;Values are escaped for the filter, not for a DN.
+So in a DN-valued filter such as &lt;code&gt;(member=uid=:user,ou=People,dc=example,dc=org)&lt;/code&gt;, a parameter holding a comma could compare a different DN, though never change the filter.
+Give the whole DN as one parameter instead, e.g. &lt;code&gt;(member=:memberDn)&lt;/code&gt;.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;searching&#34;&gt;Searching&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;Entries are fetched a page at a time with the simple paged results control, so a search can read more entries than the directory returns at once.
+The control is not marked critical, so a directory without it still answers, within its own size limit.&lt;/li&gt;
+&lt;li&gt;The search stops at the Data Connection&amp;rsquo;s &lt;em&gt;Max Rows&lt;/em&gt;.&lt;/li&gt;
+&lt;li&gt;If the directory&amp;rsquo;s own size or time limit for the bind account ends a search, the query keeps the entries read so far and warns.
+Narrow the filter, or ask the directory&amp;rsquo;s administrator to raise the limit.&lt;/li&gt;
+&lt;li&gt;Referrals to other servers are not followed, as the allowed LDAP URLs may not include them.
+The query warns how many there were.
+Search those servers with Data Connections of their own.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;security&#34;&gt;Security&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;The URL must match one of the &lt;code&gt;stroom.dataConnection.allowedLdapUrlPatterns&lt;/code&gt; patterns.&lt;/li&gt;
+&lt;li&gt;The connection must be encrypted, with &lt;code&gt;ldaps://&lt;/code&gt; or StartTLS, unless &lt;code&gt;stroom.dataConnection.allowPlainLdap&lt;/code&gt; is on.
+Plain LDAP sends the bind password and every result unencrypted, so only use it for test directories.&lt;/li&gt;
+&lt;li&gt;The directory&amp;rsquo;s certificate must be trusted by Stroom&amp;rsquo;s Java trust store and name the host in the URL.&lt;/li&gt;
+&lt;li&gt;Directories hold personal data, so use a bind account the directory lets read only the entries and attributes Stroom needs.&lt;/li&gt;
+&lt;li&gt;Stroom&amp;rsquo;s LDAP client never turns what a directory returns into Java objects, so a directory cannot make Stroom load code.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;active-directory&#34;&gt;Active Directory&lt;/h2&gt;
+&lt;p&gt;Active Directory names some attributes differently from the standard &lt;code&gt;inetOrgPerson&lt;/code&gt; ones, e.g.:&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;Standard&lt;/th&gt;
+&lt;th&gt;Active Directory&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;uid&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;sAMAccountName&lt;/code&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;departmentNumber&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;department&lt;/code&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;createTimestamp&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;whenCreated&lt;/code&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;modifyTimestamp&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;whenChanged&lt;/code&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;Its global catalog, on ports 3268 and 3269, can search a whole forest without referrals.
+Times such as &lt;code&gt;lastLogonTimestamp&lt;/code&gt;, &lt;code&gt;pwdLastSet&lt;/code&gt; and &lt;code&gt;accountExpires&lt;/code&gt; are FILETIME numbers: set their type to Date to read them as dates.&lt;/p&gt;
+
+      </description>
+    </item>
+    
+  </channel>
+</rss>

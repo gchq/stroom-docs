@@ -1,0 +1,172 @@
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Stroom – aws</title>
+    <link>/tags/aws/</link>
+    <description>Recent content in aws on Stroom</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Thu, 12 Nov 2026 00:00:00 +0000</lastBuildDate>
+    
+	  <atom:link href="/tags/aws/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+      
+        
+      
+    
+    
+    <item>
+      <title>Docs: Amazon Athena Data Connections</title>
+      <link>/docs/user-guide/search/data-sources/data-connections/athena/</link>
+      <pubDate>Thu, 12 Nov 2026 00:00:00 +0000</pubDate>
+      
+      <guid>/docs/user-guide/search/data-sources/data-connections/athena/</guid>
+      <description>
+        
+        
+        &lt;p&gt;An Amazon Athena 
+
+  
+  
+  &lt;span class=&#34;stroom-doc&#34;&gt;
+      &lt;a href=&#34;../../docs/reference-section/documents#data-connection&#34; class=&#34;stroom-doc-link&#34;&gt;
+        
+        &lt;span class=&#34;stroom-doc-icon&#34;&gt;&lt;span class=&#34;stroom-icon inline-svg-button icon-button  &#34; &gt;
+    &lt;span class=&#34;face&#34; title=&#34;dataconnection&#34;&gt;&lt;svg xmlns=&#34;http://www.w3.org/2000/svg&#34; width=&#34;1792&#34; height=&#34;1792&#34; viewBox=&#34;0 0 1792 1792&#34;&gt;&lt;path style=&#34;fill:var(--icon-colour__purple)&#34; d=&#34;M896 768q237 0 443-43t325-127v170q0 69-103 128t-280 93.5-385 34.5-385-34.5-280-93.5-103-128v-170q119 84 325 127t443 43zm0 768q237 0 443-43t325-127v170q0 69-103 128t-280 93.5-385 34.5-385-34.5-280-93.5-103-128v-170q119 84 325 127t443 43zm0-384q237 0 443-43t325-127v170q0 69-103 128t-280 93.5-385 34.5-385-34.5-280-93.5-103-128v-170q119 84 325 127t443 43zm0-1152q208 0 385 34.5t280 93.5 103 128v128q0 69-103 128t-280 93.5-385 34.5-385-34.5-280-93.5-103-128v-128q0-69 103-128t280-93.5 385-34.5z&#34;/&gt;&lt;/svg&gt; &lt;/span&gt;
+  &lt;/span&gt;&lt;/span&gt;
+        
+        &lt;span class=&#34;stroom-doc-text&#34;&gt;Data Connection&lt;/span&gt;
+      &lt;/a&gt;
+    &lt;/span&gt;
+
+ runs SQL in &lt;span class=&#34;external-link&#34;&gt;
+  &lt;a href=&#34;https://aws.amazon.com/athena/&#34; target=&#34;_blank&#34; class=&#34;external-link&#34; title=&#34;Amazon Athena (external link to https://aws.amazon.com/athena/)&#34;&gt;
+    &lt;span&gt;Amazon Athena&lt;/span&gt;
+    &lt;i class=&#34;external-link-icon fas fa-external-link-alt fa-sm text-secondary&#34;&gt;&lt;/i&gt;
+  &lt;/a&gt;
+&lt;/span&gt;
+ through the AWS SDK.
+Each query gives the SQL to run in a &lt;code&gt;sql&lt;/code&gt; clause, and the columns of its result become the query&amp;rsquo;s fields.&lt;/p&gt;
+&lt;p&gt;Athena bills by the data each query scans, so several settings and rules here exist to keep the cost in check.&lt;/p&gt;
+&lt;h2 id=&#34;settings&#34;&gt;Settings&lt;/h2&gt;
+&lt;dl&gt;
+&lt;dt&gt;&lt;em&gt;AWS Region&lt;/em&gt;&lt;/dt&gt;
+&lt;dd&gt;The AWS region of the Athena workgroup, e.g. &lt;code&gt;eu-west-2&lt;/code&gt;.&lt;/dd&gt;
+&lt;dt&gt;&lt;em&gt;Workgroup&lt;/em&gt;&lt;/dt&gt;
+&lt;dd&gt;The Athena workgroup queries run in.
+The region and workgroup, written &lt;code&gt;region/workgroup&lt;/code&gt;, must match one of the patterns an administrator has allowed in the &lt;code&gt;stroom.dataConnection.allowedAthenaWorkGroups&lt;/code&gt; property.
+The workgroup&amp;rsquo;s per-query data scan limit is the control on cost.
+Default: &lt;code&gt;primary&lt;/code&gt;.&lt;/dd&gt;
+&lt;dt&gt;&lt;em&gt;Data Catalog&lt;/em&gt;&lt;/dt&gt;
+&lt;dd&gt;The data catalog queries run in.
+Default: &lt;code&gt;AwsDataCatalog&lt;/code&gt;.&lt;/dd&gt;
+&lt;dt&gt;&lt;em&gt;Database&lt;/em&gt;&lt;/dt&gt;
+&lt;dd&gt;The database queries run in.
+Default: &lt;code&gt;default&lt;/code&gt;.&lt;/dd&gt;
+&lt;dt&gt;&lt;em&gt;Output Location (optional)&lt;/em&gt;&lt;/dt&gt;
+&lt;dd&gt;The S3 URI query results are written to, e.g. &lt;code&gt;s3://my-bucket/athena/&lt;/code&gt;.
+Leave it empty to use the workgroup&amp;rsquo;s.
+It must match one of the patterns an administrator has allowed in the &lt;code&gt;stroom.dataConnection.allowedAthenaOutputLocations&lt;/code&gt; property; with none, it must be left empty.&lt;/dd&gt;
+&lt;dt&gt;&lt;em&gt;Credential&lt;/em&gt;&lt;/dt&gt;
+&lt;dd&gt;The &lt;em&gt;AWS Access Key&lt;/em&gt; &lt;a href=&#34;../../docs/user-guide/security/credentials/&#34;&gt;credential&lt;/a&gt; to query with.
+You need &lt;em&gt;Use&lt;/em&gt; permission on it, as does anyone who queries this Data Connection.
+With none, Stroom&amp;rsquo;s own AWS identity is used, but only if an administrator has turned on the &lt;code&gt;stroom.dataConnection.allowDefaultAwsCredentials&lt;/code&gt; property.&lt;/dd&gt;
+&lt;dt&gt;&lt;em&gt;Result Reuse (minutes)&lt;/em&gt;&lt;/dt&gt;
+&lt;dd&gt;How old a result of the same query may be and still be reused instead of running the query again.
+Athena bills every run, so this saves cost when the same query is run again.
+&lt;code&gt;0&lt;/code&gt; never reuses a result.
+Default: &lt;code&gt;0&lt;/code&gt;.&lt;/dd&gt;
+&lt;dt&gt;&lt;em&gt;Minimum Refresh (minutes)&lt;/em&gt;&lt;/dt&gt;
+&lt;dd&gt;The shortest interval at which a dashboard may rerun a query of this Data Connection automatically.
+Result reuse rarely helps a dashboard, as its time range changes on every refresh, and many refreshes also use up the account&amp;rsquo;s limit on Athena queries running at once.
+&lt;code&gt;0&lt;/code&gt; sets no minimum beyond the dashboard&amp;rsquo;s own 10 seconds.
+Default: &lt;code&gt;5&lt;/code&gt;.&lt;/dd&gt;
+&lt;dt&gt;&lt;em&gt;Max Data Scanned (MB)&lt;/em&gt;&lt;/dt&gt;
+&lt;dd&gt;The most data, in MB, a query may scan before Stroom stops it.
+Stroom checks while the query runs, so a query may pass the limit by what it scans between two checks.
+The workgroup&amp;rsquo;s own per-query data scan limit is the one Athena enforces exactly, so set that too.
+&lt;code&gt;0&lt;/code&gt; sets no limit beyond the workgroup&amp;rsquo;s.
+Default: &lt;code&gt;0&lt;/code&gt;.&lt;/dd&gt;
+&lt;/dl&gt;
+&lt;p&gt;The &lt;em&gt;Query Timeout&lt;/em&gt; and &lt;em&gt;Max Rows&lt;/em&gt; settings are described in &lt;a href=&#34;../../docs/user-guide/search/data-sources/data-connections/#settings-for-every-type&#34;&gt;Settings for Every Type&lt;/a&gt;.
+Athena takes the time range in its SQL, so it has no time column.&lt;/p&gt;
+&lt;p&gt;
+
+
+
+
+
+
+  
+
+
+&lt;span class=&#34;stroom-theme-dark stroom-button key-bind-single&#34; title=&#34;Test Connection button&#34; &gt;
+  
+  &lt;span class=&#34;stroom-button-text&#34;&gt;Test Connection&lt;/span&gt;
+&lt;/span&gt;
+ runs no query, as every query is billed.
+It looks up the workgroup and the database, which checks the credential, region, workgroup and database.
+It reports the workgroup&amp;rsquo;s data scan limit and result location, or that none is set, and whether the workgroup enforces its own settings.&lt;/p&gt;
+&lt;h2 id=&#34;writing-the-sql&#34;&gt;Writing the SQL&lt;/h2&gt;
+&lt;p&gt;The SQL is a single statement that returns rows, given in a triple-quoted &lt;code&gt;sql&lt;/code&gt; clause, e.g.&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-stroomql&#34;&gt;from &amp;quot;Events&amp;quot;
+sql &amp;quot;&amp;quot;&amp;quot;
+  select event_time, user_name, action
+  from sign_ins
+  where event_time &amp;gt;= :from and event_time &amp;lt; :to
+    and outcome = &#39;FAILED&#39;
+&amp;quot;&amp;quot;&amp;quot;
+eval failures = count()
+group by user_name
+sort by failures desc
+select user_name, failures
+&lt;/code&gt;&lt;/pre&gt;
+&lt;ul&gt;
+&lt;li&gt;Only SQL that starts with &lt;code&gt;SELECT&lt;/code&gt;, &lt;code&gt;WITH&lt;/code&gt;, &lt;code&gt;VALUES&lt;/code&gt;, &lt;code&gt;SHOW&lt;/code&gt; or &lt;code&gt;DESCRIBE&lt;/code&gt; is run, as an Athena connection cannot be made read-only.
+That refuses &lt;code&gt;CREATE TABLE AS&lt;/code&gt;, &lt;code&gt;INSERT&lt;/code&gt; and &lt;code&gt;UNLOAD&lt;/code&gt;.&lt;/li&gt;
+&lt;li&gt;A &lt;code&gt;;&lt;/code&gt; is only allowed at the end, so a query cannot run a second statement.&lt;/li&gt;
+&lt;li&gt;A query with a time range must use &lt;code&gt;:from&lt;/code&gt; or &lt;code&gt;:to&lt;/code&gt; in its SQL, and is refused otherwise.
+Filtering in Stroom after Athena had scanned everything would cost money for nothing.&lt;/li&gt;
+&lt;li&gt;Athena receives every parameter as text, written as a single SQL literal.
+To compare one with a number, cast it, e.g. &lt;code&gt;where id = cast(:id as bigint)&lt;/code&gt;.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;See &lt;a href=&#34;../../docs/user-guide/search/data-sources/data-connections/#parameters&#34;&gt;Parameters&lt;/a&gt; and &lt;a href=&#34;../../docs/user-guide/search/data-sources/data-connections/#time-range&#34;&gt;Time Range&lt;/a&gt;.&lt;/p&gt;
+&lt;h3 id=&#34;fields&#34;&gt;Fields&lt;/h3&gt;
+&lt;p&gt;Athena cannot describe a query without running it, and every run is billed.
+So the fields of a query are only known once its SQL has run; until then the field list is empty.
+After a run, the fields are remembered for a while, so the query editor can list them.&lt;/p&gt;
+&lt;h3 id=&#34;cost&#34;&gt;Cost&lt;/h3&gt;
+&lt;p&gt;Each run reports the data Athena scanned with its results.&lt;/p&gt;
+&lt;p&gt;A query is stopped in Athena, not just in Stroom, when it is cancelled, when it reaches the query timeout or the &lt;em&gt;Max Data Scanned&lt;/em&gt; limit, or when Stroom fails after starting it.&lt;/p&gt;
+
+
+
+&lt;div class=&#34;alert alert-warning&#34; role=&#34;alert&#34;&gt;
+  &lt;h4 class=&#34;alert-heading&#34;&gt;Warning&lt;/h4&gt;
+  &lt;div class=&#34;alert-content&#34;&gt;
+
+
+
+
+&lt;p&gt;Set a per-query data scan limit on every workgroup Stroom may use.
+It is the only limit Athena enforces exactly, whatever a Data Connection&amp;rsquo;s settings.&lt;/p&gt;
+
+
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;h2 id=&#34;security&#34;&gt;Security&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;The region and workgroup must match one of the &lt;code&gt;stroom.dataConnection.allowedAthenaWorkGroups&lt;/code&gt; patterns.&lt;/li&gt;
+&lt;li&gt;An output location must match one of the &lt;code&gt;stroom.dataConnection.allowedAthenaOutputLocations&lt;/code&gt; patterns.
+Every query writes its full result there, with the AWS identity of the user running it.&lt;/li&gt;
+&lt;li&gt;A Data Connection must name an AWS access key credential, unless &lt;code&gt;stroom.dataConnection.allowDefaultAwsCredentials&lt;/code&gt; is on.
+Otherwise any user who can create a document could query whatever Stroom&amp;rsquo;s own AWS identity can read.&lt;/li&gt;
+&lt;li&gt;Use AWS identities that can only read the tables Stroom should query.
+Federated queries pass SQL to connectors that Stroom cannot see into, so their accounts should only be able to read too.&lt;/li&gt;
+&lt;/ul&gt;
+
+      </description>
+    </item>
+    
+  </channel>
+</rss>

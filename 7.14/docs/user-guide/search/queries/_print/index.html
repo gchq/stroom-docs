@@ -153,7 +153,7 @@
     aria-label="Search this site…"
     autocomplete="off"
     
-    data-offline-search-index-json-src="../../../../../offline-search-index.0f80f2d5bacc260392e1d9263776d11b.json"
+    data-offline-search-index-json-src="../../../../../offline-search-index.1a7dcb547574e1fbe1716674a52291e4.json"
     data-offline-search-base-href="../../../../../"
     data-offline-search-max-results="50"
   >
@@ -201,6 +201,14 @@ This is the multi-page printable view of this section.
     
 	
 <li>1: <a href="#pg-97b6ae5548e13b85a8f0677d36564595">Stroom Query Language</a></li>
+
+
+    
+  
+    
+    
+	
+<li>2: <a href="#pg-49e1201b3376ba4fafbf8b0f8615f20b">Joins</a></li>
 
 
     
@@ -270,7 +278,9 @@ change the headings without changing the anchors in Stroom.
         <div class="hover-tooltip-summary">A Dashboard is a configurable entity for querying one or more <em>Data Sources</em> and displaying the results as a table, a visualisation or some other form.</div><span class="hover-tooltip-more-details">Click to see more details...</span></template></span> query builder and allows you to express the same queries in text form as well as providing additional functionality.
 It is currently used on the <em>Query</em> entity as the means of defining a query.</p>
 <p>The following shows the supported syntax for a StroomQL query.</p>
-<pre><code class="language-stroomql">from &lt;DATA_SOURCE&gt;
+<pre><code class="language-stroomql">from &lt;DATA_SOURCE&gt; [as &lt;ALIAS&gt;]
+[sql] &quot;&quot;&quot;&lt;NATIVE_QUERY&gt;&quot;&quot;&quot;
+[join] &lt;DATA_SOURCE&gt; [as &lt;ALIAS&gt;] on &lt;FIELD&gt; = &lt;ALIAS&gt;.&lt;FIELD&gt; [and ...]
 where &lt;FIELD&gt; &lt;CONDITION&gt; &lt;VALUE&gt; [and|or|not]
 [and|or|not]
 [window] &lt;TIME_FIELD&gt; by &lt;WINDOW_SIZE&gt; [advance &lt;ADVANCE_WINDOW_SIZE&gt;]
@@ -284,6 +294,7 @@ where &lt;FIELD&gt; &lt;CONDITION&gt; &lt;VALUE&gt; [and|or|not]
 select &lt;FIELD&gt; [as &lt;COLUMN NAME&gt;], ...
 [show as] &lt;VIS_NAME&gt; (&lt;VIS_CONTROL_ID_1&gt; = &lt;COLUMN_1&gt;, &lt;VIS_CONTROL_ID_2&gt; = &lt;COLUMN_2&gt;)
 </code></pre>
+<p>For the full grammar, see <a href="../../../../../docs/reference-section/stroomql-grammar/">StroomQL Grammar</a>.</p>
 <h2 id="fields">Fields</h2>
 <p>Fields are the fields in a data source.
 Fields are case-sensitive.</p>
@@ -421,6 +432,56 @@ All queries must include the <code>from</code> clause.</p>
 <p>If the name of the data source contains white space then it must be quoted using <code>&quot;</code> double quotes, e.g.</p>
 <pre><code class="language-stroomql">from &quot;my source&quot;
 </code></pre>
+<h3 id="sql">Sql</h3>
+<p>Some data sources run a query of their own before Stroom works on the results: a <a href="../../../../../docs/user-guide/search/data-sources/data-connections/">Data Connection</a> of type JDBC or Amazon Athena runs SQL, and one of type LDAP runs a search filter.
+That query goes in a <code>sql</code> clause, straight after the data source it is for, e.g. after <code>from</code>:</p>
+<pre><code class="language-stroomql">from &quot;Reports DB&quot;
+sql &quot;&quot;&quot;
+  select name, team, joined
+  from staff
+  where joined &gt;= :from and joined &lt; :to
+&quot;&quot;&quot;
+where team = &quot;Platform&quot;
+sort by joined desc
+select name, joined
+</code></pre>
+<p>The SQL or filter is a string, usually in triple double quotes (<code>&quot;&quot;&quot;</code>).
+A triple-quoted string is taken exactly as written: it can span several lines and hold <code>&quot;</code> and <code>\</code> without escaping, and it ends at the next <code>&quot;&quot;&quot;</code>.</p>
+<p>Its results become the rows that the rest of the query works on, so <code>where</code>, <code>eval</code>, <code>group by</code> and the other clauses work on them as on any other data source.
+Named placeholders such as <code>:team</code> take the value of the query parameter of that name, and <code>:from</code> and <code>:to</code> take the ends of the query&rsquo;s time range.</p>
+<p>A data source that needs a <code>sql</code> clause refuses a query without one, and one that does not take one refuses a query with one.</p>
+<p>A joined data source can have a <code>sql</code> clause too, straight after it in its join line, and a bracketed query has its own inside its brackets, straight after its <code>from</code>, e.g.</p>
+<pre><code class="language-stroomql">from &quot;Windows events&quot;
+left join &quot;Reports DB&quot; as staff sql &quot;&quot;&quot;
+  select username, team
+  from staff
+&quot;&quot;&quot; on UserId = staff.username
+select UserId, staff.team
+</code></pre>
+<h3 id="join">Join</h3>
+<p>Use <code>join</code> to join the rows of another data source to the rows of the query, straight after <code>from</code>, e.g.</p>
+<pre><code class="language-stroomql">from &quot;Windows events&quot;
+left join &quot;HR Users&quot; as hr on UserId = hr.Username
+select UserId, hr.Department
+</code></pre>
+<p>The kinds of join are <code>join</code>, <code>left join</code>, <code>right join</code>, <code>full join</code>, <code>semi join</code> and <code>anti join</code>.
+The joined fields are named <code>&lt;alias&gt;.&lt;field&gt;</code>, e.g. <code>hr.Department</code>, where the alias is the name after <code>as</code>, or the data source&rsquo;s name if there is none.
+If that name has spaces, write its fields in braces, e.g. <code>${HR Users.Department}</code>.</p>
+<p>The joined source can also be a bracketed query, and a query can have several join lines.</p>
+<p>See <a href="../../../../../docs/user-guide/search/queries/joins/">Joins</a> for the kinds of join and examples.</p>
+<h3 id="on">On</h3>
+<p>Use <code>on</code> to give the keys of a join, whose values must be equal for rows to join, e.g.</p>
+<pre><code class="language-stroomql">on lowerCase(UserId) = hr.Username and Host = hr.Host
+</code></pre>
+<p>Keys match exactly, so case matters, and a blank key never matches.</p>
+<p>An event-to-event join can also give a time window after its keys, e.g.</p>
+<pre><code class="language-stroomql">from &quot;Windows events&quot; as logon
+join &quot;File events&quot; as export
+  on logon.UserId = export.UserId
+  within 10m after logon.EventTime
+select logon.UserId, logon.EventTime, export.FileName
+</code></pre>
+<p>See <a href="../../../../../docs/user-guide/search/queries/joins/#joining-events-within-a-time-window">Joining Events Within a Time Window</a>.</p>
 <h3 id="where">Where</h3>
 <p>Use <code>where</code> to construct query criteria, e.g.</p>
 <pre><code class="language-text">where feed = &quot;my feed&quot;
@@ -478,6 +539,20 @@ or  <code>Feed in dictionary &quot;fb7a8cea-e6b4-4d94-8f7e-47ff3b3c7711&quot;</c
 <p>You can force evaluation of items in a specific order using bracketed groups.</p>
 <pre><code class="language-stroomql">and X = 5 OR (name = foo and surname = bar)
 </code></pre>
+<h4 id="exists-and-in">Exists and In</h4>
+<p>Use <code>exists</code> to keep only the rows that have a match in another data source, or <code>not exists</code> to keep those with none, as in SQL, e.g.</p>
+<pre><code class="language-stroomql">from People as p
+where exists (from Teams as t where t.team = p.team and t.on_call = true)
+select name, team
+</code></pre>
+<p>Use <code>in</code> or <code>not in</code> to compare a field with the one field another data source&rsquo;s query selects, e.g.</p>
+<pre><code class="language-stroomql">from People
+where team not in (from Teams select team)
+select name, team
+</code></pre>
+<p>These are other ways of writing a <code>semi join</code> and an <code>anti join</code>, and run as them.
+They can only be used at the top level of <code>where</code>, joined to its other conditions by <code>and</code>.
+See <a href="../../../../../docs/user-guide/search/queries/joins/#exists-and-in">Exists and In</a>.</p>
 <h3 id="window">Window</h3>
 <pre><code class="language-stroomql">window &lt;TIME_FIELD&gt; by &lt;WINDOW_SIZE&gt; [advance &lt;ADVANCE_WINDOW_SIZE&gt;]
 </code></pre>
@@ -627,8 +702,8 @@ eval Sl = stringLength(FirstName)
 eval count = count()
 group by StreamId
 sort by Sl desc
-select Sl, StreamId as &quot;Stream Id&quot;, EventId as &quot;Event Id&quot;, EventTime as &quot;Event Time&quot;, UserId as &quot;User Id&quot;, FirstName, count
 limit 10
+select Sl, StreamId as &quot;Stream Id&quot;, EventId as &quot;Event Id&quot;, EventTime as &quot;Event Time&quot;, UserId as &quot;User Id&quot;, FirstName, count
 </code></pre>
 <pre><code class="language-stroomql">from &quot;index_view&quot; // view
 // add a where
@@ -641,8 +716,8 @@ eval Sl = stringLength(FirstName)
 eval count = count()
 group by StreamId
 sort by Sl desc
-select Sl, StreamId as &quot;Stream Id&quot;, EventId as &quot;Event Id&quot;, EventTime as &quot;Event Time&quot;, UserId as &quot;User Id&quot;, FirstName, count
 limit 10
+select Sl, StreamId as &quot;Stream Id&quot;, EventId as &quot;Event Id&quot;, EventTime as &quot;Event Time&quot;, UserId as &quot;User Id&quot;, FirstName, count
 </code></pre>
 <pre><code class="language-stroomql">from &quot;index_view&quot; // view
 // add a where
@@ -655,8 +730,17 @@ eval Sl = stringLength(FirstName)
 // eval count = count()
 // group by StreamId
 // sort by Sl desc
-select StreamId as &quot;Stream Id&quot;, EventId as &quot;Event Id&quot;
 // limit 10
+select StreamId as &quot;Stream Id&quot;, EventId as &quot;Event Id&quot;
+</code></pre>
+<pre><code class="language-stroomql">from &quot;index_view&quot; // view
+// add each user's department, keeping users not in the HR list
+left join &quot;HR Users&quot; as hr on UserId = hr.Username
+where EventTime &gt; now() - 1227d
+eval count = count()
+group by UserId, hr.Department
+sort by count desc
+select UserId as &quot;User Id&quot;, hr.Department as &quot;Department&quot;, count
 </code></pre>
 <pre><code class="language-stroomql">from &quot;index_view&quot; // view
 // add a where
@@ -669,8 +753,8 @@ eval Sl = stringLength(FirstName)
 eval count = count()
 group by StreamId
 sort by Sl desc
-select Sl, StreamId as &quot;Stream Id&quot;, EventId as &quot;Event Id&quot;, EventTime as &quot;Event Time&quot;, UserId as &quot;User Id&quot;, FirstName, count
 limit 10
+select Sl, StreamId as &quot;Stream Id&quot;, EventId as &quot;Event Id&quot;, EventTime as &quot;Event Time&quot;, UserId as &quot;User Id&quot;, FirstName, count
 </code></pre>
 <h2 id="help-pane">Help Pane</h2>
 <p>The left hand pane of the Query editor provides help for building a StroomQL query.
@@ -1284,6 +1368,518 @@ For example:</p>
 .<br>
 <code>substring(Feed, 0, 5)</code> is displayed, with the cursor now positioned after the closing bracket.</li>
 </ol>
+
+</div>
+
+
+
+
+    
+	
+  
+    
+    
+	
+    
+
+
+
+<div class="td-content" style="--base-section-num: '2.'; page-break-before: always">
+    
+  <h1 id="pg-49e1201b3376ba4fafbf8b0f8615f20b">2 - Joins</h1>
+    <div class="lead">Joining the rows of one data source to those of another in a StroomQL query.</div>
+	<p>A join adds the rows of another data source, the <em>joined source</em>, to the rows of a <span class="glossary-link link-with-hover-tooltip">
+    <a href="../../../../../docs/glossary/s/glossary-stroomql">
+      <span>StroomQl</span>
+      <i class="glossary-link-icon fas fa-book fa-sm text-primary"></i>
+    </a><template class="hover-tooltip-content">
+        <span class="hover-tooltip-title">StroomQl</span>
+        <div class="hover-tooltip-summary"><strong>Stroom</strong> <strong>Q</strong>uery <strong>L</strong>anguage is Stroom&rsquo;s own query language. It has similarities with Structured Query Language (SQL) as used in databases. StroomQL is sometimes referred to as <em>sQL</em> to distinguish it from <em>SQL</em>.</div><span class="hover-tooltip-more-details">Click to see more details...</span></template></span> query, matching them on keys.
+For example, a join can add each user&rsquo;s department from an HR list to their logon events, or find the logons of users who are not in the HR list at all.</p>
+<p>Any data source can be joined to any other, e.g. an index to a <a href="../../../../../docs/user-guide/search/data-sources/data-connections/">Data Connection</a>, or an index to itself.</p>
+<p>Join lines go straight after <code>from</code>:</p>
+<pre><code class="language-stroomql">from &quot;Windows events&quot;
+left join &quot;HR Users&quot; as hr on UserId = hr.Username
+select UserId, hr.Department
+</code></pre>
+<p>The joined source is searched first and held.
+The first source is then searched as usual, and each of its rows is joined as it arrives, so results appear as the search runs, as they do without a join.</p>
+<p>For the full grammar, see <a href="../../../../../docs/reference-section/stroomql-grammar/#join-lines">StroomQL Grammar</a>.</p>
+<h2 id="kinds-of-join">Kinds of Join</h2>
+
+
+
+
+
+
+
+  
+  
+  
+  
+  
+
+
+
+
+
+
+
+  
+
+
+
+<div class="card rounded shadow-stroom p-2 td-post-card mb-4 mt-4" style="width: fit-content;">
+
+  <a title="images/user-guide/search/queries/joins/joins-venn.svg" href="../../../../../images/user-guide/search/queries/joins/joins-venn.svg">
+    <figure style="margin-block-end: 0px" >
+      
+      <img class="card-img-top" src="../../../../../images/user-guide/search/queries/joins/joins-venn.svg" style="max-width: fit-content" alt="images/user-guide/search/queries/joins/joins-venn.svg">
+      
+
+      
+      <div class="card-body px-0 pt-2 pb-0">
+        <hr style="border-top: 1px solid #ddd; margin-top: 0px; margin-bottom:4px;">
+        <figcaption class="card-text" style="font-size: smaller; text-align: center;">The rows each kind of join gives</figcaption>
+      </div>
+      
+    </figure>
+  </a>
+</div>
+
+<table>
+<thead>
+<tr>
+<th>Join</th>
+<th>Also written</th>
+<th>Rows given</th>
+<th>Joined fields</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>join</code></td>
+<td><code>inner join</code></td>
+<td>One row per match; rows with no match are dropped.</td>
+<td>Added.</td>
+</tr>
+<tr>
+<td><code>left join</code></td>
+<td><code>left outer join</code></td>
+<td>One row per match; rows with no match are kept.</td>
+<td>Added, blank when there is no match.</td>
+</tr>
+<tr>
+<td><code>right join</code></td>
+<td><code>right outer join</code></td>
+<td>One row per match; rows of the joined source with no match are kept.</td>
+<td>Added; the first source&rsquo;s fields are blank when there is no match.</td>
+</tr>
+<tr>
+<td><code>full join</code></td>
+<td><code>full outer join</code></td>
+<td>One row per match; rows of either source with no match are kept.</td>
+<td>Added, blank where there is no match.</td>
+</tr>
+<tr>
+<td><code>semi join</code></td>
+<td><code>left semi join</code>, <code>where exists</code>, <code>where ... in</code></td>
+<td>Each row with at least one match, once.</td>
+<td>None.</td>
+</tr>
+<tr>
+<td><code>anti join</code></td>
+<td><code>left anti join</code>, <code>where not exists</code>, <code>where ... not in</code></td>
+<td>Each row with no match.</td>
+<td>None.</td>
+</tr>
+</tbody>
+</table>
+<p>A <code>join</code> and a <code>semi join</code> give the same rows, but a <code>semi join</code> adds no fields and never repeats a row, so use it to keep only the rows that have a match.</p>
+<h2 id="examples">Examples</h2>
+<p>The examples below use the <em>People</em> and <em>Teams</em> CSV Data Connections from the <a href="../../../../../docs/user-guide/search/data-sources/data-connections/#example-pack">Example Pack</a>, where each example is also a query.</p>
+<p><em>People</em>:</p>
+<table>
+<thead>
+<tr>
+<th>name</th>
+<th>team</th>
+<th>started</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Alice</td>
+<td>Platform</td>
+<td>2025-01-13</td>
+</tr>
+<tr>
+<td>Ben</td>
+<td>Data</td>
+<td>2026-04-03</td>
+</tr>
+<tr>
+<td>Chloe</td>
+<td>Security</td>
+<td>2025-09-01</td>
+</tr>
+<tr>
+<td>Dev</td>
+<td>Analysis</td>
+<td>2026-05-25</td>
+</tr>
+<tr>
+<td>Ella</td>
+<td>Platform</td>
+<td>2024-06-17</td>
+</tr>
+<tr>
+<td>Femi</td>
+<td>Design</td>
+<td>2026-02-09</td>
+</tr>
+<tr>
+<td>Gus</td>
+<td>Support</td>
+<td>2025-11-03</td>
+</tr>
+</tbody>
+</table>
+<p><em>Teams</em>:</p>
+<table>
+<thead>
+<tr>
+<th>team</th>
+<th>members</th>
+<th>founded</th>
+<th>on_call</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Platform</td>
+<td>6</td>
+<td>2019-03-01</td>
+<td>true</td>
+</tr>
+<tr>
+<td>Data</td>
+<td>4</td>
+<td>2021-07-15</td>
+<td>false</td>
+</tr>
+<tr>
+<td>Security</td>
+<td>5</td>
+<td>2020-11-02</td>
+<td>true</td>
+</tr>
+<tr>
+<td>Analysis</td>
+<td>8</td>
+<td>2018-05-20</td>
+<td>false</td>
+</tr>
+<tr>
+<td>Support</td>
+<td>3</td>
+<td>2024-01-08</td>
+<td>true</td>
+</tr>
+<tr>
+<td>Research</td>
+<td>2</td>
+<td>2022-02-14</td>
+<td>false</td>
+</tr>
+</tbody>
+</table>
+<p>Femi&rsquo;s team, Design, is not in <em>Teams</em>, and no one in <em>People</em> is in Research.</p>
+
+
+
+<div class="alert alert-primary" role="alert">
+  <h4 class="alert-heading">Note</h4>
+  <div class="alert-content">
+
+
+
+
+<p>The query&rsquo;s time range applies to joined sources too.
+<em>Teams</em> has <code>founded</code> as its time field, and <em>Bank Holidays</em> has <code>date</code>, so run these examples over a time range that includes those dates, or <em>Teams</em> and <em>Bank Holidays</em> will have no rows to join.</p>
+
+
+  </div>
+</div>
+
+<h3 id="adding-fields-from-another-source">Adding Fields from Another Source</h3>
+<p>A <code>left join</code> gives every person, with their team&rsquo;s fields:</p>
+<pre><code class="language-stroomql">from People
+left join Teams as t on team = t.team
+sort by name
+select name, team, t.members as members, t.on_call as on_call
+</code></pre>
+<table>
+<thead>
+<tr>
+<th>name</th>
+<th>team</th>
+<th>members</th>
+<th>on_call</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Alice</td>
+<td>Platform</td>
+<td>6</td>
+<td>true</td>
+</tr>
+<tr>
+<td>Ben</td>
+<td>Data</td>
+<td>4</td>
+<td>false</td>
+</tr>
+<tr>
+<td>Chloe</td>
+<td>Security</td>
+<td>5</td>
+<td>true</td>
+</tr>
+<tr>
+<td>Dev</td>
+<td>Analysis</td>
+<td>8</td>
+<td>false</td>
+</tr>
+<tr>
+<td>Ella</td>
+<td>Platform</td>
+<td>6</td>
+<td>true</td>
+</tr>
+<tr>
+<td>Femi</td>
+<td>Design</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>Gus</td>
+<td>Support</td>
+<td>3</td>
+<td>true</td>
+</tr>
+</tbody>
+</table>
+<p>The joined fields are named with the alias, as in <code>t.members</code>.
+The alias is the name after <code>as</code>, or the data source&rsquo;s name if there is none.
+If that name has spaces, write its fields in braces, e.g. <code>${HR Users.Department}</code>.</p>
+<p>A plain <code>join</code> would give the same rows without Femi, who has no match.</p>
+<h3 id="keeping-rows-with-or-without-a-match">Keeping Rows with or without a Match</h3>
+<p>A <code>semi join</code> keeps each person whose team is on call, without adding the team&rsquo;s fields:</p>
+<pre><code class="language-stroomql">from People
+semi join Teams as t on team = t.team
+where t.on_call = true
+sort by name
+select name, team
+</code></pre>
+<p>This gives Alice, Chloe, Ella and Gus.</p>
+<p>An <code>anti join</code> gives the opposite: each row with no match.
+It is useful for finding rows that refer to something that doesn&rsquo;t exist:</p>
+<pre><code class="language-stroomql">from People
+anti join Teams as t on team = t.team
+select name, team
+</code></pre>
+<p>This gives Femi.</p>
+<h3 id="exists-and-in">Exists and In</h3>
+<p><code>where exists</code>, <code>where not exists</code>, <code>where ... in</code> and <code>where ... not in</code> are the SQL ways of writing semi and anti joins, and run as them.
+This query gives the same rows as the <code>semi join</code> above:</p>
+<pre><code class="language-stroomql">from People as p
+where exists (from Teams as t where t.team = p.team and t.on_call = true)
+sort by name
+select name, team
+</code></pre>
+<p>The bracketed query names the first source&rsquo;s fields by its alias, here <code>p</code>, or by its data source&rsquo;s name if it has no alias, and compares them using <code>=</code>.
+Its other conditions, here <code>t.on_call = true</code>, narrow its own search.</p>
+<p><code>in</code> compares a field with the one field the bracketed query selects:</p>
+<pre><code class="language-stroomql">from People
+where team in (from Teams select team)
+sort by name
+select name, team
+</code></pre>
+<p>These forms can only be used at the top level of <code>where</code>, joined to its other conditions by <code>and</code>.</p>
+
+
+
+<div class="alert alert-primary" role="alert">
+  <h4 class="alert-heading">Note</h4>
+  <div class="alert-content">
+
+
+
+
+<p>A blank key never matches, so <code>not in</code> keeps a row whose field is blank, and a blank value in the other source doesn&rsquo;t stop any row from being kept.
+This differs from SQL, where <code>not in</code> gives no rows once the other query holds a null.</p>
+
+
+  </div>
+</div>
+
+<h3 id="right-and-full-joins">Right and Full Joins</h3>
+<p>A <code>right join</code> gives every row of the joined source: here, every team, with a row for each person in it.</p>
+<pre><code class="language-stroomql">from People
+right join Teams as t on team = t.team
+sort by t.team, name
+select t.team as team, name
+</code></pre>
+<p>Research is given once, with a blank name, as no one is in it.
+Femi is not given, as Design is not in <em>Teams</em>.</p>
+<p>A <code>full outer join</code> gives every row of both:</p>
+<pre><code class="language-stroomql">from People
+full outer join Teams as t on team = t.team
+sort by t.team, name
+select name, team, t.team as listed_team, t.members as members
+</code></pre>
+<p>This gives a row for each person in a team, Femi with blank team fields, and Research with a blank name.</p>
+<p>The rows of the joined source with no match, such as Research, are only known once the first source has been searched, so they are given last.
+A right or full join must be the last join line.</p>
+<h3 id="joining-a-bracketed-query">Joining a Bracketed Query</h3>
+<p>Either source can be a bracketed query, such as a grouped summary.
+This compares each team&rsquo;s stated size with the number of people listed in it:</p>
+<pre><code class="language-stroomql">from Teams
+join (
+  from People
+  group by team
+  select team, count() as listed
+) as p on team = p.team
+sort by team
+select team, members, p.listed as listed
+</code></pre>
+<p>A bracketed query in a join line needs an alias, here <code>p</code>.</p>
+<p>A bracketed query in <code>from</code> must be searched before any of its rows can be joined, so its results don&rsquo;t appear as the search runs.
+All of the outer <code>where</code> is then tested on the joined rows, so to narrow a source&rsquo;s search, put the condition inside a bracketed query for it.</p>
+<p>A bracketed query can&rsquo;t have joins, an alias or a bracketed query of its own.</p>
+<h3 id="several-joins">Several Joins</h3>
+<p>A query can have several join lines.
+Each is joined in turn, and a later join&rsquo;s keys can use an earlier join&rsquo;s fields, e.g.</p>
+<pre><code class="language-stroomql">from &quot;Windows events&quot;
+join &quot;HR Users&quot; as hr on UserId = hr.Username
+left join &quot;Cost Centres&quot; as cc on hr.Department = cc.Department
+select UserId, hr.Department, cc.CostCentre
+</code></pre>
+<h3 id="keys">Keys</h3>
+<p>A join can have several keys, joined by <code>and</code>, and either side of a key can be an expression:</p>
+<pre><code class="language-stroomql">from &quot;Windows events&quot;
+join &quot;HR Users&quot; as hr on lowerCase(UserId) = hr.Username and Host = hr.Host
+select UserId, Host, hr.Department
+</code></pre>
+<p>Keys match exactly, as text, so case matters.
+Use a function such as <code>lowerCase()</code> on both sides to ignore case.
+A blank key never matches.</p>
+<p>Dates match exactly too, so they must be the same time, e.g. the same day with no time of day.
+The example pack joins the start dates in <em>People</em> to the dates in the <em>Bank Holidays</em> Excel Data Connection:</p>
+<pre><code class="language-stroomql">from People
+join &quot;Bank Holidays&quot; as h on started = h.date
+sort by started
+select name, started, h.holiday as holiday
+</code></pre>
+<h2 id="joining-events-within-a-time-window">Joining Events Within a Time Window</h2>
+<p>A join can also match events to events that happen within a time window of them.
+This finds each logon that was followed by a file export by the same user within 10 minutes:</p>
+<pre><code class="language-stroomql">from &quot;Windows events&quot; as logon
+join &quot;File events&quot; as export
+  on logon.UserId = export.UserId
+  within 10m after logon.EventTime
+where logon.EventType = &quot;Logon&quot;
+select logon.UserId, logon.EventTime, export.FileName
+</code></pre>
+<p><code>within 10m after</code> matches joined events from the first source&rsquo;s time to 10 minutes after it, and <code>within 10m before</code> matches those from 10 minutes before it to that time.
+The joined event&rsquo;s time is taken from its data source&rsquo;s time field.</p>
+<p>A join with a time window works the other way round from other joins.
+The first source is searched first and held, with the same limits as a joined source, so keep it small with <code>where</code> or a short time range.
+The joined source is then searched only within the windows of its rows, and no more of its events than the row limit may fall within them.
+The rows appear once both have been searched.</p>
+<p>A query with a time window can have only one join line, and both sources must be data sources, not bracketed queries.</p>
+<h2 id="where">Where</h2>
+<p><code>where</code> can name joined fields as well as those of the first source.
+Stroom splits it at its top level <code>and</code>:</p>
+<ul>
+<li>Conditions on the first source&rsquo;s fields narrow the first source&rsquo;s search, as without a join.</li>
+<li>Conditions on only one joined source&rsquo;s fields narrow that source&rsquo;s search, for a <code>join</code> or <code>semi join</code>.</li>
+<li>Everything else, including an <code>or</code> that names fields of more than one source, is tested on the joined rows.</li>
+</ul>
+<p>With a right or full join, <code>where</code> is tested on the joined rows, as in SQL, so it doesn&rsquo;t narrow the first source&rsquo;s search.
+To narrow it, use a bracketed query in <code>from</code>.</p>
+<p>When the first source is a bracketed query, all of <code>where</code> is tested on the joined rows.</p>
+<p>The query&rsquo;s time range applies to every source whose data source has a time field, including joined sources and bracketed queries.</p>
+<p>A semi or anti join adds no fields, so its fields can only be used in its keys, or, for a semi join, in <code>where</code> conditions on only its fields.
+To match only some rows of an anti join&rsquo;s source, filter them in a bracketed query, e.g.</p>
+<pre><code class="language-stroomql">from People
+anti join (from Teams where on_call = true select team) as t on team = t.team
+select name, team
+</code></pre>
+<h2 id="performance-and-limits">Performance and Limits</h2>
+<p>The joined source is held while the first source is searched, up to 1,000,000 rows or 256 MB.
+With a time window, the first source is held instead, with the same limits.
+A query that joins more fails, suggesting that the joined source is filtered or grouped.
+Administrators can change these limits with the <code>search.resultStore.joinMaxRows</code> and <code>search.resultStore.joinMaxSize</code> properties.</p>
+<p>To keep joins fast:</p>
+<ul>
+<li>Make the joined source small, by filtering it in <code>where</code> for a <code>join</code> or <code>semi join</code>, or by joining a bracketed query that filters or groups it.</li>
+<li>Join a large source to a small one, not the other way round.
+Without a time window, the first source can be as large as any other search.</li>
+<li>Join on one plain field of the first source, such as <code>UserId</code>, rather than an expression, where you can.
+A <code>join</code>, <code>semi join</code> or <code>right join</code> with one such key, on an ID, number, keyword or text field the first source can search, then also narrows the first source&rsquo;s search to the joined source&rsquo;s keys, if there are at most 1,000 of them and none has spaces, commas, quotes or wildcards.
+An <code>anti join</code> does the same, leaving those keys out, on ID and whole-number fields.</li>
+</ul>
+<p>Each source is searched as the user running the query, so a join never shows data the user could not otherwise see.</p>
+<p>The hidden <code>StreamId</code>, <code>EventId</code> and <code>AnnotationId</code> fields come from the first source, so a joined row still opens and annotates the first source&rsquo;s event.</p>
+<h3 id="warnings">Warnings</h3>
+<p>A query with a join may give these warnings with its results:</p>
+<ul>
+<li>A row matched many rows of a joined source, more than 1,000, so the result may be much bigger than expected.
+Check the keys of the join.</li>
+<li>A field that <code>where</code> tests after a right or full join had no value in any row of the first source.
+This happens when a data source can search a field but not give its value.
+Narrow the first source with a bracketed query in <code>from</code> instead.</li>
+<li>The rows of a right or full join with no match were left out, as the search didn&rsquo;t finish.</li>
+</ul>
+<h2 id="where-joins-can-be-used">Where Joins Can be Used</h2>
+<p>Joins can be used in a 
+
+  
+  
+  <span class="stroom-doc">
+      <a href="../../../../../docs/reference-section/documents#query" class="stroom-doc-link">
+        
+        <span class="stroom-doc-icon"><span class="stroom-icon inline-svg-button icon-button  " >
+    <span class="face" title="query"><svg xmlns="http://www.w3.org/2000/svg" width="1792" height="1792" viewBox="0 0 1792 1792"><path style="fill:var(--icon-colour__blue)" d="M1216 832q0-185-131.5-316.5t-316.5-131.5-316.5 131.5-131.5 316.5 131.5 316.5 316.5 131.5 316.5-131.5 131.5-316.5zm512 832q0 52-38 90t-90 38q-54 0-90-38l-343-342q-179 124-399 124-143 0-273.5-55.5t-225-150-150-225-55.5-273.5 55.5-273.5 150-225 225-150 273.5-55.5 273.5 55.5 225 150 150 225 55.5 273.5q0 220-124 399l343 343q37 37 37 90z"/></svg></span>
+  </span></span>
+        
+        <span class="stroom-doc-text">Query</span>
+      </a>
+    </span>
+
+, in an <em>Embedded Query</em> panel on a 
+
+  
+  
+  <span class="stroom-doc">
+      <a href="../../../../../docs/reference-section/documents#dashboard" class="stroom-doc-link">
+        
+        <span class="stroom-doc-icon"><span class="stroom-icon inline-svg-button icon-button  " >
+    <span class="face" title="dashboard"><!-- Created with Inkscape (http://www.inkscape.org/) --><svg version="1.1" id="svg4591" width="512" height="512" viewBox="0 0 512 512" sodipodi:docname="Dashboard.svg" inkscape:version="1.2.1 (9c6d41e410, 2022-07-14, custom)" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape" xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd" xmlns="http://www.w3.org/2000/svg" ><defs id="defs4595" /><sodipodi:namedview id="namedview4593" pagecolor="var(--icon-colour__white)" bordercolor="#666666" borderopacity="1.0" inkscape:showpageshadow="2" inkscape:pageopacity="0.0" inkscape:pagecheckerboard="0" inkscape:deskcolor="#d1d1d1" showgrid="false" inkscape:zoom="0.35458919" inkscape:cx="530.191" inkscape:cy="589.41447" inkscape:window-width="2560" inkscape:window-height="1403" inkscape:window-x="2560" inkscape:window-y="0" inkscape:window-maximized="1" inkscape:current-layer="g4597" /><g inkscape:groupmode="layer" inkscape:label="Image" id="g4597"><rect style="fill:var(--icon-colour__orange);fill-opacity:1;stroke:var(--icon-colour__orange);stroke-width:18.00002425;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:none;stroke-opacity:1;paint-order:fill markers stroke" id="rect4655" width="151.83469" height="195.54515" x="73.71109" y="73.244606" transform="matrix(1,0,-0.00232161,0.99999731,0,0)" /><rect style="fill:var(--icon-colour__yellow);fill-opacity:1;stroke:var(--icon-colour__yellow);stroke-width:18.00002425;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:none;stroke-opacity:1;paint-order:fill markers stroke" id="rect4655-5" width="151.83469" height="195.54515" x="287.34845" y="243.71935" transform="matrix(1,0,-0.00232161,0.99999731,0,0)" /><rect style="fill:var(--icon-colour__green);fill-opacity:1;stroke:var(--icon-colour__green);stroke-width:18.00007497;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:none;stroke-opacity:1;paint-order:fill markers stroke" id="rect4655-5-9" width="155.95563" height="108.24628" x="285.01883" y="71.178368" transform="matrix(1,0,-0.00408154,0.99999167,0,0)" /><rect style="fill:var(--icon-colour__blue);fill-opacity:1;stroke:var(--icon-colour__blue);stroke-width:18.00007497;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:none;stroke-opacity:1;paint-order:fill markers stroke" id="rect4655-5-9-2" width="155.95563" height="108.24628" x="72.821693" y="331.08734" transform="matrix(1,0,-0.00408154,0.99999167,0,0)" /></g></svg> </span>
+  </span></span>
+        
+        <span class="stroom-doc-text">Dashboard</span>
+      </a>
+    </span>
+
+, and in scheduled analytic rules and reports.</p>
+<p>Streaming and table builder analytic rules can&rsquo;t use joins, an alias or a bracketed query in <code>from</code>, as they run on one event at a time as it is processed.
+Use a scheduled query rule instead.</p>
 
 </div>
 
