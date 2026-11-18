@@ -7,6 +7,32 @@ are not recorded in here. Changes are in chronological order with the most
 recent at the top.
 
 
+* Add `StroomQL Joins` to the v7.14 `New Features` and the `search.resultStore` join properties to the v7.14 `Upgrade Notes`.
+
+* Add `Joins` user guide page, under `Queries`, with diagrams of each kind of join.
+
+* Add `StroomQL Grammar` page to the reference section, covering every clause including joins.
+
+* Add the `Join` and `On` clauses and the `exists` and `in` forms of `where` to the `Stroom Query Language` page.
+
+* Add the join examples to the Data Connections `Example Pack` and say that Detect Columns treats names that differ only in case as repeated.
+
+* Add the `Join` entry to the glossary.
+
+
+* Add `Data Connections` to the v7.14 `New Features` and the `dataConnection` properties to the v7.14 `Upgrade Notes`.
+
+* Fix the StroomQL examples that put `limit` after `select`.
+
+* Add `Data Connections` user guide section, under `Data Sources`, covering JDBC, Amazon Athena, LDAP, CSV and Excel Data Connections.
+
+* Add the `Sql` clause to the `Stroom Query Language` page.
+
+* Add the `Data Connection` entry to the `Documents` reference section and the glossary.
+
+* Add the `AWS Access Key` credential type and the Data Connections that use credentials to the `Credentials` page.
+
+
 * Add `Analytic Rules` user guide section covering queries, execution schedules, notifications, detections, duplicate management, streaming and table builder.
 
 * Add `Reports` user guide section covering report settings, file types, AI summaries and delivery.
