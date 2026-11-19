@@ -254,6 +254,7 @@ The rows appear once both have been searched.
 ```
 
 `filter` and `having` take the same conditions as `where`, apart from the `exists` and `in` forms.
+See [Filter](#filter) for how `filter` differs from `where`.
 
 A dictionary is named by its name or its {{< glossary "UUID" >}}, in quotes.
 
@@ -323,6 +324,57 @@ select name, team
 
 A blank key never matches, so `not in` keeps a row whose field is blank, and a blank value in the other source doesn't stop any row from being kept.
 This differs from SQL, where `not in` gives no rows once the other query holds a null.
+
+
+## Filter
+
+```text
+filter <condition>
+```
+
+`where` and `filter` both keep only the rows that match a condition, but they are tested at different points:
+
+* `where` is the search itself.
+  It is passed to the data source, which uses it to find the matching events, e.g. by looking them up in an index.
+* `filter` is tested by Stroom on each row the search gives, once the row's values have been retrieved and any `eval` has been worked out.
+  A row that doesn't match is dropped before `window`, `group by`, `sort by` and `limit` are applied, so it is not counted or grouped.
+
+The two clauses differ as follows:
+
+| | `where` | `filter` |
+|---|---|---|
+| Tested by | The data source, as part of its search. | Stroom, on each row the search gives. |
+| Names | Fields of the data source that it can search, e.g. the indexed fields of an index. | Columns of `select`, by column name, which is the name after `as` if there is one. |
+| `eval` variables | Can't be named. | Can be named, if selected. |
+| Matching | As the data source matches the field, e.g. an indexed text field is matched as its analyser splits it into words. | The value of the column is compared with the value given. |
+| `exists` and `in` queries | Allowed. | Not allowed. |
+| Cost | Narrows the search, so fewer events are retrieved. | Every event the search finds is retrieved before it is tested. |
+
+A `filter` on a name that is not a column of `select` fails with a `Field not found` error.
+
+`filter` compares values as follows:
+
+* If the value given is a date or a number, the column's value is compared as one.
+  Otherwise it is compared as text.
+* Text is compared without regard to case.
+* In text compared with `=` or `!=`, `*` stands for any number of characters and `?` for one character.
+  Put `\` before either to match it as written.
+
+For example, this query uses `where` to find one feed's events in the index, then `filter` to keep the rows with a value that only `eval` gives:
+
+```stroomql
+from "Windows events"
+where Feed = "WINDOWS-EVENTS"
+eval Domain = substringAfter(UserId, "@")
+filter Domain = "example.*"
+select UserId, Domain
+```
+
+Use `where` wherever the data source can search the field, and `filter` only for what `where` can't test.
+To test the result of an aggregate function, such as `count()`, use `having`.
+
+With joins, an alias or a bracketed query in `from`, some or all of `where` is tested on the joined rows as `filter` is, see [Where with Joins](#where-with-joins).
+Those conditions still name fields, not columns.
 
 
 ## Values
