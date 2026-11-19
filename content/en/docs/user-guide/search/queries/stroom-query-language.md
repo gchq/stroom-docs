@@ -175,20 +175,20 @@ See [Joining Events Within a Time Window]({{< relref "joins#joining-events-withi
 
 Use `where` to construct query criteria, e.g.
 
-```text
+```stroomql
 where feed = "my feed"
 ```
 
 Add boolean logic with `and`, `or` and `not` to build complex criteria, e.g.
 
-```text
+```stroomql
 where feed = "my feed"
 or feed = "other feed"
 ```
 
 Use brackets to group logical sub expressions, e.g.
 
-```text
+```stroomql
 where user = "bob"
 and (feed = "my feed" or feed = "other feed")
 ```
@@ -270,20 +270,31 @@ If you wish to advance by a different duration you can specify the advance amoun
 
 ### Filter
 
-Use `filter` to filter values that have not been indexed during search retrieval.
-This is used the same way as the `where` clause but applies to data after being retrieved from the index, e.g.
+Use `filter` to test values that `where` can't, such as a field that has not been indexed or the result of an `eval`.
+It is written the same way as the `where` clause, but is tested on each row after its values have been retrieved, rather than being part of the search, e.g.
 
 ```stroomql
-filter obscure_field = "some value"
+from my_source
+where feed = "my feed"
+eval domain = substringAfter(user, "@")
+filter obscure_field = "some value" and domain = "example.com"
+select user, domain, obscure_field
 ```
+
+`where` names fields of the data source, but `filter` names the columns of `select`, so a column must be selected to be filtered on.
+If a column is renamed with `as`, `filter` uses the new name.
 
 Add boolean logic with `and`, `or` and `not` to build complex criteria as supported by the `where` clause.
 Use brackets to group logical sub expressions as supported by the `where` clause.
+
+Text is compared without regard to case, and `*` and `?` can be used as wildcards with `=` and `!=`.
 
 {{< note >}}
 As filters do not make use of the index they can be considerably slower than a `where` clause, however they allow filtering on fields that have not been indexed for some reason.
 Frequent use of `filter` on a field suggests you may want to consider including that field in an index.
 {{< /note >}}
+
+See [Filter]({{< relref "docs/reference-section/stroomql-grammar#filter" >}}) for the differences between `where` and `filter` in full.
 
 
 ### Eval
