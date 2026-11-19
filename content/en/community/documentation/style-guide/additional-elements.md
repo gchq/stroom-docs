@@ -769,6 +769,7 @@ The list of included language names are:
 `regex`  
 `scss`  
 `sql`  
+`stroomql` (Use for {{< glossary "StroomQL" >}} queries)  
 `text`  
 `toml`  
 `treeview`  
@@ -787,6 +788,11 @@ An example of the download link is {{< external-link "https://prismjs.com/downlo
 {{< warning >}}
 The css/js downloaded from the Prism site is taken from the head of their master branch so even though the css/js mention a Prism version number this may be the same for downloads done at different times.
 {{< /warning >}}
+
+`stroomql` is not one of the _PrismJs_ languages.
+It is defined by this site in `/static/js/prism-stroomql.js`, which is loaded after `prism.js`.
+This file is not part of the _PrismJs_ download, so it is not replaced when new versions of `prism.js` and `prism.css` are built.
+If StroomQL gains new keywords, add them to the list of keywords in this file.
 
 
 ## Alerts

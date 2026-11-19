@@ -175,20 +175,20 @@ See [Joining Events Within a Time Window]({{< relref "joins#joining-events-withi
 
 Use `where` to construct query criteria, e.g.
 
-```text
+```stroomql
 where feed = "my feed"
 ```
 
 Add boolean logic with `and`, `or` and `not` to build complex criteria, e.g.
 
-```text
+```stroomql
 where feed = "my feed"
 or feed = "other feed"
 ```
 
 Use brackets to group logical sub expressions, e.g.
 
-```text
+```stroomql
 where user = "bob"
 and (feed = "my feed" or feed = "other feed")
 ```
