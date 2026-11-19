@@ -906,7 +906,7 @@ They do not currently have `tab` triggers.
 
 **Name**: `Eval first StreamId`, **Tab Trigger**: `str`
 
-```text
+```stroomql
 eval StreamId = first(StreamId)
 $0
 ````
@@ -916,7 +916,7 @@ $0
 
 **Name**: `Eval first EventId`, **Tab Trigger**: `evt`
 
-```text
+```stroomql
 eval EventId = first(EventId)
 $0
 ````
@@ -926,7 +926,7 @@ $0
 
 **Name**: `Eval first Stream/EventIds`, **Tab Trigger**: `ids`
 
-```text
+```stroomql
 eval StreamId = first(StreamId)
 eval EventId = first(EventId)
 $0
@@ -937,7 +937,7 @@ $0
 
 **Name**: `Eval first value`, **Tab Trigger**: `first`
 
-```text
+```stroomql
 eval ${1:field_name} = first(${1})
 $0
 ````
