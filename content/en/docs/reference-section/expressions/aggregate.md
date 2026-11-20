@@ -148,6 +148,67 @@ ${val} = ['bill', 'bob', 'fred', 'bill']
 {{< /see-also >}}
 
 
+## Lag
+
+Gives the value that an aggregate has in an earlier time window of the same group, for a StroomQL query with a [`window`]({{< relref "docs/user-guide/search/queries/stroom-query-language#window" >}}) clause.
+
+```clike
+lag(aggregate, windows)
+lag(aggregate, windows, default)
+```
+
+* `aggregate` - An aggregate, such as `count()` or `sum(${Bytes})`, or the name of an `eval` or column that is one.
+* `windows` - How many windows earlier, as a whole number from 1.
+* `default` - The value to give when the earlier window has no value.
+  It can't start with `window:`.
+
+The earlier window is a number of window sizes before the row's own, whatever the advance.
+An earlier window with no events for the group gives the empty value of the aggregate, which is `0` for `count()`.
+An earlier window that is before the first window of the search that has events gives no value, or `default` if it is given.
+
+Examples
+
+```clike
+# With 'window EventTime by 1d', and 4 events on Monday and 10 on Tuesday
+# For the row of Tuesday
+lag(count(), 1)
+> 4
+count() - lag(count(), 1)
+> 6
+# For the row of Monday, the first day that has events
+lag(count(), 1)
+> null
+lag(count(), 1, 0)
+> 0
+```
+
+
+## Lead
+
+Gives the value that an aggregate has in a later time window of the same group, for a StroomQL query with a [`window`]({{< relref "docs/user-guide/search/queries/stroom-query-language#window" >}}) clause.
+
+```clike
+lead(aggregate, windows)
+lead(aggregate, windows, default)
+```
+
+* `aggregate` - An aggregate, such as `count()` or `sum(${Bytes})`, or the name of an `eval` or column that is one.
+* `windows` - How many windows later, as a whole number from 1.
+* `default` - The value to give when the later window has no value.
+  It can't start with `window:`.
+
+This works as [`lag()`](#lag) does, but reads the window a number of window sizes after the row's own.
+
+Example
+
+```clike
+# With 'window EventTime by 1d', and 4 events on Monday and 10 on Tuesday
+# For the row of Monday
+lead(count(), 1)
+> 10
+```
+
+
 ## Max
 
 Determines the maximum value given in the args.
@@ -195,23 +256,6 @@ min(max(${val}), 40, 67, 89)
 ${val} = [20, 1002]
 > 20
 ```
-
-
-## Period
-
-This provides a way of selectively applying a function to the values for one period of a window, when using the window feature.
-
-```clike
-period(period)
-period(period, function)
-```
-
-* `period` - The window period to apply the function to, as a whole number.
-* `function` - The function to apply to the values for the selected period.
-  If this is omitted then `count()` is used.
-
-Returns the value computed by the nested function for the specified period.
-Values belonging to any other period of the window are ignored.
 
 
 ## StDev (Standard Deviation)

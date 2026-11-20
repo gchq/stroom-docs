@@ -352,6 +352,20 @@ appConfig:
 ```
 
 
+#### New `search.resultStore.maxWindowCopiesPerEvent` Property
+
+A StroomQL query with a [`window`]({{< relref "docs/user-guide/search/queries/stroom-query-language#window" >}}) clause adds an event to its results once for each window the event is in, and again for each window that reads it with `lag()` or `lead()`.
+This property limits how many times a query may add one event.
+A query that needs more is refused.
+
+```yaml
+appConfig:
+  search:
+    resultStore:
+      maxWindowCopiesPerEvent: 100
+```
+
+
 #### New `sqlStore` Database Configuration
 
 The SQL statistics store has a new database connection branch.

@@ -33,11 +33,11 @@ from <DATA_SOURCE> [as <ALIAS>]
 [join] <DATA_SOURCE> [as <ALIAS>] on <FIELD> = <ALIAS>.<FIELD> [and ...]
 where <FIELD> <CONDITION> <VALUE> [and|or|not]
 [and|or|not]
-[window] <TIME_FIELD> by <WINDOW_SIZE> [advance <ADVANCE_WINDOW_SIZE>]
+[window] <TIME_FIELD> by <WINDOW_SIZE> [advance <ADVANCE_SIZE>] [offset <OFFSET>]
 [filter] <FIELD> <CONDITION> <VALUE> [and|or|not]
 [and|or|not]
 [eval...] <FIELD> = <EXPRESSION>
-[having] <FIELD> <CONDITION> <VALUE> [and|or|not]
+[having] <FIELD|EXPRESSION> <CONDITION> <VALUE|EXPRESSION> [and|or|not]
 [group by] <FIELD>
 [sort by] <FIELD> [desc|asc] // asc by default
 [limit] <MAX_ROWS> 
@@ -254,18 +254,133 @@ See [Exists and In]({{< relref "joins#exists-and-in" >}}).
 ### Window
 
 ```stroomql
-window <TIME_FIELD> by <WINDOW_SIZE> [advance <ADVANCE_WINDOW_SIZE>]
+window <TIME_FIELD> by <WINDOW_SIZE> [advance <ADVANCE_SIZE>] [offset <OFFSET>]
 ```
 
-Windowing groups data by a specified window size applied to a time field.
-A window inserts additional rows for future periods so that rows for future periods contain count columns for previous periods.
+Use `window` to put rows into windows of time and to group them by the window they are in, e.g.
 
-Specify the field to window by and a duration.
-Durations are specified in simple terms e.g. `1d`, `2w` etc.
+```stroomql
+from "File events"
+window EventTime by 1d
+group by UserId
+select windowStart() as Day, UserId, count() as Events
+```
 
-By default, a window will insert a count into the next period row.
-This is because by default we advance by the specified window size.
-If you wish to advance by a different duration you can specify the advance amount which will insert counts into multiple future rows.
+This gives a row for each user for each day.
+Rows are grouped by their window as well as by the `group by` columns.
+No columns are added to the table, so select [`windowStart()`]({{< relref "docs/reference-section/expressions/date#window-start" >}}) or [`windowEnd()`]({{< relref "docs/reference-section/expressions/date#window-end" >}}) to show the times of a row's window.
+
+A window includes its start and not its end, so an event at midnight is in the day that starts then.
+The time field must hold a date and time.
+A field that the data source lists as some other type is refused.
+Rows with no time in the field are left out, and the search gives a warning that says how many.
+
+
+#### Window Sizes
+
+A size is a number and a unit, e.g. `10m` or `1d`.
+
+Unit | Meaning
+---- | -------
+`ms` | Milliseconds
+`s`  | Seconds
+`m`  | Minutes
+`h`  | Hours
+`d`  | Days
+`w`  | Weeks
+`M`  | Months
+`y`  | Years
+
+Sizes in hours or less are fixed lengths of time, counted from midnight, so windows of `1h` start on the hour and `24h` is always 24 hours.
+
+Sizes in days, weeks, months and years follow the calendar in the time zone of the query.
+A window of `1d` is 23 or 25 hours long when the clocks change, weeks start on Monday and months on the 1st.
+An analytic rule that has no time zone uses UTC.
+
+{{< note >}}
+`7d` is not the same as `1w`.
+`1w` is the calendar week from Monday, whereas `7d` is every seven days counted from 1 January 1970, which starts on Thursdays.
+{{< /note >}}
+
+
+#### Overlapping Windows
+
+Add `advance` to make windows that overlap, e.g.
+
+```stroomql
+window EventTime by 1h advance 10m
+```
+
+A window of an hour then starts every 10 minutes, and each event is counted in every window that covers it, which is six windows here.
+Without `advance`, each window starts where the one before it ends.
+
+The size must be a whole number of advances.
+The advance can be in a smaller unit than the size where the units divide exactly, so a year can advance by months, a week by days or less and a day by hours or less.
+Months and years can't advance by weeks, days or less.
+
+
+#### Offset
+
+Add `offset` to move where windows start, e.g.
+
+```stroomql
+window EventTime by 1d offset 6h
+```
+
+Each day then runs from 06:00 to 06:00.
+Use a minus sign to move the start earlier, e.g. `offset -2h`.
+`advance` and `offset` can be given in either order.
+
+
+#### Comparing Windows
+
+Use [`lag()`]({{< relref "docs/reference-section/expressions/aggregate#lag" >}}) and [`lead()`]({{< relref "docs/reference-section/expressions/aggregate#lead" >}}) to compare a window with an earlier or later one, e.g.
+
+```stroomql
+from "File events"
+window EventTime by 1d
+eval Change = count() - lag(count(), 1)
+group by UserId
+select windowStart() as Day, UserId, count() as Events, Change
+```
+
+`lag(count(), 1)` is the count of the window one size before, for the same user, and `lead(count(), 1)` is the count of the window one size after.
+The other window is a number of sizes away, whatever the advance, so with `by 1h advance 10m` it is the window that starts an hour before.
+
+What `lag()` and `lead()` give depends on the other window:
+
+* A window that has events gives the value of the aggregate for it.
+* A window with no events for the group gives the empty value of the aggregate, which is `0` for `count()`.
+* A window before the first window that has events, or after the last, gives no value.
+  The first and last windows are those of all the events of the search, not of the group.
+
+Give a third value to use where there is no value, e.g. `lag(count(), 1, 0)`.
+
+A user with no events in a window still gets a row for that window if a window either side of it reads it, and the window is not before the first or after the last that has events.
+In the example above, a user with events on Monday and none on Tuesday gets a row for Tuesday with `Events` of `0` and `Change` of minus Monday's count, as long as another user has events on Tuesday or later.
+
+To keep only the windows that have changed, compare them in [`having`](#having), e.g.
+
+```stroomql
+from "File events"
+window EventTime by 1d
+group by UserId
+having count() > lag(count(), 1) * 2
+select windowStart() as Day, UserId, count() as Events
+```
+
+
+#### Window Limits
+
+* An event is added to the results once for each window it is in, and once more for each of those for each different distance used by `lag()` and `lead()`.
+  A query that would add an event more than 100 times is refused.
+  Administrators set this limit with the `search.resultStore.maxWindowCopiesPerEvent` property.
+* `window` can be used in a bracketed query and with a join, but not with a [join within a time window]({{< relref "joins#joining-events-within-a-time-window" >}}).
+* `lag()` and `lead()` can only be used in a query that has a `window` clause.
+
+{{< see-also >}}
+[Time Windows in Analytic Rules]({{< relref "docs/user-guide/search/analytics/query#time-windows" >}})
+{{< /see-also >}}
 
 
 ### Filter
@@ -355,10 +470,29 @@ where user = "bob" and (feed = "my feed" or feed = "other feed")
 ### Having
 
 A post aggregate filter that is applied at query time to return only rows that match the `having` conditions.
+A condition can test a column by its name, e.g.
 
 ```stroomql
 having count > 3
 ```
+
+A condition can also test an expression, so the value does not have to be a column, e.g.
+
+```stroomql
+having count() > 3 and max(Bytes) < 1000
+```
+
+Two expressions can be compared with `=`, `!=`, `>`, `>=`, `<` or `<=`, e.g.
+
+```stroomql
+having count() > lag(count(), 1) * 2
+```
+
+A single name on the right of a comparison is a column if an `eval` or `select` gives one of that name, and text if not.
+
+A row is kept only if the comparison is true, so a row with nothing to compare with is left out.
+With [`window`](#window), this means the first window that has events is left out of a comparison with `lag()`.
+To keep it, give `lag()` a value to use, e.g. `lag(count(), 1, 0)`.
 
 
 ### Group By

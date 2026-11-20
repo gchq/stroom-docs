@@ -94,3 +94,35 @@ The Data Connection example pack has ten example join queries.
 * [StroomQL Grammar]({{< relref "docs/reference-section/stroomql-grammar#join-lines" >}})
 * [StroomQL Join clause]({{< relref "docs/user-guide/search/queries/stroom-query-language#join" >}})
 {{< /see-also >}}
+
+
+## StroomQL Time Windows
+
+The `window` clause of {{< glossary "StroomQL" >}} has been replaced.
+It now puts rows into true windows of time and groups them by window, so a query can count events for each user for each day:
+
+```stroomql
+from "File events"
+window EventTime by 1d
+group by UserId
+having count() > lag(count(), 1) * 2
+select windowStart() as Day, UserId, count() as Events
+```
+
+* `advance` makes windows that overlap, e.g. `window EventTime by 1h advance 10m` is a window of an hour that starts every 10 minutes.
+* `offset` moves where windows start, e.g. `window EventTime by 1d offset 6h` makes each day run from 06:00 to 06:00.
+* Windows of days, weeks, months and years follow the calendar in the time zone of the query.
+* The new functions `windowStart()` and `windowEnd()` give the times of a row's window.
+* The new functions `lag()` and `lead()` give the value of an aggregate in an earlier or later window, so a window can be compared with another one.
+* `having` now takes expressions, so the query above needs no `eval`.
+
+Analytic rules judge a window only when it has all of its events.
+A scheduled rule leaves out the windows that the time range of its query cuts short.
+
+The `periodN` columns and the `period()` function that the old clause used have been removed, see [Breaking Changes]({{< relref "./breaking-changes#stroomql-window-clause" >}}).
+
+{{< see-also >}}
+* [StroomQL Window clause]({{< relref "docs/user-guide/search/queries/stroom-query-language#window" >}})
+* [StroomQL Grammar]({{< relref "docs/reference-section/stroomql-grammar#window" >}})
+* [Time Windows in Analytic Rules]({{< relref "docs/user-guide/search/analytics/query#time-windows" >}})
+{{< /see-also >}}
