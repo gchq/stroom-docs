@@ -153,7 +153,7 @@
     aria-label="Search this site…"
     autocomplete="off"
     
-    data-offline-search-index-json-src="../../../offline-search-index.1a7dcb547574e1fbe1716674a52291e4.json"
+    data-offline-search-index-json-src="../../../offline-search-index.8a1762ce1b88fe4231b361ea21be10e1.json"
     data-offline-search-base-href="../../../"
     data-offline-search-max-results="50"
   >
@@ -28924,14 +28924,14 @@ select logon.UserId, logon.EventTime, export.FileName
 <p>See <a href="../../../docs/user-guide/search/queries/joins/#joining-events-within-a-time-window">Joining Events Within a Time Window</a>.</p>
 <h3 id="where">Where</h3>
 <p>Use <code>where</code> to construct query criteria, e.g.</p>
-<pre><code class="language-text">where feed = &quot;my feed&quot;
+<pre><code class="language-stroomql">where feed = &quot;my feed&quot;
 </code></pre>
 <p>Add boolean logic with <code>and</code>, <code>or</code> and <code>not</code> to build complex criteria, e.g.</p>
-<pre><code class="language-text">where feed = &quot;my feed&quot;
+<pre><code class="language-stroomql">where feed = &quot;my feed&quot;
 or feed = &quot;other feed&quot;
 </code></pre>
 <p>Use brackets to group logical sub expressions, e.g.</p>
-<pre><code class="language-text">where user = &quot;bob&quot;
+<pre><code class="language-stroomql">where user = &quot;bob&quot;
 and (feed = &quot;my feed&quot; or feed = &quot;other feed&quot;)
 </code></pre>
 <h4 id="conditions">Conditions</h4>
@@ -29004,12 +29004,19 @@ Durations are specified in simple terms e.g. <code>1d</code>, <code>2w</code> et
 This is because by default we advance by the specified window size.
 If you wish to advance by a different duration you can specify the advance amount which will insert counts into multiple future rows.</p>
 <h3 id="filter">Filter</h3>
-<p>Use <code>filter</code> to filter values that have not been indexed during search retrieval.
-This is used the same way as the <code>where</code> clause but applies to data after being retrieved from the index, e.g.</p>
-<pre><code class="language-stroomql">filter obscure_field = &quot;some value&quot;
+<p>Use <code>filter</code> to test values that <code>where</code> can&rsquo;t, such as a field that has not been indexed or the result of an <code>eval</code>.
+It is written the same way as the <code>where</code> clause, but is tested on each row after its values have been retrieved, rather than being part of the search, e.g.</p>
+<pre><code class="language-stroomql">from my_source
+where feed = &quot;my feed&quot;
+eval domain = substringAfter(user, &quot;@&quot;)
+filter obscure_field = &quot;some value&quot; and domain = &quot;example.com&quot;
+select user, domain, obscure_field
 </code></pre>
+<p><code>where</code> names fields of the data source, but <code>filter</code> names the columns of <code>select</code>, so a column must be selected to be filtered on.
+If a column is renamed with <code>as</code>, <code>filter</code> uses the new name.</p>
 <p>Add boolean logic with <code>and</code>, <code>or</code> and <code>not</code> to build complex criteria as supported by the <code>where</code> clause.
 Use brackets to group logical sub expressions as supported by the <code>where</code> clause.</p>
+<p>Text is compared without regard to case, and <code>*</code> and <code>?</code> can be used as wildcards with <code>=</code> and <code>!=</code>.</p>
 
 
 
@@ -29027,6 +29034,7 @@ Frequent use of <code>filter</code> on a field suggests you may want to consider
   </div>
 </div>
 
+<p>See <a href="../../../docs/reference-section/stroomql-grammar/#filter">Filter</a> for the differences between <code>where</code> and <code>filter</code> in full.</p>
 <h3 id="eval">Eval</h3>
 <p>Use <code>eval</code> to assign the value returned from an <a href="../../../docs/reference-section/expressions/">Expression Function</a> to a named variable, e.g.</p>
 <pre><code class="language-stroomql">eval my_count = count()
@@ -40672,6 +40680,8 @@ Describe volumes
 
 
 <script src='../../../js/prism.js'></script>
+
+<script src='../../../js/prism-stroomql.js'></script>
 
 
 

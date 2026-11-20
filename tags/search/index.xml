@@ -2908,7 +2908,8 @@ The rows appear once both have been searched.&lt;/p&gt;
         | &amp;lt;field&amp;gt; in ( &amp;lt;in query&amp;gt; )
         | &amp;lt;field&amp;gt; not in ( &amp;lt;in query&amp;gt; )
 &lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;code&gt;filter&lt;/code&gt; and &lt;code&gt;having&lt;/code&gt; take the same conditions as &lt;code&gt;where&lt;/code&gt;, apart from the &lt;code&gt;exists&lt;/code&gt; and &lt;code&gt;in&lt;/code&gt; forms.&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;filter&lt;/code&gt; and &lt;code&gt;having&lt;/code&gt; take the same conditions as &lt;code&gt;where&lt;/code&gt;, apart from the &lt;code&gt;exists&lt;/code&gt; and &lt;code&gt;in&lt;/code&gt; forms.
+See &lt;a href=&#34;#filter&#34;&gt;Filter&lt;/a&gt; for how &lt;code&gt;filter&lt;/code&gt; differs from &lt;code&gt;where&lt;/code&gt;.&lt;/p&gt;
 &lt;p&gt;A dictionary is named by its name or its &lt;span class=&#34;glossary-link link-with-hover-tooltip&#34;&gt;
     &lt;a href=&#34;../../docs/glossary/u/glossary-uuid&#34;&gt;
       &lt;span&gt;UUID&lt;/span&gt;
@@ -2965,6 +2966,78 @@ select name, team
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;A blank key never matches, so &lt;code&gt;not in&lt;/code&gt; keeps a row whose field is blank, and a blank value in the other source doesn&amp;rsquo;t stop any row from being kept.
 This differs from SQL, where &lt;code&gt;not in&lt;/code&gt; gives no rows once the other query holds a null.&lt;/p&gt;
+&lt;h2 id=&#34;filter&#34;&gt;Filter&lt;/h2&gt;
+&lt;pre&gt;&lt;code class=&#34;language-text&#34;&gt;filter &amp;lt;condition&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;code&gt;where&lt;/code&gt; and &lt;code&gt;filter&lt;/code&gt; both keep only the rows that match a condition, but they are tested at different points:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;where&lt;/code&gt; is the search itself.
+It is passed to the data source, which uses it to find the matching events, e.g. by looking them up in an index.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;filter&lt;/code&gt; is tested by Stroom on each row the search gives, once the row&amp;rsquo;s values have been retrieved and any &lt;code&gt;eval&lt;/code&gt; has been worked out.
+A row that doesn&amp;rsquo;t match is dropped before &lt;code&gt;window&lt;/code&gt;, &lt;code&gt;group by&lt;/code&gt;, &lt;code&gt;sort by&lt;/code&gt; and &lt;code&gt;limit&lt;/code&gt; are applied, so it is not counted or grouped.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;The two clauses differ as follows:&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;&lt;/th&gt;
+&lt;th&gt;&lt;code&gt;where&lt;/code&gt;&lt;/th&gt;
+&lt;th&gt;&lt;code&gt;filter&lt;/code&gt;&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;Tested by&lt;/td&gt;
+&lt;td&gt;The data source, as part of its search.&lt;/td&gt;
+&lt;td&gt;Stroom, on each row the search gives.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Names&lt;/td&gt;
+&lt;td&gt;Fields of the data source that it can search, e.g. the indexed fields of an index.&lt;/td&gt;
+&lt;td&gt;Columns of &lt;code&gt;select&lt;/code&gt;, by column name, which is the name after &lt;code&gt;as&lt;/code&gt; if there is one.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;eval&lt;/code&gt; variables&lt;/td&gt;
+&lt;td&gt;Can&amp;rsquo;t be named.&lt;/td&gt;
+&lt;td&gt;Can be named, if selected.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Matching&lt;/td&gt;
+&lt;td&gt;As the data source matches the field, e.g. an indexed text field is matched as its analyser splits it into words.&lt;/td&gt;
+&lt;td&gt;The value of the column is compared with the value given.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;exists&lt;/code&gt; and &lt;code&gt;in&lt;/code&gt; queries&lt;/td&gt;
+&lt;td&gt;Allowed.&lt;/td&gt;
+&lt;td&gt;Not allowed.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Cost&lt;/td&gt;
+&lt;td&gt;Narrows the search, so fewer events are retrieved.&lt;/td&gt;
+&lt;td&gt;Every event the search finds is retrieved before it is tested.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;A &lt;code&gt;filter&lt;/code&gt; on a name that is not a column of &lt;code&gt;select&lt;/code&gt; fails with a &lt;code&gt;Field not found&lt;/code&gt; error.&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;filter&lt;/code&gt; compares values as follows:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;If the value given is a date or a number, the column&amp;rsquo;s value is compared as one.
+Otherwise it is compared as text.&lt;/li&gt;
+&lt;li&gt;Text is compared without regard to case.&lt;/li&gt;
+&lt;li&gt;In text compared with &lt;code&gt;=&lt;/code&gt; or &lt;code&gt;!=&lt;/code&gt;, &lt;code&gt;*&lt;/code&gt; stands for any number of characters and &lt;code&gt;?&lt;/code&gt; for one character.
+Put &lt;code&gt;\&lt;/code&gt; before either to match it as written.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;For example, this query uses &lt;code&gt;where&lt;/code&gt; to find one feed&amp;rsquo;s events in the index, then &lt;code&gt;filter&lt;/code&gt; to keep the rows with a value that only &lt;code&gt;eval&lt;/code&gt; gives:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-stroomql&#34;&gt;from &amp;quot;Windows events&amp;quot;
+where Feed = &amp;quot;WINDOWS-EVENTS&amp;quot;
+eval Domain = substringAfter(UserId, &amp;quot;@&amp;quot;)
+filter Domain = &amp;quot;example.*&amp;quot;
+select UserId, Domain
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Use &lt;code&gt;where&lt;/code&gt; wherever the data source can search the field, and &lt;code&gt;filter&lt;/code&gt; only for what &lt;code&gt;where&lt;/code&gt; can&amp;rsquo;t test.
+To test the result of an aggregate function, such as &lt;code&gt;count()&lt;/code&gt;, use &lt;code&gt;having&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;With joins, an alias or a bracketed query in &lt;code&gt;from&lt;/code&gt;, some or all of &lt;code&gt;where&lt;/code&gt; is tested on the joined rows as &lt;code&gt;filter&lt;/code&gt; is, see &lt;a href=&#34;#where-with-joins&#34;&gt;Where with Joins&lt;/a&gt;.
+Those conditions still name fields, not columns.&lt;/p&gt;
 &lt;h2 id=&#34;values&#34;&gt;Values&lt;/h2&gt;
 &lt;pre&gt;&lt;code class=&#34;language-text&#34;&gt;&amp;lt;value&amp;gt; := &amp;lt;number&amp;gt;
          | &amp;quot;&amp;lt;text&amp;gt;&amp;quot; | &#39;&amp;lt;text&amp;gt;&#39; | &amp;lt;text&amp;gt;
@@ -3266,14 +3339,14 @@ select logon.UserId, logon.EventTime, export.FileName
 &lt;p&gt;See &lt;a href=&#34;../../docs/user-guide/search/queries/joins/#joining-events-within-a-time-window&#34;&gt;Joining Events Within a Time Window&lt;/a&gt;.&lt;/p&gt;
 &lt;h3 id=&#34;where&#34;&gt;Where&lt;/h3&gt;
 &lt;p&gt;Use &lt;code&gt;where&lt;/code&gt; to construct query criteria, e.g.&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-text&#34;&gt;where feed = &amp;quot;my feed&amp;quot;
+&lt;pre&gt;&lt;code class=&#34;language-stroomql&#34;&gt;where feed = &amp;quot;my feed&amp;quot;
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;Add boolean logic with &lt;code&gt;and&lt;/code&gt;, &lt;code&gt;or&lt;/code&gt; and &lt;code&gt;not&lt;/code&gt; to build complex criteria, e.g.&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-text&#34;&gt;where feed = &amp;quot;my feed&amp;quot;
+&lt;pre&gt;&lt;code class=&#34;language-stroomql&#34;&gt;where feed = &amp;quot;my feed&amp;quot;
 or feed = &amp;quot;other feed&amp;quot;
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;Use brackets to group logical sub expressions, e.g.&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-text&#34;&gt;where user = &amp;quot;bob&amp;quot;
+&lt;pre&gt;&lt;code class=&#34;language-stroomql&#34;&gt;where user = &amp;quot;bob&amp;quot;
 and (feed = &amp;quot;my feed&amp;quot; or feed = &amp;quot;other feed&amp;quot;)
 &lt;/code&gt;&lt;/pre&gt;
 &lt;h4 id=&#34;conditions&#34;&gt;Conditions&lt;/h4&gt;
@@ -3346,12 +3419,19 @@ Durations are specified in simple terms e.g. &lt;code&gt;1d&lt;/code&gt;, &lt;co
 This is because by default we advance by the specified window size.
 If you wish to advance by a different duration you can specify the advance amount which will insert counts into multiple future rows.&lt;/p&gt;
 &lt;h3 id=&#34;filter&#34;&gt;Filter&lt;/h3&gt;
-&lt;p&gt;Use &lt;code&gt;filter&lt;/code&gt; to filter values that have not been indexed during search retrieval.
-This is used the same way as the &lt;code&gt;where&lt;/code&gt; clause but applies to data after being retrieved from the index, e.g.&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-stroomql&#34;&gt;filter obscure_field = &amp;quot;some value&amp;quot;
+&lt;p&gt;Use &lt;code&gt;filter&lt;/code&gt; to test values that &lt;code&gt;where&lt;/code&gt; can&amp;rsquo;t, such as a field that has not been indexed or the result of an &lt;code&gt;eval&lt;/code&gt;.
+It is written the same way as the &lt;code&gt;where&lt;/code&gt; clause, but is tested on each row after its values have been retrieved, rather than being part of the search, e.g.&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-stroomql&#34;&gt;from my_source
+where feed = &amp;quot;my feed&amp;quot;
+eval domain = substringAfter(user, &amp;quot;@&amp;quot;)
+filter obscure_field = &amp;quot;some value&amp;quot; and domain = &amp;quot;example.com&amp;quot;
+select user, domain, obscure_field
 &lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;code&gt;where&lt;/code&gt; names fields of the data source, but &lt;code&gt;filter&lt;/code&gt; names the columns of &lt;code&gt;select&lt;/code&gt;, so a column must be selected to be filtered on.
+If a column is renamed with &lt;code&gt;as&lt;/code&gt;, &lt;code&gt;filter&lt;/code&gt; uses the new name.&lt;/p&gt;
 &lt;p&gt;Add boolean logic with &lt;code&gt;and&lt;/code&gt;, &lt;code&gt;or&lt;/code&gt; and &lt;code&gt;not&lt;/code&gt; to build complex criteria as supported by the &lt;code&gt;where&lt;/code&gt; clause.
 Use brackets to group logical sub expressions as supported by the &lt;code&gt;where&lt;/code&gt; clause.&lt;/p&gt;
+&lt;p&gt;Text is compared without regard to case, and &lt;code&gt;*&lt;/code&gt; and &lt;code&gt;?&lt;/code&gt; can be used as wildcards with &lt;code&gt;=&lt;/code&gt; and &lt;code&gt;!=&lt;/code&gt;.&lt;/p&gt;
 
 
 
@@ -3369,6 +3449,7 @@ Frequent use of &lt;code&gt;filter&lt;/code&gt; on a field suggests you may want
   &lt;/div&gt;
 &lt;/div&gt;
 
+&lt;p&gt;See &lt;a href=&#34;../../docs/reference-section/stroomql-grammar/#filter&#34;&gt;Filter&lt;/a&gt; for the differences between &lt;code&gt;where&lt;/code&gt; and &lt;code&gt;filter&lt;/code&gt; in full.&lt;/p&gt;
 &lt;h3 id=&#34;eval&#34;&gt;Eval&lt;/h3&gt;
 &lt;p&gt;Use &lt;code&gt;eval&lt;/code&gt; to assign the value returned from an &lt;a href=&#34;../../docs/reference-section/expressions/&#34;&gt;Expression Function&lt;/a&gt; to a named variable, e.g.&lt;/p&gt;
 &lt;pre&gt;&lt;code class=&#34;language-stroomql&#34;&gt;eval my_count = count()

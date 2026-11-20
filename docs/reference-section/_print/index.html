@@ -153,7 +153,7 @@
     aria-label="Search this site…"
     autocomplete="off"
     
-    data-offline-search-index-json-src="../../../offline-search-index.1a7dcb547574e1fbe1716674a52291e4.json"
+    data-offline-search-index-json-src="../../../offline-search-index.8a1762ce1b88fe4231b361ea21be10e1.json"
     data-offline-search-base-href="../../../"
     data-offline-search-max-results="50"
   >
@@ -3433,23 +3433,23 @@ ${0}
 They do not currently have <code>tab</code> triggers.</p>
 <h3 id="eval-first-streamid-str">Eval first StreamId (<code>str</code>)</h3>
 <p><strong>Name</strong>: <code>Eval first StreamId</code>, <strong>Tab Trigger</strong>: <code>str</code></p>
-<pre><code class="language-text">eval StreamId = first(StreamId)
+<pre><code class="language-stroomql">eval StreamId = first(StreamId)
 $0
 </code></pre>
 <h3 id="eval-first-eventid-evt">Eval first EventId (<code>evt</code>)</h3>
 <p><strong>Name</strong>: <code>Eval first EventId</code>, <strong>Tab Trigger</strong>: <code>evt</code></p>
-<pre><code class="language-text">eval EventId = first(EventId)
+<pre><code class="language-stroomql">eval EventId = first(EventId)
 $0
 </code></pre>
 <h3 id="eval-first-streameventids-ids">Eval first Stream/EventIds (<code>ids</code>)</h3>
 <p><strong>Name</strong>: <code>Eval first Stream/EventIds</code>, <strong>Tab Trigger</strong>: <code>ids</code></p>
-<pre><code class="language-text">eval StreamId = first(StreamId)
+<pre><code class="language-stroomql">eval StreamId = first(StreamId)
 eval EventId = first(EventId)
 $0
 </code></pre>
 <h3 id="eval-first-value-first">Eval first value (<code>first</code>)</h3>
 <p><strong>Name</strong>: <code>Eval first value</code>, <strong>Tab Trigger</strong>: <code>first</code></p>
-<pre><code class="language-text">eval ${1:field_name} = first(${1})
+<pre><code class="language-stroomql">eval ${1:field_name} = first(${1})
 $0
 </code></pre>
 <h2 id="dashboard-table-expression-editor-snippets">Dashboard Table Expression Editor Snippets</h2>
@@ -6408,7 +6408,8 @@ The rows appear once both have been searched.</p>
         | &lt;field&gt; in ( &lt;in query&gt; )
         | &lt;field&gt; not in ( &lt;in query&gt; )
 </code></pre>
-<p><code>filter</code> and <code>having</code> take the same conditions as <code>where</code>, apart from the <code>exists</code> and <code>in</code> forms.</p>
+<p><code>filter</code> and <code>having</code> take the same conditions as <code>where</code>, apart from the <code>exists</code> and <code>in</code> forms.
+See <a href="#filter">Filter</a> for how <code>filter</code> differs from <code>where</code>.</p>
 <p>A dictionary is named by its name or its <span class="glossary-link link-with-hover-tooltip">
     <a href="../../../docs/glossary/u/glossary-uuid">
       <span>UUID</span>
@@ -6465,6 +6466,78 @@ select name, team
 </code></pre>
 <p>A blank key never matches, so <code>not in</code> keeps a row whose field is blank, and a blank value in the other source doesn&rsquo;t stop any row from being kept.
 This differs from SQL, where <code>not in</code> gives no rows once the other query holds a null.</p>
+<h2 id="filter">Filter</h2>
+<pre><code class="language-text">filter &lt;condition&gt;
+</code></pre>
+<p><code>where</code> and <code>filter</code> both keep only the rows that match a condition, but they are tested at different points:</p>
+<ul>
+<li><code>where</code> is the search itself.
+It is passed to the data source, which uses it to find the matching events, e.g. by looking them up in an index.</li>
+<li><code>filter</code> is tested by Stroom on each row the search gives, once the row&rsquo;s values have been retrieved and any <code>eval</code> has been worked out.
+A row that doesn&rsquo;t match is dropped before <code>window</code>, <code>group by</code>, <code>sort by</code> and <code>limit</code> are applied, so it is not counted or grouped.</li>
+</ul>
+<p>The two clauses differ as follows:</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th><code>where</code></th>
+<th><code>filter</code></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Tested by</td>
+<td>The data source, as part of its search.</td>
+<td>Stroom, on each row the search gives.</td>
+</tr>
+<tr>
+<td>Names</td>
+<td>Fields of the data source that it can search, e.g. the indexed fields of an index.</td>
+<td>Columns of <code>select</code>, by column name, which is the name after <code>as</code> if there is one.</td>
+</tr>
+<tr>
+<td><code>eval</code> variables</td>
+<td>Can&rsquo;t be named.</td>
+<td>Can be named, if selected.</td>
+</tr>
+<tr>
+<td>Matching</td>
+<td>As the data source matches the field, e.g. an indexed text field is matched as its analyser splits it into words.</td>
+<td>The value of the column is compared with the value given.</td>
+</tr>
+<tr>
+<td><code>exists</code> and <code>in</code> queries</td>
+<td>Allowed.</td>
+<td>Not allowed.</td>
+</tr>
+<tr>
+<td>Cost</td>
+<td>Narrows the search, so fewer events are retrieved.</td>
+<td>Every event the search finds is retrieved before it is tested.</td>
+</tr>
+</tbody>
+</table>
+<p>A <code>filter</code> on a name that is not a column of <code>select</code> fails with a <code>Field not found</code> error.</p>
+<p><code>filter</code> compares values as follows:</p>
+<ul>
+<li>If the value given is a date or a number, the column&rsquo;s value is compared as one.
+Otherwise it is compared as text.</li>
+<li>Text is compared without regard to case.</li>
+<li>In text compared with <code>=</code> or <code>!=</code>, <code>*</code> stands for any number of characters and <code>?</code> for one character.
+Put <code>\</code> before either to match it as written.</li>
+</ul>
+<p>For example, this query uses <code>where</code> to find one feed&rsquo;s events in the index, then <code>filter</code> to keep the rows with a value that only <code>eval</code> gives:</p>
+<pre><code class="language-stroomql">from &quot;Windows events&quot;
+where Feed = &quot;WINDOWS-EVENTS&quot;
+eval Domain = substringAfter(UserId, &quot;@&quot;)
+filter Domain = &quot;example.*&quot;
+select UserId, Domain
+</code></pre>
+<p>Use <code>where</code> wherever the data source can search the field, and <code>filter</code> only for what <code>where</code> can&rsquo;t test.
+To test the result of an aggregate function, such as <code>count()</code>, use <code>having</code>.</p>
+<p>With joins, an alias or a bracketed query in <code>from</code>, some or all of <code>where</code> is tested on the joined rows as <code>filter</code> is, see <a href="#where-with-joins">Where with Joins</a>.
+Those conditions still name fields, not columns.</p>
 <h2 id="values">Values</h2>
 <pre><code class="language-text">&lt;value&gt; := &lt;number&gt;
          | &quot;&lt;text&gt;&quot; | '&lt;text&gt;' | &lt;text&gt;
@@ -25347,6 +25420,8 @@ display name.</p>
 
 
 <script src='../../../js/prism.js'></script>
+
+<script src='../../../js/prism-stroomql.js'></script>
 
 
 
