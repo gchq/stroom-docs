@@ -57,9 +57,33 @@ Both times are recorded on every detection, as `effectiveExecutionTime` and `exe
 {{< /see-also >}}
 
 
+## Time Windows
+
+A query with a [`window`]({{< relref "docs/user-guide/search/queries/stroom-query-language#window" >}}) clause gives a row for each window of time, such as a count for each user for each day.
+A rule judges a window only when it has all of the window's events, so that a window is judged once and is not judged on part of its events.
+
+A _Scheduled Query_ rule leaves out any window that the time range of its query cuts short.
+Where the query gives no end to its time range, the range ends at the effective execution time.
+A row that uses `lag()` or `lead()` is also left out if the window it reads is cut short or is outside the time range.
+
+Give the rule a time range of whole windows.
+For windows of a day, a range from `day() - 7d` to `day()` gives seven whole days, whereas a range from `now() - 7d` to `now()` cuts short the first and last days and leaves six.
+A rule that compares each day with the day before, with `lag(count(), 1)`, judges all but the first of those days, so its time range has to start a window earlier than the first window to be judged.
+
+{{< note >}}
+Windows are only tested against the time range when the field of the `window` clause is the field that the time range of the data source applies to.
+With any other field, only windows that end after the effective execution time are left out.
+{{< /note >}}
+
+{{< see-also >}}
+[Window]({{< relref "docs/user-guide/search/queries/stroom-query-language#window" >}})
+{{< /see-also >}}
+
+
 ## Columns
 
 The columns your query selects become the content of each detection.
+Columns that Stroom adds for its own use, such as the ones behind a `having` expression or a `window`, are not added.
 
 Every column is added to the detection as a name/value pair, using the column's name as the key, and is available to email templates through the `values` dictionary.
 Two column names are treated specially.
