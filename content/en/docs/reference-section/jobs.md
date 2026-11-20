@@ -83,17 +83,28 @@ Records this status in the Volume Status table.
 ## Index Shard Delete
 
 How frequently index shards that have been logically deleted are physically deleted from the file system.
+The files of a shard on a shared index volume are deleted by one of the running nodes, which need not be the node that wrote the shard, so enable this job on every node that can reach the volume.
 
 
 ## Index Shard Retention
 
 How frequently index shards that are older than their retention period are logically deleted.
+A shard on a shared index volume is checked by one of the running nodes, which need not be the node that wrote the shard, so enable this job on every node that can reach the volume.
+
+
+## Index Shard Stream Recovery
+
+Removes from index shards the documents of streams that were only part indexed, or that were lost when a shard failed to commit, and has those streams indexed again.
+It also takes index shards on shared index volumes from a node that has stopped renewing its leases on them, e.g. because it has died.
+This job should be enabled on every node that indexes data, and on every node that can reach a shared index volume, because the streams of a shard on a shared volume are recovered by one of the running nodes.
+See [Shared Index Volumes]({{< relref "docs/user-guide/indexing/shared-index-volumes#when-a-node-fails" >}}).
 
 
 ## Index Volume Status
 
 Scans your index volumes to ensure they are available and determines how much free space they have.
 Records this status in the Index Volume Status table.
+It also checks that each shared index volume is seen by the other running nodes, and logs an error if it does not look like one that is shared.
 
 
 ## Index Writer Cache Sweep

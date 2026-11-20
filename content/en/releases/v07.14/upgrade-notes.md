@@ -40,6 +40,27 @@ This is different to the java version required for Stroom v7.9 (Java 21).
 Ensure the Stroom and Stroom-Proxy hosts are running the latest patch release of Java v25.
 
 
+## Shared Index Volumes
+
+Every existing index volume is given the type _Local_ by the upgrade, so indexing and searching carry on as before.
+Nothing needs to be done unless you want to use [Shared Index Volumes]({{< relref "docs/user-guide/indexing/shared-index-volumes" >}}).
+
+{{< warning >}}
+Upgrade every node to v7.14 before you mark an index volume as _Shared_.
+While a cluster has nodes on different versions, a search may lose results if it cannot be started on one node and the shards of that node are given to a node that is still on the older version.
+{{< /warning >}}
+
+If your nodes already write their index shards to the same network file system under the same path, edit one of the index volumes for that path and change its _Type_ to _Shared_.
+The volumes that the other nodes have for the same path are merged into it.
+A shared volume cannot be made local again.
+
+A new job, _Index Shard Stream Recovery_, is added and runs every minute.
+It removes from the index the documents of streams that were only part indexed and has those streams indexed again, for shards on both shared and local volumes.
+Make sure it is enabled on every node that indexes data, and on every node that can reach a shared index volume.
+
+The jobs _Index Shard Retention_ and _Index Shard Delete_ must be enabled on every node that can reach a shared index volume, because a shard on a shared volume is looked after by one of the running nodes rather than by the node that wrote it.
+
+
 ## Configuration File Changes
 
 <!--
@@ -263,6 +284,28 @@ appConfig:
       refreshAfterWrite: null
       statisticsMode: "INTERNAL"
 ```
+
+
+#### Changes to the `index.writer` Branch
+
+The following properties have been added for index shards on [Shared Index Volumes]({{< relref "docs/user-guide/indexing/shared-index-volumes" >}}).
+They have no effect on shards on local index volumes.
+
+```yaml
+appConfig:
+  index:
+    writer:
+      replacedCommitRetention: "PT30M"
+      shardLeaseDuration: "PT1M"
+      shardLeaseRenewInterval: "PT20S"
+      shardLeaseTakeoverGrace: "PT5M"
+```
+
+`replacedCommitRetention` controls how long the writer of a shard keeps the files it has replaced, so that searches on other nodes that are reading them can finish.
+It must be longer than the longest time that a search holds a shard open.
+`shardLeaseDuration` controls how long the lease that a node needs to write to a shard lasts if it is not renewed.
+`shardLeaseRenewInterval` controls how often a node renews its leases, and should be about a third of `shardLeaseDuration`.
+`shardLeaseTakeoverGrace` controls how long a lease must have been out of date before the shard is taken from the node that held it, and should be much longer than any pause a node could suffer.
 
 
 #### Changes to the `planb` Branch
