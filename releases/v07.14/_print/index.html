@@ -153,7 +153,7 @@
     aria-label="Search this site…"
     autocomplete="off"
     
-    data-offline-search-index-json-src="../../../offline-search-index.8a1762ce1b88fe4231b361ea21be10e1.json"
+    data-offline-search-index-json-src="../../../offline-search-index.bebe3ed8f264bf5c14a7b705e667cd66.json"
     data-offline-search-base-href="../../../"
     data-offline-search-max-results="50"
   >
@@ -397,6 +397,53 @@ A joined source can hold up to 1,000,000 rows or 256 MB, which administrators ca
   </div>
 </div>
 
+<h2 id="stroomql-time-windows">StroomQL Time Windows</h2>
+<p>The <code>window</code> clause of <span class="glossary-link link-with-hover-tooltip">
+    <a href="../../../docs/glossary/s/glossary-stroomql">
+      <span>StroomQl</span>
+      <i class="glossary-link-icon fas fa-book fa-sm text-primary"></i>
+    </a><template class="hover-tooltip-content">
+        <span class="hover-tooltip-title">StroomQl</span>
+        <div class="hover-tooltip-summary"><strong>Stroom</strong> <strong>Q</strong>uery <strong>L</strong>anguage is Stroom&rsquo;s own query language. It has similarities with Structured Query Language (SQL) as used in databases. StroomQL is sometimes referred to as <em>sQL</em> to distinguish it from <em>SQL</em>.</div><span class="hover-tooltip-more-details">Click to see more details...</span></template></span> has been replaced.
+It now puts rows into true windows of time and groups them by window, so a query can count events for each user for each day:</p>
+<pre><code class="language-stroomql">from &quot;File events&quot;
+window EventTime by 1d
+group by UserId
+having count() &gt; lag(count(), 1) * 2
+select windowStart() as Day, UserId, count() as Events
+</code></pre>
+<ul>
+<li><code>advance</code> makes windows that overlap, e.g. <code>window EventTime by 1h advance 10m</code> is a window of an hour that starts every 10 minutes.</li>
+<li><code>offset</code> moves where windows start, e.g. <code>window EventTime by 1d offset 6h</code> makes each day run from 06:00 to 06:00.</li>
+<li>Windows of days, weeks, months and years follow the calendar in the time zone of the query.</li>
+<li>The new functions <code>windowStart()</code> and <code>windowEnd()</code> give the times of a row&rsquo;s window.</li>
+<li>The new functions <code>lag()</code> and <code>lead()</code> give the value of an aggregate in an earlier or later window, so a window can be compared with another one.</li>
+<li><code>having</code> now takes expressions, so the query above needs no <code>eval</code>.</li>
+</ul>
+<p>Analytic rules judge a window only when it has all of its events.
+A scheduled rule leaves out the windows that the time range of its query cuts short.</p>
+<p>The <code>periodN</code> columns and the <code>period()</code> function that the old clause used have been removed, see <a href="../../../releases/v07.14/breaking-changes/#stroomql-window-clause">Breaking Changes</a>.</p>
+
+
+
+<div class="alert alert-primary" role="alert">
+  <h4 class="alert-heading">See Also</h4>
+  <div class="alert-content">
+
+
+
+
+<ul>
+<li><a href="../../../docs/user-guide/search/queries/stroom-query-language/#window">StroomQL Window clause</a></li>
+<li><a href="../../../docs/reference-section/stroomql-grammar/#window">StroomQL Grammar</a></li>
+<li><a href="../../../docs/user-guide/search/analytics/query/#time-windows">Time Windows in Analytic Rules</a></li>
+</ul>
+
+
+
+  </div>
+</div>
+
 
 </div>
 
@@ -560,6 +607,29 @@ Please read this section carefully in case any of the changes affect you.
 <h2 id="stroom">Stroom</h2>
 <h3 id="migrating-an-existing-v714-stroom">Migrating an Existing v7.14 Stroom</h3>
 <p>See <a href="../../../releases/v07.14/upgrade-notes/#migrating-an-existing-v714-stroom">Migrating an Existing v7.14 Stroom</a></p>
+<h3 id="stroomql-window-clause">StroomQL Window Clause</h3>
+<p>The <code>window</code> clause of <span class="glossary-link link-with-hover-tooltip">
+    <a href="../../../docs/glossary/s/glossary-stroomql">
+      <span>StroomQl</span>
+      <i class="glossary-link-icon fas fa-book fa-sm text-primary"></i>
+    </a><template class="hover-tooltip-content">
+        <span class="hover-tooltip-title">StroomQl</span>
+        <div class="hover-tooltip-summary"><strong>Stroom</strong> <strong>Q</strong>uery <strong>L</strong>anguage is Stroom&rsquo;s own query language. It has similarities with Structured Query Language (SQL) as used in databases. StroomQL is sometimes referred to as <em>sQL</em> to distinguish it from <em>SQL</em>.</div><span class="hover-tooltip-more-details">Click to see more details...</span></template></span> has been replaced, see <a href="../../../releases/v07.14/new-features/#stroomql-time-windows">StroomQL Time Windows</a>.
+Queries, dashboards, analytic rules and reports that use the old clause need to be changed.</p>
+<ul>
+<li>The <code>period0</code>, <code>period1</code>, etc. columns are no longer added to the table.
+Use <code>lag()</code> instead, e.g. <code>lag(count(), 1)</code> in place of <code>period1</code>.</li>
+<li>The <code>period()</code> function has been removed.
+Use <code>lag()</code> instead, e.g. <code>lag(count(), 1)</code> in place of <code>period(1, count())</code>.</li>
+<li><code>using</code> has been removed from the clause.
+Give the aggregate to <code>lag()</code> instead.</li>
+<li>The time field is no longer added to the table as the start of the window.
+Select <code>windowStart()</code> instead.</li>
+<li><code>advance</code> now sets how often a window starts, and no longer how many period columns there are.</li>
+<li>A row now holds the events of its own window, and a window with no events has no row unless another window reads it with <code>lag()</code> or <code>lead()</code>.</li>
+</ul>
+<p>A query that uses <code>period()</code> or <code>using</code> is refused with a message that shows the new form.
+A <code>periodN</code> name is not refused, as it is now treated as any other field name, so check for these by hand.</p>
 <h2 id="stroom-proxy">Stroom-Proxy</h2>
 
 
@@ -932,6 +1002,15 @@ A query that joins more fails, suggesting that the joined source is filtered or 
     resultStore:
       joinMaxRows: 1000000
       joinMaxSize: &quot;256M&quot;
+</code></pre>
+<h4 id="new-searchresultstoremaxwindowcopiesperevent-property">New <code>search.resultStore.maxWindowCopiesPerEvent</code> Property</h4>
+<p>A StroomQL query with a <a href="../../../docs/user-guide/search/queries/stroom-query-language/#window"><code>window</code></a> clause adds an event to its results once for each window the event is in, and again for each window that reads it with <code>lag()</code> or <code>lead()</code>.
+This property limits how many times a query may add one event.
+A query that needs more is refused.</p>
+<pre><code class="language-yaml">appConfig:
+  search:
+    resultStore:
+      maxWindowCopiesPerEvent: 100
 </code></pre>
 <h4 id="new-sqlstore-database-configuration">New <code>sqlStore</code> Database Configuration</h4>
 <p>The SQL statistics store has a new database connection branch.

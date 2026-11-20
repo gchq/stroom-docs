@@ -124,8 +124,51 @@ Both times are recorded on every detection, as &lt;code&gt;effectiveExecutionTim
   &lt;/div&gt;
 &lt;/div&gt;
 
+&lt;h2 id=&#34;time-windows&#34;&gt;Time Windows&lt;/h2&gt;
+&lt;p&gt;A query with a &lt;a href=&#34;../../docs/user-guide/search/queries/stroom-query-language/#window&#34;&gt;&lt;code&gt;window&lt;/code&gt;&lt;/a&gt; clause gives a row for each window of time, such as a count for each user for each day.
+A rule judges a window only when it has all of the window&amp;rsquo;s events, so that a window is judged once and is not judged on part of its events.&lt;/p&gt;
+&lt;p&gt;A &lt;em&gt;Scheduled Query&lt;/em&gt; rule leaves out any window that the time range of its query cuts short.
+Where the query gives no end to its time range, the range ends at the effective execution time.
+A row that uses &lt;code&gt;lag()&lt;/code&gt; or &lt;code&gt;lead()&lt;/code&gt; is also left out if the window it reads is cut short or is outside the time range.&lt;/p&gt;
+&lt;p&gt;Give the rule a time range of whole windows.
+For windows of a day, a range from &lt;code&gt;day() - 7d&lt;/code&gt; to &lt;code&gt;day()&lt;/code&gt; gives seven whole days, whereas a range from &lt;code&gt;now() - 7d&lt;/code&gt; to &lt;code&gt;now()&lt;/code&gt; cuts short the first and last days and leaves six.
+A rule that compares each day with the day before, with &lt;code&gt;lag(count(), 1)&lt;/code&gt;, judges all but the first of those days, so its time range has to start a window earlier than the first window to be judged.&lt;/p&gt;
+
+
+
+&lt;div class=&#34;alert alert-primary&#34; role=&#34;alert&#34;&gt;
+  &lt;h4 class=&#34;alert-heading&#34;&gt;Note&lt;/h4&gt;
+  &lt;div class=&#34;alert-content&#34;&gt;
+
+
+
+
+Windows are only tested against the time range when the field of the &lt;code&gt;window&lt;/code&gt; clause is the field that the time range of the data source applies to.
+With any other field, only windows that end after the effective execution time are left out.
+
+
+  &lt;/div&gt;
+&lt;/div&gt;
+
+
+
+
+&lt;div class=&#34;alert alert-primary&#34; role=&#34;alert&#34;&gt;
+  &lt;h4 class=&#34;alert-heading&#34;&gt;See Also&lt;/h4&gt;
+  &lt;div class=&#34;alert-content&#34;&gt;
+
+
+
+
+&lt;a href=&#34;../../docs/user-guide/search/queries/stroom-query-language/#window&#34;&gt;Window&lt;/a&gt;
+
+
+  &lt;/div&gt;
+&lt;/div&gt;
+
 &lt;h2 id=&#34;columns&#34;&gt;Columns&lt;/h2&gt;
-&lt;p&gt;The columns your query selects become the content of each detection.&lt;/p&gt;
+&lt;p&gt;The columns your query selects become the content of each detection.
+Columns that Stroom adds for its own use, such as the ones behind a &lt;code&gt;having&lt;/code&gt; expression or a &lt;code&gt;window&lt;/code&gt;, are not added.&lt;/p&gt;
 &lt;p&gt;Every column is added to the detection as a name/value pair, using the column&amp;rsquo;s name as the key, and is available to email templates through the &lt;code&gt;values&lt;/code&gt; dictionary.
 Two column names are treated specially.&lt;/p&gt;
 &lt;table&gt;

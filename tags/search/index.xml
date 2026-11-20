@@ -2524,7 +2524,7 @@ Field names are case-sensitive.&lt;/p&gt;
   from &amp;lt;source&amp;gt; [as &amp;lt;alias&amp;gt;] [sql &amp;lt;native query&amp;gt;]
   { &amp;lt;join line&amp;gt; }
   [where &amp;lt;condition&amp;gt;]
-  { eval &amp;lt;name&amp;gt; = &amp;lt;expression&amp;gt; | window &amp;lt;field&amp;gt; by &amp;lt;duration&amp;gt; [advance &amp;lt;duration&amp;gt;] }
+  { eval &amp;lt;name&amp;gt; = &amp;lt;expression&amp;gt; | &amp;lt;window&amp;gt; }
   [filter &amp;lt;condition&amp;gt;]
   { group by &amp;lt;columns&amp;gt; | sort by &amp;lt;sort columns&amp;gt; }
   [having &amp;lt;condition&amp;gt;]
@@ -2534,7 +2534,8 @@ Field names are case-sensitive.&lt;/p&gt;
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;The clauses must come in the order shown, with these exceptions:&lt;/p&gt;
 &lt;ul&gt;
-&lt;li&gt;&lt;code&gt;eval&lt;/code&gt; and &lt;code&gt;window&lt;/code&gt; may come in any order, and &lt;code&gt;eval&lt;/code&gt; may be repeated.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;eval&lt;/code&gt; and &lt;code&gt;window&lt;/code&gt; may come in any order, and &lt;code&gt;eval&lt;/code&gt; may be repeated.
+A query can have only one &lt;code&gt;window&lt;/code&gt;, see &lt;a href=&#34;#window&#34;&gt;Window&lt;/a&gt;.&lt;/li&gt;
 &lt;li&gt;&lt;code&gt;group by&lt;/code&gt; and &lt;code&gt;sort by&lt;/code&gt; may come in any order, and &lt;code&gt;group by&lt;/code&gt; may be repeated to make nested groups.&lt;/li&gt;
 &lt;li&gt;&lt;code&gt;limit&lt;/code&gt; comes before &lt;code&gt;select&lt;/code&gt;.&lt;/li&gt;
 &lt;/ul&gt;
@@ -2574,7 +2575,7 @@ A bracketed query has its &lt;code&gt;sql&lt;/code&gt; clause inside its bracket
 &lt;p&gt;A data source that needs a &lt;code&gt;sql&lt;/code&gt; clause refuses a query without one, and one that doesn&amp;rsquo;t take one refuses a query with one.&lt;/p&gt;
 &lt;h2 id=&#34;join-lines&#34;&gt;Join Lines&lt;/h2&gt;
 &lt;pre&gt;&lt;code class=&#34;language-text&#34;&gt;&amp;lt;join line&amp;gt; := &amp;lt;join kind&amp;gt; &amp;lt;source&amp;gt; [as &amp;lt;alias&amp;gt;] [sql &amp;lt;native query&amp;gt;]
-               on &amp;lt;key&amp;gt; {and &amp;lt;key&amp;gt;} [&amp;lt;window&amp;gt;]
+               on &amp;lt;key&amp;gt; {and &amp;lt;key&amp;gt;} [&amp;lt;join window&amp;gt;]
 
 &amp;lt;join kind&amp;gt; := join | inner join
              | left join | left outer join
@@ -2585,7 +2586,7 @@ A bracketed query has its &lt;code&gt;sql&lt;/code&gt; clause inside its bracket
 
 &amp;lt;key&amp;gt; := &amp;lt;expression&amp;gt; = &amp;lt;expression&amp;gt;
 
-&amp;lt;window&amp;gt; := within &amp;lt;duration&amp;gt; after &amp;lt;time field&amp;gt;
+&amp;lt;join window&amp;gt; := within &amp;lt;duration&amp;gt; after &amp;lt;time field&amp;gt;
           | within &amp;lt;duration&amp;gt; before &amp;lt;time field&amp;gt;
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;Each join line joins one more source, the joined source, to the rows of the query so far.
@@ -2909,7 +2910,7 @@ The rows appear once both have been searched.&lt;/p&gt;
         | &amp;lt;field&amp;gt; not in ( &amp;lt;in query&amp;gt; )
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;&lt;code&gt;filter&lt;/code&gt; and &lt;code&gt;having&lt;/code&gt; take the same conditions as &lt;code&gt;where&lt;/code&gt;, apart from the &lt;code&gt;exists&lt;/code&gt; and &lt;code&gt;in&lt;/code&gt; forms.
-See &lt;a href=&#34;#filter&#34;&gt;Filter&lt;/a&gt; for how &lt;code&gt;filter&lt;/code&gt; differs from &lt;code&gt;where&lt;/code&gt;.&lt;/p&gt;
+See &lt;a href=&#34;#filter&#34;&gt;Filter&lt;/a&gt; for how &lt;code&gt;filter&lt;/code&gt; differs from &lt;code&gt;where&lt;/code&gt;, and &lt;a href=&#34;#having&#34;&gt;Having&lt;/a&gt; for what else &lt;code&gt;having&lt;/code&gt; takes.&lt;/p&gt;
 &lt;p&gt;A dictionary is named by its name or its &lt;span class=&#34;glossary-link link-with-hover-tooltip&#34;&gt;
     &lt;a href=&#34;../../docs/glossary/u/glossary-uuid&#34;&gt;
       &lt;span&gt;UUID&lt;/span&gt;
@@ -3038,6 +3039,44 @@ select UserId, Domain
 To test the result of an aggregate function, such as &lt;code&gt;count()&lt;/code&gt;, use &lt;code&gt;having&lt;/code&gt;.&lt;/p&gt;
 &lt;p&gt;With joins, an alias or a bracketed query in &lt;code&gt;from&lt;/code&gt;, some or all of &lt;code&gt;where&lt;/code&gt; is tested on the joined rows as &lt;code&gt;filter&lt;/code&gt; is, see &lt;a href=&#34;#where-with-joins&#34;&gt;Where with Joins&lt;/a&gt;.
 Those conditions still name fields, not columns.&lt;/p&gt;
+&lt;h2 id=&#34;window&#34;&gt;Window&lt;/h2&gt;
+&lt;pre&gt;&lt;code class=&#34;language-text&#34;&gt;&amp;lt;window&amp;gt; := window &amp;lt;time field&amp;gt; by &amp;lt;duration&amp;gt; [advance &amp;lt;duration&amp;gt;] [offset [-]&amp;lt;duration&amp;gt;]
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;code&gt;window&lt;/code&gt; puts each row into windows of time by the value of its time field, and groups the rows by window as well as by the &lt;code&gt;group by&lt;/code&gt; columns.
+The functions &lt;code&gt;windowStart()&lt;/code&gt; and &lt;code&gt;windowEnd()&lt;/code&gt; give the times of a row&amp;rsquo;s window, and &lt;code&gt;lag()&lt;/code&gt; and &lt;code&gt;lead()&lt;/code&gt; give the value of an aggregate in an earlier or later window.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;A time field that the data source lists as other than a date is refused.
+A row with no time in the field is left out.&lt;/li&gt;
+&lt;li&gt;The size, advance and offset can&amp;rsquo;t be in &lt;code&gt;ns&lt;/code&gt;.&lt;/li&gt;
+&lt;li&gt;A window includes its start and not its end.&lt;/li&gt;
+&lt;li&gt;Without &lt;code&gt;advance&lt;/code&gt;, each window starts where the one before it ends.
+With &lt;code&gt;advance&lt;/code&gt;, a window starts every advance, and a row is in every window that covers its time.&lt;/li&gt;
+&lt;li&gt;The size must be a whole number of advances.
+A year can advance by months, a week by days or less and a day by hours or less, but months and years can&amp;rsquo;t advance by weeks, days or less.&lt;/li&gt;
+&lt;li&gt;Sizes in &lt;code&gt;h&lt;/code&gt; or less are fixed lengths of time counted from midnight.
+Sizes in &lt;code&gt;d&lt;/code&gt;, &lt;code&gt;w&lt;/code&gt;, &lt;code&gt;M&lt;/code&gt; and &lt;code&gt;y&lt;/code&gt; follow the calendar in the time zone of the query, with weeks starting on Monday.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;offset&lt;/code&gt; moves the start of every window later, or earlier with a minus sign.
+&lt;code&gt;advance&lt;/code&gt; and &lt;code&gt;offset&lt;/code&gt; can be given in either order.&lt;/li&gt;
+&lt;li&gt;A query can have only one &lt;code&gt;window&lt;/code&gt;, and it can&amp;rsquo;t be used with the time window of a join.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;lag()&lt;/code&gt; and &lt;code&gt;lead()&lt;/code&gt; can&amp;rsquo;t be used without a &lt;code&gt;window&lt;/code&gt;.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;See &lt;a href=&#34;../../docs/user-guide/search/queries/stroom-query-language/#window&#34;&gt;Window&lt;/a&gt; for examples.&lt;/p&gt;
+&lt;h2 id=&#34;having&#34;&gt;Having&lt;/h2&gt;
+&lt;pre&gt;&lt;code class=&#34;language-text&#34;&gt;having &amp;lt;having condition&amp;gt;
+
+&amp;lt;having condition&amp;gt; := &amp;lt;condition&amp;gt;
+                    | &amp;lt;expression&amp;gt; &amp;lt;comparison&amp;gt; &amp;lt;expression&amp;gt;
+
+&amp;lt;comparison&amp;gt; := = | != | &amp;gt; | &amp;gt;= | &amp;lt; | &amp;lt;=
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;code&gt;having&lt;/code&gt; is tested on each row once its group has been worked out, so it can test the result of an aggregate function.
+As well as the conditions that &lt;code&gt;where&lt;/code&gt; takes, either side of a comparison can be an &lt;a href=&#34;#expressions&#34;&gt;expression&lt;/a&gt;, e.g. &lt;code&gt;having count() &amp;gt; lag(count(), 1) * 2&lt;/code&gt;.
+Conditions of both kinds can be joined with &lt;code&gt;and&lt;/code&gt;, &lt;code&gt;or&lt;/code&gt; and &lt;code&gt;not&lt;/code&gt;.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;A single name on the right of a comparison is a column if an &lt;code&gt;eval&lt;/code&gt; or &lt;code&gt;select&lt;/code&gt; gives one of that name, and text if not.&lt;/li&gt;
+&lt;li&gt;A row is kept only if the comparison is true, so a row where either side has no value is left out.&lt;/li&gt;
+&lt;li&gt;An expression that starts with a bracket is allowed, e.g. &lt;code&gt;having (count() - lag(count(), 1)) &amp;gt; 10&lt;/code&gt;.&lt;/li&gt;
+&lt;/ul&gt;
 &lt;h2 id=&#34;values&#34;&gt;Values&lt;/h2&gt;
 &lt;pre&gt;&lt;code class=&#34;language-text&#34;&gt;&amp;lt;value&amp;gt; := &amp;lt;number&amp;gt;
          | &amp;quot;&amp;lt;text&amp;gt;&amp;quot; | &#39;&amp;lt;text&amp;gt;&#39; | &amp;lt;text&amp;gt;
@@ -3058,7 +3097,7 @@ In an &lt;em&gt;Embedded Query&lt;/em&gt; panel on a dashboard, &lt;code&gt;${&a
 Elsewhere, &lt;code&gt;${...}&lt;/code&gt; names a field.&lt;/p&gt;
 &lt;p&gt;The values in an &lt;code&gt;in (...)&lt;/code&gt; list can only be numbers, text and date times, not date expressions or parameters.&lt;/p&gt;
 &lt;h2 id=&#34;expressions&#34;&gt;Expressions&lt;/h2&gt;
-&lt;p&gt;An expression in &lt;code&gt;eval&lt;/code&gt; or a join key is a field, a value, or a call to an &lt;a href=&#34;../../docs/reference-section/expressions/&#34;&gt;Expression Function&lt;/a&gt;, and may use &lt;code&gt;+&lt;/code&gt;, &lt;code&gt;-&lt;/code&gt;, &lt;code&gt;*&lt;/code&gt;, &lt;code&gt;/&lt;/code&gt;, &lt;code&gt;%&lt;/code&gt; and &lt;code&gt;^&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;An expression in &lt;code&gt;eval&lt;/code&gt;, &lt;code&gt;having&lt;/code&gt; or a join key is a field, a value, or a call to an &lt;a href=&#34;../../docs/reference-section/expressions/&#34;&gt;Expression Function&lt;/a&gt;, and may use &lt;code&gt;+&lt;/code&gt;, &lt;code&gt;-&lt;/code&gt;, &lt;code&gt;*&lt;/code&gt;, &lt;code&gt;/&lt;/code&gt;, &lt;code&gt;%&lt;/code&gt; and &lt;code&gt;^&lt;/code&gt;.&lt;/p&gt;
 &lt;p&gt;A column in &lt;code&gt;select&lt;/code&gt; is a field, &lt;code&gt;*&lt;/code&gt; or a single function call, such as &lt;code&gt;count()&lt;/code&gt;.
 Use &lt;code&gt;eval&lt;/code&gt; for anything else, such as arithmetic.&lt;/p&gt;
 &lt;p&gt;A field whose name has spaces is written in braces after a dollar sign, e.g. &lt;code&gt;${Create Time}&lt;/code&gt;.&lt;/p&gt;
@@ -3097,6 +3136,9 @@ Use &lt;code&gt;eval&lt;/code&gt; for anything else, such as arithmetic.&lt;/p&g
 With a time window, the first source is held instead, with the same limits.
 A query that joins more fails, suggesting that the joined source is filtered or grouped.
 Administrators set these limits with the &lt;code&gt;search.resultStore.joinMaxRows&lt;/code&gt; and &lt;code&gt;search.resultStore.joinMaxSize&lt;/code&gt; properties.&lt;/li&gt;
+&lt;li&gt;A query with a &lt;code&gt;window&lt;/code&gt; adds a row to its results once for each window the row is in, and once more for each of those for each different distance used by &lt;code&gt;lag()&lt;/code&gt; and &lt;code&gt;lead()&lt;/code&gt;.
+A query that would add a row more than 100 times is refused.
+Administrators set this limit with the &lt;code&gt;search.resultStore.maxWindowCopiesPerEvent&lt;/code&gt; property.&lt;/li&gt;
 &lt;li&gt;A join may use at most 255 fields of a joined source.&lt;/li&gt;
 &lt;li&gt;A warning is given when a row matches more than 1,000 rows of a joined source.&lt;/li&gt;
 &lt;li&gt;Streaming and table builder analytic rules can&amp;rsquo;t use joins, an alias or a bracketed query in &lt;code&gt;from&lt;/code&gt;, as they run on one event at a time as it is processed.&lt;/li&gt;
@@ -3138,11 +3180,11 @@ It is currently used on the &lt;em&gt;Query&lt;/em&gt; entity as the means of de
 [join] &amp;lt;DATA_SOURCE&amp;gt; [as &amp;lt;ALIAS&amp;gt;] on &amp;lt;FIELD&amp;gt; = &amp;lt;ALIAS&amp;gt;.&amp;lt;FIELD&amp;gt; [and ...]
 where &amp;lt;FIELD&amp;gt; &amp;lt;CONDITION&amp;gt; &amp;lt;VALUE&amp;gt; [and|or|not]
 [and|or|not]
-[window] &amp;lt;TIME_FIELD&amp;gt; by &amp;lt;WINDOW_SIZE&amp;gt; [advance &amp;lt;ADVANCE_WINDOW_SIZE&amp;gt;]
+[window] &amp;lt;TIME_FIELD&amp;gt; by &amp;lt;WINDOW_SIZE&amp;gt; [advance &amp;lt;ADVANCE_SIZE&amp;gt;] [offset &amp;lt;OFFSET&amp;gt;]
 [filter] &amp;lt;FIELD&amp;gt; &amp;lt;CONDITION&amp;gt; &amp;lt;VALUE&amp;gt; [and|or|not]
 [and|or|not]
 [eval...] &amp;lt;FIELD&amp;gt; = &amp;lt;EXPRESSION&amp;gt;
-[having] &amp;lt;FIELD&amp;gt; &amp;lt;CONDITION&amp;gt; &amp;lt;VALUE&amp;gt; [and|or|not]
+[having] &amp;lt;FIELD|EXPRESSION&amp;gt; &amp;lt;CONDITION&amp;gt; &amp;lt;VALUE|EXPRESSION&amp;gt; [and|or|not]
 [group by] &amp;lt;FIELD&amp;gt;
 [sort by] &amp;lt;FIELD&amp;gt; [desc|asc] // asc by default
 [limit] &amp;lt;MAX_ROWS&amp;gt; 
@@ -3409,15 +3451,153 @@ select name, team
 They can only be used at the top level of &lt;code&gt;where&lt;/code&gt;, joined to its other conditions by &lt;code&gt;and&lt;/code&gt;.
 See &lt;a href=&#34;../../docs/user-guide/search/queries/joins/#exists-and-in&#34;&gt;Exists and In&lt;/a&gt;.&lt;/p&gt;
 &lt;h3 id=&#34;window&#34;&gt;Window&lt;/h3&gt;
-&lt;pre&gt;&lt;code class=&#34;language-stroomql&#34;&gt;window &amp;lt;TIME_FIELD&amp;gt; by &amp;lt;WINDOW_SIZE&amp;gt; [advance &amp;lt;ADVANCE_WINDOW_SIZE&amp;gt;]
+&lt;pre&gt;&lt;code class=&#34;language-stroomql&#34;&gt;window &amp;lt;TIME_FIELD&amp;gt; by &amp;lt;WINDOW_SIZE&amp;gt; [advance &amp;lt;ADVANCE_SIZE&amp;gt;] [offset &amp;lt;OFFSET&amp;gt;]
 &lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;Windowing groups data by a specified window size applied to a time field.
-A window inserts additional rows for future periods so that rows for future periods contain count columns for previous periods.&lt;/p&gt;
-&lt;p&gt;Specify the field to window by and a duration.
-Durations are specified in simple terms e.g. &lt;code&gt;1d&lt;/code&gt;, &lt;code&gt;2w&lt;/code&gt; etc.&lt;/p&gt;
-&lt;p&gt;By default, a window will insert a count into the next period row.
-This is because by default we advance by the specified window size.
-If you wish to advance by a different duration you can specify the advance amount which will insert counts into multiple future rows.&lt;/p&gt;
+&lt;p&gt;Use &lt;code&gt;window&lt;/code&gt; to put rows into windows of time and to group them by the window they are in, e.g.&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-stroomql&#34;&gt;from &amp;quot;File events&amp;quot;
+window EventTime by 1d
+group by UserId
+select windowStart() as Day, UserId, count() as Events
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;This gives a row for each user for each day.
+Rows are grouped by their window as well as by the &lt;code&gt;group by&lt;/code&gt; columns.
+No columns are added to the table, so select &lt;a href=&#34;../../docs/reference-section/expressions/date/#window-start&#34;&gt;&lt;code&gt;windowStart()&lt;/code&gt;&lt;/a&gt; or &lt;a href=&#34;../../docs/reference-section/expressions/date/#window-end&#34;&gt;&lt;code&gt;windowEnd()&lt;/code&gt;&lt;/a&gt; to show the times of a row&amp;rsquo;s window.&lt;/p&gt;
+&lt;p&gt;A window includes its start and not its end, so an event at midnight is in the day that starts then.
+The time field must hold a date and time.
+A field that the data source lists as some other type is refused.
+Rows with no time in the field are left out, and the search gives a warning that says how many.&lt;/p&gt;
+&lt;h4 id=&#34;window-sizes&#34;&gt;Window Sizes&lt;/h4&gt;
+&lt;p&gt;A size is a number and a unit, e.g. &lt;code&gt;10m&lt;/code&gt; or &lt;code&gt;1d&lt;/code&gt;.&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;Unit&lt;/th&gt;
+&lt;th&gt;Meaning&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;ms&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;Milliseconds&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;s&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;Seconds&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;m&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;Minutes&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;h&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;Hours&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;d&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;Days&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;w&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;Weeks&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;M&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;Months&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;y&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;Years&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;Sizes in hours or less are fixed lengths of time, counted from midnight, so windows of &lt;code&gt;1h&lt;/code&gt; start on the hour and &lt;code&gt;24h&lt;/code&gt; is always 24 hours.&lt;/p&gt;
+&lt;p&gt;Sizes in days, weeks, months and years follow the calendar in the time zone of the query.
+A window of &lt;code&gt;1d&lt;/code&gt; is 23 or 25 hours long when the clocks change, weeks start on Monday and months on the 1st.
+An analytic rule that has no time zone uses UTC.&lt;/p&gt;
+
+
+
+&lt;div class=&#34;alert alert-primary&#34; role=&#34;alert&#34;&gt;
+  &lt;h4 class=&#34;alert-heading&#34;&gt;Note&lt;/h4&gt;
+  &lt;div class=&#34;alert-content&#34;&gt;
+
+
+
+
+&lt;code&gt;7d&lt;/code&gt; is not the same as &lt;code&gt;1w&lt;/code&gt;.
+&lt;code&gt;1w&lt;/code&gt; is the calendar week from Monday, whereas &lt;code&gt;7d&lt;/code&gt; is every seven days counted from 1 January 1970, which starts on Thursdays.
+
+
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;h4 id=&#34;overlapping-windows&#34;&gt;Overlapping Windows&lt;/h4&gt;
+&lt;p&gt;Add &lt;code&gt;advance&lt;/code&gt; to make windows that overlap, e.g.&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-stroomql&#34;&gt;window EventTime by 1h advance 10m
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;A window of an hour then starts every 10 minutes, and each event is counted in every window that covers it, which is six windows here.
+Without &lt;code&gt;advance&lt;/code&gt;, each window starts where the one before it ends.&lt;/p&gt;
+&lt;p&gt;The size must be a whole number of advances.
+The advance can be in a smaller unit than the size where the units divide exactly, so a year can advance by months, a week by days or less and a day by hours or less.
+Months and years can&amp;rsquo;t advance by weeks, days or less.&lt;/p&gt;
+&lt;h4 id=&#34;offset&#34;&gt;Offset&lt;/h4&gt;
+&lt;p&gt;Add &lt;code&gt;offset&lt;/code&gt; to move where windows start, e.g.&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-stroomql&#34;&gt;window EventTime by 1d offset 6h
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Each day then runs from 06:00 to 06:00.
+Use a minus sign to move the start earlier, e.g. &lt;code&gt;offset -2h&lt;/code&gt;.
+&lt;code&gt;advance&lt;/code&gt; and &lt;code&gt;offset&lt;/code&gt; can be given in either order.&lt;/p&gt;
+&lt;h4 id=&#34;comparing-windows&#34;&gt;Comparing Windows&lt;/h4&gt;
+&lt;p&gt;Use &lt;a href=&#34;../../docs/reference-section/expressions/aggregate/#lag&#34;&gt;&lt;code&gt;lag()&lt;/code&gt;&lt;/a&gt; and &lt;a href=&#34;../../docs/reference-section/expressions/aggregate/#lead&#34;&gt;&lt;code&gt;lead()&lt;/code&gt;&lt;/a&gt; to compare a window with an earlier or later one, e.g.&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-stroomql&#34;&gt;from &amp;quot;File events&amp;quot;
+window EventTime by 1d
+eval Change = count() - lag(count(), 1)
+group by UserId
+select windowStart() as Day, UserId, count() as Events, Change
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;code&gt;lag(count(), 1)&lt;/code&gt; is the count of the window one size before, for the same user, and &lt;code&gt;lead(count(), 1)&lt;/code&gt; is the count of the window one size after.
+The other window is a number of sizes away, whatever the advance, so with &lt;code&gt;by 1h advance 10m&lt;/code&gt; it is the window that starts an hour before.&lt;/p&gt;
+&lt;p&gt;What &lt;code&gt;lag()&lt;/code&gt; and &lt;code&gt;lead()&lt;/code&gt; give depends on the other window:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;A window that has events gives the value of the aggregate for it.&lt;/li&gt;
+&lt;li&gt;A window with no events for the group gives the empty value of the aggregate, which is &lt;code&gt;0&lt;/code&gt; for &lt;code&gt;count()&lt;/code&gt;.&lt;/li&gt;
+&lt;li&gt;A window before the first window that has events, or after the last, gives no value.
+The first and last windows are those of all the events of the search, not of the group.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Give a third value to use where there is no value, e.g. &lt;code&gt;lag(count(), 1, 0)&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;A user with no events in a window still gets a row for that window if a window either side of it reads it, and the window is not before the first or after the last that has events.
+In the example above, a user with events on Monday and none on Tuesday gets a row for Tuesday with &lt;code&gt;Events&lt;/code&gt; of &lt;code&gt;0&lt;/code&gt; and &lt;code&gt;Change&lt;/code&gt; of minus Monday&amp;rsquo;s count, as long as another user has events on Tuesday or later.&lt;/p&gt;
+&lt;p&gt;To keep only the windows that have changed, compare them in &lt;a href=&#34;#having&#34;&gt;&lt;code&gt;having&lt;/code&gt;&lt;/a&gt;, e.g.&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-stroomql&#34;&gt;from &amp;quot;File events&amp;quot;
+window EventTime by 1d
+group by UserId
+having count() &amp;gt; lag(count(), 1) * 2
+select windowStart() as Day, UserId, count() as Events
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h4 id=&#34;window-limits&#34;&gt;Window Limits&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;An event is added to the results once for each window it is in, and once more for each of those for each different distance used by &lt;code&gt;lag()&lt;/code&gt; and &lt;code&gt;lead()&lt;/code&gt;.
+A query that would add an event more than 100 times is refused.
+Administrators set this limit with the &lt;code&gt;search.resultStore.maxWindowCopiesPerEvent&lt;/code&gt; property.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;window&lt;/code&gt; can be used in a bracketed query and with a join, but not with a &lt;a href=&#34;../../docs/user-guide/search/queries/joins/#joining-events-within-a-time-window&#34;&gt;join within a time window&lt;/a&gt;.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;lag()&lt;/code&gt; and &lt;code&gt;lead()&lt;/code&gt; can only be used in a query that has a &lt;code&gt;window&lt;/code&gt; clause.&lt;/li&gt;
+&lt;/ul&gt;
+
+
+
+&lt;div class=&#34;alert alert-primary&#34; role=&#34;alert&#34;&gt;
+  &lt;h4 class=&#34;alert-heading&#34;&gt;See Also&lt;/h4&gt;
+  &lt;div class=&#34;alert-content&#34;&gt;
+
+
+
+
+&lt;a href=&#34;../../docs/user-guide/search/analytics/query/#time-windows&#34;&gt;Time Windows in Analytic Rules&lt;/a&gt;
+
+
+  &lt;/div&gt;
+&lt;/div&gt;
+
 &lt;h3 id=&#34;filter&#34;&gt;Filter&lt;/h3&gt;
 &lt;p&gt;Use &lt;code&gt;filter&lt;/code&gt; to test values that &lt;code&gt;where&lt;/code&gt; can&amp;rsquo;t, such as a field that has not been indexed or the result of an &lt;code&gt;eval&lt;/code&gt;.
 It is written the same way as the &lt;code&gt;where&lt;/code&gt; clause, but is tested on each row after its values have been retrieved, rather than being part of the search, e.g.&lt;/p&gt;
@@ -3484,9 +3664,20 @@ Note that when reusing a variable name, the assignment can depend on the previou
 &lt;pre&gt;&lt;code class=&#34;language-stroomql&#34;&gt;where user = &amp;quot;bob&amp;quot; and (feed = &amp;quot;my feed&amp;quot; or feed = &amp;quot;other feed&amp;quot;)
 &lt;/code&gt;&lt;/pre&gt;
 &lt;h3 id=&#34;having&#34;&gt;Having&lt;/h3&gt;
-&lt;p&gt;A post aggregate filter that is applied at query time to return only rows that match the &lt;code&gt;having&lt;/code&gt; conditions.&lt;/p&gt;
+&lt;p&gt;A post aggregate filter that is applied at query time to return only rows that match the &lt;code&gt;having&lt;/code&gt; conditions.
+A condition can test a column by its name, e.g.&lt;/p&gt;
 &lt;pre&gt;&lt;code class=&#34;language-stroomql&#34;&gt;having count &amp;gt; 3
 &lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;A condition can also test an expression, so the value does not have to be a column, e.g.&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-stroomql&#34;&gt;having count() &amp;gt; 3 and max(Bytes) &amp;lt; 1000
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Two expressions can be compared with &lt;code&gt;=&lt;/code&gt;, &lt;code&gt;!=&lt;/code&gt;, &lt;code&gt;&amp;gt;&lt;/code&gt;, &lt;code&gt;&amp;gt;=&lt;/code&gt;, &lt;code&gt;&amp;lt;&lt;/code&gt; or &lt;code&gt;&amp;lt;=&lt;/code&gt;, e.g.&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-stroomql&#34;&gt;having count() &amp;gt; lag(count(), 1) * 2
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;A single name on the right of a comparison is a column if an &lt;code&gt;eval&lt;/code&gt; or &lt;code&gt;select&lt;/code&gt; gives one of that name, and text if not.&lt;/p&gt;
+&lt;p&gt;A row is kept only if the comparison is true, so a row with nothing to compare with is left out.
+With &lt;a href=&#34;#window&#34;&gt;&lt;code&gt;window&lt;/code&gt;&lt;/a&gt;, this means the first window that has events is left out of a comparison with &lt;code&gt;lag()&lt;/code&gt;.
+To keep it, give &lt;code&gt;lag()&lt;/code&gt; a value to use, e.g. &lt;code&gt;lag(count(), 1, 0)&lt;/code&gt;.&lt;/p&gt;
 &lt;h3 id=&#34;group-by&#34;&gt;Group By&lt;/h3&gt;
 &lt;p&gt;Use to group by columns, e.g.&lt;/p&gt;
 &lt;pre&gt;&lt;code class=&#34;language-stroomql&#34;&gt;group by feed

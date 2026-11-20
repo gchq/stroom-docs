@@ -153,7 +153,7 @@
     aria-label="Search this site…"
     autocomplete="off"
     
-    data-offline-search-index-json-src="../../offline-search-index.8a1762ce1b88fe4231b361ea21be10e1.json"
+    data-offline-search-index-json-src="../../offline-search-index.bebe3ed8f264bf5c14a7b705e667cd66.json"
     data-offline-search-base-href="../../"
     data-offline-search-max-results="50"
   >
@@ -4129,8 +4129,8 @@ This is the multi-page printable view of this section.
 <div class="content">
       <blockquote>
 <p>Applicable Stroom version: &ldquo;<strong>7.14</strong>&rdquo;<br>
-Documentation generated on: <strong>20 Nov 2026, 10:20 UTC</strong><br>
-Documentation release version: <strong>stroom-docs-v4252</strong></p>
+Documentation generated on: <strong>20 Nov 2026, 23:38 UTC</strong><br>
+Documentation release version: <strong>stroom-docs-v4259</strong></p>
 <p>To see the documentation for other versions of Stroom click the version drop-down at the top of the screen.</p>
 </blockquote>
 
@@ -82186,11 +82186,11 @@ It is currently used on the <em>Query</em> entity as the means of defining a que
 [join] &lt;DATA_SOURCE&gt; [as &lt;ALIAS&gt;] on &lt;FIELD&gt; = &lt;ALIAS&gt;.&lt;FIELD&gt; [and ...]
 where &lt;FIELD&gt; &lt;CONDITION&gt; &lt;VALUE&gt; [and|or|not]
 [and|or|not]
-[window] &lt;TIME_FIELD&gt; by &lt;WINDOW_SIZE&gt; [advance &lt;ADVANCE_WINDOW_SIZE&gt;]
+[window] &lt;TIME_FIELD&gt; by &lt;WINDOW_SIZE&gt; [advance &lt;ADVANCE_SIZE&gt;] [offset &lt;OFFSET&gt;]
 [filter] &lt;FIELD&gt; &lt;CONDITION&gt; &lt;VALUE&gt; [and|or|not]
 [and|or|not]
 [eval...] &lt;FIELD&gt; = &lt;EXPRESSION&gt;
-[having] &lt;FIELD&gt; &lt;CONDITION&gt; &lt;VALUE&gt; [and|or|not]
+[having] &lt;FIELD|EXPRESSION&gt; &lt;CONDITION&gt; &lt;VALUE|EXPRESSION&gt; [and|or|not]
 [group by] &lt;FIELD&gt;
 [sort by] &lt;FIELD&gt; [desc|asc] // asc by default
 [limit] &lt;MAX_ROWS&gt; 
@@ -82457,15 +82457,153 @@ select name, team
 They can only be used at the top level of <code>where</code>, joined to its other conditions by <code>and</code>.
 See <a href="../../docs/user-guide/search/queries/joins/#exists-and-in">Exists and In</a>.</p>
 <h3 id="window">Window</h3>
-<pre><code class="language-stroomql">window &lt;TIME_FIELD&gt; by &lt;WINDOW_SIZE&gt; [advance &lt;ADVANCE_WINDOW_SIZE&gt;]
+<pre><code class="language-stroomql">window &lt;TIME_FIELD&gt; by &lt;WINDOW_SIZE&gt; [advance &lt;ADVANCE_SIZE&gt;] [offset &lt;OFFSET&gt;]
 </code></pre>
-<p>Windowing groups data by a specified window size applied to a time field.
-A window inserts additional rows for future periods so that rows for future periods contain count columns for previous periods.</p>
-<p>Specify the field to window by and a duration.
-Durations are specified in simple terms e.g. <code>1d</code>, <code>2w</code> etc.</p>
-<p>By default, a window will insert a count into the next period row.
-This is because by default we advance by the specified window size.
-If you wish to advance by a different duration you can specify the advance amount which will insert counts into multiple future rows.</p>
+<p>Use <code>window</code> to put rows into windows of time and to group them by the window they are in, e.g.</p>
+<pre><code class="language-stroomql">from &quot;File events&quot;
+window EventTime by 1d
+group by UserId
+select windowStart() as Day, UserId, count() as Events
+</code></pre>
+<p>This gives a row for each user for each day.
+Rows are grouped by their window as well as by the <code>group by</code> columns.
+No columns are added to the table, so select <a href="../../docs/reference-section/expressions/date/#window-start"><code>windowStart()</code></a> or <a href="../../docs/reference-section/expressions/date/#window-end"><code>windowEnd()</code></a> to show the times of a row&rsquo;s window.</p>
+<p>A window includes its start and not its end, so an event at midnight is in the day that starts then.
+The time field must hold a date and time.
+A field that the data source lists as some other type is refused.
+Rows with no time in the field are left out, and the search gives a warning that says how many.</p>
+<h4 id="window-sizes">Window Sizes</h4>
+<p>A size is a number and a unit, e.g. <code>10m</code> or <code>1d</code>.</p>
+<table>
+<thead>
+<tr>
+<th>Unit</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>ms</code></td>
+<td>Milliseconds</td>
+</tr>
+<tr>
+<td><code>s</code></td>
+<td>Seconds</td>
+</tr>
+<tr>
+<td><code>m</code></td>
+<td>Minutes</td>
+</tr>
+<tr>
+<td><code>h</code></td>
+<td>Hours</td>
+</tr>
+<tr>
+<td><code>d</code></td>
+<td>Days</td>
+</tr>
+<tr>
+<td><code>w</code></td>
+<td>Weeks</td>
+</tr>
+<tr>
+<td><code>M</code></td>
+<td>Months</td>
+</tr>
+<tr>
+<td><code>y</code></td>
+<td>Years</td>
+</tr>
+</tbody>
+</table>
+<p>Sizes in hours or less are fixed lengths of time, counted from midnight, so windows of <code>1h</code> start on the hour and <code>24h</code> is always 24 hours.</p>
+<p>Sizes in days, weeks, months and years follow the calendar in the time zone of the query.
+A window of <code>1d</code> is 23 or 25 hours long when the clocks change, weeks start on Monday and months on the 1st.
+An analytic rule that has no time zone uses UTC.</p>
+
+
+
+<div class="alert alert-primary" role="alert">
+  <h4 class="alert-heading">Note</h4>
+  <div class="alert-content">
+
+
+
+
+<code>7d</code> is not the same as <code>1w</code>.
+<code>1w</code> is the calendar week from Monday, whereas <code>7d</code> is every seven days counted from 1 January 1970, which starts on Thursdays.
+
+
+  </div>
+</div>
+
+<h4 id="overlapping-windows">Overlapping Windows</h4>
+<p>Add <code>advance</code> to make windows that overlap, e.g.</p>
+<pre><code class="language-stroomql">window EventTime by 1h advance 10m
+</code></pre>
+<p>A window of an hour then starts every 10 minutes, and each event is counted in every window that covers it, which is six windows here.
+Without <code>advance</code>, each window starts where the one before it ends.</p>
+<p>The size must be a whole number of advances.
+The advance can be in a smaller unit than the size where the units divide exactly, so a year can advance by months, a week by days or less and a day by hours or less.
+Months and years can&rsquo;t advance by weeks, days or less.</p>
+<h4 id="offset">Offset</h4>
+<p>Add <code>offset</code> to move where windows start, e.g.</p>
+<pre><code class="language-stroomql">window EventTime by 1d offset 6h
+</code></pre>
+<p>Each day then runs from 06:00 to 06:00.
+Use a minus sign to move the start earlier, e.g. <code>offset -2h</code>.
+<code>advance</code> and <code>offset</code> can be given in either order.</p>
+<h4 id="comparing-windows">Comparing Windows</h4>
+<p>Use <a href="../../docs/reference-section/expressions/aggregate/#lag"><code>lag()</code></a> and <a href="../../docs/reference-section/expressions/aggregate/#lead"><code>lead()</code></a> to compare a window with an earlier or later one, e.g.</p>
+<pre><code class="language-stroomql">from &quot;File events&quot;
+window EventTime by 1d
+eval Change = count() - lag(count(), 1)
+group by UserId
+select windowStart() as Day, UserId, count() as Events, Change
+</code></pre>
+<p><code>lag(count(), 1)</code> is the count of the window one size before, for the same user, and <code>lead(count(), 1)</code> is the count of the window one size after.
+The other window is a number of sizes away, whatever the advance, so with <code>by 1h advance 10m</code> it is the window that starts an hour before.</p>
+<p>What <code>lag()</code> and <code>lead()</code> give depends on the other window:</p>
+<ul>
+<li>A window that has events gives the value of the aggregate for it.</li>
+<li>A window with no events for the group gives the empty value of the aggregate, which is <code>0</code> for <code>count()</code>.</li>
+<li>A window before the first window that has events, or after the last, gives no value.
+The first and last windows are those of all the events of the search, not of the group.</li>
+</ul>
+<p>Give a third value to use where there is no value, e.g. <code>lag(count(), 1, 0)</code>.</p>
+<p>A user with no events in a window still gets a row for that window if a window either side of it reads it, and the window is not before the first or after the last that has events.
+In the example above, a user with events on Monday and none on Tuesday gets a row for Tuesday with <code>Events</code> of <code>0</code> and <code>Change</code> of minus Monday&rsquo;s count, as long as another user has events on Tuesday or later.</p>
+<p>To keep only the windows that have changed, compare them in <a href="#having"><code>having</code></a>, e.g.</p>
+<pre><code class="language-stroomql">from &quot;File events&quot;
+window EventTime by 1d
+group by UserId
+having count() &gt; lag(count(), 1) * 2
+select windowStart() as Day, UserId, count() as Events
+</code></pre>
+<h4 id="window-limits">Window Limits</h4>
+<ul>
+<li>An event is added to the results once for each window it is in, and once more for each of those for each different distance used by <code>lag()</code> and <code>lead()</code>.
+A query that would add an event more than 100 times is refused.
+Administrators set this limit with the <code>search.resultStore.maxWindowCopiesPerEvent</code> property.</li>
+<li><code>window</code> can be used in a bracketed query and with a join, but not with a <a href="../../docs/user-guide/search/queries/joins/#joining-events-within-a-time-window">join within a time window</a>.</li>
+<li><code>lag()</code> and <code>lead()</code> can only be used in a query that has a <code>window</code> clause.</li>
+</ul>
+
+
+
+<div class="alert alert-primary" role="alert">
+  <h4 class="alert-heading">See Also</h4>
+  <div class="alert-content">
+
+
+
+
+<a href="../../docs/user-guide/search/analytics/query/#time-windows">Time Windows in Analytic Rules</a>
+
+
+  </div>
+</div>
+
 <h3 id="filter">Filter</h3>
 <p>Use <code>filter</code> to test values that <code>where</code> can&rsquo;t, such as a field that has not been indexed or the result of an <code>eval</code>.
 It is written the same way as the <code>where</code> clause, but is tested on each row after its values have been retrieved, rather than being part of the search, e.g.</p>
@@ -82532,9 +82670,20 @@ Note that when reusing a variable name, the assignment can depend on the previou
 <pre><code class="language-stroomql">where user = &quot;bob&quot; and (feed = &quot;my feed&quot; or feed = &quot;other feed&quot;)
 </code></pre>
 <h3 id="having">Having</h3>
-<p>A post aggregate filter that is applied at query time to return only rows that match the <code>having</code> conditions.</p>
+<p>A post aggregate filter that is applied at query time to return only rows that match the <code>having</code> conditions.
+A condition can test a column by its name, e.g.</p>
 <pre><code class="language-stroomql">having count &gt; 3
 </code></pre>
+<p>A condition can also test an expression, so the value does not have to be a column, e.g.</p>
+<pre><code class="language-stroomql">having count() &gt; 3 and max(Bytes) &lt; 1000
+</code></pre>
+<p>Two expressions can be compared with <code>=</code>, <code>!=</code>, <code>&gt;</code>, <code>&gt;=</code>, <code>&lt;</code> or <code>&lt;=</code>, e.g.</p>
+<pre><code class="language-stroomql">having count() &gt; lag(count(), 1) * 2
+</code></pre>
+<p>A single name on the right of a comparison is a column if an <code>eval</code> or <code>select</code> gives one of that name, and text if not.</p>
+<p>A row is kept only if the comparison is true, so a row with nothing to compare with is left out.
+With <a href="#window"><code>window</code></a>, this means the first window that has events is left out of a comparison with <code>lag()</code>.
+To keep it, give <code>lag()</code> a value to use, e.g. <code>lag(count(), 1, 0)</code>.</p>
 <h3 id="group-by">Group By</h3>
 <p>Use to group by columns, e.g.</p>
 <pre><code class="language-stroomql">group by feed
@@ -84298,8 +84447,51 @@ Both times are recorded on every detection, as <code>effectiveExecutionTime</cod
   </div>
 </div>
 
+<h2 id="time-windows">Time Windows</h2>
+<p>A query with a <a href="../../docs/user-guide/search/queries/stroom-query-language/#window"><code>window</code></a> clause gives a row for each window of time, such as a count for each user for each day.
+A rule judges a window only when it has all of the window&rsquo;s events, so that a window is judged once and is not judged on part of its events.</p>
+<p>A <em>Scheduled Query</em> rule leaves out any window that the time range of its query cuts short.
+Where the query gives no end to its time range, the range ends at the effective execution time.
+A row that uses <code>lag()</code> or <code>lead()</code> is also left out if the window it reads is cut short or is outside the time range.</p>
+<p>Give the rule a time range of whole windows.
+For windows of a day, a range from <code>day() - 7d</code> to <code>day()</code> gives seven whole days, whereas a range from <code>now() - 7d</code> to <code>now()</code> cuts short the first and last days and leaves six.
+A rule that compares each day with the day before, with <code>lag(count(), 1)</code>, judges all but the first of those days, so its time range has to start a window earlier than the first window to be judged.</p>
+
+
+
+<div class="alert alert-primary" role="alert">
+  <h4 class="alert-heading">Note</h4>
+  <div class="alert-content">
+
+
+
+
+Windows are only tested against the time range when the field of the <code>window</code> clause is the field that the time range of the data source applies to.
+With any other field, only windows that end after the effective execution time are left out.
+
+
+  </div>
+</div>
+
+
+
+
+<div class="alert alert-primary" role="alert">
+  <h4 class="alert-heading">See Also</h4>
+  <div class="alert-content">
+
+
+
+
+<a href="../../docs/user-guide/search/queries/stroom-query-language/#window">Window</a>
+
+
+  </div>
+</div>
+
 <h2 id="columns">Columns</h2>
-<p>The columns your query selects become the content of each detection.</p>
+<p>The columns your query selects become the content of each detection.
+Columns that Stroom adds for its own use, such as the ones behind a <code>having</code> expression or a <code>window</code>, are not added.</p>
 <p>Every column is added to the detection as a name/value pair, using the column&rsquo;s name as the key, and is available to email templates through the <code>values</code> dictionary.
 Two column names are treated specially.</p>
 <table>
@@ -85765,6 +85957,10 @@ The table is held in shards on the processing node, separately from the rest of 
 </tr>
 </tbody>
 </table>
+<h2 id="time-windows">Time Windows</h2>
+<p>A rule whose query has a <code>window</code> clause judges a window once it is closed, which is when the rule has read an event later than the end of the window, less the <em>Aggregation Period</em>.
+The last window is therefore not judged until a later event arrives.
+A window&rsquo;s data is kept in the table until the window has been judged, even if that is longer than <em>Time To Keep Data In The Table</em>.</p>
 
 </div>
 
@@ -97081,9 +97277,10 @@ as the arguments for other functions.</p>
 <li><a href="aggregate#count-unique">Count Unique</a></li>
 <li><a href="aggregate#distinct">Distinct</a></li>
 <li><a href="aggregate#joining">Joining</a></li>
+<li><a href="aggregate#lag">Lag</a></li>
+<li><a href="aggregate#lead">Lead</a></li>
 <li><a href="aggregate#max">Max</a></li>
 <li><a href="aggregate#min">Min</a></li>
-<li><a href="aggregate#period">Period</a></li>
 <li><a href="aggregate#stdev-standard-deviation">Standard Deviation</a></li>
 <li><a href="aggregate#sum">Sum</a></li>
 <li><a href="aggregate#variance">Variance</a></li>
@@ -97302,6 +97499,8 @@ as the arguments for other functions.</p>
 <li><a href="date#is-weekend">Is Weekend</a></li>
 <li><a href="date#now">Now</a></li>
 <li><a href="date#current-period-functions">Current Period Functions</a></li>
+<li><a href="date#window-start">Window Start</a></li>
+<li><a href="date#window-end">Window End</a></li>
 <li><a href="date#parse-duration">Parse Duration</a></li>
 <li><a href="date#format-duration">Format Duration</a></li>
 <li><a href="date#parse-iso-duration">Parse ISO Duration</a></li>
@@ -97848,6 +98047,51 @@ ${val} = ['bill', 'bob', 'fred', 'bill']
   </div>
 </div>
 
+<h2 id="lag">Lag</h2>
+<p>Gives the value that an aggregate has in an earlier time window of the same group, for a StroomQL query with a <a href="../../docs/user-guide/search/queries/stroom-query-language/#window"><code>window</code></a> clause.</p>
+<pre><code class="language-clike">lag(aggregate, windows)
+lag(aggregate, windows, default)
+</code></pre>
+<ul>
+<li><code>aggregate</code> - An aggregate, such as <code>count()</code> or <code>sum(${Bytes})</code>, or the name of an <code>eval</code> or column that is one.</li>
+<li><code>windows</code> - How many windows earlier, as a whole number from 1.</li>
+<li><code>default</code> - The value to give when the earlier window has no value.
+It can&rsquo;t start with <code>window:</code>.</li>
+</ul>
+<p>The earlier window is a number of window sizes before the row&rsquo;s own, whatever the advance.
+An earlier window with no events for the group gives the empty value of the aggregate, which is <code>0</code> for <code>count()</code>.
+An earlier window that is before the first window of the search that has events gives no value, or <code>default</code> if it is given.</p>
+<p>Examples</p>
+<pre><code class="language-clike"># With 'window EventTime by 1d', and 4 events on Monday and 10 on Tuesday
+# For the row of Tuesday
+lag(count(), 1)
+&gt; 4
+count() - lag(count(), 1)
+&gt; 6
+# For the row of Monday, the first day that has events
+lag(count(), 1)
+&gt; null
+lag(count(), 1, 0)
+&gt; 0
+</code></pre>
+<h2 id="lead">Lead</h2>
+<p>Gives the value that an aggregate has in a later time window of the same group, for a StroomQL query with a <a href="../../docs/user-guide/search/queries/stroom-query-language/#window"><code>window</code></a> clause.</p>
+<pre><code class="language-clike">lead(aggregate, windows)
+lead(aggregate, windows, default)
+</code></pre>
+<ul>
+<li><code>aggregate</code> - An aggregate, such as <code>count()</code> or <code>sum(${Bytes})</code>, or the name of an <code>eval</code> or column that is one.</li>
+<li><code>windows</code> - How many windows later, as a whole number from 1.</li>
+<li><code>default</code> - The value to give when the later window has no value.
+It can&rsquo;t start with <code>window:</code>.</li>
+</ul>
+<p>This works as <a href="#lag"><code>lag()</code></a> does, but reads the window a number of window sizes after the row&rsquo;s own.</p>
+<p>Example</p>
+<pre><code class="language-clike"># With 'window EventTime by 1d', and 4 events on Monday and 10 on Tuesday
+# For the row of Monday
+lead(count(), 1)
+&gt; 10
+</code></pre>
 <h2 id="max">Max</h2>
 <p>Determines the maximum value given in the args.</p>
 <pre><code class="language-clike">max(arg)
@@ -97876,18 +98120,6 @@ min(max(${val}), 40, 67, 89)
 ${val} = [20, 1002]
 &gt; 20
 </code></pre>
-<h2 id="period">Period</h2>
-<p>This provides a way of selectively applying a function to the values for one period of a window, when using the window feature.</p>
-<pre><code class="language-clike">period(period)
-period(period, function)
-</code></pre>
-<ul>
-<li><code>period</code> - The window period to apply the function to, as a whole number.</li>
-<li><code>function</code> - The function to apply to the values for the selected period.
-If this is omitted then <code>count()</code> is used.</li>
-</ul>
-<p>Returns the value computed by the nested function for the specified period.
-Values belonging to any other period of the window are ignored.</p>
 <h2 id="stdev-standard-deviation">StDev (Standard Deviation)</h2>
 <p>Calculate the standard deviation for a set of input values.</p>
 <pre><code class="language-clike">stDev(arg)
@@ -98147,6 +98379,28 @@ second()
 A week starts on a Monday.</p>
 <p>Like <code>now()</code>, these are all based on the time the query was run, so they are consistent with each other within a single query.</p>
 <p>These are useful for building relative time ranges without having to write out a date, e.g. comparing a field against <code>day()</code> to select today&rsquo;s records.</p>
+<h2 id="window-start">Window Start</h2>
+<p>Returns the time that the row&rsquo;s time window starts, for a StroomQL query with a <a href="../../docs/user-guide/search/queries/stroom-query-language/#window"><code>window</code></a> clause.
+It takes no arguments.</p>
+<pre><code class="language-clike">windowStart()
+</code></pre>
+<p>The start is part of the window.</p>
+<p>Example</p>
+<pre><code class="language-clike"># With 'window EventTime by 1d', for a row of events on 22 February 2014
+windowStart()
+&gt; &quot;2014-02-22T00:00:00.000Z&quot;
+</code></pre>
+<h2 id="window-end">Window End</h2>
+<p>Returns the time that the row&rsquo;s time window ends, for a StroomQL query with a <a href="../../docs/user-guide/search/queries/stroom-query-language/#window"><code>window</code></a> clause.
+It takes no arguments.</p>
+<pre><code class="language-clike">windowEnd()
+</code></pre>
+<p>The end is not part of the window, so it is the same time as the start of the window that follows.</p>
+<p>Example</p>
+<pre><code class="language-clike"># With 'window EventTime by 1d', for a row of events on 22 February 2014
+windowEnd()
+&gt; &quot;2014-02-23T00:00:00.000Z&quot;
+</code></pre>
 <h2 id="parse-duration">Parse Duration</h2>
 <p>Parses the supplied value as a duration, returning a duration value.</p>
 <pre><code class="language-clike">parseDuration(value)
@@ -99601,7 +99855,7 @@ Field names are case-sensitive.</p>
   from &lt;source&gt; [as &lt;alias&gt;] [sql &lt;native query&gt;]
   { &lt;join line&gt; }
   [where &lt;condition&gt;]
-  { eval &lt;name&gt; = &lt;expression&gt; | window &lt;field&gt; by &lt;duration&gt; [advance &lt;duration&gt;] }
+  { eval &lt;name&gt; = &lt;expression&gt; | &lt;window&gt; }
   [filter &lt;condition&gt;]
   { group by &lt;columns&gt; | sort by &lt;sort columns&gt; }
   [having &lt;condition&gt;]
@@ -99611,7 +99865,8 @@ Field names are case-sensitive.</p>
 </code></pre>
 <p>The clauses must come in the order shown, with these exceptions:</p>
 <ul>
-<li><code>eval</code> and <code>window</code> may come in any order, and <code>eval</code> may be repeated.</li>
+<li><code>eval</code> and <code>window</code> may come in any order, and <code>eval</code> may be repeated.
+A query can have only one <code>window</code>, see <a href="#window">Window</a>.</li>
 <li><code>group by</code> and <code>sort by</code> may come in any order, and <code>group by</code> may be repeated to make nested groups.</li>
 <li><code>limit</code> comes before <code>select</code>.</li>
 </ul>
@@ -99651,7 +99906,7 @@ A bracketed query has its <code>sql</code> clause inside its brackets, straight 
 <p>A data source that needs a <code>sql</code> clause refuses a query without one, and one that doesn&rsquo;t take one refuses a query with one.</p>
 <h2 id="join-lines">Join Lines</h2>
 <pre><code class="language-text">&lt;join line&gt; := &lt;join kind&gt; &lt;source&gt; [as &lt;alias&gt;] [sql &lt;native query&gt;]
-               on &lt;key&gt; {and &lt;key&gt;} [&lt;window&gt;]
+               on &lt;key&gt; {and &lt;key&gt;} [&lt;join window&gt;]
 
 &lt;join kind&gt; := join | inner join
              | left join | left outer join
@@ -99662,7 +99917,7 @@ A bracketed query has its <code>sql</code> clause inside its brackets, straight 
 
 &lt;key&gt; := &lt;expression&gt; = &lt;expression&gt;
 
-&lt;window&gt; := within &lt;duration&gt; after &lt;time field&gt;
+&lt;join window&gt; := within &lt;duration&gt; after &lt;time field&gt;
           | within &lt;duration&gt; before &lt;time field&gt;
 </code></pre>
 <p>Each join line joins one more source, the joined source, to the rows of the query so far.
@@ -99986,7 +100241,7 @@ The rows appear once both have been searched.</p>
         | &lt;field&gt; not in ( &lt;in query&gt; )
 </code></pre>
 <p><code>filter</code> and <code>having</code> take the same conditions as <code>where</code>, apart from the <code>exists</code> and <code>in</code> forms.
-See <a href="#filter">Filter</a> for how <code>filter</code> differs from <code>where</code>.</p>
+See <a href="#filter">Filter</a> for how <code>filter</code> differs from <code>where</code>, and <a href="#having">Having</a> for what else <code>having</code> takes.</p>
 <p>A dictionary is named by its name or its <span class="glossary-link link-with-hover-tooltip">
     <a href="../../docs/glossary/u/glossary-uuid">
       <span>UUID</span>
@@ -100115,6 +100370,44 @@ select UserId, Domain
 To test the result of an aggregate function, such as <code>count()</code>, use <code>having</code>.</p>
 <p>With joins, an alias or a bracketed query in <code>from</code>, some or all of <code>where</code> is tested on the joined rows as <code>filter</code> is, see <a href="#where-with-joins">Where with Joins</a>.
 Those conditions still name fields, not columns.</p>
+<h2 id="window">Window</h2>
+<pre><code class="language-text">&lt;window&gt; := window &lt;time field&gt; by &lt;duration&gt; [advance &lt;duration&gt;] [offset [-]&lt;duration&gt;]
+</code></pre>
+<p><code>window</code> puts each row into windows of time by the value of its time field, and groups the rows by window as well as by the <code>group by</code> columns.
+The functions <code>windowStart()</code> and <code>windowEnd()</code> give the times of a row&rsquo;s window, and <code>lag()</code> and <code>lead()</code> give the value of an aggregate in an earlier or later window.</p>
+<ul>
+<li>A time field that the data source lists as other than a date is refused.
+A row with no time in the field is left out.</li>
+<li>The size, advance and offset can&rsquo;t be in <code>ns</code>.</li>
+<li>A window includes its start and not its end.</li>
+<li>Without <code>advance</code>, each window starts where the one before it ends.
+With <code>advance</code>, a window starts every advance, and a row is in every window that covers its time.</li>
+<li>The size must be a whole number of advances.
+A year can advance by months, a week by days or less and a day by hours or less, but months and years can&rsquo;t advance by weeks, days or less.</li>
+<li>Sizes in <code>h</code> or less are fixed lengths of time counted from midnight.
+Sizes in <code>d</code>, <code>w</code>, <code>M</code> and <code>y</code> follow the calendar in the time zone of the query, with weeks starting on Monday.</li>
+<li><code>offset</code> moves the start of every window later, or earlier with a minus sign.
+<code>advance</code> and <code>offset</code> can be given in either order.</li>
+<li>A query can have only one <code>window</code>, and it can&rsquo;t be used with the time window of a join.</li>
+<li><code>lag()</code> and <code>lead()</code> can&rsquo;t be used without a <code>window</code>.</li>
+</ul>
+<p>See <a href="../../docs/user-guide/search/queries/stroom-query-language/#window">Window</a> for examples.</p>
+<h2 id="having">Having</h2>
+<pre><code class="language-text">having &lt;having condition&gt;
+
+&lt;having condition&gt; := &lt;condition&gt;
+                    | &lt;expression&gt; &lt;comparison&gt; &lt;expression&gt;
+
+&lt;comparison&gt; := = | != | &gt; | &gt;= | &lt; | &lt;=
+</code></pre>
+<p><code>having</code> is tested on each row once its group has been worked out, so it can test the result of an aggregate function.
+As well as the conditions that <code>where</code> takes, either side of a comparison can be an <a href="#expressions">expression</a>, e.g. <code>having count() &gt; lag(count(), 1) * 2</code>.
+Conditions of both kinds can be joined with <code>and</code>, <code>or</code> and <code>not</code>.</p>
+<ul>
+<li>A single name on the right of a comparison is a column if an <code>eval</code> or <code>select</code> gives one of that name, and text if not.</li>
+<li>A row is kept only if the comparison is true, so a row where either side has no value is left out.</li>
+<li>An expression that starts with a bracket is allowed, e.g. <code>having (count() - lag(count(), 1)) &gt; 10</code>.</li>
+</ul>
 <h2 id="values">Values</h2>
 <pre><code class="language-text">&lt;value&gt; := &lt;number&gt;
          | &quot;&lt;text&gt;&quot; | '&lt;text&gt;' | &lt;text&gt;
@@ -100135,7 +100428,7 @@ In an <em>Embedded Query</em> panel on a dashboard, <code>${&lt;parameter&gt;}</
 Elsewhere, <code>${...}</code> names a field.</p>
 <p>The values in an <code>in (...)</code> list can only be numbers, text and date times, not date expressions or parameters.</p>
 <h2 id="expressions">Expressions</h2>
-<p>An expression in <code>eval</code> or a join key is a field, a value, or a call to an <a href="../../docs/reference-section/expressions/">Expression Function</a>, and may use <code>+</code>, <code>-</code>, <code>*</code>, <code>/</code>, <code>%</code> and <code>^</code>.</p>
+<p>An expression in <code>eval</code>, <code>having</code> or a join key is a field, a value, or a call to an <a href="../../docs/reference-section/expressions/">Expression Function</a>, and may use <code>+</code>, <code>-</code>, <code>*</code>, <code>/</code>, <code>%</code> and <code>^</code>.</p>
 <p>A column in <code>select</code> is a field, <code>*</code> or a single function call, such as <code>count()</code>.
 Use <code>eval</code> for anything else, such as arithmetic.</p>
 <p>A field whose name has spaces is written in braces after a dollar sign, e.g. <code>${Create Time}</code>.</p>
@@ -100174,6 +100467,9 @@ Use <code>eval</code> for anything else, such as arithmetic.</p>
 With a time window, the first source is held instead, with the same limits.
 A query that joins more fails, suggesting that the joined source is filtered or grouped.
 Administrators set these limits with the <code>search.resultStore.joinMaxRows</code> and <code>search.resultStore.joinMaxSize</code> properties.</li>
+<li>A query with a <code>window</code> adds a row to its results once for each window the row is in, and once more for each of those for each different distance used by <code>lag()</code> and <code>lead()</code>.
+A query that would add a row more than 100 times is refused.
+Administrators set this limit with the <code>search.resultStore.maxWindowCopiesPerEvent</code> property.</li>
 <li>A join may use at most 255 fields of a joined source.</li>
 <li>A warning is given when a row matches more than 1,000 rows of a joined source.</li>
 <li>Streaming and table builder analytic rules can&rsquo;t use joins, an alias or a bracketed query in <code>from</code>, as they run on one event at a time as it is processed.</li>

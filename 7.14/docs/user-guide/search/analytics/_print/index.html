@@ -153,7 +153,7 @@
     aria-label="Search this site…"
     autocomplete="off"
     
-    data-offline-search-index-json-src="../../../../../offline-search-index.8a1762ce1b88fe4231b361ea21be10e1.json"
+    data-offline-search-index-json-src="../../../../../offline-search-index.bebe3ed8f264bf5c14a7b705e667cd66.json"
     data-offline-search-base-href="../../../../../"
     data-offline-search-max-results="50"
   >
@@ -746,8 +746,51 @@ Both times are recorded on every detection, as <code>effectiveExecutionTime</cod
   </div>
 </div>
 
+<h2 id="time-windows">Time Windows</h2>
+<p>A query with a <a href="../../../../../docs/user-guide/search/queries/stroom-query-language/#window"><code>window</code></a> clause gives a row for each window of time, such as a count for each user for each day.
+A rule judges a window only when it has all of the window&rsquo;s events, so that a window is judged once and is not judged on part of its events.</p>
+<p>A <em>Scheduled Query</em> rule leaves out any window that the time range of its query cuts short.
+Where the query gives no end to its time range, the range ends at the effective execution time.
+A row that uses <code>lag()</code> or <code>lead()</code> is also left out if the window it reads is cut short or is outside the time range.</p>
+<p>Give the rule a time range of whole windows.
+For windows of a day, a range from <code>day() - 7d</code> to <code>day()</code> gives seven whole days, whereas a range from <code>now() - 7d</code> to <code>now()</code> cuts short the first and last days and leaves six.
+A rule that compares each day with the day before, with <code>lag(count(), 1)</code>, judges all but the first of those days, so its time range has to start a window earlier than the first window to be judged.</p>
+
+
+
+<div class="alert alert-primary" role="alert">
+  <h4 class="alert-heading">Note</h4>
+  <div class="alert-content">
+
+
+
+
+Windows are only tested against the time range when the field of the <code>window</code> clause is the field that the time range of the data source applies to.
+With any other field, only windows that end after the effective execution time are left out.
+
+
+  </div>
+</div>
+
+
+
+
+<div class="alert alert-primary" role="alert">
+  <h4 class="alert-heading">See Also</h4>
+  <div class="alert-content">
+
+
+
+
+<a href="../../../../../docs/user-guide/search/queries/stroom-query-language/#window">Window</a>
+
+
+  </div>
+</div>
+
 <h2 id="columns">Columns</h2>
-<p>The columns your query selects become the content of each detection.</p>
+<p>The columns your query selects become the content of each detection.
+Columns that Stroom adds for its own use, such as the ones behind a <code>having</code> expression or a <code>window</code>, are not added.</p>
 <p>Every column is added to the detection as a name/value pair, using the column&rsquo;s name as the key, and is available to email templates through the <code>values</code> dictionary.
 Two column names are treated specially.</p>
 <table>
@@ -2213,6 +2256,10 @@ The table is held in shards on the processing node, separately from the rest of 
 </tr>
 </tbody>
 </table>
+<h2 id="time-windows">Time Windows</h2>
+<p>A rule whose query has a <code>window</code> clause judges a window once it is closed, which is when the rule has read an event later than the end of the window, less the <em>Aggregation Period</em>.
+The last window is therefore not judged until a later event arrives.
+A window&rsquo;s data is kept in the table until the window has been judged, even if that is longer than <em>Time To Keep Data In The Table</em>.</p>
 
 </div>
 

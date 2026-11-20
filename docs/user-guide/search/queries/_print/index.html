@@ -153,7 +153,7 @@
     aria-label="Search this site…"
     autocomplete="off"
     
-    data-offline-search-index-json-src="../../../../../offline-search-index.8a1762ce1b88fe4231b361ea21be10e1.json"
+    data-offline-search-index-json-src="../../../../../offline-search-index.bebe3ed8f264bf5c14a7b705e667cd66.json"
     data-offline-search-base-href="../../../../../"
     data-offline-search-max-results="50"
   >
@@ -283,11 +283,11 @@ It is currently used on the <em>Query</em> entity as the means of defining a que
 [join] &lt;DATA_SOURCE&gt; [as &lt;ALIAS&gt;] on &lt;FIELD&gt; = &lt;ALIAS&gt;.&lt;FIELD&gt; [and ...]
 where &lt;FIELD&gt; &lt;CONDITION&gt; &lt;VALUE&gt; [and|or|not]
 [and|or|not]
-[window] &lt;TIME_FIELD&gt; by &lt;WINDOW_SIZE&gt; [advance &lt;ADVANCE_WINDOW_SIZE&gt;]
+[window] &lt;TIME_FIELD&gt; by &lt;WINDOW_SIZE&gt; [advance &lt;ADVANCE_SIZE&gt;] [offset &lt;OFFSET&gt;]
 [filter] &lt;FIELD&gt; &lt;CONDITION&gt; &lt;VALUE&gt; [and|or|not]
 [and|or|not]
 [eval...] &lt;FIELD&gt; = &lt;EXPRESSION&gt;
-[having] &lt;FIELD&gt; &lt;CONDITION&gt; &lt;VALUE&gt; [and|or|not]
+[having] &lt;FIELD|EXPRESSION&gt; &lt;CONDITION&gt; &lt;VALUE|EXPRESSION&gt; [and|or|not]
 [group by] &lt;FIELD&gt;
 [sort by] &lt;FIELD&gt; [desc|asc] // asc by default
 [limit] &lt;MAX_ROWS&gt; 
@@ -554,15 +554,153 @@ select name, team
 They can only be used at the top level of <code>where</code>, joined to its other conditions by <code>and</code>.
 See <a href="../../../../../docs/user-guide/search/queries/joins/#exists-and-in">Exists and In</a>.</p>
 <h3 id="window">Window</h3>
-<pre><code class="language-stroomql">window &lt;TIME_FIELD&gt; by &lt;WINDOW_SIZE&gt; [advance &lt;ADVANCE_WINDOW_SIZE&gt;]
+<pre><code class="language-stroomql">window &lt;TIME_FIELD&gt; by &lt;WINDOW_SIZE&gt; [advance &lt;ADVANCE_SIZE&gt;] [offset &lt;OFFSET&gt;]
 </code></pre>
-<p>Windowing groups data by a specified window size applied to a time field.
-A window inserts additional rows for future periods so that rows for future periods contain count columns for previous periods.</p>
-<p>Specify the field to window by and a duration.
-Durations are specified in simple terms e.g. <code>1d</code>, <code>2w</code> etc.</p>
-<p>By default, a window will insert a count into the next period row.
-This is because by default we advance by the specified window size.
-If you wish to advance by a different duration you can specify the advance amount which will insert counts into multiple future rows.</p>
+<p>Use <code>window</code> to put rows into windows of time and to group them by the window they are in, e.g.</p>
+<pre><code class="language-stroomql">from &quot;File events&quot;
+window EventTime by 1d
+group by UserId
+select windowStart() as Day, UserId, count() as Events
+</code></pre>
+<p>This gives a row for each user for each day.
+Rows are grouped by their window as well as by the <code>group by</code> columns.
+No columns are added to the table, so select <a href="../../../../../docs/reference-section/expressions/date/#window-start"><code>windowStart()</code></a> or <a href="../../../../../docs/reference-section/expressions/date/#window-end"><code>windowEnd()</code></a> to show the times of a row&rsquo;s window.</p>
+<p>A window includes its start and not its end, so an event at midnight is in the day that starts then.
+The time field must hold a date and time.
+A field that the data source lists as some other type is refused.
+Rows with no time in the field are left out, and the search gives a warning that says how many.</p>
+<h4 id="window-sizes">Window Sizes</h4>
+<p>A size is a number and a unit, e.g. <code>10m</code> or <code>1d</code>.</p>
+<table>
+<thead>
+<tr>
+<th>Unit</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>ms</code></td>
+<td>Milliseconds</td>
+</tr>
+<tr>
+<td><code>s</code></td>
+<td>Seconds</td>
+</tr>
+<tr>
+<td><code>m</code></td>
+<td>Minutes</td>
+</tr>
+<tr>
+<td><code>h</code></td>
+<td>Hours</td>
+</tr>
+<tr>
+<td><code>d</code></td>
+<td>Days</td>
+</tr>
+<tr>
+<td><code>w</code></td>
+<td>Weeks</td>
+</tr>
+<tr>
+<td><code>M</code></td>
+<td>Months</td>
+</tr>
+<tr>
+<td><code>y</code></td>
+<td>Years</td>
+</tr>
+</tbody>
+</table>
+<p>Sizes in hours or less are fixed lengths of time, counted from midnight, so windows of <code>1h</code> start on the hour and <code>24h</code> is always 24 hours.</p>
+<p>Sizes in days, weeks, months and years follow the calendar in the time zone of the query.
+A window of <code>1d</code> is 23 or 25 hours long when the clocks change, weeks start on Monday and months on the 1st.
+An analytic rule that has no time zone uses UTC.</p>
+
+
+
+<div class="alert alert-primary" role="alert">
+  <h4 class="alert-heading">Note</h4>
+  <div class="alert-content">
+
+
+
+
+<code>7d</code> is not the same as <code>1w</code>.
+<code>1w</code> is the calendar week from Monday, whereas <code>7d</code> is every seven days counted from 1 January 1970, which starts on Thursdays.
+
+
+  </div>
+</div>
+
+<h4 id="overlapping-windows">Overlapping Windows</h4>
+<p>Add <code>advance</code> to make windows that overlap, e.g.</p>
+<pre><code class="language-stroomql">window EventTime by 1h advance 10m
+</code></pre>
+<p>A window of an hour then starts every 10 minutes, and each event is counted in every window that covers it, which is six windows here.
+Without <code>advance</code>, each window starts where the one before it ends.</p>
+<p>The size must be a whole number of advances.
+The advance can be in a smaller unit than the size where the units divide exactly, so a year can advance by months, a week by days or less and a day by hours or less.
+Months and years can&rsquo;t advance by weeks, days or less.</p>
+<h4 id="offset">Offset</h4>
+<p>Add <code>offset</code> to move where windows start, e.g.</p>
+<pre><code class="language-stroomql">window EventTime by 1d offset 6h
+</code></pre>
+<p>Each day then runs from 06:00 to 06:00.
+Use a minus sign to move the start earlier, e.g. <code>offset -2h</code>.
+<code>advance</code> and <code>offset</code> can be given in either order.</p>
+<h4 id="comparing-windows">Comparing Windows</h4>
+<p>Use <a href="../../../../../docs/reference-section/expressions/aggregate/#lag"><code>lag()</code></a> and <a href="../../../../../docs/reference-section/expressions/aggregate/#lead"><code>lead()</code></a> to compare a window with an earlier or later one, e.g.</p>
+<pre><code class="language-stroomql">from &quot;File events&quot;
+window EventTime by 1d
+eval Change = count() - lag(count(), 1)
+group by UserId
+select windowStart() as Day, UserId, count() as Events, Change
+</code></pre>
+<p><code>lag(count(), 1)</code> is the count of the window one size before, for the same user, and <code>lead(count(), 1)</code> is the count of the window one size after.
+The other window is a number of sizes away, whatever the advance, so with <code>by 1h advance 10m</code> it is the window that starts an hour before.</p>
+<p>What <code>lag()</code> and <code>lead()</code> give depends on the other window:</p>
+<ul>
+<li>A window that has events gives the value of the aggregate for it.</li>
+<li>A window with no events for the group gives the empty value of the aggregate, which is <code>0</code> for <code>count()</code>.</li>
+<li>A window before the first window that has events, or after the last, gives no value.
+The first and last windows are those of all the events of the search, not of the group.</li>
+</ul>
+<p>Give a third value to use where there is no value, e.g. <code>lag(count(), 1, 0)</code>.</p>
+<p>A user with no events in a window still gets a row for that window if a window either side of it reads it, and the window is not before the first or after the last that has events.
+In the example above, a user with events on Monday and none on Tuesday gets a row for Tuesday with <code>Events</code> of <code>0</code> and <code>Change</code> of minus Monday&rsquo;s count, as long as another user has events on Tuesday or later.</p>
+<p>To keep only the windows that have changed, compare them in <a href="#having"><code>having</code></a>, e.g.</p>
+<pre><code class="language-stroomql">from &quot;File events&quot;
+window EventTime by 1d
+group by UserId
+having count() &gt; lag(count(), 1) * 2
+select windowStart() as Day, UserId, count() as Events
+</code></pre>
+<h4 id="window-limits">Window Limits</h4>
+<ul>
+<li>An event is added to the results once for each window it is in, and once more for each of those for each different distance used by <code>lag()</code> and <code>lead()</code>.
+A query that would add an event more than 100 times is refused.
+Administrators set this limit with the <code>search.resultStore.maxWindowCopiesPerEvent</code> property.</li>
+<li><code>window</code> can be used in a bracketed query and with a join, but not with a <a href="../../../../../docs/user-guide/search/queries/joins/#joining-events-within-a-time-window">join within a time window</a>.</li>
+<li><code>lag()</code> and <code>lead()</code> can only be used in a query that has a <code>window</code> clause.</li>
+</ul>
+
+
+
+<div class="alert alert-primary" role="alert">
+  <h4 class="alert-heading">See Also</h4>
+  <div class="alert-content">
+
+
+
+
+<a href="../../../../../docs/user-guide/search/analytics/query/#time-windows">Time Windows in Analytic Rules</a>
+
+
+  </div>
+</div>
+
 <h3 id="filter">Filter</h3>
 <p>Use <code>filter</code> to test values that <code>where</code> can&rsquo;t, such as a field that has not been indexed or the result of an <code>eval</code>.
 It is written the same way as the <code>where</code> clause, but is tested on each row after its values have been retrieved, rather than being part of the search, e.g.</p>
@@ -629,9 +767,20 @@ Note that when reusing a variable name, the assignment can depend on the previou
 <pre><code class="language-stroomql">where user = &quot;bob&quot; and (feed = &quot;my feed&quot; or feed = &quot;other feed&quot;)
 </code></pre>
 <h3 id="having">Having</h3>
-<p>A post aggregate filter that is applied at query time to return only rows that match the <code>having</code> conditions.</p>
+<p>A post aggregate filter that is applied at query time to return only rows that match the <code>having</code> conditions.
+A condition can test a column by its name, e.g.</p>
 <pre><code class="language-stroomql">having count &gt; 3
 </code></pre>
+<p>A condition can also test an expression, so the value does not have to be a column, e.g.</p>
+<pre><code class="language-stroomql">having count() &gt; 3 and max(Bytes) &lt; 1000
+</code></pre>
+<p>Two expressions can be compared with <code>=</code>, <code>!=</code>, <code>&gt;</code>, <code>&gt;=</code>, <code>&lt;</code> or <code>&lt;=</code>, e.g.</p>
+<pre><code class="language-stroomql">having count() &gt; lag(count(), 1) * 2
+</code></pre>
+<p>A single name on the right of a comparison is a column if an <code>eval</code> or <code>select</code> gives one of that name, and text if not.</p>
+<p>A row is kept only if the comparison is true, so a row with nothing to compare with is left out.
+With <a href="#window"><code>window</code></a>, this means the first window that has events is left out of a comparison with <code>lag()</code>.
+To keep it, give <code>lag()</code> a value to use, e.g. <code>lag(count(), 1, 0)</code>.</p>
 <h3 id="group-by">Group By</h3>
 <p>Use to group by columns, e.g.</p>
 <pre><code class="language-stroomql">group by feed

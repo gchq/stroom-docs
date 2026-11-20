@@ -16,7 +16,7 @@
     'where', 'filter', 'having',
     'and', 'or', 'not',
     'between', 'in', 'dictionary', 'is', 'null', 'exists',
-    'eval', 'window', 'by', 'advance',
+    'eval', 'window', 'by', 'advance', 'offset',
     'group', 'sort', 'asc', 'desc',
     'limit', 'select', 'show'
   ];

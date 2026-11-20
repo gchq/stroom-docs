@@ -153,7 +153,7 @@
     aria-label="Search this site…"
     autocomplete="off"
     
-    data-offline-search-index-json-src="../../../../offline-search-index.8a1762ce1b88fe4231b361ea21be10e1.json"
+    data-offline-search-index-json-src="../../../../offline-search-index.bebe3ed8f264bf5c14a7b705e667cd66.json"
     data-offline-search-base-href="../../../../"
     data-offline-search-max-results="50"
   >
@@ -343,9 +343,10 @@ as the arguments for other functions.</p>
 <li><a href="aggregate#count-unique">Count Unique</a></li>
 <li><a href="aggregate#distinct">Distinct</a></li>
 <li><a href="aggregate#joining">Joining</a></li>
+<li><a href="aggregate#lag">Lag</a></li>
+<li><a href="aggregate#lead">Lead</a></li>
 <li><a href="aggregate#max">Max</a></li>
 <li><a href="aggregate#min">Min</a></li>
-<li><a href="aggregate#period">Period</a></li>
 <li><a href="aggregate#stdev-standard-deviation">Standard Deviation</a></li>
 <li><a href="aggregate#sum">Sum</a></li>
 <li><a href="aggregate#variance">Variance</a></li>
@@ -564,6 +565,8 @@ as the arguments for other functions.</p>
 <li><a href="date#is-weekend">Is Weekend</a></li>
 <li><a href="date#now">Now</a></li>
 <li><a href="date#current-period-functions">Current Period Functions</a></li>
+<li><a href="date#window-start">Window Start</a></li>
+<li><a href="date#window-end">Window End</a></li>
 <li><a href="date#parse-duration">Parse Duration</a></li>
 <li><a href="date#format-duration">Format Duration</a></li>
 <li><a href="date#parse-iso-duration">Parse ISO Duration</a></li>
@@ -1107,6 +1110,51 @@ ${val} = ['bill', 'bob', 'fred', 'bill']
   </div>
 </div>
 
+<h2 id="lag">Lag</h2>
+<p>Gives the value that an aggregate has in an earlier time window of the same group, for a StroomQL query with a <a href="../../../../docs/user-guide/search/queries/stroom-query-language/#window"><code>window</code></a> clause.</p>
+<pre><code class="language-clike">lag(aggregate, windows)
+lag(aggregate, windows, default)
+</code></pre>
+<ul>
+<li><code>aggregate</code> - An aggregate, such as <code>count()</code> or <code>sum(${Bytes})</code>, or the name of an <code>eval</code> or column that is one.</li>
+<li><code>windows</code> - How many windows earlier, as a whole number from 1.</li>
+<li><code>default</code> - The value to give when the earlier window has no value.
+It can&rsquo;t start with <code>window:</code>.</li>
+</ul>
+<p>The earlier window is a number of window sizes before the row&rsquo;s own, whatever the advance.
+An earlier window with no events for the group gives the empty value of the aggregate, which is <code>0</code> for <code>count()</code>.
+An earlier window that is before the first window of the search that has events gives no value, or <code>default</code> if it is given.</p>
+<p>Examples</p>
+<pre><code class="language-clike"># With 'window EventTime by 1d', and 4 events on Monday and 10 on Tuesday
+# For the row of Tuesday
+lag(count(), 1)
+&gt; 4
+count() - lag(count(), 1)
+&gt; 6
+# For the row of Monday, the first day that has events
+lag(count(), 1)
+&gt; null
+lag(count(), 1, 0)
+&gt; 0
+</code></pre>
+<h2 id="lead">Lead</h2>
+<p>Gives the value that an aggregate has in a later time window of the same group, for a StroomQL query with a <a href="../../../../docs/user-guide/search/queries/stroom-query-language/#window"><code>window</code></a> clause.</p>
+<pre><code class="language-clike">lead(aggregate, windows)
+lead(aggregate, windows, default)
+</code></pre>
+<ul>
+<li><code>aggregate</code> - An aggregate, such as <code>count()</code> or <code>sum(${Bytes})</code>, or the name of an <code>eval</code> or column that is one.</li>
+<li><code>windows</code> - How many windows later, as a whole number from 1.</li>
+<li><code>default</code> - The value to give when the later window has no value.
+It can&rsquo;t start with <code>window:</code>.</li>
+</ul>
+<p>This works as <a href="#lag"><code>lag()</code></a> does, but reads the window a number of window sizes after the row&rsquo;s own.</p>
+<p>Example</p>
+<pre><code class="language-clike"># With 'window EventTime by 1d', and 4 events on Monday and 10 on Tuesday
+# For the row of Monday
+lead(count(), 1)
+&gt; 10
+</code></pre>
 <h2 id="max">Max</h2>
 <p>Determines the maximum value given in the args.</p>
 <pre><code class="language-clike">max(arg)
@@ -1135,18 +1183,6 @@ min(max(${val}), 40, 67, 89)
 ${val} = [20, 1002]
 &gt; 20
 </code></pre>
-<h2 id="period">Period</h2>
-<p>This provides a way of selectively applying a function to the values for one period of a window, when using the window feature.</p>
-<pre><code class="language-clike">period(period)
-period(period, function)
-</code></pre>
-<ul>
-<li><code>period</code> - The window period to apply the function to, as a whole number.</li>
-<li><code>function</code> - The function to apply to the values for the selected period.
-If this is omitted then <code>count()</code> is used.</li>
-</ul>
-<p>Returns the value computed by the nested function for the specified period.
-Values belonging to any other period of the window are ignored.</p>
 <h2 id="stdev-standard-deviation">StDev (Standard Deviation)</h2>
 <p>Calculate the standard deviation for a set of input values.</p>
 <pre><code class="language-clike">stDev(arg)
@@ -1406,6 +1442,28 @@ second()
 A week starts on a Monday.</p>
 <p>Like <code>now()</code>, these are all based on the time the query was run, so they are consistent with each other within a single query.</p>
 <p>These are useful for building relative time ranges without having to write out a date, e.g. comparing a field against <code>day()</code> to select today&rsquo;s records.</p>
+<h2 id="window-start">Window Start</h2>
+<p>Returns the time that the row&rsquo;s time window starts, for a StroomQL query with a <a href="../../../../docs/user-guide/search/queries/stroom-query-language/#window"><code>window</code></a> clause.
+It takes no arguments.</p>
+<pre><code class="language-clike">windowStart()
+</code></pre>
+<p>The start is part of the window.</p>
+<p>Example</p>
+<pre><code class="language-clike"># With 'window EventTime by 1d', for a row of events on 22 February 2014
+windowStart()
+&gt; &quot;2014-02-22T00:00:00.000Z&quot;
+</code></pre>
+<h2 id="window-end">Window End</h2>
+<p>Returns the time that the row&rsquo;s time window ends, for a StroomQL query with a <a href="../../../../docs/user-guide/search/queries/stroom-query-language/#window"><code>window</code></a> clause.
+It takes no arguments.</p>
+<pre><code class="language-clike">windowEnd()
+</code></pre>
+<p>The end is not part of the window, so it is the same time as the start of the window that follows.</p>
+<p>Example</p>
+<pre><code class="language-clike"># With 'window EventTime by 1d', for a row of events on 22 February 2014
+windowEnd()
+&gt; &quot;2014-02-23T00:00:00.000Z&quot;
+</code></pre>
 <h2 id="parse-duration">Parse Duration</h2>
 <p>Parses the supplied value as a duration, returning a duration value.</p>
 <pre><code class="language-clike">parseDuration(value)
