@@ -36,7 +36,7 @@ A query is a `from` clause, then any join lines, then the other clauses.
   from <source> [as <alias>] [sql <native query>]
   { <join line> }
   [where <condition>]
-  { eval <name> = <expression> | window <field> by <duration> [advance <duration>] }
+  { eval <name> = <expression> | <window> }
   [filter <condition>]
   { group by <columns> | sort by <sort columns> }
   [having <condition>]
@@ -48,6 +48,7 @@ A query is a `from` clause, then any join lines, then the other clauses.
 The clauses must come in the order shown, with these exceptions:
 
 * `eval` and `window` may come in any order, and `eval` may be repeated.
+  A query can have only one `window`, see [Window](#window).
 * `group by` and `sort by` may come in any order, and `group by` may be repeated to make nested groups.
 * `limit` comes before `select`.
 
@@ -111,7 +112,7 @@ A data source that needs a `sql` clause refuses a query without one, and one tha
 
 ```text
 <join line> := <join kind> <source> [as <alias>] [sql <native query>]
-               on <key> {and <key>} [<window>]
+               on <key> {and <key>} [<join window>]
 
 <join kind> := join | inner join
              | left join | left outer join
@@ -122,7 +123,7 @@ A data source that needs a `sql` clause refuses a query without one, and one tha
 
 <key> := <expression> = <expression>
 
-<window> := within <duration> after <time field>
+<join window> := within <duration> after <time field>
           | within <duration> before <time field>
 ```
 
@@ -254,7 +255,7 @@ The rows appear once both have been searched.
 ```
 
 `filter` and `having` take the same conditions as `where`, apart from the `exists` and `in` forms.
-See [Filter](#filter) for how `filter` differs from `where`.
+See [Filter](#filter) for how `filter` differs from `where`, and [Having](#having) for what else `having` takes.
 
 A dictionary is named by its name or its {{< glossary "UUID" >}}, in quotes.
 
@@ -377,6 +378,53 @@ With joins, an alias or a bracketed query in `from`, some or all of `where` is t
 Those conditions still name fields, not columns.
 
 
+## Window
+
+```text
+<window> := window <time field> by <duration> [advance <duration>] [offset [-]<duration>]
+```
+
+`window` puts each row into windows of time by the value of its time field, and groups the rows by window as well as by the `group by` columns.
+The functions `windowStart()` and `windowEnd()` give the times of a row's window, and `lag()` and `lead()` give the value of an aggregate in an earlier or later window.
+
+* A time field that the data source lists as other than a date is refused.
+  A row with no time in the field is left out.
+* The size, advance and offset can't be in `ns`.
+* A window includes its start and not its end.
+* Without `advance`, each window starts where the one before it ends.
+  With `advance`, a window starts every advance, and a row is in every window that covers its time.
+* The size must be a whole number of advances.
+  A year can advance by months, a week by days or less and a day by hours or less, but months and years can't advance by weeks, days or less.
+* Sizes in `h` or less are fixed lengths of time counted from midnight.
+  Sizes in `d`, `w`, `M` and `y` follow the calendar in the time zone of the query, with weeks starting on Monday.
+* `offset` moves the start of every window later, or earlier with a minus sign.
+  `advance` and `offset` can be given in either order.
+* A query can have only one `window`, and it can't be used with the time window of a join.
+* `lag()` and `lead()` can't be used without a `window`.
+
+See [Window]({{< relref "docs/user-guide/search/queries/stroom-query-language#window" >}}) for examples.
+
+
+## Having
+
+```text
+having <having condition>
+
+<having condition> := <condition>
+                    | <expression> <comparison> <expression>
+
+<comparison> := = | != | > | >= | < | <=
+```
+
+`having` is tested on each row once its group has been worked out, so it can test the result of an aggregate function.
+As well as the conditions that `where` takes, either side of a comparison can be an [expression](#expressions), e.g. `having count() > lag(count(), 1) * 2`.
+Conditions of both kinds can be joined with `and`, `or` and `not`.
+
+* A single name on the right of a comparison is a column if an `eval` or `select` gives one of that name, and text if not.
+* A row is kept only if the comparison is true, so a row where either side has no value is left out.
+* An expression that starts with a bracket is allowed, e.g. `having (count() - lag(count(), 1)) > 10`.
+
+
 ## Values
 
 ```text
@@ -406,7 +454,7 @@ The values in an `in (...)` list can only be numbers, text and date times, not d
 
 ## Expressions
 
-An expression in `eval` or a join key is a field, a value, or a call to an [Expression Function]({{< relref "docs/reference-section/expressions" >}}), and may use `+`, `-`, `*`, `/`, `%` and `^`.
+An expression in `eval`, `having` or a join key is a field, a value, or a call to an [Expression Function]({{< relref "docs/reference-section/expressions" >}}), and may use `+`, `-`, `*`, `/`, `%` and `^`.
 
 A column in `select` is a field, `*` or a single function call, such as `count()`.
 Use `eval` for anything else, such as arithmetic.
@@ -445,6 +493,9 @@ A field whose name has spaces is written in braces after a dollar sign, e.g. `${
   With a time window, the first source is held instead, with the same limits.
   A query that joins more fails, suggesting that the joined source is filtered or grouped.
   Administrators set these limits with the `search.resultStore.joinMaxRows` and `search.resultStore.joinMaxSize` properties.
+* A query with a `window` adds a row to its results once for each window the row is in, and once more for each of those for each different distance used by `lag()` and `lead()`.
+  A query that would add a row more than 100 times is refused.
+  Administrators set this limit with the `search.resultStore.maxWindowCopiesPerEvent` property.
 * A join may use at most 255 fields of a joined source.
 * A warning is given when a row matches more than 1,000 rows of a joined source.
 * Streaming and table builder analytic rules can't use joins, an alias or a bracketed query in `from`, as they run on one event at a time as it is processed.
