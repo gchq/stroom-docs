@@ -49,6 +49,29 @@ An example import pack, `stroom-data-connection/DataConnection-Examples.zip` in 
 {{< /see-also >}}
 
 
+## Shared Index Volumes
+
+An index volume can now be marked as _Shared_, which means that it is one mount that every node can see.
+The Lucene index shards on a shared volume do not belong to a node:
+
+* Any node can search them, so a search no longer depends on the node that wrote a shard being up.
+* Any node can write to them.
+  A node takes a timed lease on a shard to write to it and gives the lease up when it closes the shard.
+* If a node dies, its shards are taken from it after a grace period and other nodes carry on writing to them.
+
+Existing index volumes are _Local_ and behave as they did before.
+
+Stroom also now records which streams have documents in an index shard that are not yet committed.
+If an indexing task fails part way through a stream, a shard fails to commit, or the writer of a shard stops without a final commit, the documents of the affected streams are removed from the index and the streams are indexed again.
+A stream is no longer left part indexed with its task marked as complete.
+This applies to shards on both shared and local volumes, and is done by the new job _Index Shard Stream Recovery_.
+
+{{< see-also >}}
+* [Shared Index Volumes]({{< relref "docs/user-guide/indexing/shared-index-volumes" >}})
+* [Upgrade Notes]({{< relref "./upgrade-notes#shared-index-volumes" >}})
+{{< /see-also >}}
+
+
 ## StroomQL Joins
 
 {{< glossary "StroomQL" >}} queries can now join the rows of one data source to those of another, matching them on keys.
@@ -117,7 +140,7 @@ select windowStart() as Day, UserId, count() as Events
 * `having` now takes expressions, so the query above needs no `eval`.
 
 Analytic rules judge a window only when it has all of its events.
-A scheduled rule leaves out the windows that the time range of its query cuts short.
+A scheduled rule judges each window in the run whose time range holds the end of the window, and searches back before the range for the windows it reads with `lag()`.
 
 The `periodN` columns and the `period()` function that the old clause used have been removed, see [Breaking Changes]({{< relref "./breaking-changes#stroomql-window-clause" >}}).
 
