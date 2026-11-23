@@ -153,7 +153,7 @@
     aria-label="Search this site…"
     autocomplete="off"
     
-    data-offline-search-index-json-src="../../../../offline-search-index.bebe3ed8f264bf5c14a7b705e667cd66.json"
+    data-offline-search-index-json-src="../../../../offline-search-index.8f1920e4078567e8ac7b6b04b111c246.json"
     data-offline-search-base-href="../../../../"
     data-offline-search-max-results="50"
   >
@@ -200,7 +200,15 @@ This is the multi-page printable view of this section.
     
     
 	
-<li>1: <a href="#pg-9b30ca8617f29c7225f3e531d107a898">Elasticsearch</a></li>
+<li>1: <a href="#pg-8bfd6d4178ac4ebd5e5a32671a95dab0">Shared Index Volumes</a></li>
+
+
+    
+  
+    
+    
+	
+<li>2: <a href="#pg-9b30ca8617f29c7225f3e531d107a898">Elasticsearch</a></li>
 
 
     
@@ -215,7 +223,7 @@ This is the multi-page printable view of this section.
     
     
 	
-<li>1.1: <a href="#pg-6493de427fcee9b801555e22c81693e6">Introduction</a></li>
+<li>2.1: <a href="#pg-6493de427fcee9b801555e22c81693e6">Introduction</a></li>
 
 
     
@@ -223,7 +231,7 @@ This is the multi-page printable view of this section.
     
     
 	
-<li>1.2: <a href="#pg-323a3af952c3e622a4b8ab250279517c">Getting Started</a></li>
+<li>2.2: <a href="#pg-323a3af952c3e622a4b8ab250279517c">Getting Started</a></li>
 
 
     
@@ -231,7 +239,7 @@ This is the multi-page printable view of this section.
     
     
 	
-<li>1.3: <a href="#pg-19c8ec77b1ee2d88fd908b9391cd3d6e">Indexing data</a></li>
+<li>2.3: <a href="#pg-19c8ec77b1ee2d88fd908b9391cd3d6e">Indexing data</a></li>
 
 
     
@@ -239,7 +247,7 @@ This is the multi-page printable view of this section.
     
     
 	
-<li>1.4: <a href="#pg-1bddced90f9063d7d6f680fd761164e3">Exploring Data in Kibana</a></li>
+<li>2.4: <a href="#pg-1bddced90f9063d7d6f680fd761164e3">Exploring Data in Kibana</a></li>
 
 
     
@@ -251,7 +259,7 @@ This is the multi-page printable view of this section.
     
     
 	
-<li>2: <a href="#pg-896a1c0b68dce48229e57116c19eef21">Lucene Indexes</a></li>
+<li>3: <a href="#pg-896a1c0b68dce48229e57116c19eef21">Lucene Indexes</a></li>
 
 
     
@@ -259,7 +267,7 @@ This is the multi-page printable view of this section.
     
     
 	
-<li>3: <a href="#pg-5bf7c18df4838a8e5f3a48c44724bda9">Solr Integration</a></li>
+<li>4: <a href="#pg-5bf7c18df4838a8e5f3a48c44724bda9">Solr Integration</a></li>
 
 
     
@@ -292,7 +300,339 @@ This is the multi-page printable view of this section.
 
 <div class="td-content" style="--base-section-num: '1.'; ">
     
-  <h1 id="pg-9b30ca8617f29c7225f3e531d107a898">1 - Elasticsearch</h1>
+  <h1 id="pg-8bfd6d4178ac4ebd5e5a32671a95dab0">1 - Shared Index Volumes</h1>
+    <div class="lead">Storing Lucene index shards on a file system that every node can see, so that any node can search them or write to them.</div>
+	<p>A Lucene <span class="glossary-link link-with-hover-tooltip">
+    <a href="../../../../docs/glossary/i/glossary-index">
+      <span>Index</span>
+      <i class="glossary-link-icon fas fa-book fa-sm text-primary"></i>
+    </a><template class="hover-tooltip-content">
+        <span class="hover-tooltip-title">Index</span>
+        <div class="hover-tooltip-summary">A Data Source that is backed by a Lucene based search index.</div><span class="hover-tooltip-more-details">Click to see more details...</span></template></span> is made up of index shards, and each shard is a directory of files in an index <span class="glossary-link link-with-hover-tooltip">
+    <a href="../../../../docs/glossary/v/glossary-volume">
+      <span>Volume</span>
+      <i class="glossary-link-icon fas fa-book fa-sm text-primary"></i>
+    </a><template class="hover-tooltip-content">
+        <span class="hover-tooltip-title">Volume</span>
+        <div class="hover-tooltip-summary">In Stroom a Volume is a logical storage area that Stroom can write data to. Volumes are associated with a path on a file system that can either be local to the Stroom node or on a shared file system.</div><span class="hover-tooltip-more-details">Click to see more details...</span></template></span>.
+An index volume is one of two types:</p>
+<ul>
+<li><strong>Local</strong> - A disk that only one node can see.
+The volume belongs to that node.
+Only that node can write to its shards or search them.</li>
+<li><strong>Shared</strong> - One mount that every node can see, e.g. a network file system.
+The volume has no node.
+Any node can search its shards and any node can write to them.</li>
+</ul>
+<p>Shared index volumes are new in v7.14.
+Every index volume that existed before v7.14 is local and behaves as it always did.</p>
+<h2 id="why-use-a-shared-volume">Why Use a Shared Volume</h2>
+<p>With local volumes a shard can only be reached through the node that wrote it.</p>
+<ul>
+<li>If a node is down, searches return no results from its shards until it is back.</li>
+<li>If a node is lost for good, so are its shards.</li>
+<li>The node that wrote the most shards does the most searching.</li>
+</ul>
+<p>With a shared volume a shard does not belong to a node.</p>
+<ul>
+<li>A search does not depend on the node that wrote a shard being up.</li>
+<li>A node that is added to the cluster can search and write to the existing shards straight away.</li>
+<li>A node that dies does not take its shards with it.
+Another node takes them on, and the streams the dead node had not finished indexing are indexed again.</li>
+</ul>
+<h2 id="requirements">Requirements</h2>
+<p>A shared volume must be a file system that:</p>
+<ul>
+<li>Is mounted at the same path on every node.</li>
+<li>Every node can read from and write to.</li>
+<li>Shows a file written by one node to the other nodes.</li>
+</ul>
+<p>A relative path is resolved against the Stroom home directory of each node.</p>
+
+
+
+<div class="alert alert-warning" role="alert">
+  <h4 class="alert-heading">Warning</h4>
+  <div class="alert-content">
+
+
+
+
+Do not mark a volume as shared if its path is a separate disk on each node.
+Each node would then only see the shards it wrote itself, and searches would lose results.
+Stroom looks for this and logs an error, see <a href="#checks-on-a-shared-volume">Checks on a Shared Volume</a>.
+
+
+  </div>
+</div>
+
+<h2 id="creating-a-shared-volume">Creating a Shared Volume</h2>
+<p>Index volumes are managed from the main menu:</p>
+
+
+
+
+
+
+  <div class="stroom-theme-dark stroom-menu">
+    
+    
+
+      
+
+      
+      
+
+
+      
+
+  
+  
+  <div class="stroom-menu-item-background" style="margin-top: 0px;">
+    
+    <div class="stroom-menu-item " >
+
+      <div class="stroom-menu-item-text">Administration
+      </div>
+        <div class="stroom-menu-item-arrow">
+          <span class="stroom-icon inline-svg-button icon-button  " >
+    <span class="face" title="Arrow right"><svg xmlns="http://www.w3.org/2000/svg" width="1427.7665" height="1427.7665" viewBox="0 0 1427.7665 1427.7665"><g style="stroke:currentColor;stroke-width:167.567"><path d="m 415.05387,83.70929 c -39.92654,0.4303 -75.41463,48.3887 -40.0468,81.9121 C 567.552,348.69899 760.75555,531.15431 953.73208,713.82391 760.75555,896.49341 567.552,1078.9486 375.00707,1262.0262 c -46.19471,43.7855 28.48812,112.1966 76.0571,67.1681 195.93558,-185.823 392.95261,-370.82479 587.98693,-557.52749 5.6117,-4.8034 10.4633,-10.2473 14.4855,-16.1231 9.643,-12.4844 13.9638,-27.0796 13.6909,-41.7198 0.2729,-14.6402 -4.0479,-29.2354 -13.6909,-41.7198 -4.0222,-5.8758 -8.8738,-11.3198 -14.4855,-16.1231 C 844.01678,469.27821 646.99975,284.27629 451.06417,98.45319 439.91519,87.89979 427.27628,83.57749 415.05387,83.70929 Z"/></g></svg> </span>
+  </span>
+        </div>
+    </div>
+  </div>
+
+      
+
+      
+      
+        
+      
+
+
+      
+
+  
+  
+  <div class="stroom-menu-item-background" style="margin-top: 7px;">
+    
+    <div class="stroom-menu-item stroom-menu-item-leaf" >
+        <div class="stroom-menu-item-icon">
+          <span class="stroom-icon inline-svg-button icon-button  " >
+    <span class="face" title="Volumes"><svg xmlns="http://www.w3.org/2000/svg" width="1792" height="1792" viewBox="0 0 1792 1792"><path style="fill:currentColor" d="M1168 1216q0 33-23.5 56.5t-56.5 23.5-56.5-23.5-23.5-56.5 23.5-56.5 56.5-23.5 56.5 23.5 23.5 56.5zm256 0q0 33-23.5 56.5t-56.5 23.5-56.5-23.5-23.5-56.5 23.5-56.5 56.5-23.5 56.5 23.5 23.5 56.5zm112 160v-320q0-13-9.5-22.5t-22.5-9.5h-1216q-13 0-22.5 9.5t-9.5 22.5v320q0 13 9.5 22.5t22.5 9.5h1216q13 0 22.5-9.5t9.5-22.5zm-1230-480h1180l-157-482q-4-13-16-21.5t-26-8.5h-782q-14 0-26 8.5t-16 21.5zm1358 160v320q0 66-47 113t-113 47h-1216q-66 0-113-47t-47-113v-320q0-25 16-75l197-606q17-53 63-86t101-33h782q55 0 101 33t63 86l197 606q16 50 16 75z"/></svg></span>
+  </span>
+        </div>
+
+      <div class="stroom-menu-item-text">Index Volumes
+      </div>
+    </div>
+  </div>
+  </div>
+
+
+
+<p>To add a shared volume to a <span class="glossary-link link-with-hover-tooltip">
+    <a href="../../../../docs/glossary/v/glossary-volume-group">
+      <span>Volume group</span>
+      <i class="glossary-link-icon fas fa-book fa-sm text-primary"></i>
+    </a><template class="hover-tooltip-content">
+        <span class="hover-tooltip-title">Volume group</span>
+        <div class="hover-tooltip-summary">A Volume Group is a collection of one or more Index Volumes. Index volumes must belong to a volume group and Indexes are configured to write to a particular Volume Group.</div><span class="hover-tooltip-more-details">Click to see more details...</span></template></span>, add a volume and set its <em>Type</em> to <em>Shared</em>.
+A shared volume has no <em>Node</em>, so that field is not shown.</p>
+<p>To turn local volumes into a shared volume, edit one of them and change its <em>Type</em> to <em>Shared</em>.
+This is the way to do it when the nodes already have local volumes with the same path and that path is in fact one mount.
+The volumes that the other nodes have in the group for that path are merged into the one shared volume, and their shards become shards of the shared volume.</p>
+<p>The following rules apply:</p>
+<ul>
+<li>A shared volume cannot be made local again, because its shards may have been written by any node.
+Add a new local volume instead.</li>
+<li>A volume group cannot have a shared volume and a local volume with the same path.
+Mark the local volume as shared rather than adding a new one.</li>
+<li>A volume group can have both shared and local volumes.
+New shards are created on its shared volumes when it has any.
+If none of its shared volumes can take a shard, e.g. because they are all full, new shards are created on the node&rsquo;s local volumes.</li>
+</ul>
+<h3 id="checks-on-a-shared-volume">Checks on a Shared Volume</h3>
+<p>When a volume is marked as shared, each node checks that it can create the path and write to it.
+The change is refused if any node cannot.
+A node that cannot be reached cannot be checked, so Stroom names it and asks you to confirm the change.</p>
+<p>After that, the job <em>Index Volume Status</em> on each node keeps a marker file in each shared volume and looks for the markers of the other running nodes.
+If a node cannot see the marker of another running node after 15 minutes, it logs an error that says the path is probably not the same mount on every node.
+A node that is down is not expected to keep its marker fresh.</p>
+<h2 id="searching">Searching</h2>
+<p>A shard on a shared volume is searched by one of the nodes that are running, which need not be the node that wrote it.</p>
+<ul>
+<li>A closed shard is given to a running node that is chosen from the ID of the shard.
+A shard goes to the same node from one search to the next, which keeps the file cache of that node warm.
+When a node joins or leaves the cluster, only the shards that it gains or loses move.</li>
+<li>A shard that is open for writing is searched by the node that is writing to it, because only that node sees the documents that are not yet committed.
+If that node is not running, the shard is searched by another node as far as its last commit.</li>
+</ul>
+<p>If a search cannot be started on a node, the shards on shared volumes that it would have searched are searched by other nodes.</p>
+<p>A node that is writing to a shard replaces the files of the shard as it commits and merges.
+Another node may be part way through reading those files, so the writer keeps what it has replaced for a period before it deletes it.
+The period is set by the property <code>stroom.index.writer.replacedCommitRetention</code> and is 30 minutes by default.
+It must be longer than the longest time that a search holds a shard open.
+A longer period uses more disk space.</p>
+<h2 id="writing">Writing</h2>
+<p>Only one node can write to a shard at a time.
+A node must hold a lease on a shard on a shared volume to write to it.</p>
+<ul>
+<li>A node claims the lease when it opens the shard for writing.</li>
+<li>It renews the lease while the shard is open.
+How often is set by <code>stroom.index.writer.shardLeaseRenewInterval</code>, which is 20 seconds by default.</li>
+<li>It gives the lease up when it closes the shard.
+Any node can then write to the shard.</li>
+<li>A lease that is not renewed runs out.
+How long that takes is set by <code>stroom.index.writer.shardLeaseDuration</code>, which is 1 minute by default.</li>
+</ul>
+<p>When a node needs a shard to write to, it uses a closed shard that has room in it before it creates a new one.
+A shard is therefore written to by different nodes over its life.
+The <em>Node</em> shown for a shard on a shared volume is the node that holds its lease, or the last one that did.</p>
+<p>Shards on local volumes have no lease.</p>
+<h2 id="when-a-node-fails">When a Node Fails</h2>
+<h3 id="a-node-that-cannot-renew-leases">A Node That Cannot Renew Leases</h3>
+<p>A node that cannot reach the database cannot renew its leases.
+Once it has been unable to renew a lease for three quarters of the lease duration it stops writing to the shard.
+It discards the documents that it has not committed and it no longer changes any file in the shard.
+The streams those documents came from are indexed again, see <a href="#re-indexed-streams">Re-Indexed Streams</a>.</p>
+<h3 id="a-node-that-has-died">A Node That Has Died</h3>
+<p>A node that has died leaves its shards open, with leases that run out.
+Until they are taken from it, new documents go to other shards.</p>
+<p>Once a lease has been out of date for a grace period, the shard is taken from the node.
+The shard is closed, any node can write to it again, and the streams the dead node had not committed are indexed again.
+This is done by the job <em>Index Shard Stream Recovery</em>, which runs every minute.
+The job must be enabled on every node that can reach the shared volume, because the streams of a shard that has been taken are recovered by one of the running nodes.</p>
+<p>The grace period is set by <code>stroom.index.writer.shardLeaseTakeoverGrace</code> and is 5 minutes by default.
+It is the margin for a node that was frozen rather than dead and wakes later, so it must be much longer than any pause a node could suffer.</p>
+<p>A node that comes back after its shards have been taken does not commit what it had not committed, and does not change the files of those shards.</p>
+<h2 id="re-indexed-streams">Re-Indexed Streams</h2>
+<p>Documents are added to a shard as a stream is processed, but they are only safe once the shard has committed them.
+Stroom records which streams have documents in a shard that are not yet committed.
+This applies to shards on both shared and local volumes.</p>
+<p>A stream is indexed again if:</p>
+<ul>
+<li>Its indexing task fails part way through the stream.</li>
+<li>A shard that holds some of its documents fails to commit.</li>
+<li>The writer of a shard that holds some of its documents stops without a final commit, e.g. because its node died or lost its lease.</li>
+</ul>
+<p>When that happens:</p>
+<ol>
+<li>The documents of the stream are removed from every shard that they were written to.</li>
+<li>The processor task for the stream is put back to run again.</li>
+<li>An <em>Error</em> stream is written for the stream that says why.
+It is removed when the task next runs.</li>
+</ol>
+<p>After three failed attempts the task is set to <em>Failed</em> rather than run again.</p>
+
+
+
+<div class="alert alert-primary" role="alert">
+  <h4 class="alert-heading">Note</h4>
+  <div class="alert-content">
+
+
+
+
+A stream is no longer left part indexed with its task marked as complete.
+A search may briefly see some of the documents of a stream that is about to be indexed again.
+
+
+  </div>
+</div>
+
+<h3 id="limits">Limits</h3>
+<ul>
+<li>Documents are removed by their stream ID.
+Removing a stream removes every document in the index that came from it.</li>
+<li>The index must have an indexed <code>StreamId</code> field for the documents of a stream to be found and removed.</li>
+<li>Only streams that are indexed by a <span class="glossary-link link-with-hover-tooltip">
+    <a href="../../../../docs/glossary/p/glossary-processor-filter">
+      <span>processor filter</span>
+      <i class="glossary-link-icon fas fa-book fa-sm text-primary"></i>
+    </a><template class="hover-tooltip-content">
+        <span class="hover-tooltip-title">Processor filter</span>
+        <div class="hover-tooltip-summary">A Processor Filter is used to used to find Streams to process through the <em>Pipeline</em> associated with the Processor Filter. A Processor Filter consists of an expression tree to select which <em>Streams</em> to process and a tracker to track the what <em>Streams</em> have been processed.</div><span class="hover-tooltip-more-details">Click to see more details...</span></template></span> are recorded.</li>
+</ul>
+<h2 id="shard-housekeeping">Shard Housekeeping</h2>
+<p>A shard on a local volume is looked after by its own node.
+A shard on a shared volume is looked after by one of the running nodes, which need not be the node that wrote it.
+While a shard is open for writing, that is the node that is writing to it.
+That node applies the retention period of the index to the shard, deletes its files once it has been deleted, and acts on requests to flush or delete it.
+The jobs <em>Index Shard Retention</em>, <em>Index Shard Delete</em> and <em>Index Shard Stream Recovery</em> must therefore be enabled on every node that can reach the shared volume.</p>
+<h2 id="properties">Properties</h2>
+<p>All of these are under <code>stroom.index.writer</code>.</p>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>replacedCommitRetention</code></td>
+<td><code>PT30M</code></td>
+<td>How long a writer keeps the files it has replaced in a shard, for searches on other nodes to finish.</td>
+</tr>
+<tr>
+<td><code>shardLeaseDuration</code></td>
+<td><code>PT1M</code></td>
+<td>How long a lease on a shard lasts if it is not renewed.</td>
+</tr>
+<tr>
+<td><code>shardLeaseRenewInterval</code></td>
+<td><code>PT20S</code></td>
+<td>How often a node renews its leases. This should be about a third of <code>shardLeaseDuration</code>.</td>
+</tr>
+<tr>
+<td><code>shardLeaseTakeoverGrace</code></td>
+<td><code>PT5M</code></td>
+<td>How long a lease must have been out of date before the shard is taken from the node that held it.</td>
+</tr>
+</tbody>
+</table>
+
+
+
+<div class="alert alert-primary" role="alert">
+  <h4 class="alert-heading">See Also</h4>
+  <div class="alert-content">
+
+
+
+
+<ul>
+<li><a href="../../../../docs/user-guide/indexing/lucene/">Lucene Indexes</a></li>
+<li><a href="../../../../docs/reference-section/jobs/">Jobs Reference</a></li>
+<li><a href="../../../../releases/v07.14/upgrade-notes/#shared-index-volumes">Version 7.14 Upgrade Notes</a></li>
+</ul>
+
+
+
+  </div>
+</div>
+
+
+</div>
+
+
+
+
+    
+	
+  
+    
+    
+	
+    
+
+
+
+<div class="td-content" style="--base-section-num: '2.'; page-break-before: always">
+    
+  <h1 id="pg-9b30ca8617f29c7225f3e531d107a898">2 - Elasticsearch</h1>
     <div class="lead">Using Elasticsearch to index data</div>
 	
 </div>
@@ -318,9 +658,9 @@ This is the multi-page printable view of this section.
 
 
 
-<div class="td-content" style="--base-section-num: '1.1.'; ">
+<div class="td-content" style="--base-section-num: '2.1.'; ">
     
-  <h1 id="pg-6493de427fcee9b801555e22c81693e6">1.1 - Introduction</h1>
+  <h1 id="pg-6493de427fcee9b801555e22c81693e6">2.1 - Introduction</h1>
     <div class="lead">Concepts, assumptions and key differences to Solr and built-in Lucene indexing</div>
 	<p>Stroom supports using an external Elasticsearch cluster to index event data.
 This allows you to leverage all the features of the Elastic Stack, such as shard allocation, replication, fault tolerance and aggregations.</p>
@@ -415,9 +755,9 @@ Explicitly defining mappings is recommended where consistency or greater control
 
 
 
-<div class="td-content" style="--base-section-num: '1.2.'; page-break-before: always">
+<div class="td-content" style="--base-section-num: '2.2.'; page-break-before: always">
     
-  <h1 id="pg-323a3af952c3e622a4b8ab250279517c">1.2 - Getting Started</h1>
+  <h1 id="pg-323a3af952c3e622a4b8ab250279517c">2.2 - Getting Started</h1>
     <div class="lead">Establishing an Elasticsearch cluster connection</div>
 	<h2 id="establish-an-elasticsearch-cluster-connection-in-stroom">Establish an Elasticsearch Cluster Connection in Stroom</h2>
 <p>The first step is to configure Stroom to connect to an Elasticsearch cluster.
@@ -617,9 +957,9 @@ Set to <code>-1</code> (the default) to wait indefinitely, or until Elasticsearc
 
 
 
-<div class="td-content" style="--base-section-num: '1.3.'; page-break-before: always">
+<div class="td-content" style="--base-section-num: '2.3.'; page-break-before: always">
     
-  <h1 id="pg-19c8ec77b1ee2d88fd908b9391cd3d6e">1.3 - Indexing data</h1>
+  <h1 id="pg-19c8ec77b1ee2d88fd908b9391cd3d6e">2.3 - Indexing data</h1>
     <div class="lead">Indexing event data to Elasticsearch</div>
 	<p>A typical workflow is for a Stroom pipeline to convert XML <code>Event</code> elements into the XML equivalent of JSON, complying with the schema <code>http://www.w3.org/2005/xpath-functions</code>, using a format identical to the output of the XML function <code>xml-to-json()</code>.</p>
 <h2 id="understanding-json-xml-representation">Understanding JSON XML Representation</h2>
@@ -2254,9 +2594,9 @@ Users will now be searching against the new index.</li>
 
 
 
-<div class="td-content" style="--base-section-num: '1.4.'; page-break-before: always">
+<div class="td-content" style="--base-section-num: '2.4.'; page-break-before: always">
     
-  <h1 id="pg-1bddced90f9063d7d6f680fd761164e3">1.4 - Exploring Data in Kibana</h1>
+  <h1 id="pg-1bddced90f9063d7d6f680fd761164e3">2.4 - Exploring Data in Kibana</h1>
     <div class="lead">Using Kibana to search, aggregate and explore data indexed in Stroom</div>
 	<p><span class="external-link">
   <a href="https://www.elastic.co/kibana/" target="_blank" class="external-link" title="Kibana (external link to https://www.elastic.co/kibana/)">
@@ -2312,9 +2652,9 @@ Good for data exploration, at the cost of performance.</li>
 
 
 
-<div class="td-content" style="--base-section-num: '2.'; page-break-before: always">
+<div class="td-content" style="--base-section-num: '3.'; page-break-before: always">
     
-  <h1 id="pg-896a1c0b68dce48229e57116c19eef21">2 - Lucene Indexes</h1>
+  <h1 id="pg-896a1c0b68dce48229e57116c19eef21">3 - Lucene Indexes</h1>
     <div class="lead">Stroom&rsquo;s built in Apache Lucene based indexing.</div>
 	<p>Stroom uses <span class="external-link">
   <a href="https://lucene.apache.org" target="_blank" class="external-link" title="Apache Lucene (external link to https://lucene.apache.org)">
@@ -2346,6 +2686,22 @@ Complete this page.
   </div>
 </div>
 
+<h2 id="shards-and-volumes">Shards and Volumes</h2>
+<p>The documents of an index are held in index shards.
+Each shard is a directory of files in one of the index volumes of the <span class="glossary-link link-with-hover-tooltip">
+    <a href="../../../../docs/glossary/v/glossary-volume-group">
+      <span>Volume group</span>
+      <i class="glossary-link-icon fas fa-book fa-sm text-primary"></i>
+    </a><template class="hover-tooltip-content">
+        <span class="hover-tooltip-title">Volume group</span>
+        <div class="hover-tooltip-summary">A Volume Group is a collection of one or more Index Volumes. Index volumes must belong to a volume group and Indexes are configured to write to a particular Volume Group.</div><span class="hover-tooltip-more-details">Click to see more details...</span></template></span> that the index is set to use.
+An index is split into shards by its partition settings, and a new shard is started when a shard is full.</p>
+<p>An index volume is either local to one node or shared by all nodes.
+A shard on a local volume can only be searched and written to by its own node.
+A shard on a shared volume can be searched and written to by any node, so a search does not depend on the node that wrote the shard being up.
+See <a href="../../../../docs/user-guide/indexing/shared-index-volumes/">Shared Index Volumes</a>.</p>
+<p>If indexing fails part way through a stream, the documents of the stream are removed from the index and the stream is indexed again.
+See <a href="../../../../docs/user-guide/indexing/shared-index-volumes/#re-indexed-streams">Re-Indexed Streams</a>.</p>
 <h2 id="field-configuration">Field Configuration</h2>
 <h3 id="field-types">Field Types</h3>
 <ul>
@@ -2428,9 +2784,9 @@ For example if the Analyser supports it the value <code>TWO two</code> would eit
 
 
 
-<div class="td-content" style="--base-section-num: '3.'; page-break-before: always">
+<div class="td-content" style="--base-section-num: '4.'; page-break-before: always">
     
-  <h1 id="pg-5bf7c18df4838a8e5f3a48c44724bda9">3 - Solr Integration</h1>
+  <h1 id="pg-5bf7c18df4838a8e5f3a48c44724bda9">4 - Solr Integration</h1>
     <div class="lead">Indexing data using a Solr cluster.</div>
 	
 

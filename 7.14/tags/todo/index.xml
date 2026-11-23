@@ -6287,6 +6287,22 @@ Complete this page.
   &lt;/div&gt;
 &lt;/div&gt;
 
+&lt;h2 id=&#34;shards-and-volumes&#34;&gt;Shards and Volumes&lt;/h2&gt;
+&lt;p&gt;The documents of an index are held in index shards.
+Each shard is a directory of files in one of the index volumes of the &lt;span class=&#34;glossary-link link-with-hover-tooltip&#34;&gt;
+    &lt;a href=&#34;../../docs/glossary/v/glossary-volume-group&#34;&gt;
+      &lt;span&gt;Volume group&lt;/span&gt;
+      &lt;i class=&#34;glossary-link-icon fas fa-book fa-sm text-primary&#34;&gt;&lt;/i&gt;
+    &lt;/a&gt;&lt;template class=&#34;hover-tooltip-content&#34;&gt;
+        &lt;span class=&#34;hover-tooltip-title&#34;&gt;Volume group&lt;/span&gt;
+        &lt;div class=&#34;hover-tooltip-summary&#34;&gt;A Volume Group is a collection of one or more Index Volumes. Index volumes must belong to a volume group and Indexes are configured to write to a particular Volume Group.&lt;/div&gt;&lt;span class=&#34;hover-tooltip-more-details&#34;&gt;Click to see more details...&lt;/span&gt;&lt;/template&gt;&lt;/span&gt; that the index is set to use.
+An index is split into shards by its partition settings, and a new shard is started when a shard is full.&lt;/p&gt;
+&lt;p&gt;An index volume is either local to one node or shared by all nodes.
+A shard on a local volume can only be searched and written to by its own node.
+A shard on a shared volume can be searched and written to by any node, so a search does not depend on the node that wrote the shard being up.
+See &lt;a href=&#34;../../docs/user-guide/indexing/shared-index-volumes/&#34;&gt;Shared Index Volumes&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;If indexing fails part way through a stream, the documents of the stream are removed from the index and the stream is indexed again.
+See &lt;a href=&#34;../../docs/user-guide/indexing/shared-index-volumes/#re-indexed-streams&#34;&gt;Re-Indexed Streams&lt;/a&gt;.&lt;/p&gt;
 &lt;h2 id=&#34;field-configuration&#34;&gt;Field Configuration&lt;/h2&gt;
 &lt;h3 id=&#34;field-types&#34;&gt;Field Types&lt;/h3&gt;
 &lt;ul&gt;

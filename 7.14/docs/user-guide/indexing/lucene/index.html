@@ -45,13 +45,13 @@
 <meta property="og:type" content="article" />
 <meta property="og:url" content="/docs/user-guide/indexing/lucene/" /><meta property="article:section" content="docs" />
 <meta property="article:published_time" content="2022-02-15T00:00:00+00:00" />
-<meta property="article:modified_time" content="2026-11-20T11:49:33+00:00" /><meta property="og:site_name" content="Stroom" />
+<meta property="article:modified_time" content="2026-11-23T13:02:52+00:00" /><meta property="og:site_name" content="Stroom" />
 
 <meta itemprop="name" content="Lucene Indexes">
 <meta itemprop="description" content="Stroom&#39;s built in Apache Lucene based indexing.
 "><meta itemprop="datePublished" content="2022-02-15T00:00:00+00:00" />
-<meta itemprop="dateModified" content="2026-11-20T11:49:33+00:00" />
-<meta itemprop="wordCount" content="649">
+<meta itemprop="dateModified" content="2026-11-23T13:02:52+00:00" />
+<meta itemprop="wordCount" content="836">
 <meta itemprop="keywords" content="TODO," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Lucene Indexes"/>
 <meta name="twitter:description" content="Stroom&#39;s built in Apache Lucene based indexing.
@@ -157,7 +157,7 @@
     aria-label="Search this site…"
     autocomplete="off"
     
-    data-offline-search-index-json-src="../../../../offline-search-index.bebe3ed8f264bf5c14a7b705e667cd66.json"
+    data-offline-search-index-json-src="../../../../offline-search-index.8f1920e4078567e8ac7b6b04b111c246.json"
     data-offline-search-base-href="../../../../"
     data-offline-search-max-results="50"
   >
@@ -182,7 +182,7 @@
     aria-label="Search this site…"
     autocomplete="off"
     
-    data-offline-search-index-json-src="../../../../offline-search-index.bebe3ed8f264bf5c14a7b705e667cd66.json"
+    data-offline-search-index-json-src="../../../../offline-search-index.8f1920e4078567e8ac7b6b04b111c246.json"
     data-offline-search-base-href="../../../../"
     data-offline-search-max-results="50"
   >
@@ -546,7 +546,9 @@
 </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section with-child active-path" id="m-docsuser-guideindexing-li">
   <a href="../../../../docs/user-guide/indexing/" class="align-left pl-0 td-sidebar-link td-sidebar-link__section" id="m-docsuser-guideindexing"><span class="">Indexing data</span></a>
   <ul class="ul-3 foldable">
-    <li class="td-sidebar-nav__section-title td-sidebar-nav__section with-child" id="m-docsuser-guideindexingelasticsearch-li">
+    <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-docsuser-guideindexingshared-index-volumes-li">
+  <a href="../../../../docs/user-guide/indexing/shared-index-volumes/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-docsuser-guideindexingshared-index-volumes"><span class="">Shared Index Volumes</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section with-child" id="m-docsuser-guideindexingelasticsearch-li">
   <a href="../../../../docs/user-guide/indexing/elasticsearch/" class="align-left pl-0 td-sidebar-link td-sidebar-link__section" id="m-docsuser-guideindexingelasticsearch"><span class="">Elasticsearch</span></a>
   <ul class="ul-4 foldable">
     <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-docsuser-guideindexingelasticsearchintroduction-li">
@@ -1199,6 +1201,7 @@
             <div class="td-toc">
         <nav id="TableOfContents">
   <ul>
+    <li><a href="#shards-and-volumes">Shards and Volumes</a></li>
     <li><a href="#field-configuration">Field Configuration</a>
       <ul>
         <li><a href="#field-types">Field Types</a></li>
@@ -1368,6 +1371,8 @@
         
           <li><a class="taxonomy-term" href="../../../../tags/session/" data-taxonomy-term="session"><span class="taxonomy-label">session</span><span class="taxonomy-count">1</span></a></li>
         
+          <li><a class="taxonomy-term" href="../../../../tags/shard/" data-taxonomy-term="shard"><span class="taxonomy-label">shard</span><span class="taxonomy-count">1</span></a></li>
+        
           <li><a class="taxonomy-term" href="../../../../tags/solr/" data-taxonomy-term="solr"><span class="taxonomy-label">solr</span><span class="taxonomy-count">2</span></a></li>
         
           <li><a class="taxonomy-term" href="../../../../tags/source/" data-taxonomy-term="source"><span class="taxonomy-label">source</span><span class="taxonomy-count">1</span></a></li>
@@ -1392,7 +1397,7 @@
         
           <li><a class="taxonomy-term" href="../../../../tags/visualisation/" data-taxonomy-term="visualisation"><span class="taxonomy-label">visualisation</span><span class="taxonomy-count">1</span></a></li>
         
-          <li><a class="taxonomy-term" href="../../../../tags/volume/" data-taxonomy-term="volume"><span class="taxonomy-label">volume</span><span class="taxonomy-count">2</span></a></li>
+          <li><a class="taxonomy-term" href="../../../../tags/volume/" data-taxonomy-term="volume"><span class="taxonomy-label">volume</span><span class="taxonomy-count">3</span></a></li>
         
           <li><a class="taxonomy-term" href="../../../../tags/xml/" data-taxonomy-term="xml"><span class="taxonomy-label">xml</span><span class="taxonomy-count">1</span></a></li>
         
@@ -1484,6 +1489,22 @@ Complete this page.
   </div>
 </div>
 
+<h2 id="shards-and-volumes">Shards and Volumes</h2>
+<p>The documents of an index are held in index shards.
+Each shard is a directory of files in one of the index volumes of the <span class="glossary-link link-with-hover-tooltip">
+    <a href="../../../../docs/glossary/v/glossary-volume-group">
+      <span>Volume group</span>
+      <i class="glossary-link-icon fas fa-book fa-sm text-primary"></i>
+    </a><template class="hover-tooltip-content">
+        <span class="hover-tooltip-title">Volume group</span>
+        <div class="hover-tooltip-summary">A Volume Group is a collection of one or more Index Volumes. Index volumes must belong to a volume group and Indexes are configured to write to a particular Volume Group.</div><span class="hover-tooltip-more-details">Click to see more details...</span></template></span> that the index is set to use.
+An index is split into shards by its partition settings, and a new shard is started when a shard is full.</p>
+<p>An index volume is either local to one node or shared by all nodes.
+A shard on a local volume can only be searched and written to by its own node.
+A shard on a shared volume can be searched and written to by any node, so a search does not depend on the node that wrote the shard being up.
+See <a href="../../../../docs/user-guide/indexing/shared-index-volumes/">Shared Index Volumes</a>.</p>
+<p>If indexing fails part way through a stream, the documents of the stream are removed from the index and the stream is indexed again.
+See <a href="../../../../docs/user-guide/indexing/shared-index-volumes/#re-indexed-streams">Re-Indexed Streams</a>.</p>
 <h2 id="field-configuration">Field Configuration</h2>
 <h3 id="field-types">Field Types</h3>
 <ul>
@@ -1554,7 +1575,7 @@ For example if the Analyser supports it the value <code>TWO two</code> would eit
 	
 	
 	<div class="text-muted mt-5 pt-3 border-top">
-  Last modified November 20, 2026: <a href="https://github.com/gchq/stroom-docs/commit/83df0302ae40b5d64064ddf4adef86eb939504e5">Merge pull request #155 from gchq/window (83df030)</a>
+  Last modified November 23, 2026: <a href="https://github.com/gchq/stroom-docs/commit/1decb54d6db6d310960ab26d05197dc0b8a994dd">Merge pull request #157 from gchq/gh-6077-window-follow-up (1decb54)</a>
 </div>
 
 </div>

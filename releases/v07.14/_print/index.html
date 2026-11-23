@@ -153,7 +153,7 @@
     aria-label="Search this site…"
     autocomplete="off"
     
-    data-offline-search-index-json-src="../../../offline-search-index.bebe3ed8f264bf5c14a7b705e667cd66.json"
+    data-offline-search-index-json-src="../../../offline-search-index.8f1920e4078567e8ac7b6b04b111c246.json"
     data-offline-search-base-href="../../../"
     data-offline-search-max-results="50"
   >
@@ -341,6 +341,40 @@ No JDBC, Athena or LDAP connection is allowed until an administrator allows it w
   </div>
 </div>
 
+<h2 id="shared-index-volumes">Shared Index Volumes</h2>
+<p>An index volume can now be marked as <em>Shared</em>, which means that it is one mount that every node can see.
+The Lucene index shards on a shared volume do not belong to a node:</p>
+<ul>
+<li>Any node can search them, so a search no longer depends on the node that wrote a shard being up.</li>
+<li>Any node can write to them.
+A node takes a timed lease on a shard to write to it and gives the lease up when it closes the shard.</li>
+<li>If a node dies, its shards are taken from it after a grace period and other nodes carry on writing to them.</li>
+</ul>
+<p>Existing index volumes are <em>Local</em> and behave as they did before.</p>
+<p>Stroom also now records which streams have documents in an index shard that are not yet committed.
+If an indexing task fails part way through a stream, a shard fails to commit, or the writer of a shard stops without a final commit, the documents of the affected streams are removed from the index and the streams are indexed again.
+A stream is no longer left part indexed with its task marked as complete.
+This applies to shards on both shared and local volumes, and is done by the new job <em>Index Shard Stream Recovery</em>.</p>
+
+
+
+<div class="alert alert-primary" role="alert">
+  <h4 class="alert-heading">See Also</h4>
+  <div class="alert-content">
+
+
+
+
+<ul>
+<li><a href="../../../docs/user-guide/indexing/shared-index-volumes/">Shared Index Volumes</a></li>
+<li><a href="../../../releases/v07.14/upgrade-notes/#shared-index-volumes">Upgrade Notes</a></li>
+</ul>
+
+
+
+  </div>
+</div>
+
 <h2 id="stroomql-joins">StroomQL Joins</h2>
 <p><span class="glossary-link link-with-hover-tooltip">
     <a href="../../../docs/glossary/s/glossary-stroomql">
@@ -421,7 +455,7 @@ select windowStart() as Day, UserId, count() as Events
 <li><code>having</code> now takes expressions, so the query above needs no <code>eval</code>.</li>
 </ul>
 <p>Analytic rules judge a window only when it has all of its events.
-A scheduled rule leaves out the windows that the time range of its query cuts short.</p>
+A scheduled rule judges each window in the run whose time range holds the end of the window, and searches back before the range for the windows it reads with <code>lag()</code>.</p>
 <p>The <code>periodN</code> columns and the <code>period()</code> function that the old clause used have been removed, see <a href="../../../releases/v07.14/breaking-changes/#stroomql-window-clause">Breaking Changes</a>.</p>
 
 
@@ -745,6 +779,33 @@ This is different to the java version required for Stroom v7.9 (Java 21).
 </div>
 
 <p>Ensure the Stroom and Stroom-Proxy hosts are running the latest patch release of Java v25.</p>
+<h2 id="shared-index-volumes">Shared Index Volumes</h2>
+<p>Every existing index volume is given the type <em>Local</em> by the upgrade, so indexing and searching carry on as before.
+Nothing needs to be done unless you want to use <a href="../../../docs/user-guide/indexing/shared-index-volumes/">Shared Index Volumes</a>.</p>
+
+
+
+<div class="alert alert-warning" role="alert">
+  <h4 class="alert-heading">Warning</h4>
+  <div class="alert-content">
+
+
+
+
+Upgrade every node to v7.14 before you mark an index volume as <em>Shared</em>.
+While a cluster has nodes on different versions, a search may lose results if it cannot be started on one node and the shards of that node are given to a node that is still on the older version.
+
+
+  </div>
+</div>
+
+<p>If your nodes already write their index shards to the same network file system under the same path, edit one of the index volumes for that path and change its <em>Type</em> to <em>Shared</em>.
+The volumes that the other nodes have for the same path are merged into it.
+A shared volume cannot be made local again.</p>
+<p>A new job, <em>Index Shard Stream Recovery</em>, is added and runs every minute.
+It removes from the index the documents of streams that were only part indexed and has those streams indexed again, for shards on both shared and local volumes.
+Make sure it is enabled on every node that indexes data, and on every node that can reach a shared index volume.</p>
+<p>The jobs <em>Index Shard Retention</em> and <em>Index Shard Delete</em> must be enabled on every node that can reach a shared index volume, because a shard on a shared volume is looked after by one of the running nodes rather than by the node that wrote it.</p>
 <h2 id="configuration-file-changes">Configuration File Changes</h2>
 <!--
 Check changes using something like this (run from an up-to-date stroom repo):
@@ -936,6 +997,22 @@ See <a href="../../../docs/user-guide/search/data-sources/data-connections/#admi
       refreshAfterWrite: null
       statisticsMode: &quot;INTERNAL&quot;
 </code></pre>
+<h4 id="changes-to-the-indexwriter-branch">Changes to the <code>index.writer</code> Branch</h4>
+<p>The following properties have been added for index shards on <a href="../../../docs/user-guide/indexing/shared-index-volumes/">Shared Index Volumes</a>.
+They have no effect on shards on local index volumes.</p>
+<pre><code class="language-yaml">appConfig:
+  index:
+    writer:
+      replacedCommitRetention: &quot;PT30M&quot;
+      shardLeaseDuration: &quot;PT1M&quot;
+      shardLeaseRenewInterval: &quot;PT20S&quot;
+      shardLeaseTakeoverGrace: &quot;PT5M&quot;
+</code></pre>
+<p><code>replacedCommitRetention</code> controls how long the writer of a shard keeps the files it has replaced, so that searches on other nodes that are reading them can finish.
+It must be longer than the longest time that a search holds a shard open.
+<code>shardLeaseDuration</code> controls how long the lease that a node needs to write to a shard lasts if it is not renewed.
+<code>shardLeaseRenewInterval</code> controls how often a node renews its leases, and should be about a third of <code>shardLeaseDuration</code>.
+<code>shardLeaseTakeoverGrace</code> controls how long a lease must have been out of date before the shard is taken from the node that held it, and should be much longer than any pause a node could suffer.</p>
 <h4 id="changes-to-the-planb-branch">Changes to the <code>planb</code> Branch</h4>
 <p>The following properties have been added to control Plan B shard allocation, caching and merging.
 <code>defaultShardCounts</code> defines the default number of shards for each state type.</p>

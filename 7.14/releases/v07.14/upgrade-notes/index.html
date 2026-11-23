@@ -45,13 +45,13 @@
 <meta property="og:type" content="article" />
 <meta property="og:url" content="/releases/v07.14/upgrade-notes/" /><meta property="article:section" content="releases" />
 <meta property="article:published_time" content="2026-10-19T00:00:00+00:00" />
-<meta property="article:modified_time" content="2026-11-20T11:49:33+00:00" /><meta property="og:site_name" content="Stroom" />
+<meta property="article:modified_time" content="2026-11-23T13:02:52+00:00" /><meta property="og:site_name" content="Stroom" />
 
 <meta itemprop="name" content="Upgrade Notes">
 <meta itemprop="description" content="Required actions and information relating to upgrading to Stroom version 7.14.
 "><meta itemprop="datePublished" content="2026-10-19T00:00:00+00:00" />
-<meta itemprop="dateModified" content="2026-11-20T11:49:33+00:00" />
-<meta itemprop="wordCount" content="5360">
+<meta itemprop="dateModified" content="2026-11-23T13:02:52+00:00" />
+<meta itemprop="wordCount" content="5768">
 <meta itemprop="keywords" content="" /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Upgrade Notes"/>
 <meta name="twitter:description" content="Required actions and information relating to upgrading to Stroom version 7.14.
@@ -157,7 +157,7 @@
     aria-label="Search this site…"
     autocomplete="off"
     
-    data-offline-search-index-json-src="../../../offline-search-index.bebe3ed8f264bf5c14a7b705e667cd66.json"
+    data-offline-search-index-json-src="../../../offline-search-index.8f1920e4078567e8ac7b6b04b111c246.json"
     data-offline-search-base-href="../../../"
     data-offline-search-max-results="50"
   >
@@ -182,7 +182,7 @@
     aria-label="Search this site…"
     autocomplete="off"
     
-    data-offline-search-index-json-src="../../../offline-search-index.bebe3ed8f264bf5c14a7b705e667cd66.json"
+    data-offline-search-index-json-src="../../../offline-search-index.8f1920e4078567e8ac7b6b04b111c246.json"
     data-offline-search-base-href="../../../"
     data-offline-search-max-results="50"
   >
@@ -426,6 +426,7 @@
   <ul>
     <li><a href="#upgrade-path">Upgrade Path</a></li>
     <li><a href="#java-version">Java Version</a></li>
+    <li><a href="#shared-index-volumes">Shared Index Volumes</a></li>
     <li><a href="#configuration-file-changes">Configuration File Changes</a>
       <ul>
         <li><a href="#strooms-configyml">Stroom&rsquo;s <code>config.yml</code></a>
@@ -435,6 +436,7 @@
             <li><a href="#visualisationasset-renamed-to-documentasset"><code>visualisationAsset</code> Renamed to <code>documentAsset</code></a></li>
             <li><a href="#new-datastepping-properties">New <code>data.stepping</code> Properties</a></li>
             <li><a href="#new-dataconnection-properties">New <code>dataConnection</code> Properties</a></li>
+            <li><a href="#changes-to-the-indexwriter-branch">Changes to the <code>index.writer</code> Branch</a></li>
             <li><a href="#changes-to-the-planb-branch">Changes to the <code>planb</code> Branch</a></li>
             <li><a href="#changes-to-the-processor-branch">Changes to the <code>processor</code> Branch</a></li>
             <li><a href="#new-receives3event-properties">New <code>receive.s3Event</code> Properties</a></li>
@@ -619,6 +621,8 @@
         
           <li><a class="taxonomy-term" href="../../../tags/session/" data-taxonomy-term="session"><span class="taxonomy-label">session</span><span class="taxonomy-count">1</span></a></li>
         
+          <li><a class="taxonomy-term" href="../../../tags/shard/" data-taxonomy-term="shard"><span class="taxonomy-label">shard</span><span class="taxonomy-count">1</span></a></li>
+        
           <li><a class="taxonomy-term" href="../../../tags/solr/" data-taxonomy-term="solr"><span class="taxonomy-label">solr</span><span class="taxonomy-count">2</span></a></li>
         
           <li><a class="taxonomy-term" href="../../../tags/source/" data-taxonomy-term="source"><span class="taxonomy-label">source</span><span class="taxonomy-count">1</span></a></li>
@@ -643,7 +647,7 @@
         
           <li><a class="taxonomy-term" href="../../../tags/visualisation/" data-taxonomy-term="visualisation"><span class="taxonomy-label">visualisation</span><span class="taxonomy-count">1</span></a></li>
         
-          <li><a class="taxonomy-term" href="../../../tags/volume/" data-taxonomy-term="volume"><span class="taxonomy-label">volume</span><span class="taxonomy-count">2</span></a></li>
+          <li><a class="taxonomy-term" href="../../../tags/volume/" data-taxonomy-term="volume"><span class="taxonomy-label">volume</span><span class="taxonomy-count">3</span></a></li>
         
           <li><a class="taxonomy-term" href="../../../tags/xml/" data-taxonomy-term="xml"><span class="taxonomy-label">xml</span><span class="taxonomy-count">1</span></a></li>
         
@@ -754,6 +758,33 @@ This is different to the java version required for Stroom v7.9 (Java 21).
 </div>
 
 <p>Ensure the Stroom and Stroom-Proxy hosts are running the latest patch release of Java v25.</p>
+<h2 id="shared-index-volumes">Shared Index Volumes</h2>
+<p>Every existing index volume is given the type <em>Local</em> by the upgrade, so indexing and searching carry on as before.
+Nothing needs to be done unless you want to use <a href="../../../docs/user-guide/indexing/shared-index-volumes/">Shared Index Volumes</a>.</p>
+
+
+
+<div class="alert alert-warning" role="alert">
+  <h4 class="alert-heading">Warning</h4>
+  <div class="alert-content">
+
+
+
+
+Upgrade every node to v7.14 before you mark an index volume as <em>Shared</em>.
+While a cluster has nodes on different versions, a search may lose results if it cannot be started on one node and the shards of that node are given to a node that is still on the older version.
+
+
+  </div>
+</div>
+
+<p>If your nodes already write their index shards to the same network file system under the same path, edit one of the index volumes for that path and change its <em>Type</em> to <em>Shared</em>.
+The volumes that the other nodes have for the same path are merged into it.
+A shared volume cannot be made local again.</p>
+<p>A new job, <em>Index Shard Stream Recovery</em>, is added and runs every minute.
+It removes from the index the documents of streams that were only part indexed and has those streams indexed again, for shards on both shared and local volumes.
+Make sure it is enabled on every node that indexes data, and on every node that can reach a shared index volume.</p>
+<p>The jobs <em>Index Shard Retention</em> and <em>Index Shard Delete</em> must be enabled on every node that can reach a shared index volume, because a shard on a shared volume is looked after by one of the running nodes rather than by the node that wrote it.</p>
 <h2 id="configuration-file-changes">Configuration File Changes</h2>
 <!--
 Check changes using something like this (run from an up-to-date stroom repo):
@@ -945,6 +976,22 @@ See <a href="../../../docs/user-guide/search/data-sources/data-connections/#admi
       refreshAfterWrite: null
       statisticsMode: &quot;INTERNAL&quot;
 </code></pre>
+<h4 id="changes-to-the-indexwriter-branch">Changes to the <code>index.writer</code> Branch</h4>
+<p>The following properties have been added for index shards on <a href="../../../docs/user-guide/indexing/shared-index-volumes/">Shared Index Volumes</a>.
+They have no effect on shards on local index volumes.</p>
+<pre><code class="language-yaml">appConfig:
+  index:
+    writer:
+      replacedCommitRetention: &quot;PT30M&quot;
+      shardLeaseDuration: &quot;PT1M&quot;
+      shardLeaseRenewInterval: &quot;PT20S&quot;
+      shardLeaseTakeoverGrace: &quot;PT5M&quot;
+</code></pre>
+<p><code>replacedCommitRetention</code> controls how long the writer of a shard keeps the files it has replaced, so that searches on other nodes that are reading them can finish.
+It must be longer than the longest time that a search holds a shard open.
+<code>shardLeaseDuration</code> controls how long the lease that a node needs to write to a shard lasts if it is not renewed.
+<code>shardLeaseRenewInterval</code> controls how often a node renews its leases, and should be about a third of <code>shardLeaseDuration</code>.
+<code>shardLeaseTakeoverGrace</code> controls how long a lease must have been out of date before the shard is taken from the node that held it, and should be much longer than any pause a node could suffer.</p>
 <h4 id="changes-to-the-planb-branch">Changes to the <code>planb</code> Branch</h4>
 <p>The following properties have been added to control Plan B shard allocation, caching and merging.
 <code>defaultShardCounts</code> defines the default number of shards for each state type.</p>
@@ -2012,7 +2059,7 @@ SET SQL_NOTES=@OLD_SQL_NOTES;
 	
 	
 	<div class="text-muted mt-5 pt-3 border-top">
-  Last modified November 20, 2026: <a href="https://github.com/gchq/stroom-docs/commit/83df0302ae40b5d64064ddf4adef86eb939504e5">Merge pull request #155 from gchq/window (83df030)</a>
+  Last modified November 23, 2026: <a href="https://github.com/gchq/stroom-docs/commit/1decb54d6db6d310960ab26d05197dc0b8a994dd">Merge pull request #157 from gchq/gh-6077-window-follow-up (1decb54)</a>
 </div>
 
 </div>

@@ -1,0 +1,343 @@
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Stroom – shard</title>
+    <link>/tags/shard/</link>
+    <description>Recent content in shard on Stroom</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Fri, 20 Nov 2026 00:00:00 +0000</lastBuildDate>
+    
+	  <atom:link href="/tags/shard/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+      
+        
+      
+    
+    
+    <item>
+      <title>Docs: Shared Index Volumes</title>
+      <link>/docs/user-guide/indexing/shared-index-volumes/</link>
+      <pubDate>Fri, 20 Nov 2026 00:00:00 +0000</pubDate>
+      
+      <guid>/docs/user-guide/indexing/shared-index-volumes/</guid>
+      <description>
+        
+        
+        &lt;p&gt;A Lucene &lt;span class=&#34;glossary-link link-with-hover-tooltip&#34;&gt;
+    &lt;a href=&#34;../../docs/glossary/i/glossary-index&#34;&gt;
+      &lt;span&gt;Index&lt;/span&gt;
+      &lt;i class=&#34;glossary-link-icon fas fa-book fa-sm text-primary&#34;&gt;&lt;/i&gt;
+    &lt;/a&gt;&lt;template class=&#34;hover-tooltip-content&#34;&gt;
+        &lt;span class=&#34;hover-tooltip-title&#34;&gt;Index&lt;/span&gt;
+        &lt;div class=&#34;hover-tooltip-summary&#34;&gt;A Data Source that is backed by a Lucene based search index.&lt;/div&gt;&lt;span class=&#34;hover-tooltip-more-details&#34;&gt;Click to see more details...&lt;/span&gt;&lt;/template&gt;&lt;/span&gt; is made up of index shards, and each shard is a directory of files in an index &lt;span class=&#34;glossary-link link-with-hover-tooltip&#34;&gt;
+    &lt;a href=&#34;../../docs/glossary/v/glossary-volume&#34;&gt;
+      &lt;span&gt;Volume&lt;/span&gt;
+      &lt;i class=&#34;glossary-link-icon fas fa-book fa-sm text-primary&#34;&gt;&lt;/i&gt;
+    &lt;/a&gt;&lt;template class=&#34;hover-tooltip-content&#34;&gt;
+        &lt;span class=&#34;hover-tooltip-title&#34;&gt;Volume&lt;/span&gt;
+        &lt;div class=&#34;hover-tooltip-summary&#34;&gt;In Stroom a Volume is a logical storage area that Stroom can write data to. Volumes are associated with a path on a file system that can either be local to the Stroom node or on a shared file system.&lt;/div&gt;&lt;span class=&#34;hover-tooltip-more-details&#34;&gt;Click to see more details...&lt;/span&gt;&lt;/template&gt;&lt;/span&gt;.
+An index volume is one of two types:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Local&lt;/strong&gt; - A disk that only one node can see.
+The volume belongs to that node.
+Only that node can write to its shards or search them.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Shared&lt;/strong&gt; - One mount that every node can see, e.g. a network file system.
+The volume has no node.
+Any node can search its shards and any node can write to them.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Shared index volumes are new in v7.14.
+Every index volume that existed before v7.14 is local and behaves as it always did.&lt;/p&gt;
+&lt;h2 id=&#34;why-use-a-shared-volume&#34;&gt;Why Use a Shared Volume&lt;/h2&gt;
+&lt;p&gt;With local volumes a shard can only be reached through the node that wrote it.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;If a node is down, searches return no results from its shards until it is back.&lt;/li&gt;
+&lt;li&gt;If a node is lost for good, so are its shards.&lt;/li&gt;
+&lt;li&gt;The node that wrote the most shards does the most searching.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;With a shared volume a shard does not belong to a node.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;A search does not depend on the node that wrote a shard being up.&lt;/li&gt;
+&lt;li&gt;A node that is added to the cluster can search and write to the existing shards straight away.&lt;/li&gt;
+&lt;li&gt;A node that dies does not take its shards with it.
+Another node takes them on, and the streams the dead node had not finished indexing are indexed again.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;requirements&#34;&gt;Requirements&lt;/h2&gt;
+&lt;p&gt;A shared volume must be a file system that:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Is mounted at the same path on every node.&lt;/li&gt;
+&lt;li&gt;Every node can read from and write to.&lt;/li&gt;
+&lt;li&gt;Shows a file written by one node to the other nodes.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;A relative path is resolved against the Stroom home directory of each node.&lt;/p&gt;
+
+
+
+&lt;div class=&#34;alert alert-warning&#34; role=&#34;alert&#34;&gt;
+  &lt;h4 class=&#34;alert-heading&#34;&gt;Warning&lt;/h4&gt;
+  &lt;div class=&#34;alert-content&#34;&gt;
+
+
+
+
+Do not mark a volume as shared if its path is a separate disk on each node.
+Each node would then only see the shards it wrote itself, and searches would lose results.
+Stroom looks for this and logs an error, see &lt;a href=&#34;#checks-on-a-shared-volume&#34;&gt;Checks on a Shared Volume&lt;/a&gt;.
+
+
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;h2 id=&#34;creating-a-shared-volume&#34;&gt;Creating a Shared Volume&lt;/h2&gt;
+&lt;p&gt;Index volumes are managed from the main menu:&lt;/p&gt;
+
+
+
+
+
+
+  &lt;div class=&#34;stroom-theme-dark stroom-menu&#34;&gt;
+    
+    
+
+      
+
+      
+      
+
+
+      
+
+  
+  
+  &lt;div class=&#34;stroom-menu-item-background&#34; style=&#34;margin-top: 0px;&#34;&gt;
+    
+    &lt;div class=&#34;stroom-menu-item &#34; &gt;
+
+      &lt;div class=&#34;stroom-menu-item-text&#34;&gt;Administration
+      &lt;/div&gt;
+        &lt;div class=&#34;stroom-menu-item-arrow&#34;&gt;
+          &lt;span class=&#34;stroom-icon inline-svg-button icon-button  &#34; &gt;
+    &lt;span class=&#34;face&#34; title=&#34;Arrow right&#34;&gt;&lt;svg xmlns=&#34;http://www.w3.org/2000/svg&#34; width=&#34;1427.7665&#34; height=&#34;1427.7665&#34; viewBox=&#34;0 0 1427.7665 1427.7665&#34;&gt;&lt;g style=&#34;stroke:currentColor;stroke-width:167.567&#34;&gt;&lt;path d=&#34;m 415.05387,83.70929 c -39.92654,0.4303 -75.41463,48.3887 -40.0468,81.9121 C 567.552,348.69899 760.75555,531.15431 953.73208,713.82391 760.75555,896.49341 567.552,1078.9486 375.00707,1262.0262 c -46.19471,43.7855 28.48812,112.1966 76.0571,67.1681 195.93558,-185.823 392.95261,-370.82479 587.98693,-557.52749 5.6117,-4.8034 10.4633,-10.2473 14.4855,-16.1231 9.643,-12.4844 13.9638,-27.0796 13.6909,-41.7198 0.2729,-14.6402 -4.0479,-29.2354 -13.6909,-41.7198 -4.0222,-5.8758 -8.8738,-11.3198 -14.4855,-16.1231 C 844.01678,469.27821 646.99975,284.27629 451.06417,98.45319 439.91519,87.89979 427.27628,83.57749 415.05387,83.70929 Z&#34;/&gt;&lt;/g&gt;&lt;/svg&gt; &lt;/span&gt;
+  &lt;/span&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+
+      
+
+      
+      
+        
+      
+
+
+      
+
+  
+  
+  &lt;div class=&#34;stroom-menu-item-background&#34; style=&#34;margin-top: 7px;&#34;&gt;
+    
+    &lt;div class=&#34;stroom-menu-item stroom-menu-item-leaf&#34; &gt;
+        &lt;div class=&#34;stroom-menu-item-icon&#34;&gt;
+          &lt;span class=&#34;stroom-icon inline-svg-button icon-button  &#34; &gt;
+    &lt;span class=&#34;face&#34; title=&#34;Volumes&#34;&gt;&lt;svg xmlns=&#34;http://www.w3.org/2000/svg&#34; width=&#34;1792&#34; height=&#34;1792&#34; viewBox=&#34;0 0 1792 1792&#34;&gt;&lt;path style=&#34;fill:currentColor&#34; d=&#34;M1168 1216q0 33-23.5 56.5t-56.5 23.5-56.5-23.5-23.5-56.5 23.5-56.5 56.5-23.5 56.5 23.5 23.5 56.5zm256 0q0 33-23.5 56.5t-56.5 23.5-56.5-23.5-23.5-56.5 23.5-56.5 56.5-23.5 56.5 23.5 23.5 56.5zm112 160v-320q0-13-9.5-22.5t-22.5-9.5h-1216q-13 0-22.5 9.5t-9.5 22.5v320q0 13 9.5 22.5t22.5 9.5h1216q13 0 22.5-9.5t9.5-22.5zm-1230-480h1180l-157-482q-4-13-16-21.5t-26-8.5h-782q-14 0-26 8.5t-16 21.5zm1358 160v320q0 66-47 113t-113 47h-1216q-66 0-113-47t-47-113v-320q0-25 16-75l197-606q17-53 63-86t101-33h782q55 0 101 33t63 86l197 606q16 50 16 75z&#34;/&gt;&lt;/svg&gt;&lt;/span&gt;
+  &lt;/span&gt;
+        &lt;/div&gt;
+
+      &lt;div class=&#34;stroom-menu-item-text&#34;&gt;Index Volumes
+      &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+  &lt;/div&gt;
+
+
+
+&lt;p&gt;To add a shared volume to a &lt;span class=&#34;glossary-link link-with-hover-tooltip&#34;&gt;
+    &lt;a href=&#34;../../docs/glossary/v/glossary-volume-group&#34;&gt;
+      &lt;span&gt;Volume group&lt;/span&gt;
+      &lt;i class=&#34;glossary-link-icon fas fa-book fa-sm text-primary&#34;&gt;&lt;/i&gt;
+    &lt;/a&gt;&lt;template class=&#34;hover-tooltip-content&#34;&gt;
+        &lt;span class=&#34;hover-tooltip-title&#34;&gt;Volume group&lt;/span&gt;
+        &lt;div class=&#34;hover-tooltip-summary&#34;&gt;A Volume Group is a collection of one or more Index Volumes. Index volumes must belong to a volume group and Indexes are configured to write to a particular Volume Group.&lt;/div&gt;&lt;span class=&#34;hover-tooltip-more-details&#34;&gt;Click to see more details...&lt;/span&gt;&lt;/template&gt;&lt;/span&gt;, add a volume and set its &lt;em&gt;Type&lt;/em&gt; to &lt;em&gt;Shared&lt;/em&gt;.
+A shared volume has no &lt;em&gt;Node&lt;/em&gt;, so that field is not shown.&lt;/p&gt;
+&lt;p&gt;To turn local volumes into a shared volume, edit one of them and change its &lt;em&gt;Type&lt;/em&gt; to &lt;em&gt;Shared&lt;/em&gt;.
+This is the way to do it when the nodes already have local volumes with the same path and that path is in fact one mount.
+The volumes that the other nodes have in the group for that path are merged into the one shared volume, and their shards become shards of the shared volume.&lt;/p&gt;
+&lt;p&gt;The following rules apply:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;A shared volume cannot be made local again, because its shards may have been written by any node.
+Add a new local volume instead.&lt;/li&gt;
+&lt;li&gt;A volume group cannot have a shared volume and a local volume with the same path.
+Mark the local volume as shared rather than adding a new one.&lt;/li&gt;
+&lt;li&gt;A volume group can have both shared and local volumes.
+New shards are created on its shared volumes when it has any.
+If none of its shared volumes can take a shard, e.g. because they are all full, new shards are created on the node&amp;rsquo;s local volumes.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;checks-on-a-shared-volume&#34;&gt;Checks on a Shared Volume&lt;/h3&gt;
+&lt;p&gt;When a volume is marked as shared, each node checks that it can create the path and write to it.
+The change is refused if any node cannot.
+A node that cannot be reached cannot be checked, so Stroom names it and asks you to confirm the change.&lt;/p&gt;
+&lt;p&gt;After that, the job &lt;em&gt;Index Volume Status&lt;/em&gt; on each node keeps a marker file in each shared volume and looks for the markers of the other running nodes.
+If a node cannot see the marker of another running node after 15 minutes, it logs an error that says the path is probably not the same mount on every node.
+A node that is down is not expected to keep its marker fresh.&lt;/p&gt;
+&lt;h2 id=&#34;searching&#34;&gt;Searching&lt;/h2&gt;
+&lt;p&gt;A shard on a shared volume is searched by one of the nodes that are running, which need not be the node that wrote it.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;A closed shard is given to a running node that is chosen from the ID of the shard.
+A shard goes to the same node from one search to the next, which keeps the file cache of that node warm.
+When a node joins or leaves the cluster, only the shards that it gains or loses move.&lt;/li&gt;
+&lt;li&gt;A shard that is open for writing is searched by the node that is writing to it, because only that node sees the documents that are not yet committed.
+If that node is not running, the shard is searched by another node as far as its last commit.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;If a search cannot be started on a node, the shards on shared volumes that it would have searched are searched by other nodes.&lt;/p&gt;
+&lt;p&gt;A node that is writing to a shard replaces the files of the shard as it commits and merges.
+Another node may be part way through reading those files, so the writer keeps what it has replaced for a period before it deletes it.
+The period is set by the property &lt;code&gt;stroom.index.writer.replacedCommitRetention&lt;/code&gt; and is 30 minutes by default.
+It must be longer than the longest time that a search holds a shard open.
+A longer period uses more disk space.&lt;/p&gt;
+&lt;h2 id=&#34;writing&#34;&gt;Writing&lt;/h2&gt;
+&lt;p&gt;Only one node can write to a shard at a time.
+A node must hold a lease on a shard on a shared volume to write to it.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;A node claims the lease when it opens the shard for writing.&lt;/li&gt;
+&lt;li&gt;It renews the lease while the shard is open.
+How often is set by &lt;code&gt;stroom.index.writer.shardLeaseRenewInterval&lt;/code&gt;, which is 20 seconds by default.&lt;/li&gt;
+&lt;li&gt;It gives the lease up when it closes the shard.
+Any node can then write to the shard.&lt;/li&gt;
+&lt;li&gt;A lease that is not renewed runs out.
+How long that takes is set by &lt;code&gt;stroom.index.writer.shardLeaseDuration&lt;/code&gt;, which is 1 minute by default.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;When a node needs a shard to write to, it uses a closed shard that has room in it before it creates a new one.
+A shard is therefore written to by different nodes over its life.
+The &lt;em&gt;Node&lt;/em&gt; shown for a shard on a shared volume is the node that holds its lease, or the last one that did.&lt;/p&gt;
+&lt;p&gt;Shards on local volumes have no lease.&lt;/p&gt;
+&lt;h2 id=&#34;when-a-node-fails&#34;&gt;When a Node Fails&lt;/h2&gt;
+&lt;h3 id=&#34;a-node-that-cannot-renew-leases&#34;&gt;A Node That Cannot Renew Leases&lt;/h3&gt;
+&lt;p&gt;A node that cannot reach the database cannot renew its leases.
+Once it has been unable to renew a lease for three quarters of the lease duration it stops writing to the shard.
+It discards the documents that it has not committed and it no longer changes any file in the shard.
+The streams those documents came from are indexed again, see &lt;a href=&#34;#re-indexed-streams&#34;&gt;Re-Indexed Streams&lt;/a&gt;.&lt;/p&gt;
+&lt;h3 id=&#34;a-node-that-has-died&#34;&gt;A Node That Has Died&lt;/h3&gt;
+&lt;p&gt;A node that has died leaves its shards open, with leases that run out.
+Until they are taken from it, new documents go to other shards.&lt;/p&gt;
+&lt;p&gt;Once a lease has been out of date for a grace period, the shard is taken from the node.
+The shard is closed, any node can write to it again, and the streams the dead node had not committed are indexed again.
+This is done by the job &lt;em&gt;Index Shard Stream Recovery&lt;/em&gt;, which runs every minute.
+The job must be enabled on every node that can reach the shared volume, because the streams of a shard that has been taken are recovered by one of the running nodes.&lt;/p&gt;
+&lt;p&gt;The grace period is set by &lt;code&gt;stroom.index.writer.shardLeaseTakeoverGrace&lt;/code&gt; and is 5 minutes by default.
+It is the margin for a node that was frozen rather than dead and wakes later, so it must be much longer than any pause a node could suffer.&lt;/p&gt;
+&lt;p&gt;A node that comes back after its shards have been taken does not commit what it had not committed, and does not change the files of those shards.&lt;/p&gt;
+&lt;h2 id=&#34;re-indexed-streams&#34;&gt;Re-Indexed Streams&lt;/h2&gt;
+&lt;p&gt;Documents are added to a shard as a stream is processed, but they are only safe once the shard has committed them.
+Stroom records which streams have documents in a shard that are not yet committed.
+This applies to shards on both shared and local volumes.&lt;/p&gt;
+&lt;p&gt;A stream is indexed again if:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Its indexing task fails part way through the stream.&lt;/li&gt;
+&lt;li&gt;A shard that holds some of its documents fails to commit.&lt;/li&gt;
+&lt;li&gt;The writer of a shard that holds some of its documents stops without a final commit, e.g. because its node died or lost its lease.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;When that happens:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;The documents of the stream are removed from every shard that they were written to.&lt;/li&gt;
+&lt;li&gt;The processor task for the stream is put back to run again.&lt;/li&gt;
+&lt;li&gt;An &lt;em&gt;Error&lt;/em&gt; stream is written for the stream that says why.
+It is removed when the task next runs.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;After three failed attempts the task is set to &lt;em&gt;Failed&lt;/em&gt; rather than run again.&lt;/p&gt;
+
+
+
+&lt;div class=&#34;alert alert-primary&#34; role=&#34;alert&#34;&gt;
+  &lt;h4 class=&#34;alert-heading&#34;&gt;Note&lt;/h4&gt;
+  &lt;div class=&#34;alert-content&#34;&gt;
+
+
+
+
+A stream is no longer left part indexed with its task marked as complete.
+A search may briefly see some of the documents of a stream that is about to be indexed again.
+
+
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;h3 id=&#34;limits&#34;&gt;Limits&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;Documents are removed by their stream ID.
+Removing a stream removes every document in the index that came from it.&lt;/li&gt;
+&lt;li&gt;The index must have an indexed &lt;code&gt;StreamId&lt;/code&gt; field for the documents of a stream to be found and removed.&lt;/li&gt;
+&lt;li&gt;Only streams that are indexed by a &lt;span class=&#34;glossary-link link-with-hover-tooltip&#34;&gt;
+    &lt;a href=&#34;../../docs/glossary/p/glossary-processor-filter&#34;&gt;
+      &lt;span&gt;processor filter&lt;/span&gt;
+      &lt;i class=&#34;glossary-link-icon fas fa-book fa-sm text-primary&#34;&gt;&lt;/i&gt;
+    &lt;/a&gt;&lt;template class=&#34;hover-tooltip-content&#34;&gt;
+        &lt;span class=&#34;hover-tooltip-title&#34;&gt;Processor filter&lt;/span&gt;
+        &lt;div class=&#34;hover-tooltip-summary&#34;&gt;A Processor Filter is used to used to find Streams to process through the &lt;em&gt;Pipeline&lt;/em&gt; associated with the Processor Filter. A Processor Filter consists of an expression tree to select which &lt;em&gt;Streams&lt;/em&gt; to process and a tracker to track the what &lt;em&gt;Streams&lt;/em&gt; have been processed.&lt;/div&gt;&lt;span class=&#34;hover-tooltip-more-details&#34;&gt;Click to see more details...&lt;/span&gt;&lt;/template&gt;&lt;/span&gt; are recorded.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;shard-housekeeping&#34;&gt;Shard Housekeeping&lt;/h2&gt;
+&lt;p&gt;A shard on a local volume is looked after by its own node.
+A shard on a shared volume is looked after by one of the running nodes, which need not be the node that wrote it.
+While a shard is open for writing, that is the node that is writing to it.
+That node applies the retention period of the index to the shard, deletes its files once it has been deleted, and acts on requests to flush or delete it.
+The jobs &lt;em&gt;Index Shard Retention&lt;/em&gt;, &lt;em&gt;Index Shard Delete&lt;/em&gt; and &lt;em&gt;Index Shard Stream Recovery&lt;/em&gt; must therefore be enabled on every node that can reach the shared volume.&lt;/p&gt;
+&lt;h2 id=&#34;properties&#34;&gt;Properties&lt;/h2&gt;
+&lt;p&gt;All of these are under &lt;code&gt;stroom.index.writer&lt;/code&gt;.&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;Property&lt;/th&gt;
+&lt;th&gt;Default&lt;/th&gt;
+&lt;th&gt;Description&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;replacedCommitRetention&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;PT30M&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;How long a writer keeps the files it has replaced in a shard, for searches on other nodes to finish.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;shardLeaseDuration&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;PT1M&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;How long a lease on a shard lasts if it is not renewed.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;shardLeaseRenewInterval&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;PT20S&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;How often a node renews its leases. This should be about a third of &lt;code&gt;shardLeaseDuration&lt;/code&gt;.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;shardLeaseTakeoverGrace&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;PT5M&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;How long a lease must have been out of date before the shard is taken from the node that held it.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+
+
+&lt;div class=&#34;alert alert-primary&#34; role=&#34;alert&#34;&gt;
+  &lt;h4 class=&#34;alert-heading&#34;&gt;See Also&lt;/h4&gt;
+  &lt;div class=&#34;alert-content&#34;&gt;
+
+
+
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;../../docs/user-guide/indexing/lucene/&#34;&gt;Lucene Indexes&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;../../docs/reference-section/jobs/&#34;&gt;Jobs Reference&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;../../releases/v07.14/upgrade-notes/#shared-index-volumes&#34;&gt;Version 7.14 Upgrade Notes&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+
+
+  &lt;/div&gt;
+&lt;/div&gt;
+
+
+      </description>
+    </item>
+    
+  </channel>
+</rss>

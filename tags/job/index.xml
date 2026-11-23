@@ -59,12 +59,20 @@ The master node creates tasks based on processing filters added to the &lt;code&
 &lt;p&gt;Scans your data volumes to ensure they are available and determines how much free space they have.
 Records this status in the Volume Status table.&lt;/p&gt;
 &lt;h2 id=&#34;index-shard-delete&#34;&gt;Index Shard Delete&lt;/h2&gt;
-&lt;p&gt;How frequently index shards that have been logically deleted are physically deleted from the file system.&lt;/p&gt;
+&lt;p&gt;How frequently index shards that have been logically deleted are physically deleted from the file system.
+The files of a shard on a shared index volume are deleted by one of the running nodes, which need not be the node that wrote the shard, so enable this job on every node that can reach the volume.&lt;/p&gt;
 &lt;h2 id=&#34;index-shard-retention&#34;&gt;Index Shard Retention&lt;/h2&gt;
-&lt;p&gt;How frequently index shards that are older than their retention period are logically deleted.&lt;/p&gt;
+&lt;p&gt;How frequently index shards that are older than their retention period are logically deleted.
+A shard on a shared index volume is checked by one of the running nodes, which need not be the node that wrote the shard, so enable this job on every node that can reach the volume.&lt;/p&gt;
+&lt;h2 id=&#34;index-shard-stream-recovery&#34;&gt;Index Shard Stream Recovery&lt;/h2&gt;
+&lt;p&gt;Removes from index shards the documents of streams that were only part indexed, or that were lost when a shard failed to commit, and has those streams indexed again.
+It also takes index shards on shared index volumes from a node that has stopped renewing its leases on them, e.g. because it has died.
+This job should be enabled on every node that indexes data, and on every node that can reach a shared index volume, because the streams of a shard on a shared volume are recovered by one of the running nodes.
+See &lt;a href=&#34;../../docs/user-guide/indexing/shared-index-volumes/#when-a-node-fails&#34;&gt;Shared Index Volumes&lt;/a&gt;.&lt;/p&gt;
 &lt;h2 id=&#34;index-volume-status&#34;&gt;Index Volume Status&lt;/h2&gt;
 &lt;p&gt;Scans your index volumes to ensure they are available and determines how much free space they have.
-Records this status in the Index Volume Status table.&lt;/p&gt;
+Records this status in the Index Volume Status table.
+It also checks that each shared index volume is seen by the other running nodes, and logs an error if it does not look like one that is shared.&lt;/p&gt;
 &lt;h2 id=&#34;index-writer-cache-sweep&#34;&gt;Index Writer Cache Sweep&lt;/h2&gt;
 &lt;p&gt;How frequently entries in the Index Shard Writer cache are evicted based on the time-to-live, time-to-idle and cache size settings.&lt;/p&gt;
 &lt;h2 id=&#34;index-writer-flush&#34;&gt;Index Writer Flush&lt;/h2&gt;

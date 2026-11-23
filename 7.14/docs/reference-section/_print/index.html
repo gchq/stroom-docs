@@ -153,7 +153,7 @@
     aria-label="Search this site…"
     autocomplete="off"
     
-    data-offline-search-index-json-src="../../../offline-search-index.bebe3ed8f264bf5c14a7b705e667cd66.json"
+    data-offline-search-index-json-src="../../../offline-search-index.8f1920e4078567e8ac7b6b04b111c246.json"
     data-offline-search-base-href="../../../"
     data-offline-search-max-results="50"
   >
@@ -6757,12 +6757,20 @@ The master node creates tasks based on processing filters added to the <code>Pro
 <p>Scans your data volumes to ensure they are available and determines how much free space they have.
 Records this status in the Volume Status table.</p>
 <h2 id="index-shard-delete">Index Shard Delete</h2>
-<p>How frequently index shards that have been logically deleted are physically deleted from the file system.</p>
+<p>How frequently index shards that have been logically deleted are physically deleted from the file system.
+The files of a shard on a shared index volume are deleted by one of the running nodes, which need not be the node that wrote the shard, so enable this job on every node that can reach the volume.</p>
 <h2 id="index-shard-retention">Index Shard Retention</h2>
-<p>How frequently index shards that are older than their retention period are logically deleted.</p>
+<p>How frequently index shards that are older than their retention period are logically deleted.
+A shard on a shared index volume is checked by one of the running nodes, which need not be the node that wrote the shard, so enable this job on every node that can reach the volume.</p>
+<h2 id="index-shard-stream-recovery">Index Shard Stream Recovery</h2>
+<p>Removes from index shards the documents of streams that were only part indexed, or that were lost when a shard failed to commit, and has those streams indexed again.
+It also takes index shards on shared index volumes from a node that has stopped renewing its leases on them, e.g. because it has died.
+This job should be enabled on every node that indexes data, and on every node that can reach a shared index volume, because the streams of a shard on a shared volume are recovered by one of the running nodes.
+See <a href="../../../docs/user-guide/indexing/shared-index-volumes/#when-a-node-fails">Shared Index Volumes</a>.</p>
 <h2 id="index-volume-status">Index Volume Status</h2>
 <p>Scans your index volumes to ensure they are available and determines how much free space they have.
-Records this status in the Index Volume Status table.</p>
+Records this status in the Index Volume Status table.
+It also checks that each shared index volume is seen by the other running nodes, and logs an error if it does not look like one that is shared.</p>
 <h2 id="index-writer-cache-sweep">Index Writer Cache Sweep</h2>
 <p>How frequently entries in the Index Shard Writer cache are evicted based on the time-to-live, time-to-idle and cache size settings.</p>
 <h2 id="index-writer-flush">Index Writer Flush</h2>

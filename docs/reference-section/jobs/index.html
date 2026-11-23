@@ -45,13 +45,13 @@
 <meta property="og:type" content="article" />
 <meta property="og:url" content="/docs/reference-section/jobs/" /><meta property="article:section" content="docs" />
 <meta property="article:published_time" content="2021-07-27T00:00:00+00:00" />
-<meta property="article:modified_time" content="2026-11-20T11:49:33+00:00" /><meta property="og:site_name" content="Stroom" />
+<meta property="article:modified_time" content="2026-11-23T13:02:52+00:00" /><meta property="og:site_name" content="Stroom" />
 
 <meta itemprop="name" content="Background Jobs">
 <meta itemprop="description" content="List of Stroom&#39;s background jobs.
 "><meta itemprop="datePublished" content="2021-07-27T00:00:00+00:00" />
-<meta itemprop="dateModified" content="2026-11-20T11:49:33+00:00" />
-<meta itemprop="wordCount" content="1193">
+<meta itemprop="dateModified" content="2026-11-23T13:02:52+00:00" />
+<meta itemprop="wordCount" content="1401">
 <meta itemprop="keywords" content="job," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Background Jobs"/>
 <meta name="twitter:description" content="List of Stroom&#39;s background jobs.
@@ -157,7 +157,7 @@
     aria-label="Search this site…"
     autocomplete="off"
     
-    data-offline-search-index-json-src="../../../offline-search-index.bebe3ed8f264bf5c14a7b705e667cd66.json"
+    data-offline-search-index-json-src="../../../offline-search-index.8f1920e4078567e8ac7b6b04b111c246.json"
     data-offline-search-base-href="../../../"
     data-offline-search-max-results="50"
   >
@@ -182,7 +182,7 @@
     aria-label="Search this site…"
     autocomplete="off"
     
-    data-offline-search-index-json-src="../../../offline-search-index.bebe3ed8f264bf5c14a7b705e667cd66.json"
+    data-offline-search-index-json-src="../../../offline-search-index.8f1920e4078567e8ac7b6b04b111c246.json"
     data-offline-search-base-href="../../../"
     data-offline-search-max-results="50"
   >
@@ -546,7 +546,9 @@
 </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section with-child collapse" id="m-docsuser-guideindexing-li">
   <a href="../../../docs/user-guide/indexing/" class="align-left pl-0 td-sidebar-link td-sidebar-link__section" id="m-docsuser-guideindexing"><span class="">Indexing data</span></a>
   <ul class="ul-3 foldable">
-    <li class="td-sidebar-nav__section-title td-sidebar-nav__section with-child collapse" id="m-docsuser-guideindexingelasticsearch-li">
+    <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-docsuser-guideindexingshared-index-volumes-li">
+  <a href="../../../docs/user-guide/indexing/shared-index-volumes/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-docsuser-guideindexingshared-index-volumes"><span class="">Shared Index Volumes</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section with-child collapse" id="m-docsuser-guideindexingelasticsearch-li">
   <a href="../../../docs/user-guide/indexing/elasticsearch/" class="align-left pl-0 td-sidebar-link td-sidebar-link__section" id="m-docsuser-guideindexingelasticsearch"><span class="">Elasticsearch</span></a>
   <ul class="ul-4 foldable">
     <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-docsuser-guideindexingelasticsearchintroduction-li">
@@ -1212,6 +1214,7 @@
     <li><a href="#file-system-volume-status">File System Volume Status</a></li>
     <li><a href="#index-shard-delete">Index Shard Delete</a></li>
     <li><a href="#index-shard-retention">Index Shard Retention</a></li>
+    <li><a href="#index-shard-stream-recovery">Index Shard Stream Recovery</a></li>
     <li><a href="#index-volume-status">Index Volume Status</a></li>
     <li><a href="#index-writer-cache-sweep">Index Writer Cache Sweep</a></li>
     <li><a href="#index-writer-flush">Index Writer Flush</a></li>
@@ -1385,6 +1388,8 @@
         
           <li><a class="taxonomy-term" href="../../../tags/session/" data-taxonomy-term="session"><span class="taxonomy-label">session</span><span class="taxonomy-count">1</span></a></li>
         
+          <li><a class="taxonomy-term" href="../../../tags/shard/" data-taxonomy-term="shard"><span class="taxonomy-label">shard</span><span class="taxonomy-count">1</span></a></li>
+        
           <li><a class="taxonomy-term" href="../../../tags/solr/" data-taxonomy-term="solr"><span class="taxonomy-label">solr</span><span class="taxonomy-count">2</span></a></li>
         
           <li><a class="taxonomy-term" href="../../../tags/source/" data-taxonomy-term="source"><span class="taxonomy-label">source</span><span class="taxonomy-count">1</span></a></li>
@@ -1409,7 +1414,7 @@
         
           <li><a class="taxonomy-term" href="../../../tags/visualisation/" data-taxonomy-term="visualisation"><span class="taxonomy-label">visualisation</span><span class="taxonomy-count">1</span></a></li>
         
-          <li><a class="taxonomy-term" href="../../../tags/volume/" data-taxonomy-term="volume"><span class="taxonomy-label">volume</span><span class="taxonomy-count">2</span></a></li>
+          <li><a class="taxonomy-term" href="../../../tags/volume/" data-taxonomy-term="volume"><span class="taxonomy-label">volume</span><span class="taxonomy-count">3</span></a></li>
         
           <li><a class="taxonomy-term" href="../../../tags/xml/" data-taxonomy-term="xml"><span class="taxonomy-label">xml</span><span class="taxonomy-count">1</span></a></li>
         
@@ -1505,12 +1510,20 @@ The master node creates tasks based on processing filters added to the <code>Pro
 <p>Scans your data volumes to ensure they are available and determines how much free space they have.
 Records this status in the Volume Status table.</p>
 <h2 id="index-shard-delete">Index Shard Delete</h2>
-<p>How frequently index shards that have been logically deleted are physically deleted from the file system.</p>
+<p>How frequently index shards that have been logically deleted are physically deleted from the file system.
+The files of a shard on a shared index volume are deleted by one of the running nodes, which need not be the node that wrote the shard, so enable this job on every node that can reach the volume.</p>
 <h2 id="index-shard-retention">Index Shard Retention</h2>
-<p>How frequently index shards that are older than their retention period are logically deleted.</p>
+<p>How frequently index shards that are older than their retention period are logically deleted.
+A shard on a shared index volume is checked by one of the running nodes, which need not be the node that wrote the shard, so enable this job on every node that can reach the volume.</p>
+<h2 id="index-shard-stream-recovery">Index Shard Stream Recovery</h2>
+<p>Removes from index shards the documents of streams that were only part indexed, or that were lost when a shard failed to commit, and has those streams indexed again.
+It also takes index shards on shared index volumes from a node that has stopped renewing its leases on them, e.g. because it has died.
+This job should be enabled on every node that indexes data, and on every node that can reach a shared index volume, because the streams of a shard on a shared volume are recovered by one of the running nodes.
+See <a href="../../../docs/user-guide/indexing/shared-index-volumes/#when-a-node-fails">Shared Index Volumes</a>.</p>
 <h2 id="index-volume-status">Index Volume Status</h2>
 <p>Scans your index volumes to ensure they are available and determines how much free space they have.
-Records this status in the Index Volume Status table.</p>
+Records this status in the Index Volume Status table.
+It also checks that each shared index volume is seen by the other running nodes, and logs an error if it does not look like one that is shared.</p>
 <h2 id="index-writer-cache-sweep">Index Writer Cache Sweep</h2>
 <p>How frequently entries in the Index Shard Writer cache are evicted based on the time-to-live, time-to-idle and cache size settings.</p>
 <h2 id="index-writer-flush">Index Writer Flush</h2>
@@ -1586,7 +1599,7 @@ This job controls the frequency that the in memory statistics are flushed from t
 	
 	
 	<div class="text-muted mt-5 pt-3 border-top">
-  Last modified November 20, 2026: <a href="https://github.com/gchq/stroom-docs/commit/83df0302ae40b5d64064ddf4adef86eb939504e5">Merge pull request #155 from gchq/window (83df030)</a>
+  Last modified November 23, 2026: <a href="https://github.com/gchq/stroom-docs/commit/1decb54d6db6d310960ab26d05197dc0b8a994dd">Merge pull request #157 from gchq/gh-6077-window-follow-up (1decb54)</a>
 </div>
 
 </div>
