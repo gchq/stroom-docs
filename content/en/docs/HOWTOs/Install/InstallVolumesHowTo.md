@@ -15,6 +15,15 @@ These are the logical link to the Storage hierarchy we setup on the operating sy
 This HOWTO will demonstrate how one first sets up volumes and also how to add additional volumes if one expanded an existing Stroom cluster.
 
 
+{{< note >}}
+This HOWTO shows the volume screens of an older version of Stroom.
+Index volumes are now managed separately from data volumes, from the _Index Volumes_ item of the _Administration_ menu, and each index volume belongs to a volume group.
+An index volume also has a _Type_ of _Local_ or _Shared_.
+The steps below add one index volume for each node, which is what a _Local_ index volume is.
+If the index storage is one mount that every node can see, add a single _Shared_ index volume instead, see [Shared Index Volumes]({{< relref "docs/user-guide/indexing/shared-index-volumes" >}}).
+{{< /note >}}
+
+
 ## Assumptions
 
 - an account with the `Administrator` [Application Permission]({{< relref "docs/user-guide/security/app-permissions.md" >}}) is currently logged in.
