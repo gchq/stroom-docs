@@ -62,17 +62,22 @@ Both times are recorded on every detection, as `effectiveExecutionTime` and `exe
 A query with a [`window`]({{< relref "docs/user-guide/search/queries/stroom-query-language#window" >}}) clause gives a row for each window of time, such as a count for each user for each day.
 A rule judges a window only when it has all of the window's events, so that a window is judged once and is not judged on part of its events.
 
-A _Scheduled Query_ rule leaves out any window that the time range of its query cuts short.
+A _Scheduled Query_ rule judges each window once, in the run whose time range holds the end of the window.
+A row that uses `lead()` is judged in the run whose time range holds the end of the last window it reads.
 Where the query gives no end to its time range, the range ends at the effective execution time.
-A row that uses `lag()` or `lead()` is also left out if the window it reads is cut short or is outside the time range.
 
-Give the rule a time range of whole windows.
-For windows of a day, a range from `day() - 7d` to `day()` gives seven whole days, whereas a range from `now() - 7d` to `now()` cuts short the first and last days and leaves six.
-A rule that compares each day with the day before, with `lag(count(), 1)`, judges all but the first of those days, so its time range has to start a window earlier than the first window to be judged.
+The rule searches back before the start of its time range as far as it needs to, for the start of the first window it judges and for the windows that it reads with `lag()`.
+For example, a rule run once a day with windows of a day, a time range from `day() - 1d` to `day()` and `lag(count(), 1)` judges yesterday, and searches the day before as well so that it can compare the two.
+
+Give each run a time range that follows on from the last one, so that every window ends in one of them.
+The range does not need to line up with the windows: a range from `now() - 1d` to `now()` judges each day in the run after it ends.
+
+The search back applies to the whole query, including any join, so a joined data source is searched over the same longer range.
+A `limit` in the query applies to the windows the rule judges, and not to the windows it searches only for `lag()`.
 
 {{< note >}}
 Windows are only tested against the time range when the field of the `window` clause is the field that the time range of the data source applies to.
-With any other field, only windows that end after the effective execution time are left out.
+With any other field, or with a time range that has no start, every run judges every window that is ready by the effective execution time, and the rule does not search back.
 {{< /note >}}
 
 {{< see-also >}}
