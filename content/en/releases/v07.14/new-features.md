@@ -140,7 +140,7 @@ select windowStart() as Day, UserId, count() as Events
 * `having` now takes expressions, so the query above needs no `eval`.
 
 Analytic rules judge a window only when it has all of its events.
-A scheduled rule leaves out the windows that the time range of its query cuts short.
+A scheduled rule judges each window in the run whose time range holds the end of the window, and searches back before the range for the windows it reads with `lag()`.
 
 The `periodN` columns and the `period()` function that the old clause used have been removed, see [Breaking Changes]({{< relref "./breaking-changes#stroomql-window-clause" >}}).
 
