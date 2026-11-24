@@ -43,11 +43,14 @@ The arguments to functions can either be other functions, literal values, or the
 
   {{< card header="String Functions" >}}
   * [Concat](string#concat)
+  * [Contains](string#contains)
   * [Decode](string#decode)
   * [DecodeUrl](string#decodeurl)
   * [EncodeUrl](string#encodeurl)
   * [Exclude](string#exclude)
   * [Hash](string#hash)
+  * [HostAddress](string#hostaddress)
+  * [HostName](string#hostname)
   * [Include](string#include)
   * [Index Of](string#index-of)
   * [Jq](string#jq)
@@ -57,6 +60,7 @@ The arguments to functions can either be other functions, literal values, or the
   * [Param](string#param)
   * [Params](string#params)
   * [Replace](string#replace)
+  * [Shannon Entropy](string#shannon-entropy)
   * [String Length](string#string-length)
   * [Substring](string#substring)
   * [Substring After](string#substring-after)
@@ -125,6 +129,7 @@ The arguments to functions can either be other functions, literal values, or the
   * [Current Period Functions](date#current-period-functions)
   * [Window Start](date#window-start)
   * [Window End](date#window-end)
+  * [Window Key](date#window-key)
   * [Parse Duration](date#parse-duration)
   * [Format Duration](date#format-duration)
   * [Parse ISO Duration](date#parse-iso-duration)
@@ -132,6 +137,7 @@ The arguments to functions can either be other functions, literal values, or the
   {{< /card >}}
 
   {{< card header="Logic Functions" >}}
+  * [And](logic#and)
   * [Equals](logic#equals)
   * [Greater Than](logic#greater-than)
   * [Greater Than or Equal To](logic#greater-than-or-equal-to)
@@ -142,6 +148,7 @@ The arguments to functions can either be other functions, literal values, or the
   * [Case](logic#case)
   * [InRange](logic#inrange)
   * [Not Equals](logic#not-equals)
+  * [Or](logic#or)
   {{< /card >}}
 
 {{< /cardpane >}}
