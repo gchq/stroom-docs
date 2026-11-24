@@ -245,6 +245,22 @@ windowEnd()
 ```
 
 
+## Window Key
+
+Returns a number that identifies the row's time window, for a StroomQL query with a [`window`]({{< relref "docs/user-guide/search/queries/stroom-query-language#window" >}}) clause.
+It takes no arguments.
+
+```clike
+windowKey()
+```
+
+Later windows have higher numbers.
+The numbers have no other meaning, so use [`windowStart()`](#window-start) and [`windowEnd()`](#window-end) for the times of the window.
+
+Rows are grouped by their window key without it being written in the query.
+Two windows can start at the same time on a day when the clocks go forward, and the key tells them apart.
+
+
 ## Parse Duration
 
 Parses the supplied value as a duration, returning a duration value.

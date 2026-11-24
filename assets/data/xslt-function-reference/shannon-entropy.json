@@ -1,0 +1,28 @@
+{
+  "name" : "shannon-entropy",
+  "helpAnchor" : "",
+  "aliases" : [ ],
+  "commonCategory" : [ "String" ],
+  "commonSubCategories" : [ ],
+  "commonDescription" : "Calculates the Shannon entropy of a string, i.e. how unpredictable its characters are.\nUseful for spotting machine-generated values such as random domain names, encoded command\nlines or tokens, and for storing the result as an index field at ingest.\n\nThe result ranges from `0`, for one repeated character, up to log2 of the string's length,\nso short strings cannot score highly, e.g. a 12-character string scores at most `3.585`.\nRandom-looking strings typically score about `3.5` or above.\n\nCharacters are counted as Unicode code points and are case-sensitive; use\n`stroom:shannon-entropy(lower-case($value))` to ignore case.\nThis gives the same result as the `shannonEntropy()` expression function.",
+  "extendedCommonDescription" : "",
+  "commonReturnType" : [ "Decimal" ],
+  "commonReturnDescription" : "The Shannon entropy of the string in bits per character, or an empty sequence if there is no input.",
+  "signatures" : [ {
+    "args" : [ {
+      "allowedValues" : [ ],
+      "argType" : "String",
+      "defaultValue" : "",
+      "description" : "The string to measure.",
+      "isOptional" : false,
+      "isVarargs" : false,
+      "minVarargsCount" : 0,
+      "name" : "value"
+    } ],
+    "category" : [ ],
+    "description" : "",
+    "returnDescription" : "",
+    "returnType" : [ ],
+    "subCategories" : [ ]
+  } ]
+}

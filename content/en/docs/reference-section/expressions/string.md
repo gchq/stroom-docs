@@ -353,6 +353,45 @@ replace('this', 'is', 'at')
 ```
 
 
+## Shannon Entropy
+
+Returns the Shannon entropy of a string, i.e. how unpredictable its characters are, in bits per character.
+This is useful for spotting machine-generated values such as random domain names, encoded command lines or tokens.
+
+```clike
+shannonEntropy(input)
+```
+
+* `input` - The string to measure.
+  Numbers and dates are measured on their string form.
+
+The result ranges from `0`, for an empty string or one repeated character, up to log2 of the string's length.
+This means short strings cannot score highly, e.g. a 12-character string scores at most 3.585.
+Random-looking strings typically score about 3.5 or above.
+
+Characters are counted as Unicode code points and are case-sensitive.
+Use `shannonEntropy(lowerCase(${val}))` to ignore case.
+
+If `input` is null or an error then it is returned as it is.
+
+Example
+
+```clike
+shannonEntropy('aaaa')
+> 0
+shannonEntropy('abababab')
+> 1
+shannonEntropy('abcd')
+> 2
+shannonEntropy('password')
+> 2.75
+shannonEntropy(${DnsQuery}) > 3.5
+> true
+```
+
+The XSLT function {{< xslt-func-link "shannon-entropy" >}} gives the same result, for when you want to calculate the entropy as data is processed.
+
+
 ## String Length
 
 Takes the length of a string

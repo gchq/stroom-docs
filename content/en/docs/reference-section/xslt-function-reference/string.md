@@ -46,3 +46,23 @@ Type can be one of:
 
 If you wish to override the default title or URL of the target link in either a tab or dialog you can.
 Both `dialog` and `tab` types allow titles to be specified after a `|`, e.g. `dialog|My Title`.
+
+
+## `shannon-entropy`
+
+{{< xslt-func "shannon-entropy" >}}
+
+
+### Example
+
+**XSLT:**
+
+```xml
+<Entropy><xsl:value-of select="stroom:shannon-entropy('password')" /></Entropy>
+```
+
+**XML:**
+
+```xml
+<Entropy>2.75</Entropy>
+```
