@@ -291,6 +291,15 @@ ${val} = [89, 12, 3, 45]
 > 149
 ```
 
+Nulls are ignored.
+A boolean gives an error, so use [If]({{< relref "docs/reference-section/expressions/logic#if" >}}) to count the rows where a condition is true.
+
+```clike
+sum(if(${val} > 10, 1, 0))
+${val} = [89, 12, 3, 45]
+> 3
+```
+
 
 ## Variance
 

@@ -443,6 +443,11 @@ Conditions of both kinds can be joined with `and`, `or` and `not`.
 
 `<duration>` is used by `window` and by the time window of a join.
 
+A number in a condition or an expression can have decimal places and an exponent, e.g. `1.5e3`.
+The numbers in a `limit` or a duration can only be whole numbers without an exponent.
+In a condition, a number with an exponent is written out in full, so `Size > 1e5` searches for `100000`.
+Text that looks like this must be in quotes.
+
 Quoted text can hold its quote character escaped with `\`, e.g. `'O\'Brien'`.
 
 A `param("<parameter>")` value takes the value of the query parameter of that name.
