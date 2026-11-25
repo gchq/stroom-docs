@@ -8,6 +8,95 @@ description: >
   Standard mathematical functions, such as add subtract, multiple, etc.
 ---
 
+## Arithmetic Rules
+
+### Numbers
+
+Numbers can be written with decimal places and with an exponent.
+
+```clike
+1.5e3
+> 1500
+2E+2
+> 200
+1e-3
+> 0.001
+```
+
+
+### Order of Operators
+
+Operators are worked out in this order, and from left to right where they are in the same group.
+Use brackets to change the order.
+
+1. `^`
+1. `*`, `/` and `%`
+1. `+` and `-`
+1. `>`, `>=`, `<` and `<=`
+1. `=` and `!=`
+
+```clike
+10 - 3 + 2
+> 9
+3 < 5 = true()
+> true
+```
+
+
+### Null Values
+
+The result of `+`, `-`, `*`, `/`, `%` or `^` is null if either value is null.
+Use [If]({{< relref "docs/reference-section/expressions/logic#if" >}}) to give a value to use in place of a null.
+
+```clike
+${val} + 1
+${val} = null
+> null
+if(isNull(${val}), 0, ${val}) + 1
+${val} = null
+> 1
+```
+
+The exception is when `+` is used to join text, which leaves out the nulls.
+
+```clike
+'a' + null()
+> a
+```
+
+The [Sum](#sum) function ignores nulls.
+
+
+### Other Values
+
+Arithmetic on a value that is not a number is an error.
+
+```clike
+'5' - 3
+> ERR: Expected a number but got '5'
+true() + 1
+> ERR: Expected a number but got 'true'
+```
+
+The [Sum](#sum) function also gives an error for a boolean, but can read a number from text.
+
+Use a [Cast Function]({{< relref "docs/reference-section/expressions/cast" >}}) to turn text into a number, or [If]({{< relref "docs/reference-section/expressions/logic#if" >}}) to turn a boolean into one.
+
+```clike
+toDouble('5') - 3
+> 2
+if(true(), 1, 0) + 1
+> 2
+```
+
+The exception is when `+` is used with text, which joins the values.
+
+```clike
+'5' + 3
+> 53
+```
+
+
 ## Add
 
 ```clike
