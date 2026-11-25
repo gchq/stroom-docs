@@ -28,8 +28,10 @@ The arguments to functions can either be other functions, literal values, or the
   {{< card header="Aggregate Functions" >}}
   * [Average](aggregate#average)
   * [Count](aggregate#count)
+  * [Count Distinct](aggregate#count-distinct)
   * [Count Groups](aggregate#count-groups)
   * [Count Unique](aggregate#count-unique)
+  * [Dcount](aggregate#dcount)
   * [Distinct](aggregate#distinct)
   * [Joining](aggregate#joining)
   * [Lag](aggregate#lag)

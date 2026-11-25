@@ -198,6 +198,7 @@ appConfig:
     resultStore:
       lmdb: # Common LMDB structure
         localDir: "lmdb/analytic_store"
+      maxCountDistinctValues: 10000
       maxPayloadSize: "1G"
       maxPutsBeforeCommit: 10000
       maxSortedItems: 500000
@@ -927,6 +928,7 @@ appConfig:
       map:
         minUntrimmedSize: 100000
         trimmedSizeLimit: 500000
+      maxCountDistinctValues: 10000
       maxPayloadSize: "1G"
       maxPutsBeforeCommit: 10000
       maxSortedItems: 500000

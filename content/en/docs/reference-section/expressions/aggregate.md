@@ -55,6 +55,48 @@ count()
 ```
 
 
+## Count Distinct
+
+Counts the unique values in each group.
+Null and error values are not counted.
+
+```clike
+countDistinct(values)
+```
+
+The count is exact up to a limit for each group, which is 10,000 values unless it has been configured.
+Above the limit the count is the same estimate that [`dcount()`](#dcount) gives by default, with a standard error of 0.8%.
+There is nothing in the results to show whether a count is exact or an estimate.
+
+{{< note >}}
+A count just above the limit can be given as one just below it, because it is an estimate.
+Avoid comparing the count with a number close to the limit, such as in a `having` clause or an analytic rule.
+{{< /note >}}
+
+Values of different types are different, so the number `1` and the string `'1'` are two unique values.
+Values are compared by a 64-bit hash, so the chance that any two of 10,000 values are counted as one is about 3 in a trillion.
+
+The limit is set by a property for where the function is used.
+A higher limit takes more space, as 8 bytes are stored for each value that is counted exactly.
+
+Used in                                   | Property
+----------------------------------------- | ------------
+Queries, dashboards and other searches    | `stroom.search.resultStore.maxCountDistinctValues`
+Analytic rules and reports                | `stroom.analytics.resultStore.maxCountDistinctValues`
+
+Example
+
+```clike
+countDistinct(${val})
+${val} = ['bill', 'bob', 'fred', 'bill']
+> 3
+```
+
+{{< see-also >}}
+[`dcount()`](#dcount), which takes less space if there are many unique values.
+{{< /see-also >}}
+
+
 ## Count Groups
 
 This is used to count the number of unique group keys where there are multiple group levels.
@@ -72,6 +114,12 @@ countGroups()
 
 ## Count Unique
 
+DEPRECATED - replaced by [`countDistinct()`](#count-distinct) and [`dcount()`](#dcount), which are far quicker and take less space if there are many unique values.
+
+{{< warning >}}
+Don't change an existing Table Builder rule to use one of these, see [Changing the Query]({{< relref "docs/user-guide/search/analytics/table-builder#changing-the-query" >}}).
+{{< /warning >}}
+
 This is used to count the number of unique values passed to the function where grouping is used to aggregate values in other columns.
 For Example, a data set grouped as follows
 1. Group by Name
@@ -86,6 +134,55 @@ countUnique(${val})
 ${val} = ['bill', 'bob', 'fred', 'bill']
 > 3
 ```
+
+
+## Dcount
+
+Estimates the number of unique values in each group.
+Null and error values are not counted.
+
+```clike
+dcount(values)
+dcount(values, accuracy)
+```
+
+* `values` - The values to count.
+* `accuracy` - `0`, `1` or `2`.
+  The default is `1`.
+
+A lower accuracy takes less space, but has a greater error.
+
+Accuracy | Standard error | Most space for each group
+-------- | -------------- | ------------
+`0`      | 1.6%           | 3 kilobytes
+`1`      | 0.8%           | 12 kilobytes
+`2`      | 0.4%           | 48 kilobytes
+
+About 99.7% of estimates are within three times the standard error.
+With few values the estimate is exact, or all but exact, and takes less space.
+This is the case for up to about five thousand values with an accuracy of `1`, for fewer with `0` and for more with `2`.
+
+The estimate uses the HyperLogLog++ algorithm.
+It depends only on the values and not on the order that they are given or on which nodes they are read by, so the same values always give the same estimate.
+
+Examples
+
+```clike
+dcount(${val})
+${val} = ['bill', 'bob', 'fred', 'bill']
+> 3
+```
+
+```clike
+# The estimate with the least error
+dcount(${val}, 2)
+${val} = ['bill', 'bob', 'fred', 'bill']
+> 3
+```
+
+{{< see-also >}}
+[`countDistinct()`](#count-distinct), which is exact up to a limit.
+{{< /see-also >}}
 
 
 ## Distinct
