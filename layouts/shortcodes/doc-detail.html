@@ -1,0 +1,24 @@
+{{- if ne (len .Params) 1 -}}
+  {{- errorf "The %q shortcode requires one positional argument, the document type. See %s" .Name .Position -}}
+{{- end -}}
+
+{{- $docType := .Get 0 -}}
+{{- $file := printf "data/doc-reference/%s.json" $docType -}}
+{{- $resource := resources.Get $file -}}
+{{- if not $resource -}}
+  {{- errorf "The %q shortcode was unable to find %s. See %s" .Name $file .Position -}}
+{{- end -}}
+
+{{- $document := $resource | transform.Unmarshal -}}
+<div class="doc-definition">
+<ul>
+  <li>Icon: {{ partial "stroom-icon.partial.html" (dict
+      "context" .
+      "file" $document.iconRelativePathStr
+      "title" ""
+      "enabled" ""
+      "colour" "" ) }}</li>
+  <li>Type: <code>{{ $document.type }}</code></li>
+</ul>
+{{ $document.description | markdownify }}
+</div>

@@ -332,7 +332,7 @@ And not in line
 
 ### Document Links
 
-To display a reference to a Stroom document type, e.g. {{< stroom-doc "xslt" >}}   with associated icon you can use the `stroom-doc` short code.
+To display a reference to a Stroom document type, e.g. {{< doc-link "xslt" >}}   with associated icon you can use the `stroom-doc` short code.
 It will render as the document type name and associated icon.
 Both will be a clickable link to the appropriate section of the [Document Reference]({{< relref "docs/reference-section/documents" >}}).
 
@@ -345,7 +345,7 @@ Both will be a clickable link to the appropriate section of the [Document Refere
 
 **Examples:**
 
-A {{< stroom-doc "feed" >}}, a {{< stroom-doc "XSLT" >}} and an {{< stroom-doc "gitrepo" >}}.
+A {{< doc-link "feed" >}}, a {{< doc-link "XSLT" >}} and an {{< doc-link "GitRepo" >}}.
 
 This is one without an icon {{< stroom-doc type="Pipeline" show_icon="false" >}}.
 
@@ -354,7 +354,7 @@ This is one without an icon {{< stroom-doc type="Pipeline" show_icon="false" >}}
 The markdown for the examples above is:
 
 ```text
-A {{</* stroom-doc "feed" */>}}, a {{</* stroom-doc "XSLT" */>}} and an {{</* stroom-doc "gitrepo" */>}}.
+A {{</* doc-link "feed" */>}}, a {{</* doc-link "XSLT" */>}} and an {{</* doc-link "GitRepo" */>}}.
 
 This is one without an icon {{</* stroom-doc type="Pipeline" show_icon="false" */>}}.
 ```
