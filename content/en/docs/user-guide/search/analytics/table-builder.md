@@ -41,3 +41,21 @@ Processing Info               | A read only summary of what the rule has process
 A rule whose query has a `window` clause judges a window once it is closed, which is when the rule has read an event later than the end of the window, less the _Aggregation Period_.
 The last window is therefore not judged until a later event arrives.
 A window's data is kept in the table until the window has been judged, even if that is longer than _Time To Keep Data In The Table_.
+
+
+## Changing the Query
+
+The table of a rule is kept when the rule's query is changed.
+If a change to the query changes what is stored, such as using a different aggregate function, then the data already in the table can't be read properly.
+Counts can then be wrong, or the rule can fail.
+
+For example, this applies if you change `countUnique()` to `countDistinct()` or `dcount()`, or change the accuracy of `dcount()`.
+
+Make such a change in a copy of the rule, and disable the original.
+The copy is a new rule, so it has its own table and processes streams again from its _Min Stream Create Time_.
+It can therefore raise detections that the original has already raised.
+
+{{< warning >}}
+Renaming a rule also gives it a new, empty table, but the data in the old table is lost.
+The rule carries on from the last stream that it processed, so the streams before that are not added to the new table.
+{{< /warning >}}
