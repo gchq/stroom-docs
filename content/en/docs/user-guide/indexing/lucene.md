@@ -18,6 +18,21 @@ Complete this page.
 {{< /todo >}}
 
 
+## Shards and Volumes
+
+The documents of an index are held in index shards.
+Each shard is a directory of files in one of the index volumes of the {{< glossary "Volume Group" >}} that the index is set to use.
+An index is split into shards by its partition settings, and a new shard is started when a shard is full.
+
+An index volume is either local to one node or shared by all nodes.
+A shard on a local volume can only be searched and written to by its own node.
+A shard on a shared volume can be searched and written to by any node, so a search does not depend on the node that wrote the shard being up.
+See [Shared Index Volumes]({{< relref "shared-index-volumes" >}}).
+
+If indexing fails part way through a stream, the documents of the stream are removed from the index and the stream is indexed again.
+See [Re-Indexed Streams]({{< relref "shared-index-volumes#re-indexed-streams" >}}).
+
+
 ## Field Configuration
 
 ### Field Types

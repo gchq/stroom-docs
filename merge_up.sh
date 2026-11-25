@@ -168,6 +168,17 @@ merge_branch_up() {
 
   if [[ "${is_merge_success}" = "true" ]]; then
     echo -e "${GREEN}Merge completed successfully${NC}"
+
+    # Check the spelling
+    if [[ -f "${SCRIPT_DIR}/check_spelling.sh" ]]; then
+      "${SCRIPT_DIR}/check_spelling.sh"
+    fi
+
+    # Run the style check in case the merge has broken the style rules
+    if [[ -f "${SCRIPT_DIR}/check_style.sh" ]]; then
+      "${SCRIPT_DIR}/check_style.sh" --detail --strict
+    fi
+
     push_if_needed
     echo -e "${GREEN}--------------------------------------------------${NC}"
   else
@@ -225,7 +236,7 @@ confirm_branches() {
 }
 
 main() {
-  #SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null && pwd )"
+  SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null && pwd )"
 
   setup_echo_colours
 

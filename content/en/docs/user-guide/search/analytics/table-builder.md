@@ -34,3 +34,10 @@ Max Stream Create Time        | The latest stream creation time to process.
 Aggregation Period            | How long to wait for data before processing it.
 Time To Keep Data In The Table | How long data is retained in the rule's table.
 Processing Info               | A read only summary of what the rule has processed.
+
+
+## Time Windows
+
+A rule whose query has a `window` clause judges a window once it is closed, which is when the rule has read an event later than the end of the window, less the _Aggregation Period_.
+The last window is therefore not judged until a later event arrives.
+A window's data is kept in the table until the window has been judged, even if that is longer than _Time To Keep Data In The Table_.

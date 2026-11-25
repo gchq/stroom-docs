@@ -205,6 +205,46 @@ Like `now()`, these are all based on the time the query was run, so they are con
 These are useful for building relative time ranges without having to write out a date, e.g. comparing a field against `day()` to select today's records.
 
 
+## Window Start
+
+Returns the time that the row's time window starts, for a StroomQL query with a [`window`]({{< relref "docs/user-guide/search/queries/stroom-query-language#window" >}}) clause.
+It takes no arguments.
+
+```clike
+windowStart()
+```
+
+The start is part of the window.
+
+Example
+
+```clike
+# With 'window EventTime by 1d', for a row of events on 22 February 2014
+windowStart()
+> "2014-02-22T00:00:00.000Z"
+```
+
+
+## Window End
+
+Returns the time that the row's time window ends, for a StroomQL query with a [`window`]({{< relref "docs/user-guide/search/queries/stroom-query-language#window" >}}) clause.
+It takes no arguments.
+
+```clike
+windowEnd()
+```
+
+The end is not part of the window, so it is the same time as the start of the window that follows.
+
+Example
+
+```clike
+# With 'window EventTime by 1d', for a row of events on 22 February 2014
+windowEnd()
+> "2014-02-23T00:00:00.000Z"
+```
+
+
 ## Parse Duration
 
 Parses the supplied value as a duration, returning a duration value.

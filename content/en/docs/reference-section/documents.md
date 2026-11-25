@@ -124,6 +124,14 @@ Documents relating to the processing of data.
 Documents relating to the process of adding data into an index, such as Lucene or Elasticsearch.
 
 
+### Data Connection
+
+* Icon: {{< stroom-icon "document/DataConnection.svg" >}}
+* Type: `DataConnection`
+
+Defines data from outside Stroom that queries can use: a JDBC database or Amazon Athena, queried with SQL given in each query, an LDAP directory, searched with a filter given in each query, or CSV or an Excel workbook held in this document.
+
+
 ### Elastic Index
 
 {{< doc-detail "ElasticIndex" >}}

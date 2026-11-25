@@ -8,13 +8,15 @@ The site is build using Hugo and the [Docsy](https://www.docsy.dev/docs/) Hugo t
 
 ## A short bullet list of the most critical rules the agent must follow before doing anything
 
-* DO NOT execute any `git commit` commands under any circumstances.
+* Changes may be staged and committed.
+  Commit messages are a single short line in the imperative mood, in the form `#NNNN Message` where `NNNN` is the GitHub issue number, e.g. `#151 Add a filter section to the StroomQL grammar reference`.
+  When there is no issue, use the message alone.
+
+* DO NOT add a `Co-Authored-By` trailer, or any other AI attribution, to commit messages.
 
 * DO NOT execute any `git merge` commands under any circumstances.
 
-* DO NOT modify, stage, or alter git version control states automatically.
-
-* All code changes must remain un-staged in the working directory for human review.
+* DO NOT push, rebase, reset or otherwise rewrite git history.
 
 * DO NOT attempt to create/modify any issues or pull requests on GitHub.
   Issues and pull requests must be created/modified by a human.
@@ -26,6 +28,16 @@ The site is build using Hugo and the [Docsy](https://www.docsy.dev/docs/) Hugo t
 
 * Avoid new external dependencies unless absolutely necessary.
   Reuse existing project utilities first.
+
+
+## Protected branches
+
+* DO NOT commit directly to `master`, or to a version branch, i.e. one whose whole name matches the regular expression `[0-9]+\.[0-9]+` (e.g. `7.14`).
+
+* Check the current branch with `git branch --show-current` before committing.
+  If it is protected, stop and ask the human to create a branch to commit to.
+
+* Branches named after a version but with more to the name, such as `7.11_wip` or `7.10-add-xslt-funcs`, are not protected.
 
 
 ## Commands

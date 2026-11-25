@@ -40,6 +40,27 @@ This is different to the java version required for Stroom v7.9 (Java 21).
 Ensure the Stroom and Stroom-Proxy hosts are running the latest patch release of Java v25.
 
 
+## Shared Index Volumes
+
+Every existing index volume is given the type _Local_ by the upgrade, so indexing and searching carry on as before.
+Nothing needs to be done unless you want to use [Shared Index Volumes]({{< relref "docs/user-guide/indexing/shared-index-volumes" >}}).
+
+{{< warning >}}
+Upgrade every node to v7.14 before you mark an index volume as _Shared_.
+While a cluster has nodes on different versions, a search may lose results if it cannot be started on one node and the shards of that node are given to a node that is still on the older version.
+{{< /warning >}}
+
+If your nodes already write their index shards to the same network file system under the same path, edit one of the index volumes for that path and change its _Type_ to _Shared_.
+The volumes that the other nodes have for the same path are merged into it.
+A shared volume cannot be made local again.
+
+A new job, _Index Shard Stream Recovery_, is added and runs every minute.
+It removes from the index the documents of streams that were only part indexed and has those streams indexed again, for shards on both shared and local volumes.
+Make sure it is enabled on every node that indexes data, and on every node that can reach a shared index volume.
+
+The jobs _Index Shard Retention_ and _Index Shard Delete_ must be enabled on every node that can reach a shared index volume, because a shard on a shared volume is looked after by one of the running nodes rather than by the node that wrote it.
+
+
 ## Configuration File Changes
 
 <!--
@@ -184,6 +205,109 @@ appConfig:
 `maxSessionIdleTime` controls when an idle session and its persisted I/O are removed, while `orphanMaxAge` controls cleanup of abandoned session directories.
 
 
+#### New `dataConnection` Properties
+
+The new [Data Connection]({{< relref "docs/user-guide/search/data-sources/data-connections" >}}) document type has its own branch of properties.
+With the defaults, no JDBC, Amazon Athena or LDAP connection is allowed: set `allowedUrlPatterns`, `allowedAthenaWorkGroups` or `allowedLdapUrlPatterns` to allow the systems Data Connections may query.
+CSV and Excel Data Connections need no setting.
+See [Administration]({{< relref "docs/user-guide/search/data-sources/data-connections#administration" >}}) for what each property does.
+
+```yaml
+appConfig:
+  dataConnection:
+    allowDefaultAwsCredentials: false
+    allowPlainLdap: false
+    allowedAthenaOutputLocations: []
+    allowedAthenaWorkGroups: []
+    allowedLdapUrlPatterns: []
+    allowedUrlPatterns: []
+    connectionPoolCache:
+      expireAfterAccess: "PT10M"
+      expireAfterWrite: null
+      maximumSize: 100
+      refreshAfterWrite: null
+      statisticsMode: "INTERNAL"
+    deniedConnectionProperties:
+    - "allowLoadLocalInfile"
+    - "allowLoadLocalInfileInPath"
+    - "allowUrlInLocalInfile"
+    - "clientCertificateKeyStoreUrl"
+    - "ociConfigFile"
+    - "serverRSAPublicKeyFile"
+    - "trustCertificateKeyStoreUrl"
+    - "authenticationPlugins"
+    - "autoDeserialize"
+    - "clientInfoProvider"
+    - "connectionLifecycleInterceptors"
+    - "defaultAuthenticationPlugin"
+    - "exceptionInterceptors"
+    - "ha.loadBalanceStrategy"
+    - "loadBalanceExceptionChecker"
+    - "logger"
+    - "profilerEventHandler"
+    - "propertiesTransform"
+    - "queryInterceptors"
+    - "socketFactory"
+    - "readOnlyPropagatesToServer"
+    - "gsslib"
+    - "jaasLogin"
+    - "loggerFile"
+    - "options"
+    - "service"
+    - "sslcert"
+    - "sslkey"
+    - "sslrootcert"
+    - "authenticationPluginClassName"
+    - "socketFactoryArg"
+    - "sslfactory"
+    - "sslfactoryarg"
+    - "sslhostnameverifier"
+    - "sslpasswordcallback"
+    - "sspiServiceClass"
+    - "readOnly"
+    - "readOnlyMode"
+    driverDirectory: null
+    fieldCache:
+      expireAfterAccess: null
+      expireAfterWrite: "PT10M"
+      maximumSize: 1000
+      refreshAfterWrite: null
+      statisticsMode: "INTERNAL"
+    maxPoolSizeLimit: 20
+    maxQueryTimeout: "PT10M"
+    maxRowsLimit: 1000000
+    maxStoredDataSize: "5M"
+    tableCache:
+      expireAfterAccess: "PT10M"
+      expireAfterWrite: null
+      maximumSize: 10
+      refreshAfterWrite: null
+      statisticsMode: "INTERNAL"
+```
+
+
+#### Changes to the `index.writer` Branch
+
+The following properties have been added for index shards on [Shared Index Volumes]({{< relref "docs/user-guide/indexing/shared-index-volumes" >}}).
+They have no effect on shards on local index volumes.
+
+```yaml
+appConfig:
+  index:
+    writer:
+      replacedCommitRetention: "PT30M"
+      shardLeaseDuration: "PT1M"
+      shardLeaseRenewInterval: "PT20S"
+      shardLeaseTakeoverGrace: "PT5M"
+```
+
+`replacedCommitRetention` controls how long the writer of a shard keeps the files it has replaced, so that searches on other nodes that are reading them can finish.
+It must be longer than the longest time that a search holds a shard open.
+`shardLeaseDuration` controls how long the lease that a node needs to write to a shard lasts if it is not renewed.
+`shardLeaseRenewInterval` controls how often a node renews its leases, and should be about a third of `shardLeaseDuration`.
+`shardLeaseTakeoverGrace` controls how long a lease must have been out of date before the shard is taken from the node that held it, and should be much longer than any pause a node could suffer.
+
+
 #### Changes to the `planb` Branch
 
 The following properties have been added to control Plan B shard allocation, caching and merging.
@@ -254,6 +378,35 @@ appConfig:
 `rePollDuration` limits how long a scheduled execution polls before waiting for the next execution.
 `sleepDurationPostFailure` sets the delay after a polling failure.
 `visibilityTimeout` should be longer than the time needed to process a message; successfully processed messages are deleted from the queue.
+
+
+#### New `search.resultStore` Join Properties
+
+[StroomQL joins]({{< relref "docs/user-guide/search/queries/joins" >}}) hold each joined source while the first source is searched.
+These properties limit how much a joined source may hold, as rows and as bytes.
+A query that joins more fails, suggesting that the joined source is filtered or grouped.
+
+```yaml
+appConfig:
+  search:
+    resultStore:
+      joinMaxRows: 1000000
+      joinMaxSize: "256M"
+```
+
+
+#### New `search.resultStore.maxWindowCopiesPerEvent` Property
+
+A StroomQL query with a [`window`]({{< relref "docs/user-guide/search/queries/stroom-query-language#window" >}}) clause adds an event to its results once for each window the event is in, and again for each window that reads it with `lag()` or `lead()`.
+This property limits how many times a query may add one event.
+A query that needs more is refused.
+
+```yaml
+appConfig:
+  search:
+    resultStore:
+      maxWindowCopiesPerEvent: 100
+```
 
 
 #### New `sqlStore` Database Configuration
@@ -365,6 +518,112 @@ All other nodes will wait until that is complete before proceeding with the boot
 It is recommended however to use a single node to execute the migration.
 To avoid Stroom starting up and beginning processing you can use the `migrage` command to just migrate the database and not fully boot Stroom.
 See [`migrage` command]({{< relref "/docs/user-guide/tools/command-line#migrate" >}}) for more details.
+
+
+### Migrating an Existing v7.14 Stroom
+
+If you are deploying v7.14-beta.11 or later onto an existing v7.14 then you need to do the following.
+If you are upgrading from v7.13 or below, you can skip this section.
+
+A migration was added in v7.13 that will make some v7.14 migrations fail.
+To determine if you need to take any steps, then run the following SQL:
+
+```sql
+select h.installed_rank
+from processor_schema_history h
+where h.version = '07.14.00.001';
+```
+
+If this returns no rows then you can skip this section.
+If it does return rows, then you need to do the following to fix the `processor_schema_history` table.
+
+```sql
+-- Copy schema history data to a new table.
+create table processor_schema_history_tmp as
+    select * from processor_schema_history;
+
+-- Create a backup of the current schema history data.
+create table processor_schema_history_bkup as
+select * from processor_schema_history;
+
+-- Increment the installed_rank column for each v14 migration
+update processor_schema_history_tmp
+set installed_rank = installed_rank + 1
+where installed_rank >= (
+    select r from (
+        select installed_rank as r
+        from processor_schema_history_tmp
+        where version = '07.14.00.001'
+        limit 1
+    ) t
+);
+
+-- Insert the missing v7.13 migration.
+insert into processor_schema_history_tmp
+values (
+    (select r
+        from (
+            select installed_rank + 1 as r
+            from processor_schema_history_tmp
+            where version = '07.12.00.002'
+        ) t
+    ),
+    '07.13.00.001',
+    'processor filter dependency version',
+    'SQL',
+    'V07_13_00_001__processor_filter_dependency_version.sql',
+    -2143125670,
+    'stroomuser',
+    '2026-11-10 11:37:16',
+    31,
+    1);
+
+-- Delete the old schema history data.
+delete from processor_schema_history
+where installed_rank >= -1;
+
+-- Insert the modified schema history data.
+insert into processor_schema_history
+select *
+from processor_schema_history_tmp
+order by installed_rank;
+
+-- Verify the modified schema history data.
+select * from processor_schema_history;
+
+-- Drop the temporary table.
+drop table processor_schema_history_tmp;
+```
+
+When querying from the table you should see this:
+
+| installed_rank | version      |
+| -------------: | :----------- |
+| 22             | 07.12.00.002 |
+| 23             | 07.13.00.001 |
+| 24             | 07.14.00.001 |
+| 25             | 07.14.00.002 |
+| 26             | 07.14.00.003 |
+| 27             | 07.14.00.004 |
+
+I.e. `07.13.00.001` should sit between `07.12.00.002` and `07.14.00.001` when ordered by `installed_rank`.
+
+If these changes have been successful, then run the following to remove the `_bkup` table.
+
+```sql
+-- Once you have run stroom successfully, run this to drop the backup table
+drop table processor_schema_history_bkup;
+```
+
+Now you need to manually run the missing database migration script.
+
+Download the file {{< external-link "V07_13_00_001__processor_filter_dependency_version.sql" "https://github.com/gchq/stroom/blob/7.14/stroom-processor/stroom-processor-impl-db/src/main/resources/stroom/processor/impl/db/migration/V07_13_00_001__processor_filter_dependency_version.sql" >}}.
+
+Execute the script on the database (the script is safe to run more than once), e.g.
+
+{{< command-line "user" "localhost" >}}
+mysql <connection options> <processor database> < V07_13_00_001__processor_filter_dependency_version.sql
+{{</ command-line >}}
 
 
 <!-- 
