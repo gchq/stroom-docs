@@ -222,6 +222,13 @@ build_version_from_source() {
   # Do the spelling/link checking before we build the site so we
   # can fail faster
 
+  if [[ -f ./.markdownlint-cli2.yaml ]]; then
+    echo "::group::Checking Markdown"
+    echo -e "${GREEN}Checking Markdown structure${NC}"
+    npx --yes markdownlint-cli2@0.23.2
+    echo "::endgroup::"
+  fi
+
   echo "::group::Checking for broken links"
   echo -e "${GREEN}Checking all .md files for broken links${NC}"
   ./broken_links.sh
